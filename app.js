@@ -4163,6 +4163,37 @@ const TEXTBOOK_DB = {
         { title:'التربية الإسلامية 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/islam_3sec.pdf` },
       ]},
     ],
+    // ── الصف الابتدائي ────────────────────────────────────────────
+    primary: [
+      { subj:'اللغة الإنجليزية', icon:'🗣️', color:'#F97316', books:[
+        { title:'English — Primary 1 Term 1 2025-2026', term:'ابتدائي أول — ترم أول', url:`${BOOKS}/english_prim1_t1.pdf` },
+        { title:'English — Primary 2 Term 1 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BOOKS}/english_prim2_t1.pdf` },
+        { title:'English — Primary 3 Term 1 2025-2026', term:'ابتدائي ثالث — ترم أول', url:`${BOOKS}/english_prim3_t1.pdf` },
+        { title:'English — Primary 4 Term 1 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BOOKS}/english_prim4_t1.pdf` },
+        { title:'English — Primary 5 Term 1 2025-2026', term:'ابتدائي خامس — ترم أول', url:`${BOOKS}/english_prim5_t1.pdf` },
+        { title:'English — Primary 6 Term 1 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BOOKS}/english_prim6_t1.pdf` },
+      ]},
+      { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
+        { title:'الرياضيات (عربي) — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BOOKS}/math_ar_prim2_t1.pdf` },
+        { title:'الرياضيات (عربي) — ابتدائي ثالث ت١ 2025-2026', term:'ابتدائي ثالث — ترم أول', url:`${BOOKS}/math_ar_prim3_t1.pdf` },
+        { title:'الرياضيات (إنجليزي) — ابتدائي ثالث ت١ 2025-2026', term:'ابتدائي ثالث — ترم أول', url:`${BOOKS}/math_en_prim3_t1.pdf` },
+        { title:'الرياضيات (إنجليزي) — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BOOKS}/math_en_prim4_t1.pdf` },
+        { title:'الرياضيات (عربي) — ابتدائي خامس ت١ 2025-2026', term:'ابتدائي خامس — ترم أول', url:`${BOOKS}/math_ar_prim5_t1.pdf` },
+        { title:'الرياضيات (عربي) — ابتدائي سادس ت١ 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BOOKS}/math_ar_prim6_t1.pdf` },
+        { title:'الرياضيات (إنجليزي) — ابتدائي سادس ت١ 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BOOKS}/math_en_prim6_t1.pdf` },
+      ]},
+      { subj:'العلوم', icon:'🔬', color:'#10B981', books:[
+        { title:'العلوم — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BOOKS}/science_prim4_t1.pdf` },
+        { title:'العلوم — ابتدائي خامس ت١ 2025-2026', term:'ابتدائي خامس — ترم أول', url:`${BOOKS}/science_prim5_t1.pdf` },
+        { title:'العلوم — ابتدائي سادس ت١ 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BOOKS}/science_prim6_t1.pdf` },
+      ]},
+      { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
+        { title:'اللغة العربية — ابتدائي ثالث ت١ 2025-2026', term:'ابتدائي ثالث — ترم أول', url:`${BOOKS}/arabic_prim3_t1.pdf` },
+      ]},
+      { subj:'Discover (ثاني ابتدائي)', icon:'🌍', color:'#EC4899', books:[
+        { title:'Discover — Primary 2 Term 1 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BOOKS}/discovery_prim2_t1.pdf` },
+      ]},
+    ],
     // ── الصف الإعدادي ─────────────────────────────────────────────
     middle: [
       { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
