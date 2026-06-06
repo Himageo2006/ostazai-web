@@ -4250,12 +4250,11 @@ ${viewer}`;
               <div style="display:inline-block;margin-top:4px;background:${subj.color}22;color:${subj.color};font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">📚 وزارة التعليم</div>
             </div>
             <div style="display:flex;flex-direction:column;gap:5px;flex-shrink:0">
-              <button onclick="viewPDF(this.dataset.url,this.dataset.viewUrl)"
-                data-url="${book.url}" data-view-url="${book.viewUrl || ''}"
-                style="background:${subj.color};color:#fff;font-size:11px;font-weight:700;padding:6px 12px;border-radius:8px;border:none;cursor:pointer;font-family:Cairo,sans-serif">
+              <a href="${book.viewUrl || book.url}" target="_blank" rel="noopener"
+                style="background:${subj.color};color:#fff;font-size:11px;font-weight:700;padding:6px 12px;border-radius:8px;border:none;cursor:pointer;font-family:Cairo,sans-serif;display:block;text-decoration:none;text-align:center">
                 📖 قراءة
-              </button>
-              <a href="${book.url}" target="_blank"
+              </a>
+              <a href="${book.url}" target="_blank" rel="noopener"
                 style="background:transparent;color:${subj.color};font-size:11px;font-weight:700;padding:5px 12px;border-radius:8px;border:1px solid ${subj.color};cursor:pointer;font-family:Cairo,sans-serif;display:block;text-decoration:none;text-align:center">
                 ⬇️ تحميل
               </a>
