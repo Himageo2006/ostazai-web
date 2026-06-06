@@ -3193,7 +3193,7 @@ function tplShell(content) {
     { s:'admin',       icon:'🛡', label:'Admin' },
   ]
   const navItems = nav.map(n => `
-    <div class="nav-item${S.screen===n.s?' active':''}" data-screen="${n.s}">
+    <div class="nav-item${S.screen===n.s?' active':''}" onclick="navTo('${n.s}')">
       <span class="nav-icon">${n.icon}</span>
       <span class="nav-label">${n.label}</span>
     </div>`).join('');
@@ -3202,7 +3202,7 @@ function tplShell(content) {
     ...nav.filter(n => botNavScreens.includes(n.s)),
     { s:'__more__', icon:'⋯', label:'المزيد' }
   ].map(n => `
-    <div class="bot-nav-item${S.screen===n.s?' active':''}" data-screen="${n.s}">
+    <div class="bot-nav-item${S.screen===n.s?' active':''}" onclick="navTo('${n.s}')">
       <span>${n.icon}</span><span style="font-size:10px">${n.label}</span>
     </div>`).join('');
   const curData = CURRICULA[S.curriculum] || CURRICULA.egypt;
@@ -5552,32 +5552,25 @@ function pomReset() {
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    BIND  — all event listeners
    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-function bind() {
-
-  /* ── sidebar / bottom nav — delegated once, survives all render() calls ── */
-  if (!window._navBound) {
-    window._navBound = true;
-    document.addEventListener('click', e => {
-      const el = e.target.closest('[data-screen]');
-      if (!el) return;
-      const s = el.dataset.screen;
-    if (s === '__more__') {
-      const overlay = ge('more-drawer-overlay');
-      const drawer  = ge('more-drawer');
-      if (overlay && drawer) {
-        overlay.style.display = 'block';
-        requestAnimationFrame(() => { drawer.style.transform = 'translateY(0)'; });
-      }
-      return;
+function navTo(s) {
+  if (s === '__more__') {
+    const overlay = ge('more-drawer-overlay');
+    const drawer  = ge('more-drawer');
+    if (overlay && drawer) {
+      overlay.style.display = 'block';
+      requestAnimationFrame(() => { drawer.style.transform = 'translateY(0)'; });
     }
-    S.screen = s;
-    if (s === 'stats')       loadStats();
-    if (s === 'leaderboard') loadLeaderboard();
-    if (s === 'textbook')    { S.textbookUrl = 'home'; S.textbookViewUrl = null; S._pdfBlobUrl = null; S._pdfLoading = false; S._pdfError = null; }
-    if (s === 'lessons')     { S.lessonView='subjects'; S.lessonSubject=null; S.lessonChapter=null; }
-    render();
-    });
+    return;
   }
+  S.screen = s;
+  if (s === 'stats')       loadStats();
+  if (s === 'leaderboard') loadLeaderboard();
+  if (s === 'textbook')    { S.textbookUrl = 'home'; S.textbookViewUrl = null; S._pdfBlobUrl = null; S._pdfLoading = false; S._pdfError = null; }
+  if (s === 'lessons')     { S.lessonView='subjects'; S.lessonSubject=null; S.lessonChapter=null; }
+  render();
+}
+
+function bind() {
 
   /* ── auth ── */
   ge('b-login')     && ge('b-login').addEventListener('click', doLogin);
