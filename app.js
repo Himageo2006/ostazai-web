@@ -4477,7 +4477,7 @@ function tplLessons() {
   <div style="margin-bottom:16px">
     <div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:10px">📚 كتب الوزارة الرسمية</div>
     <div style="display:flex;flex-direction:column;gap:8px">
-      <button onclick="S.textbookUrl='https://www.google.com/search?q=${encodeURIComponent(chap+' '+subj.name+' '+curData.label+' كتاب الوزارة PDF')}';S.screen='textbook';render()"
+      <button onclick="S.screen='textbook';S.textbookUrl='home';render()"
         style="display:flex;align-items:center;gap:12px;padding:14px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;cursor:pointer;text-align:right;width:100%;font-family:Cairo,sans-serif">
         <span style="font-size:24px">📖</span>
         <div style="text-align:right">
