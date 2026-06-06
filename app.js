@@ -4150,6 +4150,7 @@ function tplTextbook() {
   if (S.textbookUrl && S.textbookUrl !== 'home') {
     const viewUrl = S.textbookViewUrl || S.textbookUrl;
     const dlUrl   = S.textbookUrl;
+    const isGdrive = viewUrl.includes('drive.google.com');
     return `
 <div class="screen-header" style="gap:8px">
   <button id="tb-home" style="background:none;border:1px solid var(--border);border-radius:8px;padding:6px 12px;cursor:pointer;font-family:Cairo,sans-serif;font-size:12px;color:var(--text)">← رجوع</button>
@@ -4157,9 +4158,16 @@ function tplTextbook() {
   <a href="${dlUrl}" target="_blank"
     style="margin-right:auto;background:var(--primary);color:#fff;border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;text-decoration:none;font-family:Cairo,sans-serif">⬇️ تحميل</a>
 </div>
-<iframe src="${viewUrl}" allowfullscreen
-  style="width:100%;height:calc(100vh - 110px);border:none;display:block"></iframe>`;
-  }
+${isGdrive
+  ? `<iframe src="${viewUrl}" allowfullscreen style="width:100%;height:calc(100vh - 110px);border:none;display:block"></iframe>`
+  : `<embed src="${viewUrl}" type="application/pdf" style="width:100%;height:calc(100vh - 110px);display:block">
+     <div style="display:none" id="pdf-fallback">
+       <p style="text-align:center;padding:40px;font-family:Cairo,sans-serif;color:var(--text)">
+         لا يدعم المتصفح عرض PDF مباشرةً —
+         <a href="${dlUrl}" target="_blank" style="color:var(--primary)">افتح الكتاب في تبويب جديد ↗</a>
+       </p>
+     </div>`
+}
 
   // ── Book Library ─────────────────────────────────────────────────
   // Map S.grade to TEXTBOOK_DB key
