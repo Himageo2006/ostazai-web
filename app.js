@@ -4084,7 +4084,7 @@ const TEXTBOOK_DB = {
         { title:'اللغة العربية ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Arabic_language_Sec2_Tr1.pdf` },
       ]},
       { subj:'الفيزياء', icon:'⚡', color:'#F59E0B', books:[
-        { title:'الفيزياء 2025-2026', term:'ثاني ثانوي', viewUrl: gdrive('18_vZYVz6AJhLA-E8ummpQ-1dXhl8pRnF'), url: gdown('18_vZYVz6AJhLA-E8ummpQ-1dXhl8pRnF') },
+        { title:'الفيزياء 2025-2026', term:'ثاني ثانوي', url:`${BOOKS}/physics_2sec.pdf` },
       ]},
       { subj:'التاريخ', icon:'🏛️', color:'#D97706', books:[
         { title:'التاريخ ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BOOKS}/history_2sec_t1.pdf` },
