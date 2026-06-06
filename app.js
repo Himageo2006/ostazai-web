@@ -4175,6 +4175,8 @@ ${viewer}`;
 
   const isAr = !['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian'].includes(S.curriculum);
 
+  const q = encodeURIComponent(gradeData.label + ' ' + curData.label);
+
   const categories = [
     {
       title: '📚 كتب الوزارة والمناهج الرسمية',
