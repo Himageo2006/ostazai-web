@@ -5970,10 +5970,11 @@ function bind() {
   ge('b-gen-mm') && ge('b-gen-mm').addEventListener('click', doGenMindMap);
   ge('mm-topic') && ge('mm-topic').addEventListener('keydown', e => { if(e.key==='Enter') doGenMindMap(); });
 
-  /* ── textbook ── */
-  document.querySelectorAll('.tb-read-btn').forEach(el => el.addEventListener('click', () => {
-    viewPDF(el.dataset.url, el.dataset.viewUrl);
-  }));
+  /* ── textbook — event delegation so buttons work after every render() ── */
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('.tb-read-btn');
+    if (btn) viewPDF(btn.dataset.url, btn.dataset.viewUrl);
+  });
   ge('tb-home') && ge('tb-home').addEventListener('click', () => { S.textbookUrl='home'; S.textbookViewUrl=null; S._pdfBlobUrl=null; S._pdfLoading=false; S._pdfError=null; render(); });
 
   /* -- profile actions -- */
