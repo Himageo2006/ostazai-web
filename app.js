@@ -4085,9 +4085,6 @@ const TEXTBOOK_DB = {
       { subj:'الفيزياء', icon:'⚡', color:'#F59E0B', books:[
         { title:'الفيزياء 2025-2026', term:'ثاني ثانوي', viewUrl: gdrive('18_vZYVz6AJhLA-E8ummpQ-1dXhl8pRnF'), url: gdown('18_vZYVz6AJhLA-E8ummpQ-1dXhl8pRnF') },
       ]},
-      { subj:'الكيمياء', icon:'🧪', color:'#10B981', books:[
-        { title:'الكيمياء 2025-2026', term:'ثاني ثانوي', viewUrl: gdrive('1ttTU8l8BSvjmbfoKI4konvg8kkxLKV2I'), url: gdown('1ttTU8l8BSvjmbfoKI4konvg8kkxLKV2I') },
-      ]},
       { subj:'التاريخ', icon:'🏛️', color:'#D97706', books:[
         { title:'التاريخ ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/History_Sec2_Tr1.pdf` },
       ]},
@@ -4138,16 +4135,9 @@ const TEXTBOOK_DB = {
 };
 
 function viewPDF(url, viewUrl) {
-  S.textbookUrl = url;
-  // Google Drive preview URLs embed fine; blob storage needs proxy to strip X-Frame-Options
-  const isBlobStorage = url && url.includes('blob.core.windows.net');
-  if (viewUrl && !isBlobStorage) {
-    // Google Drive /preview — works directly in iframe
-    S.textbookViewUrl = viewUrl;
-  } else {
-    // Route through Railway proxy which removes X-Frame-Options
-    S.textbookViewUrl = API + '/pdf/proxy?url=' + encodeURIComponent(url);
-  }
+  S.textbookUrl     = url;
+  // viewUrl is the Google Drive /preview embed URL; blob URLs load directly in iframe
+  S.textbookViewUrl = viewUrl || url;
   render();
 }
 
