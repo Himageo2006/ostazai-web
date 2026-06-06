@@ -4043,82 +4043,104 @@ function renderMindMap(d) {
    TEXTBOOK
    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 /* ══════════════════════════════════════════════════════════════
-   TEXTBOOK DATABASE — روابط PDF مباشرة من خادم وزارة التعليم المصرية
-   المصدر: elearnningcontent.blob.core.windows.net (خادم الوزارة الرسمي)
+   TEXTBOOK DATABASE — روابط PDF مُحقَّقة 2025-2026
+   المصادر: خادم وزارة التعليم (blob) + Google Drive (للكتب غير المتوفرة)
    ══════════════════════════════════════════════════════════════ */
-const BLOB = 'https://elearnningcontent.blob.core.windows.net/elearnningcontent/content';
+const BLOB26 = 'https://elearnningcontent.blob.core.windows.net/elearnningcontent/2026';
+const gdrive = id => `https://drive.google.com/file/d/${id}/preview`;
+const gdown  = id => `https://drive.google.com/uc?id=${id}&export=download`;
 
 const TEXTBOOK_DB = {
   egypt: {
     // ── الصف الأول الثانوي ─────────────────────────────────────────
     high1: [
       { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
-        { title:'الرياضيات التطبيقية — الجبر والهندسة (ت١)', term:'الترم الأول', url:`${BLOB}/2025/Secondry/secondry1/Term1/Pdf_books/Applied%20Mathematics_Algebra%20and%20Geometry_ARABIC1_Secondary.pdf` },
-        { title:'الرياضيات التطبيقية (إنجليزي) (ت١)', term:'الترم الأول', url:`${BLOB}/2025/Secondry/secondry1/Term1/Pdf_books/math_1sec_t1_En.pdf` },
+        { title:'الرياضيات (عربي) ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/Mathematics_AR_Tr1_Secondary.pdf` },
+        { title:'الرياضيات (إنجليزي) ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/Mathematics_EN_Tr1_Secondary.pdf` },
       ]},
       { subj:'العلوم المتكاملة', icon:'🔬', color:'#10B981', books:[
-        { title:'العلوم المتكاملة (ت١)', term:'الترم الأول', url:`${BLOB}/2025/Secondry/secondry1/Term1/Pdf_books/Integrated%20sciences_1_Secondary_Term1.pdf` },
+        { title:'العلوم المتكاملة (عربي) ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/integratedscience_ARABIC_1_Secondary_TR1.pdf` },
       ]},
       { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
-        { title:'اللغة العربية (ت١)', term:'الترم الأول', url:`${BLOB}/content/sec/semester1/Grade1/pdf/arabic_1sec_t1.pdf` },
+        { title:'اللغة العربية ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/arabic_1sec_t1.pdf` },
       ]},
       { subj:'اللغة الإنجليزية', icon:'🗣️', color:'#F97316', books:[
-        { title:'New Hello — Student Book (ت١)', term:'الترم الأول', url:`${BLOB}/content/sec/semester1/Grade1/pdf/English-New%20Hello_Student%E2%80%99s%20Book%20-Sec1-T1.pdf` },
+        { title:'New Hello — Student Book ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/English_1sec_t1.pdf` },
       ]},
       { subj:'الفلسفة والمنطق', icon:'🧠', color:'#6366F1', books:[
-        { title:'الفلسفة والمنطق (ت١)', term:'الترم الأول', url:`${BLOB}/2025/Secondry/secondry1/Term1/Pdf_books/philosophy%20and%20logic_ARABIC_1_Secondary_Term1.pdf` },
+        { title:'الفلسفة والمنطق ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/Philosophy_and_Logic_Tr1_1sec.pdf` },
       ]},
       { subj:'التاريخ', icon:'🏛️', color:'#D97706', books:[
-        { title:'التاريخ (ت١)', term:'الترم الأول', url:`${BLOB}/content/2023/secondary/secondary_1/term_1/Pdf-books/history_1sec_sb_wb.pdf` },
+        { title:'التاريخ ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/History_Sec1_Tr1.pdf` },
+      ]},
+      { subj:'التربية الإسلامية', icon:'☪️', color:'#059669', books:[
+        { title:'التربية الإسلامية 2025-2026', term:'أول ثانوي', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/deen_islamy_1sec_t1_t2.pdf` },
+      ]},
+    ],
+    // ── الصف الثاني الثانوي ────────────────────────────────────────
+    high2: [
+      { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
+        { title:'اللغة العربية ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Arabic_language_Sec2_Tr1.pdf` },
+      ]},
+      { subj:'الفيزياء', icon:'⚡', color:'#F59E0B', books:[
+        { title:'الفيزياء 2025-2026', term:'ثاني ثانوي', viewUrl: gdrive('18_vZYVz6AJhLA-E8ummpQ-1dXhl8pRnF'), url: gdown('18_vZYVz6AJhLA-E8ummpQ-1dXhl8pRnF') },
+      ]},
+      { subj:'الكيمياء', icon:'🧪', color:'#10B981', books:[
+        { title:'الكيمياء 2025-2026', term:'ثاني ثانوي', viewUrl: gdrive('1ttTU8l8BSvjmbfoKI4konvg8kkxLKV2I'), url: gdown('1ttTU8l8BSvjmbfoKI4konvg8kkxLKV2I') },
+      ]},
+      { subj:'التاريخ', icon:'🏛️', color:'#D97706', books:[
+        { title:'التاريخ ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/History_Sec2_Tr1.pdf` },
+      ]},
+      { subj:'الجغرافيا', icon:'🗺️', color:'#0EA5E9', books:[
+        { title:'الجغرافيا ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Geography_Sec2_Tr1.pdf` },
       ]},
     ],
     // ── الصف الثالث الثانوي ────────────────────────────────────────
     high: [
       { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
-        { title:'الجبر والهندسة الفراغية', term:'ثالث ثانوي', url:`${BLOB}/2025/Secondry/secondry3/Term1/Pdf_books/Algebra_and_Space_Geometry_3sec_t1.pdf` },
-        { title:'التفاضل والتكامل', term:'ثالث ثانوي', url:`${BLOB}/2025/Secondry/secondry3/Term1/Pdf_books/Calculus_3sec_t1.pdf` },
-        { title:'الميكانيكا', term:'ثالث ثانوي', url:`${BLOB}/2025/Secondry/secondry3/Term1/Pdf_books/Mechanics_3sec_t1.pdf` },
+        { title:'الرياضيات البحتة 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/pure_Mathematics_ARABIC_Sec3.pdf` },
+        { title:'الرياضيات التطبيقية 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/applied_Mathematics_ARABIC_Sec3.pdf` },
+        { title:'الجبر والهندسة الفراغية 2025-2026', term:'ثالث ثانوي', viewUrl: gdrive('1PRtmFanCJO15vA0Ny2-SzHz8t27vt17h'), url: gdown('1PRtmFanCJO15vA0Ny2-SzHz8t27vt17h') },
+        { title:'التفاضل والتكامل 2025-2026', term:'ثالث ثانوي', viewUrl: gdrive('1ImhHUBm6bapsSH5vxxjGwlJNX3SNAE_O'), url: gdown('1ImhHUBm6bapsSH5vxxjGwlJNX3SNAE_O') },
+        { title:'الميكانيكا 2025-2026', term:'ثالث ثانوي', viewUrl: gdrive('1j_p6sqGysDXjMO2UHW8cova1fA8ndxpk'), url: gdown('1j_p6sqGysDXjMO2UHW8cova1fA8ndxpk') },
+        { title:'الإحصاء والاحتمالات 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Statistics_Arabic_Sec3.pdf` },
       ]},
       { subj:'الفيزياء', icon:'⚡', color:'#F59E0B', books:[
-        { title:'الفيزياء', term:'ثالث ثانوي', url:`${BLOB}/2025/Secondry/secondry3/Term1/Pdf_books/Physics_3sec_t1.pdf` },
+        { title:'الفيزياء 2025-2026', term:'ثالث ثانوي', viewUrl: gdrive('169oGq0qdSfaI0zuPWiJns6HmNrLR60De'), url: gdown('169oGq0qdSfaI0zuPWiJns6HmNrLR60De') },
       ]},
       { subj:'الكيمياء', icon:'🧪', color:'#10B981', books:[
-        { title:'الكيمياء', term:'ثالث ثانوي', url:`${BLOB}/2025/Secondry/secondry3/Term1/Pdf_books/Chemistry_3sec_t1.pdf` },
+        { title:'الكيمياء 2025-2026', term:'ثالث ثانوي', viewUrl: gdrive('1H-lUFsqtm8cDD_CmjE7SRqZdTIJTcTg9'), url: gdown('1H-lUFsqtm8cDD_CmjE7SRqZdTIJTcTg9') },
       ]},
       { subj:'الأحياء', icon:'🦠', color:'#EC4899', books:[
-        { title:'علم الأحياء', term:'ثالث ثانوي', url:`${BLOB}/2025/Secondry/secondry3/Term1/Pdf_books/Biology_3sec_t1.pdf` },
+        { title:'علم الأحياء 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Biology_ARABIC_Sec3.pdf` },
       ]},
       { subj:'الجيولوجيا', icon:'🪨', color:'#84CC16', books:[
-        { title:'الجيولوجيا وعلم البيئة', term:'ثالث ثانوي', url:`${BLOB}/2025/Secondry/secondry3/Term1/Pdf_books/Geology_3sec_t1.pdf` },
+        { title:'الجيولوجيا وعلم البيئة 2025-2026', term:'ثالث ثانوي', viewUrl: gdrive('1lO-9hfvomiiZqf4AEVyjKAdtejmfTfVN'), url: gdown('1lO-9hfvomiiZqf4AEVyjKAdtejmfTfVN') },
       ]},
       { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
-        { title:'اللغة العربية', term:'ثالث ثانوي', url:`${BLOB}/content/sec/semester1/Grade3/pdf/arabic_3sec_t1.pdf` },
+        { title:'اللغة العربية 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Arabic_language_Sec3.pdf` },
       ]},
-      { subj:'الفلسفة وعلم النفس', icon:'🧠', color:'#6366F1', books:[
-        { title:'الفلسفة والمنطق', term:'ثالث ثانوي', url:`${BLOB}/2025/Secondry/secondry3/Term1/Pdf_books/philosophy_3sec_t1.pdf` },
-        { title:'علم النفس والاجتماع', term:'ثالث ثانوي', url:`${BLOB}/2025/Secondry/secondry3/Term1/Pdf_books/psychology_3sec_t1.pdf` },
+      { subj:'الفلسفة والمنطق', icon:'🧠', color:'#6366F1', books:[
+        { title:'الفلسفة والمنطق 2025-2026', term:'ثالث ثانوي', viewUrl: gdrive('17o0wBGoyCL6Gc6wsA-O3rXmXk2nvf_JB'), url: gdown('17o0wBGoyCL6Gc6wsA-O3rXmXk2nvf_JB') },
+        { title:'علم النفس والاجتماع 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Psychology_Sociology_Sec3.pdf` },
       ]},
       { subj:'التاريخ', icon:'🏛️', color:'#D97706', books:[
-        { title:'التاريخ', term:'ثالث ثانوي', url:`${BLOB}/2025/Secondry/secondry3/Term1/Pdf_books/History_3sec_t1.pdf` },
+        { title:'التاريخ 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/History_Sec3.pdf` },
       ]},
       { subj:'الجغرافيا', icon:'🗺️', color:'#0EA5E9', books:[
-        { title:'الجغرافيا', term:'ثالث ثانوي', url:`${BLOB}/2025/Secondry/secondry3/Term1/Pdf_books/Geography_3sec_t1.pdf` },
+        { title:'الجغرافيا 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Geography_Sec3.pdf` },
       ]},
-    ],
-    // ── الصف الثاني الثانوي (عام) ─────────────────────────────────
-    high2: [
-      { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
-        { title:'الرياضيات التطبيقية (ت١)', term:'الترم الأول', url:`${BLOB}/2025/Secondry/secondry1/Term1/Pdf_books/Applied%20Mathematics_Algebra%20and%20Geometry_ARABIC1_Secondary.pdf` },
-      ]},
-      { subj:'الفيزياء', icon:'⚡', color:'#F59E0B', books:[
-        { title:'الفيزياء', term:'الترم الأول', url:`${BLOB}/2025/Secondry/secondry2/Term1/Pdf_books/Physics_2sec_t1.pdf` },
+      { subj:'التربية الإسلامية', icon:'☪️', color:'#059669', books:[
+        { title:'التربية الإسلامية 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Islamic_religion_Sec3.pdf` },
       ]},
     ],
   },
 };
 
-function viewPDF(url) {
-  window.open(url, '_blank');
+function viewPDF(url, viewUrl) {
+  S.textbookUrl     = url;
+  S.textbookViewUrl = viewUrl || url;
+  render();
 }
 
 function tplTextbook() {
@@ -4127,28 +4149,17 @@ function tplTextbook() {
 
   // ── If viewing a PDF ─────────────────────────────────────────────
   if (S.textbookUrl && S.textbookUrl !== 'home') {
-    const proxyUrl = API + '/pdf/proxy?url=' + encodeURIComponent(S.textbookUrl);
-    const header = `
+    const viewUrl = S.textbookViewUrl || S.textbookUrl;
+    const dlUrl   = S.textbookUrl;
+    return `
 <div class="screen-header" style="gap:8px">
   <button id="tb-home" style="background:none;border:1px solid var(--border);border-radius:8px;padding:6px 12px;cursor:pointer;font-family:Cairo,sans-serif;font-size:12px;color:var(--text)">← رجوع</button>
   <div class="screen-title" style="font-size:14px">📖 عارض الكتاب</div>
-  <a href="${proxyUrl}" target="_blank"
+  <a href="${dlUrl}" target="_blank"
     style="margin-right:auto;background:var(--primary);color:#fff;border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;text-decoration:none;font-family:Cairo,sans-serif">⬇️ تحميل</a>
-</div>`;
-    if (S._pdfLoading) return header + `
-<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:calc(100vh - 110px);gap:16px;color:var(--text)">
-  <div style="font-size:48px">📚</div>
-  <p style="font-size:15px;font-family:Cairo,sans-serif">جارٍ تحميل الكتاب…</p>
-  <div style="width:48px;height:48px;border:4px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite"></div>
-</div>`;
-    if (S._pdfError) return header + `
-<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:calc(100vh - 110px);gap:16px;color:var(--text);padding:32px;text-align:center">
-  <div style="font-size:48px">⚠️</div>
-  <p style="font-size:15px;font-family:Cairo,sans-serif">تعذّر تحميل الكتاب مباشرةً</p>
-  <a href="${proxyUrl}" target="_blank" style="background:var(--primary);color:#fff;padding:12px 28px;border-radius:12px;text-decoration:none;font-family:Cairo,sans-serif;font-size:14px;font-weight:700">📖 فتح في تبويب جديد</a>
-</div>`;
-    return header + `<iframe src="${S._pdfBlobUrl}"
-  style="width:100%;height:calc(100vh - 110px);border:none"></iframe>`;
+</div>
+<iframe src="${viewUrl}" allowfullscreen
+  style="width:100%;height:calc(100vh - 110px);border:none;display:block"></iframe>`;
   }
 
   // ── Book Library ─────────────────────────────────────────────────
@@ -4237,13 +4248,14 @@ function tplTextbook() {
               <div style="display:inline-block;margin-top:4px;background:${subj.color}22;color:${subj.color};font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">📚 وزارة التعليم</div>
             </div>
             <div style="display:flex;flex-direction:column;gap:5px;flex-shrink:0">
-              <a href="https://www.google.com/search?q=${encodeURIComponent(book.title+' كتاب وزارة التعليم PDF تحميل')}" target="_blank"
-                style="background:${subj.color};color:#fff;font-size:11px;font-weight:700;padding:6px 12px;border-radius:8px;border:none;cursor:pointer;font-family:Cairo,sans-serif;display:block;text-decoration:none;text-align:center">
-                🔍 بحث
-              </a>
-              <a href="https://maktabti.moe.gov.eg" target="_blank"
+              <button class="tb-read-btn"
+                data-url="${book.url}" data-view-url="${book.viewUrl || book.url}"
+                style="background:${subj.color};color:#fff;font-size:11px;font-weight:700;padding:6px 12px;border-radius:8px;border:none;cursor:pointer;font-family:Cairo,sans-serif">
+                📖 قراءة
+              </button>
+              <a href="${book.url}" target="_blank"
                 style="background:transparent;color:${subj.color};font-size:11px;font-weight:700;padding:5px 12px;border-radius:8px;border:1px solid ${subj.color};cursor:pointer;font-family:Cairo,sans-serif;display:block;text-decoration:none;text-align:center">
-                🏛️ الوزارة
+                ⬇️ تحميل
               </a>
             </div>
           </div>`).join('')}
@@ -5556,7 +5568,7 @@ function bind() {
     S.screen = s;
     if (s === 'stats')       loadStats();
     if (s === 'leaderboard') loadLeaderboard();
-    if (s === 'textbook')    { S.textbookUrl = 'home'; S._pdfBlobUrl = null; S._pdfLoading = false; S._pdfError = null; }
+    if (s === 'textbook')    { S.textbookUrl = 'home'; S.textbookViewUrl = null; S._pdfBlobUrl = null; S._pdfLoading = false; S._pdfError = null; }
     if (s === 'lessons')     { S.lessonView='subjects'; S.lessonSubject=null; S.lessonChapter=null; }
     render();
   }));
@@ -5958,9 +5970,9 @@ function bind() {
 
   /* ── textbook ── */
   document.querySelectorAll('.tb-read-btn').forEach(el => el.addEventListener('click', () => {
-    viewPDF(el.dataset.url);
+    viewPDF(el.dataset.url, el.dataset.viewUrl);
   }));
-  ge('tb-home') && ge('tb-home').addEventListener('click', () => { S.textbookUrl='home'; S._pdfBlobUrl=null; S._pdfLoading=false; S._pdfError=null; render(); });
+  ge('tb-home') && ge('tb-home').addEventListener('click', () => { S.textbookUrl='home'; S.textbookViewUrl=null; S._pdfBlobUrl=null; S._pdfLoading=false; S._pdfError=null; render(); });
 
   /* -- profile actions -- */
   ge('b-copy-ref') && ge('b-copy-ref').addEventListener('click', () => {
