@@ -4163,6 +4163,30 @@ const TEXTBOOK_DB = {
         { title:'التربية الإسلامية 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/islam_3sec.pdf` },
       ]},
     ],
+    // ── الصف الإعدادي ─────────────────────────────────────────────
+    middle: [
+      { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
+        { title:'اللغة العربية — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BOOKS}/arabic_prep1_t1.pdf` },
+        { title:'اللغة العربية — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BOOKS}/arabic_prep2_t1.pdf` },
+        { title:'اللغة العربية — إعدادي ثالث ت١ 2025-2026', term:'إعدادي ثالث — ترم أول', url:`${BOOKS}/arabic_prep3_t1.pdf` },
+      ]},
+      { subj:'اللغة الإنجليزية', icon:'🗣️', color:'#F97316', books:[
+        { title:'English — Prep 1 Term 1 2025-2026', term:'إعدادي أول — ترم أول', url:`${BOOKS}/english_prep1_t1.pdf` },
+        { title:'English — Prep 2 Term 1 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BOOKS}/english_prep2_t1.pdf` },
+        { title:'English — Prep 3 Term 1 2025-2026', term:'إعدادي ثالث — ترم أول', url:`${BOOKS}/english_prep3_t1.pdf` },
+      ]},
+      { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
+        { title:'الرياضيات (عربي) — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BOOKS}/math_ar_prep2_t1.pdf` },
+        { title:'الرياضيات (إنجليزي) — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BOOKS}/math_en_prep2_t1.pdf` },
+      ]},
+      { subj:'العلوم', icon:'🔬', color:'#10B981', books:[
+        { title:'العلوم (عربي) — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BOOKS}/science_ar_prep1_t1.pdf` },
+        { title:'العلوم — إعدادي ثالث ت١ 2025-2026', term:'إعدادي ثالث — ترم أول', url:`${BOOKS}/science_prep3_t1.pdf` },
+      ]},
+      { subj:'تكنولوجيا المعلومات', icon:'💻', color:'#0EA5E9', books:[
+        { title:'تكنولوجيا المعلومات — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BOOKS}/ict_prep1_t1.pdf` },
+      ]},
+    ],
   },
 };
 
