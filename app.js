@@ -4046,6 +4046,7 @@ function renderMindMap(d) {
    TEXTBOOK DATABASE — روابط PDF مُحقَّقة 2025-2026
    المصادر: خادم وزارة التعليم (blob) + Google Drive (للكتب غير المتوفرة)
    ══════════════════════════════════════════════════════════════ */
+const BOOKS  = './books'; // self-hosted PDFs on GitHub Pages (same-origin, no iframe restrictions)
 const BLOB26 = 'https://elearnningcontent.blob.core.windows.net/elearnningcontent/2026';
 const gdrive = id => `https://drive.google.com/file/d/${id}/preview`;
 const gdown  = id => `https://drive.google.com/uc?id=${id}&export=download`;
@@ -4055,26 +4056,26 @@ const TEXTBOOK_DB = {
     // ── الصف الأول الثانوي ─────────────────────────────────────────
     high1: [
       { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
-        { title:'الرياضيات (عربي) ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/Mathematics_AR_Tr1_Secondary.pdf` },
-        { title:'الرياضيات (إنجليزي) ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/Mathematics_EN_Tr1_Secondary.pdf` },
+        { title:'الرياضيات (عربي) ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BOOKS}/math_ar_1sec_t1.pdf` },
+        { title:'الرياضيات (إنجليزي) ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BOOKS}/math_en_1sec_t1.pdf` },
       ]},
       { subj:'العلوم المتكاملة', icon:'🔬', color:'#10B981', books:[
-        { title:'العلوم المتكاملة (عربي) ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/integratedscience_ARABIC_1_Secondary_TR1.pdf` },
+        { title:'العلوم المتكاملة (عربي) ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BOOKS}/science_1sec_t1.pdf` },
       ]},
       { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
-        { title:'اللغة العربية ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/arabic_1sec_t1.pdf` },
+        { title:'اللغة العربية ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BOOKS}/arabic_1sec_t1.pdf` },
       ]},
       { subj:'اللغة الإنجليزية', icon:'🗣️', color:'#F97316', books:[
-        { title:'New Hello — Student Book ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/English_1sec_t1.pdf` },
+        { title:'New Hello — Student Book ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BOOKS}/english_1sec_t1.pdf` },
       ]},
       { subj:'الفلسفة والمنطق', icon:'🧠', color:'#6366F1', books:[
-        { title:'الفلسفة والمنطق ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/Philosophy_and_Logic_Tr1_1sec.pdf` },
+        { title:'الفلسفة والمنطق ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BOOKS}/philosophy_1sec_t1.pdf` },
       ]},
       { subj:'التاريخ', icon:'🏛️', color:'#D97706', books:[
-        { title:'التاريخ ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/History_Sec1_Tr1.pdf` },
+        { title:'التاريخ ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BOOKS}/history_1sec_t1.pdf` },
       ]},
       { subj:'التربية الإسلامية', icon:'☪️', color:'#059669', books:[
-        { title:'التربية الإسلامية 2025-2026', term:'أول ثانوي', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/deen_islamy_1sec_t1_t2.pdf` },
+        { title:'التربية الإسلامية 2025-2026', term:'أول ثانوي', url:`${BOOKS}/islam_1sec.pdf` },
       ]},
     ],
     // ── الصف الثاني الثانوي ────────────────────────────────────────
@@ -4086,49 +4087,49 @@ const TEXTBOOK_DB = {
         { title:'الفيزياء 2025-2026', term:'ثاني ثانوي', viewUrl: gdrive('18_vZYVz6AJhLA-E8ummpQ-1dXhl8pRnF'), url: gdown('18_vZYVz6AJhLA-E8ummpQ-1dXhl8pRnF') },
       ]},
       { subj:'التاريخ', icon:'🏛️', color:'#D97706', books:[
-        { title:'التاريخ ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/History_Sec2_Tr1.pdf` },
+        { title:'التاريخ ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BOOKS}/history_2sec_t1.pdf` },
       ]},
       { subj:'الجغرافيا', icon:'🗺️', color:'#0EA5E9', books:[
-        { title:'الجغرافيا ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Geography_Sec2_Tr1.pdf` },
+        { title:'الجغرافيا ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BOOKS}/geography_2sec_t1.pdf` },
       ]},
     ],
     // ── الصف الثالث الثانوي ────────────────────────────────────────
     high: [
       { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
-        { title:'الرياضيات البحتة 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/pure_Mathematics_ARABIC_Sec3.pdf` },
-        { title:'الرياضيات التطبيقية 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/applied_Mathematics_ARABIC_Sec3.pdf` },
-        { title:'الجبر والهندسة الفراغية 2025-2026', term:'ثالث ثانوي', viewUrl: gdrive('1PRtmFanCJO15vA0Ny2-SzHz8t27vt17h'), url: gdown('1PRtmFanCJO15vA0Ny2-SzHz8t27vt17h') },
-        { title:'التفاضل والتكامل 2025-2026', term:'ثالث ثانوي', viewUrl: gdrive('1ImhHUBm6bapsSH5vxxjGwlJNX3SNAE_O'), url: gdown('1ImhHUBm6bapsSH5vxxjGwlJNX3SNAE_O') },
-        { title:'الميكانيكا 2025-2026', term:'ثالث ثانوي', viewUrl: gdrive('1j_p6sqGysDXjMO2UHW8cova1fA8ndxpk'), url: gdown('1j_p6sqGysDXjMO2UHW8cova1fA8ndxpk') },
-        { title:'الإحصاء والاحتمالات 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Statistics_Arabic_Sec3.pdf` },
+        { title:'الرياضيات البحتة 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/math_pure_3sec.pdf` },
+        { title:'الرياضيات التطبيقية 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/math_applied_3sec.pdf` },
+        { title:'الجبر والهندسة الفراغية 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/algebra_3sec.pdf` },
+        { title:'التفاضل والتكامل 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/calculus_3sec.pdf` },
+        { title:'الميكانيكا 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/mechanics_3sec.pdf` },
+        { title:'الإحصاء والاحتمالات 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/statistics_3sec.pdf` },
       ]},
       { subj:'الفيزياء', icon:'⚡', color:'#F59E0B', books:[
-        { title:'الفيزياء 2025-2026', term:'ثالث ثانوي', viewUrl: gdrive('169oGq0qdSfaI0zuPWiJns6HmNrLR60De'), url: gdown('169oGq0qdSfaI0zuPWiJns6HmNrLR60De') },
+        { title:'الفيزياء 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/physics_3sec.pdf` },
       ]},
       { subj:'الكيمياء', icon:'🧪', color:'#10B981', books:[
-        { title:'الكيمياء 2025-2026', term:'ثالث ثانوي', viewUrl: gdrive('1H-lUFsqtm8cDD_CmjE7SRqZdTIJTcTg9'), url: gdown('1H-lUFsqtm8cDD_CmjE7SRqZdTIJTcTg9') },
+        { title:'الكيمياء 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/chemistry_3sec.pdf` },
       ]},
       { subj:'الأحياء', icon:'🦠', color:'#EC4899', books:[
-        { title:'علم الأحياء 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Biology_ARABIC_Sec3.pdf` },
+        { title:'علم الأحياء 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/biology_3sec.pdf` },
       ]},
       { subj:'الجيولوجيا', icon:'🪨', color:'#84CC16', books:[
-        { title:'الجيولوجيا وعلم البيئة 2025-2026', term:'ثالث ثانوي', viewUrl: gdrive('1lO-9hfvomiiZqf4AEVyjKAdtejmfTfVN'), url: gdown('1lO-9hfvomiiZqf4AEVyjKAdtejmfTfVN') },
+        { title:'الجيولوجيا وعلم البيئة 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/geology_3sec.pdf` },
       ]},
       { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
-        { title:'اللغة العربية 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Arabic_language_Sec3.pdf` },
+        { title:'اللغة العربية 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/arabic_3sec.pdf` },
       ]},
       { subj:'الفلسفة والمنطق', icon:'🧠', color:'#6366F1', books:[
-        { title:'الفلسفة والمنطق 2025-2026', term:'ثالث ثانوي', viewUrl: gdrive('17o0wBGoyCL6Gc6wsA-O3rXmXk2nvf_JB'), url: gdown('17o0wBGoyCL6Gc6wsA-O3rXmXk2nvf_JB') },
-        { title:'علم النفس والاجتماع 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Psychology_Sociology_Sec3.pdf` },
+        { title:'الفلسفة والمنطق 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/philosophy_3sec.pdf` },
+        { title:'علم النفس والاجتماع 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/psychology_3sec.pdf` },
       ]},
       { subj:'التاريخ', icon:'🏛️', color:'#D97706', books:[
-        { title:'التاريخ 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/History_Sec3.pdf` },
+        { title:'التاريخ 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/history_3sec.pdf` },
       ]},
       { subj:'الجغرافيا', icon:'🗺️', color:'#0EA5E9', books:[
-        { title:'الجغرافيا 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Geography_Sec3.pdf` },
+        { title:'الجغرافيا 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/geography_3sec.pdf` },
       ]},
       { subj:'التربية الإسلامية', icon:'☪️', color:'#059669', books:[
-        { title:'التربية الإسلامية 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Islamic_religion_Sec3.pdf` },
+        { title:'التربية الإسلامية 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/islam_3sec.pdf` },
       ]},
     ],
   },
