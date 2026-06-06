@@ -4238,6 +4238,60 @@ const TEXTBOOK_DB = {
       ]},
     ],
   },
+
+  // ══════════════════════════════════════════════════════════════
+  //  IGCSE — Cambridge Official Syllabuses (Free)
+  // ══════════════════════════════════════════════════════════════
+  igcse: {
+    high: [
+      { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
+        { title:'IGCSE Mathematics 0580 Syllabus 2025–2027', term:'Cambridge IGCSE', url:`${BOOKS}/igcse/math_0580_syllabus.pdf` },
+        { title:'IGCSE Additional Mathematics 0606 Syllabus 2025–2027', term:'Cambridge IGCSE', url:`${BOOKS}/igcse/addmath_0606_syllabus.pdf` },
+      ]},
+      { subj:'Physics', icon:'⚡', color:'#F59E0B', books:[
+        { title:'IGCSE Physics 0625 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`${BOOKS}/igcse/physics_0625_syllabus.pdf` },
+      ]},
+      { subj:'Chemistry', icon:'🧪', color:'#10B981', books:[
+        { title:'IGCSE Chemistry 0620 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`${BOOKS}/igcse/chemistry_0620_syllabus.pdf` },
+      ]},
+      { subj:'Biology', icon:'🦠', color:'#EC4899', books:[
+        { title:'IGCSE Biology 0610 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`${BOOKS}/igcse/biology_0610_syllabus.pdf` },
+      ]},
+      { subj:'Combined Science', icon:'🔬', color:'#8B5CF6', books:[
+        { title:'IGCSE Combined Science 0653 Syllabus 2025–2027', term:'Cambridge IGCSE', url:`${BOOKS}/igcse/combined_sci_0653.pdf` },
+      ]},
+      { subj:'English Language', icon:'🗣️', color:'#F97316', books:[
+        { title:'IGCSE English First Language 0500 Syllabus 2024–2026', term:'Cambridge IGCSE', url:`${BOOKS}/igcse/english_0500_syllabus.pdf` },
+        { title:'IGCSE Literature in English 0475 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`${BOOKS}/igcse/literature_0475_syllabus.pdf` },
+      ]},
+      { subj:'Computer Science', icon:'💻', color:'#0EA5E9', books:[
+        { title:'IGCSE Computer Science 0478 Syllabus 2025–2027', term:'Cambridge IGCSE', url:`${BOOKS}/igcse/cs_0478_syllabus.pdf` },
+      ]},
+      { subj:'Economics', icon:'📊', color:'#D97706', books:[
+        { title:'IGCSE Economics 0455 Syllabus 2025–2027', term:'Cambridge IGCSE', url:`${BOOKS}/igcse/economics_0455.pdf` },
+      ]},
+    ],
+  },
+
+  // ══════════════════════════════════════════════════════════════
+  //  American Curriculum — OpenStax Free Textbooks (CC Licensed)
+  // ══════════════════════════════════════════════════════════════
+  american: {
+    high: [
+      { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
+        { title:'Elementary Algebra 2e — OpenStax', term:'American Curriculum', url:`${BOOKS}/american/algebra_elementary.pdf` },
+        { title:'College Algebra — OpenStax', term:'American Curriculum', url:`${BOOKS}/american/algebra_college.pdf` },
+        { title:'Calculus Volume 1 — OpenStax', term:'American Curriculum', url:`${BOOKS}/american/calculus_vol1.pdf` },
+        { title:'Introductory Statistics — OpenStax', term:'American Curriculum', url:`${BOOKS}/american/statistics.pdf` },
+      ]},
+      { subj:'Physics', icon:'⚡', color:'#F59E0B', books:[
+        { title:'Physics — OpenStax (High School)', term:'American Curriculum', url:`${BOOKS}/american/physics_hs.pdf` },
+      ]},
+      { subj:'Computer Science', icon:'💻', color:'#0EA5E9', books:[
+        { title:'Introduction to Computer Science — OpenStax', term:'American Curriculum', url:`${BOOKS}/american/computer_science.pdf` },
+      ]},
+    ],
+  },
 };
 
 function viewPDF(url, viewUrl) {
