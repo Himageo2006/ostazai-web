@@ -5554,8 +5554,10 @@ function pomReset() {
    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 function bind() {
 
-  /* ── sidebar / bottom nav ── */
-  document.querySelectorAll('[data-screen]').forEach(el => el.addEventListener('click', () => {
+  /* ── sidebar / bottom nav — event delegation survives render() ── */
+  document.addEventListener('click', e => {
+    const el = e.target.closest('[data-screen]');
+    if (!el) return;
     const s = el.dataset.screen;
     if (s === '__more__') {
       const overlay = ge('more-drawer-overlay');
@@ -5572,7 +5574,7 @@ function bind() {
     if (s === 'textbook')    { S.textbookUrl = 'home'; S.textbookViewUrl = null; S._pdfBlobUrl = null; S._pdfLoading = false; S._pdfError = null; }
     if (s === 'lessons')     { S.lessonView='subjects'; S.lessonSubject=null; S.lessonChapter=null; }
     render();
-  }));
+  });
 
   /* ── auth ── */
   ge('b-login')     && ge('b-login').addEventListener('click', doLogin);
