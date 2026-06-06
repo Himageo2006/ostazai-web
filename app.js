@@ -4175,9 +4175,11 @@ const TEXTBOOK_DB = {
       ]},
       { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
         { title:'الرياضيات (عربي) — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BOOKS}/math_ar_prim2_t1.pdf` },
+        { title:'الرياضيات (إنجليزي) — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BOOKS}/math_en_prim2_t1.pdf` },
         { title:'الرياضيات (عربي) — ابتدائي ثالث ت١ 2025-2026', term:'ابتدائي ثالث — ترم أول', url:`${BOOKS}/math_ar_prim3_t1.pdf` },
         { title:'الرياضيات (إنجليزي) — ابتدائي ثالث ت١ 2025-2026', term:'ابتدائي ثالث — ترم أول', url:`${BOOKS}/math_en_prim3_t1.pdf` },
         { title:'الرياضيات (إنجليزي) — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BOOKS}/math_en_prim4_t1.pdf` },
+        { title:'الرياضيات (فرنساوي) — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BOOKS}/math_fr_prim4_t1.pdf` },
         { title:'الرياضيات (عربي) — ابتدائي خامس ت١ 2025-2026', term:'ابتدائي خامس — ترم أول', url:`${BOOKS}/math_ar_prim5_t1.pdf` },
         { title:'الرياضيات (عربي) — ابتدائي سادس ت١ 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BOOKS}/math_ar_prim6_t1.pdf` },
         { title:'الرياضيات (إنجليزي) — ابتدائي سادس ت١ 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BOOKS}/math_en_prim6_t1.pdf` },
@@ -4190,8 +4192,18 @@ const TEXTBOOK_DB = {
       { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
         { title:'اللغة العربية — ابتدائي ثالث ت١ 2025-2026', term:'ابتدائي ثالث — ترم أول', url:`${BOOKS}/arabic_prim3_t1.pdf` },
       ]},
-      { subj:'Discover (ثاني ابتدائي)', icon:'🌍', color:'#EC4899', books:[
+      { subj:'التربية الإسلامية', icon:'☪️', color:'#059669', books:[
+        { title:'التربية الإسلامية — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BOOKS}/islam_prim2_t1.pdf` },
+        { title:'التربية الإسلامية — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BOOKS}/islam_prim4_t1.pdf` },
+        { title:'التربية الإسلامية — ابتدائي خامس ت١ 2025-2026', term:'ابتدائي خامس — ترم أول', url:`${BOOKS}/islam_prim5_t1.pdf` },
+        { title:'التربية الإسلامية — ابتدائي سادس ت١ 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BOOKS}/islam_prim6_t1.pdf` },
+      ]},
+      { subj:'Discover / اكتشف', icon:'🌍', color:'#EC4899', books:[
+        { title:'Discover — Primary 1 Term 1 2025-2026', term:'ابتدائي أول — ترم أول', url:`${BOOKS}/discovery_prim1_t1.pdf` },
         { title:'Discover — Primary 2 Term 1 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BOOKS}/discovery_prim2_t1.pdf` },
+      ]},
+      { subj:'تكنولوجيا المعلومات', icon:'💻', color:'#0EA5E9', books:[
+        { title:'تكنولوجيا المعلومات — ابتدائي خامس ت٢ 2025-2026', term:'ابتدائي خامس — ترم ثاني', url:`${BOOKS}/ict_prim5_t2.pdf` },
       ]},
     ],
     // ── الصف الإعدادي ─────────────────────────────────────────────
@@ -4216,6 +4228,13 @@ const TEXTBOOK_DB = {
       ]},
       { subj:'تكنولوجيا المعلومات', icon:'💻', color:'#0EA5E9', books:[
         { title:'تكنولوجيا المعلومات — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BOOKS}/ict_prep1_t1.pdf` },
+      ]},
+      { subj:'التاريخ والجغرافيا', icon:'🏛️', color:'#D97706', books:[
+        { title:'الدراسات الاجتماعية — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BOOKS}/history_prep2_t1.pdf` },
+      ]},
+      { subj:'التربية الإسلامية', icon:'☪️', color:'#059669', books:[
+        { title:'التربية الإسلامية — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BOOKS}/islam_prep1_t1.pdf` },
+        { title:'التربية الإسلامية — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BOOKS}/islam_prep2_t1.pdf` },
       ]},
     ],
   },
