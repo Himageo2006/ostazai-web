@@ -4138,8 +4138,16 @@ const TEXTBOOK_DB = {
 };
 
 function viewPDF(url, viewUrl) {
-  S.textbookUrl     = url;
-  S.textbookViewUrl = viewUrl || url;
+  S.textbookUrl = url;
+  // Google Drive preview URLs embed fine; blob storage needs proxy to strip X-Frame-Options
+  const isBlobStorage = url && url.includes('blob.core.windows.net');
+  if (viewUrl && !isBlobStorage) {
+    // Google Drive /preview — works directly in iframe
+    S.textbookViewUrl = viewUrl;
+  } else {
+    // Route through Railway proxy which removes X-Frame-Options
+    S.textbookViewUrl = API + '/pdf/proxy?url=' + encodeURIComponent(url);
+  }
   render();
 }
 
