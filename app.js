@@ -4137,8 +4137,8 @@ const TEXTBOOK_DB = {
 
 function viewPDF(url, viewUrl) {
   S.textbookUrl     = url;
-  // viewUrl is the Google Drive /preview embed URL; blob URLs load directly in iframe
-  S.textbookViewUrl = viewUrl || url;
+  // viewUrl is only set for Google Drive /preview; all other books use their direct url
+  S.textbookViewUrl = (viewUrl && viewUrl !== 'undefined' && viewUrl !== '') ? viewUrl : url;
   render();
 }
 
@@ -4248,7 +4248,7 @@ function tplTextbook() {
             </div>
             <div style="display:flex;flex-direction:column;gap:5px;flex-shrink:0">
               <button class="tb-read-btn"
-                data-url="${book.url}" data-view-url="${book.viewUrl || book.url}"
+                data-url="${book.url}" data-view-url="${book.viewUrl || ''}"
                 style="background:${subj.color};color:#fff;font-size:11px;font-weight:700;padding:6px 12px;border-radius:8px;border:none;cursor:pointer;font-family:Cairo,sans-serif">
                 📖 قراءة
               </button>
