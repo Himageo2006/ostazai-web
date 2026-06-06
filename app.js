@@ -5554,11 +5554,13 @@ function pomReset() {
    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 function bind() {
 
-  /* ── sidebar / bottom nav — event delegation survives render() ── */
-  document.addEventListener('click', e => {
-    const el = e.target.closest('[data-screen]');
-    if (!el) return;
-    const s = el.dataset.screen;
+  /* ── sidebar / bottom nav — delegated once, survives all render() calls ── */
+  if (!window._navBound) {
+    window._navBound = true;
+    document.addEventListener('click', e => {
+      const el = e.target.closest('[data-screen]');
+      if (!el) return;
+      const s = el.dataset.screen;
     if (s === '__more__') {
       const overlay = ge('more-drawer-overlay');
       const drawer  = ge('more-drawer');
@@ -5574,7 +5576,8 @@ function bind() {
     if (s === 'textbook')    { S.textbookUrl = 'home'; S.textbookViewUrl = null; S._pdfBlobUrl = null; S._pdfLoading = false; S._pdfError = null; }
     if (s === 'lessons')     { S.lessonView='subjects'; S.lessonSubject=null; S.lessonChapter=null; }
     render();
-  });
+    });
+  }
 
   /* ── auth ── */
   ge('b-login')     && ge('b-login').addEventListener('click', doLogin);
