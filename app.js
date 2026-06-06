@@ -3193,18 +3193,18 @@ function tplShell(content) {
     { s:'admin',       icon:'🛡', label:'Admin' },
   ]
   const navItems = nav.map(n => `
-    <div class="nav-item${S.screen===n.s?' active':''}" onclick="navTo('${n.s}')">
+    <button class="nav-item${S.screen===n.s?' active':''}" onclick="navTo('${n.s}')" style="width:100%;text-align:right;background:none;border:none;cursor:pointer;font-family:Cairo,sans-serif">
       <span class="nav-icon">${n.icon}</span>
       <span class="nav-label">${n.label}</span>
-    </div>`).join('');
-  const botNavScreens = ['chat','lessons','flashcards','stats','profile'];
+    </button>`).join('');
+  const botNavScreens = ['chat','lessons','flashcards','textbook','stats','profile'];
   const botNav = [
     ...nav.filter(n => botNavScreens.includes(n.s)),
     { s:'__more__', icon:'⋯', label:'المزيد' }
   ].map(n => `
-    <div class="bot-nav-item${S.screen===n.s?' active':''}" onclick="navTo('${n.s}')">
-      <span>${n.icon}</span><span style="font-size:10px">${n.label}</span>
-    </div>`).join('');
+    <button class="bot-nav-item${S.screen===n.s?' active':''}" onclick="navTo('${n.s}')" style="background:none;border:none;cursor:pointer;font-family:Cairo,sans-serif;flex:1">
+      <span>${n.icon}</span><span style="font-size:10px;display:block">${n.label}</span>
+    </button>`).join('');
   const curData = CURRICULA[S.curriculum] || CURRICULA.egypt;
   const gradeData = (curData.grades && (curData.grades[S.grade] || curData.grades.high || Object.values(curData.grades)[0])) || { label: S.grade || 'ثانوي', subjects: [] };
   return `
