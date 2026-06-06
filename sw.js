@@ -1,6 +1,6 @@
 // OstazAI Service Worker v3.0
 // Version bump forces cache refresh on all clients
-const CACHE_VERSION = 'ostazai-v8';
+const CACHE_VERSION = 'ostazai-v9';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -68,7 +68,27 @@ self.addEventListener('fetch', e => {
     );
   }
 
-  // For JS/CSS/images: stale-while-revalidate
+  // app.js: always network-first so updates are instant
+  if (url.pathname.endsWith('/app.js')) {
+    return e.respondWith(
+      fetch(e.request).then(res => {
+        if (res && res.status === 200) {
+          const clone = res.clone();
+          caches.open(CACHE_VERSION).then(c => c.put(e.request, clone));
+        }
+        return res;
+      }).catch(() => caches.match(e.request))
+    );
+  }
+
+  // PDF books: cache-first (large files, rarely change)
+  if (url.pathname.includes('/books/')) {
+    return e.respondWith(
+      caches.match(e.request).then(cached => cached || fetch(e.request))
+    );
+  }
+
+  // For other JS/CSS/images: stale-while-revalidate
   e.respondWith(
     caches.match(e.request).then(cached => {
       const fetchPromise = fetch(e.request).then(res => {
