@@ -4077,11 +4077,25 @@ const TEXTBOOK_DB = {
       { subj:'التربية الإسلامية', icon:'☪️', color:'#059669', books:[
         { title:'التربية الإسلامية 2025-2026', term:'أول ثانوي', url:`${BOOKS}/islam_1sec.pdf` },
       ]},
+      { subj:'تكنولوجيا المعلومات', icon:'💻', color:'#0EA5E9', books:[
+        { title:'تكنولوجيا المعلومات والاتصالات ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BOOKS}/ict_1sec_t1.pdf` },
+      ]},
+      { subj:'العلوم المتكاملة ت٢', icon:'🔬', color:'#10B981', books:[
+        { title:'العلوم المتكاملة ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BOOKS}/science_1sec_t2.pdf` },
+      ]},
     ],
     // ── الصف الثاني الثانوي ────────────────────────────────────────
     high2: [
       { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
         { title:'اللغة العربية ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Arabic_language_Sec2_Tr1.pdf` },
+        { title:'قراءات أدبية ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BOOKS}/arabic_story_2sec_t1.pdf` },
+      ]},
+      { subj:'اللغة الإنجليزية', icon:'🗣️', color:'#F97316', books:[
+        { title:'English Language ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BOOKS}/english_2sec_t1.pdf` },
+      ]},
+      { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
+        { title:'الرياضيات التطبيقية (عربي) ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BOOKS}/math_ar_2sec_t1.pdf` },
+        { title:'الرياضيات التطبيقية (إنجليزي) ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BOOKS}/math_en_2sec_t1.pdf` },
       ]},
       { subj:'الفيزياء', icon:'⚡', color:'#F59E0B', books:[
         { title:'الفيزياء 2025-2026', term:'ثاني ثانوي', url:`${BOOKS}/physics_2sec.pdf` },
@@ -4091,6 +4105,12 @@ const TEXTBOOK_DB = {
       ]},
       { subj:'الجغرافيا', icon:'🗺️', color:'#0EA5E9', books:[
         { title:'الجغرافيا ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BOOKS}/geography_2sec_t1.pdf` },
+      ]},
+      { subj:'علم النفس والاجتماع', icon:'🧠', color:'#6366F1', books:[
+        { title:'علم النفس والاجتماع ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BOOKS}/psychology_2sec_t1.pdf` },
+      ]},
+      { subj:'التربية الإسلامية', icon:'☪️', color:'#059669', books:[
+        { title:'التربية الإسلامية 2025-2026', term:'ثاني ثانوي', url:`${BOOKS}/islam_2sec.pdf` },
       ]},
     ],
     // ── الصف الثالث الثانوي ────────────────────────────────────────
@@ -4127,6 +4147,9 @@ const TEXTBOOK_DB = {
       ]},
       { subj:'الجغرافيا', icon:'🗺️', color:'#0EA5E9', books:[
         { title:'الجغرافيا 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/geography_3sec.pdf` },
+      ]},
+      { subj:'اللغة الإنجليزية', icon:'🗣️', color:'#F97316', books:[
+        { title:'English Language 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/english_3sec.pdf` },
       ]},
       { subj:'التربية الإسلامية', icon:'☪️', color:'#059669', books:[
         { title:'التربية الإسلامية 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/islam_3sec.pdf` },
