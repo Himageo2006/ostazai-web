@@ -4083,6 +4083,14 @@ const TEXTBOOK_DB = {
       { subj:'العلوم المتكاملة ت٢', icon:'🔬', color:'#10B981', books:[
         { title:'العلوم المتكاملة ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BOOKS}/science_1sec_t2.pdf` },
       ]},
+      { subj:'اللغة العربية ت٢', icon:'📜', color:'#7C3AED', books:[
+        { title:'اللغة العربية ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BOOKS}/arabic_1sec_t2.pdf` },
+        { title:'قراءات أدبية ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BOOKS}/arabic_story_1sec_t2.pdf` },
+      ]},
+      { subj:'الرياضيات ت٢', icon:'🔢', color:'#1D4ED8', books:[
+        { title:'الرياضيات (عربي) ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BOOKS}/math_ar_1sec_t2.pdf` },
+        { title:'الرياضيات (فرنساوي) ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BOOKS}/math_fr_1sec_t2.pdf` },
+      ]},
     ],
     // ── الصف الثاني الثانوي ────────────────────────────────────────
     high2: [
