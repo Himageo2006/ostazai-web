@@ -4793,13 +4793,22 @@ s = ut + ½at² = 0 + ½×5×36 = 90 m
             'Wave equation: v = fλ (speed = frequency × wavelength)',
             'Period T = 1/f; amplitude = maximum displacement from rest position',
             'Wavefront: line joining points of same phase; waves refract at boundary between media',
-          ]},
+          ], examTips:[
+            'Draw wave diagrams carefully: label amplitude (peak to rest), wavelength (peak to peak), and direction',
+            'v = fλ: rearrange clearly — if you know two values, find the third',
+            'Transverse vs longitudinal: think of sound as compressions and rarefactions along direction of travel',
+          ], workedExample:`A wave has frequency 500 Hz and wavelength 0.68 m. Find its speed.
+v = fλ = 500 × 0.68 = 340 m/s (speed of sound in air ✓)`},
           { title:'Light & Electromagnetic Spectrum', points:[
             'Law of reflection: angle of incidence = angle of reflection (measured from normal)',
             'Refraction: bends toward normal when slowing down (entering denser medium)',
             'Snell\'s law: n₁sinθ₁ = n₂sinθ₂; refractive index n = speed in vacuum ÷ speed in medium',
             'Total internal reflection: when angle of incidence > critical angle; used in optical fibres',
             'EM spectrum (shortest to longest λ): γ-rays → X-rays → UV → visible → IR → microwaves → radio',
+          ], examTips:[
+            'EM waves: all travel at 3×10⁸ m/s in vacuum — only wavelength and frequency differ',
+            'When drawing refraction: the ray bends TOWARD normal when entering a denser medium',
+            'Total internal reflection: must state two conditions — angle > critical angle AND going from dense to less dense',
           ]},
           { title:'Sound', points:[
             'Sound is a longitudinal wave; needs a medium (cannot travel through vacuum)',
@@ -4807,7 +4816,10 @@ s = ut + ½at² = 0 + ½×5×36 = 90 m
             'Frequency determines pitch; amplitude determines loudness',
             'Echo: reflection of sound; used in sonar and ultrasound imaging',
             'Humans hear 20 Hz–20 kHz; ultrasound (>20 kHz) used in medicine and cleaning',
-          ]},
+          ], examTips:[
+            'Echo calculation: distance = (speed × time) ÷ 2 — divide by 2 because sound travels there AND back',
+          ], workedExample:`Sonar pulse takes 0.4 s to return. Speed of sound in water = 1500 m/s.
+Distance to seabed = (1500 × 0.4) ÷ 2 = 300 m`},
         ]},
         { title:'Electricity & Magnetism', icon:'🔌', topics:[
           { title:'Electric Circuits', points:[
@@ -4816,14 +4828,29 @@ s = ut + ½at² = 0 + ½×5×36 = 90 m
             'Parallel: same voltage across each branch; currents add; 1/R = 1/R₁+1/R₂',
             'Power: P = IV = I²R = V²/R (watts)',
             'Charge: Q = It (coulombs); energy transferred: E = QV = IVt = Pt',
-          ]},
+          ], examTips:[
+            'Always identify if circuit is series or parallel FIRST before applying any formula',
+            'For parallel resistors with equal values R: total resistance = R/n (n = number of resistors)',
+            'Power questions: choose which formula to use based on what values are given (V and I → P=IV)',
+          ], commonMistakes:[
+            'Adding resistors in parallel like series — remember 1/R_total = 1/R₁ + 1/R₂',
+            'Saying more resistance in parallel = less current overall — parallel gives MORE pathways = MORE total current',
+          ], workedExample:`Two resistors 6Ω and 3Ω in parallel. Find total resistance.
+1/R = 1/6 + 1/3 = 1/6 + 2/6 = 3/6 = 1/2
+R_total = 2Ω  (always less than smallest resistor in parallel)`},
           { title:'Electromagnetism', points:[
             'Current-carrying wire creates a magnetic field; stronger with more turns or iron core',
             'Motor effect: force on current-carrying conductor in a field (F = BIL)',
             'Fleming\'s Left Hand Rule: thuMb=motion, First finger=Field, seCond finger=Current',
             'Electromagnetic induction: changing magnetic field induces EMF in a conductor',
             'Transformer: Vp/Vs = Np/Ns; step-up increases voltage, step-down decreases it',
-          ]},
+          ], examTips:[
+            'Transformer efficiency = (output power ÷ input power) × 100%; ideal transformer has 100% efficiency',
+            'Generator uses Fleming\'s Right Hand Rule (dynamo rule); motor uses Left Hand Rule',
+            'Transformer works ONLY with AC — not DC (need changing magnetic field to induce EMF)',
+          ], workedExample:`Transformer: primary 240V, 2000 turns; secondary 20 turns. Find output voltage.
+Vp/Vs = Np/Ns → 240/Vs = 2000/20 = 100
+Vs = 240/100 = 2.4 V  (step-down transformer)`},
         ]},
         { title:'Nuclear Physics', icon:'☢️', topics:[
           { title:'Atomic Structure & Radiation', points:[
@@ -4833,13 +4860,82 @@ s = ut + ½at² = 0 + ½×5×36 = 90 m
             'Alpha (α): 2p+2n, stopped by paper, highly ionising, short range in air',
             'Beta (β): fast electron, stopped by 3mm Al, moderate ionisation',
             'Gamma (γ): EM radiation, stopped by thick lead, penetrating, low ionisation',
-          ]},
+          ], examTips:[
+            'Balance nuclear equations: proton numbers AND mass numbers must balance on both sides',
+            'Choose radiation type for medical use: gamma (penetrates body) for treatment, short half-life for safety',
+            'Radiation in fields: alpha — curves slightly (heavy); beta — curves more; gamma — straight (no charge)',
+          ], workedExample:`Write the decay equation for Ra-226 undergoing alpha decay:
+²²⁶₈₈Ra → ⁴₂He + ?
+Mass: 226 = 4 + 222 → daughter mass = 222
+Proton: 88 = 2 + 86 → daughter = element 86 (Radon, Rn)
+²²⁶₈₈Ra → ⁴₂He + ²²²₈₆Rn`},
           { title:'Radioactive Decay & Half-Life', points:[
             'Half-life: time for half the radioactive nuclei to decay (or activity to halve)',
             'Activity decreases exponentially — never reaches zero',
             'Uses: carbon-14 dating (t½ = 5700 yrs), medical tracers (short t½)',
             'Nuclear fission: heavy nucleus splits, releasing large amount of energy + more neutrons',
             'Chain reaction: neutrons cause further fissions — controlled in reactors, uncontrolled in bombs',
+          ], examTips:[
+            'Half-life graph: draw exponential decay curve — always halving the previous value',
+            'After n half-lives: activity = initial × (1/2)ⁿ',
+          ], workedExample:`Initial activity = 800 Bq, half-life = 3 hours. Activity after 9 hours?
+n = 9/3 = 3 half-lives
+Activity = 800 × (1/2)³ = 800 ÷ 8 = 100 Bq`},
+        ]},
+      ],
+      oxford: [
+        { title:'Forces & Motion', icon:'🚀', topics:[
+          { title:'Speed, Velocity & Acceleration', points:[
+            'Oxford AQA uses same core concepts as CIE — equations of motion apply to uniform acceleration',
+            'Vector quantities (displacement, velocity, acceleration, force) require both magnitude and direction',
+            'Scalar quantities (speed, distance, mass, time) require magnitude only',
+            'Displacement-time graphs: gradient = velocity; curved = changing velocity',
+            'Velocity-time graphs: gradient = acceleration; area = displacement (signed)',
+          ], examTips:[
+            'Oxford AQA: questions often ask for explanation of real-life scenarios — apply physics concepts clearly',
+            'State which equation you are using and why — show all steps',
+          ]},
+          { title:'Forces', points:[
+            'Resultant force: single force equivalent to all forces combined; free body diagrams show all forces',
+            'Newton\'s First Law: resultant force = 0 → constant velocity or stationary',
+            'Newton\'s Second Law: F = ma (resultant force = mass × acceleration)',
+            'Weight (W = mg), normal reaction, friction, tension, air resistance — identify all forces in a problem',
+            'Oxford AQA: include analysis of circular motion — centripetal force directed toward centre',
+          ]},
+        ]},
+        { title:'Energy & Electricity', icon:'⚡', topics:[
+          { title:'Energy', points:[
+            'Oxford AQA organises energy as: kinetic, gravitational potential, elastic potential, thermal, chemical, nuclear',
+            'Conservation of energy: total energy in a closed system is constant',
+            'KE = ½mv²; GPE = mgh; Elastic PE = ½ke² (spring constant × extension squared)',
+            'Efficiency = (useful output ÷ total input) × 100%; always less than 100% due to thermal losses',
+            'Power = energy transferred ÷ time = work done ÷ time (watts, W)',
+          ]},
+          { title:'Electricity', points:[
+            'Oxford AQA emphasises energy transfer in circuits: E = QV = IVt',
+            'Resistance: factors that affect resistance of a wire — length (↑→↑R), cross-section (↑→↓R), material, temperature',
+            'I-V characteristics: ohmic conductor (straight line), filament lamp (curve, resistance increases with temp)',
+            'Potential divider: two resistors in series; V_out = V_in × R₂/(R₁+R₂)',
+            'Mains electricity: 230 V AC (UK); live, neutral, earth wires; fuses and circuit breakers for safety',
+          ], examTips:[
+            'Oxford AQA: Interpret I-V graphs — gradient is NOT resistance; resistance = V/I at any point',
+            'Potential divider calculations: identify which resistor is R₂ (the one across which V_out is measured)',
+          ]},
+        ]},
+        { title:'Waves & Matter', icon:'〰️', topics:[
+          { title:'Waves', points:[
+            'Oxford AQA: wave behaviour — reflection, refraction, diffraction, superposition',
+            'Diffraction: waves spread out when passing through a gap or around an obstacle',
+            'Maximum diffraction when gap width ≈ wavelength',
+            'Interference: constructive (peaks align → bigger wave), destructive (peak + trough → cancel)',
+            'Young\'s double slit: fringe spacing = λL/d (wavelength × distance / slit separation)',
+          ]},
+          { title:'Matter & Particle Physics', points:[
+            'States of matter described using particle model; changes of state involve energy but no temperature change',
+            'Pressure of a gas: depends on number of particles, their speed, and volume of container',
+            'Oxford AQA introduces basic particle physics: protons, neutrons, electrons; quarks (up and down)',
+            'Proton = 2 up quarks + 1 down quark; neutron = 1 up quark + 2 down quarks',
+            'Strong nuclear force: holds nucleus together; overcomes electrostatic repulsion between protons',
           ]},
         ]},
       ],
@@ -4937,7 +5033,15 @@ NaOH + HCl → NaCl + H₂O  [1:1 ratio]
             'Acid + metal oxide/hydroxide: → salt + water',
             'Acid + carbonate: → salt + water + carbon dioxide',
             'Precipitation: mix two solutions → insoluble product forms; filter to collect',
-          ]},
+          ], examTips:[
+            'Name the salt correctly: acid name tells you anion — hydrochloric → chloride; sulfuric → sulfate; nitric → nitrate',
+            'Excess solid method: add excess of solid to acid until no more reacts → filter off excess → evaporate',
+            'Precipitation: always write "(aq) + (aq) → (s)" to show insoluble product forming',
+          ], workedExample:`Make copper sulfate crystals from copper oxide and sulfuric acid:
+1. Add excess CuO to warm H₂SO₄ (ensures all acid reacts)
+2. Filter to remove excess CuO
+3. Evaporate solution to concentrate
+4. Leave to crystallise → blue CuSO₄·5H₂O crystals`},
         ]},
         { title:'Energetics & Rates', icon:'🔥', topics:[
           { title:'Energy Changes in Reactions', points:[
@@ -4953,7 +5057,17 @@ NaOH + HCl → NaCl + H₂O  [1:1 ratio]
             'Catalyst: lowers activation energy, not consumed in reaction → more effective collisions',
             'Collision theory: particles must collide with sufficient energy and correct orientation',
             'Monitor rate: measure volume of gas, change in mass, colour change, turbidity',
-          ]},
+          ], examTips:[
+            'Explain each factor using collision theory — more/faster collisions = faster rate',
+            'Temperature: +10°C roughly doubles rate (more particles have activation energy)',
+            'Surface area: smaller particles = greater SA:volume ratio = more collisions per second',
+          ], commonMistakes:[
+            'Saying catalyst "provides energy" — it lowers activation energy, not provides energy',
+            'Confusing rate with yield — a catalyst increases rate but does NOT change yield',
+          ], workedExample:`Marble chips + HCl: how does surface area affect rate?
+Small chips (large SA): more collisions per second → faster rate → steeper initial gradient
+Same total mass → same moles → same final volume of CO₂
+Large chips: slower rate → shallower gradient, but same final volume`},
         ]},
         { title:'Organic Chemistry', icon:'🌿', topics:[
           { title:'Hydrocarbons', points:[
@@ -5979,7 +6093,14 @@ Step 5 — Limitation: What does it not tell us? Is it biased?`},
             'Remainder theorem: when f(x) divided by (x − a), remainder = f(a)',
             'Fully factorise: find one root by inspection, then divide, then factorise quotient',
             'Cubic f(x) = ax³+bx²+cx+d — try factors of d/a as potential rational roots',
-          ]},
+          ], examTips:[
+            'Try small integer values ±1, ±2, ±3 as first roots for factor theorem questions',
+            'After finding one factor (x−a), perform polynomial long division to get quadratic, then factorise',
+          ], workedExample:`f(x) = x³ − 6x² + 11x − 6. Show (x−1) is a factor and fully factorise.
+f(1) = 1 − 6 + 11 − 6 = 0 ✓ → (x−1) is a factor
+Divide: x³ − 6x² + 11x − 6 ÷ (x−1) = x² − 5x + 6
+Factorise: x² − 5x + 6 = (x−2)(x−3)
+∴ f(x) = (x−1)(x−2)(x−3)`},
           { title:'Simultaneous Equations (Linear & Non-linear)', points:[
             'Linear and quadratic: substitute linear into quadratic → solve resulting quadratic',
             'Set discriminant ≥ 0 to find values of k for which two solutions exist',
@@ -6027,7 +6148,14 @@ Step 5 — Limitation: What does it not tell us? Is it biased?`},
             'Product rule: d/dx (uv) = u\'v + uv\'',
             'Quotient rule: d/dx (u/v) = (u\'v − uv\') / v²',
             'Stationary points: f\'(x) = 0; classify with f\'\'(x): positive = min, negative = max',
-          ]},
+          ], examTips:[
+            'Chain rule: write u = inner function, find du/dx, then multiply by d/du of outer function',
+            'Classify stationary points: f\'\'(x)>0 → minimum; f\'\'(x)<0 → maximum; f\'\'(x)=0 → investigate further',
+            'Connected rates of change: dy/dt = dy/dx × dx/dt — use chain rule on related quantities',
+          ], workedExample:`Differentiate y = (3x² + 1)⁴ using chain rule:
+Let u = 3x² + 1, so y = u⁴
+dy/du = 4u³;  du/dx = 6x
+dy/dx = 4u³ × 6x = 24x(3x² + 1)³`},
           { title:'Integration', points:[
             '∫xⁿ dx = xⁿ⁺¹/(n+1) + c (n ≠ −1); ∫1/x dx = ln|x| + c',
             '∫eˣ dx = eˣ + c; ∫sin x dx = −cos x + c; ∫cos x dx = sin x + c',
@@ -6079,7 +6207,17 @@ Step 5 — Limitation: What does it not tell us? Is it biased?`},
             'DEAD CLIC: Debit = Expenses, Assets, Drawings; Credit = Liabilities, Income, Capital',
             'Assets increase with debit; liabilities/capital increase with credit',
             'Journal entries: record DR and CR with brief narration for each transaction',
-          ]},
+          ], examTips:[
+            'DEAD CLIC is essential to memorise — gets you through any double-entry question',
+            'Always ask: "What comes IN (debit) and what goes OUT (credit)?"',
+            'Bank account: debit when money received; credit when money paid out',
+          ], workedExample:`Bought goods on credit from Ali for $500:
+DR  Purchases $500  (expense increases → debit)
+CR  Ali (Trade Payable) $500  (liability increases → credit)
+
+Paid Ali $500 by bank:
+DR  Ali (Trade Payable) $500  (liability decreases → debit)
+CR  Bank $500  (asset decreases → credit)`},
         ]},
         { title:'Books of Original Entry', icon:'📚', topics:[
           { title:'Books of Prime Entry', points:[
@@ -6127,7 +6265,13 @@ Step 5 — Limitation: What does it not tell us? Is it biased?`},
             'Return on capital employed (ROCE) = (Net profit ÷ Capital employed) × 100%',
             'Current ratio = Current assets ÷ Current liabilities (ideal: 1.5:1 to 2:1)',
             'Quick ratio (acid test) = (Current assets − Inventory) ÷ Current liabilities (ideal: 1:1)',
-          ]},
+          ], examTips:[
+            'Always comment on what the ratio means, not just calculate it — "this suggests the business..."',
+            'Compare ratios: year-on-year trend tells more than a single ratio in isolation',
+            'Quick ratio removes inventory as it may not be quickly convertible to cash',
+          ], workedExample:`Current assets = $45,000; Inventory = $15,000; Current liabilities = $20,000
+Current ratio = 45,000 ÷ 20,000 = 2.25:1 (slightly high — cash tied up)
+Quick ratio = (45,000−15,000) ÷ 20,000 = 30,000 ÷ 20,000 = 1.5:1 (good liquidity)`},
           { title:'Interpreting Financial Information', points:[
             'Compare ratios: against previous years (trend) and against similar businesses (benchmarking)',
             'High gross margin but low net margin → high expenses relative to sales',
