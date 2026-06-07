@@ -5636,6 +5636,88 @@ Search right of that: [14]; mid=2 → value 14 ✓ Found!`},
           ]},
         ]},
       ],
+      edexcel: [
+        { title:'Systems Architecture & Memory', icon:'🖥️', topics:[
+          { title:'CPU Architecture', points:[
+            'CPU components: ALU (arithmetic/logic), CU (control unit), registers, buses',
+            'Registers: PC (program counter), MAR (memory address), MDR (memory data), Accumulator',
+            'Fetch-Decode-Execute cycle: PC → MAR → memory → MDR → IR → decode → execute',
+            'Clock speed: number of FDE cycles per second (GHz); more cycles = faster processing',
+            'Cache memory: small, very fast memory between CPU and RAM; L1 fastest, L3 largest',
+          ], examTips:[
+            'Always name all 3 stages of FDE cycle in order — missing one loses marks',
+            'Distinguish between RAM (volatile, fast) and ROM (non-volatile, read-only)',
+          ]},
+          { title:'Memory & Storage', points:[
+            'RAM (Random Access Memory): temporary, loses data when power off, fast',
+            'ROM (Read Only Memory): permanent, holds firmware/BIOS, cannot be written to normally',
+            'Secondary storage: HDD (magnetic, large), SSD (flash, fast), optical (CD/DVD/Blu-ray)',
+            'Virtual memory: uses secondary storage as extension of RAM when RAM is full (slower)',
+            'Cloud storage: data stored on remote servers; accessible anywhere; depends on internet',
+          ]},
+        ]},
+        { title:'Data & Number Systems', icon:'💾', topics:[
+          { title:'Binary & Hexadecimal', points:[
+            'Binary (base 2): place values 128, 64, 32, 16, 8, 4, 2, 1',
+            'Convert decimal 75: 64+8+2+1 = 01001011',
+            'Hexadecimal (base 16): 0–9 then A=10, B=11, C=12, D=13, E=14, F=15',
+            '1 hex digit = 4 binary bits (nibble); 2 hex digits = 1 byte',
+            'Uses: hex used in colour codes (#FF5733), memory addresses, MAC addresses',
+          ], examTips:[
+            'Show all working when converting — partial credit is available',
+            'Binary addition carry rules: 1+1=10, 1+1+1=11 (carry is critical)',
+          ], workedExample:`Convert 156 to hexadecimal:
+156 ÷ 16 = 9 remainder 12 → 9C
+Check: 9×16 + 12 = 144 + 12 = 156 ✓`},
+          { title:'Data Types & Representation', points:[
+            'Character encoding: ASCII uses 7 bits (128 characters); Unicode uses 16+ bits (global)',
+            'Image representation: pixels, resolution (width × height), colour depth (bits per pixel)',
+            'File size = pixels × colour depth (bits); divide by 8 for bytes',
+            'Sound: sampling rate (Hz) × bit depth × channels = file size per second',
+            'Data compression: lossless (exact original restored — ZIP, PNG); lossy (data discarded — MP3, JPEG)',
+          ]},
+        ]},
+        { title:'Networks & Security', icon:'🌐', topics:[
+          { title:'Network Types & Topologies', points:[
+            'LAN (Local Area Network): small geographic area, privately owned, fast',
+            'WAN (Wide Area Network): large area, multiple LANs connected (e.g. Internet)',
+            'Star topology: all devices connect to central switch/hub; single device failure does not crash network',
+            'Bus topology: all devices share one cable; easy to add devices but collisions occur',
+            'Protocols: set of rules for communication; IP, TCP, HTTP, HTTPS, FTP, SMTP',
+          ]},
+          { title:'Cyber Security', points:[
+            'Malware types: virus (attaches to files), worm (self-replicating), ransomware (encrypts files), spyware',
+            'Phishing: fake emails/websites to steal credentials — awareness training is key defence',
+            'Brute force attack: systematically tries every password combination',
+            'SQL injection: malicious SQL code inserted into form inputs to manipulate database',
+            'Defences: firewall, antivirus, encryption, 2FA, strong passwords, software updates',
+          ], examTips:[
+            'For each threat, give a specific defence — generic "use antivirus" scores less than "use a firewall to block unauthorised network access"',
+            'Encryption: data scrambled with a key — only correct key can decrypt; protects data in transit',
+          ]},
+        ]},
+        { title:'Algorithms & Programming', icon:'🔁', topics:[
+          { title:'Algorithm Design', points:[
+            'Decomposition: breaking a problem into smaller, manageable sub-problems',
+            'Abstraction: removing unnecessary detail; focus on what matters (e.g. map vs real terrain)',
+            'Flowcharts: START/STOP (oval), process (rectangle), decision (diamond), I/O (parallelogram)',
+            'Pseudocode: structured English-like code — must be unambiguous and show logic clearly',
+            'Trace table: manually track variable values through each iteration of an algorithm',
+          ]},
+          { title:'Searching & Sorting', points:[
+            'Linear search: check each element in sequence; works on unsorted data; O(n)',
+            'Binary search: repeatedly halve sorted list; requires sorted data; O(log n)',
+            'Bubble sort: compare adjacent pairs, swap if wrong order; repeat n-1 passes; O(n²)',
+            'Merge sort: divide into halves, sort each, merge back; efficient for large data; O(n log n)',
+            'Testing: normal data, boundary data, erroneous data — always test all three types',
+          ], examTips:[
+            'Binary search REQUIRES sorted data — state this in exam answers',
+            'Trace a sort step-by-step showing each swap — examiners want to see the process',
+          ], workedExample:`Binary search for 43 in [12, 25, 37, 43, 56, 78, 91]:
+Mid index = 3 → value = 43 → FOUND in 1 comparison
+If searching for 56: mid=43 (too low) → search right half [56,78,91] → mid=78 (too high) → [56] → found`},
+        ]},
+      ],
     }
   },
   economics: {
@@ -5768,6 +5850,86 @@ PED = 20/20 = 1  → Unit elastic`},
           ], workedExample:`Fixed costs = $5000; Variable cost per unit = $3; Selling price = $8
 Contribution per unit = 8 − 3 = $5
 Break-even = 5000 ÷ 5 = 1000 units`},
+        ]},
+      ],
+      edexcel: [
+        { title:'The Market System', icon:'📈', topics:[
+          { title:'Demand & Supply', points:[
+            'Demand: quantity consumers willing and able to buy at each price — inverse relationship with price',
+            'Factors shifting demand: income, tastes, prices of related goods, population, advertising',
+            'Supply: quantity firms willing and able to sell at each price — direct relationship with price',
+            'Factors shifting supply: input costs, technology, taxes/subsidies, weather, number of producers',
+            'Equilibrium: where demand = supply; excess demand → price rises; excess supply → price falls',
+          ]},
+          { title:'Elasticity', points:[
+            'PED = % ΔQd ÷ % ΔP; always negative (inverse relationship); ignore sign unless asked',
+            'PED > 1: elastic demand (many substitutes, luxury goods); price rise → revenue falls',
+            'PED < 1: inelastic demand (few substitutes, necessities); price rise → revenue rises',
+            'PES = % ΔQs ÷ % ΔP; always positive; elastic supply means firms can respond quickly',
+            'Determinants of PES: spare capacity, stock levels, length of production period, factor mobility',
+          ], examTips:[
+            'Always state formula before calculating elasticity',
+            'Link elasticity to business pricing strategy — inelastic demand means price increases are profitable',
+          ], workedExample:`PED calculation: Price rises from $5 to $6 (+20%). Quantity falls from 100 to 80 (−20%)
+PED = −20 ÷ 20 = −1 (unit elastic)
+Revenue unchanged: was $500, now 80×$6 = $480 → actually fell slightly — check the math!`},
+        ]},
+        { title:'Government & Economy', icon:'🏛️', topics:[
+          { title:'Government Objectives & Policy', points:[
+            'Macroeconomic objectives: economic growth (↑ GDP), low inflation (CPI target ~2%), low unemployment, current account balance',
+            'Fiscal policy: government taxation and spending; budget surplus = more tax than spend; deficit = opposite',
+            'Expansionary fiscal policy: cut taxes and/or increase spending → stimulate demand (used in recession)',
+            'Contractionary: raise taxes, cut spending → reduce inflation (risk: slow growth)',
+            'Monetary policy: Bank of England sets interest rates; lower rates → cheaper borrowing → more spending',
+          ]},
+          { title:'Market Failure & Intervention', points:[
+            'Market failure: free market fails to allocate resources efficiently',
+            'Negative externality: third-party bears cost (e.g. pollution from factory); overproduction results',
+            'Positive externality: third-party benefits (e.g. vaccination herd immunity); underproduction results',
+            'Government responses: taxes (internalise negative externality), subsidies (encourage positive), regulation, provision',
+            'Government failure: intervention can worsen situation (e.g. unintended consequences, imperfect information)',
+          ], examTips:[
+            'Evaluation point: always consider government failure as a counter to any intervention policy',
+            'Draw a diagram for externalities — show the divergence between private and social cost/benefit',
+          ]},
+        ]},
+        { title:'International Trade & Development', icon:'🌍', topics:[
+          { title:'Trade & Protectionism', points:[
+            'Absolute advantage: produce more of a good using same resources',
+            'Comparative advantage: lower opportunity cost — basis of specialisation and trade',
+            'Free trade: no barriers; advantages: lower prices, greater choice, economies of scale',
+            'Tariff: tax on imports → raises price → protects domestic producers but harms consumers',
+            'Quota: limit on import quantity; subsidy to domestic producers reduces their costs vs foreign',
+          ]},
+          { title:'Economic Development', points:[
+            'HDI (Human Development Index): combines GDP per capita, life expectancy, education years',
+            'Characteristics of developing economies: low income, high agriculture share, poor infrastructure, high inequality',
+            'Aid: tied (must buy donor country goods), bilateral (country-to-country), multilateral (IMF/World Bank)',
+            'FDI (Foreign Direct Investment): business investment in another country; creates jobs but may repatriate profits',
+            'Trade vs aid debate: trade enables self-sufficiency; aid can create dependency',
+          ], examTips:[
+            'Distinguish GDP per capita (average income) from HDI (multidimensional measure of development)',
+            'Evaluate: for every benefit of free trade, consider who loses (e.g. domestic industries)',
+          ]},
+        ]},
+        { title:'Personal Finance & Business', icon:'💰', topics:[
+          { title:'Personal Finance (Edexcel-specific)', points:[
+            'Edexcel includes personal finance: budgeting, saving, borrowing, insurance',
+            'Budget: plan of income and expenditure; surplus = more income than spending',
+            'Types of financial products: current accounts, savings accounts, ISAs, pension funds',
+            'Interest rates on borrowing: APR (Annual Percentage Rate) — true cost of borrowing',
+            'Insurance: pay premium to receive compensation if risk occurs; risk pooling',
+          ]},
+          { title:'Business Finance & Enterprise', points:[
+            'Internal finance: retained profit, selling assets — no interest but limits investment',
+            'External finance: bank loan (fixed repayment), overdraft (flexible), share issue, bonds',
+            'Entrepreneur: organises resources and takes risk; key skills: innovation, decision-making, leadership',
+            'Revenue = price × quantity; profit = revenue − total costs; loss = costs > revenue',
+            'Cash flow ≠ profit: a business can be profitable but run out of cash (timing differences)',
+          ], examTips:[
+            'Cash flow vs profit — this distinction frequently appears in Edexcel exam questions',
+            'For evaluate questions, weigh short-run vs long-run effects of financial decisions',
+          ]},
         ]},
       ],
     }
@@ -6262,6 +6424,87 @@ Step 5 — Limitation: What does it not tell us? Is it biased?`},
           ]},
         ]},
       ],
+      edexcel: [
+        { title:'Business Activity & Stakeholders', icon:'🏢', topics:[
+          { title:'Purpose of Business', points:[
+            'Business: produces goods/services to satisfy consumer needs and wants',
+            'Primary sector: extract natural resources (farming, fishing, mining)',
+            'Secondary sector: manufacture goods using raw materials',
+            'Tertiary sector: provide services (retail, finance, education)',
+            'Private sector: profit-driven; public sector: government-run, aimed at public service',
+          ]},
+          { title:'Stakeholders', points:[
+            'Stakeholders: groups with an interest in the business — owners, employees, customers, suppliers, community, government',
+            'Shareholders: want high dividends and share price growth',
+            'Employees: want fair pay, job security, good working conditions',
+            'Stakeholder conflict: shareholders want lower costs (↓ wages) vs employees want higher pay',
+            'CSR: balancing stakeholder interests through ethical and responsible behaviour',
+          ], examTips:[
+            'Identify which stakeholder is most important for the given context — justify your choice',
+            'Conflict questions: state both sides and suggest how business might resolve them',
+          ]},
+        ]},
+        { title:'Marketing', icon:'📣', topics:[
+          { title:'The Marketing Mix (4Ps)', points:[
+            'Product: features, quality, branding, USP (unique selling point), product lifecycle',
+            'Price: cost-plus, competitive, penetration, skimming, psychological pricing strategies',
+            'Place: distribution channels — direct (online), retailer, wholesaler, agent',
+            'Promotion: advertising, sales promotion, PR, direct marketing, personal selling',
+            'Market research: primary (surveys, interviews, observations) and secondary (internet, reports)',
+          ]},
+          { title:'Market Segmentation & Targeting', points:[
+            'Market segmentation: dividing market into groups with similar characteristics',
+            'Bases: geographic, demographic (age, gender, income), psychographic (lifestyle, values)',
+            'Target market: the segment a business aims its products at',
+            'Niche market: small specialised segment; mass market: broad appeal to all consumers',
+            'Edexcel focus: digital marketing — social media, SEO, email marketing, influencer marketing',
+          ], examTips:[
+            'Always link marketing mix decisions to the target market — e.g. "skimming pricing suits a high-income niche"',
+            'Evaluate: consider whether a strategy is appropriate given the stage of product lifecycle',
+          ]},
+        ]},
+        { title:'People in Business', icon:'👥', topics:[
+          { title:'Motivation & Leadership', points:[
+            'Maslow\'s Hierarchy: physiological → safety → social → esteem → self-actualisation',
+            'Herzberg: hygiene factors (prevent dissatisfaction — pay, conditions) vs motivators (achievement, recognition)',
+            'Taylor (Scientific Management): pay-linked productivity; piece-rate; suitable for repetitive work',
+            'Leadership styles: autocratic (boss decides), democratic (consults team), laissez-faire (delegates all)',
+            'Appropriate style depends on: task urgency, employee experience, business culture',
+          ]},
+          { title:'Recruitment, Training & HR', points:[
+            'Recruitment: internal (promoted from within — cheaper, knows culture) vs external (new ideas but costly)',
+            'Selection: application form → shortlisting → interview → references → job offer',
+            'On-the-job training: learn while working (cheaper, relevant); off-the-job: external courses (broader skills)',
+            'Workforce planning: ensuring right number and skills of staff at the right time',
+            'Redundancy: job no longer needed; dismissal: employee fault; employment law protects both sides',
+          ], examTips:[
+            'Link motivation theory to business context — e.g. "Maslow suggests this worker needs social needs met, so team-working would motivate them"',
+            'Evaluate: consider limitations of motivation theories — they are generalisations',
+          ]},
+        ]},
+        { title:'Finance & Operations', icon:'💰', topics:[
+          { title:'Business Finance', points:[
+            'Sources of finance: internal (retained profit, owner\'s savings) and external (bank loan, share issue, overdraft)',
+            'Short-term finance: overdraft (flexible), trade credit (delay payment to suppliers)',
+            'Long-term finance: mortgage, debentures, venture capital, stock market flotation',
+            'Cash flow forecast: predicts monthly inflows and outflows; helps avoid insolvency',
+            'Cash flow problem: profitable business can fail if cash inflows don\'t cover timing of outflows',
+          ]},
+          { title:'Operations Management', points:[
+            'Production methods: job (one-off, custom), batch (groups), flow (continuous, mass)',
+            'Lean production: minimise waste; just-in-time (JIT) inventory reduces holding costs',
+            'Quality control: inspect finished products; quality assurance: build quality into process',
+            'TQM (Total Quality Management): everyone responsible for quality; continuous improvement (Kaizen)',
+            'Technology in operations: CAD/CAM, automation, robotics — improves consistency but costs jobs',
+          ], examTips:[
+            'Cash flow ≠ profit — distinguish clearly; a business can be profitable but insolvent',
+            'For operations decisions, evaluate cost vs quality trade-offs and suitability for the business type',
+          ], workedExample:`Opening balance: $2000. Month 1: Inflows $5000, Outflows $6500
+Net cash flow = 5000 − 6500 = −$1500
+Closing balance = 2000 + (−1500) = $500
+Month 2: Inflows $4000, Outflows $3000 → Net = +$1000 → Closing balance = $1500`},
+        ]},
+      ],
     }
   },
   add_maths: {
@@ -6501,9 +6744,10 @@ Quick ratio = (45,000−15,000) ÷ 20,000 = 30,000 ÷ 20,000 = 1.5:1 (good liqui
   },
   sociology: {
     label:'Sociology', arabic:'علم الاجتماع', icon:'👥', color:'#BE185D',
-    boards: ['cie'],
+    boards: ['cie','edexcel'],
     pastPapers: {
-      cie: 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-sociology-0495/past-papers/',
+      cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-sociology-0495/past-papers/',
+      edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-sociology-2017.coursematerials.html',
     },
     chapters: {
       cie: [
@@ -6615,6 +6859,84 @@ Quick ratio = (45,000−15,000) ÷ 20,000 = 30,000 ÷ 20,000 = 1.5:1 (good liqui
             'Ethnic minority groups face: higher unemployment, lower income, housing discrimination in many countries',
             'Multiculturalism: celebration of diverse cultures within one society',
             'Immigration: contributes economically and culturally; may face integration challenges',
+          ]},
+        ]},
+      ],
+      edexcel: [
+        { title:'Families', icon:'👨‍👩‍👧', topics:[
+          { title:'Family Structures & Diversity', points:[
+            'Nuclear family: two parents and children living together; once seen as the "normal" type',
+            'Extended family: includes grandparents, aunts/uncles etc. — common in South Asian and African cultures',
+            'Single-parent families: increased significantly since 1970s; majority headed by women',
+            'Reconstituted (blended) family: step-parents and step-children from previous relationships',
+            'Same-sex families: legal in UK since 2014; sociologists note parenting quality not affected by sexuality',
+          ]},
+          { title:'Marriage, Divorce & Changing Families', points:[
+            'Marriage rates declining; cohabitation (living together without marriage) increasing',
+            'Divorce rate: Rose sharply after Divorce Reform Act 1969 (easier to divorce)',
+            'Reasons for rising divorce: changing role of women, secularisation, higher expectations',
+            'Feminist view: family can be site of oppression — domestic labour unequal, domestic violence',
+            'New Right view: decline of traditional family is harmful to society and children',
+          ], examTips:[
+            'Always use sociological perspectives — functionalist, Marxist, feminist — to evaluate family changes',
+            'Give statistics to support trends (divorce rate, marriage rate, cohabitation statistics)',
+          ]},
+        ]},
+        { title:'Education', icon:'🏫', topics:[
+          { title:'Role of Education', points:[
+            'Functionalist: education socialises children into shared values; Durkheim — social solidarity',
+            'Parsons: school is a "bridge" between family (ascription) and work (achievement)',
+            'Marxist: education reproduces class inequality; hidden curriculum reinforces ruling class ideology',
+            'Willis (1977): working-class boys reject school (counter-school culture) — end up in manual jobs',
+            'Feminist: schooling historically reinforced gender roles; now girls outperform boys at GCSE',
+          ]},
+          { title:'Educational Achievement & Inequality', points:[
+            'Social class: middle-class children outperform working-class — language codes (Bernstein), cultural capital (Bourdieu)',
+            'Gender: girls now outperform boys across most subjects; boys more likely to be excluded',
+            'Ethnicity: variation between groups; Chinese and Indian students achieve highly; Black Caribbean boys lowest',
+            'Material deprivation: poverty → poor diet, cramped housing, lack of resources → underachievement',
+            'Labelling: teachers label students (Becker) — self-fulfilling prophecy affects outcomes',
+          ], examTips:[
+            'Use specific sociologist names — Bourdieu (cultural capital), Becker (labelling), Willis (counter-school culture)',
+            'Internal factors (labelling, streaming) vs external factors (material deprivation, cultural factors) is a classic exam comparison',
+          ]},
+        ]},
+        { title:'Crime & Deviance', icon:'⚖️', topics:[
+          { title:'Defining Crime & Deviance', points:[
+            'Crime: behaviour that breaks the criminal law — officially recorded and prosecuted',
+            'Deviance: behaviour that breaks social norms — not necessarily illegal (varies by culture/time)',
+            'Social construction of crime: what counts as crime changes (e.g. homosexuality was criminalised in UK until 1967)',
+            'Official statistics: underestimate crime due to dark figure (unreported, unrecorded crime)',
+            'Victim surveys (e.g. Crime Survey for England & Wales): reveal unreported crime',
+          ]},
+          { title:'Explanations for Crime', points:[
+            'Functionalist (Durkheim): crime is normal — reinforces boundaries; some innovation is beneficial',
+            'Merton\'s strain theory: crime results from gap between success goals and legitimate means to achieve them',
+            'Labelling theory: being labelled criminal leads to master status and self-fulfilling prophecy',
+            'Marxist: laws protect ruling class interests; white-collar crime underpoliced vs street crime',
+            'Left realism: crime has real impact on working-class communities; address relative deprivation',
+          ], examTips:[
+            'Always support explanations with named sociologist — un-attributed theories score less',
+            'Evaluate each theory: what does it fail to explain? (e.g. strain theory ignores white-collar crime)',
+          ]},
+        ]},
+        { title:'Social Stratification (Edexcel)', icon:'📊', topics:[
+          { title:'Class, Status & Power', points:[
+            'Weber\'s three dimensions: class (economic), status (social prestige), party (political power)',
+            'Meritocracy: rewards based on talent and effort — functionalists argue this is fair; Marxists disagree',
+            'Social mobility: movement between social classes; upward (improving position), downward',
+            'Open vs closed systems: caste system (closed — birth determines rank); class (open — can move)',
+            'Globalisation: changing class structure — growth of service sector, decline of manufacturing',
+          ]},
+          { title:'Poverty & Inequality', points:[
+            'Absolute poverty: unable to meet basic survival needs (food, shelter, clothing)',
+            'Relative poverty: below the standard of living considered acceptable in society (below 60% median income)',
+            'New Right: poverty results from culture of dependency — welfare state traps people in poverty',
+            'Marxist: poverty is structural — capitalism requires a reserve army of labour',
+            'Gender and poverty: women at greater risk — pay gap, career breaks, caring responsibilities',
+          ], examTips:[
+            'Absolute vs relative poverty — define both clearly; examiners reward precise definitions',
+            'Link poverty to life chances across health, education, housing, and life expectancy',
           ]},
         ]},
       ],
@@ -7769,6 +8091,115 @@ const IGCSE_FORMULAS = {
       '"How far..." questions: argue BOTH sides, then reach judgement',
       'Significance: what changed as a result? Why does it matter?',
       'Avoid narrative — always analyse: "This shows that..." / "This led to..."',
+    ]},
+  ],
+  economics: [
+    { title:'Key Formulas', icon:'📐', items:[
+      'PED = % ΔQd ÷ % ΔP  (ignore sign; negative relationship)',
+      'PES = % ΔQs ÷ % ΔP  (always positive)',
+      'XED = % ΔQd(A) ÷ % ΔP(B)  (+ve = substitutes; −ve = complements)',
+      'YED = % ΔQd ÷ % ΔIncome  (+ve = normal good; −ve = inferior good)',
+      'Total Revenue = Price × Quantity',
+      'Profit = Total Revenue − Total Cost',
+      'Real GDP = Nominal GDP ÷ Price Index × 100',
+      'Unemployment rate = (Unemployed ÷ Labour Force) × 100',
+      'Inflation rate = ((CPI this yr − CPI last yr) ÷ CPI last yr) × 100',
+    ]},
+    { title:'Market Diagrams', icon:'📈', items:[
+      'Demand curve: downward sloping (price↑ → Qd↓)',
+      'Supply curve: upward sloping (price↑ → Qs↑)',
+      'Equilibrium: intersection of D and S curves',
+      'Demand shift right: income↑, tastes, substitutes↑, complements↓, population↑',
+      'Supply shift right: costs↓, technology↑, subsidies, favourable weather',
+      'Maximum price (ceiling) < equilibrium → shortage',
+      'Minimum price (floor) > equilibrium → surplus',
+    ]},
+    { title:'Macroeconomic Concepts', icon:'🏛️', items:[
+      'GDP: total value of goods and services produced in a country in one year',
+      'Economic growth: % change in real GDP',
+      'Fiscal policy: government spending (G) and taxation (T)',
+      'Budget deficit: G > T;  Budget surplus: T > G',
+      'Monetary policy: interest rates set by central bank',
+      'Lower interest rates → cheaper borrowing → ↑ consumption + investment',
+      'Multiplier effect: initial injection leads to larger rise in national income',
+    ]},
+    { title:'International Trade', icon:'🌍', items:[
+      'Comparative advantage: produce where opportunity cost is lowest',
+      'Current account = trade in goods + trade in services + income + transfers',
+      'Exchange rate appreciation → exports more expensive, imports cheaper',
+      'Exchange rate depreciation → exports cheaper, imports more expensive',
+      'Tariff = import tax; Quota = quantity limit on imports',
+      'HDI = average of (income index, life expectancy index, education index)',
+    ]},
+  ],
+  business: [
+    { title:'Finance Formulas', icon:'💰', items:[
+      'Profit = Total Revenue − Total Costs',
+      'Total Revenue = Price × Quantity sold',
+      'Total Cost = Fixed Costs + Variable Costs',
+      'Average Cost = Total Cost ÷ Output',
+      'Contribution per unit = Selling Price − Variable Cost per unit',
+      'Break-even output = Fixed Costs ÷ Contribution per unit',
+      'Margin of Safety = Current Output − Break-even Output',
+      'Gross Profit Margin = (Gross Profit ÷ Revenue) × 100',
+      'Net Profit Margin = (Net Profit ÷ Revenue) × 100',
+    ]},
+    { title:'Cash Flow', icon:'💸', items:[
+      'Net Cash Flow = Total Inflows − Total Outflows (for the period)',
+      'Closing Balance = Opening Balance + Net Cash Flow',
+      'Cash flow ≠ profit (timing differences between earning and receiving)',
+      'Cash flow problem: solutions = overdraft, cut costs, delay payments, speed up receipts',
+      'Working capital = Current Assets − Current Liabilities',
+    ]},
+    { title:'Marketing Metrics', icon:'📣', items:[
+      'Market share = (Firm\'s sales ÷ Total market sales) × 100',
+      'Market growth rate = ((New size − Old size) ÷ Old size) × 100',
+      'Price elasticity of demand: applies to pricing strategy decisions',
+      'Penetration pricing: low price to enter market; Skimming: high initial price',
+      'Cost-plus pricing: unit cost + % mark-up = selling price',
+    ]},
+    { title:'People & Operations', icon:'👥', items:[
+      'Labour productivity = Output ÷ Number of workers',
+      'Labour turnover = (Staff leaving ÷ Average staff) × 100',
+      'Absenteeism rate = (Days absent ÷ Total days) × 100',
+      'Capacity utilisation = (Actual output ÷ Maximum output) × 100',
+      'Inventory turnover = Cost of Sales ÷ Average Inventory',
+      'Maslow\'s hierarchy: physiological → safety → social → esteem → self-actualisation',
+      'Herzberg: motivators (achievement, recognition) vs hygiene factors (pay, conditions)',
+    ]},
+  ],
+  accounting: [
+    { title:'Key Equations', icon:'⚖️', items:[
+      'Accounting equation: Assets = Liabilities + Capital',
+      'Capital = Assets − Liabilities',
+      'Profit = Revenue − Expenses',
+      'Closing capital = Opening capital + Profit − Drawings',
+      'Cost of Sales = Opening Inventory + Purchases − Closing Inventory',
+      'Gross Profit = Revenue − Cost of Sales',
+      'Net Profit = Gross Profit − Expenses',
+    ]},
+    { title:'Ratios', icon:'📊', items:[
+      'Gross Profit Margin = (Gross Profit ÷ Revenue) × 100%',
+      'Net Profit Margin = (Net Profit ÷ Revenue) × 100%',
+      'Return on Capital Employed (ROCE) = (Net Profit ÷ Capital Employed) × 100%',
+      'Current Ratio = Current Assets ÷ Current Liabilities  (ideal ~2:1)',
+      'Quick (Acid-test) Ratio = (Current Assets − Inventory) ÷ Current Liabilities  (ideal ~1:1)',
+      'Inventory Turnover = Cost of Sales ÷ Average Inventory (times per year)',
+      'Trade Receivables Days = (Trade Receivables ÷ Revenue) × 365',
+    ]},
+    { title:'Depreciation', icon:'📉', items:[
+      'Straight-line method: (Cost − Residual Value) ÷ Useful life = annual depreciation',
+      'Reducing balance: depreciation % × Book value at start of year',
+      'Net Book Value = Cost − Accumulated Depreciation',
+      'Depreciation reduces profit and asset value — not a cash payment',
+    ]},
+    { title:'Double Entry Rules', icon:'📒', items:[
+      'DEAD CLIC: Debit = Expenses, Assets, Drawings; Credit = Liabilities, Income, Capital',
+      'Assets: debit to increase, credit to decrease',
+      'Liabilities & Capital: credit to increase, debit to decrease',
+      'Revenue/Income: credit to increase',
+      'Expenses: debit to increase',
+      'Trial balance: sum of all debits = sum of all credits',
     ]},
   ],
 };
