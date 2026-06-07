@@ -6304,6 +6304,87 @@ Step 5 — Limitation: What does it not tell us? Is it biased?`},
           ]},
         ]},
       ],
+      edexcel: [
+        { title:'River Environments', icon:'🌊', topics:[
+          { title:'River Processes', points:[
+            'Erosion types: hydraulic action (force of water), abrasion (sediment scraping), attrition (sediment hitting sediment), solution/corrosion (chemical dissolution)',
+            'Transportation: traction (rolling), saltation (bouncing), suspension (carried), solution (dissolved)',
+            'Deposition: when river loses energy — occurs on inside of bends, where river slows',
+            'Long profile: steep upper course (V-shaped valley, waterfalls) → gentler lower course (meanders, floodplain)',
+            'Discharge: volume of water flowing past a point per second (m³/s = cumecs); increased by heavy rainfall, snowmelt',
+          ], examTips:[
+            'Exam tip: always spell out the full name of erosion processes — "hydraulic action" not just "water pressure"',
+            'River cross-section: draw and label channel width + depth + bedload to show how river changes downstream',
+          ]},
+          { title:'Landforms & Flooding', points:[
+            'Waterfall: hard rock over soft rock → differential erosion → plunge pool → recession upstream',
+            'Meander: fastest flow on outside (erosion → river cliff) → slip-off slope on inside (deposition)',
+            'Ox-bow lake: meander neck eroded, river cuts through → loop abandoned',
+            'Floodplain: flat land either side of river built up by repeated flooding and deposition of alluvium',
+            'Flood hydrograph: lag time = time between peak rainfall and peak discharge; steep = flashy (urban areas)',
+          ], workedExample:`Flood management: River Cherwell, Oxford (UK)
+Hard engineering: flood walls along channel, storage reservoirs upstream
+Soft engineering: washlands (allow controlled flooding), floodplain zoning (no new building in flood zones), afforestation upstream to increase interception
+Evaluation: hard engineering more effective short-term but expensive; soft engineering sustainable but slower to show results`},
+        ]},
+        { title:'Coastal Environments', icon:'🏖️', topics:[
+          { title:'Coastal Processes', points:[
+            'Wave types: constructive (low frequency, long wavelength, strong swash) build beaches; destructive (high frequency, strong backwash) erode',
+            'Erosion: hydraulic action, abrasion, attrition, solution — cliffs and headlands most affected',
+            'Longshore drift: waves approach at angle → swash moves sediment diagonally → backwash straight back → net movement along coast',
+            'Deposition: beaches, spits, bars — sediment deposited when wave energy decreases',
+            'Sea level change: eustatic (global sea level — melting ice); isostatic (land rising/sinking — UK still rising in Scotland after Ice Age)',
+          ]},
+          { title:'Coastal Landforms & Management', points:[
+            'Headland & bay: differential erosion — hard rock → headland; soft rock → bay',
+            'Cave → arch → stack → stump: progressive erosion of headland',
+            'Spit: longshore drift extends beach past a bend in coastline; curved by wave refraction',
+            'Hard engineering: sea walls (reflect waves), groynes (trap sediment), rock armour (absorb energy)',
+            'Soft engineering: beach nourishment (add sand), managed retreat (allow flooding — cheaper, creates habitats)',
+          ], examTips:[
+            'Evaluate management: cost vs effectiveness vs environmental impact — examiners want balance',
+            'Holderness Coast (UK): fastest eroding coast in Europe — 2m/year; case study for erosion management',
+          ]},
+        ]},
+        { title:'Urban Environments', icon:'🏙️', topics:[
+          { title:'Urbanisation', points:[
+            'Urbanisation: increasing % of population living in cities; fastest in LICs/MICs',
+            'Push factors: poverty, lack of jobs, drought, conflict → leave rural areas',
+            'Pull factors: jobs, better services, education, infrastructure → attracted to cities',
+            'Megacities: cities with >10 million people — Mumbai, Lagos, Cairo, São Paulo',
+            'Urban land use: CBD (central business district) → inner city → suburbs → rural-urban fringe',
+          ]},
+          { title:'Urban Issues & Solutions', points:[
+            'HICs: counter-urbanisation (people leave cities for countryside), urban regeneration needed in declining areas',
+            'LICs: rapid growth → squatter settlements (informal housing) — lack clean water, sanitation, legal tenure',
+            'Traffic congestion: solutions — public transport investment, congestion charging (London), park and ride',
+            'Urban heat island: cities warmer than surrounding countryside — dark surfaces absorb heat, less vegetation',
+            'Sustainable cities: green buildings, cycling infrastructure, urban green spaces, waste recycling (Curitiba, Brazil)',
+          ], examTips:[
+            'Always use named case studies — Dharavi (Mumbai) for squatter settlements, Canary Wharf for HIC regeneration',
+            'Sustainability question: consider social, economic, and environmental dimensions of any urban strategy',
+          ]},
+        ]},
+        { title:'Development & Globalisation', icon:'🌐', topics:[
+          { title:'Global Development Differences', points:[
+            'Development gap: difference in wealth and quality of life between HICs and LICs',
+            'Measures: GDP per capita, GNI per capita, HDI, life expectancy, literacy rate, infant mortality',
+            'Causes of inequality: colonialism, trade rules, corruption, landlocked location, climate, natural hazards',
+            'Aid types: bilateral (country-to-country), multilateral (IMF/World Bank), NGOs (Oxfam, CARE)',
+            'Trade vs aid debate: trade allows self-sufficiency; aid can create dependency but addresses emergencies',
+          ]},
+          { title:'Tourism & Development', points:[
+            'Tourism: world\'s largest industry; contributes ~10% of global GDP',
+            'Ecotourism: low-impact, environmentally and culturally sensitive tourism — sustainable alternative',
+            'Advantages: foreign exchange, job creation, infrastructure improvement, cultural exchange',
+            'Disadvantages: seasonal employment, cultural dilution, environmental damage, leakage (profits leave country)',
+            'Mass tourism case study: Benidorm, Spain — economic benefits vs overcrowding, environmental damage',
+          ], examTips:[
+            'Development question: always use data to support — "GNI per capita in Nigeria is $2,160 vs $47,000 in UK"',
+            'Evaluate tourism: who benefits most? Local communities or multinational hotel chains? Consider leakage',
+          ]},
+        ]},
+      ],
     }
   },
   business: {
@@ -7298,6 +7379,33 @@ Shows: verb in question changed memory reconstruction → eyewitness testimony u
             'Track the writer\'s intentions: "Shakespeare presents...", "Dickens conveys..."',
             'Context: brief relevant context where it directly supports analysis (not history lesson)',
             'Plan before writing: 5 minutes planning saves time and improves structure',
+          ], examTips:[
+            'Top tip: analyse the EFFECT on the reader — "This makes the reader feel...", "This creates a sense of..."',
+            'Avoid plot summary — every paragraph must have a point, a quote, and an analysis',
+            'Comparison essays: alternate between texts (ABAB) rather than writing about one then the other (AABB)',
+          ], workedExample:`Poetry analysis paragraph (PEA):
+Point: Heaney presents the father as a skilled craftsman who commands admiration.
+Evidence: "His licking straps / Once looped, it slung and swung / Till the chains would jounce and jingle."
+Analysis: The dynamic verbs "licking", "slung", "swung" and the onomatopoeic "jounce and jingle" create a sense of energy and mastery, conveying the young speaker's awe of his father's physical competence.`},
+        ]},
+        { title:'Themes & Context', icon:'🌍', topics:[
+          { title:'Common Literary Themes', points:[
+            'Power & control: who holds power? How is it maintained or subverted? (Animal Farm, Macbeth)',
+            'Identity & belonging: characters searching for their place in society or culture',
+            'Loss & grief: how characters cope with bereavement, failure, or change',
+            'Conflict: war, social inequality, inner moral struggle — what drives conflict in the text?',
+            'Appearance vs reality: what is presented as true vs what is actually true (Great Expectations, Othello)',
+          ]},
+          { title:'Context in Literature', points:[
+            'Historical context: when was the text written? What events/ideas influenced it?',
+            'Social context: class, gender roles, race relations of the period',
+            'Literary context: genre conventions, contemporary influences on the writer',
+            'Don\'t drop context in randomly — it must directly link to and explain a writer\'s choice',
+            'AO3 (context mark): awarded when context illuminates the meaning, not just decorates the answer',
+          ], examTips:[
+            'CIE Literature: "How does the writer present..." questions — answer with methods + effects + context',
+            'Edexcel Literature: longer essays with more focus on whole-text argument — develop a thesis statement',
+            'Shakespeare questions: reference theatrical context (performances, Elizabethan/Jacobean audience expectations)',
           ]},
         ]},
       ],
@@ -8311,6 +8419,119 @@ const IGCSE_FORMULAS = {
       'Inventory turnover = Cost of Sales ÷ Average Inventory',
       'Maslow\'s hierarchy: physiological → safety → social → esteem → self-actualisation',
       'Herzberg: motivators (achievement, recognition) vs hygiene factors (pay, conditions)',
+    ]},
+  ],
+  literature: [
+    { title:'Poetry Techniques', icon:'✍️', items:[
+      'Simile: comparison using "like" or "as" — "My love is like a red, red rose"',
+      'Metaphor: direct comparison, says one thing IS another — "Life is a journey"',
+      'Personification: human qualities given to non-human — "The wind howled"',
+      'Alliteration: repeated initial consonant — "Peter Piper picked..."',
+      'Sibilance: repeated "s" sounds — creates hissing, sinister effect',
+      'Assonance: repeated vowel sounds — creates mood and rhythm',
+      'Onomatopoeia: word sounds like the thing — "buzz", "crash", "whisper"',
+      'Enjambment: line runs over without pause — creates pace or sudden turn',
+      'Caesura: pause mid-line (punctuation) — creates hesitation or impact',
+      'Volta: turning point in a poem (often in sonnets at line 9 or 13)',
+    ]},
+    { title:'Structural & Narrative Techniques', icon:'📖', items:[
+      'Iambic pentameter: da-DUM ×5 per line (Shakespeare\'s default metre)',
+      'Sonnet: 14 lines; Petrarchan (8+6), Shakespearean (3×4+couplet)',
+      'Free verse: no fixed rhyme or rhythm — mirrors natural speech',
+      'Dramatic monologue: single speaker reveals character (Browning)',
+      'Stream of consciousness: unfiltered inner thoughts (Woolf, Joyce)',
+      'In media res: story begins in the middle of action',
+      'Tragic structure: exposition → rising action → climax → reversal → catastrophe',
+    ]},
+    { title:'Essay Frameworks', icon:'📝', items:[
+      'PEA: Point → Evidence (short quote) → Analysis (effect on reader)',
+      'PETAL: Point → Evidence → Technique → Analysis → Link',
+      '"Shakespeare presents X as Y by using Z, which creates the effect of..."',
+      'Opening: avoid "In this essay I will..." — begin with argument directly',
+      'Comparison connectives: Similarly / In contrast / Both / Whereas / However',
+      'Thesis statement: clear argument in first paragraph — "Priestley uses Birling to critique capitalist selfishness"',
+    ]},
+    { title:'Key Terminology', icon:'📚', items:[
+      'Protagonist: main character | Antagonist: opposing character',
+      'Foil: character who contrasts another to highlight qualities (e.g. Laertes vs Hamlet)',
+      'Motif: recurring symbol or idea throughout the text',
+      'Hubris: excessive pride that leads to downfall (Greek tragedy)',
+      'Catharsis: emotional release felt by audience at end of tragedy',
+      'Dramatic irony: audience knows something characters do not',
+      'Pathetic fallacy: weather/environment reflects character mood — "dark and stormy night"',
+    ]},
+  ],
+  psychology: [
+    { title:'Key Studies Reference', icon:'🔬', items:[
+      'Milgram (1963): 65% delivered 450V shocks; obedience to authority; agency theory',
+      'Asch (1951): 75% conformed at least once to wrong line; normative influence',
+      'Bandura (1961): Bobo doll; children imitate aggressive models; social learning',
+      'Pavlov (dogs): classical conditioning; UCS → UCR; CS → CR after pairing',
+      'Loftus & Palmer (1974): "smashed" → higher speed estimates; memory reconstruction',
+      'Peterson & Peterson (1959): trigrams; 90% forgotten in 18s without rehearsal; decay theory',
+      'Dement & Kleitman (1957): EEG sleep study; REM associated with dreaming',
+      'Binet: first IQ test (1905); mental age ÷ chronological age × 100',
+    ]},
+    { title:'Research Methods', icon:'📊', items:[
+      'IV (Independent Variable): what researcher changes/manipulates',
+      'DV (Dependent Variable): what is measured',
+      'Control variables: all other factors kept constant',
+      'Hypothesis: testable prediction; null hypothesis: no effect expected',
+      'Random sampling: every member of population has equal chance — most representative',
+      'Opportunity sampling: whoever is available — easiest but most biased',
+      'Correlation: +1 (perfect positive) → 0 (no relationship) → −1 (perfect negative)',
+      'Reliability: consistency; Validity: does it measure what it claims?',
+    ]},
+    { title:'Approaches & Theories', icon:'🧠', items:[
+      'Biological: behaviour explained by genes, hormones, brain structures',
+      'Behaviourist: all behaviour learned through conditioning (environment only)',
+      'Cognitive: mental processes (memory, perception, thinking) explain behaviour',
+      'Social Learning Theory (Bandura): observation + imitation + reinforcement',
+      'Psychodynamic (Freud): unconscious mind, id/ego/superego, defence mechanisms',
+      'Humanistic (Maslow): self-actualisation; hierarchy of needs',
+    ]},
+    { title:'Evaluation Acronyms', icon:'✅', items:[
+      'GRAVE: Generalisation, Reliability, Application, Validity, Ethics',
+      'Ecological validity: does lab setting reflect real life? Low = artificial',
+      'Internal validity: did IV actually cause DV? Avoid confounding variables',
+      'Ethics (BPS): informed consent, right to withdraw, confidentiality, no harm',
+      'Strengths of experiments: control, replication, cause-and-effect conclusions',
+      'Weaknesses: demand characteristics, social desirability bias, lab artificiality',
+    ]},
+  ],
+  french: [
+    { title:'Verb Tables', icon:'📝', items:[
+      'AVOIR: ai, as, a, avons, avez, ont',
+      'ÊTRE: suis, es, est, sommes, êtes, sont',
+      'ALLER: vais, vas, va, allons, allez, vont',
+      'FAIRE: fais, fais, fait, faisons, faites, font',
+      'POUVOIR: peux, peux, peut, pouvons, pouvez, peuvent',
+      'VOULOIR: veux, veux, veut, voulons, voulez, veulent',
+      'PRENDRE: prends, prends, prend, prenons, prenez, prennent',
+    ]},
+    { title:'Tense Formulas', icon:'⏰', items:[
+      'Passé composé: avoir/être (present) + past participle',
+      'Être verbs (DR MRS VANDERTRAMP): Descendre, Rester, Monter, Retourner, Sortir, Venir, Aller, Naître, Devenir, Entrer, Rentrer, Tomber, Rester, Arriver, Mourir, Partir',
+      'Imparfait: take nous present → remove -ons → add: ais, ais, ait, ions, iez, aient',
+      'Futur simple: infinitive + ai, as, a, ons, ez, ont (drop -e from -re verbs)',
+      'Conditionnel: infinitive + ais, ais, ait, ions, iez, aient',
+      'Key irregular futures: être → ser- | avoir → aur- | aller → ir- | faire → fer-',
+    ]},
+    { title:'Opinion & Connective Phrases', icon:'💬', items:[
+      'Opinions: À mon avis... | Je pense que... | Je trouve que... | Selon moi...',
+      'Agreement: Je suis d\'accord | C\'est vrai | Exactement | Bien sûr',
+      'Disagreement: Je ne suis pas d\'accord | Ce n\'est pas vrai | Au contraire',
+      'Connectives: Cependant | Néanmoins | Par contre | D\'une part... d\'autre part',
+      'Adding: De plus | En outre | Par ailleurs | Également | Aussi',
+      'Conclusion: En conclusion | Pour conclure | En fin de compte | Finalement',
+    ]},
+    { title:'Common Topic Vocabulary', icon:'🗂️', items:[
+      'Family: la famille, le frère, la sœur, les parents, le/la petit(e) ami(e)',
+      'Environment: la pollution, le réchauffement climatique, recycler, les énergies renouvelables',
+      'School: la matière, les devoirs, l\'emploi du temps, le/la professeur, l\'examen',
+      'Health: la santé, une alimentation équilibrée, faire du sport, éviter le tabac',
+      'Technology: le portable, les réseaux sociaux, Internet, télécharger, en ligne',
+      'False friends: actuel = current (NOT actual) | sensible = sensitive (NOT sensible)',
     ]},
   ],
   geography: [
