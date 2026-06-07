@@ -1511,6 +1511,15 @@ const CURRICULA = {
       ]},
     }
   },
+
+  egypt_ext: {
+    label:'📗 كتب خارجية (مصر)',
+    grades:{
+      high:{ label:'ثانوي عام', subjects:[] },
+      middle:{ label:'إعدادي', subjects:[] },
+    }
+  },
+
   igcse: {
     label:'🎓 IGCSE / Cambridge',
     grades:{
@@ -4276,6 +4285,53 @@ const TEXTBOOK_DB = {
   },
 
   // ══════════════════════════════════════════════════════════════
+  //  كتب خارجية مصرية — روابط Archive.org
+  // ══════════════════════════════════════════════════════════════
+  egypt_ext: {
+    // ثالث ثانوي — المعاصر
+    high: [
+      { subj:'الرياضيات — المعاصر', icon:'🔢', color:'#3B82F6', books:[
+        { title:'المعاصر رياضيات بحتة — ثاني ثانوي ترم أول', term:'ثاني ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2-1_20250901' },
+        { title:'المعاصر رياضيات تطبيقية — ثاني ثانوي ترم أول', term:'ثاني ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2023-2-1_202209' },
+        { title:'المعاصر ماث — أولى ثانوي ترم أول', term:'أول ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/1-1_20240907' },
+        { title:'المعاصر رياضيات — أولى ثانوي ترم ثاني', term:'أول ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2025_20250406' },
+        { title:'المعاصر رياضيات بحتة — ثاني ثانوي علمي ترم أول', term:'ثاني ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2-1_20230810' },
+      ]},
+      { subj:'الفيزياء — المعاصر', icon:'⚡', color:'#F59E0B', books:[
+        { title:'المعاصر فيزياء — أولى ثانوي ترم أول', term:'أول ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/1-1_20230830' },
+        { title:'المعاصر فيزياء — أولى ثانوي ترم ثاني', term:'أول ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/1-2_20220215_20220215_0123' },
+        { title:'المعاصر فيزياء — ثاني ثانوي ترم أول', term:'ثاني ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2-1_20220823' },
+      ]},
+      { subj:'الكيمياء — المعاصر', icon:'🧪', color:'#8B5CF6', books:[
+        { title:'المعاصر كيمياء — ثاني ثانوي ترم أول', term:'ثاني ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2-1_20220826_20220826_1118' },
+        { title:'المعاصر كيمياء — ثاني ثانوي 2023', term:'ثاني ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2023-2-1_20221011' },
+      ]},
+      { subj:'الأحياء — المعاصر', icon:'🧬', color:'#10B981', books:[
+        { title:'المعاصر أحياء — أولى ثانوي ترم أول', term:'أول ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/1-1_20210816_20210816' },
+        { title:'المعاصر أحياء — أولى ثانوي ترم ثاني', term:'أول ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/1-2_20220221' },
+        { title:'المعاصر أحياء — ثاني ثانوي ترم أول', term:'ثاني ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2-1_20220821_20220821' },
+      ]},
+      { subj:'اللغة الإنجليزية — المعاصر', icon:'🗣️', color:'#F97316', books:[
+        { title:'المعاصر انجليزي — أولى ثانوي ترم أول', term:'أول ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2023-1-1_20221004_0037' },
+        { title:'المعاصر انجليزي — ثاني ثانوي ترم أول', term:'ثاني ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2023-2-1_20221005' },
+      ]},
+      { subj:'البحث عن المزيد', icon:'🔍', color:'#6B7280', books:[
+        { title:'بحث في Archive.org — كتب ثانوي', term:'جميع المواد والسنوات', badge:'🌐 أرشيف', external:true, url:'https://archive.org/search?query=%D8%A7%D9%84%D9%85%D8%B9%D8%A7%D8%B5%D8%B1+%D8%AB%D8%A7%D9%86%D9%88%D9%8A' },
+        { title:'بحث في Archive.org — كتب إعدادي', term:'جميع المواد والسنوات', badge:'🌐 أرشيف', external:true, url:'https://archive.org/search?query=%D8%A7%D9%84%D9%85%D8%B9%D8%A7%D8%B5%D8%B1+%D8%A7%D8%B9%D8%AF%D8%A7%D8%AF%D9%8A' },
+        { title:'موقع المعاصر الرسمي', term:'كتب ومراجع المعاصر', badge:'🌐 موقع', external:true, url:'https://www.eltapalomesr.com/' },
+        { title:'ذاكرولي — كتب وملازم', term:'جميع المراحل', badge:'🌐 موقع', external:true, url:'https://zakrolyup.com/' },
+      ]},
+    ],
+    middle: [
+      { subj:'الرياضيات — المعاصر', icon:'🔢', color:'#3B82F6', books:[
+        { title:'المعاصر رياضيات — أول إعدادي ترم ثاني', term:'إعدادي أول', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/1-2_20220220' },
+        { title:'المعاصر هندسة لغات — ثالث إعدادي ترم ثاني', term:'إعدادي ثالث', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/3-2_20210525_202105' },
+        { title:'بحث عن المعاصر إعدادي', term:'جميع الصفوف', badge:'🌐 أرشيف', external:true, url:'https://archive.org/search?query=%D8%A7%D9%84%D9%85%D8%B9%D8%A7%D8%B5%D8%B1+%D8%A7%D8%B9%D8%AF%D8%A7%D8%AF%D9%8A' },
+      ]},
+    ],
+  },
+
+  // ══════════════════════════════════════════════════════════════
   //  IGCSE — Cambridge Official Syllabuses (Free)
   // ══════════════════════════════════════════════════════════════
   igcse: {
@@ -4322,9 +4378,13 @@ const TEXTBOOK_DB = {
       ]},
       { subj:'Physics', icon:'⚡', color:'#F59E0B', books:[
         { title:'Physics — OpenStax (High School)', term:'American Curriculum', url:`${BOOKS}/american/physics_hs.pdf` },
+        { title:'University Physics Volume 2 — OpenStax', term:'American Curriculum', url:`${BOOKS}/american/physics_university_vol2.pdf` },
       ]},
       { subj:'Computer Science', icon:'💻', color:'#0EA5E9', books:[
         { title:'Introduction to Computer Science — OpenStax', term:'American Curriculum', url:`${BOOKS}/american/computer_science.pdf` },
+      ]},
+      { subj:'Social Sciences', icon:'🧠', color:'#8B5CF6', books:[
+        { title:'Introduction to Sociology 3e — OpenStax', term:'American Curriculum', url:`${BOOKS}/american/sociology.pdf` },
       ]},
     ],
   },
@@ -4444,17 +4504,17 @@ ${viewer}`;
             <div style="flex:1;text-align:right">
               <div style="font-size:13px;font-weight:800;color:var(--text)">${esc(book.title)}</div>
               <div style="font-size:11px;color:var(--text-muted);margin-top:2px">${esc(book.term||'')}</div>
-              <div style="display:inline-block;margin-top:4px;background:${subj.color}22;color:${subj.color};font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">📚 وزارة التعليم</div>
+              <div style="display:inline-block;margin-top:4px;background:${subj.color}22;color:${subj.color};font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">${book.badge||'📚 وزارة التعليم'}</div>
             </div>
             <div style="display:flex;flex-direction:column;gap:5px;flex-shrink:0">
               <a href="${book.viewUrl || book.url}" target="_blank" rel="noopener"
                 style="background:${subj.color};color:#fff;font-size:11px;font-weight:700;padding:6px 12px;border-radius:8px;border:none;cursor:pointer;font-family:Cairo,sans-serif;display:block;text-decoration:none;text-align:center">
-                📖 قراءة
+                📖 ${book.external?'افتح':'قراءة'}
               </a>
-              <a href="${book.url}" target="_blank" rel="noopener"
+              ${book.external?'':`<a href="${book.url}" target="_blank" rel="noopener"
                 style="background:transparent;color:${subj.color};font-size:11px;font-weight:700;padding:5px 12px;border-radius:8px;border:1px solid ${subj.color};cursor:pointer;font-family:Cairo,sans-serif;display:block;text-decoration:none;text-align:center">
                 ⬇️ تحميل
-              </a>
+              </a>`}
             </div>
           </div>`).join('')}
         </div>
