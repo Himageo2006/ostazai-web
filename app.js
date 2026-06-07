@@ -5991,7 +5991,7 @@ If searching for 56: mid=43 (too low) → search right half [56,78,91] → mid=7
   },
   economics: {
     label:'Economics', arabic:'الاقتصاد', icon:'📊', color:'#D97706',
-    boards: ['cie','edexcel'],
+    boards: ['cie','edexcel','oxford'],
     pastPapers: {
       cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-economics-0455/past-papers/',
       edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-economics-2017.coursematerials.html',
@@ -6198,6 +6198,73 @@ Revenue unchanged: was $500, now 80×$6 = $480 → actually fell slightly — ch
           ], examTips:[
             'Cash flow vs profit — this distinction frequently appears in Edexcel exam questions',
             'For evaluate questions, weigh short-run vs long-run effects of financial decisions',
+          ]},
+        ]},
+      ],
+      oxford: [
+        { title:'Microeconomics (Oxford AQA)', icon:'🏪', topics:[
+          { title:'Markets & Price Mechanism', points:[
+            'Oxford AQA IGCSE Economics covers same core content as CIE but with different paper style and case studies',
+            'Market: buyers and sellers interacting to exchange goods/services at a price',
+            'Law of demand: as price rises, quantity demanded falls (ceteris paribus) — inverse relationship',
+            'Law of supply: as price rises, quantity supplied rises — positive relationship',
+            'Equilibrium: where demand = supply; price where market clears',
+            'Shifts in demand: income, prices of substitutes/complements, tastes, expectations, population',
+            'Shifts in supply: costs of production, technology, number of producers, government policy',
+          ], examTips:[
+            'Oxford AQA: always draw a demand/supply diagram for market questions — shows clear analysis',
+            'Label axes: Price on y-axis, Quantity on x-axis; label curves D and S; show equilibrium P* and Q*',
+          ], workedExample:`Effect of a tax on petrol:
+1. Tax increases production costs → supply shifts LEFT (decreases)
+2. Price rises from P1 to P2
+3. Quantity traded falls from Q1 to Q2
+4. Tax revenue = (P2−P1) × Q2
+Draw: S curve shifts left; new equilibrium at higher price, lower quantity`},
+          { title:'Elasticity', points:[
+            'PED = % change in quantity demanded ÷ % change in price',
+            'PED > 1: elastic (sensitive to price change); PED < 1: inelastic; PED = 1: unit elastic',
+            'Determinants of PED: availability of substitutes, necessity vs luxury, proportion of income, time period',
+            'Revenue and PED: elastic demand → price cut raises revenue; inelastic → price rise raises revenue',
+            'YED = % change in Qd ÷ % change in income; positive YED = normal good; negative = inferior good',
+            'XED: positive = substitutes; negative = complements',
+          ]},
+        ]},
+        { title:'Macroeconomics (Oxford AQA)', icon:'🌐', topics:[
+          { title:'National Income & Economic Performance', points:[
+            'GDP: total value of goods/services produced in a country in one year',
+            'Four macroeconomic objectives: economic growth, low inflation, low unemployment, balance of payments equilibrium',
+            'Business cycle: boom → recession → slump → recovery — GDP fluctuates around trend growth rate',
+            'Inflation: general rise in price level; measured by CPI; causes = demand-pull and cost-push',
+            'Unemployment: cyclical (recession), structural (industry decline), frictional (between jobs), seasonal',
+          ], examTips:[
+            'Oxford AQA evaluate questions: use "on the one hand... however... overall" structure with clear judgement',
+            'Conflicts between objectives: reducing inflation may increase unemployment — policy conflict must be acknowledged',
+          ]},
+          { title:'Government Policy', points:[
+            'Fiscal policy: government spending and taxation; expansionary (cut taxes/raise spending), contractionary (opposite)',
+            'Monetary policy: central bank controls interest rates; lower rates → cheaper borrowing → more spending',
+            'Supply-side policy: improve productive capacity — deregulation, education/training, privatisation',
+            'Trade-off: expansionary policy may cause inflation; contractionary may cause recession',
+            'Government budget: surplus (tax > spending), deficit (spending > tax), national debt accumulates from deficits',
+          ]},
+        ]},
+        { title:'International Trade (Oxford AQA)', icon:'🌍', topics:[
+          { title:'Trade & Globalisation', points:[
+            'Comparative advantage: country should specialise in goods with lower opportunity cost',
+            'Benefits of trade: lower prices, greater variety, economies of scale, increased competition',
+            'Protectionism: tariffs, quotas, subsidies, embargoes — protect domestic jobs but raise prices',
+            'Globalisation: increasing interdependence of world economies; driven by trade, FDI, migration',
+            'Exchange rates: floating (determined by market), fixed (pegged to another currency)',
+          ]},
+          { title:'Development & Sustainability', points:[
+            'HDI: life expectancy + education + income per capita — broader than GDP alone',
+            'Sustainable development: meets present needs without compromising future generations',
+            'Poverty cycle: low income → low savings → low investment → low growth → low income',
+            'Aid vs trade: trade empowers long-term development; aid fills short-term gaps but risks dependency',
+            'Inequality: Gini coefficient measures distribution; high Gini = high inequality',
+          ], examTips:[
+            'Oxford AQA development questions: use specific data — country examples and statistics strengthen evaluation',
+            'Evaluate aid critically: who provides it, what conditions attached, what evidence of impact?',
           ]},
         ]},
       ],
@@ -6863,6 +6930,70 @@ Evaluation: hard engineering more effective short-term but expensive; soft engin
           ], examTips:[
             'Development question: always use data to support — "GNI per capita in Nigeria is $2,160 vs $47,000 in UK"',
             'Evaluate tourism: who benefits most? Local communities or multinational hotel chains? Consider leakage',
+          ]},
+        ]},
+      ],
+      oxford: [
+        { title:'Physical Geography (Oxford AQA)', icon:'🌋', topics:[
+          { title:'Plate Tectonics & Hazards', points:[
+            'Earth\'s structure: crust (continental/oceanic), mantle (semi-molten), outer core (liquid), inner core (solid)',
+            'Tectonic plates move on convection currents in the mantle (~2–10 cm/year)',
+            'Destructive boundary: plates collide; oceanic crust subducts under continental → volcanoes, earthquakes',
+            'Constructive boundary: plates diverge; magma rises, new crust forms → mid-ocean ridges, shield volcanoes',
+            'Conservative boundary: plates slide past each other → earthquakes (no volcanoes) e.g. San Andreas Fault',
+            'Earthquake measurement: Richter scale (energy); Mercalli scale (damage intensity)',
+          ], examTips:[
+            'Oxford AQA: always name a specific case study when describing hazard impacts — general answers score less',
+            'Compare rich and poor countries: same hazard, different deaths/damage due to preparedness, buildings, response',
+          ], workedExample:`Case study: 2010 Haiti earthquake vs 2011 Japan earthquake
+Haiti (LIC): magnitude 7.0 → 200,000+ deaths — poor building standards, no early warning, slow aid
+Japan (HIC): magnitude 9.0 → ~16,000 deaths — strict building codes, early warning system, prepared emergency services
+Same hazard; very different outcomes due to development level`},
+          { title:'Weather, Climate & Ecosystems', points:[
+            'Tropical rainforest: high rainfall (>2000mm/yr), high temperatures (25–28°C), dense biodiversity, nutrient cycle',
+            'Hot desert: <250mm rain/yr; extreme temperature range; sparse vegetation adapted to drought',
+            'Climate change evidence: rising sea levels, melting ice caps, more frequent extreme weather events',
+            'Causes: greenhouse effect enhanced by CO₂, CH₄ — from fossil fuels, farming, deforestation',
+            'Impacts: flooding in low-lying areas, drought in semi-arid regions, coral bleaching, species migration',
+          ]},
+        ]},
+        { title:'Human Geography (Oxford AQA)', icon:'🏙️', topics:[
+          { title:'Urbanisation & Urban Issues', points:[
+            'Urbanisation: increasing proportion of population living in urban areas',
+            'Rural-urban migration: push (poverty, lack of services) + pull (jobs, better services)',
+            'Megacity: urban area with 10+ million population (e.g. Tokyo, Delhi, Shanghai)',
+            'Squatter settlements (favelas/shanty towns): informal housing, lack of sanitation/clean water/electricity',
+            'Case study: Mumbai — Dharavi slum; self-help schemes improved housing; industry provides income',
+            'Urban issues in HICs: urban sprawl, traffic congestion, inner-city decline, gentrification',
+          ], examTips:[
+            'Describe AND explain: not just what is happening, but WHY — get both description and cause',
+            'Urban management: sustainable strategies — public transport, green spaces, waste recycling, renewable energy',
+          ]},
+          { title:'Population & Resources', points:[
+            'Population growth: birth rate − death rate = natural increase; also affected by migration',
+            'Demographic transition model: stage 1 (high BR, high DR), stage 2 (DR falls), stage 3 (BR falls), stage 4 (low BR, low DR)',
+            'Ageing population: more elderly → increased healthcare/pension costs; fewer workers; some HICs',
+            'Food security: enough nutritious food for all; threatened by population growth, climate change, water shortage',
+            'Water cycle: evaporation → condensation → precipitation → run-off/infiltration → evaporation',
+          ]},
+        ]},
+        { title:'Geographical Skills (Oxford AQA)', icon:'🗺️', topics:[
+          { title:'Map Skills & Data Interpretation', points:[
+            'OS maps: contour lines (closer = steeper), grid references (4-figure and 6-figure), symbols, scale',
+            'Cross-section: draw vertical profile across a map; use contour lines to plot height',
+            'Graphs: interpret bar, line, pie, scatter, climate graphs — describe patterns and anomalies',
+            'Choropleth maps: shading shows data distribution; darker = higher value',
+            'Dot maps, proportional symbols, isoline maps — identify and describe patterns',
+          ], examTips:[
+            'Graph description: state the overall trend, quote specific figures, identify anomalies',
+            'Map question: use compass directions and grid references to precisely locate features',
+          ]},
+          { title:'Fieldwork & Investigation', points:[
+            'Oxford AQA: students complete fieldwork; may be assessed on methodology and analysis',
+            'Primary data: collected by researcher (surveys, measurements, observations)',
+            'Secondary data: already collected (census, OS maps, photographs, statistics)',
+            'Risk assessment: identify hazards and control measures before fieldwork',
+            'Presenting data: choose appropriate technique for type of data (e.g. scatter for correlation)',
           ]},
         ]},
       ],
@@ -7569,7 +7700,7 @@ Interpretation: 40% GPM suggests good pricing; 15% NPM means expenses are 25% of
   },
   sociology: {
     label:'Sociology', arabic:'علم الاجتماع', icon:'👥', color:'#BE185D',
-    boards: ['cie','edexcel'],
+    boards: ['cie','edexcel','oxford'],
     pastPapers: {
       cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-sociology-0495/past-papers/',
       edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-sociology-2017.coursematerials.html',
@@ -7765,11 +7896,71 @@ Interpretation: 40% GPM suggests good pricing; 15% NPM means expenses are 25% of
           ]},
         ]},
       ],
+      oxford: [
+        { title:'Sociological Theory & Methods (Oxford AQA)', icon:'🔬', topics:[
+          { title:'Sociological Perspectives', points:[
+            'Functionalism: society as an organism; each institution has a function; consensus view (Durkheim, Parsons)',
+            'Marxism: society based on conflict between bourgeoisie (own means of production) and proletariat (workers)',
+            'Feminism: society structured around gender inequality; patriarchy disadvantages women',
+            'Interactionism: focuses on micro-level interaction; meanings are socially constructed (Goffman)',
+            'Oxford AQA: apply perspectives to all topics — family, education, crime, stratification',
+          ], examTips:[
+            'Oxford AQA sociology: structure answers with point → sociological concept/theory → evidence → evaluation',
+            '"Apply a sociological perspective" = name the perspective, state its key idea, link it to the topic',
+          ]},
+          { title:'Research Methods', points:[
+            'Quantitative: numerical data; surveys, questionnaires, official statistics — reliable, can generalise',
+            'Qualitative: non-numerical; interviews, observation, case studies — valid, rich data but hard to generalise',
+            'Positivism: sociology should use scientific methods (quantitative); argues for value freedom',
+            'Interpretivism: understanding meaning from subjects\' perspective; favours qualitative methods',
+            'Reliability: can the study be repeated with same results? Validity: does it measure what it claims?',
+            'Sampling: random, stratified, snowball, opportunity — each has strengths and weaknesses',
+          ]},
+        ]},
+        { title:'Family & Education (Oxford AQA)', icon:'🏠', topics:[
+          { title:'The Family', points:[
+            'Nuclear family: married couple + children; functionalists see it as key social institution',
+            'Diversity: lone-parent, reconstituted, same-sex, extended — post-modern sociology emphasises choice',
+            'Marxist view: family reproduces labour force and transmits ruling class ideology',
+            'Feminist view: family perpetuates patriarchy; women do unpaid domestic labour (Oakley)',
+            'Changing family: divorce rates, cohabitation, birth rate changes, aging population affecting family structure',
+          ]},
+          { title:'Education', points:[
+            'Functionalist view (Durkheim): school transmits shared culture; Parsons: school prepares for meritocracy',
+            'Marxist view (Bowles & Gintis): correspondence principle — school mirrors workplace hierarchy; reproduces inequality',
+            'Hidden curriculum: unstated norms and values transmitted (obedience, punctuality, competition)',
+            'Social class and achievement: working-class underachievement linked to cultural capital (Bourdieu) and material deprivation',
+            'Gender and education: girls now outperform boys at GCSE; explanations include changing aspirations and laddish culture',
+          ], examTips:[
+            'Evaluation: for every theory, give a criticism — Marxists ignore positive functions; functionalists ignore inequality',
+            'Use named sociologists with their concepts: Bourdieu (cultural capital), Willis (lads), Becker (labelling)',
+          ]},
+        ]},
+        { title:'Crime, Deviance & Stratification (Oxford AQA)', icon:'⚖️', topics:[
+          { title:'Crime & Deviance', points:[
+            'Crime: behaviour that breaks the law; deviance: behaviour that breaks social norms (not necessarily illegal)',
+            'Functionalist (Durkheim): crime is normal and functional — reinforces norms and can lead to social change',
+            'Marxist: laws created by ruling class to protect their interests; working class criminalised',
+            'Labelling theory (Becker): deviance is in the eye of the beholder; self-fulfilling prophecy',
+            'Strain theory (Merton): crime results when people cannot achieve cultural goals by legitimate means',
+          ]},
+          { title:'Social Stratification', points:[
+            'Social class: hierarchy based on occupation/income/wealth; measured by NS-SEC in UK',
+            'Caste system: rigid, closed; based on birth (Hindu system); no social mobility',
+            'Gender stratification: pay gap, glass ceiling, occupational segregation; patriarchy explained by feminists',
+            'Ethnicity and inequality: ethnic minorities face discrimination in employment, housing, criminal justice',
+            'Social mobility: movement between strata; meritocracy argues ability determines position',
+          ], examTips:[
+            'Oxford AQA 12-mark questions: write a short introduction stating opposing views, then 3+ developed points with evaluation, conclude with balanced judgement',
+            'Always challenge your own argument — AO2 evaluation marks require engaging with counter-views',
+          ]},
+        ]},
+      ],
     }
   },
   psychology: {
     label:'Psychology', arabic:'علم النفس', icon:'🧠', color:'#7C3AED',
-    boards: ['cie','edexcel'],
+    boards: ['cie','edexcel','oxford'],
     pastPapers: {
       cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-psychology-0477/past-papers/',
       edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-psychology-2017.coursematerials.html',
@@ -7964,6 +8155,74 @@ Shows: verb in question changed memory reconstruction → eyewitness testimony u
           ], examTips:[
             'Edexcel Psych: always apply studies to real-world contexts — examiners reward application marks',
             'Evaluate bystander research: lacks ecological validity (staged) but replicated in field studies (subway studies)',
+          ]},
+        ]},
+      ],
+      oxford: [
+        { title:'Core Studies (Oxford AQA)', icon:'🔬', topics:[
+          { title:'Biological Approach', points:[
+            'Oxford AQA Psychology: studies brain, genetics, and biological processes underlying behaviour',
+            'Neurons: transmit electrical signals; neurotransmitters cross synapses (dopamine, serotonin, acetylcholine)',
+            'Localisation of brain function: Broca\'s area (speech production), Wernicke\'s area (language comprehension)',
+            'Nature vs nurture: biological determinism vs environmental/social shaping of behaviour',
+            'Case study: Phineas Gage — iron rod through frontal lobe; survived but personality changed dramatically',
+          ], examTips:[
+            'Oxford AQA: describe study → state findings → evaluate (strength/weakness of method or conclusion)',
+            'Ethics: informed consent, right to withdraw, no harm, confidentiality, deception — apply to each study',
+          ]},
+          { title:'Cognitive Approach', points:[
+            'Cognitive psychology: studies mental processes (memory, attention, perception, language, thinking)',
+            'Multi-store model (Atkinson & Shiffrin): sensory register → short-term memory → long-term memory',
+            'STM: capacity 7±2 items; duration ~15–30 seconds; encoding mainly acoustic',
+            'LTM: unlimited capacity; indefinite duration; encoding mainly semantic',
+            'Reconstructive memory (Bartlett): memory is not a recording — we fill gaps using schemas',
+            'Loftus & Palmer (1974): leading questions affect recall — "smashed" vs "contacted" changed speed estimates',
+          ], workedExample:`Loftus & Palmer (1974) study:
+Participants watched car crash video; then asked "How fast were the cars going when they ______ each other?"
+Verb used: smashed → estimated ~41 mph; hit → ~34 mph; contacted → ~32 mph
+Conclusion: the wording of a question can alter memory — has implications for eyewitness testimony in court`},
+        ]},
+        { title:'Social & Developmental Psychology (Oxford AQA)', icon:'👥', topics:[
+          { title:'Social Influence', points:[
+            'Conformity: changing behaviour to match group norms; informational (uncertain what is right) vs normative (wanting to fit in)',
+            'Asch (1956): 75% of participants conformed at least once to an obviously wrong answer when others agreed',
+            'Obedience: following orders from authority; Milgram (1963) — 65% of participants gave maximum 450V shock',
+            'Situational vs dispositional explanations: Milgram argued situation (authority, proximity, uniform) drove obedience',
+            'Agency theory (Milgram): people in agentic state feel less responsible — just following orders',
+          ], examTips:[
+            'Evaluate Milgram: ethical issues (deception, right to withdraw); but replicated across cultures; influenced safeguarding policies',
+            'Asch evaluation: artificial task (line lengths); demand characteristics likely; but variations show conformity reduces with one ally',
+          ]},
+          { title:'Development (Oxford AQA)', points:[
+            'Piaget\'s stages: sensorimotor (0–2), pre-operational (2–7), concrete operational (7–11), formal operational (11+)',
+            'Schemas: mental frameworks built through assimilation (fitting new info in) and accommodation (adapting schemas)',
+            'Object permanence: understanding objects exist when out of sight — develops ~8 months',
+            'Vygotsky: social learning; Zone of Proximal Development (ZPD) — what child can do with support vs alone',
+            'Attachment (Bowlby): infants need continuous relationship with primary caregiver for healthy development',
+            'Ainsworth Strange Situation: secure, insecure-avoidant, insecure-resistant attachment types',
+          ], examTips:[
+            'Oxford AQA evaluation structure: strength → specific evidence supporting strength → limitation → specific evidence → conclusion',
+            'Apply to real life: Piaget\'s concrete operational stage explains why 6-year-olds struggle with abstract maths',
+          ]},
+        ]},
+        { title:'Research Methods (Oxford AQA Psychology)', icon:'📋', topics:[
+          { title:'Methods & Design', points:[
+            'Experiment: manipulate IV, measure DV, control extraneous variables; establishes cause and effect',
+            'Laboratory experiment: high control, but low ecological validity (artificial setting)',
+            'Field experiment: real-world setting, higher ecological validity, but less control',
+            'Natural experiment: IV naturally occurring; researcher cannot manipulate it',
+            'Observation: naturalistic (real environment), structured (pre-set coding scheme)',
+            'Interview: structured (fixed questions), semi-structured, unstructured (open conversation)',
+          ]},
+          { title:'Evaluating Research', points:[
+            'Validity: does it measure what it claims? Internal (controls) and external (generalise) validity',
+            'Reliability: consistency — can be replicated? Inter-rater reliability: two observers agree',
+            'Ethical issues: BPS guidelines — informed consent, deception, right to withdraw, protection from harm',
+            'Sampling: opportunity, random, self-selected (volunteer) — each affects generalisability',
+            'Quantitative vs qualitative: numbers vs rich descriptions — both have strengths/limitations',
+          ], examTips:[
+            'Method question: always state strength AND weakness; link to the specific study context',
+            'Oxford AQA 4-mark describe: who, what, procedure, findings — be specific about numbers and results',
           ]},
         ]},
       ],
