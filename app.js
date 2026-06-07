@@ -4123,7 +4123,8 @@ const TEXTBOOK_DB = {
         { title:'علم النفس والاجتماع ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BOOKS}/psychology_2sec_t1.pdf` },
       ]},
       { subj:'التربية الإسلامية', icon:'☪️', color:'#059669', books:[
-        { title:'التربية الإسلامية 2025-2026', term:'ثاني ثانوي', url:`${BOOKS}/islam_2sec.pdf` },
+        { title:'التربية الإسلامية ت١ 2025-2026', term:'ثاني ثانوي', url:`${BOOKS}/islam_2sec.pdf` },
+        { title:'التربية الإسلامية ت٢ 2025-2026', term:'ثاني ثانوي — ترم ثاني', url:`${BOOKS}/islam_2sec_t2.pdf` },
       ]},
     ],
     // ── الصف الثالث الثانوي ────────────────────────────────────────
@@ -4247,6 +4248,7 @@ const TEXTBOOK_DB = {
       { subj:'العلوم', icon:'🔬', color:'#10B981', books:[
         { title:'العلوم (عربي) — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BOOKS}/science_ar_prep1_t1.pdf` },
         { title:'العلوم (عربي) — إعدادي أول ت٢ 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BOOKS}/science_ar_prep1_t2.pdf` },
+        { title:'العلوم (عربي) — إعدادي ثاني ت٢ 2025-2026', term:'إعدادي ثاني — ترم ثاني', url:`${BOOKS}/science_ar_prep2_t2.pdf` },
         { title:'العلوم — إعدادي ثالث ت١ 2025-2026', term:'إعدادي ثالث — ترم أول', url:`${BOOKS}/science_prep3_t1.pdf` },
       ]},
       { subj:'الدراسات الاجتماعية', icon:'🏛️', color:'#D97706', books:[
@@ -4259,6 +4261,7 @@ const TEXTBOOK_DB = {
         { title:'التربية الإسلامية — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BOOKS}/islam_prep1_t1.pdf` },
         { title:'التربية الإسلامية — إعدادي أول ت٢ 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BOOKS}/islam_prep1_t2.pdf` },
         { title:'التربية الإسلامية — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BOOKS}/islam_prep2_t1.pdf` },
+        { title:'التربية الإسلامية — إعدادي ثاني ت٢ 2025-2026', term:'إعدادي ثاني — ترم ثاني', url:`${BOOKS}/islam_prep2_t2.pdf` },
       ]},
       { subj:'تكنولوجيا المعلومات', icon:'💻', color:'#0EA5E9', books:[
         { title:'تكنولوجيا المعلومات — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BOOKS}/ict_prep1_t1.pdf` },
