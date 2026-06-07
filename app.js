@@ -4628,6 +4628,85 @@ x = 3  or  x = −0.5`},
             'Mutually exclusive: P(A or B) = P(A) + P(B)',
             'Independent events: P(A and B) = P(A) × P(B)',
             'Tree diagrams: multiply along branches to get joint probability; add outcomes at end',
+          ], examTips:[
+            'Without replacement: second branch probabilities change — update denominators',
+            'Always check your probabilities sum to 1 on each set of branches',
+            'Venn diagrams: P(A∩B) = intersection; P(A∪B) = P(A)+P(B)−P(A∩B)',
+          ], workedExample:`Bag: 3 red, 2 blue. Two drawn without replacement. P(both red)?
+P(1st red) = 3/5
+P(2nd red | 1st red) = 2/4 = 1/2
+P(both red) = 3/5 × 1/2 = 3/10`},
+        ]},
+      ],
+      edexcel: [
+        { title:'Number', icon:'🔢', topics:[
+          { title:'Types of Numbers & Operations', points:[
+            'Integers, decimals, fractions — and converting between them',
+            'Order of operations: BODMAS (Brackets, Orders, Division, Multiplication, Addition, Subtraction)',
+            'Prime factorisation, HCF and LCM using factor trees or Venn diagrams',
+            'Rational numbers can be written as a fraction p/q; irrational cannot (e.g. √2, π)',
+            'Edexcel Spec: includes recurring decimals → fractions (e.g. 0.̄3 = 1/3)',
+          ]},
+          { title:'Powers, Roots & Standard Form', points:[
+            'Index laws: aᵐ × aⁿ = aᵐ⁺ⁿ, aᵐ ÷ aⁿ = aᵐ⁻ⁿ, (aᵐ)ⁿ = aᵐⁿ',
+            'Standard form: A × 10ⁿ where 1 ≤ A < 10',
+            'Edexcel: emphasis on surds — √a × √b = √(ab); √(a/b) = √a/√b; rationalise denominator',
+            'Edexcel IGCSE uses formula sheet for some topics — know what is given vs memorised',
+          ]},
+          { title:'Percentages, Ratio & Proportion', points:[
+            'Percentage change = (change ÷ original) × 100%',
+            'Compound interest: A = P(1 + r/100)ⁿ',
+            'Edexcel: includes exponential growth and decay in context of finance/population',
+            'Direct and inverse proportion with graphs and equations',
+          ]},
+        ]},
+        { title:'Algebra & Graphs', icon:'📈', topics:[
+          { title:'Algebraic Manipulation', points:[
+            'Expanding brackets, factorising, simplifying algebraic fractions',
+            'Edexcel IGCSE Higher: includes algebraic proof — show expression always odd/even etc.',
+            'Completing the square: x²+bx = (x+b/2)²−(b/2)²  — used to find vertex of parabola',
+            'Edexcel: function notation f(x), composite functions fg(x), inverse f⁻¹(x)',
+          ]},
+          { title:'Equations & Inequalities', points:[
+            'Solve linear and quadratic equations; simultaneous equations',
+            'Edexcel IGCSE: includes linear programming with inequalities on a graph',
+            'Quadratic formula essential — not always given on Edexcel papers',
+            'Inequalities on number lines and graphs; region shading',
+          ]},
+          { title:'Graphs & Functions', points:[
+            'y = mx + c; perpendicular gradients; distance and midpoint',
+            'Edexcel: transformation of functions — y=f(x)+a (shift up), y=f(x+a) (shift left)',
+            'Recognise and sketch: linear, quadratic, cubic, reciprocal, exponential, circle',
+            'Edexcel Higher: calculus — differentiation to find gradient and turning points',
+          ]},
+        ]},
+        { title:'Geometry & Trigonometry', icon:'📐', topics:[
+          { title:'Angles, Shapes & Proofs', points:[
+            'Angle facts, parallel lines, polygons — same as CIE',
+            'Edexcel: geometric proof required — state reasons at each step formally',
+            'Loci and constructions: perpendicular bisector, angle bisector, locus of equidistant point',
+            'Transformations: rotation, reflection, translation, enlargement (positive and negative scale factor)',
+          ]},
+          { title:'Trigonometry', points:[
+            'SOH CAH TOA for right-angled triangles',
+            'Sine rule: a/sinA = b/sinB = c/sinC — use for non-right-angled triangles',
+            'Cosine rule: a² = b² + c² − 2bc cosA — use when SAS or SSS given',
+            'Area of triangle = ½ab sinC',
+            'Edexcel IGCSE: bearings questions often combine trigonometry with geometry',
+          ]},
+        ]},
+        { title:'Statistics & Probability', icon:'📊', topics:[
+          { title:'Statistics', points:[
+            'Mean, median, mode, range, IQR — same as CIE',
+            'Edexcel: moving averages and time series — calculate 3-point or 4-point moving average',
+            'Edexcel: stratified sampling — number from stratum = (stratum size/total) × sample size',
+            'Box plots and comparing distributions: compare median AND IQR/range',
+          ]},
+          { title:'Probability', points:[
+            'Basic probability, mutually exclusive, independent events, tree diagrams',
+            'Edexcel IGCSE Higher: conditional probability P(A|B) = P(A∩B)/P(B)',
+            'Edexcel: relative frequency (experimental probability) vs theoretical probability',
+            'Venn diagrams with set notation: ∪ (union), ∩ (intersection), A\' (complement)',
           ]},
         ]},
       ],
@@ -4668,6 +4747,13 @@ s = ut + ½at² = 0 + ½×5×36 = 90 m
             '3rd Law: every action has equal and opposite reaction (on different objects)',
             'Weight = mass × gravitational field strength (W = mg; g = 10 N/kg on Earth)',
             'Terminal velocity: drag force equals weight → zero acceleration → constant speed',
+          ], examTips:[
+            'Terminal velocity graphs: velocity increases then levels off — explain using air resistance = weight',
+            'F = ma: mass in kg, force in N, acceleration in m/s² — check units',
+            '3rd Law pairs: forces are equal, opposite, same type, on DIFFERENT objects',
+          ], commonMistakes:[
+            'Confusing mass (kg) and weight (N) — weight = mg',
+            'Saying action and reaction cancel — they act on different objects so they cannot cancel',
           ]},
           { title:'Work, Energy & Power', points:[
             'Work done = force × distance (in direction of force): W = Fd (joules)',
@@ -4821,7 +4907,14 @@ s = ut + ½at² = 0 + ½×5×36 = 90 m
             'Moles = mass ÷ molar mass; or = volume ÷ 24 dm³ (gas at RTP)',
             'Concentration (mol/dm³) = moles ÷ volume (dm³)',
             'Balanced equation gives molar ratios — use to find amounts of reactants/products',
-          ]},
+          ], examTips:[
+            'Always show the mole calculation step-by-step: moles → ratio → answer',
+            'For titration: moles of acid = concentration × volume (in dm³); then use molar ratio',
+            'Remember: 1 dm³ = 1000 cm³, so divide cm³ by 1000 to get dm³',
+          ], workedExample:`25 cm³ of 0.1 mol/dm³ NaOH neutralised by HCl. Find moles of NaOH:
+n(NaOH) = 0.1 × (25/1000) = 0.0025 mol
+NaOH + HCl → NaCl + H₂O  [1:1 ratio]
+∴ n(HCl) = 0.0025 mol`},
           { title:'Empirical & Molecular Formulae', points:[
             'Empirical formula: simplest whole number ratio of atoms',
             'Find from % composition: divide % by Ar, then divide by smallest',
@@ -4869,13 +4962,84 @@ s = ut + ½at² = 0 + ½×5×36 = 90 m
             'Test for alkene: bromine water turns from orange/brown to colourless',
             'Crude oil: mixture of hydrocarbons separated by fractional distillation (boiling points)',
             'Cracking: long alkanes → shorter alkanes + alkenes (thermal or catalytic)',
-          ]},
+          ], examTips:[
+            'Name alkanes: meth(1C), eth(2C), prop(3C), but(4C), pent(5C) — learn the prefixes',
+            'Bromine water test: shake with unknown compound — if it decolourises, C=C present',
+          ], workedExample:`Combustion of propane (C₃H₈):
+C₃H₈ + 5O₂ → 3CO₂ + 4H₂O
+Balance: 3C → 3CO₂; 8H → 4H₂O; O needed = 6+4 = 10, so 5O₂`},
           { title:'Alcohols, Polymers & Organic Chemistry', points:[
             'Alcohols: −OH group; ethanol (C₂H₅OH) from fermentation of glucose',
             'Ethanol combustion: C₂H₅OH + 3O₂ → 2CO₂ + 3H₂O',
             'Addition polymerisation: alkene monomers join → polymer (e.g. ethene → poly(ethene))',
             'Condensation polymerisation: two functional groups per monomer; small molecule (e.g. H₂O) eliminated',
             'Nylon (polyamide): diamine + dioic acid; Polyester: diol + dioic acid',
+          ]},
+        ]},
+        { title:'Electrochemistry', icon:'⚡', topics:[
+          { title:'Electrolysis', points:[
+            'Electrolysis: decomposition of ionic compound by electric current when molten or in solution',
+            'Cathode (negative): cations (positive ions) move here → gain electrons → reduced',
+            'Anode (positive): anions (negative ions) move here → lose electrons → oxidised',
+            'Electrolysis of brine: cathode → H₂; anode → Cl₂; remaining solution → NaOH',
+            'Industrial uses of brine electrolysis: Cl₂ for disinfection/PVC; H₂ for fuel/Haber process; NaOH for soap',
+          ], examTips:[
+            'Memory trick: OILRIG — Oxidation Is Loss, Reduction Is Gain (of electrons)',
+            'Aqueous solution: if metal ion is below H₂ in reactivity series, metal is deposited; otherwise H₂ given off',
+          ], workedExample:`Electrolysis of copper sulfate solution with copper electrodes:
+Cathode: Cu²⁺ + 2e⁻ → Cu (copper deposited)
+Anode: Cu → Cu²⁺ + 2e⁻ (copper dissolves)
+Used in copper purification — anode loses mass, cathode gains mass`},
+          { title:'Reactivity Series & Metals', points:[
+            'Reactivity series (most to least): K, Na, Ca, Mg, Al, Zn, Fe, Ni, Sn, Pb, H, Cu, Ag, Au',
+            'Displacement: more reactive metal displaces less reactive from solution (e.g. Fe + CuSO₄ → FeSO₄ + Cu)',
+            'Extraction of metals: reactive (Al) → electrolysis; less reactive (Fe) → blast furnace with carbon',
+            'Blast furnace: iron ore + coke + limestone → molten iron + slag (calcium silicate)',
+            'Rusting: iron + water + oxygen → hydrated iron(III) oxide (rust); prevented by galvanising, painting, alloying',
+          ]},
+        ]},
+        { title:'Industrial Chemistry', icon:'🏭', topics:[
+          { title:'Haber Process & Fertilisers', points:[
+            'Haber process: N₂ + 3H₂ ⇌ 2NH₃  (reversible reaction)',
+            'Conditions: temperature 450°C, pressure 200 atm, iron catalyst',
+            'Compromise temperature: higher temp → faster rate but lower yield; 450°C balances both',
+            'Nitrogen source: air (78% N₂); hydrogen source: natural gas (methane + steam)',
+            'Ammonia used: fertilisers (ammonium nitrate, ammonium sulfate), nitric acid production',
+          ], examTips:[
+            'Explain the compromise conditions — examiners want you to discuss rate vs yield trade-off',
+            'Reversible reaction: Le Chatelier\'s principle — increase pressure shifts equilibrium to fewer moles of gas',
+          ], commonMistakes:[
+            'Saying higher temperature gives more ammonia — it actually shifts equilibrium backward (exothermic forward)',
+            'Forgetting that catalyst does NOT change yield, only rate',
+          ], workedExample:`Why is 450°C chosen for Haber Process?
+Higher temp: rate ↑ but yield ↓ (forward reaction exothermic, high temp shifts backward)
+Lower temp: yield ↑ but rate too slow → economically unviable
+450°C = compromise between acceptable rate AND reasonable yield (~15%)`},
+          { title:'Contact Process & Sulfuric Acid', points:[
+            'Contact process makes sulfuric acid (most important industrial chemical)',
+            'Stage 1: S + O₂ → SO₂ (burning sulfur)',
+            'Stage 2: 2SO₂ + O₂ ⇌ 2SO₃  (V₂O₅ catalyst, 450°C, 2 atm)',
+            'Stage 3: SO₃ + H₂SO₄ → H₂S₂O₇ (oleum) → add water → H₂SO₄',
+            'Uses of H₂SO₄: fertilisers, detergents, car batteries, dyes, paints',
+          ]},
+        ]},
+        { title:'Qualitative Analysis', icon:'🔍', topics:[
+          { title:'Identifying Ions & Gases', points:[
+            'Flame tests: Li⁺ red; Na⁺ yellow/orange; K⁺ lilac; Ca²⁺ brick-red; Cu²⁺ blue-green',
+            'NaOH test: Cu²⁺ → blue ppt; Fe²⁺ → green ppt; Fe³⁺ → brown/orange ppt; NH₄⁺ → ammonia smell',
+            'Silver nitrate (AgNO₃) test: Cl⁻ → white ppt; Br⁻ → cream ppt; I⁻ → yellow ppt',
+            'Carbonate test: add dilute HCl → CO₂ produced → turns limewater milky',
+            'Sulfate test: add dilute HCl then BaCl₂ → white precipitate of BaSO₄',
+          ], examTips:[
+            'Always add dilute acid BEFORE silver nitrate/barium chloride to avoid false positives',
+            'Describe ppt colour and confirm with solubility in ammonia (for halides)',
+          ]},
+          { title:'Gas Tests', points:[
+            'Hydrogen: lit splint → squeaky pop',
+            'Oxygen: glowing splint → relights',
+            'Carbon dioxide: limewater (Ca(OH)₂) → turns cloudy/milky (CaCO₃ precipitate)',
+            'Chlorine: damp litmus paper → bleaches white',
+            'Ammonia: damp red litmus paper → turns blue (alkaline)',
           ]},
         ]},
       ],
@@ -4976,13 +5140,142 @@ s = ut + ½at² = 0 + ½×5×36 = 90 m
             'Dominant allele: expressed in presence of one copy; recessive: only expressed when homozygous',
             'Genotype: alleles present (e.g. Bb); phenotype: observable characteristic',
             'Punnett square: cross two parents to predict offspring ratios',
-          ]},
+          ], examTips:[
+            'Always state the genotype AND phenotype in genetics questions',
+            'Draw Punnett squares clearly — label parents, gametes, and offspring',
+            'Sex-linked conditions (e.g. colour blindness): X-linked — show alleles as Xᴴ and Xʰ',
+          ], commonMistakes:[
+            'Confusing dominant with "more common" — dominant just means expressed when one copy present',
+            'Forgetting that sex chromosomes are XY (male) and XX (female)',
+            'Writing incorrect gamete combinations in Punnett square',
+          ], workedExample:`Cystic fibrosis (recessive, f). Cross Ff × Ff:
+Gametes: F, f  ×  F, f
+Punnett square → FF : Ff : ff = 1:2:1
+Probability of cystic fibrosis (ff) = 1/4 = 25%`},
           { title:'Evolution & Natural Selection', points:[
             'Natural selection: random variation → better-adapted individuals survive → reproduce → pass on alleles',
             'Over generations: advantageous allele frequency increases in population → adaptation',
             'Evidence for evolution: fossils, DNA comparison, antibiotic resistance development',
             'Antibiotic resistance: bacteria with resistant allele survive → multiply → population becomes resistant',
             'Speciation: populations become so different they can no longer interbreed → new species formed',
+          ]},
+        ]},
+        { title:'Reproduction', icon:'🌱', topics:[
+          { title:'Sexual & Asexual Reproduction', points:[
+            'Sexual reproduction: involves fusion of gametes (fertilisation) → genetic variation produced',
+            'Asexual reproduction: single parent, no fertilisation, genetically identical offspring (clones)',
+            'Advantages of sexual reproduction: variation helps population adapt to changing environments',
+            'Advantages of asexual reproduction: fast, no mate needed, all offspring can reproduce',
+            'Examples of asexual: binary fission (bacteria), budding (hydra), vegetative propagation (plants)',
+          ]},
+          { title:'Human Reproductive System', points:[
+            'Male: testes (produce sperm + testosterone); sperm → epididymis → vas deferens → urethra',
+            'Female: ovaries (produce eggs + oestrogen); fallopian tubes carry egg → uterus',
+            'Menstrual cycle: ~28 days; oestrogen rebuilds uterus lining; LH triggers ovulation at day 14',
+            'Fertilisation: sperm meets egg in fallopian tube → zygote forms → implants in uterus',
+            'Placenta: allows exchange of oxygen, glucose, antibodies, waste between mother and foetus (no blood mixing)',
+          ], examTips:[
+            'Describe placenta function: say "diffusion" and name what crosses in each direction',
+            'FSH stimulates follicle growth; LH triggers ovulation — know both hormones',
+          ]},
+          { title:'Plant Reproduction', points:[
+            'Flower parts: sepals, petals, stamen (anther + filament), carpel (stigma + style + ovary)',
+            'Pollination: transfer of pollen from anther to stigma — wind-pollinated or insect-pollinated',
+            'Insect-pollinated flowers: large colourful petals, scent, nectar, sticky pollen',
+            'Wind-pollinated flowers: no petals/scent, feathery stigma, light pollen, anthers hang outside',
+            'Fertilisation in plants: pollen tube grows down style → male nucleus fuses with female nucleus in ovule',
+          ]},
+        ]},
+        { title:'Ecology & Environment', icon:'🌍', topics:[
+          { title:'Ecosystems & Food Webs', points:[
+            'Ecosystem: all organisms in an area + their non-living environment interacting',
+            'Producer: makes own food by photosynthesis (plants, algae)',
+            'Consumer: obtains energy by eating other organisms — primary (eat plants), secondary, tertiary',
+            'Decomposers: bacteria and fungi break down dead matter → release minerals back to soil',
+            'Food chain shows feeding relationships; food web = many interconnected food chains',
+          ]},
+          { title:'Energy Flow & Nutrient Cycles', points:[
+            'Energy lost at each trophic level: ~90% lost as heat, excretion, movement → only ~10% transferred',
+            'Pyramids of numbers/biomass: usually decrease up the food chain',
+            'Carbon cycle: photosynthesis (removes CO₂), respiration, decomposition, combustion (add CO₂)',
+            'Nitrogen cycle: nitrogen fixation (bacteria, lightning) → nitrification → uptake by plants → death → decomposition',
+            'Water cycle: evaporation/transpiration → condensation → precipitation → runoff/infiltration',
+          ], examTips:[
+            'Pyramid of biomass is always the correct pyramid — pyramid of numbers can be inverted (e.g. one tree, many insects)',
+            'Carbon cycle: identify each arrow as a process (photosynthesis, respiration, combustion, decomposition)',
+          ]},
+          { title:'Human Impact & Conservation', points:[
+            'Deforestation → less photosynthesis → more CO₂; soil erosion; habitat loss; less rainfall',
+            'Eutrophication: excess fertiliser runoff → algal bloom → blocks light → plants die → bacteria decompose → O₂ depleted → fish die',
+            'Pollution: water (sewage, fertilisers, oil spills), air (CO₂, SO₂, NOₓ), land (pesticides, plastic)',
+            'Conservation: in-situ (nature reserves, national parks) and ex-situ (zoos, seed banks, captive breeding)',
+            'Sustainable use: fishing quotas, selective logging, crop rotation, recycling',
+          ]},
+        ]},
+        { title:'Disease & Immunity', icon:'🛡️', topics:[
+          { title:'Pathogens & Disease', points:[
+            'Pathogens: bacteria (produce toxins), viruses (take over host cell machinery), fungi, protoctists',
+            'Transmission routes: droplets (TB, flu), direct contact (athlete\'s foot), contaminated water (cholera), vectors (malaria via mosquito)',
+            'Malaria: caused by Plasmodium protoctist; spread by female Anopheles mosquito (vector)',
+            'HIV/AIDS: virus destroys helper T-cells → immune system weakens → death from opportunistic infections',
+            'Cholera: bacteria produce toxin → chloride ions flood gut → water follows by osmosis → severe diarrhoea',
+          ]},
+          { title:'Immunity & Defence', points:[
+            'First line of defence: skin (barrier), mucus (traps pathogens), cilia (sweep mucus), stomach acid (pH 2)',
+            'Phagocytes (white blood cells): engulf and digest pathogens — non-specific',
+            'Lymphocytes: produce antibodies — specific to one antigen (shape of pathogen)',
+            'Active immunity: body produces antibodies after infection or vaccination — long-lasting memory cells',
+            'Passive immunity: antibodies received (from mother via placenta/breast milk, or injection) — temporary',
+          ], examTips:[
+            'Active immunity = YOUR body makes antibodies; Passive = you RECEIVE antibodies',
+            'Vaccination: inject weakened/dead pathogen → immune system produces memory cells → rapid response on future exposure',
+            'Always link antibody shape to specific antigen — complementary binding',
+          ], commonMistakes:[
+            'Saying vaccines "cure" disease — vaccines prevent, not cure',
+            'Confusing phagocytosis (engulf) with antibody production',
+          ]},
+        ]},
+        { title:'Excretion & Homeostasis', icon:'💧', topics:[
+          { title:'Excretion', points:[
+            'Excretion: removal of metabolic waste products — CO₂ (lungs), urea (kidneys), water + salts (skin)',
+            'Urea: produced in liver from breakdown of excess amino acids (deamination)',
+            'Kidney: filters blood → reabsorbs glucose, water, salts → urine = water + urea + salts',
+            'Nephron: Bowman\'s capsule (ultrafiltration) → tubule (selective reabsorption) → collecting duct',
+            'ADH: hormone that controls water reabsorption — more ADH → concentrated urine produced',
+          ]},
+          { title:'Homeostasis', points:[
+            'Homeostasis: maintaining a constant internal environment (temperature, blood glucose, water balance)',
+            'Body temperature: hypothalamus detects change → shivering (heat) or sweating (cool) → negative feedback',
+            'Blood glucose regulation: after meal → insulin released → glucose → glycogen in liver (lowers glucose)',
+            'Glucagon: low blood glucose → released → glycogen → glucose (raises blood glucose)',
+            'Type 1 diabetes: pancreas cannot produce insulin → needs insulin injections',
+            'Type 2 diabetes: cells become resistant to insulin → controlled by diet, exercise, sometimes medication',
+          ], examTips:[
+            'Negative feedback: change detected → response to reverse the change → return to normal',
+            'Always name the organ detecting the change AND the organ producing the response',
+          ], workedExample:`Blood glucose control after a meal:
+Blood glucose rises → detected by pancreas
+→ beta cells release insulin into blood
+→ liver/muscle cells absorb glucose → stored as glycogen
+→ blood glucose returns to normal → insulin secretion stops`},
+        ]},
+        { title:'Biotechnology', icon:'🔬', topics:[
+          { title:'Genetic Engineering & Biotechnology', points:[
+            'Genetic engineering: isolate gene → use restriction enzyme to cut DNA → insert into vector (plasmid) → introduce to host organism',
+            'Insulin production: human insulin gene inserted into bacterial plasmid → bacteria grown in fermenter → insulin harvested',
+            'GM crops: drought-resistant, pest-resistant, higher yield — e.g. Golden Rice (contains vitamin A gene)',
+            'Cloning: embryo splitting → identical twins; somatic cell nuclear transfer → Dolly the sheep',
+            'Fermentation: yeast in anaerobic conditions → glucose → ethanol + CO₂ (beer, bread, biofuel)',
+          ], examTips:[
+            'Genetic engineering questions: describe the steps — restrict, ligate (join), transform, select',
+            'Always give a named example of a GM organism and what benefit it provides',
+          ]},
+          { title:'Selective Breeding', points:[
+            'Selective breeding (artificial selection): humans select organisms with desired traits to breed',
+            'Over generations: allele frequency changes → organisms with desired traits become more common',
+            'Examples: cattle bred for high milk yield; wheat bred for disease resistance; dogs bred for temperament',
+            'Disadvantage: reduces genetic variation → population more vulnerable to new diseases',
+            'Compare to natural selection: selective breeding driven by human choice, not environment',
           ]},
         ]},
       ],
@@ -5126,7 +5419,17 @@ s = ut + ½at² = 0 + ½×5×36 = 90 m
             'Determinants of PED: closeness of substitutes, proportion of income, necessity vs luxury, time',
             'XED (cross elasticity): measures effect of change in price of one good on demand for another',
             'Positive XED = substitutes; Negative XED = complements',
-          ]},
+          ], examTips:[
+            'PED formula: always (% ΔQd) ÷ (% ΔP) — ignore the negative sign unless asked for sign',
+            'Distinguish between movement along the curve (price change) vs shift of the curve (other factors)',
+            'Evaluate questions: consider both short run AND long run effects (elasticity changes with time)',
+          ], commonMistakes:[
+            'Saying "demand increases because price falls" — price causes movement along curve, not a shift',
+            'Confusing PED with PES — PES is always positive',
+          ], workedExample:`Price of a good rises from $10 to $12. Quantity demanded falls from 200 to 160.
+% ΔP = (2/10) × 100 = 20%
+% ΔQd = (40/200) × 100 = 20%
+PED = 20/20 = 1  → Unit elastic`},
         ]},
         { title:'Government & Macroeconomy', icon:'🏛️', topics:[
           { title:'Macroeconomic Aims & Indicators', points:[
@@ -5159,6 +5462,47 @@ s = ut + ½at² = 0 + ½×5×36 = 90 m
             'Fixed exchange rate: government/central bank maintains rate; floating: set by market forces',
             'Devaluation: deliberate reduction in fixed rate to make exports more competitive',
           ]},
+        ]},
+        { title:'Market Failure & Government Intervention', icon:'⚖️', topics:[
+          { title:'Market Failure', points:[
+            'Market failure: when free market produces socially inefficient allocation of resources',
+            'Externalities: costs or benefits that fall on third parties not involved in the transaction',
+            'Negative externality (e.g. pollution): private cost < social cost → overproduction',
+            'Positive externality (e.g. education): private benefit < social benefit → underproduction',
+            'Public goods: non-excludable + non-rival → free rider problem → market won\'t provide (e.g. national defence)',
+          ], examTips:[
+            'Define externality clearly — "cost or benefit experienced by a third party who is not part of the transaction"',
+            'Use a diagram when possible — show deadweight loss triangle to demonstrate market failure',
+            'Evaluate government intervention: consider government failure as a counter-argument',
+          ]},
+          { title:'Government Intervention', points:[
+            'Taxes (indirect): increase price → reduce consumption of negative externalities (e.g. carbon tax, cigarette tax)',
+            'Subsidies: reduce price → increase consumption of positive externalities (e.g. healthcare, education)',
+            'Price controls — maximum price (price ceiling): prevents price rising above set level → shortage',
+            'Price controls — minimum price (price floor): prevents price falling below set level → surplus',
+            'Regulation: rules that ban or limit harmful activities (e.g. emissions standards, minimum wage)',
+          ]},
+        ]},
+        { title:'Business & Firms', icon:'🏢', topics:[
+          { title:'Business Objectives & Types', points:[
+            'Sole trader: single owner, unlimited liability, keeps all profit, easy to set up',
+            'Partnership: 2–20 partners, share profits/losses/liability (unless LLP)',
+            'Private limited company (Ltd): shareholders, limited liability, cannot sell shares publicly',
+            'Public limited company (PLC): listed on stock exchange, large capital, but complex to manage',
+            'Business objectives: profit maximisation, growth, market share, survival, social/ethical goals',
+          ]},
+          { title:'Costs, Revenue & Profit', points:[
+            'Fixed costs: do not change with output (e.g. rent, insurance)',
+            'Variable costs: change directly with output (e.g. raw materials, wages of casual staff)',
+            'Total cost = fixed cost + variable cost; average cost = total cost ÷ output',
+            'Total revenue = price × quantity; profit = total revenue − total cost',
+            'Break-even: total revenue = total cost; margin of safety = current output − break-even output',
+          ], examTips:[
+            'Calculate contribution first: selling price − variable cost per unit',
+            'Break-even output = fixed costs ÷ contribution per unit',
+          ], workedExample:`Fixed costs = $5000; Variable cost per unit = $3; Selling price = $8
+Contribution per unit = 8 − 3 = $5
+Break-even = 5000 ÷ 5 = 1000 units`},
         ]},
       ],
     }
