@@ -4248,10 +4248,12 @@ const TEXTBOOK_DB = {
         { title:'الرياضيات (عربي) — إعدادي أول ت٢ 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BOOKS}/math_ar_prep1_t2.pdf` },
         { title:'الرياضيات (عربي) — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BOOKS}/math_ar_prep2_t1.pdf` },
         { title:'الرياضيات (إنجليزي) — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BOOKS}/math_en_prep2_t1.pdf` },
+        { title:'الرياضيات (عربي) — إعدادي ثالث ت١ 2025-2026', term:'إعدادي ثالث — ترم أول', url:`${BOOKS}/math_ar_prep3_t1.pdf` },
       ]},
       { subj:'العلوم', icon:'🔬', color:'#10B981', books:[
         { title:'العلوم (عربي) — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BOOKS}/science_ar_prep1_t1.pdf` },
         { title:'العلوم (عربي) — إعدادي أول ت٢ 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BOOKS}/science_ar_prep1_t2.pdf` },
+        { title:'العلوم (عربي) — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BOOKS}/science_ar_prep2_t1.pdf` },
         { title:'العلوم (عربي) — إعدادي ثاني ت٢ 2025-2026', term:'إعدادي ثاني — ترم ثاني', url:`${BOOKS}/science_ar_prep2_t2.pdf` },
         { title:'العلوم — إعدادي ثالث ت١ 2025-2026', term:'إعدادي ثالث — ترم أول', url:`${BOOKS}/science_prep3_t1.pdf` },
       ]},
