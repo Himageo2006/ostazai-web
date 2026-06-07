@@ -5320,7 +5320,14 @@ Blood glucose rises → detected by pancreas
             'Insertion sort: take next item, insert into correct position in sorted sub-list',
             'Linear search: check each item one by one; O(n); works on unsorted lists',
             'Binary search: halve search space; compare middle item; requires sorted list; O(log n)',
-          ]},
+          ], examTips:[
+            'Trace table questions: show every variable change at every step — don\'t skip',
+            'Know which algorithm to choose: bubble sort for small data; merge sort for large; binary only on sorted',
+            'Binary search: show mid = (low+high) ÷ 2 each iteration',
+          ], workedExample:`Binary search for 14 in [3, 7, 14, 19, 25, 31, 42]:
+Indices 0–6; mid = 3 → value 19 → too high
+Search left half [3,7,14]; mid=1 → value 7 → too low
+Search right of that: [14]; mid=2 → value 14 ✓ Found!`},
         ]},
         { title:'Hardware & Software', icon:'🖥️', topics:[
           { title:'Computer Architecture', points:[
@@ -5352,6 +5359,10 @@ Blood glucose rises → detected by pancreas
             'Brute force attack: tries all possible passwords systematically',
             'Encryption: scrambles data so only authorised recipient can read it',
             'Prevention: strong passwords, two-factor authentication, firewalls, antivirus, updates',
+          ], examTips:[
+            'Distinguish between types of malware — virus (spreads by attaching to files), worm (self-replicates across network)',
+            'Encryption questions: know symmetric (same key) vs asymmetric (public/private key pair)',
+            'Social engineering (e.g. phishing) exploits human behaviour, not software vulnerabilities',
           ]},
         ]},
         { title:'Programming Concepts', icon:'📝', topics:[
@@ -5582,6 +5593,13 @@ Break-even = 5000 ÷ 5 = 1000 units`},
             'Germany humiliated: "Diktat" — not allowed to negotiate; caused resentment',
             'Big Three disagreed: Clemenceau (harsh), Wilson (14 Points, lenient), Lloyd George (middle)',
             'Impact: created economic hardship and political instability in Germany → helped Hitler rise',
+          ], examTips:[
+            'Structure answers using PEEL — give a specific fact/date as evidence, then explain its impact',
+            'Know the three key figures and their differing aims — this appears in many source questions',
+            '"How far do you agree..." questions: argue both sides before reaching a supported judgement',
+          ], commonMistakes:[
+            'Describing events without analysing cause and effect — always explain "why this mattered"',
+            'Confusing the aims of the Big Three — remember Clemenceau was harshest (France suffered most)',
           ]},
           { title:'Rise of Hitler & the Nazi Party', points:[
             'Hitler joined DAP (later NSDAP) in 1919; became leader 1921; 25-Point programme',
@@ -5628,6 +5646,10 @@ Break-even = 5000 ÷ 5 = 1000 units`},
             'Cuban Missile Crisis 1962: USSR placed missiles in Cuba → 13 days closest to nuclear war',
             'Resolution: Khrushchev removed missiles; USA promised not to invade Cuba; hotline established',
             'Vietnam War: US involvement 1964–73; failed to prevent communist takeover; Saigon fell 1975',
+          ], examTips:[
+            'Cuban Missile Crisis: know all 13 days in sequence — reconnaissance photos → EXCOMM → blockade → resolution',
+            'Compare crises: which was most dangerous? Use evidence (e.g. nuclear threat, military escalation)',
+            'For "why did...end?" questions: identify multiple factors and weigh which was most significant',
           ]},
           { title:'End of the Cold War', points:[
             'Gorbachev (USSR leader from 1985): glasnost (openness) and perestroika (restructuring)',
@@ -5651,7 +5673,16 @@ Break-even = 5000 ÷ 5 = 1000 units`},
             'Use PEEL: Point → Evidence (specific fact/date) → Explanation → Link back to question',
             'Avoid narrative — analyse, don\'t just describe events',
             'Consider different perspectives and reach a supported judgement',
-          ]},
+          ], examTips:[
+            'Source questions: always quote from the source AND use your own knowledge to evaluate it',
+            'OPCVL for sources: Origin, Purpose, Content, Value, Limitation',
+            'Essay structure: intro (define terms + thesis) → 3 paragraphs → conclusion (direct answer)',
+          ], workedExample:`Source question: "How useful is this source to a historian studying the causes of WWII?"
+Step 1 — Content: State what the source says/shows
+Step 2 — Origin: Author, date, type of source
+Step 3 — Purpose: Why was it created? Propaganda? Personal? Official?
+Step 4 — Value: What can we learn? Cross-reference with own knowledge
+Step 5 — Limitation: What does it not tell us? Is it biased?`},
         ]},
       ],
     }
@@ -5696,6 +5727,13 @@ Break-even = 5000 ÷ 5 = 1000 units`},
             'Divergent (constructive): plates move apart → new crust formed → rift valleys, mid-ocean ridges',
             'Conservative (transform): plates slide past each other → earthquakes (e.g. San Andreas Fault)',
             'Richter scale: measures earthquake magnitude (logarithmic — 7 is 10× stronger than 6)',
+          ], examTips:[
+            'Always state the plate boundary type before describing what happens — examiners reward precision',
+            'Compare earthquake impacts in HICs vs LICs: same magnitude but very different death tolls — why?',
+            'Volcano questions: distinguish between primary effects (lava, ash) and secondary (disease, economic loss)',
+          ], commonMistakes:[
+            'Saying plates "float" on lava — they move on semi-solid mantle (asthenosphere), not liquid lava',
+            'Confusing magnitude (size of earthquake) with intensity (damage caused)',
           ]},
           { title:'Rivers & Coasts', points:[
             'River processes: erosion (hydraulic action, abrasion, attrition, solution), transport, deposition',
@@ -5742,6 +5780,35 @@ Break-even = 5000 ÷ 5 = 1000 units`},
             'Triangular graphs: three-component data (e.g. soil texture: sand/silt/clay)',
             'Mean, median, mode, range — choosing appropriate measure for data type',
             'Describing graphs: use data, identify trend, note anomalies, suggest explanation',
+          ], examTips:[
+            '6-figure grid references: first 3 digits = easting (along bottom), last 3 = northing (up side)',
+            'When describing a map pattern: name areas, give compass direction, use data if possible',
+          ]},
+        ]},
+        { title:'Climate Change & Sustainability', icon:'🌡️', topics:[
+          { title:'Causes & Evidence of Climate Change', points:[
+            'Natural causes: Milankovitch cycles (Earth\'s orbit changes), volcanic eruptions, solar output variation',
+            'Human causes: burning fossil fuels → CO₂; deforestation → less CO₂ absorbed; agriculture → methane',
+            'Evidence: rising global temperatures, retreating glaciers, rising sea levels, more extreme weather events',
+            'CO₂ levels: pre-industrial ~280ppm; now >420ppm (highest in 800,000 years from ice cores)',
+            'IPCC: international body of scientists — reports on climate science, impacts and solutions',
+          ], examTips:[
+            'Distinguish natural vs human causes — examiners want both in "discuss causes" questions',
+            'Always use data/statistics when available — "temperatures have risen by 1.1°C since 1880"',
+          ]},
+          { title:'Impacts & Responses to Climate Change', points:[
+            'Sea level rise: thermal expansion of water + melting ice → flooding of low-lying areas (e.g. Maldives, Bangladesh)',
+            'Ecosystem disruption: coral bleaching (>1°C above normal), species migration/extinction, changed seasons',
+            'Agriculture: some regions benefit (longer growing season) but drought/flooding reduces yields overall',
+            'Mitigation: reduce emissions — renewable energy, electric vehicles, carbon taxes, reforestation',
+            'Adaptation: deal with effects — flood defences, drought-resistant crops, managed retreat from coasts',
+          ]},
+          { title:'Water Resources & Management', points:[
+            'Water stress: regions where demand > available supply; worsened by population growth and climate change',
+            'Uneven distribution: monsoon regions flood/drought; arid regions face chronic scarcity',
+            'Dams: store water, generate HEP, aid irrigation — but displace communities, alter ecosystems',
+            'Groundwater depletion: over-extraction of aquifers (e.g. Ogallala aquifer, USA) — non-renewable',
+            'Solutions: water recycling/grey water, desalination, drip irrigation, demand management',
           ]},
         ]},
       ],
@@ -5781,6 +5848,10 @@ Break-even = 5000 ÷ 5 = 1000 units`},
             'Place: how product reaches customer — direct, retailer, wholesaler, online',
             'Promotion: advertising, sales promotion, PR, personal selling, social media',
             'Match mix to target market — know your customer (age, income, preferences)',
+          ], examTips:[
+            'Product life cycle: introduction → growth → maturity → decline — know which strategy suits each stage',
+            'Evaluation questions: consider multiple stakeholders and reach a justified recommendation',
+            'Price skimming: use for tech/luxury (e.g. iPhone launch); penetration: use to gain market share fast',
           ]},
           { title:'Market Research', points:[
             'Primary research: collected first-hand — surveys, interviews, observations, focus groups',
@@ -5829,6 +5900,35 @@ Break-even = 5000 ÷ 5 = 1000 units`},
             'Flow (mass) production: continuous production line (e.g. cars, phones); cheap per unit, repetitive',
             'Lean production: eliminate waste — just-in-time (JIT), kaizen (continuous improvement)',
             'Quality control: inspect finished products; Quality assurance: check at every stage of production',
+          ], examTips:[
+            'JIT: benefits (lower stock costs, less waste) vs risks (supply disruption can halt production)',
+            'Compare production methods — job vs flow: evaluate for a specific business context',
+          ]},
+          { title:'Location & Growth', points:[
+            'Location factors: proximity to market, labour, raw materials, infrastructure, government grants',
+            'Globalisation: businesses locate where costs are lowest (e.g. manufacturing in Asia)',
+            'Internal growth (organic): using own resources to expand — slower but less risky',
+            'External growth: mergers (two firms combine), takeovers (one buys another), franchises',
+            'Economies of scale: as output increases, average cost falls (bulk buying, specialisation)',
+          ]},
+        ]},
+        { title:'International Business', icon:'🌍', topics:[
+          { title:'Trade & Globalisation', points:[
+            'Globalisation: increasing integration of world economies through trade, investment and technology',
+            'Multinational (TNC): operates in multiple countries; benefits from cheap labour, larger markets',
+            'Exchange rates: strong pound → exports more expensive; weak pound → exports more competitive',
+            'Tariffs, quotas, and trade blocs (e.g. EU): affect international competitiveness',
+            'Advantages of globalisation: access to larger markets, lower costs, new technologies',
+          ]},
+          { title:'Ethics & CSR in Business', points:[
+            'Business ethics: principles about what is right/wrong in business behaviour',
+            'CSR (Corporate Social Responsibility): voluntary actions beyond legal requirements',
+            'CSR activities: fair trade sourcing, reducing carbon footprint, community investment, fair wages',
+            'Ethical dilemma: business may face trade-off between profit and ethical behaviour',
+            'Reputation risk: unethical behaviour → boycotts, fines, negative publicity (e.g. Nike sweatshops)',
+          ], examTips:[
+            'Evaluate CSR: short-run cost but can improve reputation, customer loyalty, and staff motivation long-run',
+            '"Justify your recommendation" = give reasons, consider alternatives, reach a clear conclusion',
           ]},
         ]},
       ],
@@ -6093,6 +6193,13 @@ Break-even = 5000 ÷ 5 = 1000 units`},
             'Gender: girls outperform boys at GCSE; boys more likely to take STEM; girls English/humanities',
             'Ethnicity: some ethnic minority groups underachieve; factors include language, racism, poverty',
             'Labelling theory: teachers label pupils → self-fulfilling prophecy (Becker)',
+          ], examTips:[
+            'Always refer to a named sociologist — Bourdieu, Becker, Bowles & Gintis, Durkheim etc.',
+            'Use sociological perspectives to evaluate: functionalist agrees schooling promotes meritocracy; Marxist challenges this',
+            '"Discuss to what extent..." = argue for AND against, then make a supported conclusion',
+          ], commonMistakes:[
+            'Writing about psychology instead of sociology — focus on social structures, not individual minds',
+            'Only giving one perspective — IGCSE requires you to show different sociological views',
           ]},
         ]},
         { title:'Crime & Deviance', icon:'⚖️', topics:[
@@ -6125,6 +6232,29 @@ Break-even = 5000 ÷ 5 = 1000 units`},
             'Ethnicity: minority groups underrepresented or shown in negative roles',
             'Positive effects of social media: campaigns, activism, diverse voices, counter-narratives',
             'Hyperreality (Baudrillard): media images become more "real" than reality itself',
+          ]},
+        ]},
+        { title:'Social Stratification', icon:'📊', topics:[
+          { title:'Social Class & Inequality', points:[
+            'Social stratification: hierarchical ranking of groups in society based on wealth, power, status',
+            'Social class: grouping based on occupation, income, education; traditional working/middle/upper',
+            'Functionalist view: inequality is inevitable and functional — motivates talent to fill important roles',
+            'Marxist view: inequality serves ruling class interests; capitalism maintains class divisions',
+            'Life chances: Weber — class, status, and party all affect opportunities and outcomes',
+          ]},
+          { title:'Gender Inequality', points:[
+            'Patriarchy: system of male dominance in social, political, and economic institutions',
+            'Gender pay gap: women earn less on average — occupational segregation, career breaks, discrimination',
+            'Glass ceiling: invisible barrier preventing women from reaching top positions',
+            'Second shift (Hochschild): women do paid work AND majority of domestic labour/childcare',
+            'Progress: legal equality, more women in professions — but inequality persists in many areas',
+          ]},
+          { title:'Ethnicity & Race', points:[
+            'Ethnicity: shared cultural identity (language, religion, customs); race: biological classification (now mostly rejected)',
+            'Racism: prejudice or discrimination based on race/ethnicity; institutional racism: embedded in organisations',
+            'Ethnic minority groups face: higher unemployment, lower income, housing discrimination in many countries',
+            'Multiculturalism: celebration of diverse cultures within one society',
+            'Immigration: contributes economically and culturally; may face integration challenges',
           ]},
         ]},
       ],
@@ -6194,6 +6324,13 @@ Break-even = 5000 ÷ 5 = 1000 units`},
             'Factors decreasing: peer rebellion, no authority figure, teacher gives shocks themselves',
             'Agency theory: people enter agentic state — see themselves as agent of authority, not responsible',
             'Evaluation: ethical issues (deception, stress); artificial, but field replications support findings',
+          ], examTips:[
+            'Evaluation = strengths AND weaknesses — always do both for full marks',
+            'GRAVE acronym for evaluating studies: Generalisation, Reliability, Application, Validity, Ethics',
+            'For Milgram: strength = high internal validity; weakness = low ecological validity (artificial task)',
+          ], commonMistakes:[
+            'Saying participants were "forced" — they were not; they could leave but chose not to (obedience)',
+            'Confusing obedience (following direct orders) with conformity (following group norms)',
           ]},
           { title:'Conformity & Social Influence', points:[
             'Conformity: changing behaviour/beliefs to fit in with a group',
@@ -6210,6 +6347,35 @@ Break-even = 5000 ÷ 5 = 1000 units`},
             'Brain localisation: different areas control different functions (Broca\'s area = speech)',
             'Hemispheres: left (language, logic) and right (creativity, spatial); corpus callosum connects them',
             'Split-brain studies (Sperry): cutting corpus callosum reveals hemisphere specialisation',
+          ], examTips:[
+            'Localisation vs holism: localisation says specific areas control functions; holism says the brain works as a whole',
+            'Evaluate case studies (e.g. Phineas Gage): unique insight into brain function, but cannot generalise from one case',
+          ]},
+          { title:'Hormones & Behaviour', points:[
+            'Endocrine system: glands secrete hormones into bloodstream → affect organs and behaviour',
+            'Adrenaline (adrenal gland): fight-or-flight response — raised heart rate, dilated pupils, increased blood sugar',
+            'Testosterone (testes/ovaries): linked to aggression; higher levels → more aggressive behaviour in some studies',
+            'Cortisol: stress hormone from adrenal cortex; chronic high levels → impaired immune function, memory issues',
+            'Oxytocin: "bonding hormone" — released during social contact, breastfeeding; increases trust and affiliation',
+          ]},
+        ]},
+        { title:'Individual Differences', icon:'🧠', topics:[
+          { title:'Intelligence', points:[
+            'Binet: first intelligence test, developed to identify children needing educational support',
+            'IQ = (mental age ÷ chronological age) × 100; average IQ = 100',
+            'Nature vs nurture debate: genetics (twin studies) vs environment (education, SES, nutrition)',
+            'Twin studies (Bouchard): identical twins raised apart show similar IQ → genetic basis for intelligence',
+            'Sternberg\'s triarchic theory: analytic, creative, and practical intelligence — IQ tests only measure analytic',
+          ]},
+          { title:'Abnormality & Mental Health', points:[
+            'Definitions of abnormality: statistical infrequency, deviation from social norms, failure to function adequately',
+            'DSM-5: Diagnostic and Statistical Manual — used to classify mental disorders',
+            'Depression: persistent low mood, loss of interest, hopelessness; cognitive (Beck) vs biological (serotonin) explanations',
+            'Phobia: irrational persistent fear; classical conditioning (Watson & Rayner — Little Albert) explains acquisition',
+            'Treatment: CBT (cognitive-behavioural therapy) — challenge negative thoughts; drug therapy — SSRIs for depression',
+          ], examTips:[
+            'Always evaluate definitions of abnormality — each has strengths and limitations',
+            'Link treatment to explanation: if biological cause (low serotonin) → drug treatment; if learned (conditioning) → systematic desensitisation',
           ]},
         ]},
       ],
