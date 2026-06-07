@@ -7022,6 +7022,100 @@ Quick ratio = (45,000−15,000) ÷ 20,000 = 30,000 ÷ 20,000 = 1.5:1 (good liqui
           ]},
         ]},
       ],
+      edexcel: [
+        { title:'The Accounting Framework', icon:'📋', topics:[
+          { title:'Purpose & Concepts', points:[
+            'Accounting: systematic recording, classification and summarising of financial transactions',
+            'Stakeholders using accounts: owners/investors (profit/growth?), banks (can they repay?), HMRC (tax?), suppliers (creditworthy?)',
+            'Accounting concepts: going concern, accruals, consistency, prudence, materiality',
+            'Accruals: match revenue to expenses in the period they occur, not when cash changes hands',
+            'Edexcel focus: understanding WHY concepts matter — examiners want explanation, not just definition',
+          ], examTips:[
+            'Edexcel Accounting: expect application-based questions — given a scenario, which concept applies and why?',
+            'Prudence: recognise losses immediately; only recognise gains when certain — conservative approach',
+          ]},
+          { title:'Double Entry Bookkeeping', points:[
+            'DEAD CLIC rule: Debit = Expenses, Assets, Drawings; Credit = Liabilities, Income, Capital',
+            'T-accounts: left side (debit) and right side (credit); every transaction has two entries',
+            'Assets increase with debit (DR); decrease with credit (CR)',
+            'Liabilities and capital increase with credit (CR); decrease with debit (DR)',
+            'Trial balance: list all ledger balances; total debits must equal total credits',
+          ]},
+        ]},
+        { title:'Financial Statements', icon:'📊', topics:[
+          { title:'Income Statement', points:[
+            'Revenue (sales) − Cost of Sales = Gross Profit',
+            'Cost of Sales = Opening Inventory + Purchases − Closing Inventory',
+            'Gross Profit − Expenses = Net Profit (or Operating Profit)',
+            'Expenses include: wages, rent, electricity, depreciation, insurance, advertising',
+            'Depreciation is a non-cash expense — reduces profit but no cash leaves business',
+          ], examTips:[
+            'Cost of Sales calculation is a frequent mark point — memorise OIPCOCI: Opening Inventory + Purchases − Closing Inventory',
+            'Net profit is after tax in some questions — read carefully; operating profit = before tax',
+          ], workedExample:`Income Statement for year ended 31 Dec:
+Revenue: $180,000
+Cost of Sales: Opening inventory $12,000 + Purchases $95,000 − Closing inventory $8,000 = $99,000
+Gross Profit = $180,000 − $99,000 = $81,000
+Expenses (wages $30,000 + rent $15,000 + depreciation $5,000) = $50,000
+Net Profit = $81,000 − $50,000 = $31,000`},
+          { title:'Balance Sheet (Statement of Financial Position)', points:[
+            'Non-current assets: long-term items (equipment, buildings, vehicles); shown at net book value',
+            'Current assets: short-term (inventory, trade receivables, bank, cash) — expected to be converted to cash within 1 year',
+            'Current liabilities: owed within 1 year (trade payables, bank overdraft)',
+            'Non-current liabilities: owed after 1 year (long-term loan)',
+            'Capital/equity = Total assets − Total liabilities; Owner\'s capital + Retained profit',
+          ]},
+        ]},
+        { title:'Depreciation & Adjustments', icon:'📉', topics:[
+          { title:'Depreciation Methods', points:[
+            'Straight-line: (Cost − Residual value) ÷ Useful life = annual depreciation charge',
+            'Reducing balance: depreciation rate% × net book value at start of year',
+            'Straight-line gives equal charge each year; reducing balance gives higher charge in early years',
+            'Net Book Value (NBV) = Cost − Accumulated depreciation',
+            'Accumulated depreciation: total depreciation charged to date; shown as provision on balance sheet',
+          ], examTips:[
+            'Always show full depreciation calculation — state method, cost, rate, and NBV clearly',
+            'Choosing method: straight-line for assets that depreciate evenly; reducing balance for technology (loses value quickly)',
+          ], workedExample:`Machine cost: $20,000; Residual value: $2,000; Useful life: 6 years
+Straight-line: (20,000 − 2,000) ÷ 6 = $3,000 per year
+NBV after year 3 = 20,000 − (3,000 × 3) = $11,000
+
+Reducing balance at 30%:
+Year 1: 20,000 × 30% = $6,000 → NBV = $14,000
+Year 2: 14,000 × 30% = $4,200 → NBV = $9,800
+Year 3: 9,800 × 30% = $2,940 → NBV = $6,860`},
+          { title:'Accruals & Prepayments', points:[
+            'Accrual: expense incurred but not yet paid — add to expenses, show as current liability',
+            'Prepayment: expense paid in advance for future period — deduct from expenses, show as current asset',
+            'Accrued income: income earned but not yet received — add to income, show as current asset',
+            'Deferred income: income received in advance — deduct from income, show as current liability',
+            'Irrecoverable debts: written off as expense; Allowance for receivables: estimate of expected non-payment',
+          ]},
+        ]},
+        { title:'Ratios & Analysis', icon:'📐', topics:[
+          { title:'Profitability & Liquidity Ratios', points:[
+            'Gross Profit Margin = (Gross Profit ÷ Revenue) × 100%',
+            'Net Profit Margin = (Net Profit ÷ Revenue) × 100%',
+            'Return on Capital Employed (ROCE) = (Net Profit ÷ Capital Employed) × 100%',
+            'Current Ratio = Current Assets ÷ Current Liabilities (ideal ~2:1)',
+            'Quick Ratio = (Current Assets − Inventory) ÷ Current Liabilities (ideal ~1:1)',
+          ]},
+          { title:'Efficiency Ratios', points:[
+            'Inventory Turnover = Cost of Sales ÷ Average Inventory (times per year)',
+            'Trade Receivables Days = (Trade Receivables ÷ Revenue) × 365',
+            'Trade Payables Days = (Trade Payables ÷ Cost of Sales) × 365',
+            'Higher inventory turnover = selling stock faster (good); lower = stock sitting longer (risk of obsolescence)',
+            'Longer receivables days = customers taking longer to pay (cash flow risk)',
+          ], examTips:[
+            'Edexcel: interpret ratios in business context — "what does this suggest about the business?"',
+            'Compare to industry average or previous year for meaningful analysis — a ratio alone means little',
+          ], workedExample:`Revenue: $200,000 | Gross Profit: $80,000 | Net Profit: $30,000 | Capital Employed: $150,000
+GPM = (80,000 ÷ 200,000) × 100 = 40%
+NPM = (30,000 ÷ 200,000) × 100 = 15%
+ROCE = (30,000 ÷ 150,000) × 100 = 20%
+Interpretation: 40% GPM suggests good pricing; 15% NPM means expenses are 25% of revenue — management may need to reduce costs`},
+        ]},
+      ],
     }
   },
   sociology: {
@@ -7960,6 +8054,89 @@ Better: Ce weekend, je vais aller au cinéma avec mes amis. Hier, j'ai regardé 
             'Medical ethics: most Jews support medical research and treatment; organ donation generally permitted',
             'Holocaust (Shoah): destruction of 6 million Jews; raises profound questions about God and suffering (theodicy)',
           ]},
+        ]},
+      ],
+      edexcel: [
+        { title:'Christianity: Beliefs & Teachings', icon:'✝️', topics:[
+          { title:'Christian Beliefs', points:[
+            'Trinity: one God in three persons — Father (creator), Son (Jesus/redeemer), Holy Spirit (guide)',
+            'Incarnation: God became fully human in Jesus Christ — born of Virgin Mary; 100% human and 100% divine',
+            'Atonement: Jesus\' death on the cross makes reconciliation between humans and God possible',
+            'Resurrection: Jesus physically rose from the dead on Easter Sunday — cornerstone of Christian faith',
+            'Eschatology: beliefs about life after death — resurrection of the body, heaven, hell, purgatory (Catholic)',
+          ]},
+          { title:'Christian Practices', points:[
+            'Worship: liturgical (structured — Church of England, Catholic) vs non-liturgical (informal — Pentecostal)',
+            'Prayer: communicating with God; private prayer and communal worship; Lord\'s Prayer as model',
+            'Sacraments: Baptism (entry to Church); Eucharist/Communion (remembering Last Supper)',
+            'Pilgrimage: Lourdes, Jerusalem, Rome, Canterbury — journey to holy place for spiritual reasons',
+            'Mission and evangelism: spreading the Christian message; through social action, preaching, charity',
+          ], examTips:[
+            'Edexcel RS: know specific differences between denominations (Catholic vs Protestant vs Pentecostal) — they appear in questions',
+            '"How important is..." questions: give a balanced view, then justify your conclusion based on evidence',
+          ]},
+        ]},
+        { title:'Christianity: Ethics & Issues', icon:'⚖️', topics:[
+          { title:'Christian Views on Life & Death', points:[
+            'Sanctity of life: life is sacred, created by God, belonging to God — basis for opposing abortion/euthanasia',
+            'Quality of life: life has value based on what a person can experience — used to support some euthanasia arguments',
+            'Abortion: most Christians oppose (sanctity of life); some Protestant denominations allow in difficult circumstances',
+            'Euthanasia: Catholic Church strictly opposes; Methodist/CoE may accept passive euthanasia in limited cases',
+            'Capital punishment: many Christians oppose (forgiveness, rehabilitation); some argue "eye for eye" supports it',
+          ], examTips:[
+            'Present Christian views with precision — not all Christians agree; show denominational differences',
+            '"Do you agree?" (AO3): state own view with reasons, then consider alternative, then conclude',
+          ]},
+          { title:'Christian Views on Peace & Justice', points:[
+            'Just War (Aquinas): just cause, right intention, proportionality, last resort, declared by authority, civilian protection',
+            'Pacifism: all war is wrong; Quakers are absolute pacifists; "blessed are the peacemakers" (Matthew 5:9)',
+            'Social justice: Christians called to fight poverty, inequality, discrimination — e.g. Martin Luther King Jr.',
+            'Forgiveness: central to Christian ethics — "forgive us our trespasses as we forgive those who trespass against us"',
+            'Aid and development: Christian Aid, CAFOD, Tearfund — practical expression of Christian love (agape)',
+          ]},
+        ]},
+        { title:'Islam: Beliefs & Teachings', icon:'☪️', topics:[
+          { title:'Islamic Beliefs', points:[
+            'Tawhid: oneness of Allah — the most fundamental belief; Allah has no partners, no equals, no form',
+            'Risalah: prophethood — Allah communicated through prophets; Muhammad ﷺ is the final and seal of prophets',
+            'Kutub: Holy Books — Torah (Musa/Moses), Zabur (Dawud/David), Injil (Isa/Jesus), Quran (Muhammad ﷺ)',
+            'Malaikah (Angels): created from light; carry out Allah\'s commands (Jibril brought revelation; Mikail controls rain)',
+            'Akhirah: life after death — accountability, Day of Judgement, Paradise (Jannah), Hellfire (Jahannam)',
+          ]},
+          { title:'Islamic Practices', points:[
+            'Salah: 5 daily prayers (Fajr, Dhuhr, Asr, Maghrib, Isha); direction of Mecca (Qibla); preceded by Wudu',
+            'Zakah: 2.5% of savings given to specified categories of recipients; purifies wealth; builds ummah solidarity',
+            'Sawm: fasting during Ramadan — no food/drink/smoking from Fajr to Maghrib; spiritual discipline',
+            'Hajj: pilgrimage to Mecca; wajib once in lifetime if able; key rituals: tawaf, sa\'i, standing at Arafah',
+            'Jihad: greater (internal spiritual struggle against sin) vs lesser (physical defence — strict conditions)',
+          ], examTips:[
+            'Edexcel Islam: know Sunni AND Shia differences — e.g. Shia observe additional pillars (Khums, Imamate)',
+            'Hajj question: list rituals in ORDER — Ihram → Mecca → tawaf → sa\'i → Mina → Arafah → Muzdalifah → Eid ul-Adha',
+          ]},
+        ]},
+        { title:'Islam: Ethics & Issues', icon:'📿', topics:[
+          { title:'Islamic Views on Life & Death', points:[
+            'Sanctity of life: "Do not take a life which Allah has made sacred" (Quran 6:151)',
+            'Abortion: most Muslims oppose (life begins at ensoulment — some say 40 days, others 120 days)',
+            'Euthanasia: generally forbidden — only Allah gives and takes life; palliative care encouraged',
+            'Capital punishment: permitted in Islamic law for hudud offences (murder, apostasy) under strict conditions',
+            'Khalifah: humans are stewards of Allah\'s creation — implications for environmental ethics',
+          ]},
+          { title:'Islamic Views on Peace & Justice', points:[
+            'Adl (justice): central Islamic value — social justice, economic justice, treatment of others',
+            'Lesser jihad conditions (Islamic law): just cause, last resort, no harming civilians, proportionate response',
+            'Nuclear weapons: widely opposed — disproportionate, indiscriminate harm to civilians',
+            'Forgiveness and reconciliation: encouraged but justice must also be served; restorative justice principles',
+            'Zakah and global poverty: obligation to redistribute wealth; Islamic Relief, Muslim Aid — practical action',
+          ], examTips:[
+            'Always include specific Quranic quotes or Hadith where possible — examiners reward precise religious evidence',
+            'Compare Islamic and Christian views on same issue — shows broader RS skills and gets AO3 marks',
+          ], workedExample:`12-mark question: "Religious people should always oppose euthanasia." Evaluate this view.
+Agree (Muslim): Quran 6:151 — only Allah gives/takes life; euthanasia plays God; palliative care is sufficient alternative
+Agree (Christian): Catholic: sanctity of life absolute; hospice movement (Christian origin) provides dignified alternative
+Disagree: Quality of life argument — some argue a dignified death respects human dignity; situation ethics (Fletcher) — loving action may support euthanasia
+Disagree: Some liberal Protestants accept passive euthanasia; Netherlands: legal euthanasia with safeguards
+Conclusion: While most religious traditions oppose euthanasia on sanctity of life grounds, there is internal diversity and the debate remains complex — blanket statements oversimplify religious positions`},
         ]},
       ],
     }
@@ -9073,6 +9250,22 @@ function tplIGCSEHub() {
     .filter(([,s]) => s.boards.includes(S.igcseBoard))
     .filter(([,s]) => !q || s.label.toLowerCase().includes(q) || s.arabic.includes(q));
 
+  // Topic-level search results
+  let topicSearchResults = [];
+  if (q && filtered.length === 0) {
+    Object.entries(IGCSE_SUBJECTS).forEach(([sk,subj])=>{
+      if(!subj.boards.includes(S.igcseBoard)) return;
+      const chs = subj.chapters[S.igcseBoard]||[];
+      chs.forEach((ch,ci)=>{
+        ch.topics.forEach((tp,ti)=>{
+          if(tp.title.toLowerCase().includes(q)||(tp.points&&tp.points.some(p=>p.toLowerCase().includes(q)))){
+            topicSearchResults.push({sk,subj,ch,tp,ci,ti});
+          }
+        });
+      });
+    });
+  }
+
   const subjectCards = filtered.map(([k,subj]) => {
     const chapters = subj.chapters[S.igcseBoard]||[];
     const topicCount = chapters.reduce((a,c)=>a+c.topics.length,0);
@@ -9141,7 +9334,23 @@ function tplIGCSEHub() {
       ${q?`Results for "${q}" — ${filtered.length} subject(s)`:`ALL SUBJECTS · ${filtered.length} available`}
     </div>
     ${filtered.length?`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:12px">${subjectCards}</div>`
-      :`<div style="text-align:center;padding:40px;color:var(--text-muted)">No subjects found for "${q}"</div>`}
+      : topicSearchResults.length ? `
+        <div style="font-size:10px;color:var(--text-muted);margin-bottom:8px">Showing topics matching "${q}"</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          ${topicSearchResults.slice(0,12).map(({sk,subj,ch,tp,ci,ti})=>`
+          <div onclick="S.igcseSubject='${sk}';S.igcseChapter=${ci};S.igcseTopic=${ti};S.igcseTab='notes';S.igcseSearch='';S.igcseFcIdx=0;S.igcseFcFlipped=false;render()"
+            style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:.15s;border-left:4px solid ${subj.color}"
+            onmouseover="this.style.background='${subj.color}0a'" onmouseout="this.style.background=''">
+            <span style="font-size:20px">${subj.icon}</span>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:12px;font-weight:800;color:var(--text)">${tp.title}</div>
+              <div style="font-size:10px;color:var(--text-muted)">${subj.label} › ${ch.title}</div>
+            </div>
+            <span style="font-size:10px;color:${subj.color};font-weight:800">→</span>
+          </div>`).join('')}
+          ${topicSearchResults.length>12?`<div style="font-size:11px;color:var(--text-muted);text-align:center;padding:8px">+ ${topicSearchResults.length-12} more results — refine your search</div>`:''}
+        </div>`
+      :`<div style="text-align:center;padding:40px;color:var(--text-muted)">No results for "${q}"</div>`}
   </div>
 
   <!-- Exam Countdown + Quick Actions Row -->
