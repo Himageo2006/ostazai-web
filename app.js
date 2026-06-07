@@ -4061,6 +4061,7 @@ const TEXTBOOK_DB = {
       ]},
       { subj:'العلوم المتكاملة', icon:'🔬', color:'#10B981', books:[
         { title:'العلوم المتكاملة (عربي) ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BOOKS}/science_1sec_t1.pdf` },
+        { title:'Integrated Science (English) T1 2025-2026', term:'أول ثانوي — ترم أول', url:`${BOOKS}/science_en_1sec_t1.pdf` },
       ]},
       { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
         { title:'اللغة العربية ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BOOKS}/arabic_1sec_t1.pdf` },
@@ -4234,6 +4235,8 @@ const TEXTBOOK_DB = {
       { subj:'اللغة الفرنسية', icon:'🇫🇷', color:'#6366F1', books:[
         { title:'الفرنسية — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BOOKS}/french_prep1_t1.pdf` },
         { title:'الفرنسية — إعدادي أول ت٢ 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BOOKS}/math_fr_prep1_t2.pdf` },
+        { title:'الفرنسية — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BOOKS}/french_prep2_t1.pdf` },
+        { title:'الفرنسية — إعدادي ثالث ت١ 2025-2026', term:'إعدادي ثالث — ترم أول', url:`${BOOKS}/french_prep3_t1.pdf` },
       ]},
       { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
         { title:'الرياضيات (عربي) — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BOOKS}/math_ar_prep1_t1.pdf` },
