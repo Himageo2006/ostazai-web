@@ -6177,6 +6177,117 @@ Step 4 — Value: What can we learn? Cross-reference with own knowledge
 Step 5 — Limitation: What does it not tell us? Is it biased?`},
         ]},
       ],
+      edexcel: [
+        { title:'Medicine Through Time (c1250–present)', icon:'💊', topics:[
+          { title:'Medieval Medicine (c1250–1500)', points:[
+            'Four Humours theory (Hippocrates/Galen): blood, phlegm, yellow bile, black bile must be balanced',
+            'Treatments: bloodletting, purging, herbal remedies, prayer — all based on humours or religion',
+            'Church dominated medicine: approved Galen\'s ideas; anatomy forbidden (dissection of humans)',
+            'Roger Bacon: observation-based approach — ahead of his time but suppressed',
+            'Black Death 1348: miasma theory blamed (bad air); also astrology, God\'s punishment',
+          ], examTips:[
+            'Edexcel asks "how much did medicine change?" — always compare periods explicitly',
+            'Change vs continuity: Four Humours persisted from 400BC to 1800s — that\'s 2,000 years of continuity!',
+          ]},
+          { title:'Renaissance Medicine (c1500–c1700)', points:[
+            'Vesalius (1543): "On the Fabric of the Human Body" — corrected 200+ of Galen\'s anatomy errors through dissection',
+            'William Harvey (1628): proved blood circulates; heart is a pump — overturned Galen\'s theory',
+            'Paracelus: challenged Galen; used chemicals in medicine; "like cures like" principle',
+            'Printing press: allowed ideas to spread rapidly across Europe (communication factor)',
+            'Limits: brilliant observations but treatments changed little — people still used bloodletting',
+          ], examTips:[
+            'Individual genius (Vesalius, Harvey) vs structural factors (printing press, war) — exam loves this debate',
+            'Vesalius needed princes\' help to get bodies for dissection — importance of patronage/government',
+          ]},
+          { title:'Industrial & Modern Medicine (c1700–present)', points:[
+            'Jenner 1796: smallpox vaccine using cowpox — first vaccine; opposed by doctors and Church',
+            'Germ Theory — Pasteur 1861: microbes cause fermentation → disease; Swan-neck flask experiment',
+            'Koch 1876: identified specific bacteria causing anthrax, tuberculosis — germ-disease link proven',
+            'Lister 1867: carbolic acid as antiseptic — reduced post-operative deaths dramatically',
+            'NHS 1948: free healthcare for all — government role in public health (Beveridge Report)',
+          ], workedExample:`12-mark question: "The most important factor in the development of medicine was science and technology." How far do you agree?
+Agree: Germ Theory (Pasteur/Koch) identified causes; X-rays (Röntgen 1895) enabled diagnosis; DNA discovery (Watson/Crick 1953) → genetic medicine
+Disagree: Government/war equally important — WWII accelerated penicillin mass production; government funding for NHS and vaccination programmes
+Conclusion: Science provides breakthroughs but government and communication factors are needed to apply them — both essential`},
+        ]},
+        { title:'The American West (c1835–c1895)', icon:'🤠', topics:[
+          { title:'The Plains Indians', points:[
+            'Tribes: Sioux, Cheyenne, Comanche, Arapaho — nomadic peoples of the Great Plains',
+            'Way of life: followed buffalo herds; tipis (portable, practical); believed land could not be owned',
+            'Buffalo: central to Plains Indian life — food, clothing, tools, fuel, religion; every part used',
+            'Warfare: raids for horses/honour, not conquest; counted coup (touching enemy bravely = honour)',
+            'Indian Territory: US government tried to confine tribes to reservations from 1830s onwards',
+          ]},
+          { title:'Manifest Destiny & Migration', points:[
+            'Manifest Destiny: belief that USA was destined to expand from Atlantic to Pacific',
+            'Oregon Trail (1840s): 2,000 miles; pioneers faced disease, terrain, weather — thousands died',
+            'Mormons (1847): travelled to Salt Lake City to escape persecution; built thriving desert community',
+            'Gold Rush 1848–9: California; 300,000 "49ers"; lawlessness, violence, impact on Native Americans',
+            'Homestead Act 1862: 160 acres free if you farmed it for 5 years — opened Plains to settlers',
+          ], examTips:[
+            'Explain WHY each factor caused conflict — not just what happened but why it led to clashes',
+            'Cattle industry changed: open range → barbed wire (1874) → end of Long Drive — show this progression',
+          ]},
+          { title:'Conflict on the Plains', points:[
+            'Fort Laramie Treaties (1851, 1868): promised land to Sioux — broken by gold rush in Black Hills',
+            'Battle of Little Bighorn 1876: Custer\'s 7th Cavalry wiped out by Sioux/Cheyenne under Crazy Horse',
+            'Ghost Dance movement 1889: spiritual revival — US government feared uprising → Wounded Knee 1890',
+            'Wounded Knee 1890: US cavalry killed ~250 Sioux including women and children — end of armed resistance',
+            'Destruction of buffalo: 30 million → ~1,000 by 1890; deliberate US policy to destroy Indian way of life',
+          ]},
+        ]},
+        { title:'Weimar Germany & Nazi Germany (1918–1939)', icon:'🇩🇪', topics:[
+          { title:'Weimar Republic 1918–1933', points:[
+            'November 1918: Germany defeated; Kaiser abdicated; republic declared — "stabbed in the back" myth',
+            'Weimar Constitution: proportional representation led to coalition governments → instability',
+            'Challenges: Spartacist uprising 1919 (left), Kapp Putsch 1920 (right), Beer Hall Putsch 1923 (Nazis)',
+            'Hyperinflation 1923: French occupation of Ruhr → Germany printed money → marks worthless',
+            'Golden Twenties (1924–29): Dawes Plan, Stresemann\'s recovery — but built on US loans',
+          ], examTips:[
+            'Weimar: always link problems back to the constitution — PR system made stable government almost impossible',
+            'Great Depression (1929): US called in loans → German economy collapsed → mass unemployment → Nazi support soared',
+          ]},
+          { title:'Nazi Germany 1933–1939', points:[
+            'Nazi rise: 1928 = 2.6% vote; 1932 = 37.4%; Jan 1933 Hitler appointed Chancellor',
+            'Consolidation: Reichstag Fire → Enabling Act → trade unions banned → Night of Long Knives 1934',
+            'Terror: SS (Himmler), Gestapo (secret police), concentration camps for political opponents',
+            'Propaganda: Goebbels as Minister of Propaganda; radio, film, rallies (Nuremberg), art',
+            'Economy: rearmament, autobahns, unemployment fell from 6m (1933) to 300,000 (1938) — but war economy',
+          ], workedExample:`Was terror or propaganda more important for Nazi control?
+Terror argument: SS and Gestapo created climate of fear; Dachau opened 1933; Night of Long Knives removed SA threat; people self-censored knowing consequences
+Propaganda argument: Volksempfänger (people's receiver) radios in 70% of homes; youth indoctrinated through Hitler Youth; Olympic Games 1936 showed Germany's "glory"
+Conclusion: Both worked together — terror prevented open opposition; propaganda built genuine support especially among youth and those who benefited from economic recovery`},
+        ]},
+        { title:'Cold War 1945–1991 (Edexcel Focus)', icon:'🌐', topics:[
+          { title:'Origins & Early Cold War', points:[
+            'Iron Curtain speech 1946 (Churchill): division of Europe; Soviet-dominated east vs free west',
+            'Truman Doctrine 1947: "containment" — USA would resist communist expansion anywhere',
+            'Marshall Plan 1947: $13bn US aid; USSR refused for Eastern Europe → divided Europe economically',
+            'Berlin 1948–49: USSR blockade; West\'s 11-month airlift of 2.3 million tonnes — propaganda victory',
+            'NATO 1949: Western military alliance; Warsaw Pact 1955: Soviet response',
+          ]},
+          { title:'Escalation & Crises', points:[
+            'Korean War 1950–53: UN (mainly USA) vs North Korea + China — ended in armistice at 38th parallel',
+            'Hungarian Uprising 1956: Hungarians revolted → Soviet tanks crushed it; 200,000 fled; West did nothing',
+            'Berlin Wall built August 1961: prevent East Germans fleeing to West (3 million had left since 1949)',
+            'Cuban Missile Crisis 1962: 13 days — closest to nuclear war; Soviet missiles discovered in Cuba',
+            'Resolution: Khrushchev removed missiles; Kennedy pledged no Cuba invasion; hotline established',
+          ], examTips:[
+            'Edexcel Cold War: evaluate "who was most to blame" — evidence-based argument, not one-sided',
+            'Détente 1970s: relaxation of tensions — SALT I (1972), Helsinki Accords (1975); then new Cold War 1979',
+          ]},
+          { title:'End of the Cold War', points:[
+            'Reagan\'s "evil empire" speech 1983; SDI (Star Wars) programme — USSR couldn\'t compete economically',
+            'Gorbachev (from 1985): glasnost + perestroika → unintended consequence: Eastern Europe revolted',
+            'Fall of Berlin Wall 9 November 1989 — crowds pulled it down; East Germany opened borders',
+            'Revolutions of 1989: Poland, Hungary, Czechoslovakia, Romania — communist governments fell',
+            'USSR dissolved 25 December 1991 — Gorbachev resigned; 15 independent republics',
+          ], workedExample:`"Gorbachev was the main reason the Cold War ended." How far do you agree?
+Agree: Glasnost/perestroika allowed dissent; refused to send tanks to Eastern Europe (unlike 1956/68); signed INF Treaty 1987; accepted German reunification
+Disagree: Reagan's defence spending (SDI) bankrupted USSR; Eastern European peoples demanded freedom; economic failure of Soviet system was structural not Gorbachev's fault
+Conclusion: Gorbachev was a necessary condition — without his restraint the Cold War could not have ended peacefully — but the underlying cause was the failure of the Soviet economic and political model`},
+        ]},
+      ],
     }
   },
   geography: {
@@ -7295,6 +7406,10 @@ Shows: verb in question changed memory reconstruction → eyewitness testimony u
             'Data Protection: personal data must be collected lawfully, kept secure, not kept longer than necessary',
             'Digital divide: gap between those with and without access to technology and internet',
             'Health issues of ICT: RSI (repetitive strain injury), eye strain, back problems — posture and breaks important',
+          ], examTips:[
+            'Copyright vs patents: copyright protects expression (software code, images); patents protect inventions',
+            'Data Protection principles: purpose limitation, data minimisation, accuracy, storage limitation, security',
+            'Digital divide: not just rich vs poor countries — also elderly vs young, urban vs rural within same country',
           ]},
         ]},
         { title:'Systems & Control', icon:'⚙️', topics:[
@@ -7311,6 +7426,44 @@ Shows: verb in question changed memory reconstruction → eyewitness testimony u
             'Feedback loop: output is monitored and fed back to control the system (e.g. thermostat)',
             'Turtle graphics / Logo: simple programming for controlling movement with commands (FORWARD, TURN)',
             'Advantages of automation: consistent quality, works 24/7, dangerous environments, faster production',
+          ], examTips:[
+            'Thermostat example: temperature sensor → reads value → compare to set point → if too low → activate heater → feedback → repeat',
+            'For "design a control system" questions: always mention sensor, processor, actuator, and feedback',
+          ], workedExample:`Design a greenhouse temperature control system:
+Inputs: temperature sensor, light sensor
+Process: microprocessor compares readings to set levels
+Outputs: heaters (if too cold), fans (if too hot), lights (if too dark)
+Feedback: sensors continuously monitor; system adjusts automatically
+Advantage: no human needed; works 24/7; consistent conditions for plants`},
+        ]},
+        { title:'Multimedia & Communication', icon:'🎨', topics:[
+          { title:'Multimedia Components', points:[
+            'Multimedia: combination of text, images, audio, video, animation in a digital product',
+            'Image file types: JPEG (photos, small file), PNG (transparent background), GIF (simple animations)',
+            'Audio file types: MP3 (compressed, small), WAV (uncompressed, large, high quality)',
+            'Video file types: MP4 (compressed, streaming), AVI (large, high quality)',
+            'Resolution: pixels per inch (ppi) — higher resolution = better quality but larger file size',
+          ]},
+          { title:'File Sizes & Compression', points:[
+            'Image file size = width × height × colour depth (bits) ÷ 8 (for bytes)',
+            'Sound file size = sample rate (Hz) × bit depth × duration (s) × channels ÷ 8',
+            'Lossless compression: original data restored exactly — ZIP, PNG, FLAC',
+            'Lossy compression: some data permanently removed — smaller file, quality reduced — JPEG, MP3, MP4',
+            'Colour depth: 1-bit = 2 colours; 8-bit = 256 colours; 24-bit = 16.7 million colours (true colour)',
+          ], examTips:[
+            'File size calculations are common exam questions — always show working step by step',
+            'When to use lossy vs lossless: lossy for streaming/sharing (web), lossless for professional archives',
+          ], workedExample:`Calculate size of a 5-second stereo sound clip:
+Sample rate: 44,100 Hz | Bit depth: 16-bit | Channels: 2 (stereo)
+File size = 44,100 × 16 × 2 × 5 = 7,056,000 bits
+= 7,056,000 ÷ 8 = 882,000 bytes = 882 KB (uncompressed WAV)
+MP3 compression at 10:1 ratio → ~88 KB`},
+          { title:'Presentation & Web Design', points:[
+            'Hyperlink: clickable link to another page or section; anchor tag in HTML (<a href="">)',
+            'Web design principles: consistency, accessibility, clear navigation, fast loading',
+            'Metadata: data about data — search engines use title, description, keywords tags',
+            'HTML structure: DOCTYPE → html → head (title, css) → body (content)',
+            'Presentation software: PowerPoint/Impress; slides, transitions, animations — use sparingly',
           ]},
         ]},
       ],
@@ -8940,6 +9093,48 @@ function tplIGCSEHub() {
       </div>
     </div>
   </div>
+
+  <!-- Weak Spots Panel -->
+  ${(()=>{
+    const done = S.igcseDone||{};
+    const weak = [];
+    Object.entries(IGCSE_SUBJECTS).forEach(([sk,subj])=>{
+      if(!subj.boards.includes(S.igcseBoard)) return;
+      const chs = subj.chapters[S.igcseBoard]||[];
+      chs.forEach((ch,ci)=>{
+        ch.topics.forEach((tp,ti)=>{
+          if(!done[`${sk}-${ci}-${ti}`]) weak.push({sk,subj,ch,tp,ci,ti});
+        });
+      });
+    });
+    if(!weak.length) return `
+    <div style="margin:16px 14px 0;padding:14px 16px;background:#10B98118;border-radius:14px;border:1px solid #10B98140;display:flex;align-items:center;gap:12px">
+      <div style="font-size:28px">🎉</div>
+      <div>
+        <div style="font-size:13px;font-weight:900;color:#10B981">All topics completed!</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Outstanding work — you've covered everything. Focus on past papers now!</div>
+      </div>
+    </div>`;
+    const items = weak.slice(0,6).map(({sk,subj,tp,ci,ti})=>`
+      <div onclick="S.igcseSubject='${sk}';S.igcseChapter=${ci};S.igcseTopic=${ti};S.igcseTab='notes';render()"
+        style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:10px;cursor:pointer;background:var(--bg);border:1px solid var(--border);transition:.15s"
+        onmouseover="this.style.borderColor='${subj.color}'" onmouseout="this.style.borderColor=''">
+        <span style="font-size:16px">${subj.icon}</span>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:11px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${tp.title}</div>
+          <div style="font-size:10px;color:var(--text-muted)">${subj.label}</div>
+        </div>
+        <span style="font-size:10px;color:${subj.color};font-weight:800">→</span>
+      </div>`).join('');
+    return `
+    <div style="margin:16px 14px 0;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:14px 16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--text-muted)">📌 TOPICS TO STUDY (${weak.length} remaining)</div>
+        ${weak.length>6?`<span style="font-size:10px;color:${board.color};font-weight:700">${weak.length-6} more...</span>`:''}
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">${items}</div>
+    </div>`;
+  })()}
 
   <!-- Tips Banner -->
   <div style="margin:16px 14px 0;padding:14px 16px;background:${board.color}0c;border-radius:14px;border:1px solid ${board.color}25;display:flex;align-items:center;gap:12px">
