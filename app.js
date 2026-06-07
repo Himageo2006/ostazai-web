@@ -5128,6 +5128,538 @@ const IGCSE_SUBJECTS = {
       ],
     }
   },
+  english: {
+    label:'English Language', arabic:'اللغة الإنجليزية', icon:'🗣️', color:'#EC4899',
+    boards: ['cie','edexcel','oxford'],
+    pastPapers: {
+      cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-english-first-language-0500/past-papers/',
+      edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-english-language-a-2016.coursematerials.html',
+      oxford:  'https://www.oxfordaqaexams.org.uk/igcse/english-language/',
+    },
+    chapters: {
+      cie: [
+        { title:'Reading Skills', icon:'📖', topics:[
+          { title:'Comprehension & Inference', points:[
+            'Reading for gist: get overall meaning first before detailed reading',
+            'Literal comprehension: find and quote directly from the text — use exact words',
+            'Inference: read between the lines — what is implied but not directly stated',
+            'Always use PEE: Point → Evidence (quote) → Explanation of how it answers question',
+            'Watch for "in your own words" — paraphrase carefully, do not copy text',
+          ]},
+          { title:'Writer\'s Techniques & Language Analysis', points:[
+            'Identify language techniques: simile, metaphor, personification, alliteration, onomatopoeia',
+            'Simile: comparison using "like" or "as"; metaphor: direct comparison (says one thing IS another)',
+            'Personification: giving human qualities to non-human things',
+            'Imagery: vivid description appealing to senses (sight, sound, smell, touch, taste)',
+            'Always analyse EFFECT — don\'t just name the technique: "This creates a sense of..."',
+          ]},
+          { title:'Summary Writing', points:[
+            'Identify ONLY points relevant to the question focus — do not copy irrelevant detail',
+            'Use your own words as much as possible — paraphrase, not lift',
+            'Connect points with connectives: furthermore, additionally, however, in contrast',
+            'Check word limit — stay within the given range (usually 80–100 words)',
+            'Start summary without restating the question — go straight into content',
+          ]},
+        ]},
+        { title:'Writing Skills', icon:'✍️', topics:[
+          { title:'Directed Writing', points:[
+            'Match the FORMAT exactly: letter (address, date, Dear..., yours sincerely/faithfully), report (headings), speech',
+            'Match the AUDIENCE: formal (no contractions, polite tone) vs informal (personal, conversational)',
+            'Match the PURPOSE: argue, persuade, inform, advise, describe — different linguistic techniques',
+            'Use evidence from the Reading passage to support points in directed writing tasks',
+            'Include clear structure: introduction, developed paragraphs, conclusion',
+          ]},
+          { title:'Narrative & Descriptive Writing', points:[
+            'Narrative: include character, setting, plot arc (build tension → climax → resolution)',
+            'Descriptive: focus on creating atmosphere — use ALL five senses',
+            'Vary sentence structures: short for impact, long for detail and rhythm',
+            'Use a range of vocabulary — avoid repetition; show don\'t tell',
+            'Start with an engaging hook: in media res (action), dialogue, striking description or question',
+          ]},
+          { title:'Argumentative & Persuasive Writing', points:[
+            'Argument: present both sides logically and reach reasoned conclusion (essay, article)',
+            'Persuasion: one-sided — use rhetorical techniques to convince reader',
+            'Rhetorical techniques: rhetorical questions, repetition (tripling), direct address ("you"), statistics',
+            'Counterargument: acknowledge opposing view then refute it — shows sophistication',
+            'Signpost your argument: "Firstly... Furthermore... However... In conclusion..."',
+          ]},
+        ]},
+      ],
+    }
+  },
+  history: {
+    label:'History', arabic:'التاريخ', icon:'🏛️', color:'#78716C',
+    boards: ['cie','edexcel'],
+    pastPapers: {
+      cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-history-0470/past-papers/',
+      edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-history-2017.coursematerials.html',
+    },
+    chapters: {
+      cie: [
+        { title:'Inter-War Years 1919–1939', icon:'🕊️', topics:[
+          { title:'The Treaty of Versailles', points:[
+            'Signed June 1919 — Germany forced to accept "war guilt" (Article 231)',
+            'Terms: lose Alsace-Lorraine, Polish Corridor; army limited to 100,000; £6.6 billion reparations',
+            'Germany humiliated: "Diktat" — not allowed to negotiate; caused resentment',
+            'Big Three disagreed: Clemenceau (harsh), Wilson (14 Points, lenient), Lloyd George (middle)',
+            'Impact: created economic hardship and political instability in Germany → helped Hitler rise',
+          ]},
+          { title:'Rise of Hitler & the Nazi Party', points:[
+            'Hitler joined DAP (later NSDAP) in 1919; became leader 1921; 25-Point programme',
+            'Beer Hall Putsch 1923: failed coup → imprisoned → wrote Mein Kampf (political goals)',
+            'Great Depression (1929): unemployment soared → Nazi support grew dramatically',
+            'Reichstag Fire 1933 → Enabling Act → Hitler became dictator (Führer by 1934)',
+            'Key appeal: scapegoating Jews/communists, promise of jobs, strong nationalist message',
+          ]},
+          { title:'Causes of World War II', points:[
+            'Appeasement: Britain and France gave in to Hitler\'s demands hoping to avoid war',
+            'Munich Agreement 1938: Sudetenland given to Germany — "peace for our time" (Chamberlain)',
+            'Failure of collective security: League of Nations too weak (no USA, no army)',
+            'Nazi-Soviet Pact 1939: Hitler and Stalin agreed non-aggression → Hitler free to invade Poland',
+            'German invasion of Poland 1 Sept 1939 → Britain and France declared war 3 Sept 1939',
+          ]},
+        ]},
+        { title:'World War II 1939–1945', icon:'⚔️', topics:[
+          { title:'Key Events of WWII', points:[
+            'Blitzkrieg ("lightning war"): fast tank and air attacks overwhelmed defences — fall of France 1940',
+            'Battle of Britain 1940: RAF defeated Luftwaffe → Hitler cancelled Operation Sea Lion',
+            'Operation Barbarossa 1941: German invasion of USSR — turning point; enormous casualties',
+            'Pearl Harbor Dec 1941: Japan attacked USA → America entered the war',
+            'D-Day June 1944: Allied landings in Normandy → liberation of Western Europe',
+          ]},
+          { title:'The Holocaust', points:[
+            'Systematic murder of 6 million Jews and millions of others (Roma, disabled, political opponents)',
+            'Nuremberg Laws 1935: stripped Jews of citizenship; increasing persecution throughout 1930s',
+            'Kristallnacht 1938: "Night of Broken Glass" — organised attacks on Jewish businesses/synagogues',
+            'Wannsee Conference 1942: "Final Solution" — planned systematic extermination in death camps',
+            'Auschwitz-Birkenau: largest death camp; over 1.1 million killed, mostly Jews',
+          ]},
+        ]},
+        { title:'Cold War 1945–1991', icon:'🌐', topics:[
+          { title:'Origins of the Cold War', points:[
+            'Ideological conflict: USA (capitalism, democracy) vs USSR (communism, one-party state)',
+            'Yalta (Feb 1945) and Potsdam (Jul 1945) conferences — growing disagreements',
+            'Iron Curtain: Churchill\'s term for division of Europe into Western and Eastern blocs',
+            'Truman Doctrine 1947: USA would support free peoples resisting communist takeover',
+            'Marshall Plan 1947: $13 billion US aid to rebuild Western Europe — counter communism',
+          ]},
+          { title:'Key Cold War Crises', points:[
+            'Berlin Blockade 1948–49: USSR blocked access → West responded with 11-month airlift',
+            'Korean War 1950–53: UN (mainly US) fought North Korea (backed by China/USSR) — ended in stalemate',
+            'Cuban Missile Crisis 1962: USSR placed missiles in Cuba → 13 days closest to nuclear war',
+            'Resolution: Khrushchev removed missiles; USA promised not to invade Cuba; hotline established',
+            'Vietnam War: US involvement 1964–73; failed to prevent communist takeover; Saigon fell 1975',
+          ]},
+          { title:'End of the Cold War', points:[
+            'Gorbachev (USSR leader from 1985): glasnost (openness) and perestroika (restructuring)',
+            'INF Treaty 1987: USA and USSR agreed to reduce nuclear weapons',
+            'Fall of Berlin Wall November 1989 — symbol of Cold War division removed',
+            'Eastern European countries broke free from Soviet control 1989–1991',
+            'USSR dissolved December 1991 → Cold War ended; Russia became independent state',
+          ]},
+        ]},
+        { title:'Source Skills', icon:'📜', topics:[
+          { title:'Evaluating Historical Sources', points:[
+            'Nature: what type of source is it? (photograph, speech, cartoon, diary, official document)',
+            'Origin: who produced it, when, and in what context?',
+            'Purpose: why was it created? To inform, persuade, propaganda, personal record?',
+            'Content: what does it actually say or show? Quote directly',
+            'Reliability: is it trustworthy? Consider bias, one-sided views, vested interests',
+          ]},
+          { title:'Writing Historical Arguments', points:[
+            'Causation: identify short-term, long-term and trigger causes; link them',
+            'Significance: explain why an event matters — what changed because of it?',
+            'Use PEEL: Point → Evidence (specific fact/date) → Explanation → Link back to question',
+            'Avoid narrative — analyse, don\'t just describe events',
+            'Consider different perspectives and reach a supported judgement',
+          ]},
+        ]},
+      ],
+    }
+  },
+  geography: {
+    label:'Geography', arabic:'الجغرافيا', icon:'🌍', color:'#16A34A',
+    boards: ['cie','edexcel','oxford'],
+    pastPapers: {
+      cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-geography-0460/past-papers/',
+      edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-geography-2017.coursematerials.html',
+      oxford:  'https://www.oxfordaqaexams.org.uk/igcse/geography/',
+    },
+    chapters: {
+      cie: [
+        { title:'Population & Settlement', icon:'👥', topics:[
+          { title:'Population Growth & Distribution', points:[
+            'World population: ~8 billion; unevenly distributed due to climate, resources, history',
+            'Birth rate: live births per 1000 per year; death rate: deaths per 1000 per year',
+            'Natural increase = birth rate − death rate (per 1000)',
+            'Demographic Transition Model (DTM): 5 stages from high BR/DR → low BR/DR → declining population',
+            'Population pyramids: wide base (high BR) = young population; narrow base = ageing population',
+          ]},
+          { title:'Migration', points:[
+            'Push factors: poverty, conflict, natural disaster, lack of jobs — reasons to leave',
+            'Pull factors: better jobs, education, safety, higher standard of living — reasons to go',
+            'Rural-urban migration: movement from countryside to city (urbanisation)',
+            'International migration: between countries; can be economic, refugee, or family reasons',
+            'Effects: brain drain from source country; remittances sent home; pressure on services in host',
+          ]},
+          { title:'Settlement & Urbanisation', points:[
+            'Site factors: why a settlement started (water supply, flat land, defence, resources)',
+            'Situation: position relative to surrounding area (trade routes, other towns)',
+            'Urban land use zones: CBD (centre), inner city, suburbs, rural-urban fringe',
+            'Urbanisation: 55%+ of world population in cities; fastest in LICs (Low Income Countries)',
+            'Problems in rapidly growing cities: squatter settlements, traffic, pollution, inadequate services',
+          ]},
+        ]},
+        { title:'Natural Environment', icon:'🌋', topics:[
+          { title:'Plate Tectonics', points:[
+            'Earth\'s crust divided into tectonic plates moving on molten mantle (convection currents)',
+            'Convergent (destructive): plates collide → subduction → volcanoes, earthquakes, fold mountains',
+            'Divergent (constructive): plates move apart → new crust formed → rift valleys, mid-ocean ridges',
+            'Conservative (transform): plates slide past each other → earthquakes (e.g. San Andreas Fault)',
+            'Richter scale: measures earthquake magnitude (logarithmic — 7 is 10× stronger than 6)',
+          ]},
+          { title:'Rivers & Coasts', points:[
+            'River processes: erosion (hydraulic action, abrasion, attrition, solution), transport, deposition',
+            'Upper course: steep, V-shaped valley, rapids, waterfalls',
+            'Lower course: wide floodplain, meanders, oxbow lakes, levees, deltas',
+            'Coastal erosion: wave-cut platform, caves, arches, stacks, stumps',
+            'Coastal deposition: beaches, spits, bars, tombolos; longshore drift moves material',
+          ]},
+          { title:'Weather & Climate', points:[
+            'Weather: short-term atmospheric conditions; climate: average weather over 30+ years',
+            'Tropical rainforest climate: hot and wet all year (~27°C, 2000mm+ rainfall); equatorial belt',
+            'Hot desert: very hot days, cold nights, <250mm rainfall; 15–30° north/south of equator',
+            'Deforestation: reduces rainfall, increases flooding, destroys biodiversity, releases CO₂',
+            'Climate change: rising CO₂ → enhanced greenhouse effect → global warming → sea level rise',
+          ]},
+        ]},
+        { title:'Economic Development', icon:'📈', topics:[
+          { title:'Development & Indicators', points:[
+            'Development: improvement in standard of living and quality of life',
+            'GDP per capita: average income per person — economic indicator',
+            'HDI (Human Development Index): combines income, education (literacy) and life expectancy',
+            'LICs (Low Income Countries) vs HICs (High Income Countries) — development gap',
+            'Causes of inequality: history (colonialism), geography (landlocked), governance, natural resources',
+          ]},
+          { title:'Industry & Globalisation', points:[
+            'Primary: extraction (farming, mining); Secondary: manufacturing; Tertiary: services; Quaternary: IT/research',
+            'NICs (Newly Industrialised Countries): rapid manufacturing growth (e.g. China, India, Brazil)',
+            'TNCs (Transnational Corporations): operate in many countries; exploit cheap labour in LICs',
+            'Globalisation: world more interconnected through trade, technology, migration',
+            'Tourism: major income source for LICs; but leakage (money leaves country), cultural damage',
+          ]},
+        ]},
+        { title:'Geographic Skills', icon:'🗺️', topics:[
+          { title:'Map Skills & Data Interpretation', points:[
+            'Contour lines: connect points of equal height; close together = steep; far apart = gentle slope',
+            'Grid references: 4-figure (square) and 6-figure (precise point) — always eastings then northings',
+            'Compass directions: N, NE, E, SE, S, SW, W, NW — 8-point compass',
+            'Scale: ratio (1:25000 means 1cm = 250m) and line scale',
+            'Choropleth maps: shading shows data; disproportion maps (cartograms) show variable by area size',
+          ]},
+          { title:'Graph Types & Statistics', points:[
+            'Bar charts: discrete categories; line graphs: change over time; pie charts: proportions of whole',
+            'Scatter graphs: relationship between two variables; line of best fit shows correlation',
+            'Triangular graphs: three-component data (e.g. soil texture: sand/silt/clay)',
+            'Mean, median, mode, range — choosing appropriate measure for data type',
+            'Describing graphs: use data, identify trend, note anomalies, suggest explanation',
+          ]},
+        ]},
+      ],
+    }
+  },
+  business: {
+    label:'Business Studies', arabic:'الأعمال التجارية', icon:'💼', color:'#0891B2',
+    boards: ['cie','edexcel','oxford'],
+    pastPapers: {
+      cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-business-studies-0450/past-papers/',
+      edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-business-2017.coursematerials.html',
+      oxford:  'https://www.oxfordaqaexams.org.uk/igcse/business-studies/',
+    },
+    chapters: {
+      cie: [
+        { title:'Business Activity', icon:'🏢', topics:[
+          { title:'Purpose & Types of Business', points:[
+            'Needs: essential for survival; wants: desirable but not essential; scarcity requires choices',
+            'Sectors: Primary (extraction), Secondary (manufacturing), Tertiary (services)',
+            'Sole trader: owned by one person; full liability; easy to set up; all profit kept',
+            'Partnership: 2–20 partners; shared responsibility; partnership agreement important',
+            'Private limited company (Ltd): shareholders; limited liability; cannot sell shares publicly',
+            'Public limited company (Plc): shares on stock exchange; large capital; more regulation',
+          ]},
+          { title:'Business Objectives & Stakeholders', points:[
+            'Profit = total revenue − total costs; survival (new businesses), growth, market share',
+            'Stakeholders: anyone affected by the business — shareholders, employees, customers, community',
+            'Shareholder vs stakeholder conflict: e.g. shareholders want high profit; employees want high wages',
+            'CSR (Corporate Social Responsibility): business considers impact on society and environment',
+            'Social enterprise: business with mainly social/environmental objectives',
+          ]},
+        ]},
+        { title:'Marketing', icon:'📣', topics:[
+          { title:'The Marketing Mix (4Ps)', points:[
+            'Product: design, features, USP (unique selling point), product life cycle',
+            'Price strategies: cost-plus, competitive pricing, penetration (low to enter market), skimming (high for new)',
+            'Place: how product reaches customer — direct, retailer, wholesaler, online',
+            'Promotion: advertising, sales promotion, PR, personal selling, social media',
+            'Match mix to target market — know your customer (age, income, preferences)',
+          ]},
+          { title:'Market Research', points:[
+            'Primary research: collected first-hand — surveys, interviews, observations, focus groups',
+            'Secondary research: already exists — internet, government data, trade journals',
+            'Quantitative: numerical data (statistics); qualitative: opinions and reasons',
+            'Market segmentation: divide market by age, gender, income, location, lifestyle',
+            'USP (Unique Selling Point): what makes the product different from competitors',
+          ]},
+        ]},
+        { title:'Finance', icon:'💰', topics:[
+          { title:'Costs, Revenue & Profit', points:[
+            'Fixed costs: don\'t change with output (rent, salaries); variable: change with output (materials)',
+            'Total cost = fixed costs + variable costs; Revenue = price × quantity sold',
+            'Profit = revenue − total costs; loss when costs exceed revenue',
+            'Break-even: output where TR = TC; Break-even output = fixed costs ÷ (price − variable cost per unit)',
+            'Margin of safety = actual output − break-even output',
+          ]},
+          { title:'Cash Flow & Finance Sources', points:[
+            'Cash flow ≠ profit: profitable business can still run out of cash',
+            'Cash flow forecast: predicts monthly cash in and out; identifies potential shortfalls',
+            'Improving cash flow: reduce credit given to customers, delay payments to suppliers, sell assets',
+            'Internal finance: retained profit, sale of assets; External: bank loan, overdraft, share issue',
+            'Overdraft: short-term borrowing; bank loan: medium/long term; cheaper to borrow long-term',
+          ]},
+        ]},
+        { title:'Human Resources', icon:'👥', topics:[
+          { title:'Motivation & Leadership', points:[
+            'Maslow\'s Hierarchy: physiological → safety → social → esteem → self-actualisation',
+            'Taylor: workers motivated by money (piece rate); Herzberg: hygiene factors vs motivators',
+            'Financial motivators: wages, salaries, bonuses, profit sharing, commission',
+            'Non-financial: promotion, job enrichment, recognition, flexible working, training',
+            'Leadership styles: autocratic (decides alone), democratic (consults), laissez-faire (delegates)',
+          ]},
+          { title:'Recruitment & Training', points:[
+            'Internal recruitment: promote existing staff; External: advertise outside (wider choice)',
+            'Job description: duties and responsibilities; Person specification: skills and qualities needed',
+            'On-the-job training: learn while working (cheaper, relevant); Off-the-job: external course (broader)',
+            'Induction training: introduction for new employees; reduces mistakes, builds confidence',
+            'Employment contract: legal document stating terms — hours, pay, notice period',
+          ]},
+        ]},
+        { title:'Operations Management', icon:'⚙️', topics:[
+          { title:'Production Methods', points:[
+            'Job production: one-off, customised product (e.g. wedding cake, aircraft); high quality, expensive',
+            'Batch production: groups of identical products at same time (e.g. bread, clothing); more flexible',
+            'Flow (mass) production: continuous production line (e.g. cars, phones); cheap per unit, repetitive',
+            'Lean production: eliminate waste — just-in-time (JIT), kaizen (continuous improvement)',
+            'Quality control: inspect finished products; Quality assurance: check at every stage of production',
+          ]},
+        ]},
+      ],
+    }
+  },
+  add_maths: {
+    label:'Additional Mathematics', arabic:'رياضيات إضافية', icon:'🔣', color:'#7C3AED',
+    boards: ['cie'],
+    pastPapers: {
+      cie: 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-additional-mathematics-0606/past-papers/',
+    },
+    chapters: {
+      cie: [
+        { title:'Functions', icon:'📐', topics:[
+          { title:'Functions & Their Graphs', points:[
+            'Function: each input has exactly one output; f(x) notation',
+            'Domain: set of allowed inputs; range: set of possible outputs',
+            'Composite function: fg(x) = f(g(x)) — apply g first, then f',
+            'Inverse function f⁻¹(x): reverses f; domain of f⁻¹ = range of f; swap x and y to find',
+            'One-to-one functions only have inverses; use horizontal line test',
+          ]},
+          { title:'Modulus Function', points:[
+            'Modulus |x|: distance from zero — always positive',
+            'Graph of y = |f(x)|: reflect any part below x-axis above it',
+            'Solving |x − a| = b: split into x − a = b and x − a = −b',
+            'Solving |f(x)| < b: −b < f(x) < b (and/intersection)',
+            'Solving |f(x)| > b: f(x) > b OR f(x) < −b (or/union)',
+          ]},
+        ]},
+        { title:'Algebra & Equations', icon:'🔢', topics:[
+          { title:'Quadratic Functions', points:[
+            'Completing the square: x²+bx = (x + b/2)² − (b/2)² — vertex form: a(x−h)²+k',
+            'Discriminant: b²−4ac; >0 two real roots, =0 one repeated root, <0 no real roots',
+            'Sum of roots α+β = −b/a; product αβ = c/a (Vieta\'s formulas)',
+            'Finding quadratic given roots: x² − (α+β)x + αβ = 0',
+            'Nature of stationary point: minimum if a>0 (happy), maximum if a<0 (sad)',
+          ]},
+          { title:'Indices & Surds', points:[
+            'Laws of indices: same as IGCSE Maths — aᵐ×aⁿ, aᵐ÷aⁿ, (aᵐ)ⁿ, a⁰=1, a⁻ⁿ, aᵐ/ⁿ',
+            'Surd: irrational number with √ (e.g. √2, √3) — leave in exact form',
+            'Simplify surds: √18 = √(9×2) = 3√2',
+            'Rationalising denominator: multiply top and bottom by surd (or conjugate for a+√b)',
+            '(√a + √b)(√a − √b) = a − b — difference of squares eliminates surds',
+          ]},
+          { title:'Polynomials & Factor Theorem', points:[
+            'Polynomial division: long division or synthetic division',
+            'Factor theorem: if f(a) = 0 then (x − a) is a factor of f(x)',
+            'Remainder theorem: when f(x) divided by (x − a), remainder = f(a)',
+            'Fully factorise: find one root by inspection, then divide, then factorise quotient',
+            'Cubic f(x) = ax³+bx²+cx+d — try factors of d/a as potential rational roots',
+          ]},
+          { title:'Simultaneous Equations (Linear & Non-linear)', points:[
+            'Linear and quadratic: substitute linear into quadratic → solve resulting quadratic',
+            'Set discriminant ≥ 0 to find values of k for which two solutions exist',
+            'Discriminant = 0: line is tangent to curve (one solution, touches)',
+            'For circle problems: substitute line y = mx+c into circle equation',
+            'Always check solutions by substituting back into both original equations',
+          ]},
+        ]},
+        { title:'Logarithms & Exponentials', icon:'📊', topics:[
+          { title:'Logarithms', points:[
+            'Definition: logₐ b = c ↔ aᶜ = b (a is the base)',
+            'Laws: log(xy) = log x + log y; log(x/y) = log x − log y; log(xⁿ) = n log x',
+            'ln is log base e (natural log); log without base usually means log₁₀',
+            'Change of base: logₐ b = log b / log a',
+            'Solving aˣ = b: take log of both sides → x log a = log b → x = log b / log a',
+          ]},
+          { title:'Exponential & Log Graphs', points:[
+            'y = aˣ: passes through (0,1), always positive, increases if a>1',
+            'y = ln x: passes through (1,0); undefined for x ≤ 0; inverse of y = eˣ',
+            'Linearising: if y = abˣ then ln y = ln a + x ln b → straight line (ln y vs x)',
+            'If y = axⁿ then log y = log a + n log x → straight line (log y vs log x)',
+            'Gradient and intercept of linearised graph give n and log a (or ln a)',
+          ]},
+        ]},
+        { title:'Trigonometry', icon:'📐', topics:[
+          { title:'Trigonometric Functions & Identities', points:[
+            'Exact values: sin 30°=½, cos 30°=√3/2, tan 30°=1/√3; sin 45°=cos 45°=1/√2; sin 60°=√3/2',
+            'Pythagorean identity: sin²θ + cos²θ = 1 (fundamental — must memorise)',
+            'Derived: 1 + tan²θ = sec²θ; 1 + cot²θ = cosec²θ',
+            'Graph of sin x: period 360°, amplitude 1; cos x: period 360°; tan x: period 180°',
+            'Transformations: y = a sin(bx) + c — amplitude a, period 360/b, vertical shift c',
+          ]},
+          { title:'Solving Trigonometric Equations', points:[
+            'Find principal value using inverse trig, then find all solutions in given range',
+            'CAST diagram: All positive (1st), Sin positive (2nd), Tan positive (3rd), Cos positive (4th)',
+            'sin θ = k: solutions at θ and 180° − θ (in range 0°–360°)',
+            'cos θ = k: solutions at θ and 360° − θ',
+            'tan θ = k: solutions at θ and θ + 180°',
+          ]},
+        ]},
+        { title:'Calculus', icon:'∫', topics:[
+          { title:'Differentiation', points:[
+            'd/dx (xⁿ) = nxⁿ⁻¹; d/dx (eˣ) = eˣ; d/dx (ln x) = 1/x; d/dx (sin x) = cos x; d/dx (cos x) = −sin x',
+            'Chain rule: d/dx f(g(x)) = f\'(g(x)) × g\'(x) — differentiate outside × inside\'',
+            'Product rule: d/dx (uv) = u\'v + uv\'',
+            'Quotient rule: d/dx (u/v) = (u\'v − uv\') / v²',
+            'Stationary points: f\'(x) = 0; classify with f\'\'(x): positive = min, negative = max',
+          ]},
+          { title:'Integration', points:[
+            '∫xⁿ dx = xⁿ⁺¹/(n+1) + c (n ≠ −1); ∫1/x dx = ln|x| + c',
+            '∫eˣ dx = eˣ + c; ∫sin x dx = −cos x + c; ∫cos x dx = sin x + c',
+            'Integration by substitution: let u = inner function, replace dx with du/dx',
+            'Definite integral ∫ₐᵇ f(x) dx = F(b) − F(a) where F is the antiderivative',
+            'Area under curve = definite integral; if below x-axis, result is negative → take |value|',
+          ]},
+        ]},
+        { title:'Binomial & Statistics', icon:'📊', topics:[
+          { title:'Permutations & Combinations', points:[
+            'Permutation: ordered arrangement; ⁿPᵣ = n!/(n−r)! — order matters',
+            'Combination: unordered selection; ⁿCᵣ = n!/r!(n−r)! — order doesn\'t matter',
+            'n! = n × (n−1) × ... × 2 × 1; 0! = 1',
+            'Arrangements with restrictions: fix restricted elements first, then arrange the rest',
+            'Circular arrangements: (n−1)! for n objects in a circle',
+          ]},
+          { title:'Binomial Theorem', points:[
+            '(a+b)ⁿ = Σ ⁿCᵣ aⁿ⁻ʳ bʳ for r = 0 to n',
+            'General term (r+1)th term: Tᵣ₊₁ = ⁿCᵣ × aⁿ⁻ʳ × bʳ',
+            'Coefficient of xᵏ: find r such that the power of x = k',
+            '(1+x)ⁿ expansion: 1 + nx + n(n−1)/2! x² + ... (valid for |x|<1 if n not integer)',
+            'Use binomial expansion for approximations: substitute small value of x',
+          ]},
+        ]},
+      ],
+    }
+  },
+  accounting: {
+    label:'Accounting', arabic:'المحاسبة', icon:'📒', color:'#059669',
+    boards: ['cie','edexcel'],
+    pastPapers: {
+      cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-accounting-0452/past-papers/',
+      edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-accounting-2017.coursematerials.html',
+    },
+    chapters: {
+      cie: [
+        { title:'The Accounting System', icon:'📋', topics:[
+          { title:'Purpose & Concepts', points:[
+            'Accounting: recording, classifying, summarising and communicating financial information',
+            'Users: owners (profit?), managers (decisions), creditors (can they repay?), employees (job security?)',
+            'Going concern: business will continue to operate for foreseeable future',
+            'Consistency: same accounting methods used each year for comparability',
+            'Prudence: record losses when likely, profits only when certain',
+            'Matching (accruals): revenue and costs matched to period in which they are earned/incurred',
+          ]},
+          { title:'Double Entry Bookkeeping', points:[
+            'Every transaction has two equal and opposite effects (debit and credit)',
+            'Debit: left side of T-account; Credit: right side',
+            'DEAD CLIC: Debit = Expenses, Assets, Drawings; Credit = Liabilities, Income, Capital',
+            'Assets increase with debit; liabilities/capital increase with credit',
+            'Journal entries: record DR and CR with brief narration for each transaction',
+          ]},
+        ]},
+        { title:'Books of Original Entry', icon:'📚', topics:[
+          { title:'Books of Prime Entry', points:[
+            'Sales day book: records credit sales (not cash sales)',
+            'Purchases day book: records credit purchases',
+            'Returns day books: sales returns (inward) and purchases returns (outward)',
+            'Cash book: records all cash and bank transactions; has debit (receipts) and credit (payments) columns',
+            'Petty cash book: records small cash payments using imprest system (topped up to fixed amount)',
+          ]},
+          { title:'Trial Balance', points:[
+            'Trial balance: list of all ledger balances (debit and credit columns must agree)',
+            'Agreement does NOT mean no errors — compensating errors, complete omissions, errors of principle',
+            'Six types of error not revealed: omission, commission, principle, original entry, reversal, compensating',
+            'Suspense account: temporary account to make trial balance agree while errors are found',
+            'Correcting journal entries: reverse the error, then record correctly',
+          ]},
+        ]},
+        { title:'Financial Statements', icon:'📊', topics:[
+          { title:'Income Statement (Trading Account)', points:[
+            'Trading section: Sales − Cost of Goods Sold = Gross Profit',
+            'Cost of Goods Sold = Opening Inventory + Purchases + Carriage In − Returns Out − Closing Inventory',
+            'Income section: Gross Profit + Other Income − Expenses = Profit/Loss for the period',
+            'Revenue expenditure: day-to-day expenses (charged to income statement)',
+            'Capital expenditure: non-current assets (goes on balance sheet — not income statement)',
+          ]},
+          { title:'Balance Sheet (Statement of Financial Position)', points:[
+            'Balance sheet: shows what business OWNS (assets) and OWES (liabilities + capital) at a point in time',
+            'Non-current assets: long-term assets (property, machinery, vehicles)',
+            'Current assets: short-term (inventory, trade receivables, bank, cash)',
+            'Current liabilities: due within 1 year (trade payables, bank overdraft)',
+            'Capital = Assets − Liabilities (accounting equation: A = C + L always balances)',
+          ]},
+          { title:'Adjustments to Accounts', points:[
+            'Depreciation: spreading cost of non-current asset over useful life',
+            'Straight-line: (Cost − Residual value) ÷ Useful life — equal annual charge',
+            'Reducing balance: % × net book value each year — higher charge early on',
+            'Accruals: expenses incurred but not yet paid — add to expense, add to liabilities',
+            'Prepayments: expenses paid in advance — deduct from expense, add to current assets',
+          ]},
+        ]},
+        { title:'Analysis & Interpretation', icon:'📈', topics:[
+          { title:'Ratio Analysis', points:[
+            'Gross profit margin = (Gross profit ÷ Revenue) × 100%',
+            'Net profit margin = (Net profit ÷ Revenue) × 100%',
+            'Return on capital employed (ROCE) = (Net profit ÷ Capital employed) × 100%',
+            'Current ratio = Current assets ÷ Current liabilities (ideal: 1.5:1 to 2:1)',
+            'Quick ratio (acid test) = (Current assets − Inventory) ÷ Current liabilities (ideal: 1:1)',
+          ]},
+          { title:'Interpreting Financial Information', points:[
+            'Compare ratios: against previous years (trend) and against similar businesses (benchmarking)',
+            'High gross margin but low net margin → high expenses relative to sales',
+            'Low current ratio → liquidity problem; high → cash tied up inefficiently',
+            'Inventory turnover = COGS ÷ Average inventory (times per year); higher = faster selling',
+            'Limitations: ratios are based on historical cost; do not show non-financial factors',
+          ]},
+        ]},
+      ],
+    }
+  },
 };
 
 // Use CIE chapters as fallback for Edexcel and Oxford AQA (90% overlap)
