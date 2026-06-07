@@ -40,6 +40,7 @@ let S = {
   igcseTab: 'notes',
   igcseSearch: '',
   igcseDone: {},   // { 'subj-ci-ti': true } — completed topics
+  igcseView: 'list', // 'list' | 'formulas'
 };
 let _pomTimer = null;
 
@@ -4485,7 +4486,17 @@ const IGCSE_SUBJECTS = {
             'Compound interest: A = P(1 + r/100)ⁿ — exponential growth',
             'Ratio simplification: divide all parts by HCF; divide quantity in ratio',
             'Direct proportion: y = kx (graph through origin); inverse: y = k/x',
-          ]},
+          ], examTips:[
+            'For compound interest questions, write out the formula A = P(1+r/100)ⁿ before substituting',
+            'Reverse percentage: identify the multiplier first (e.g. after 20% increase → divide by 1.2)',
+            'Check ratio questions: make sure your parts add up to the total given',
+          ], commonMistakes:[
+            'Using simple interest formula instead of compound interest',
+            'Percentage change: using the wrong "original" value (should be the initial, not final)',
+            'Splitting a ratio incorrectly — always find 1 part first',
+          ], workedExample:`A car costs $12,000 after a 20% discount. What was the original price?
+After 20% discount → multiplier = 0.8
+Original = 12000 ÷ 0.8 = $15,000`},
         ]},
         { title:'Algebra & Graphs', icon:'📈', topics:[
           { title:'Algebraic Manipulation', points:[
@@ -4501,7 +4512,18 @@ const IGCSE_SUBJECTS = {
             'Simultaneous equations — elimination: multiply to match coefficients, then add/subtract',
             'Inequalities: solve like equations BUT flip sign when multiplying/dividing by negative',
             'Represent inequalities on number line: open circle = strict (</>), filled = (≤/≥)',
-          ]},
+          ], examTips:[
+            'Always show substitution back to check your answer in simultaneous equations',
+            'If asked to solve graphically, find intersection points — be precise on graph',
+            'Quadratic formula: write it out first, then substitute — avoid rounding too early',
+          ], commonMistakes:[
+            'Forgetting to flip the inequality sign when dividing by a negative number',
+            'Dropping one solution when solving x² = k (both +√k and −√k)',
+            'Arithmetic errors when expanding brackets before solving',
+          ], workedExample:`Solve 2x² − 5x − 3 = 0 using the quadratic formula:
+a=2, b=−5, c=−3
+x = (5 ± √(25 + 24)) / 4 = (5 ± √49) / 4 = (5 ± 7) / 4
+x = 3  or  x = −0.5`},
           { title:'Functions & Graphs', points:[
             'Gradient of line: m = (y₂−y₁)/(x₂−x₁); equation of line: y = mx + c',
             'Parallel lines have equal gradients; perpendicular lines: m₁ × m₂ = −1',
@@ -4628,7 +4650,18 @@ const IGCSE_SUBJECTS = {
             'Distance-time graph: gradient = speed; horizontal line = stationary; curve = changing speed',
             'Velocity-time graph: gradient = acceleration; area under graph = distance travelled',
             'Equations of motion: v=u+at, s=ut+½at², v²=u²+2as, s=½(u+v)t',
-          ]},
+          ], examTips:[
+            'On a velocity-time graph, area under the line = distance — count squares if not a simple shape',
+            'Be careful: equations of motion only apply when acceleration is constant (uniform)',
+            'Label which direction is positive — deceleration means acceleration is negative',
+          ], commonMistakes:[
+            'Confusing distance-time with velocity-time graphs',
+            'Using speed when the question asks for velocity (velocity needs direction)',
+            'Forgetting to convert km/h to m/s (÷ 3.6) or cm to m before calculating',
+          ], workedExample:`A car accelerates from 0 to 30 m/s in 6 seconds. Find distance travelled.
+u=0, v=30, t=6 → a = (30−0)/6 = 5 m/s²
+s = ut + ½at² = 0 + ½×5×36 = 90 m
+(Or: s = ½(u+v)t = ½×30×6 = 90 m ✓)`},
           { title:'Forces & Newton\'s Laws', points:[
             '1st Law: object remains at rest or constant velocity unless resultant force acts',
             '2nd Law: F = ma — larger force or smaller mass gives greater acceleration',
@@ -6265,6 +6298,390 @@ const IGCSE_SUBJECTS = {
       ],
     }
   },
+  spanish: {
+    label:'Spanish', arabic:'الإسبانية', icon:'🇪🇸', color:'#C0392B',
+    boards: ['cie','edexcel'],
+    pastPapers: {
+      cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-spanish-0530/past-papers/',
+      edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-spanish-2017.coursematerials.html',
+      oxford:  '#',
+    },
+    chapters: {
+      cie: [
+        { title:'Listening & Reading', icon:'👂', topics:[
+          { title:'Understanding Spoken Spanish', points:[
+            'Listen for gist first — get the main idea before details',
+            'Key question words: ¿qué? (what), ¿quién? (who), ¿dónde? (where), ¿cuándo? (when), ¿por qué? (why), ¿cómo? (how)',
+            'Cognates (similar to English) help — e.g. información, importante, hospital',
+            'Watch for negatives (no, nunca, nada, nadie) which change the meaning completely',
+            'In dictation: listen for accents and spelling — pay attention to familiar vs. unfamiliar words',
+          ], examTips:[
+            'Read the question before listening — know what to listen for',
+            'In multiple choice, eliminate obviously wrong options first',
+            'For gap-fill, check if answer should be a noun, verb, or adjective',
+          ]},
+          { title:'Reading Comprehension', points:[
+            'Scan for specific information: names, numbers, dates, and opinions',
+            'Understand tense changes — present vs. past vs. future changes the meaning',
+            'Negatives: no (not), nunca (never), nada (nothing), nadie (nobody), ningún (none)',
+            'Adjective agreement: adjective must match gender and number (e.g. casas bonitas)',
+            'Common false friends: embarazada (pregnant, not embarrassed); realizar (to achieve, not to realise)',
+          ]},
+        ]},
+        { title:'Speaking & Writing', icon:'🗣️', topics:[
+          { title:'Speaking Exam Skills', points:[
+            'Role-play: use set phrases — Me gustaría... (I would like), ¿Podría...? (Could I...?)',
+            'Photo card: describe what you see, give opinions, answer questions',
+            'General conversation: prepare topics — school, free time, holidays, environment, technology',
+            'Use a range of tenses — present, preterite, imperfect, future, conditional for higher marks',
+            'Opinions: en mi opinión, creo que, pienso que, me parece que + adjective/clause',
+          ], examTips:[
+            'Don\'t leave silence — say "Hmm, es una buena pregunta..." to buy thinking time',
+            'Extend answers by giving reasons: porque, así que, por lo tanto',
+            'Use connectives: también (also), sin embargo (however), aunque (although), además (furthermore)',
+          ], commonMistakes:[
+            'Forgetting ser vs estar: ser = permanent characteristics; estar = temporary states/location',
+            'Using present tense for past events — learn preterite endings (hablé, comí, viví)',
+            'Gender errors: el agua is feminine but uses "el" for phonetic reasons',
+          ]},
+          { title:'Writing Skills', points:[
+            'Structure: introduction → main points with examples → conclusion',
+            'Tenses to include: present (hablo), preterite (hablé), imperfect (hablaba), future (hablaré), conditional (hablaría)',
+            'Agreement: adjectives and articles agree with noun gender and number',
+            'Subjunctive (higher): espero que + subjunctive, quiero que + subjunctive',
+            'Check: subject-verb agreement, accents (á, é, í, ó, ú), question marks ¿?, exclamation ¡!',
+          ]},
+        ]},
+        { title:'Grammar Essentials', icon:'📚', topics:[
+          { title:'Verb Tenses', points:[
+            'Present: regular -AR (hablo, hablas, habla, hablamos, habláis, hablan)',
+            'Preterite (completed past): hablé, hablaste, habló, hablamos, hablasteis, hablaron',
+            'Imperfect (ongoing past): hablaba, hablabas, hablaba, hablábamos... — used for descriptions',
+            'Future: hablaré, hablarás, hablará — OR ir + a + infinitive (voy a hablar)',
+            'Conditional: hablaría, hablarías — used for hypothetical situations (I would speak)',
+          ], examTips:[
+            'Learn the irregulars: ser/estar, ir, tener, hacer, poder, querer, venir — they are very common',
+            'Preterite vs imperfect: preterite for single completed actions; imperfect for habits/descriptions',
+          ], workedExample:`Preterite of IR (irregular — same as ser):
+fui, fuiste, fue, fuimos, fuisteis, fueron
+"Yesterday I went to school" → Ayer fui al colegio.`},
+          { title:'Nouns, Articles & Adjectives', points:[
+            'Nouns: masculine (el libro, los libros) or feminine (la casa, las casas)',
+            'Indefinite articles: un/una (a), unos/unas (some)',
+            'Adjectives after noun (usually): la casa roja, los libros interesantes',
+            'Comparatives: más...que (more than), menos...que (less than), tan...como (as...as)',
+            'Superlatives: el/la más + adjective + de (the most...in/of)',
+          ]},
+        ]},
+        { title:'Topics & Vocabulary', icon:'🌍', topics:[
+          { title:'Key IGCSE Topics', points:[
+            'Identity & culture: family, relationships, social media, customs, festivals',
+            'Local, national, international: environmental problems, global issues, travel, tourism',
+            'Current & future study: school life, subjects, future plans, employment',
+            'Lifestyle: health, diet, sport, leisure activities, technology',
+            'Expressing preferences: prefiero (I prefer), me encanta (I love), no me gusta (I don\'t like)',
+          ]},
+        ]},
+      ],
+    },
+  },
+};
+
+// ════════════════════════════════════════════════════════════
+//  IGCSE FORMULA SHEETS
+// ════════════════════════════════════════════════════════════
+const IGCSE_FORMULAS = {
+  maths: [
+    { title:'Number', icon:'🔢', items:[
+      'Standard form: A × 10ⁿ  (1 ≤ A < 10)',
+      'Percentage change = (change ÷ original) × 100%',
+      'Compound interest: A = P(1 + r/100)ⁿ',
+      'Reverse %: original = value ÷ (1 ± r/100)',
+      'HCF & LCM: use prime factor trees',
+      'Ratio a:b → fractions a/(a+b) and b/(a+b)',
+    ]},
+    { title:'Algebra', icon:'📈', items:[
+      'Quadratic formula: x = (−b ± √(b²−4ac)) / 2a',
+      'Discriminant: b²−4ac  >0 two roots, =0 one, <0 none',
+      'Difference of squares: a²−b² = (a+b)(a−b)',
+      'Sum of roots: α+β = −b/a  |  Product: αβ = c/a',
+      'Index laws: aᵐ×aⁿ=aᵐ⁺ⁿ, aᵐ÷aⁿ=aᵐ⁻ⁿ, (aᵐ)ⁿ=aᵐⁿ, a⁻ⁿ=1/aⁿ, a^(1/n)=ⁿ√a',
+      'Arithmetic nth term: a + (n−1)d',
+      'Geometric nth term: arⁿ⁻¹',
+    ]},
+    { title:'Coordinate Geometry', icon:'📍', items:[
+      'Gradient: m = (y₂−y₁)/(x₂−x₁)',
+      'Equation of line: y = mx + c  or  y−y₁ = m(x−x₁)',
+      'Distance: d = √((x₂−x₁)² + (y₂−y₁)²)',
+      'Midpoint: ((x₁+x₂)/2 , (y₁+y₂)/2)',
+      'Perpendicular gradients: m₁ × m₂ = −1',
+      'Circle: (x−a)² + (y−b)² = r²',
+    ]},
+    { title:'Geometry & Mensuration', icon:'📐', items:[
+      'Area: triangle ½bh, trapezium ½(a+b)h, circle πr²',
+      'Circumference: C = 2πr  |  Arc length: (θ/360)×2πr',
+      'Sector area: (θ/360)×πr²',
+      'Volume: cuboid lwh, cylinder πr²h, cone ⅓πr²h, sphere (4/3)πr³, pyramid ⅓Bh',
+      'Surface area: cylinder 2πrh+2πr², cone πrl+πr², sphere 4πr²',
+      'Pythagoras: a²+b²=c² (c = hypotenuse)',
+      'Exterior angle of polygon = 360°/n  |  Interior = (n−2)×180°/n',
+    ]},
+    { title:'Trigonometry', icon:'📐', items:[
+      'SOH: sin θ = Opp/Hyp  |  CAH: cos θ = Adj/Hyp  |  TOA: tan θ = Opp/Adj',
+      'Sine rule: a/sinA = b/sinB = c/sinC',
+      'Cosine rule: a² = b²+c²−2bc cosA  →  cosA = (b²+c²−a²)/2bc',
+      'Area of triangle: ½ab sinC',
+      'Exact values: sin30=½, cos30=√3/2, tan30=1/√3, sin45=cos45=1/√2, sin60=√3/2, cos60=½',
+    ]},
+    { title:'Vectors', icon:'↗️', items:[
+      'Column vector: (x y) — add components to add vectors',
+      'Magnitude: |a| = √(x²+y²)',
+      'AB = OB − OA (using position vectors)',
+      'Scalar multiple: k(x y) = (kx ky)',
+    ]},
+    { title:'Probability & Statistics', icon:'📊', items:[
+      'P(A) = favourable ÷ total  |  0 ≤ P(A) ≤ 1',
+      'P(not A) = 1 − P(A)',
+      'P(A and B) = P(A) × P(B) — independent events',
+      'P(A or B) = P(A) + P(B) − P(A and B)',
+      'Mean of grouped data: Σfx / Σf',
+      'Frequency density = frequency ÷ class width (histograms)',
+      'IQR = Q3 − Q1',
+    ]},
+  ],
+  add_maths: [
+    { title:'Differentiation', icon:'∂', items:[
+      'd/dx(xⁿ) = nxⁿ⁻¹',
+      'd/dx(eˣ) = eˣ  |  d/dx(e^(ax)) = ae^(ax)',
+      'd/dx(ln x) = 1/x',
+      'd/dx(sin x) = cos x  |  d/dx(cos x) = −sin x  |  d/dx(tan x) = sec²x',
+      'Chain rule: d/dx f(g(x)) = f\'(g(x))·g\'(x)',
+      'Product rule: (uv)\' = u\'v + uv\'',
+      'Quotient rule: (u/v)\' = (u\'v − uv\')/v²',
+    ]},
+    { title:'Integration', icon:'∫', items:[
+      '∫xⁿ dx = xⁿ⁺¹/(n+1) + c  (n ≠ −1)',
+      '∫1/x dx = ln|x| + c',
+      '∫eˣ dx = eˣ + c  |  ∫e^(ax) dx = (1/a)e^(ax) + c',
+      '∫sin x dx = −cos x + c  |  ∫cos x dx = sin x + c',
+      'Definite integral: ∫ᵃᵇ f(x)dx = F(b) − F(a)',
+      'Area between curve and x-axis = |∫ᵃᵇ f(x)dx|',
+    ]},
+    { title:'Logarithms', icon:'log', items:[
+      'log_a(b) = c  ↔  aᶜ = b',
+      'log(xy) = log x + log y',
+      'log(x/y) = log x − log y',
+      'log(xⁿ) = n log x',
+      'Change of base: log_a(b) = log b / log a',
+      'ln x = log_e x  |  e ≈ 2.718',
+    ]},
+    { title:'Trigonometric Identities', icon:'📐', items:[
+      'sin²θ + cos²θ = 1',
+      '1 + tan²θ = sec²θ',
+      '1 + cot²θ = cosec²θ',
+      'sin(A±B) = sinA cosB ± cosA sinB',
+      'cos(A±B) = cosA cosB ∓ sinA sinB',
+      'tan(A±B) = (tanA ± tanB)/(1 ∓ tanA tanB)',
+      'sin 2A = 2 sinA cosA  |  cos 2A = cos²A − sin²A = 1−2sin²A = 2cos²A−1',
+    ]},
+    { title:'Binomial Theorem', icon:'Σ', items:[
+      '(a+b)ⁿ = Σ [ⁿCr · aⁿ⁻ʳ · bʳ]  for r = 0 to n',
+      'General term Tᵣ₊₁ = ⁿCr · aⁿ⁻ʳ · bʳ',
+      'ⁿCr = n! / (r!(n−r)!)',
+      'Permutations: ⁿPr = n!/(n−r)!  — order matters',
+      'Circular arrangements: (n−1)!',
+    ]},
+    { title:'Surds & Indices', icon:'√', items:[
+      '√(ab) = √a × √b  |  √(a/b) = √a/√b',
+      'Rationalise: multiply by conjugate (a−√b) when denominator is a+√b',
+      'a^(m/n) = (ⁿ√a)ᵐ  |  a⁰ = 1  |  a⁻ⁿ = 1/aⁿ',
+    ]},
+  ],
+  physics: [
+    { title:'Motion', icon:'🚀', items:[
+      'v = u + at',
+      's = ut + ½at²',
+      'v² = u² + 2as',
+      's = ½(u+v)t',
+      'speed = distance ÷ time',
+      'acceleration = (v−u)/t  (m/s²)',
+    ]},
+    { title:'Forces & Pressure', icon:'💪', items:[
+      'F = ma  (Newton\'s 2nd law)',
+      'W = mg  (weight; g = 10 N/kg)',
+      'Momentum: p = mv  |  F = Δp/Δt',
+      'Pressure: P = F/A  (Pascals = N/m²)',
+      'Fluid pressure: P = ρgh',
+      'Moment = F × d  (perpendicular distance)',
+    ]},
+    { title:'Energy, Work & Power', icon:'⚡', items:[
+      'Work done: W = Fd cos θ  (joules)',
+      'KE = ½mv²',
+      'GPE = mgh',
+      'Power: P = W/t = Fv  (watts)',
+      'Efficiency = (useful output ÷ total input) × 100%',
+      'Conservation: total energy = constant',
+    ]},
+    { title:'Waves', icon:'〰️', items:[
+      'v = fλ  (wave speed = frequency × wavelength)',
+      'T = 1/f  (period = 1/frequency)',
+      'n = c/v  (refractive index)',
+      'n₁ sin θ₁ = n₂ sin θ₂  (Snell\'s law)',
+      'sin(critical angle) = 1/n',
+    ]},
+    { title:'Electricity', icon:'🔌', items:[
+      'V = IR  (Ohm\'s law)',
+      'P = IV = I²R = V²/R',
+      'Q = It  (charge in coulombs)',
+      'E = QV = Pt = IVt',
+      'Series: R_total = R₁+R₂+...  |  V_total = V₁+V₂',
+      'Parallel: 1/R = 1/R₁+1/R₂  |  I_total = I₁+I₂',
+      'Transformer: Vₚ/Vₛ = Nₚ/Nₛ  |  VₚIₚ = VₛIₛ (ideal)',
+    ]},
+    { title:'Thermal & Nuclear', icon:'🌡️', items:[
+      'Q = mcΔT  (specific heat capacity)',
+      'Q = mL  (specific latent heat)',
+      'Pressure law: P/T = constant (fixed volume)',
+      'Activity: A = ΔN/Δt  (decays per second, Becquerels)',
+      'Half-life: A = A₀ × (½)^(t/t½)',
+    ]},
+  ],
+  chemistry: [
+    { title:'Moles & Calculations', icon:'⚗️', items:[
+      'n = m/Mr  (moles = mass ÷ molar mass)',
+      'n = V/24  (gas at RTP, volume in dm³)',
+      'n = cV  (concentration × volume in dm³)',
+      'c = n/V  (mol/dm³)',
+      'Empirical formula: divide % by Ar, then divide by smallest',
+      '% yield = (actual ÷ theoretical) × 100%',
+      'Atom economy = (Mr of desired ÷ Mr of all products) × 100%',
+    ]},
+    { title:'Energy & Rates', icon:'🔥', items:[
+      'ΔH = Σ(bond energies broken) − Σ(bond energies formed)',
+      'Exothermic: ΔH < 0  |  Endothermic: ΔH > 0',
+      'Rate = amount of reactant used (or product formed) ÷ time',
+      'Activation energy = minimum energy for reaction to occur',
+    ]},
+    { title:'Key Equations', icon:'🧪', items:[
+      'Photosynthesis: 6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂',
+      'Respiration: C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O',
+      'Neutralisation: H⁺ + OH⁻ → H₂O',
+      'Combustion of methane: CH₄ + 2O₂ → CO₂ + 2H₂O',
+      'Electrolysis of water: 2H₂O → 2H₂ + O₂',
+      'Haber process: N₂ + 3H₂ ⇌ 2NH₃  (450°C, 200 atm, Fe catalyst)',
+      'Contact process: 2SO₂ + O₂ ⇌ 2SO₃  (450°C, V₂O₅ catalyst)',
+    ]},
+    { title:'Tests & Identification', icon:'🔬', items:[
+      'Starch: iodine → blue-black',
+      'Reducing sugar: Benedict\'s → brick-red precipitate',
+      'Protein: Biuret → purple',
+      'Fat: ethanol emulsion → white',
+      'H₂ gas: lit splint → squeaky pop',
+      'CO₂ gas: limewater → turns milky',
+      'O₂ gas: glowing splint → relights',
+      'NH₃ gas: damp red litmus → turns blue',
+      'Cl₂ gas: damp blue litmus → turns red then bleaches',
+      'Halide ions: AgNO₃ → Cl⁻(white), Br⁻(cream), I⁻(yellow) precipitate',
+    ]},
+    { title:'Ion Tests', icon:'⚛️', items:[
+      'Cu²⁺: NaOH → blue ppt; flame → green',
+      'Fe²⁺: NaOH → green ppt',
+      'Fe³⁺: NaOH → brown/rust ppt',
+      'Al³⁺: NaOH → white ppt, dissolves in excess NaOH',
+      'Ca²⁺: NaOH → white ppt; flame → brick red',
+      'NH₄⁺: NaOH + heat → NH₃ gas (turns damp red litmus blue)',
+      'CO₃²⁻: HCl → CO₂ gas (turns limewater milky)',
+      'SO₄²⁻: HCl + BaCl₂ → white ppt (BaSO₄)',
+    ]},
+  ],
+  biology: [
+    { title:'Key Equations', icon:'🧬', items:[
+      'Photosynthesis: 6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂  (light + chlorophyll)',
+      'Aerobic respiration: C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O  (+ATP)',
+      'Anaerobic (muscle): glucose → lactic acid  (+small ATP)',
+      'Anaerobic (yeast): glucose → ethanol + CO₂  (+small ATP)',
+      'Fermentation: used in bread-making and alcohol production',
+    ]},
+    { title:'Magnification & Scale', icon:'🔬', items:[
+      'Magnification = image size ÷ actual size',
+      'Actual size = image size ÷ magnification',
+      'Image size = actual size × magnification',
+      '1 mm = 1000 µm  |  1 µm = 1000 nm',
+      'Light microscope: max ×1500, resolution ~200 nm',
+      'Electron microscope: max ×500,000, resolution ~0.5 nm',
+    ]},
+    { title:'Body Systems', icon:'🫀', items:[
+      'Cardiac output = heart rate × stroke volume (cm³/min)',
+      'Breathing rate measured by chest movement count per minute',
+      'BMI = mass (kg) ÷ height² (m²)  — healthy: 18.5–24.9',
+      'Urine = water + urea + salts (filtered from blood in kidney)',
+      'Blood pressure: systolic/diastolic (normal ~120/80 mmHg)',
+    ]},
+    { title:'Genetics', icon:'🧬', items:[
+      'DNA base pairs: A−T and C−G (complementary base pairing)',
+      'Protein synthesis: DNA → mRNA (transcription) → protein (translation)',
+      'Monohybrid cross ratio (Aa × Aa): 1 AA : 2 Aa : 1 aa = 3 dominant : 1 recessive',
+      'Sex determination: XX = female, XY = male; Y from father',
+      'Mutation rate increases with: ionising radiation, UV light, some chemicals',
+    ]},
+    { title:'Ecology', icon:'🌍', items:[
+      'Biomass pyramid: always wider at base; energy lost ~90% at each level',
+      'Population size (capture-recapture): N = (n₁ × n₂) / m',
+      '  where n₁ = first catch, n₂ = second catch, m = marked recaptured',
+      'Biodiversity index = (N(N−1)) / Σn(n−1)  (Simpson\'s)',
+      'Succession: bare rock → pioneer species → climax community',
+    ]},
+  ],
+  economics: [
+    { title:'Demand & Supply', icon:'📈', items:[
+      'PED = % change in Qd ÷ % change in P  (always negative)',
+      'PES = % change in Qs ÷ % change in P  (always positive)',
+      'XED = % change in Qd of A ÷ % change in P of B',
+      'YED = % change in Qd ÷ % change in income',
+      'If PED > 1 → elastic; < 1 → inelastic; = 1 → unit elastic',
+      'TR = P × Q  |  If elastic: P↑ → TR↓  |  If inelastic: P↑ → TR↑',
+    ]},
+    { title:'Macroeconomics', icon:'🏛️', items:[
+      'GDP = C + I + G + (X−M)  (expenditure method)',
+      'Unemployment rate = (unemployed ÷ labour force) × 100%',
+      'Inflation rate = ((CPI_new − CPI_old) ÷ CPI_old) × 100%',
+      'Real GDP = Nominal GDP ÷ Price level × 100',
+      'Multiplier = 1 ÷ (1 − MPC) = 1 ÷ MPS',
+      'Budget deficit: G > T  |  Budget surplus: T > G',
+    ]},
+    { title:'Business & Trade', icon:'💼', items:[
+      'Profit = TR − TC  |  TR = P × Q  |  TC = FC + VC',
+      'Break-even Q = FC ÷ (P − VC per unit)',
+      'Current account balance = exports − imports of goods & services',
+      'Terms of trade = (export price index ÷ import price index) × 100',
+      'Exchange rate appreciation → exports more expensive → exports fall',
+    ]},
+  ],
+  accounting: [
+    { title:'Key Ratios', icon:'📊', items:[
+      'Gross profit margin = (GP ÷ Revenue) × 100%',
+      'Net profit margin = (NP ÷ Revenue) × 100%',
+      'ROCE = (NP ÷ Capital employed) × 100%',
+      'Current ratio = Current assets ÷ Current liabilities  (ideal 1.5–2:1)',
+      'Quick (acid test) ratio = (CA − Inventory) ÷ CL  (ideal ~1:1)',
+      'Inventory turnover = COGS ÷ Average inventory (times/year)',
+      'Trade receivables days = (Receivables ÷ Revenue) × 365',
+    ]},
+    { title:'Financial Statements', icon:'📒', items:[
+      'Accounting equation: Assets = Capital + Liabilities',
+      'Gross profit = Revenue − Cost of goods sold',
+      'COGS = Opening inventory + Purchases − Closing inventory',
+      'Net profit = Gross profit + Other income − Expenses',
+      'Capital = Opening capital + Net profit − Drawings',
+      'Working capital = Current assets − Current liabilities',
+    ]},
+    { title:'Depreciation', icon:'📉', items:[
+      'Straight-line: Annual depreciation = (Cost − Residual value) ÷ Useful life',
+      'Net book value = Cost − Accumulated depreciation',
+      'Reducing balance: Dep = Net book value × rate%',
+      'Provision for depreciation is a contra asset (deducted from cost on balance sheet)',
+    ]},
+  ],
 };
 
 // Use CIE chapters as fallback for Edexcel and Oxford AQA (90% overlap)
@@ -6279,9 +6696,67 @@ Object.values(IGCSE_SUBJECTS).forEach(subj => {
 // ── IGCSE Template Functions ──────────────────────────────
 
 function tplIGCSE() {
-  if (S.igcseTopic !== null) return tplIGCSETopic();
-  if (S.igcseSubject)        return tplIGCSESubject();
+  if (S.igcseView === 'formulas') return tplIGCSEFormulas();
+  if (S.igcseTopic !== null)      return tplIGCSETopic();
+  if (S.igcseSubject)             return tplIGCSESubject();
   return tplIGCSEHub();
+}
+
+function tplIGCSEFormulas() {
+  const subj = IGCSE_SUBJECTS[S.igcseSubject];
+  const formulas = IGCSE_FORMULAS[S.igcseSubject];
+  if (!subj || !formulas) {
+    return `<div style="padding:40px;text-align:center;color:var(--text-muted)">
+      <div style="font-size:36px;margin-bottom:12px">📐</div>
+      <div style="font-size:15px;font-weight:700">No formula sheet for this subject yet</div>
+      <button onclick="S.igcseView='list';render()" style="margin-top:16px;padding:10px 20px;border-radius:10px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;font-family:Cairo,sans-serif;font-size:13px;color:var(--text);font-weight:700">← Back</button>
+    </div>`;
+  }
+  const sections = formulas.map(sec => `
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;margin-bottom:14px;overflow:hidden">
+      <div style="padding:12px 16px;background:${subj.color}0f;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px">
+        <span style="font-size:18px">${sec.icon}</span>
+        <span style="font-size:13px;font-weight:900;color:${subj.color}">${sec.title}</span>
+      </div>
+      <div style="padding:12px 16px">
+        ${sec.items.map(f => `
+        <div style="padding:8px 12px;border-radius:8px;margin-bottom:6px;background:var(--bg);border:1px solid var(--border);font-size:12px;font-family:monospace,Cairo,sans-serif;color:var(--text);line-height:1.6">
+          ${f}
+        </div>`).join('')}
+      </div>
+    </div>`).join('');
+  return `
+<div style="max-width:860px;margin:0 auto;padding:0 0 80px">
+  <div style="background:linear-gradient(135deg,${subj.color},${subj.color}bb);padding:18px 16px 22px;border-radius:0 0 22px 22px;margin-bottom:18px">
+    <button onclick="S.igcseView='list';render()"
+      style="background:#ffffff25;border:1px solid #ffffff35;border-radius:10px;padding:5px 12px;color:#fff;cursor:pointer;font-size:11px;font-family:Cairo,sans-serif;font-weight:700;margin-bottom:12px">
+      ← Back to ${subj.label}
+    </button>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="font-size:36px">${subj.icon}</div>
+      <div>
+        <div style="font-size:18px;font-weight:900;color:#fff">📐 Formula Sheet</div>
+        <div style="font-size:11px;color:#ffffffaa">${subj.label} — IGCSE · ${formulas.length} sections · ${formulas.reduce((a,s)=>a+s.items.length,0)} formulas</div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:0 12px">
+    <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+      <button onclick="S.screen='chat';S.subject='${subj.label} IGCSE';S.messages=[{role:'user',content:'Explain how to use the key formulas for IGCSE ${subj.label} with worked examples for each'}];render();setTimeout(()=>doSend&&doSend(),100)"
+        style="padding:8px 14px;border-radius:10px;border:none;background:var(--primary);color:#fff;cursor:pointer;font-size:12px;font-weight:700;font-family:Cairo,sans-serif">
+        🤖 AI: Walk me through these formulas
+      </button>
+      <button onclick="S.screen='flashcards';S.subject='${subj.label} IGCSE formulas';doGenerateFlashcards()"
+        style="padding:8px 14px;border-radius:10px;border:1px solid var(--border);background:var(--bg-card);color:var(--text);cursor:pointer;font-size:12px;font-weight:700;font-family:Cairo,sans-serif">
+        🗂️ Formula Flashcards
+      </button>
+    </div>
+    ${sections}
+    <div style="padding:14px;background:#F59E0B0f;border-radius:12px;border:1px solid #F59E0B25;font-size:12px;color:var(--text-muted)">
+      ⚠️ <strong>Exam note:</strong> Some formulas are given in the exam — always check your syllabus formula sheet. Learn which ones you must memorise.
+    </div>
+  </div>
+</div>`;
 }
 
 function tplIGCSEHub() {
@@ -6486,6 +6961,10 @@ function tplIGCSESubject() {
         style="background:#ffffff20;border:1px solid #ffffff35;border-radius:10px;padding:7px 14px;color:#fff;cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif">
         🗂️ Flashcards
       </button>
+      ${IGCSE_FORMULAS[S.igcseSubject]?`<button onclick="S.igcseView='formulas';render()"
+        style="background:#ffffff20;border:1px solid #ffffff35;border-radius:10px;padding:7px 14px;color:#fff;cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif">
+        📐 Formula Sheet
+      </button>`:''}
     </div>
   </div>
 
@@ -6543,6 +7022,25 @@ function tplIGCSETopic() {
         </button>
       </div>
       ${keyPoints}
+      ${tp.workedExample ? `
+      <div style="margin-top:12px;background:#3B82F60f;border:1px solid #3B82F625;border-radius:14px;overflow:hidden">
+        <div style="padding:10px 14px;background:#3B82F610;border-bottom:1px solid #3B82F620;font-size:11px;font-weight:900;color:#3B82F6;letter-spacing:.5px">✏️ WORKED EXAMPLE</div>
+        <div style="padding:12px 14px;font-size:12px;color:var(--text);line-height:1.8;white-space:pre-wrap;font-family:monospace,Cairo,sans-serif">${tp.workedExample}</div>
+      </div>` : ''}
+      ${tp.examTips && tp.examTips.length ? `
+      <div style="margin-top:12px;background:#10B9810f;border:1px solid #10B98125;border-radius:14px;overflow:hidden">
+        <div style="padding:10px 14px;background:#10B98110;border-bottom:1px solid #10B98120;font-size:11px;font-weight:900;color:#10B981;letter-spacing:.5px">⭐ EXAM TIPS</div>
+        <div style="padding:10px 14px">
+          ${tp.examTips.map(t=>`<div style="display:flex;gap:8px;padding:6px 0;border-bottom:1px solid #10B98115;font-size:12px;color:var(--text);line-height:1.6"><span style="color:#10B981;flex-shrink:0">✓</span>${t}</div>`).join('')}
+        </div>
+      </div>` : ''}
+      ${tp.commonMistakes && tp.commonMistakes.length ? `
+      <div style="margin-top:12px;background:#EF44440f;border:1px solid #EF444425;border-radius:14px;overflow:hidden">
+        <div style="padding:10px 14px;background:#EF444410;border-bottom:1px solid #EF444420;font-size:11px;font-weight:900;color:#EF4444;letter-spacing:.5px">⚠️ COMMON MISTAKES</div>
+        <div style="padding:10px 14px">
+          ${tp.commonMistakes.map(m=>`<div style="display:flex;gap:8px;padding:6px 0;border-bottom:1px solid #EF444415;font-size:12px;color:var(--text);line-height:1.6"><span style="color:#EF4444;flex-shrink:0">✗</span>${m}</div>`).join('')}
+        </div>
+      </div>` : ''}
       <div style="display:flex;gap:8px;margin-top:14px">
         <button onclick="S.screen='chat';S.subject='${subj.label} IGCSE — ${tp.title}';S.messages=[{role:'user',content:'Explain ${tp.title.replace(/'/g,"\\'")} for IGCSE ${subj.label} in detail with worked examples and exam tips'}];render();setTimeout(()=>doSend&&doSend(),100)"
           style="flex:1;padding:11px;background:var(--primary);color:#fff;border:none;border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:12px">
