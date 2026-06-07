@@ -5826,7 +5826,83 @@ Break-even = 5000 ÷ 5 = 1000 units`},
             'Rhetorical techniques: rhetorical questions, repetition (tripling), direct address ("you"), statistics',
             'Counterargument: acknowledge opposing view then refute it — shows sophistication',
             'Signpost your argument: "Firstly... Furthermore... However... In conclusion..."',
+          ], examTips:[
+            'DAFOREST for persuasion: Direct address, Alliteration, Facts, Opinion, Rhetorical question, Emotive language, Statistics, Tripling',
+            'For articles: use a catchy headline, subheadings, and a clear argument throughout',
+            'Avoid over-using exclamation marks — one or two for impact; many weakens the writing',
+          ], workedExample:`Persuasive opening for "Social media does more harm than good":
+Hook: "Every minute, 500,000 tweets flood our screens. Every minute, another young person spirals deeper into anxiety."
+Rhetorical Q: "Is this the connected world we truly wanted?"
+Direct address + statistic: "You may not know it, but research shows 41% of teens report feeling worse after using Instagram."`},
+        ]},
+        { title:'Language & Grammar', icon:'📝', topics:[
+          { title:'Grammar & Punctuation', points:[
+            'Sentence types: simple (one clause), compound (two main clauses joined by and/but/or), complex (main + subordinate clause)',
+            'Punctuation: comma (list/clause), semicolon (join related clauses), colon (introduce list/explanation), dash (parenthesis/emphasis)',
+            'Active vs passive voice: active (The dog bit the man) — direct, strong; passive (The man was bitten) — distances subject',
+            'Tense consistency: stick to past OR present tense in creative writing unless deliberately shifting',
+            'Apostrophes: possession (cat\'s, dogs\', James\'s) vs contraction (it\'s = it is; its = belonging to it)',
+          ], examTips:[
+            'Vary sentence length: mix short punchy sentences with longer flowing ones for rhythm and effect',
+            'Semicolons impress examiners — use to join two closely related independent clauses',
           ]},
+          { title:'Vocabulary & Style', points:[
+            'Word classes: noun, verb, adjective, adverb, pronoun, preposition, conjunction, determiner',
+            'Precise vocabulary: "sprinted" instead of "ran fast"; "ancient" instead of "very old"',
+            'Register: formal (sophisticated vocabulary, complex syntax) vs informal (colloquial, contractions, simpler)',
+            'Tone: objective (factual, impersonal), emotive (feelings-based), ironic (saying opposite of meaning)',
+            'Figurative language: simile, metaphor, personification, hyperbole, oxymoron, pathetic fallacy',
+          ]},
+          { title:'Spelling & Common Errors', points:[
+            'Commonly confused: their/there/they\'re; your/you\'re; its/it\'s; effect/affect; practice/practise',
+            'Double letters: necessary (1 c, 2 s), occurrence (2 c, 2 r), recommend (1 c, 2 m)',
+            'Affect = verb (to affect); Effect = noun (the effect) — exception: "to effect change" (verb)',
+            'Common mistakes: could of (should be "could have"); loose/lose; passed/past',
+            'Homophones: where/wear/ware; hear/here; weather/whether; principal/principle',
+          ]},
+        ]},
+        { title:'Reading Non-Fiction', icon:'📰', topics:[
+          { title:'Analysing Non-Fiction Texts', points:[
+            'Purpose: inform, explain, describe, argue, persuade, advise, review — identify from context and language',
+            'Audience: age, background, interest level — affects vocabulary, tone, formality',
+            'Structure: how is the text organised? Headline, introduction, paragraphs, subheadings, conclusion',
+            'Bias: one-sided viewpoint; look for emotive language, selective use of facts, loaded words',
+            'Fact vs opinion: facts can be verified; opinions are beliefs/views — both may be used to persuade',
+          ], examTips:[
+            'Always refer to the text — use short direct quotes embedded into your analysis',
+            '"Evaluate how effectively..." questions: judge success against stated purpose/audience',
+            'Identify implicit (hidden/suggested) as well as explicit (directly stated) meanings',
+          ]},
+          { title:'Comparing Texts', points:[
+            'Compare: purpose, audience, tone, language choices, structure, viewpoint',
+            'Use comparative language: "Both texts... However, while Text A uses... Text B instead..."',
+            'Synthesis: find a common theme or argument that links both texts',
+            'Quote from BOTH texts — don\'t focus on just one',
+            'End with a clear evaluative judgement: which is more effective and why?',
+          ]},
+        ]},
+        { title:'Exam Technique', icon:'🎯', topics:[
+          { title:'Reading Paper Strategy', points:[
+            'Time management: check marks available — allocate roughly 1–1.5 minutes per mark',
+            'Read questions before texts — know what to look for before reading',
+            'Highlight/annotate as you read: underline key words, circle techniques, mark relevant sections',
+            'For "how does the writer..." questions: technique → quote → effect (never just name the technique)',
+            'Inference questions: find evidence in text, then explain what it implies about character/place/feeling',
+          ], examTips:[
+            'Never repeat the question back as your opening sentence — start with your first point directly',
+            'For longer responses, plan first: jot 4–5 points before writing',
+          ]},
+          { title:'Writing Paper Strategy', points:[
+            'Planning: spend 5 minutes planning structure — saves time and improves quality dramatically',
+            'Opening paragraph: hook the reader immediately (question, bold statement, vivid image, statistic)',
+            'Each paragraph: develop ONE idea fully — PEEL or SEXY (Statement, Example, eXplain, sYntax comment)',
+            'Closing paragraph: echo the opening, reach a conclusion, leave an impression',
+            'Proofreading: leave 3–5 minutes to check spelling, punctuation, verb tenses, clarity',
+          ], workedExample:`Descriptive writing — "The Abandoned House":
+Opening (hook): "The gate groaned as I pushed it open — a sound like a wounded animal."
+Senses: "The smell hit me first: damp timber, rotting leaves, and something else. Something older."
+Short sentence for impact: "I stepped inside. Silence."
+Figurative language: "Dust danced in the pale light filtering through cracked panes, each mote a ghost refusing to leave."`},
         ]},
       ],
     }
@@ -7546,6 +7622,155 @@ const IGCSE_FORMULAS = {
       'Provision for depreciation is a contra asset (deducted from cost on balance sheet)',
     ]},
   ],
+  cs: [
+    { title:'Number Systems', icon:'💾', items:[
+      'Binary (base 2): place values 128, 64, 32, 16, 8, 4, 2, 1',
+      'Hex (base 16): 0–9, A=10, B=11, C=12, D=13, E=14, F=15',
+      '1 hex digit = 4 binary bits (nibble)',
+      'Binary → hex: group 4 bits from right, convert each group',
+      'File size (image) = width × height × colour depth (bits)',
+      'File size (sound) = sample rate × bit depth × duration (s)',
+      '1 byte = 8 bits | 1 KB = 1024 B | 1 MB = 1024 KB | 1 GB = 1024 MB',
+    ]},
+    { title:'Logic Gates', icon:'⚙️', items:[
+      'AND gate: output 1 only if BOTH inputs are 1',
+      'OR gate: output 1 if AT LEAST ONE input is 1',
+      'NOT gate: inverts input (0→1, 1→0)',
+      'NAND = NOT AND | NOR = NOT OR | XOR = 1 if inputs DIFFER',
+      'Boolean: AND = A·B | OR = A+B | NOT = Ā',
+    ]},
+    { title:'Algorithms & Complexity', icon:'🔁', items:[
+      'Linear search: O(n) — checks each item one by one',
+      'Binary search: O(log n) — halves search space each step; requires sorted list',
+      'Bubble sort: O(n²) — compare adjacent pairs, repeat n−1 passes',
+      'Merge sort: O(n log n) — divide and merge; more efficient for large data',
+      'Insertion sort: O(n²) worst, O(n) best (nearly sorted)',
+    ]},
+    { title:'Networking', icon:'🌐', items:[
+      'IP address: unique identifier for device on network',
+      'TCP/IP: reliable transmission; breaks data into packets',
+      'HTTP = HyperText Transfer Protocol | HTTPS = secure (encrypted)',
+      'DNS: Domain Name System — converts URL to IP address',
+      'Bandwidth = data per second | Latency = delay in ms',
+      'LAN = Local Area Network | WAN = Wide Area Network',
+    ]},
+    { title:'Programming Reference', icon:'📝', items:[
+      'MOD: remainder after division (e.g. 17 MOD 5 = 2)',
+      'DIV: integer division (e.g. 17 DIV 5 = 3)',
+      'String operations: LENGTH, SUBSTRING, UPPER, LOWER, CONCAT',
+      'Array: fixed-size indexed collection; index from 0 (or 1 in some pseudocode)',
+      'Pseudocode: WHILE cond DO | FOR i ← 1 TO n | IF cond THEN | CASE OF',
+    ]},
+  ],
+  ict: [
+    { title:'File Sizes & Data', icon:'💾', items:[
+      'Image file size = width (px) × height (px) × colour depth (bits) ÷ 8 (bytes)',
+      'Sound file size = sample rate (Hz) × bit depth × duration (s) ÷ 8 (bytes)',
+      'Video file size = frame rate × resolution × colour depth × duration ÷ 8',
+      '1 KB = 1024 B | 1 MB = 1024 KB | 1 GB = 1024 MB | 1 TB = 1024 GB',
+      'Compression reduces file size: lossless (exact copy) vs lossy (removes data)',
+    ]},
+    { title:'Spreadsheet Functions', icon:'📊', items:[
+      '=SUM(A1:A10) — adds range',
+      '=AVERAGE(A1:A10) — arithmetic mean',
+      '=MAX(A1:A10) | =MIN(A1:A10)',
+      '=IF(condition, value_if_true, value_if_false)',
+      '=VLOOKUP(lookup, table_range, col_index, FALSE)',
+      '=COUNT(range) — counts numbers | =COUNTA — counts non-empty',
+      'Absolute reference: $A$1 (fixed) | Relative: A1 (changes when copied)',
+    ]},
+    { title:'Network & Security', icon:'🔒', items:[
+      'Bandwidth (Mbps) = data transferred ÷ time',
+      'Transmission time = file size ÷ bandwidth',
+      'Encryption: scrambles data; only decrypted with correct key',
+      'Firewall: monitors incoming/outgoing traffic; blocks unauthorised',
+      'Two-factor authentication (2FA): password + second factor (SMS, app)',
+      'Phishing: fake emails/sites to steal credentials',
+    ]},
+    { title:'Database Terms', icon:'🗄️', items:[
+      'Primary key: unique identifier for each record',
+      'Foreign key: links two tables (matches primary key in another table)',
+      'Query: retrieves specific records using criteria (WHERE, AND, OR)',
+      'Field: column (attribute) | Record: row (one entry) | Table: collection of records',
+      'Validation: checks data is acceptable type/range/format before entry',
+      'Verification: checks data entered matches source document',
+    ]},
+  ],
+  english: [
+    { title:'Language Techniques', icon:'✍️', items:[
+      'Simile: comparison using "like" or "as" — "as cold as ice"',
+      'Metaphor: direct comparison — "Life is a journey"',
+      'Personification: human qualities to non-human — "the wind whispered"',
+      'Alliteration: same initial sound — "Peter Piper picked..."',
+      'Onomatopoeia: word sounds like meaning — crash, sizzle, murmur',
+      'Hyperbole: extreme exaggeration — "I\'ve told you a million times"',
+      'Oxymoron: contradictory terms together — "deafening silence"',
+      'Pathetic fallacy: nature reflects mood — "dark storm clouds gathered as she wept"',
+    ]},
+    { title:'Structural Techniques', icon:'📄', items:[
+      'Enjambment: sentence runs over line break (poetry)',
+      'Caesura: mid-line pause (marked by punctuation)',
+      'Flashback/flash-forward: non-linear time structure',
+      'In media res: starting in the middle of the action',
+      'Circular structure: ending mirrors opening',
+      'Repetition: emphasise key idea, create rhythm or tone',
+      'Tricolon (tripling): list of three — "fast, fierce, and furious"',
+    ]},
+    { title:'Persuasion Toolkit (DAFOREST)', icon:'🗣️', items:[
+      'D — Direct address: "You need to act now"',
+      'A — Alliteration: "Bold, brave, and brilliant"',
+      'F — Facts & statistics: "40% of teens..."',
+      'O — Opinion stated as fact: "It is clear that..."',
+      'R — Rhetorical question: "How can we ignore this?"',
+      'E — Emotive language: "devastating", "heartbreaking"',
+      'S — Simile/story/anecdote: personal example',
+      'T — Tripling: "faster, cleaner, better"',
+    ]},
+    { title:'Essay Structure', icon:'📋', items:[
+      'PEEL: Point → Evidence (quote) → Explain → Link back',
+      'SEXY: Statement → Example → eXplain → sYntax comment',
+      'Introduction: context + thesis/clear argument',
+      'Body paragraphs: one point each, fully developed',
+      'Counterargument: "However, others argue..." then refute',
+      'Conclusion: summarise + restate argument + wider significance',
+    ]},
+  ],
+  history: [
+    { title:'Key Dates — WWI & Inter-War', icon:'📅', items:[
+      '1914: WWI begins | 1918: Armistice (end of WWI)',
+      'Jan 1919: Paris Peace Conference opens',
+      'June 1919: Treaty of Versailles signed',
+      '1920: League of Nations established (USA did NOT join)',
+      '1923: Beer Hall Putsch (Hitler\'s failed coup)',
+      '1929: Wall Street Crash → Great Depression',
+      '1933: Hitler becomes Chancellor of Germany',
+    ]},
+    { title:'Key Dates — WWII & Cold War', icon:'📅', items:[
+      '1 Sept 1939: Germany invades Poland → WWII begins',
+      '1940: Battle of Britain | June 1941: Operation Barbarossa',
+      'Dec 1941: Pearl Harbor → USA enters WWII',
+      'June 1944: D-Day | May 1945: VE Day | Aug 1945: VJ Day',
+      '1947: Truman Doctrine + Marshall Plan',
+      '1948–49: Berlin Blockade & Airlift',
+      'Oct 1962: Cuban Missile Crisis (13 days)',
+      'Nov 1989: Berlin Wall falls | Dec 1991: USSR dissolves',
+    ]},
+    { title:'Source Evaluation (OPCVL)', icon:'📜', items:[
+      'O — Origin: Who made it? When? Where?',
+      'P — Purpose: Why was it created? To inform, persuade, record?',
+      'C — Content: What does it actually say/show?',
+      'V — Value: What useful information does it give historians?',
+      'L — Limitation: What does it NOT tell us? Any bias?',
+      'Always: quote from source + use own knowledge to cross-reference',
+    ]},
+    { title:'Essay Frameworks', icon:'📝', items:[
+      'PEEL: Point → Evidence (specific fact/date) → Explain → Link',
+      'Causation: long-term, short-term, trigger/immediate cause',
+      '"How far..." questions: argue BOTH sides, then reach judgement',
+      'Significance: what changed as a result? Why does it matter?',
+      'Avoid narrative — always analyse: "This shows that..." / "This led to..."',
+    ]},
+  ],
 };
 
 // Use CIE chapters as fallback for Edexcel and Oxford AQA (90% overlap)
@@ -8031,10 +8256,16 @@ function tplIGCSETopic() {
       style="padding:10px 16px;border:1px solid var(--border);border-radius:12px;background:var(--bg-card);cursor:pointer;font-size:12px;color:var(--text);font-family:Cairo,sans-serif;font-weight:700;display:flex;align-items:center;gap:6px">
       ‹ Previous
     </button>`:'<div></div>'}
-    ${nextT?`<button onclick="S.igcseChapter=${nextT.ci};S.igcseTopic=${nextT.ti};S.igcseTab='notes';render()"
-      style="padding:10px 18px;border:none;border-radius:12px;background:${subj.color};cursor:pointer;font-size:12px;color:#fff;font-family:Cairo,sans-serif;font-weight:700;box-shadow:0 2px 10px ${subj.color}44;display:flex;align-items:center;gap:6px">
-      Next Topic ›
-    </button>`:'<div></div>'}
+    ${nextT?`<div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+      <button onclick="S.igcseDone=S.igcseDone||{};S.igcseDone['${S.igcseSubject}-${S.igcseChapter}-${S.igcseTopic}']=true;S.igcseChapter=${nextT.ci};S.igcseTopic=${nextT.ti};S.igcseTab='notes';render()"
+        style="padding:11px 16px;border:none;border-radius:12px;background:#10B981;cursor:pointer;font-size:12px;color:#fff;font-family:Cairo,sans-serif;font-weight:700;box-shadow:0 2px 10px #10B98144;display:flex;align-items:center;gap:6px;white-space:nowrap">
+        ✅ Mark Done &amp; Next →
+      </button>
+      <button onclick="S.igcseChapter=${nextT.ci};S.igcseTopic=${nextT.ti};S.igcseTab='notes';render()"
+        style="padding:8px 14px;border:1px solid ${subj.color}66;border-radius:10px;background:transparent;cursor:pointer;font-size:11px;color:${subj.color};font-family:Cairo,sans-serif;font-weight:600;display:flex;align-items:center;gap:4px">
+        Skip →
+      </button>
+    </div>`:'<div></div>'}
   </div>
 </div>`;
 }
