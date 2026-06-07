@@ -5161,6 +5161,98 @@ Lower temp: yield ↑ but rate too slow → economically unviable
           ]},
         ]},
       ],
+      edexcel: [
+        { title:'Principles of Chemistry', icon:'⚗️', topics:[
+          { title:'Atomic Structure & The Periodic Table', points:[
+            'Atom: protons (nucleus, +), neutrons (nucleus, 0), electrons (shells, −)',
+            'Atomic number = number of protons; mass number = protons + neutrons',
+            'Electron configuration: fill shells 2, 8, 8 — e.g. Na (2,8,1); Cl (2,8,7)',
+            'Group number = number of outer electrons; Period number = number of electron shells',
+            'Isotopes: same atomic number, different mass number (different neutrons)',
+          ], examTips:[
+            'Relative atomic mass = weighted average of isotope masses — always show working',
+            'Edexcel: periodic table questions link group/period to properties — know the trends',
+          ]},
+          { title:'Bonding & Structure', points:[
+            'Ionic: metal gives electrons to non-metal → lattice of oppositely charged ions; high melting point',
+            'Covalent: non-metals share electrons; simple molecular (low mp/bp) vs giant covalent (very high mp)',
+            'Metallic: positive ions in sea of delocalised electrons → conducts electricity, malleable',
+            'Giant covalent: diamond (all 4 bonds, very hard), graphite (3 bonds, 1 delocalised electron → conducts)',
+            'Predicting structure: metal+non-metal → ionic; non-metal+non-metal → covalent',
+          ], workedExample:`Predict the type of bonding in MgCl₂:
+Mg is a metal (Group 2), Cl is a non-metal (Group 7) → ionic bonding
+Mg loses 2 electrons → Mg²⁺; each Cl gains 1 electron → Cl⁻
+Formula: MgCl₂ (2 Cl⁻ for every Mg²⁺ to balance charges)`},
+        ]},
+        { title:'Inorganic Chemistry', icon:'🧪', topics:[
+          { title:'Acids, Bases & Salts', points:[
+            'Acids: produce H⁺ ions in solution; HCl (hydrochloric), H₂SO₄ (sulfuric), HNO₃ (nitric)',
+            'Bases: accept H⁺ ions; alkalis are soluble bases (NaOH, Ca(OH)₂) — produce OH⁻',
+            'Acid + base → salt + water (neutralisation)',
+            'Acid + metal carbonate → salt + water + CO₂; acid + metal → salt + hydrogen',
+            'Universal indicator: pH 0–6 acid (red→yellow); 7 neutral (green); 8–14 alkali (blue→purple)',
+          ], examTips:[
+            'Name the salt: hydrochloric acid → chloride; sulfuric acid → sulfate; nitric acid → nitrate',
+            'Titration: acid + alkali with indicator; burette measures volume added; record at colour change',
+          ], workedExample:`What salt forms when HCl reacts with NaOH?
+HCl + NaOH → NaCl + H₂O
+HCl is hydrochloric acid → forms chloride salts
+Na comes from NaOH → sodium
+Salt = sodium chloride (NaCl) = table salt`},
+          { title:'Metals & Reactivity', points:[
+            'Reactivity series (high→low): K Na Ca Mg Al Zn Fe Sn Pb H Cu Ag Au',
+            'More reactive metals: displace less reactive from solutions; react with acids (if above H)',
+            'Extraction: reactive metals (Na, Al) by electrolysis; less reactive (Fe) by reduction with carbon',
+            'Rusting: iron + water + oxygen → hydrated iron(III) oxide; prevented by painting, galvanising, alloy',
+            'Alloys: mixtures of metals; brass (Cu+Zn), steel (Fe+C), stainless steel (Fe+Cr+Ni)',
+          ]},
+        ]},
+        { title:'Physical Chemistry', icon:'⚡', topics:[
+          { title:'Energy Changes', points:[
+            'Exothermic: energy released to surroundings; temperature rises; products lower energy (combustion, neutralisation)',
+            'Endothermic: energy absorbed from surroundings; temperature falls (thermal decomposition, dissolving ammonium nitrate)',
+            'Bond breaking: endothermic (requires energy); bond forming: exothermic (releases energy)',
+            'Overall: if energy to break bonds > energy released making bonds → endothermic (and vice versa)',
+            'Activation energy: minimum energy needed to start a reaction; catalyst lowers this',
+          ], examTips:[
+            'Exo vs endo: exothermic = energy exits (gives heat out); endothermic = energy enters (takes heat in)',
+            'Bond energy calculations: ΔH = Σ(bonds broken) − Σ(bonds formed)',
+          ], workedExample:`H₂ + Cl₂ → 2HCl
+Bonds broken: H−H (436 kJ) + Cl−Cl (242 kJ) = 678 kJ
+Bonds formed: 2 × H−Cl (2 × 431 = 862 kJ)
+ΔH = 678 − 862 = −184 kJ/mol (negative → exothermic)`},
+          { title:'Rates of Reaction', points:[
+            'Rate = amount of product formed (or reactant used) ÷ time',
+            'Factors affecting rate: concentration (more particles → more frequent collisions), temperature, surface area, catalyst',
+            'Collision theory: reaction occurs when particles collide with sufficient energy (≥ activation energy)',
+            'Catalyst: provides alternative pathway with lower activation energy; not consumed in reaction',
+            'Measuring rate: gas collected in syringe; change in mass (CO₂ escaping); colour change; titration',
+          ]},
+        ]},
+        { title:'Organic Chemistry', icon:'🔬', topics:[
+          { title:'Carbon Compounds', points:[
+            'Organic chemistry: study of carbon-containing compounds (except CO, CO₂, carbonates)',
+            'Homologous series: group of compounds with same functional group, same general formula, similar properties',
+            'Alkanes (CₙH₂ₙ₊₂): saturated; single bonds; methane CH₄, ethane C₂H₆; fuels; combustion reaction',
+            'Alkenes (CₙH₂ₙ): unsaturated; contain C=C double bond; ethene C₂H₄; test: decolourise bromine water',
+            'Alcohols (CₙH₂ₙ₊₁OH): methanol CH₃OH, ethanol C₂H₅OH; fuels, solvents; fermentation makes ethanol',
+          ], examTips:[
+            'Saturated vs unsaturated: use bromine water test — unsaturated (alkenes) decolourise it; alkanes do not',
+            'Cracking: breaking long-chain alkanes into shorter alkanes + alkenes (at high temperature, with catalyst)',
+          ], workedExample:`Test to distinguish between ethane (C₂H₆) and ethene (C₂H₄):
+Add bromine water to each sample
+Ethane (alkane, saturated): bromine water stays orange/brown — NO reaction
+Ethene (alkene, unsaturated): bromine water decolourises → goes colourless
+Conclusion: the sample that decolourises bromine water is ethene`},
+          { title:'Polymers & Reactions', points:[
+            'Addition polymerisation: alkene monomers join together; no other product; e.g. polyethene from ethene',
+            'Condensation polymerisation: monomers with 2 functional groups; water (or HCl) released; e.g. nylon, Terylene',
+            'Plastics: non-biodegradable; solutions: recycling, biodegradable plastics, reduce use',
+            'Fermentation: glucose → ethanol + CO₂ (yeast, 25–35°C, anaerobic); fractional distillation to purify',
+            'Esterification: alcohol + carboxylic acid → ester + water (concentrated H₂SO₄ catalyst); pleasant smell',
+          ]},
+        ]},
+      ],
       oxford: [
         { title:'Atomic Structure & Bonding', icon:'⚛️', topics:[
           { title:'Atomic Structure', points:[
@@ -6068,6 +6160,107 @@ Opening (hook): "The gate groaned as I pushed it open — a sound like a wounded
 Senses: "The smell hit me first: damp timber, rotting leaves, and something else. Something older."
 Short sentence for impact: "I stepped inside. Silence."
 Figurative language: "Dust danced in the pale light filtering through cracked panes, each mote a ghost refusing to leave."`},
+        ]},
+      ],
+      edexcel: [
+        { title:'Paper 1: Non-Fiction Reading', icon:'📰', topics:[
+          { title:'Reading Non-Fiction Texts', points:[
+            'Edexcel Paper 1: two non-fiction texts; Section A = reading (45 mins); Section B = writing (45 mins)',
+            'Q1: retrieve and summarise — find specific information from Text 1',
+            'Q2: language analysis — how does the writer use language to achieve effects?',
+            'Q3: compare texts — how do both writers present their views/perspectives on a topic?',
+            'Always read questions BEFORE the texts to know what to focus on',
+          ], examTips:[
+            'Q1 (4 marks): bullet-point style answers fine; use text\'s own words where appropriate',
+            'Q2 (12 marks): analyse techniques + effect; avoid just listing techniques without explaining effect',
+            'Q3 comparison (12 marks): use connectives — "Similarly...", "In contrast...", "Both writers..."',
+          ]},
+          { title:'Analysing Language & Structure', points:[
+            'Identify the technique → quote from text → explain its effect on the reader',
+            'Vocabulary choices: connotations of specific words; formal vs informal register',
+            'Rhetorical devices: direct address ("you"), rhetorical questions, rule of three (tripling)',
+            'Structural features: opening and closing, paragraphing, sentence length variation',
+            'Tone: authoritative, passionate, humorous, critical, nostalgic — identify and explain impact',
+          ]},
+          { title:'Comparing Perspectives', points:[
+            'Identify: what is each writer\'s perspective/attitude on the topic?',
+            'Compare: where do they agree or differ? — use evidence from both texts',
+            'Structure: ABAB comparison (alternate between texts) not AABB (one then other)',
+            'Both texts: always make sure you refer to BOTH equally — marks split equally between texts',
+            'Synthesis: go beyond listing differences to explain WHY perspectives differ (context, purpose, audience)',
+          ], examTips:[
+            'Comparison question: start with a clear statement of similarity/difference, then support with quotes from both',
+            'Do not summarise — analyse the language choices that reveal each writer\'s perspective',
+          ], workedExample:`Compare question: How do both writers feel about social media?
+Writer A (article, 2020): Uses emotive language — "toxic wasteland of comparison" — suggests social media causes psychological harm. The metaphor of a "wasteland" implies barrenness and destruction.
+By contrast, Writer B (blog, 2022): Uses enthusiastic tone — "revolutionary tool for connection" — the adjective "revolutionary" presents social media as transformative and positive.
+Both writers acknowledge social media's power, but Writer A focuses on its harmful potential while Writer B emphasises its positive communal aspects.`},
+        ]},
+        { title:'Paper 1: Writing (Transactional)', icon:'✍️', topics:[
+          { title:'Transactional Writing Forms', points:[
+            'Edexcel Paper 1 Section B: one writing task (45 mins); choose from 2 options',
+            'Forms tested: article, letter, report, speech, review, leaflet',
+            'Letter: address, date, Dear Sir/Madam or Dear [Name], sign off (Yours faithfully/sincerely)',
+            'Article: headline, subheadings optional, formal or semi-formal depending on audience',
+            'Report: sections with headings, formal register, recommendations at end',
+            'Speech: direct address, rhetorical devices, spoken-word feel ("Thank you for being here today")',
+          ], examTips:[
+            'Always match register to audience: broadsheet = formal; teen magazine = conversational',
+            'First 5 minutes: plan purpose, audience, form, key points — structure saves time and improves quality',
+          ]},
+          { title:'Persuasive Writing Techniques', points:[
+            'DAFOREST: Direct address, Alliteration, Facts/statistics, Opinion, Rhetorical question, Emotive language, Statistics, Tripling',
+            'Counter-argument: acknowledge opposing view then refute it — shows sophistication',
+            'Vary sentence structures: short sentences for impact; complex for elaboration; rhetorical questions to engage',
+            'Signposting: "Firstly... Furthermore... However... In conclusion..." — guides reader through argument',
+            'Tone: assertive and confident; avoid being aggressive; use modal verbs (must, should, will)',
+          ], workedExample:`Speech opening: "Imagine a world where every child, regardless of postcode, has access to the same quality of education. That world is not a fantasy — it is a choice. And today, I'm asking you to make it."
+Techniques used: direct address (you/imagine), tripling (regardless of postcode = regardless of wealth/privilege), short declarative sentence for impact, modal verb "is" as assertion`},
+          { title:'Narrative & Descriptive Writing', points:[
+            'Edexcel also tests: creative/narrative writing — story or description',
+            'Story: strong opening hook, character, conflict, resolution; control of pacing',
+            'Description: atmosphere over plot; all five senses; varied sentence structures',
+            '"Show don\'t tell": "His hands shook" not "He was nervous"',
+            'Zoom technique: start wide (setting) → zoom in (detail) → zoom out (reflection/implication)',
+          ]},
+        ]},
+        { title:'Paper 2: Literature & Creative Reading', icon:'📚', topics:[
+          { title:'Responding to Literature', points:[
+            'Edexcel Paper 2: unseen poetry + anthology poem comparison; prose extract analysis',
+            'Unseen poem: read twice; identify theme, tone, key techniques before writing',
+            'Anthology: compare with named poem from studied list',
+            'Always quote: embed short quotes within your sentences rather than block-quoting',
+            'Analyse effect: "The metaphor of X suggests... creating a sense of..."',
+          ]},
+          { title:'Exam Technique for Edexcel English', points:[
+            'Time management: Paper 1 = 1hr 30 mins total; give equal time to reading and writing sections',
+            'Command words: identify (name it), explain (give reasons), analyse (technique + effect + why)',
+            'High marks: sustained analysis with well-chosen quotes; go beyond surface meaning',
+            'Spelling, punctuation, grammar (SPaG): 4 marks available in writing tasks for accuracy',
+            'Proofreading: leave 3–5 minutes at end to check SPaG in writing tasks',
+          ], examTips:[
+            'Edexcel IGCSE English Language: examiners reward students who SHOW understanding through selection of precise quotes',
+            'Grade 9 tip: go beyond technique-spotting to discuss how meaning is constructed and how it positions the reader',
+          ]},
+        ]},
+        { title:'Oxford AQA: English Language', icon:'🏛️', topics:[
+          { title:'Oxford AQA Structure', points:[
+            'Paper 1: Reading and Writing (creative/imaginative); Paper 2: Reading and Writing (non-fiction)',
+            'Section A (Reading): comprehension, language analysis, evaluation of writer\'s technique',
+            'Section B (Writing): one extended writing task; creative or non-fiction depending on paper',
+            'Oxford AQA values: sustained control of tone, varied vocabulary, accurate SPaG',
+            'Assessment objectives: AO1 (identify/interpret), AO2 (explain/analyse), AO3 (compare), AO4 (evaluate)',
+          ]},
+          { title:'Key Writing Skills (Oxford AQA)', points:[
+            'Structural variety: vary between simple, compound, complex, and minor sentences for effect',
+            'Vocabulary: choose precise, sophisticated words; avoid vague words (nice, good, big, got)',
+            'Paragraphing: clear topic sentences; developed points with evidence; link back to question',
+            'Cohesion: use cohesive devices — pronouns, connectives, lexical chains, repetition',
+            'Register: match tone exactly to task — formal for letter to authority; informal for blog post',
+          ], examTips:[
+            'Oxford AQA writing: do not over-plan — spend 5 mins planning, 35–38 mins writing, 2–5 mins proofreading',
+            'Evaluation questions: give a personal judgement with evidence — "I think this is effective because..." shows AO4 skill',
+          ]},
         ]},
       ],
     }
