@@ -7061,6 +7061,87 @@ Quick ratio = (45,000−15,000) ÷ 20,000 = 30,000 ÷ 20,000 = 1.5:1 (good liqui
           ]},
         ]},
       ],
+      edexcel: [
+        { title:'Perception & Dreaming', icon:'👁️', topics:[
+          { title:'Visual Perception', points:[
+            'Perception: process of interpreting sensory information to give it meaning',
+            'Nativism: perception is innate (we are born with perceptual abilities) — supported by infant studies',
+            'Empiricism: perception is learned through experience — supported by cross-cultural studies',
+            'Visual constancies: size constancy (distant objects seen as same size), shape constancy, colour constancy',
+            'Depth cues: monocular (perspective, superimposition, texture gradient) and binocular (retinal disparity)',
+          ], examTips:[
+            'Evaluate using cross-cultural studies: if perception varies across cultures → learned (empiricism); if universal → innate (nativism)',
+            'Hudson\'s pictorial depth perception test: showed depth cue interpretation varies with cultural experience',
+          ]},
+          { title:'Dreaming', points:[
+            'REM sleep: rapid eye movement; associated with vivid dreaming; brain active, body paralysed',
+            'Freud\'s theory: dreams fulfil unconscious wishes; manifest content (what we remember) vs latent content (hidden meaning)',
+            'Activation-synthesis theory (Hobson & McCarley): brain randomly fires during REM → cortex makes sense of signals as "dream"',
+            'Dement & Kleitman (1957): EEG + eye movement monitoring; awakened in REM → 80% recalled dreams; in NREM → rarely recalled',
+            'Evaluation of Freud: unfalsifiable (cannot disprove); subjective interpretation; but case studies rich in detail',
+          ]},
+        ]},
+        { title:'Memory', icon:'🧠', topics:[
+          { title:'Memory Models', points:[
+            'Multi-store model (Atkinson & Shiffrin): sensory register → short-term memory (STM) → long-term memory (LTM)',
+            'STM: capacity ~7 items (±2), duration ~18–30 seconds, acoustic encoding',
+            'LTM: unlimited capacity, potentially lifelong duration, semantic encoding',
+            'Rehearsal: maintenance rehearsal keeps info in STM; elaborative rehearsal transfers to LTM',
+            'Working memory model (Baddeley): replaces STM with central executive + phonological loop + visuospatial sketchpad + episodic buffer',
+          ]},
+          { title:'Forgetting', points:[
+            'Trace decay: memory fades over time if not rehearsed (Peterson & Peterson — consonant trigrams)',
+            'Interference: proactive interference (old memories block new); retroactive (new memories block old)',
+            'Retrieval failure: cue-dependent forgetting — context, state, or mood cues needed to retrieve memory',
+            'Motivated forgetting (Freud): repression — anxiety-provoking memories pushed to unconscious',
+            'Eyewitness testimony: affected by leading questions (Loftus & Palmer — "smashed" vs "hit")',
+          ], examTips:[
+            'Peterson & Peterson (1959): 3-letter nonsense syllables, count backwards to prevent rehearsal → 90% forgotten after 18 seconds',
+            'Loftus & Palmer: critical study for eyewitness unreliability — speed estimates changed by verb used in question',
+          ], workedExample:`Loftus & Palmer (1974) — Experiment 1:
+Participants saw car accident video. Asked "About how fast were the cars going when they [hit/smashed/collided/bumped/contacted]?"
+"Smashed" group estimated 40.8 mph average; "Contacted" group estimated 31.8 mph
+Shows: verb in question changed memory reconstruction → eyewitness testimony unreliable`},
+        ]},
+        { title:'Learning', icon:'📚', topics:[
+          { title:'Classical & Operant Conditioning', points:[
+            'Classical conditioning (Pavlov): neutral stimulus paired with unconditioned stimulus → becomes conditioned stimulus',
+            'UCS (food) → UCR (salivation); CS (bell) → CR (salivation after conditioning)',
+            'Extinction: conditioned response weakens if CS repeatedly presented without UCS',
+            'Operant conditioning (Skinner): behaviour shaped by consequences',
+            'Positive reinforcement: reward follows behaviour → behaviour increases; negative reinforcement: removal of unpleasant stimulus',
+          ]},
+          { title:'Social Learning Theory', points:[
+            'Bandura: learning occurs by observing and imitating role models (vicarious learning)',
+            'Four processes: attention → retention → reproduction → motivation/reinforcement',
+            'Bobo doll experiment (Bandura, 1961): children who watched aggressive model were more aggressive',
+            'Identification: more likely to imitate models who are similar, admired, or powerful',
+            'Self-efficacy: belief in own ability to succeed — influences whether observed behaviour is imitated',
+          ], examTips:[
+            'Bandura Bobo doll: strength = controlled conditions; weakness = demand characteristics (children may perform for observer)',
+            'Classical vs operant: classical = involuntary/reflexive responses; operant = voluntary behaviour shaped by consequences',
+          ]},
+        ]},
+        { title:'Social Behaviour', icon:'👥', topics:[
+          { title:'Obedience & Authority', points:[
+            'Milgram (1963): 65% of participants delivered maximum 450V shocks when ordered by authority figure',
+            'Situational factors: physical proximity of authority, prestige of location, legitimate authority',
+            'Dispositional factors: authoritarian personality (Adorno) — tendency to be overly obedient to authority',
+            'Agentic state: person sees themselves as instrument of authority, not personally responsible',
+            'Ethical issues: deception (told it was learning study), psychological harm, though debriefed afterwards',
+          ]},
+          { title:'Prosocial Behaviour & Bystander Effect', points:[
+            'Bystander effect: presence of others reduces likelihood of helping in emergencies',
+            'Diffusion of responsibility: each person assumes another will help',
+            'Pluralistic ignorance: each bystander looks to others and, seeing no reaction, assumes no emergency',
+            'Latané & Darley (1968): participants less likely to report smoke when others present (non-reactive)',
+            'Factors increasing helping: alone, knowing the victim, clear emergency, similar to victim',
+          ], examTips:[
+            'Edexcel Psych: always apply studies to real-world contexts — examiners reward application marks',
+            'Evaluate bystander research: lacks ecological validity (staged) but replicated in field studies (subway studies)',
+          ]},
+        ]},
+      ],
     }
   },
   ict: {
@@ -7291,6 +7372,33 @@ Quick ratio = (45,000−15,000) ÷ 20,000 = 30,000 ÷ 20,000 = 1.5:1 (good liqui
             'Extend answers: not just "oui/non" but add detail, reason, extra information',
             'Use connectives: mais (but), donc (so), cependant (however), d\'abord (firstly), ensuite (then)',
             'Check gender of nouns, adjective agreements, and verb conjugations before submitting',
+          ], examTips:[
+            'Top tip: write a draft with 3 tenses (e.g. j\'ai joué au foot hier / je joue / je vais jouer demain) — examiners reward tense variety',
+            'Conditional tense (je voudrais, j\'aimerais) = instant sophistication marker for B+ grade',
+            'Speaking: if you forget a word, paraphrase — "une chose pour écrire" instead of "stylo"',
+            'Writing tasks: plan 3 minutes before writing — allocate coverage of all bullet points',
+          ], workedExample:`Photo card task: "What are you doing this weekend?"
+Basic: Je vais au cinéma. (1 tense, no detail)
+Better: Ce weekend, je vais aller au cinéma avec mes amis. Hier, j'ai regardé un film à la télé, mais je préfère sortir. J'adore les films d'action parce qu'ils sont passionnants.
+(3 tenses + opinion + reason + connective = target grade response)`},
+        ]},
+        { title:'Grammar Reference', icon:'📋', topics:[
+          { title:'Key Verb Tables', points:[
+            'AVOIR (to have): j\'ai, tu as, il a, nous avons, vous avez, ils ont',
+            'ÊTRE (to be): je suis, tu es, il est, nous sommes, vous êtes, ils sont',
+            'ALLER (to go): je vais, tu vas, il va, nous allons, vous allez, ils vont',
+            'FAIRE (to do/make): je fais, tu fais, il fait, nous faisons, vous faites, ils font',
+            'POUVOIR (can): je peux, tu peux, il peut, nous pouvons, vous pouvez, ils peuvent',
+          ]},
+          { title:'Common Irregular Past Participles', points:[
+            'avoir → eu | être → été | faire → fait | aller → allé | venir → venu',
+            'voir → vu | prendre → pris | mettre → mis | dire → dit | écrire → écrit',
+            'lire → lu | boire → bu | vouloir → voulu | pouvoir → pu | savoir → su',
+            'All être verbs in passé composé: add -e for feminine, -s for plural (e.g. elle est allée)',
+            'Reflexive verbs always use être: je me suis levé(e), elle s\'est habillée',
+          ], examTips:[
+            'Past participle agreement with être verbs is a common mark-losing error — always check gender/number',
+            'ne...pas wraps around auxiliary in compound tenses: je n\'ai PAS mangé; elle n\'est PAS allée',
           ]},
         ]},
       ],
@@ -7334,7 +7442,14 @@ Quick ratio = (45,000−15,000) ÷ 20,000 = 30,000 ÷ 20,000 = 1.5:1 (good liqui
             'Definiteness: ال التعريف للاسم المعرفة؛ المضاف إليه لا تدخل عليه ال إذا كان المضاف نكرة',
             'Dual and plural forms must be used correctly for nouns and verbs',
             'Masculine vs feminine agreement: adjectives and verbs must match gender of noun',
-          ]},
+          ], examTips:[
+            'Hamza spelling is a top mark-loser — practise أ / إ / آ / ء / ئ in context',
+            'Use إعراب (case endings) in formal written Arabic — they signal grammatical role',
+            'Writing exam: start with a strong opening sentence using a rhetorical question or striking statement',
+          ], workedExample:`Writing task: "Write an article about the importance of reading"
+مقدمة: هل تعلم أن القراءة هي مفتاح العلم والمعرفة؟ يرى كثير من المفكرين أن الكتاب خير جليس في الأنام.
+عرض: تساهم القراءة في تنمية المهارات اللغوية وتوسيع المدارك، فضلاً عن تقوية الذاكرة. علاوة على ذلك، تُعدّ وسيلةً للترفيه الهادف.
+خاتمة: وختاماً، أدعو كل شاب إلى أن يجعل القراءة عادةً يومية لا غنى عنها.`},
         ]},
         { title:'Listening & Speaking', icon:'🎧', topics:[
           { title:'Listening Techniques', points:[
@@ -7343,6 +7458,9 @@ Quick ratio = (45,000−15,000) ÷ 20,000 = 30,000 ÷ 20,000 = 1.5:1 (good liqui
             'Numbers, dates, names: listen carefully — these are often tested',
             'Distinguish between similar words: context usually clarifies meaning',
             'If you miss something — stay calm, keep listening, do not dwell on missed section',
+          ], examTips:[
+            'First listening: focus on gist (main topic, general idea); second listening: answer specific questions',
+            'Match the register of the answer to the question — if formal text, write formal Arabic',
           ]},
           { title:'Speaking & Role-Play', points:[
             'Prepare vocabulary for common topics: family, school, hobbies, health, environment, work',
@@ -7350,6 +7468,16 @@ Quick ratio = (45,000−15,000) ÷ 20,000 = 30,000 ÷ 20,000 = 1.5:1 (good liqui
             'Use كلمات الربط: لذلك، بالإضافة إلى، في المقابل، من ناحية أخرى',
             'Express opinions clearly: في رأيي أن...، أعتقد أن...، يبدو لي أن...',
             'Don\'t be afraid of errors — communication matters most; self-correct if you notice mistakes',
+          ], examTips:[
+            'Role-play: practise opening phrases (كيف يمكنني مساعدتك؟ / أودّ أن أستفسر عن...) for each scenario type',
+            'Presentation: structure as مقدمة → نقاط رئيسية (×3) → خاتمة — examiners reward clear organisation',
+          ]},
+          { title:'Exam Vocabulary Banks', points:[
+            'Connecting ideas: أولاً / ثانياً / أخيراً | علاوةً على ذلك | بالإضافة إلى | في المقابل',
+            'Giving opinions: في رأيي | أعتقد أن | من وجهة نظري | يبدو لي | أرى أن',
+            'Contrasting: ومع ذلك | بينما | على النقيض | من ناحية أخرى | إلا أن',
+            'Emphasis: لا شك أن | من الواضح أن | الجدير بالذكر أن | من المهم أن نُشير إلى',
+            'Conclusion: وختاماً | وفي الخلاصة | ومما سبق يتضح | لذلك يمكن القول',
           ]},
         ]},
       ],
@@ -7507,6 +7635,10 @@ Quick ratio = (45,000−15,000) ÷ 20,000 = 30,000 ÷ 20,000 = 1.5:1 (good liqui
             'Acid rain: SO₂ + NOₓ + water → sulphuric/nitric acid → damages trees, aquatic life, buildings',
             'CFCs: destroy ozone layer → increased UV-B radiation → skin cancer, cataracts, reduced crop yields',
             'Solutions: catalytic converters, clean technology, renewable energy, regulations (Kyoto, Paris Agreement)',
+          ], examTips:[
+            'Distinguish between enhanced greenhouse effect (human-caused) and natural greenhouse effect (essential for life)',
+            'Kyoto Protocol (1997) vs Paris Agreement (2015): Paris is more inclusive with national targets (NDCs)',
+            'For "evaluate" questions: always consider economic costs of solutions vs environmental benefits',
           ]},
         ]},
         { title:'Water & Ecosystems', icon:'💧', topics:[
@@ -7523,7 +7655,14 @@ Quick ratio = (45,000−15,000) ÷ 20,000 = 30,000 ÷ 20,000 = 1.5:1 (good liqui
             'Biodiversity: variety of species; high biodiversity = more resilient ecosystem',
             'Threats to biodiversity: habitat loss, invasive species, climate change, overexploitation, pollution',
             'Conservation strategies: national parks, wildlife corridors, captive breeding, international agreements (CITES)',
-          ]},
+          ], examTips:[
+            'Always give specific named examples — "Amazonian deforestation" is better than "deforestation"',
+            'Food web question: if one species is removed, trace ALL effects through the web (not just one link)',
+            'Eutrophication sequence: fertiliser runoff → algal bloom → blocks sunlight → aquatic plants die → bacteria decompose them → oxygen depleted → fish die (BOD increases)',
+          ], workedExample:`Eutrophication case study: Norfolk Broads, UK
+Cause: agricultural runoff from surrounding farmland (phosphates and nitrates)
+Effect: algal blooms covering water surface → reduced light penetration → death of aquatic plants → bacteria consume oxygen → fish kills
+Management: buffer strips along waterways, reduced fertiliser application, phosphate stripping at sewage works`},
         ]},
         { title:'Energy & Resources', icon:'⚡', topics:[
           { title:'Energy Sources', points:[
@@ -7539,7 +7678,13 @@ Quick ratio = (45,000−15,000) ÷ 20,000 = 30,000 ÷ 20,000 = 1.5:1 (good liqui
             'Soil degradation: overgrazing, deforestation, poor irrigation → erosion, salinisation, desertification',
             'Deforestation causes: commercial logging, agricultural clearance, population growth, infrastructure',
             'Sustainable forestry: selective logging, replanting, FSC certification, agroforestry',
-          ]},
+          ], examTips:[
+            'Sustainability questions: always show awareness of social, economic AND environmental dimensions (triple bottom line)',
+            'Energy question structure: name source → how energy is generated → advantages → disadvantages → suitability',
+          ], workedExample:`Compare solar and HEP as energy sources:
+Solar: Uses photovoltaic cells/thermal collectors. Advantages: no emissions, low running cost, modular. Disadvantages: intermittent, large land area, costly to install.
+HEP: Flowing water drives turbines. Advantages: reliable, large capacity, long lifespan. Disadvantages: dam construction floods valleys, displaces communities, affects fish migration.
+Suitability: HEP best for countries with large rivers (e.g. Brazil); solar best for sunny, arid regions (e.g. Saudi Arabia)`},
         ]},
         { title:'Human Impact & Solutions', icon:'🌍', topics:[
           { title:'Population & Development', points:[
@@ -8166,6 +8311,74 @@ const IGCSE_FORMULAS = {
       'Inventory turnover = Cost of Sales ÷ Average Inventory',
       'Maslow\'s hierarchy: physiological → safety → social → esteem → self-actualisation',
       'Herzberg: motivators (achievement, recognition) vs hygiene factors (pay, conditions)',
+    ]},
+  ],
+  geography: [
+    { title:'Key Calculations', icon:'📐', items:[
+      'Population density = Total population ÷ Area (km²)',
+      'Population growth rate = ((P₂ − P₁) ÷ P₁) × 100',
+      'Natural increase rate = Birth rate − Death rate (per 1000)',
+      'Dependency ratio = ((Young + Elderly) ÷ Working age) × 100',
+      'Infant mortality rate = (Deaths under 1 year ÷ Live births) × 1000',
+      'Literacy rate = (Literate population ÷ Total population) × 100',
+      'Urban growth rate = % increase in urban population per year',
+    ]},
+    { title:'Development Indicators', icon:'📊', items:[
+      'HDI = average of health index + education index + income index (0–1 scale)',
+      'GNI per capita: gross national income per person — used to classify HICs, MICs, LICs',
+      'LIC: <$1,085/yr | MIC: $1,086–$13,205 | HIC: >$13,205 (World Bank, 2023)',
+      'Life expectancy: years expected to live from birth; higher in HICs (~80) vs LICs (~60)',
+      'Calorie intake: <2000 kcal/day = undernourishment; UK average ~2,200',
+      'Access to clean water, doctors per 1000 people: also used as development measures',
+    ]},
+    { title:'Climate & Processes', icon:'🌍', items:[
+      'Hydrological cycle: evaporation → condensation → precipitation → surface runoff / infiltration',
+      'River discharge (Q) = Velocity (m/s) × Cross-sectional area (m²) — unit: cumecs (m³/s)',
+      'Hjulström curve: competence vs velocity — larger/lighter sediment deposited at higher velocities',
+      'Erosion processes: hydraulic action, abrasion, attrition, solution (corrosion)',
+      'Landforms: V-valley, waterfall, meander, ox-bow lake, delta, flood plain',
+      'Rock permeability: permeable (porous/pervious) vs impermeable → affects runoff and flooding',
+    ]},
+    { title:'Exam Frameworks', icon:'📝', items:[
+      'GCSE Geography command words: describe (what), explain (why/how), compare (similarities AND differences), evaluate (make a judgement)',
+      'Describe a graph: trend (overall direction) + data (quote figures) + anomalies',
+      'Explain a cause: process → effect → further consequence (chain of reasoning)',
+      'SPICED development framework: Social, Political, Infrastructure, Cultural, Economic, Demographic',
+      'Case study format: location → facts/data → causes → effects → management/responses',
+    ]},
+  ],
+  biology: [
+    { title:'Key Formulas', icon:'🧬', items:[
+      'Magnification = Image size ÷ Actual size',
+      'Actual size = Image size ÷ Magnification',
+      'Rate of photosynthesis: often measured as O₂ produced or CO₂ absorbed per unit time',
+      'Rate of respiration: O₂ consumed or CO₂ released per unit time',
+      'Percentage change = ((New − Original) ÷ Original) × 100',
+      'Number of cells = Total length ÷ Average cell length (from scale bar)',
+    ]},
+    { title:'Photosynthesis & Respiration', icon:'🌿', items:[
+      'Photosynthesis: 6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂ (light energy, chlorophyll)',
+      'Aerobic respiration: C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O + ATP (energy)',
+      'Anaerobic (animals): glucose → lactic acid + small amount of ATP',
+      'Anaerobic (yeast/plants): glucose → ethanol + CO₂ + small amount of ATP',
+      'Limiting factors for photosynthesis: light intensity, CO₂ concentration, temperature',
+      'ATP: adenosine triphosphate — universal energy currency of the cell',
+    ]},
+    { title:'Genetics', icon:'🧬', items:[
+      'Monohybrid cross: use Punnett square; 3:1 ratio in F2 for simple dominance',
+      'Probability of offspring: count boxes in Punnett square showing that genotype',
+      'Codominance: both alleles expressed (e.g. blood group AB = IAI B)',
+      'Sex determination: females XX, males XY; sex-linked traits carried on X chromosome',
+      'Hardy-Weinberg: p² + 2pq + q² = 1; p + q = 1 (p = dominant, q = recessive allele frequency)',
+      'Mutation: permanent change in DNA base sequence; random and spontaneous; increased by mutagens',
+    ]},
+    { title:'Key Definitions & Units', icon:'📖', items:[
+      'Osmosis: net movement of water molecules from high to low water potential through semi-permeable membrane',
+      'Diffusion: net movement of molecules from high to low concentration (passive)',
+      'Active transport: movement against concentration gradient; requires energy (ATP) + carrier proteins',
+      'Enzyme: biological catalyst; specific to one substrate; active site fits substrate (lock & key)',
+      'Enzyme optimum: pH ~7 for most; temperature ~37°C in humans; denatured above ~40°C',
+      'Mitosis: 2 genetically identical diploid cells (growth/repair); Meiosis: 4 genetically unique haploid cells (reproduction)',
     ]},
   ],
   accounting: [
