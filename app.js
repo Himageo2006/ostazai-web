@@ -42,6 +42,9 @@ let S = {
   igcseDone: {},   // { 'subj-ci-ti': true } — completed topics
   igcseView: 'list', // 'list' | 'formulas'
   igcseExamDate: '', // YYYY-MM-DD for countdown
+  igcseFcIdx: 0,     // flashcard index within current topic
+  igcseFcFlipped: false, // is current flashcard flipped?
+  igcseRecent: [],   // [{ sk, ci, ti, label, topicTitle }] — recently studied
 };
 let _pomTimer = null;
 
@@ -6697,6 +6700,93 @@ Closing balance = 2000 + (−1500) = $500
 Month 2: Inflows $4000, Outflows $3000 → Net = +$1000 → Closing balance = $1500`},
         ]},
       ],
+      oxford: [
+        { title:'Enterprise & Business Environment', icon:'🏢', topics:[
+          { title:'What is Enterprise?', points:[
+            'Enterprise: willingness to take risks and start or develop a business venture',
+            'Entrepreneur: organises factors of production; takes financial risk; drives innovation',
+            'Characteristics of entrepreneur: risk-taking, creativity, determination, leadership, communication skills',
+            'Social enterprise: business with social/environmental goals alongside profit (e.g. The Big Issue)',
+            'Oxford AQA focuses on UK/global context: Brexit impact, UK economy, domestic market competition',
+          ]},
+          { title:'Business Objectives', points:[
+            'Survival: most important for new/struggling businesses — focus on covering costs',
+            'Profit maximisation: traditional goal; revenue − costs; enables growth and shareholder returns',
+            'Market share growth: gaining % of total market; useful for long-term competitiveness',
+            'Customer satisfaction: repeat business, word-of-mouth, brand loyalty',
+            'Ethical objectives: CSR, sustainability, fair treatment of staff — increasingly important to consumers',
+          ], examTips:[
+            'Oxford AQA: questions often set in UK context — refer to UK examples (e.g. NHS, Tesco, Dyson)',
+            'Evaluate how business objectives change with size and stage — start-up focuses on survival, large firms on growth',
+          ]},
+        ]},
+        { title:'Marketing', icon:'📣', topics:[
+          { title:'Market Research & Segmentation', points:[
+            'Primary research: first-hand data collected for specific purpose — surveys, interviews, observation',
+            'Secondary research: existing data — ONS statistics, trade reports, company accounts',
+            'Quantitative: numerical data (statistics); qualitative: opinions and attitudes (focus groups)',
+            'Market segmentation: demographics (age, gender, income), psychographics (lifestyle), geography',
+            'Target market: specific group the product is designed for; influences all marketing mix decisions',
+          ]},
+          { title:'Digital Marketing & Brand', points:[
+            'Digital marketing: social media, SEO, email campaigns, pay-per-click advertising, influencers',
+            'Branding: name, logo, values — creates identity and customer loyalty; premium brands command higher prices',
+            'USP (Unique Selling Point): what makes product different from competitors — key for marketing',
+            'Product lifecycle: introduction → growth → maturity → decline; marketing mix should adapt at each stage',
+            'Extension strategies: update product, find new markets, promotional campaigns to extend maturity phase',
+          ], examTips:[
+            'For any marketing decision: consider cost, effectiveness, and whether it reaches the target market',
+            'Digital vs traditional: digital (social media) cheaper and more targeted; traditional (TV) broader reach',
+          ]},
+        ]},
+        { title:'Human Resources & Production', icon:'👥', topics:[
+          { title:'Human Resources', points:[
+            'Workforce planning: matching number and skills of employees to business needs',
+            'Recruitment: job description + person specification → advertise → shortlist → interview → appoint',
+            'Training: induction (new starters), on-the-job (cheaper, relevant), off-the-job (broader skills)',
+            'Appraisal: regular review of employee performance against targets; linked to pay/promotion',
+            'Employment law (UK): minimum wage, equal pay, health & safety, maternity/paternity rights, anti-discrimination',
+          ]},
+          { title:'Production & Quality', points:[
+            'Job production: one-off custom items — high cost, skilled workforce, unique (e.g. bespoke suits)',
+            'Batch production: groups of identical items — flexible, some economies of scale (e.g. bread, medicines)',
+            'Flow/mass production: continuous production of identical items — lowest cost, economies of scale (e.g. cars)',
+            'Lean production: eliminate waste (muda); just-in-time stock; continuous improvement (kaizen)',
+            'Quality assurance: build quality in at every stage; zero defects philosophy vs quality control (inspect at end)',
+          ], examTips:[
+            'Match production method to business context — a luxury car maker uses job production, not flow production',
+            'Lean production evaluation: JIT reduces holding costs but vulnerable to supply chain disruption',
+          ], workedExample:`Recommend a production method for a small bakery:
+Job production: too expensive for bakery prices; too slow
+Batch production: BEST — produces 50 loaves at a time; flexible to change flavours; moderate cost; manageable with small team
+Flow production: requires expensive equipment; only viable at very large scale
+Recommendation: Batch production allows flexibility and cost efficiency for a small-medium bakery`},
+        ]},
+        { title:'Finance', icon:'💰', topics:[
+          { title:'Revenue, Costs & Profit', points:[
+            'Revenue = selling price × quantity sold',
+            'Fixed costs: unchanged regardless of output level (rent, salaries, insurance)',
+            'Variable costs: change directly with output (raw materials, packaging, delivery)',
+            'Total cost = fixed cost + variable cost; Average cost = total cost ÷ quantity',
+            'Break-even analysis: output where total revenue = total cost; below = loss; above = profit',
+          ]},
+          { title:'Financial Statements & Ratios', points:[
+            'Income statement: revenue − cost of sales = gross profit; gross profit − expenses = net profit',
+            'Balance sheet: shows assets (what business owns), liabilities (what it owes), capital (owner\'s equity)',
+            'Liquidity: ability to meet short-term debts; current ratio = current assets ÷ current liabilities',
+            'Profitability: gross profit margin = (gross profit ÷ revenue) × 100%',
+            'Investors look for: high profit margin, good liquidity (not too high or low), positive cash flow',
+          ], examTips:[
+            'Oxford AQA finance questions: always calculate AND interpret — what does this ratio tell us?',
+            'Interpret ratios in context: a current ratio of 0.8 means business cannot cover short-term debts → liquidity problem',
+          ], workedExample:`Revenue: £120,000 | Cost of Sales: £72,000 | Expenses: £28,000
+Gross Profit = 120,000 − 72,000 = £48,000
+GPM = (48,000 ÷ 120,000) × 100 = 40%
+Net Profit = 48,000 − 28,000 = £20,000
+NPM = (20,000 ÷ 120,000) × 100 = 16.7%
+Interpretation: For every £1 of revenue, the business keeps 16.7p as net profit`},
+        ]},
+      ],
     }
   },
   add_maths: {
@@ -9094,6 +9184,23 @@ function tplIGCSEHub() {
     </div>
   </div>
 
+  <!-- Recently Studied -->
+  ${(S.igcseRecent&&S.igcseRecent.length)?`
+  <div style="padding:0 14px;margin-top:20px">
+    <div style="font-size:10px;color:var(--text-muted);font-weight:800;letter-spacing:1.5px;margin-bottom:10px">🕐 RECENTLY STUDIED</div>
+    <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px">
+      ${(S.igcseRecent||[]).map(r=>`
+      <div onclick="S.igcseSubject='${r.sk}';S.igcseChapter=${r.ci};S.igcseTopic=${r.ti};S.igcseTab='notes';S.igcseFcIdx=0;S.igcseFcFlipped=false;render()"
+        style="flex-shrink:0;width:130px;padding:12px 10px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;cursor:pointer;transition:.15s;border-top:3px solid ${r.color}"
+        onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+        <div style="font-size:20px;margin-bottom:4px">${r.icon}</div>
+        <div style="font-size:10px;font-weight:900;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.topicTitle}</div>
+        <div style="font-size:9px;color:var(--text-muted);margin-top:2px">${r.label}</div>
+      </div>`).join('')}
+    </div>
+  </div>
+  `:''}
+
   <!-- Weak Spots Panel -->
   ${(()=>{
     const done = S.igcseDone||{};
@@ -9271,8 +9378,15 @@ function tplIGCSETopic() {
   const nextT = allTopics[curIdx+1] || null;
 
   const isDone = !!(S.igcseDone||{})[`${S.igcseSubject}-${S.igcseChapter}-${S.igcseTopic}`];
-  const tabs = ['notes','questions','papers'].map(tab => {
-    const labels = {notes:'📖 Notes', questions:'❓ Practice', papers:'📄 Papers'};
+  // Track recently studied
+  (()=>{
+    const key = `${S.igcseSubject}-${S.igcseChapter}-${S.igcseTopic}`;
+    const rec = {sk:S.igcseSubject,ci:S.igcseChapter,ti:S.igcseTopic,label:subj.label,icon:subj.icon,topicTitle:tp.title,color:subj.color};
+    S.igcseRecent = [rec,...(S.igcseRecent||[]).filter(r=>!(r.sk===rec.sk&&r.ci===rec.ci&&r.ti===rec.ti))].slice(0,6);
+  })();
+
+  const tabs = ['notes','flashcards','questions','papers'].map(tab => {
+    const labels = {notes:'📖 Notes', flashcards:'🃏 Cards', questions:'❓ Practice', papers:'📄 Papers'};
     return `<button onclick="S.igcseTab='${tab}';render()"
       style="flex:1;padding:9px 4px;border:none;cursor:pointer;font-family:Cairo,sans-serif;font-size:11px;font-weight:800;transition:.15s;border-radius:10px;letter-spacing:.3px;
              ${S.igcseTab===tab?`background:${subj.color};color:#fff;box-shadow:0 2px 8px ${subj.color}44`:'background:var(--bg);color:var(--text-muted);border:1px solid var(--border)'}">
@@ -9327,6 +9441,62 @@ function tplIGCSETopic() {
         <button onclick="S.screen='flashcards';S.subject='${subj.label} — ${tp.title.replace(/'/g,"\\'")}';doGenerateFlashcards()"
           style="padding:11px 14px;background:var(--bg-card);border:1px solid var(--border);color:var(--text);border-radius:12px;cursor:pointer;font-size:12px;font-weight:700">
           🗂️
+        </button>
+      </div>`;
+  } else if (S.igcseTab === 'flashcards') {
+    const cards = tp.points.map((p,i)=>{
+      const parts = p.split(/:\s+|—\s+/);
+      const front = parts.length>1 ? parts[0].trim() : `Point ${i+1}`;
+      const back = p.trim();
+      return {front, back};
+    });
+    const totalCards = cards.length;
+    const fcIdx = Math.min(S.igcseFcIdx||0, totalCards-1);
+    const card = cards[fcIdx];
+    const flipped = S.igcseFcFlipped||false;
+    tabContent = `
+      <div style="text-align:center;margin-bottom:12px">
+        <div style="font-size:10px;color:var(--text-muted);font-weight:800;letter-spacing:1px">FLASHCARD ${fcIdx+1} OF ${totalCards}</div>
+        <div style="height:3px;background:var(--border);border-radius:2px;margin:6px auto;max-width:200px">
+          <div style="height:100%;width:${Math.round((fcIdx+1)/totalCards*100)}%;background:${subj.color};border-radius:2px;transition:.4s"></div>
+        </div>
+      </div>
+      <!-- Card -->
+      <div onclick="S.igcseFcFlipped=!S.igcseFcFlipped;render()" style="cursor:pointer;min-height:180px;background:var(--bg-card);border:2px solid ${subj.color}55;border-radius:20px;padding:28px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;margin-bottom:14px;transition:.2s;box-shadow:0 4px 20px ${subj.color}18"
+        onmouseover="this.style.boxShadow='0 8px 30px ${subj.color}33'" onmouseout="this.style.boxShadow='0 4px 20px ${subj.color}18'">
+        ${flipped ? `
+          <div style="font-size:10px;color:${subj.color};font-weight:900;letter-spacing:1px;margin-bottom:12px">ANSWER</div>
+          <div style="font-size:13px;color:var(--text);line-height:1.75;max-width:340px">${card.back}</div>
+        ` : `
+          <div style="font-size:10px;color:var(--text-muted);font-weight:900;letter-spacing:1px;margin-bottom:12px">TAP TO REVEAL</div>
+          <div style="font-size:16px;font-weight:900;color:var(--text);line-height:1.5;max-width:300px">${card.front}</div>
+          <div style="margin-top:12px;font-size:22px;opacity:.4">🃏</div>
+        `}
+      </div>
+      <!-- Controls -->
+      <div style="display:flex;gap:10px;justify-content:center;margin-bottom:12px">
+        <button onclick="S.igcseFcIdx=Math.max(0,(S.igcseFcIdx||0)-1);S.igcseFcFlipped=false;render()"
+          ${fcIdx===0?'disabled':''} style="padding:10px 20px;border-radius:12px;border:1px solid var(--border);background:var(--bg-card);color:var(--text);cursor:pointer;font-size:12px;font-weight:700;font-family:Cairo,sans-serif;${fcIdx===0?'opacity:.4;cursor:default':''}">
+          ‹ Prev
+        </button>
+        <button onclick="S.igcseFcFlipped=!S.igcseFcFlipped;render()"
+          style="padding:10px 20px;border-radius:12px;border:none;background:${subj.color};color:#fff;cursor:pointer;font-size:12px;font-weight:700;font-family:Cairo,sans-serif">
+          ${flipped?'🙈 Hide':'👁️ Reveal'}
+        </button>
+        <button onclick="S.igcseFcIdx=Math.min(${totalCards-1},(S.igcseFcIdx||0)+1);S.igcseFcFlipped=false;render()"
+          ${fcIdx===totalCards-1?'disabled':''} style="padding:10px 20px;border-radius:12px;border:1px solid var(--border);background:var(--bg-card);color:var(--text);cursor:pointer;font-size:12px;font-weight:700;font-family:Cairo,sans-serif;${fcIdx===totalCards-1?'opacity:.4;cursor:default':''}">
+          Next ›
+        </button>
+      </div>
+      <!-- Shuffle / Reset -->
+      <div style="display:flex;gap:8px;justify-content:center">
+        <button onclick="S.igcseFcIdx=0;S.igcseFcFlipped=false;render()"
+          style="padding:8px 16px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text-muted);cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif">
+          ↺ Reset
+        </button>
+        <button onclick="S.screen='chat';S.subject='${subj.label} Flashcards';S.messages=[{role:'user',content:'Create 10 Q&A flashcards for IGCSE ${subj.label} topic: ${tp.title.replace(/'/g,"\\'")}. Format each as Q: ... / A: ...'}];render();setTimeout(()=>doSend&&doSend(),100)"
+          style="padding:8px 16px;border-radius:10px;border:1px solid ${subj.color}44;background:${subj.color}10;color:${subj.color};cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif">
+          🤖 AI Flashcards (×10)
         </button>
       </div>`;
   } else if (S.igcseTab === 'questions') {
@@ -9406,11 +9576,11 @@ function tplIGCSETopic() {
       ‹ Previous
     </button>`:'<div></div>'}
     ${nextT?`<div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
-      <button onclick="S.igcseDone=S.igcseDone||{};S.igcseDone['${S.igcseSubject}-${S.igcseChapter}-${S.igcseTopic}']=true;S.igcseChapter=${nextT.ci};S.igcseTopic=${nextT.ti};S.igcseTab='notes';render()"
+      <button onclick="S.igcseDone=S.igcseDone||{};S.igcseDone['${S.igcseSubject}-${S.igcseChapter}-${S.igcseTopic}']=true;S.igcseChapter=${nextT.ci};S.igcseTopic=${nextT.ti};S.igcseTab='notes';S.igcseFcIdx=0;S.igcseFcFlipped=false;render()"
         style="padding:11px 16px;border:none;border-radius:12px;background:#10B981;cursor:pointer;font-size:12px;color:#fff;font-family:Cairo,sans-serif;font-weight:700;box-shadow:0 2px 10px #10B98144;display:flex;align-items:center;gap:6px;white-space:nowrap">
         ✅ Mark Done &amp; Next →
       </button>
-      <button onclick="S.igcseChapter=${nextT.ci};S.igcseTopic=${nextT.ti};S.igcseTab='notes';render()"
+      <button onclick="S.igcseChapter=${nextT.ci};S.igcseTopic=${nextT.ti};S.igcseTab='notes';S.igcseFcIdx=0;S.igcseFcFlipped=false;render()"
         style="padding:8px 14px;border:1px solid ${subj.color}66;border-radius:10px;background:transparent;cursor:pointer;font-size:11px;color:${subj.color};font-family:Cairo,sans-serif;font-weight:600;display:flex;align-items:center;gap:4px">
         Skip →
       </button>
