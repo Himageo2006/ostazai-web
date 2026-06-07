@@ -41,6 +41,7 @@ let S = {
   igcseSearch: '',
   igcseDone: {},   // { 'subj-ci-ti': true } — completed topics
   igcseView: 'list', // 'list' | 'formulas'
+  igcseExamDate: '', // YYYY-MM-DD for countdown
 };
 let _pomTimer = null;
 
@@ -5157,6 +5158,65 @@ Lower temp: yield ↑ but rate too slow → economically unviable
           ]},
         ]},
       ],
+      oxford: [
+        { title:'Atomic Structure & Bonding', icon:'⚛️', topics:[
+          { title:'Atomic Structure', points:[
+            'Oxford AQA uses same core: protons, neutrons, electrons; atomic/mass number',
+            'Isotopes: same atomic number, different mass number; some isotopes are radioactive',
+            'Electronic structure: shells fill from inner outward; determines chemical properties',
+            'Ions: atoms that have gained or lost electrons; ion charge = protons − electrons',
+            'Oxford AQA: includes relative atomic mass calculated from isotope masses and abundances',
+          ], examTips:[
+            'Relative atomic mass calculation: Ar = Σ(isotope mass × % abundance) ÷ 100',
+          ], workedExample:`Chlorine: 75% ³⁵Cl and 25% ³⁷Cl
+Ar = (35 × 75 + 37 × 25) / 100 = (2625 + 925) / 100 = 3550 / 100 = 35.5`},
+          { title:'Bonding Types & Properties', points:[
+            'Ionic: metal + non-metal; giant lattice; high MP; conducts when molten/dissolved',
+            'Covalent: non-metal + non-metal; simple molecular (low MP) or giant (very high MP)',
+            'Metallic: positive ions in sea of delocalised electrons; conducts, malleable',
+            'Oxford AQA: includes intermolecular forces (van der Waals) explaining properties of simple molecules',
+            'Hydrogen bonding: between H and electronegative atom (F, O, N) — explains water\'s high boiling point',
+          ]},
+        ]},
+        { title:'Chemical Reactions & Energy', icon:'🔥', topics:[
+          { title:'Rates & Energy Changes', points:[
+            'Oxford AQA: emphasis on practical skills — describe how to measure rate experimentally',
+            'Endothermic vs exothermic: measured by temperature change; energy profile diagrams',
+            'Bond enthalpies: use to calculate ΔH = bonds broken − bonds made (in kJ/mol)',
+            'Reversible reactions: equilibrium — position depends on concentration, temperature, pressure',
+            'Le Chatelier\'s principle: system opposes any change made to it (shift in equilibrium position)',
+          ], examTips:[
+            'Oxford AQA: "describe an experiment to..." — always state: what you measure, what you control, how you record',
+            'Bond enthalpy calculations: draw out all bonds explicitly before calculating',
+          ], workedExample:`H₂ + Cl₂ → 2HCl
+Bonds broken: H-H (436) + Cl-Cl (243) = 679 kJ
+Bonds made: 2 × H-Cl (2×431) = 862 kJ
+ΔH = 679 − 862 = −183 kJ/mol (exothermic)`},
+          { title:'Organic Chemistry', points:[
+            'Oxford AQA: alkanes (saturated), alkenes (unsaturated, C=C), alcohols (-OH), carboxylic acids (-COOH)',
+            'Homologous series: same functional group, same general formula, properties change gradually',
+            'Combustion: complete → CO₂ + H₂O; incomplete → CO + soot (carbon) + H₂O',
+            'Addition reactions of alkenes: + H₂ (hydrogenation), + Br₂ (bromination, test for C=C), + HBr',
+            'Condensation polymers: nylon, polyester — require two different monomers; water produced',
+          ]},
+        ]},
+        { title:'Earth, Atmosphere & Resources', icon:'🌍', topics:[
+          { title:'The Earth & Its Resources', points:[
+            'Earth\'s structure: inner core (solid Fe/Ni), outer core (liquid), mantle (semi-solid), crust (thin, rock)',
+            'Tectonic plates: move on convection currents in mantle; collision → mountains, earthquakes, volcanoes',
+            'Rock cycle: igneous (cooled magma) → weathering → sedimentary → pressure → metamorphic → melting → igneous',
+            'Metal extraction: electrolysis for reactive (Al), reduction by carbon for medium (Fe, Cu), displacement for less reactive',
+            'Finite resources: fossil fuels, many metals — must manage sustainably; recycle metals to conserve',
+          ]},
+          { title:'Atmosphere & Climate', points:[
+            'Early atmosphere: mainly CO₂, N₂, water vapour from volcanoes; little O₂',
+            'O₂ produced by photosynthesis over billions of years; CO₂ absorbed by oceans and plants',
+            'Current atmosphere: ~78% N₂, ~21% O₂, ~0.04% CO₂, trace noble gases',
+            'Greenhouse gases: CO₂, CH₄, water vapour → trap heat; human activity increasing CO₂',
+            'Pollution: CO (poisonous), SO₂ (acid rain), NOₓ (smog), particulates (respiratory issues)',
+          ]},
+        ]},
+      ],
     }
   },
   biology: {
@@ -5390,6 +5450,86 @@ Blood glucose rises → detected by pancreas
             'Examples: cattle bred for high milk yield; wheat bred for disease resistance; dogs bred for temperament',
             'Disadvantage: reduces genetic variation → population more vulnerable to new diseases',
             'Compare to natural selection: selective breeding driven by human choice, not environment',
+          ]},
+        ]},
+      ],
+      edexcel: [
+        { title:'Cell Biology & Microscopy', icon:'🔬', topics:[
+          { title:'Cell Structure & Microscopy', points:[
+            'Edexcel IGCSE Biology uses same core cell structure as CIE (animal/plant cell organelles)',
+            'Light microscope: magnification up to ×2000; electron microscope: up to ×1,000,000',
+            'Magnification = image size ÷ actual size; rearrange to find actual or image size',
+            'Edexcel: includes eukaryotic (membrane-bound nucleus) vs prokaryotic (no nucleus — bacteria)',
+            'Bacterial cell: no nucleus, smaller, has plasmid (small circular DNA), cell wall (peptidoglycan)',
+          ], examTips:[
+            'Magnification calculation: image size / actual size = magnification — keep units consistent (μm or mm)',
+            'Distinguish prokaryote from eukaryote: prokaryote has no nuclear membrane, no membrane-bound organelles',
+          ], workedExample:`A cell is 0.1 mm across in a diagram. Actual size = 0.01 mm.
+Magnification = image ÷ actual = 0.1 ÷ 0.01 = ×10`},
+          { title:'Transport in Cells', points:[
+            'Diffusion: passive, down concentration gradient; faster with steeper gradient, smaller molecule, higher temperature',
+            'Osmosis: water moves from dilute (high water potential) to concentrated solution through semi-permeable membrane',
+            'Active transport: requires ATP; moves substances against gradient (e.g. mineral ions into root hair cells)',
+            'Edexcel: exchange surfaces must be large SA, thin, moist, good blood supply — apply to lungs, intestines, gills',
+            'Calculating surface area to volume ratio: as cells get larger, SA:V ratio falls → less efficient exchange',
+          ]},
+        ]},
+        { title:'Biological Molecules & Nutrition', icon:'⚗️', topics:[
+          { title:'Biological Molecules', points:[
+            'Carbohydrates: glucose (respiration), starch (storage in plants), glycogen (storage in animals), cellulose (cell wall)',
+            'Proteins: amino acids joined by peptide bonds; shape determines function (e.g. enzyme, antibody, haemoglobin)',
+            'Lipids: fats (long-term energy store) and oils; glycerol + 3 fatty acids; less water than carbohydrates per gram',
+            'Edexcel food tests: Benedict\'s (reducing sugar → brick red), iodine (starch → blue-black), Biuret (protein → purple)',
+            'Water: solvent for metabolic reactions; transport medium; involved in hydrolysis reactions',
+          ]},
+          { title:'Nutrition & Health', points:[
+            'Balanced diet: correct proportions of carbohydrates, proteins, fats, vitamins, minerals, water, fibre',
+            'Deficiency diseases: scurvy (vitamin C), rickets (vitamin D), anaemia (iron), kwashiorkor (protein)',
+            'Edexcel: includes BMI (Body Mass Index) = mass (kg) ÷ height² (m²); healthy range 18.5–24.9',
+            'Coronary heart disease: linked to saturated fat, high cholesterol, smoking, high blood pressure, lack of exercise',
+            'Type 2 diabetes: insulin resistance due to poor diet/obesity; managed by diet, exercise, medication',
+          ]},
+        ]},
+        { title:'Body Systems', icon:'🫀', topics:[
+          { title:'The Heart & Circulation', points:[
+            'Double circulation: pulmonary (heart → lungs → heart) and systemic (heart → body → heart)',
+            'Heart structure: 4 chambers — right/left atria receive blood; right/left ventricles pump blood',
+            'Valves: prevent backflow — atrioventricular (between atria and ventricles); semilunar (in aorta and pulmonary artery)',
+            'Coronary arteries: supply heart muscle with O₂; blockage → heart attack (myocardial infarction)',
+            'Edexcel: ECG trace — shows electrical activity of heart; P wave (atrial contraction), QRS (ventricular contraction)',
+          ], examTips:[
+            'Describe the cardiac cycle: atria fill → atria contract → blood to ventricles → ventricles contract → blood to arteries',
+            'Right ventricle pumps to lungs (short distance, low pressure); left ventricle pumps to body (higher pressure, thicker wall)',
+          ]},
+          { title:'Respiration & Gas Exchange', points:[
+            'Aerobic respiration: glucose + oxygen → carbon dioxide + water + energy (ATP)',
+            'Anaerobic respiration (animals): glucose → lactic acid; (plants/yeast): glucose → ethanol + CO₂',
+            'Alveoli adaptations: large SA (many alveoli), thin walls (one cell thick), moist surface, good blood supply',
+            'Edexcel: tidal volume (air breathed per breath) × breathing rate = minute ventilation',
+            'Effects of exercise: increased breathing rate and heart rate; lactic acid build-up → oxygen debt',
+          ]},
+          { title:'The Nervous System', points:[
+            'Central nervous system (CNS): brain + spinal cord; peripheral: nerves connecting to organs',
+            'Sensory neurone: receptor → CNS; motor neurone: CNS → effector (muscle/gland)',
+            'Synapse: gap between neurones; neurotransmitters released, diffuse across, bind to receptors',
+            'Reflex arc: fast, automatic response — no conscious thought required; spinal cord coordinates',
+            'Edexcel: includes structure and function of the brain — cerebrum (thinking), cerebellum (balance), medulla (breathing/heartbeat)',
+          ]},
+        ]},
+        { title:'Ecology & Evolution', icon:'🌱', topics:[
+          { title:'Ecosystems & Interdependence', points:[
+            'Population: all individuals of one species in an area; Community: all populations together; Ecosystem: community + abiotic environment',
+            'Abiotic factors: temperature, light, pH, water availability, wind, humidity, soil type',
+            'Biotic factors: predation, competition, disease, food availability, human activity',
+            'Edexcel: carrying capacity — maximum sustainable population size set by limiting factors',
+            'Predator-prey cycles: hare and lynx populations oscillate — predator numbers lag behind prey',
+          ]},
+          { title:'Evolution & Biodiversity', points:[
+            'Darwin\'s natural selection: variation → selection pressure → differential survival and reproduction',
+            'Evidence for evolution: fossil record, comparative anatomy (homologous structures), DNA comparisons',
+            'Antibiotic resistance: mutations produce resistant bacteria; selection favours them → population becomes resistant',
+            'Edexcel: includes classification — Kingdom, Phylum, Class, Order, Family, Genus, Species (KPCOFGS)',
+            'Biodiversity: measured by number of species and individuals; high biodiversity = ecosystem stability',
           ]},
         ]},
       ],
@@ -6833,6 +6973,10 @@ Quick ratio = (45,000−15,000) ÷ 20,000 = 30,000 ÷ 20,000 = 1.5:1 (good liqui
             'Tawhid: oneness of Allah — the most fundamental Islamic belief; shirk (associating partners) is gravest sin',
             'Qur\'an: final and complete revelation from Allah to Prophet Muhammad (PBUH); preserved unchanged',
             'Sunnah and Hadith: sayings and actions of the Prophet; guide Muslim life alongside Qur\'an',
+          ], examTips:[
+            'Know all Five Pillars and Six Articles — often asked to "name and explain" each one',
+            'Distinguish Sunni and Shia Islam where relevant: different views on leadership after the Prophet',
+            'Use religious terminology precisely: ummah, tawhid, shirk, khalifah — define terms you use',
           ]},
           { title:'Ethics & Application', points:[
             'Sanctity of life: life is sacred (khalifah — humans are stewards of creation)',
@@ -6872,6 +7016,72 @@ Quick ratio = (45,000−15,000) ÷ 20,000 = 30,000 ÷ 20,000 = 1.5:1 (good liqui
             'Natural Law: moral norms based on human nature and reason (Aquinas); absolute rules',
             'Virtue ethics: focus on developing good character traits (honesty, courage, compassion)',
             'Divine command theory: what God commands is right; evaluated by how we know God\'s commands',
+          ], examTips:[
+            'For "do you agree?" questions: always argue BOTH sides before reaching a justified conclusion',
+            'Reference specific thinkers/scholars: Bentham, Mill, Kant, Aquinas strengthen evaluation',
+            'Ethical questions in RS: apply a named ethical theory, then apply a religious perspective (e.g. Islamic view on euthanasia)',
+          ]},
+        ]},
+        { title:'Applied Ethics', icon:'⚖️', topics:[
+          { title:'Life & Death Issues', points:[
+            'Sanctity of life: life is sacred and God-given — no human has the right to take it (religious view)',
+            'Quality of life: life\'s value depends on its quality and what the person values (secular view)',
+            'Euthanasia: deliberately ending a life to relieve suffering; active (deliberate action) vs passive (withdrawal of treatment)',
+            'Abortion: deliberate termination of pregnancy; debates about personhood, when life begins, women\'s rights',
+            'Capital punishment: state execution of criminals; justice vs rehabilitation debate; religious responses vary',
+          ], examTips:[
+            'Always present at least two different religious or ethical views on each issue',
+            'Use religious quotes where possible: "Do not take a life which Allah has made sacred" (Qur\'an 6:151)',
+            'Life and death questions: distinguish between religious teaching and the actual practice of believers',
+          ]},
+          { title:'War & Peace', points:[
+            'Just War theory (Aquinas): war must have just cause, right intention, last resort, declared by authority, proportionate means',
+            'Pacifism: all war is wrong; Christian pacifists cite "love your enemy" (Matthew 5:44)',
+            'Holy War: war commanded by God or religious authority; concept in Islam (jihad — greater jihad = spiritual struggle)',
+            'Nuclear weapons: disproportionate destruction → most religious traditions oppose; deterrence debate',
+            'Peacemaking: religious traditions value peace (Islam = "salaam"; Christianity = "blessed are the peacemakers")',
+          ]},
+          { title:'Poverty & Wealth', points:[
+            'Absolute poverty: lack of basic necessities for survival; relative poverty: below average standard of living',
+            'Islamic view: wealth is a trust from Allah; Zakah (2.5% of savings) is mandatory; interest (riba) is forbidden',
+            'Christian view: wealth itself not wrong, but love of money is "root of all evil" (1 Timothy 6:10); help the poor',
+            'Causes of global poverty: historical exploitation, debt, poor governance, natural disasters, inequality',
+            'Faith responses: Christian Aid, Islamic Relief, Oxfam — religious organisations provide development aid',
+          ]},
+        ]},
+        { title:'Buddhism', icon:'☸️', topics:[
+          { title:'Buddhist Beliefs & Practices', points:[
+            'Four Noble Truths: suffering exists (dukkha), craving causes suffering (tanha), suffering can end (nirvana), the Eightfold Path leads to nirvana',
+            'Eightfold Path: right understanding, intention, speech, action, livelihood, effort, mindfulness, concentration',
+            'Dharma (dhamma): the teaching of the Buddha; the truth about how life works',
+            'Three Marks of Existence: impermanence (anicca), suffering (dukkha), no-self (anatta)',
+            'Karma: law of cause and effect — intentional actions affect future rebirths; nirvana = escape from cycle',
+          ]},
+          { title:'Buddhist Ethics', points:[
+            'Five Precepts: do not harm living things; do not steal; avoid sexual misconduct; avoid false speech; avoid intoxicants',
+            'Ahimsa (non-violence): not harming any sentient being; influence on diet (vegetarianism), pacifism',
+            'Compassion (karuna) and loving kindness (metta): key Buddhist virtues — extend to all beings',
+            'Engaged Buddhism: applying Buddhist principles to social, political, and environmental issues',
+            'Environmental ethics: interdependence (pratītyasamutpāda) — all things connected → must protect nature',
+          ], examTips:[
+            'Buddhism exam questions: link practices back to core beliefs — show how the belief motivates the action',
+            'Distinguish Theravada (individual liberation, meditation) from Mahayana (bodhisattva path, helping all beings)',
+          ]},
+        ]},
+        { title:'Judaism', icon:'✡️', topics:[
+          { title:'Jewish Beliefs & Practices', points:[
+            'Monotheism: belief in one God (YHWH); Shema — "Hear O Israel, the Lord our God, the Lord is one"',
+            'Torah: first five books of Moses; contains 613 commandments (mitzvot) guiding Jewish life',
+            'Covenant with Abraham: circumcision as sign; later covenant at Sinai (Ten Commandments)',
+            'Shabbat: weekly day of rest (Friday sunset–Saturday sunset); no work; synagogue, family, prayer',
+            'Jewish festivals: Rosh Hashanah (New Year), Yom Kippur (Day of Atonement), Passover (Exodus)',
+          ]},
+          { title:'Jewish Ethics & Modern Issues', points:[
+            'Pikuach nefesh: saving a life overrides almost all other commandments — life is of supreme value',
+            'Tikkun olam: "repair of the world" — Jews have responsibility to make the world better',
+            'Justice (tzedakah): giving to poor is obligation, not charity; righteousness and justice central to Judaism',
+            'Medical ethics: most Jews support medical research and treatment; organ donation generally permitted',
+            'Holocaust (Shoah): destruction of 6 million Jews; raises profound questions about God and suffering (theodicy)',
           ]},
         ]},
       ],
@@ -7512,12 +7722,52 @@ function tplIGCSEHub() {
       :`<div style="text-align:center;padding:40px;color:var(--text-muted)">No subjects found for "${q}"</div>`}
   </div>
 
-  <!-- Footer -->
-  <div style="margin:24px 14px 0;padding:14px 16px;background:var(--bg-card);border-radius:14px;border:1px solid var(--border);display:flex;align-items:center;gap:12px">
-    <div style="font-size:28px">💡</div>
+  <!-- Exam Countdown + Quick Actions Row -->
+  <div style="padding:0 14px;margin-top:20px;display:flex;gap:10px;flex-wrap:wrap">
+    <!-- Exam Countdown -->
+    <div id="igcse-countdown-card" style="flex:1;min-width:160px;background:linear-gradient(135deg,#7C3AED,#5B21B6);border-radius:14px;padding:14px 16px;color:#fff">
+      <div style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:#ffffffaa;margin-bottom:6px">📅 EXAM COUNTDOWN</div>
+      <div id="igcse-days" style="font-size:28px;font-weight:900">${(()=>{const d=S.igcseExamDate?Math.max(0,Math.ceil((new Date(S.igcseExamDate)-new Date())/(1000*60*60*24))):null;return d!==null?d:'—';})()}</div>
+      <div style="font-size:11px;color:#ffffffbb">${S.igcseExamDate?'days until exams':'Set your exam date'}</div>
+      <input type="date" value="${S.igcseExamDate||''}" onchange="S.igcseExamDate=this.value;render()"
+        style="margin-top:8px;width:100%;padding:4px 8px;border-radius:8px;border:1px solid #ffffff30;background:#ffffff15;color:#fff;font-size:11px;box-sizing:border-box;outline:none;font-family:Cairo,sans-serif">
+    </div>
+    <!-- Overall Progress -->
+    <div style="flex:1;min-width:160px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:14px 16px">
+      <div style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--text-muted);margin-bottom:6px">📊 OVERALL PROGRESS</div>
+      <div style="font-size:28px;font-weight:900;color:${board.color}">${doneCnt}</div>
+      <div style="font-size:11px;color:var(--text-muted)">topics completed</div>
+      <div style="margin-top:8px;height:6px;background:var(--border);border-radius:3px">
+        <div style="height:100%;width:${totalTopics?Math.min(100,Math.round(doneCnt/totalTopics*100)):0}%;background:${board.color};border-radius:3px;transition:.5s"></div>
+      </div>
+      <div style="font-size:10px;color:var(--text-muted);margin-top:4px">${totalTopics?Math.min(100,Math.round(doneCnt/totalTopics*100)):0}% of ${totalTopics} total topics</div>
+    </div>
+    <!-- Quick Links -->
+    <div style="flex:1;min-width:160px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:14px 16px">
+      <div style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--text-muted);margin-bottom:10px">⚡ QUICK ACTIONS</div>
+      <div style="display:flex;flex-direction:column;gap:7px">
+        <button onclick="S.screen='chat';S.subject='IGCSE';S.messages=[{role:'user',content:'Give me a 10-question IGCSE mixed quiz covering: Maths, Physics, Chemistry, and Biology — with answers at the end'}];render();setTimeout(()=>doSend&&doSend(),100)"
+          style="padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif;text-align:left">
+          🎯 Mixed IGCSE Quiz
+        </button>
+        <button onclick="S.screen='chat';S.subject='IGCSE Study Plan';S.messages=[{role:'user',content:'Create a 4-week IGCSE revision plan for: Maths, Physics, Chemistry, Biology, and English. I have 2 hours per day. Include what to revise each week and past paper practice schedule.'}];render();setTimeout(()=>doSend&&doSend(),100)"
+          style="padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif;text-align:left">
+          📅 AI Study Plan
+        </button>
+        <button onclick="S.screen='chat';S.subject='IGCSE Examiner Tips';S.messages=[{role:'user',content:'Give me the top 10 examiner tips that apply to ALL IGCSE subjects — what do Cambridge examiners look for?'}];render();setTimeout(()=>doSend&&doSend(),100)"
+          style="padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif;text-align:left">
+          💡 Examiner Tips
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tips Banner -->
+  <div style="margin:16px 14px 0;padding:14px 16px;background:${board.color}0c;border-radius:14px;border:1px solid ${board.color}25;display:flex;align-items:center;gap:12px">
+    <div style="font-size:24px">💡</div>
     <div>
       <div style="font-size:12px;font-weight:800;color:var(--text)">How to use this platform</div>
-      <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Pick a subject → choose a chapter → study key points → practice with AI questions → check past papers</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Pick a subject → study chapters & topics → use 📐 Formula Sheet → practice with AI → mark topics Done ✓ → past papers</div>
     </div>
   </div>
 </div>`;
