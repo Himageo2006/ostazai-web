@@ -5660,6 +5660,609 @@ const IGCSE_SUBJECTS = {
       ],
     }
   },
+  sociology: {
+    label:'Sociology', arabic:'علم الاجتماع', icon:'👥', color:'#BE185D',
+    boards: ['cie'],
+    pastPapers: {
+      cie: 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-sociology-0495/past-papers/',
+    },
+    chapters: {
+      cie: [
+        { title:'Theory & Methods', icon:'🔬', topics:[
+          { title:'Sociological Perspectives', points:[
+            'Functionalism: society is like a body — each institution has a function to maintain stability (Durkheim, Parsons)',
+            'Marxism: society based on conflict between bourgeoisie (owners) and proletariat (workers) — Marx',
+            'Feminism: society structured around gender inequality favouring men (patriarchy)',
+            'Interactionism: focuses on small-scale interactions and how people create meaning (micro approach)',
+            'New Right: supports free market, traditional values, minimal state intervention',
+          ]},
+          { title:'Research Methods', points:[
+            'Quantitative methods: produce numerical data — surveys, structured interviews, official statistics',
+            'Qualitative methods: produce detailed non-numerical data — unstructured interviews, observation, documents',
+            'Questionnaires: large sample, cheap, but low response rate and no depth',
+            'Participant observation: researcher joins group — high validity but time-consuming and risk of bias',
+            'Reliability: same results if repeated; validity: truly measures what it claims to measure',
+          ]},
+        ]},
+        { title:'Family', icon:'👨‍👩‍👧', topics:[
+          { title:'Family Structures & Functions', points:[
+            'Nuclear family: parents + children; extended: nuclear + relatives; reconstituted: step-family',
+            'Functionalist view: family socialises children, provides emotional support, regulates sexual behaviour',
+            'Marxist view: family reproduces labour power; transmits ruling class ideology to next generation',
+            'Feminist view: family is patriarchal — women do unpaid domestic labour (triple shift)',
+            'Changing family: rising divorce rates, cohabitation, single-parent families, same-sex families',
+          ]},
+          { title:'Marriage, Divorce & Changing Patterns', points:[
+            'Marriage rates declining in many HICs; cohabitation increasing',
+            'Reasons for rising divorce: changing laws (easier/cheaper), women\'s economic independence, secularisation',
+            'Secularisation: decline in religion → less stigma attached to divorce',
+            'Reconstituted (blended) families: increasingly common; may cause identity issues for children',
+            'Empty nest: when children leave home; beanpole family: multi-generational but few members per generation',
+          ]},
+        ]},
+        { title:'Education', icon:'🏫', topics:[
+          { title:'Role of Education', points:[
+            'Functionalist: education transmits shared values (secondary socialisation), allocates roles by merit',
+            'Marxist: education reproduces inequality — hidden curriculum teaches working class to accept low status',
+            'Hidden curriculum: unwritten lessons (punctuality, obedience, competition) that prepare pupils for work',
+            'Correspondence principle (Bowles & Gintis): school mirrors workplace — prepares docile workers',
+            'Feminist: historical exclusion of women; despite improvements, gender stereotyping remains',
+          ]},
+          { title:'Factors Affecting Achievement', points:[
+            'Social class: working-class pupils underachieve — material deprivation (no books, space), cultural capital',
+            'Cultural capital (Bourdieu): middle class possess attitudes/knowledge valued by schools',
+            'Gender: girls outperform boys at GCSE; boys more likely to take STEM; girls English/humanities',
+            'Ethnicity: some ethnic minority groups underachieve; factors include language, racism, poverty',
+            'Labelling theory: teachers label pupils → self-fulfilling prophecy (Becker)',
+          ]},
+        ]},
+        { title:'Crime & Deviance', icon:'⚖️', topics:[
+          { title:'Theories of Crime', points:[
+            'Crime: breaking the law; deviance: behaviour that breaks social norms (not necessarily illegal)',
+            'Functionalist: crime is normal and necessary — reinforces boundaries, promotes social solidarity',
+            'Strain theory (Merton): crime results from gap between goals (wealth) and means to achieve them',
+            'Labelling theory: crime is a social construction — who gets labelled as criminal?',
+            'Marxist: law made by ruling class to protect their interests; white-collar crime ignored',
+          ]},
+          { title:'Social Control & Patterns of Crime', points:[
+            'Formal control: police, courts, prisons; Informal control: family, peer pressure, education',
+            'Gender and crime: men commit far more crimes — socialization, masculinity, opportunity',
+            'Age and crime: young people (15–25) most likely to offend; youth subculture theories',
+            'Class and crime: working class over-represented — but may reflect policing bias',
+            'Moral panic: media exaggerates threat of a group → public fear → increased policing',
+          ]},
+        ]},
+        { title:'Mass Media', icon:'📺', topics:[
+          { title:'Media & Its Influence', points:[
+            'Traditional media: newspapers, TV, radio; New media: internet, social media, streaming',
+            'Ownership concentration: few large corporations own most media — may limit viewpoints',
+            'Agenda setting: media decides which issues are important by giving them coverage',
+            'Marxist view: media owned by ruling class → promotes dominant ideology (hegemony)',
+            'Pluralist view: media reflects public demand; people choose what they consume',
+          ]},
+          { title:'Representation in Media', points:[
+            'Stereotyping: oversimplified, fixed image of a group (gender, ethnicity, age, class)',
+            'Women: often portrayed as passive, domestic, sexual objects; improving but still unequal',
+            'Ethnicity: minority groups underrepresented or shown in negative roles',
+            'Positive effects of social media: campaigns, activism, diverse voices, counter-narratives',
+            'Hyperreality (Baudrillard): media images become more "real" than reality itself',
+          ]},
+        ]},
+      ],
+    }
+  },
+  psychology: {
+    label:'Psychology', arabic:'علم النفس', icon:'🧠', color:'#7C3AED',
+    boards: ['cie','edexcel'],
+    pastPapers: {
+      cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-psychology-0477/past-papers/',
+      edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-psychology-2017.coursematerials.html',
+    },
+    chapters: {
+      cie: [
+        { title:'Core Studies & Research Methods', icon:'🔬', topics:[
+          { title:'Research Methods', points:[
+            'Experiment: IV (independent variable) manipulated; DV (dependent variable) measured; controls other variables',
+            'Lab experiment: high control, replicable, but artificial (low ecological validity)',
+            'Field experiment: natural setting, more valid, but less control',
+            'Observation: naturalistic (real setting) or controlled; covert vs overt',
+            'Case study: in-depth study of one individual or small group; rich detail but cannot generalise',
+          ]},
+          { title:'Key Research Concepts', points:[
+            'Hypothesis: testable prediction about what will happen; null hypothesis: no effect',
+            'Sampling: random (every member has equal chance), opportunity (whoever is available), self-selected',
+            'Reliability: consistent results across measurements or between observers',
+            'Validity: does the study measure what it claims? Internal and external validity',
+            'Ethics: informed consent, right to withdraw, confidentiality, protection from harm (BPS guidelines)',
+          ]},
+        ]},
+        { title:'Memory', icon:'🧩', topics:[
+          { title:'Models of Memory', points:[
+            'Multi-store model (Atkinson & Shiffrin): sensory register → STM → LTM',
+            'STM: limited capacity (7±2 items), short duration (18–30 seconds), acoustic encoding',
+            'LTM: unlimited capacity, long duration (potentially lifetime), semantic encoding',
+            'Working memory model (Baddeley & Hitch): phonological loop, visuospatial sketchpad, central executive',
+            'Episodic memory: personal events; semantic: general knowledge; procedural: how to do things',
+          ]},
+          { title:'Forgetting', points:[
+            'Interference: proactive (old memories interfere with new) and retroactive (new interfere with old)',
+            'Retrieval failure: information in LTM but cannot be accessed — tip of tongue phenomenon',
+            'Context-dependent forgetting: encoded in one context, hard to recall in different context',
+            'State-dependent forgetting: emotional/physical state at encoding differs from recall',
+            'Repression (Freud): motivated forgetting of traumatic or anxiety-provoking memories',
+          ]},
+        ]},
+        { title:'Developmental Psychology', icon:'👶', topics:[
+          { title:'Cognitive Development (Piaget)', points:[
+            'Piaget: children actively construct knowledge through schemas, assimilation and accommodation',
+            'Sensorimotor (0–2): object permanence develops; Preoperational (2–7): egocentrism, no conservation',
+            'Concrete operational (7–11): conservation achieved; Formal operational (12+): abstract reasoning',
+            'Conservation: understanding that quantity stays the same despite change in appearance',
+            'Evaluation: underestimated children\'s abilities; culture and social interaction largely ignored',
+          ]},
+          { title:'Attachment (Bowlby)', points:[
+            'Attachment: strong emotional bond between infant and caregiver; critical period concept',
+            'Bowlby\'s monotropy: one primary attachment (usually mother) most important',
+            'Ainsworth — Strange Situation: secure (65%), anxious-avoidant (20%), anxious-resistant (15%)',
+            'Secure attachment: caregiver responsive → child explores freely, upset when left, comforted on return',
+            'Deprivation (separation): short/long term effects — delinquency, depression, intellectual delay',
+          ]},
+        ]},
+        { title:'Social Psychology', icon:'👥', topics:[
+          { title:'Obedience (Milgram)', points:[
+            'Milgram 1963: 65% of participants administered maximum 450V shocks to a "learner" when ordered',
+            'Factors increasing obedience: authority figure present, prestigious location, close proximity',
+            'Factors decreasing: peer rebellion, no authority figure, teacher gives shocks themselves',
+            'Agency theory: people enter agentic state — see themselves as agent of authority, not responsible',
+            'Evaluation: ethical issues (deception, stress); artificial, but field replications support findings',
+          ]},
+          { title:'Conformity & Social Influence', points:[
+            'Conformity: changing behaviour/beliefs to fit in with a group',
+            'Informational influence: conforming because we believe group knows better (genuine attitude change)',
+            'Normative influence: conforming to be liked/accepted; behaviour changes but not necessarily beliefs',
+            'Asch line study: 75% conformed at least once; 5% always conformed; group size matters',
+            'Minority influence: consistency over time can change majority view (Moscovici)',
+          ]},
+        ]},
+        { title:'Biological Psychology', icon:'🧬', topics:[
+          { title:'Brain & Behaviour', points:[
+            'Neurons: nerve cells transmit electrical signals; synapse: gap between neurons',
+            'Neurotransmitters: chemical messengers (dopamine, serotonin, noradrenaline)',
+            'Brain localisation: different areas control different functions (Broca\'s area = speech)',
+            'Hemispheres: left (language, logic) and right (creativity, spatial); corpus callosum connects them',
+            'Split-brain studies (Sperry): cutting corpus callosum reveals hemisphere specialisation',
+          ]},
+        ]},
+      ],
+    }
+  },
+  ict: {
+    label:'ICT (Digital Literacy)', arabic:'تكنولوجيا المعلومات', icon:'🖥️', color:'#0284C7',
+    boards: ['cie'],
+    pastPapers: {
+      cie: 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-information-and-communication-technology-0417/past-papers/',
+    },
+    chapters: {
+      cie: [
+        { title:'Types of Data & Storage', icon:'💾', topics:[
+          { title:'Data Types & Input Devices', points:[
+            'Data types: text, numeric, Boolean (true/false), date/time, currency',
+            'Input devices: keyboard, mouse, scanner, barcode reader, digital camera, microphone, touchscreen',
+            'OMR (Optical Mark Recognition): detects marks on paper (multiple choice exams, surveys)',
+            'OCR (Optical Character Recognition): reads printed/handwritten text and converts to digital text',
+            'RFID: radio waves identify tags (e.g. library books, stock control, passports)',
+          ]},
+          { title:'Storage Devices', points:[
+            'Magnetic: HDD — large capacity, cheap per GB, moving parts (can break), random access',
+            'Flash/Solid State: SSD, USB drives — fast, no moving parts, shock-resistant, expensive per GB',
+            'Optical: CD/DVD/Blu-ray — portable, cheap, easily scratched, lower capacity',
+            'Cloud storage: data stored on remote servers — access anywhere, dependent on internet',
+            'Backup: copy of data in case original is lost; grandfather-father-son rotation for organisations',
+          ]},
+        ]},
+        { title:'Networks & Communication', icon:'🌐', topics:[
+          { title:'Network Types & Topologies', points:[
+            'LAN: within one building/site; WAN: covers large geographic area (e.g. internet)',
+            'Star topology: all connected to central switch; failure of one node doesn\'t affect others',
+            'Bus topology: all share one cable; cheap but one break affects entire network',
+            'Ring topology: devices connected in a circle; token passing controls data flow',
+            'Wi-Fi: wireless LAN using radio waves; Bluetooth: short-range wireless (10m)',
+          ]},
+          { title:'Internet & Communication', points:[
+            'Internet: global network of networks; World Wide Web: system of web pages accessed via internet',
+            'Email: asynchronous communication; can send attachments; spam is unwanted bulk email',
+            'VoIP (Voice over IP): voice calls over the internet (e.g. Skype, WhatsApp calls)',
+            'Streaming: data delivered continuously in real-time (YouTube, Spotify)',
+            'Bandwidth: amount of data transferred per second; higher bandwidth = faster speeds',
+          ]},
+        ]},
+        { title:'Software & Applications', icon:'📱', topics:[
+          { title:'Types of Software', points:[
+            'Operating system: manages hardware, provides user interface, runs programs (Windows, macOS, Linux)',
+            'Application software: designed for specific tasks (word processor, spreadsheet, database)',
+            'Utility software: maintains and optimises system (antivirus, disk defragmenter, backup)',
+            'Open source: source code available freely; proprietary: commercial, source code protected',
+            'GUI (Graphical User Interface): icons, windows, menus; CLI (Command Line): text commands',
+          ]},
+          { title:'Databases & Spreadsheets', points:[
+            'Database: organised collection of data; records (rows) and fields (columns)',
+            'Primary key: unique identifier for each record; foreign key: links two tables',
+            'Queries: extract specific data using criteria (e.g. SELECT where age > 18)',
+            'Spreadsheet formulas: =SUM(), =AVERAGE(), =IF(), =VLOOKUP(), =COUNT()',
+            'Relative cell reference (A1) changes when copied; absolute ($A$1) stays fixed',
+          ]},
+        ]},
+        { title:'Safety, Security & Ethics', icon:'🔒', topics:[
+          { title:'Cyber Security', points:[
+            'Malware types: virus (attaches to files), worm (self-replicates), Trojan (disguised), ransomware (encrypts files)',
+            'Phishing: fake emails/websites tricking users into revealing passwords or personal data',
+            'Social engineering: manipulating people to reveal confidential information (not technical)',
+            'Firewall: monitors network traffic, blocks unauthorised access',
+            'Encryption: converts data to unreadable format; only decrypted with correct key',
+          ]},
+          { title:'Ethical & Legal Issues', points:[
+            'Copyright: legal protection for original creative work — software, music, images, text',
+            'Software piracy: illegal copying/distribution of software without licence',
+            'Data Protection: personal data must be collected lawfully, kept secure, not kept longer than necessary',
+            'Digital divide: gap between those with and without access to technology and internet',
+            'Health issues of ICT: RSI (repetitive strain injury), eye strain, back problems — posture and breaks important',
+          ]},
+        ]},
+        { title:'Systems & Control', icon:'⚙️', topics:[
+          { title:'Systems Analysis & Design', points:[
+            'Systems life cycle: analysis → design → implementation → testing → evaluation → maintenance',
+            'Requirements specification: detailed description of what the system must do',
+            'Data flow diagram (DFD): shows how data moves through a system',
+            'Testing: white box (uses knowledge of code), black box (tests inputs/outputs only)',
+            'User acceptance testing: end users test system before full implementation',
+          ]},
+          { title:'Control Systems & Automation', points:[
+            'Sensor: detects physical input (temperature, light, pressure, motion)',
+            'Actuator: converts signal into action (motor, heater, buzzer)',
+            'Feedback loop: output is monitored and fed back to control the system (e.g. thermostat)',
+            'Turtle graphics / Logo: simple programming for controlling movement with commands (FORWARD, TURN)',
+            'Advantages of automation: consistent quality, works 24/7, dangerous environments, faster production',
+          ]},
+        ]},
+      ],
+    }
+  },
+  literature: {
+    label:'English Literature', arabic:'الأدب الإنجليزي', icon:'📚', color:'#9333EA',
+    boards: ['cie','edexcel','oxford'],
+    pastPapers: {
+      cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-literature-in-english-0475/past-papers/',
+      edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-english-literature-2016.coursematerials.html',
+      oxford:  'https://www.oxfordaqaexams.org.uk/igcse/english-literature/',
+    },
+    chapters: {
+      cie: [
+        { title:'Poetry Analysis', icon:'✍️', topics:[
+          { title:'How to Analyse Poetry', points:[
+            'SMILE: Structure, Meaning, Imagery, Language, Effect — framework for poetry analysis',
+            'Form: how is the poem laid out? Stanzas, line lengths, regular/irregular pattern',
+            'Rhyme scheme: identify pattern (ABAB, AABB, etc.); free verse = no fixed rhyme',
+            'Rhythm: stressed and unstressed syllables; iambic pentameter (da-DUM ×5)',
+            'Always analyse EFFECT of technique: don\'t just name it — what does it make the reader feel?',
+          ]},
+          { title:'Key Poetic Techniques', points:[
+            'Simile: comparison using "like" or "as"; metaphor: "is" — direct, more powerful',
+            'Personification: giving human traits to non-human (e.g. "the sun smiled")',
+            'Alliteration: repetition of initial consonant sounds — creates rhythm or emphasis',
+            'Enjambment: sentence runs over line break without pause — creates pace or surprise',
+            'Caesura: pause in middle of a line (shown by punctuation) — creates hesitation or impact',
+          ]},
+          { title:'Comparing Poems', points:[
+            'Compare theme: what both poems are about and different attitudes to that theme',
+            'Compare tone: mood conveyed — melancholic, angry, celebratory, bitter, nostalgic',
+            'Compare form: which is more structured? Why does form suit the poem\'s message?',
+            'Use connectives: "Similarly...", "In contrast...", "Both poets...", "However...", "Whereas..."',
+            'Avoid just describing — analyse WHY the poet made each choice and its effect on the reader',
+          ]},
+        ]},
+        { title:'Prose (Novels & Short Stories)', icon:'📖', topics:[
+          { title:'Analysing Prose Fiction', points:[
+            'Narrative voice: first person (I — intimate, limited view), third person (omniscient — knows all)',
+            'Setting: when and where story takes place; can reflect character\'s mood or create atmosphere',
+            'Characterisation: direct (told directly) vs indirect (shown through actions/dialogue)',
+            'Plot structure: exposition → rising action → climax → falling action → resolution (Freytag pyramid)',
+            'Themes: abstract ideas explored — justice, identity, power, love, belonging, loss',
+          ]},
+          { title:'Writing About Characters', points:[
+            'Analyse how character is presented — not just what they do but HOW the writer presents them',
+            'Use quotations and analyse specific word choices (diction)',
+            'Track character development: how do they change through the novel?',
+            'Consider motivation: why does the character act this way?',
+            'Consider relationship between characters and power dynamics',
+          ]},
+        ]},
+        { title:'Drama', icon:'🎭', topics:[
+          { title:'Analysing Drama Texts', points:[
+            'Stage directions: writer\'s instructions for how play should be performed — not just decoration',
+            'Dramatic irony: audience knows something characters do not — creates tension or humour',
+            'Soliloquy: character speaks thoughts aloud alone on stage; aside: brief comment to audience',
+            'Conflict: internal (character vs self) or external (character vs character/society)',
+            'Structure of drama: acts and scenes; where act/scene breaks occur and why',
+          ]},
+          { title:'Exam Technique for Literature', points:[
+            'Always use PEA: Point → Evidence (quote) → Analysis of effect',
+            'Quote selectively — short embedded quotes are better than long block quotes',
+            'Track the writer\'s intentions: "Shakespeare presents...", "Dickens conveys..."',
+            'Context: brief relevant context where it directly supports analysis (not history lesson)',
+            'Plan before writing: 5 minutes planning saves time and improves structure',
+          ]},
+        ]},
+      ],
+    }
+  },
+  french: {
+    label:'French', arabic:'اللغة الفرنسية', icon:'🇫🇷', color:'#2563EB',
+    boards: ['cie','edexcel'],
+    pastPapers: {
+      cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-french-0520/past-papers/',
+      edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-french-2017.coursematerials.html',
+    },
+    chapters: {
+      cie: [
+        { title:'Grammar Essentials', icon:'📝', topics:[
+          { title:'Verbs & Tenses', points:[
+            'Present tense: -er verbs: je parle, tu parles, il/elle parle, nous parlons, vous parlez, ils/elles parlent',
+            'Perfect tense (passé composé): avoir/être + past participle (e.g. j\'ai mangé, je suis allé)',
+            'être verbs (DR & MRS VANDERTRAMP): aller, venir, naître, mourir, rester, partir, arriver, etc.',
+            'Imperfect (imparfait): was doing / used to do — j\'étais, je mangeais, il faisait',
+            'Future: infinitive + ai/as/a/ons/ez/ont endings; irregular: aller→ir-, avoir→aur-, être→ser-',
+          ]},
+          { title:'Adjectives & Agreement', points:[
+            'Adjectives agree with noun: masculine singular (grand), feminine (grande), plural (grands/grandes)',
+            'BAGS adjectives come BEFORE noun: Beauty (beau/belle), Age (jeune/vieux), Goodness (bon/mauvais), Size (grand/petit)',
+            'Most adjectives go AFTER noun: une voiture rouge, un livre intéressant',
+            'Comparative: plus/moins/aussi + adjective + que; superlative: le/la/les plus + adjective',
+            'Possessive adjectives: mon/ma/mes, ton/ta/tes, son/sa/ses, notre/nos, votre/vos, leur/leurs',
+          ]},
+          { title:'Negatives & Questions', points:[
+            'Negation: wrap around verb — ne...pas (not), ne...jamais (never), ne...plus (no longer), ne...rien (nothing)',
+            'Question forms: inversion (Parles-tu?), est-ce que (Est-ce que tu parles?), rising intonation',
+            'Question words: qui (who), quoi/que (what), où (where), quand (when), pourquoi (why), comment (how)',
+            'Object pronouns: le/la/les (direct), lui/leur (indirect) — placed before verb',
+            'Relative pronouns: qui (subject), que (object), où (place/time)',
+          ]},
+        ]},
+        { title:'Topic Vocabulary', icon:'🗣️', topics:[
+          { title:'Personal Life & Identity', points:[
+            'Family: la famille, les parents, le frère, la sœur, les grands-parents, l\'oncle, la tante',
+            'Personality: sympa, gentil(le), bavard(e), paresseux/euse, travailleur/euse, timide',
+            'Physical description: grand(e), petit(e), mince, gros(se), les cheveux blonds/bruns/noirs',
+            'Daily routine: se lever, se laver, s\'habiller, prendre le petit déjeuner, aller à l\'école',
+            'Free time: les loisirs — jouer au foot, écouter de la musique, regarder la télé, lire',
+          ]},
+          { title:'School & Future Plans', points:[
+            'School subjects: les maths, les sciences, l\'histoire-géo, l\'informatique, le dessin',
+            'School opinions: ma matière préférée est..., je trouve les maths utiles/difficiles',
+            'Future: je voudrais être (I would like to be), j\'espère (I hope), je vais (I\'m going to)',
+            'Jobs: médecin, infirmier/ière, prof, ingénieur, homme/femme d\'affaires, acteur/actrice',
+            'Higher education: l\'université, les études, le diplôme, la formation professionnelle',
+          ]},
+          { title:'Environment & Global Issues', points:[
+            'L\'environnement: la pollution, le réchauffement climatique, les énergies renouvelables',
+            'Problems: la déforestation, les déchets (waste), la couche d\'ozone, les gaz à effet de serre',
+            'Solutions: recycler, économiser l\'eau/l\'énergie, utiliser les transports en commun',
+            'Healthy living: manger équilibré, faire du sport, éviter le tabac et l\'alcool',
+            'Travel: les vacances, l\'hôtel, le camping, prendre l\'avion/le train, les pays francophones',
+          ]},
+        ]},
+        { title:'Exam Skills', icon:'✍️', topics:[
+          { title:'Listening & Reading Strategies', points:[
+            'Skim read first to get the gist before attempting detailed comprehension',
+            'Use context clues for unknown vocabulary — surrounding words help',
+            'Beware of false friends: actuel ≠ actual (means "current"), sensible ≠ sensible (means "sensitive")',
+            'In listening: read questions before the recording; use the pause to check answers',
+            'True/False/Not Given: "not given" means the text is silent on that point — don\'t infer',
+          ]},
+          { title:'Writing & Speaking Techniques', points:[
+            'Use a variety of tenses: past, present, future + conditional shows sophistication',
+            'Give and justify opinions: à mon avis..., je pense que..., parce que..., car...',
+            'Extend answers: not just "oui/non" but add detail, reason, extra information',
+            'Use connectives: mais (but), donc (so), cependant (however), d\'abord (firstly), ensuite (then)',
+            'Check gender of nouns, adjective agreements, and verb conjugations before submitting',
+          ]},
+        ]},
+      ],
+    }
+  },
+  arabic_lang: {
+    label:'Arabic (Foreign Language)', arabic:'اللغة العربية', icon:'🇸🇦', color:'#16A34A',
+    boards: ['cie'],
+    pastPapers: {
+      cie: 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-arabic-0508/past-papers/',
+    },
+    chapters: {
+      cie: [
+        { title:'Reading Comprehension', icon:'📖', topics:[
+          { title:'Comprehension Strategies', points:[
+            'Read the questions FIRST to know what to look for before reading the passage',
+            'Identify key words in questions and scan the text for them',
+            'Literal comprehension: find and quote from text (use correct text language)',
+            'Inferential: read beyond what is stated — what is implied by word choice or context?',
+            'Summary: paraphrase relevant points — do not copy chunks; identify ONLY what is asked',
+          ]},
+          { title:'Text Types & Features', points:[
+            'Newspaper article: headline, byline, inverted pyramid structure (most important first)',
+            'Descriptive text: rich adjectives, imagery, sensory details, present or past tense',
+            'Argumentative text: thesis, evidence, counterargument, conclusion',
+            'Narrative text: characters, setting, plot, dialogue',
+            'Formal vs informal register: formal uses correct grammar and no slang; identify appropriately',
+          ]},
+        ]},
+        { title:'Writing Skills', icon:'✍️', topics:[
+          { title:'Formal Writing (Composition)', points:[
+            'Essay structure: مقدمة (introduction) → عرض (body paragraphs) → خاتمة (conclusion)',
+            'Use varied vocabulary: avoid repeating the same words; use synonyms',
+            'Linking phrases: أولاً / ثانياً / وأخيراً، علاوة على ذلك، ومع ذلك، بالإضافة إلى ذلك',
+            'Give and justify opinions: أرى أن / أعتقد أن / في رأيي / لأن / بسبب',
+            'Avoid spelling errors in hamza (أ، إ، آ، ء)، taa marbuta (ة)، and alif maqsura (ى)',
+          ]},
+          { title:'Grammar Essentials', points:[
+            'Verb-Subject agreement: الفعل يتوافق مع الفاعل في الجنس والعدد',
+            'Cases: المرفوع (subject), المنصوب (object), المجرور (after preposition)',
+            'Definiteness: ال التعريف للاسم المعرفة؛ المضاف إليه لا تدخل عليه ال إذا كان المضاف نكرة',
+            'Dual and plural forms must be used correctly for nouns and verbs',
+            'Masculine vs feminine agreement: adjectives and verbs must match gender of noun',
+          ]},
+        ]},
+        { title:'Listening & Speaking', icon:'🎧', topics:[
+          { title:'Listening Techniques', points:[
+            'Before listening: read questions carefully, predict topic from context',
+            'Listen for stressed words — they often carry key information',
+            'Numbers, dates, names: listen carefully — these are often tested',
+            'Distinguish between similar words: context usually clarifies meaning',
+            'If you miss something — stay calm, keep listening, do not dwell on missed section',
+          ]},
+          { title:'Speaking & Role-Play', points:[
+            'Prepare vocabulary for common topics: family, school, hobbies, health, environment, work',
+            'Practice giving extended answers — not just one word',
+            'Use كلمات الربط: لذلك، بالإضافة إلى، في المقابل، من ناحية أخرى',
+            'Express opinions clearly: في رأيي أن...، أعتقد أن...، يبدو لي أن...',
+            'Don\'t be afraid of errors — communication matters most; self-correct if you notice mistakes',
+          ]},
+        ]},
+      ],
+    }
+  },
+  religious_studies: {
+    label:'Religious Studies', arabic:'الدراسات الدينية', icon:'☪️', color:'#B45309',
+    boards: ['cie','edexcel'],
+    pastPapers: {
+      cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-religious-studies-0490/past-papers/',
+      edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-religious-studies-2017.coursematerials.html',
+    },
+    chapters: {
+      cie: [
+        { title:'Islam', icon:'☪️', topics:[
+          { title:'Beliefs & Practices', points:[
+            'Five Pillars: Shahada (declaration of faith), Salah (prayer 5x daily), Zakah (charity 2.5%), Sawm (fasting Ramadan), Hajj (pilgrimage)',
+            'Six Articles of Faith: Allah, Angels, Holy Books, Prophets, Day of Judgement, Predestination (Al-Qadr)',
+            'Tawhid: oneness of Allah — the most fundamental Islamic belief; shirk (associating partners) is gravest sin',
+            'Qur\'an: final and complete revelation from Allah to Prophet Muhammad (PBUH); preserved unchanged',
+            'Sunnah and Hadith: sayings and actions of the Prophet; guide Muslim life alongside Qur\'an',
+          ]},
+          { title:'Ethics & Application', points:[
+            'Sanctity of life: life is sacred (khalifah — humans are stewards of creation)',
+            'Ummah: global community of Muslims; importance of brotherhood and justice (adl)',
+            'War: conditions for just war in Islam (last resort, declared by authority, civilians protected)',
+            'Status of women: equal spiritual status; specific roles in family; scholars debate modernity and tradition',
+            'Environmental responsibility: humans are khalifah — must protect earth, avoid israf (waste)',
+          ]},
+        ]},
+        { title:'Christianity', icon:'✝️', topics:[
+          { title:'Beliefs & Practices', points:[
+            'Trinity: God the Father, God the Son (Jesus), God the Holy Spirit — three persons, one God',
+            'Incarnation: God became human in Jesus Christ — born of the Virgin Mary',
+            'Crucifixion: Jesus died on the cross as atonement for humanity\'s sins',
+            'Resurrection: Jesus rose from the dead on the third day — central to Christian faith',
+            'Baptism: initiation into the church; Eucharist (Holy Communion): remembering the Last Supper',
+          ]},
+          { title:'Christian Ethics', points:[
+            'Golden Rule: "Do to others as you would have them do to you" (Matthew 7:12)',
+            'Agape: unconditional, selfless love — central Christian virtue',
+            'Stewardship: humans called to care for God\'s creation (environment)',
+            'Social justice: many Christians support action against poverty, inequality, discrimination',
+            'Conscience: inner moral guide; some say it reflects divine guidance',
+          ]},
+        ]},
+        { title:'Philosophical Questions', icon:'🤔', topics:[
+          { title:'Arguments for God\'s Existence', points:[
+            'Cosmological argument: everything has a cause; universe must have a first cause → God',
+            'Teleological (design) argument: universe shows evidence of design → must have designer (Paley\'s watch)',
+            'Ontological argument: God is the greatest conceivable being; existence is a perfection → God exists',
+            'Religious experience: personal encounters with God; conversion, visions, miracles',
+            'Evaluations: problem of evil, scientific explanations (Big Bang, evolution) as counter-arguments',
+          ]},
+          { title:'Ethical Theories', points:[
+            'Utilitarianism: action is right if it produces greatest happiness for greatest number (Bentham, Mill)',
+            'Kantian ethics (deontology): act only according to rules you could universalise; duty-based',
+            'Natural Law: moral norms based on human nature and reason (Aquinas); absolute rules',
+            'Virtue ethics: focus on developing good character traits (honesty, courage, compassion)',
+            'Divine command theory: what God commands is right; evaluated by how we know God\'s commands',
+          ]},
+        ]},
+      ],
+    }
+  },
+  environmental: {
+    label:'Environmental Management', arabic:'الإدارة البيئية', icon:'🌿', color:'#15803D',
+    boards: ['cie'],
+    pastPapers: {
+      cie: 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-environmental-management-0680/past-papers/',
+    },
+    chapters: {
+      cie: [
+        { title:'Atmosphere & Climate', icon:'☁️', topics:[
+          { title:'Climate Change & The Atmosphere', points:[
+            'Greenhouse effect: naturally occurring — CO₂, methane, water vapour trap heat, keeping Earth warm',
+            'Enhanced greenhouse effect: human emissions amplify this → global warming',
+            'Main greenhouse gases: CO₂ (burning fossil fuels), CH₄ (agriculture/landfill), N₂O (fertilisers)',
+            'Effects of climate change: rising sea levels, more extreme weather, coral bleaching, species loss',
+            'Responses: mitigation (reducing emissions) vs adaptation (adjusting to changes)',
+          ]},
+          { title:'Air Pollution', points:[
+            'Primary pollutants: emitted directly — SO₂ (acid rain), CO (incomplete combustion), NOₓ',
+            'Secondary pollutants: formed in atmosphere — ozone (O₃) at ground level, photochemical smog',
+            'Acid rain: SO₂ + NOₓ + water → sulphuric/nitric acid → damages trees, aquatic life, buildings',
+            'CFCs: destroy ozone layer → increased UV-B radiation → skin cancer, cataracts, reduced crop yields',
+            'Solutions: catalytic converters, clean technology, renewable energy, regulations (Kyoto, Paris Agreement)',
+          ]},
+        ]},
+        { title:'Water & Ecosystems', icon:'💧', topics:[
+          { title:'Water Resources & Pollution', points:[
+            'Hydrological cycle: evaporation → condensation → precipitation → runoff → infiltration',
+            'Water stress: demand exceeds available supply — growing problem in arid regions',
+            'Water pollution sources: agricultural runoff (fertilisers, pesticides), sewage, industrial effluent',
+            'Eutrophication: excess nutrients → algal bloom → oxygen depletion → aquatic organisms die',
+            'Water management: dams (HEP, irrigation), desalination, water recycling, water harvesting',
+          ]},
+          { title:'Ecosystems & Biodiversity', points:[
+            'Ecosystem: community of organisms interacting with their physical environment',
+            'Food chain: producers → primary consumers → secondary → tertiary; energy lost at each level',
+            'Biodiversity: variety of species; high biodiversity = more resilient ecosystem',
+            'Threats to biodiversity: habitat loss, invasive species, climate change, overexploitation, pollution',
+            'Conservation strategies: national parks, wildlife corridors, captive breeding, international agreements (CITES)',
+          ]},
+        ]},
+        { title:'Energy & Resources', icon:'⚡', topics:[
+          { title:'Energy Sources', points:[
+            'Non-renewable: coal, oil, natural gas, nuclear — finite; fossil fuels release CO₂',
+            'Renewable: solar, wind, HEP, tidal, geothermal, biomass — replenish naturally',
+            'Solar: clean, increasingly cheap, intermittent (no sun at night)',
+            'Wind: clean, no fuel cost, intermittent, visual impact, affects birds',
+            'HEP: reliable, clean operation, but dam building → flooding, habitat loss, displaced communities',
+          ]},
+          { title:'Resource Management & Sustainability', points:[
+            'Sustainable development: "meets needs of present without compromising ability of future generations"',
+            'Reduce-Reuse-Recycle hierarchy: reduce consumption first, then reuse, then recycle as last resort',
+            'Soil degradation: overgrazing, deforestation, poor irrigation → erosion, salinisation, desertification',
+            'Deforestation causes: commercial logging, agricultural clearance, population growth, infrastructure',
+            'Sustainable forestry: selective logging, replanting, FSC certification, agroforestry',
+          ]},
+        ]},
+        { title:'Human Impact & Solutions', icon:'🌍', topics:[
+          { title:'Population & Development', points:[
+            'World population: 8 billion and growing — most growth in LICs',
+            'Carrying capacity: maximum population an area can sustainably support',
+            'Urbanisation: more than half world now in cities; creates pressure on resources and services',
+            'Ecological footprint: measure of human demand on natural resources',
+            'HDI and development: higher development generally means higher resource consumption',
+          ]},
+          { title:'Managing Human Impact', points:[
+            'Environmental impact assessment (EIA): evaluate effects of proposed development before it starts',
+            'International agreements: Paris Agreement (climate), CBD (biodiversity), CITES (wildlife trade)',
+            'Carbon footprint: total greenhouse gas emissions caused by an individual, event, or organisation',
+            'Carbon offsetting: compensating for emissions by funding equivalent CO₂ reductions elsewhere',
+            'Green technology: electric vehicles, LED lighting, smart grids, carbon capture and storage',
+          ]},
+        ]},
+      ],
+    }
+  },
 };
 
 // Use CIE chapters as fallback for Edexcel and Oxford AQA (90% overlap)
