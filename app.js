@@ -45,6 +45,10 @@ let S = {
   igcseFcIdx: 0,     // flashcard index within current topic
   igcseFcFlipped: false, // is current flashcard flipped?
   igcseRecent: [],   // [{ sk, ci, ti, label, topicTitle }] — recently studied
+  igcseQuizIdx: 0,      // current question index in built-in quiz
+  igcseQuizAnswered: null, // index of chosen answer (null = not yet answered)
+  igcseQuizScore: 0,    // score so far
+  igcseQuizDone: false, // true when all questions finished
 };
 let _pomTimer = null;
 
@@ -6508,7 +6512,7 @@ Techniques used: direct address (you/imagine), tripling (regardless of postcode 
   },
   history: {
     label:'History', arabic:'التاريخ', icon:'🏛️', color:'#78716C',
-    boards: ['cie','edexcel'],
+    boards: ['cie','edexcel','oxford'],
     pastPapers: {
       cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-history-0470/past-papers/',
       edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-history-2017.coursematerials.html',
@@ -6723,6 +6727,66 @@ Conclusion: Both worked together — terror prevented open opposition; propagand
 Agree: Glasnost/perestroika allowed dissent; refused to send tanks to Eastern Europe (unlike 1956/68); signed INF Treaty 1987; accepted German reunification
 Disagree: Reagan's defence spending (SDI) bankrupted USSR; Eastern European peoples demanded freedom; economic failure of Soviet system was structural not Gorbachev's fault
 Conclusion: Gorbachev was a necessary condition — without his restraint the Cold War could not have ended peacefully — but the underlying cause was the failure of the Soviet economic and political model`},
+        ]},
+      ],
+      oxford: [
+        { title:'Oxford AQA: Conflict & Tension 1918–1939', icon:'🕊️', topics:[
+          { title:'Paris Peace Conference & its Consequences', points:[
+            'Big Three: Wilson (USA — Fourteen Points, self-determination), Lloyd George (UK — punish but not too harshly), Clemenceau (France — harsh punishment)',
+            'Treaty of Versailles (June 1919): Germany blamed via War Guilt Clause (231); reparations £6.6 billion; army limited to 100,000; lost 13% territory',
+            'German reactions: "stab in the back" myth; Weimar government called "November criminals"; treaty fuelled resentment',
+            'Other treaties: St Germain (Austria), Trianon (Hungary), Neuilly (Bulgaria), Sèvres (Ottoman Empire)',
+            'League of Nations: Wilson\'s idea but USA never joined (Senate rejection); designed to prevent future war',
+          ], examTips:[
+            'Oxford AQA History: for "How far do you agree?" questions, always reach a clear supported judgement in conclusion',
+            'Describe three impacts of Versailles: territorial losses, military restrictions, economic reparations — then link each to later consequences',
+          ]},
+          { title:'Rise of Dictators & Appeasement', points:[
+            'Hitler\'s foreign policy aims: reverse Versailles, unite all German speakers, Lebensraum (living space) in East',
+            'Rearmament (1933–36): Germany secretly then openly rearmed — broke Versailles; Britain and France did not act',
+            'Rhineland remilitarised (1936): direct breach of Versailles; France and Britain appeased',
+            'Anschluss (March 1938): Austria united with Germany; plebiscite claimed 99% support',
+            'Sudetenland crisis (1938): Munich Agreement — Chamberlain gave Sudetenland to Hitler; "peace for our time"',
+            'Appeasement debate: justified (war-weary, unprepared, buying time) vs wrong (encouraged Hitler, betrayed Czechoslovakia)',
+          ], workedExample:`"Appeasement was the main cause of WW2." How far do you agree?
+Agree: Munich (1938) showed Hitler he could act with impunity; Rhineland/Anschluss went unchallenged; gave Hitler confidence
+Disagree: Long-term causes — harsh Versailles created conditions for extremism; Great Depression fuelled support for Hitler; USSR-Nazi Pact (Aug 1939) was more immediate trigger
+Judgement: Appeasement was a significant cause but not the main one — the structural failure of Versailles and the economic crisis created the conditions; appeasement just removed barriers to aggression`},
+        ]},
+        { title:'Oxford AQA: WW2 & The Cold War', icon:'🌐', topics:[
+          { title:'Origins & Course of World War Two', points:[
+            'Nazi-Soviet Non-Aggression Pact (August 1939): secret protocol to divide Poland; freed Hitler\'s eastern flank',
+            'September 1939: Germany invaded Poland; Britain and France declared war',
+            'Blitzkrieg: rapid combined arms attack — tanks, aircraft, motorised infantry working together',
+            'Battle of Britain (1940): RAF defeated Luftwaffe; Hitler abandoned Operation Sea Lion',
+            'Operation Barbarossa (June 1941): Germany invaded USSR; turning point when USSR turned the tide at Stalingrad (1942–43)',
+            'D-Day (6 June 1944): Allied landings in Normandy; opened Western Front; Germany now fighting on two fronts',
+          ], examTips:[
+            'Oxford AQA WW2: explain why each event was significant — connect to the overall outcome of the war',
+            'Turning points: Stalingrad, El Alamein, D-Day — be able to argue which was the most important',
+          ]},
+          { title:'Cold War 1945–1991', points:[
+            'Origins: ideological differences (capitalism vs communism); Yalta (Feb 1945) and Potsdam (July 1945) conferences revealed disagreements',
+            'Iron Curtain speech (Churchill, 1946): Europe divided; Soviet satellite states in East',
+            'Truman Doctrine (1947): USA would support free peoples resisting communist takeover',
+            'Marshall Plan (1947): $13 billion US aid to rebuild Western Europe — also strategic, to prevent communism',
+            'Berlin Blockade/Airlift (1948–49): USSR blocked West Berlin; West flew in supplies; USSR backed down',
+            'NATO (1949) vs Warsaw Pact (1955): military alliances cementing Cold War division',
+            'Cuban Missile Crisis (1962): USSR placed missiles in Cuba; 13 days; resolved via secret deal — removal of missiles in Cuba and Turkey',
+          ]},
+        ]},
+        { title:'Oxford AQA: Exam Technique', icon:'✍️', topics:[
+          { title:'History Essay Skills', points:[
+            'Source questions: content (what does it say?) + provenance (who wrote it, when, why?) + evaluation (how useful/reliable?)',
+            '"How far do you agree?" essays: present BOTH sides with evidence; reach a clear justified conclusion',
+            'Causation: identify the most important cause and explain why it outweighs others',
+            'Change and continuity: identify what changed, what stayed the same, and the pace/extent of change',
+            'Chronological precision: use specific dates and names — vague statements lose marks',
+          ], examTips:[
+            'Oxford AQA 16-mark essay: aim for intro (thesis) + 3 developed points (argument + counter) + conclusion (clear judgement)',
+            'Do not just describe events — always analyse significance, cause, or consequence',
+            'Provenance formula: The source is [useful/limited] because it was written by [X] in [context], which means [implication for reliability/value]',
+          ]},
         ]},
       ],
     }
@@ -7506,7 +7570,7 @@ At x=1: u = 4; dy/dx = 24(1)(4)³ = 24×64 = 1536`},
   },
   accounting: {
     label:'Accounting', arabic:'المحاسبة', icon:'📒', color:'#059669',
-    boards: ['cie','edexcel'],
+    boards: ['cie','edexcel','oxford'],
     pastPapers: {
       cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-accounting-0452/past-papers/',
       edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-accounting-2017.coursematerials.html',
@@ -7694,6 +7758,76 @@ GPM = (80,000 ÷ 200,000) × 100 = 40%
 NPM = (30,000 ÷ 200,000) × 100 = 15%
 ROCE = (30,000 ÷ 150,000) × 100 = 20%
 Interpretation: 40% GPM suggests good pricing; 15% NPM means expenses are 25% of revenue — management may need to reduce costs`},
+        ]},
+      ],
+      oxford: [
+        { title:'Accounting Principles (Oxford AQA)', icon:'📋', topics:[
+          { title:'The Purpose of Accounting', points:[
+            'Oxford AQA IGCSE Accounting: same core framework as CIE/Edexcel but distinct exam paper style',
+            'Accounting: systematic recording and reporting of financial information for decision-making',
+            'Users: owners (profit?), managers (performance?), banks (creditworthiness?), employees (job security?), government (tax?)',
+            'Key concepts: going concern (will continue), accruals (match income/expense to period), consistency (same method year to year), prudence (caution — recognise losses immediately)',
+            'Business types: sole trader, partnership, limited company — each has different accounting requirements',
+          ], examTips:[
+            'Oxford AQA: accounting concepts are tested in context — "explain why the going concern concept is relevant to the decision to depreciate assets"',
+            'Always link concept to its practical effect — don\'t just define it',
+          ]},
+          { title:'Double Entry & Trial Balance', points:[
+            'DEAD CLIC: Debit = Expenses, Assets, Drawings; Credit = Liabilities, Income, Capital',
+            'Every transaction: one debit entry, one credit entry of equal amount',
+            'Ledger accounts: T-format; balance = total debits − total credits (or vice versa)',
+            'Trial balance: lists all ledger balances; total debits must equal total credits if no errors',
+            'Errors NOT revealed by trial balance: compensating, original entry, omission, commission, principle, reversal',
+          ], workedExample:`Purchase goods on credit $500:
+DR Purchases (expense increases) $500
+CR Trade Payables (liability increases) $500
+Later pay the creditor $500:
+DR Trade Payables $500
+CR Bank (asset decreases) $500`},
+        ]},
+        { title:'Financial Statements (Oxford AQA)', icon:'📊', topics:[
+          { title:'Income Statement', points:[
+            'Income statement (profit and loss account): shows financial performance over a period',
+            'Gross profit = Net revenue − Cost of goods sold (COGS)',
+            'COGS = Opening inventory + Purchases − Closing inventory',
+            'Net profit = Gross profit − Expenses (overheads)',
+            'Oxford AQA: may ask for a full income statement from trial balance — apply adjustments (accruals, prepayments, depreciation)',
+          ]},
+          { title:'Statement of Financial Position (Balance Sheet)', points:[
+            'SFP shows financial position at a point in time (a snapshot)',
+            'Non-current assets: used for more than one year (premises, machinery, vehicles)',
+            'Current assets: converted to cash within one year (inventory, trade receivables, bank, cash)',
+            'Non-current liabilities: repayable after more than one year (long-term loans)',
+            'Current liabilities: repayable within one year (trade payables, overdraft)',
+            'Equity/Capital = Non-current assets + Net current assets − Non-current liabilities',
+          ], workedExample:`Simple balance sheet structure:
+Non-current assets:          $40,000
+Current assets:              $15,000
+Less current liabilities:   ($8,000)
+Net current assets:           $7,000
+Total assets less CL:        $47,000
+Less non-current liabilities:($12,000)
+NET ASSETS:                  $35,000
+= Capital/Equity:            $35,000`},
+        ]},
+        { title:'Analysis & Decision Making (Oxford AQA)', icon:'📈', topics:[
+          { title:'Ratio Analysis', points:[
+            'Profitability: Gross profit margin; Net profit margin; ROCE — higher = better performance',
+            'Liquidity: Current ratio (ideal 1.5–2:1); Acid test ratio (ideal ~1:1)',
+            'Efficiency: Inventory turnover (times/year); Trade receivables collection period (days)',
+            'Gearing: proportion of finance from long-term borrowing; high gearing = higher financial risk',
+            'Limitations of ratios: historical; ignore non-financial factors; one snapshot in time',
+          ], examTips:[
+            'Oxford AQA: ratio questions often ask "suggest TWO reasons for the change in..." — both reasons must be different and specific',
+            'Always interpret, don\'t just calculate — what does a falling current ratio actually MEAN for the business?',
+          ]},
+          { title:'Cash Flow & Decision Making', points:[
+            'Cash flow forecast: projected cash inflows and outflows over a period',
+            'Net cash flow = Total inflows − Total outflows; opening balance + net cash flow = closing balance',
+            'Cash flow problems: overtrading, poor credit control, seasonal fluctuations',
+            'Solutions: overdraft, factoring debtors, sale and leaseback, delaying payments to suppliers',
+            'Difference: profit is accounting concept; cash is liquidity — can be profitable but cash-poor',
+          ]},
         ]},
       ],
     }
@@ -8867,7 +9001,7 @@ Il y a beaucoup de choses à faire — par exemple, on peut visiter des musées,
   },
   religious_studies: {
     label:'Religious Studies', arabic:'الدراسات الدينية', icon:'☪️', color:'#B45309',
-    boards: ['cie','edexcel'],
+    boards: ['cie','edexcel','oxford'],
     pastPapers: {
       cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-religious-studies-0490/past-papers/',
       edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-religious-studies-2017.coursematerials.html',
@@ -9074,6 +9208,70 @@ Agree (Christian): Catholic: sanctity of life absolute; hospice movement (Christ
 Disagree: Quality of life argument — some argue a dignified death respects human dignity; situation ethics (Fletcher) — loving action may support euthanasia
 Disagree: Some liberal Protestants accept passive euthanasia; Netherlands: legal euthanasia with safeguards
 Conclusion: While most religious traditions oppose euthanasia on sanctity of life grounds, there is internal diversity and the debate remains complex — blanket statements oversimplify religious positions`},
+        ]},
+      ],
+      oxford: [
+        { title:'Christianity (Oxford AQA)', icon:'✝️', topics:[
+          { title:'Christian Beliefs & Practices', points:[
+            'Oxford AQA RS: studies two religions in depth; Christianity is one of the main choices',
+            'Trinity: God as Father (creator), Son (Jesus Christ), Holy Spirit — three persons, one God',
+            'Incarnation: God became human in Jesus Christ; central to Christian belief',
+            'Salvation: Jesus\' death on the cross atones for human sin; resurrection shows victory over death',
+            'Heaven and Hell: eternal reward or punishment; purgatory (Catholic — purification before heaven)',
+            'Prayer: personal communion with God; forms — intercessory, thanksgiving, confession, praise',
+          ], examTips:[
+            'Oxford AQA RS: 12-mark "evaluate" questions require two sides + conclusion; always use religious language and specific teachings',
+            '"Christians believe..." — use correct theological vocabulary: atonement, incarnation, resurrection, grace, salvation',
+          ]},
+          { title:'Christian Ethics & Social Issues', points:[
+            'Sanctity of life: all human life is sacred and God-given; basis for opposition to abortion, euthanasia',
+            'Golden Rule: "Do unto others as you would have them do unto you" (Matthew 7:12)',
+            'Situation Ethics (Fletcher): the most loving action is morally right — sometimes exceptions permitted',
+            'Natural Law (Aquinas): moral principles discoverable through reason; used in Catholic moral theology',
+            'Justice and peace: Christian duty to work for social justice; Quakers = pacifist; just war theory criteria',
+          ]},
+        ]},
+        { title:'Islam (Oxford AQA)', icon:'☪️', topics:[
+          { title:'Islamic Beliefs & Practices', points:[
+            'Six Articles of Faith (Sunni): Tawhid (oneness of Allah), Angels, Holy Books, Prophets, Day of Judgement, Al-Qadar (predestination)',
+            'Five Pillars: Shahada (declaration of faith), Salah (5 daily prayers), Zakah (charity 2.5%), Sawm (Ramadan fasting), Hajj (pilgrimage)',
+            'Tawhid: absolute monotheism — Allah has no partners, no children; shirk (associating partners) is greatest sin',
+            'Prophethood: Muhammad (pbuh) is the final prophet; Quran is the literal word of Allah revealed to him',
+            'Akhirah: belief in life after death; Judgement Day — deeds weighed; Jannah (paradise) or Jahannam (hell)',
+            'Shia Islam: additional beliefs — Imamate (divine leadership); Ashura (commemoration of Karbala)',
+          ], examTips:[
+            'Oxford AQA Islam: be specific — name which pillar, which article, which surah (chapter of Quran)',
+            'Sunni vs Shia: key difference is authority after Prophet\'s death — Sunni = elected caliph; Shia = Ali and his descendants',
+          ]},
+          { title:'Islamic Ethics & Contemporary Issues', points:[
+            'Stewardship (Khalifah): humans are trustees of Allah\'s creation — environmental responsibility',
+            'Marriage: sacred contract (Nikah); monogamy default; polygyny permitted with conditions (Quran 4:3)',
+            'Gender roles: complementary, not identical; both equal before Allah; debate about leadership roles',
+            'War and peace: Jihad — greater (inner spiritual struggle) and lesser (just war); strict conditions for lesser Jihad',
+            'Crime and punishment: Hudud (fixed punishments for serious crimes), Tazir (discretionary); justice and mercy balanced',
+          ], workedExample:`Evaluate: "The most important pillar of Islam is Salah."
+Agree: 5 daily prayers maintain constant connection with Allah; Prophet said "Salah is the pillar of religion"; distinguishes Muslim from non-Muslim
+Disagree: Shahada is foundational — without it, no other actions count; Zakah addresses social justice which has broader community impact; Hajj unites the ummah (global community)
+Conclusion: While Salah is central to daily Muslim life, the Shahada underpins all other practice — but all pillars are interconnected and each essential in different ways`},
+        ]},
+        { title:'Ethics & Philosophy (Oxford AQA)', icon:'⚖️', topics:[
+          { title:'Arguments for the Existence of God', points:[
+            'Cosmological argument (Aquinas): everything has a cause; must be an uncaused first cause = God',
+            'Teleological/Design argument (Paley): watchmaker analogy — complexity implies a designer',
+            'Ontological argument (Anselm): God is the greatest conceivable being; existence > non-existence; therefore God exists',
+            'Problem of evil (Hume): if God is omnipotent, omniscient, omnibenevolent — why does evil exist? (theodicy problem)',
+            'Free will defence (Alvin Plantinga): God gave humans free will; evil results from free choices, not God',
+          ], examTips:[
+            'Philosophy questions: state the argument clearly → explain its strength → give a counter-argument → evaluate overall',
+            'Evil and suffering: distinguish moral evil (human actions) from natural evil (earthquakes, disease)',
+          ]},
+          { title:'Religious & Ethical Themes', points:[
+            'Capital punishment: retribution vs rehabilitation; some religious traditions support (justice), others oppose (sanctity of life)',
+            'Abortion: personhood debate — when does life begin? Christian/Muslim/Jewish perspectives on timing and conditions',
+            'Environment: stewardship (responsible care) vs dominion (human authority over nature); climate change as moral issue',
+            'Prejudice and discrimination: all major religions teach equality; racism, sexism, homophobia as ethical issues',
+            'Wealth and poverty: Christian (preferential option for the poor), Islamic (Zakah, prohibition of riba/interest)',
+          ]},
         ]},
       ],
     }
@@ -10596,10 +10794,10 @@ function tplIGCSETopic() {
     S.igcseRecent = [rec,...(S.igcseRecent||[]).filter(r=>!(r.sk===rec.sk&&r.ci===rec.ci&&r.ti===rec.ti))].slice(0,6);
   })();
 
-  const tabs = ['notes','flashcards','questions','papers'].map(tab => {
-    const labels = {notes:'📖 Notes', flashcards:'🃏 Cards', questions:'❓ Practice', papers:'📄 Papers'};
-    return `<button onclick="S.igcseTab='${tab}';render()"
-      style="flex:1;padding:9px 4px;border:none;cursor:pointer;font-family:Cairo,sans-serif;font-size:11px;font-weight:800;transition:.15s;border-radius:10px;letter-spacing:.3px;
+  const tabs = ['notes','flashcards','quiz','questions','papers'].map(tab => {
+    const labels = {notes:'📖 Notes', flashcards:'🃏 Cards', quiz:'🎯 Quiz', questions:'❓ Practice', papers:'📄 Papers'};
+    return `<button onclick="S.igcseTab='${tab}';S.igcseQuizIdx=0;S.igcseQuizAnswered=null;S.igcseQuizScore=0;S.igcseQuizDone=false;render()"
+      style="flex:1;padding:9px 2px;border:none;cursor:pointer;font-family:Cairo,sans-serif;font-size:10px;font-weight:800;transition:.15s;border-radius:10px;letter-spacing:.2px;
              ${S.igcseTab===tab?`background:${subj.color};color:#fff;box-shadow:0 2px 8px ${subj.color}44`:'background:var(--bg);color:var(--text-muted);border:1px solid var(--border)'}">
       ${labels[tab]}
     </button>`;
@@ -10710,6 +10908,91 @@ function tplIGCSETopic() {
           🤖 AI Flashcards (×10)
         </button>
       </div>`;
+  } else if (S.igcseTab === 'quiz') {
+    // Build MCQ questions from tp.points — each point becomes a question
+    // Format: strip the point into a "what is X?" style, generate 3 wrong answers from other points
+    const pts = tp.points;
+    // Generate questions: use each point as the answer; partial text as question
+    const quizQs = pts.map((p, i) => {
+      // Create a question stem by taking first clause up to colon/dash
+      const parts = p.split(/:\s+|—\s+|–\s+/);
+      const concept = parts[0].trim();
+      const answer = p.trim();
+      const question = `What is the correct statement about "${concept}"?`;
+      // Wrong answers: pick 2-3 other points
+      const others = pts.filter((_,j) => j!==i);
+      // shuffle others
+      const shuffled = others.sort(()=>Math.random()-0.5).slice(0,3);
+      // put correct answer in random position
+      const pos = Math.floor(Math.random()*4);
+      const opts = [...shuffled];
+      opts.splice(pos, 0, answer);
+      return { question, opts, correct: pos };
+    });
+    const totalQs = quizQs.length;
+    const qIdx = Math.min(S.igcseQuizIdx||0, totalQs-1);
+    const answered = S.igcseQuizAnswered;
+    const score = S.igcseQuizScore||0;
+    const done = S.igcseQuizDone||false;
+
+    if (done) {
+      const pct = Math.round(score/totalQs*100);
+      const grade = pct>=80?'🏆 Excellent!':pct>=60?'👍 Good':pct>=40?'📚 Keep studying':'💪 Review notes first';
+      tabContent = `
+        <div style="text-align:center;padding:30px 16px;background:var(--bg-card);border-radius:20px;border:1px solid var(--border)">
+          <div style="font-size:52px;margin-bottom:10px">${pct>=80?'🏆':pct>=60?'⭐':'📚'}</div>
+          <div style="font-size:22px;font-weight:900;color:${subj.color};margin-bottom:6px">${score}/${totalQs} correct</div>
+          <div style="font-size:28px;font-weight:900;color:var(--text);margin-bottom:4px">${pct}%</div>
+          <div style="font-size:14px;color:var(--text-muted);margin-bottom:20px">${grade}</div>
+          <div style="height:8px;background:var(--border);border-radius:4px;margin:0 20px 20px;overflow:hidden">
+            <div style="height:100%;width:${pct}%;background:${pct>=80?'#10B981':pct>=60?subj.color:'#EF4444'};border-radius:4px;transition:1s"></div>
+          </div>
+          <div style="display:flex;gap:10px;justify-content:center">
+            <button onclick="S.igcseQuizIdx=0;S.igcseQuizAnswered=null;S.igcseQuizScore=0;S.igcseQuizDone=false;render()"
+              style="padding:12px 24px;background:${subj.color};color:#fff;border:none;border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:13px">
+              🔁 Retry Quiz
+            </button>
+            <button onclick="S.igcseTab='notes';render()"
+              style="padding:12px 24px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:13px">
+              📖 Review Notes
+            </button>
+          </div>
+        </div>`;
+    } else {
+      const q = quizQs[qIdx];
+      tabContent = `
+        <div style="margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <div style="font-size:10px;color:var(--text-muted);font-weight:800;letter-spacing:1px">QUESTION ${qIdx+1} OF ${totalQs}</div>
+            <div style="font-size:10px;color:${subj.color};font-weight:800">Score: ${score}/${qIdx}</div>
+          </div>
+          <div style="height:4px;background:var(--border);border-radius:2px;margin-bottom:14px;overflow:hidden">
+            <div style="height:100%;width:${Math.round(qIdx/totalQs*100)}%;background:${subj.color};border-radius:2px;transition:.3s"></div>
+          </div>
+          <div style="font-size:14px;font-weight:900;color:var(--text);line-height:1.5;margin-bottom:16px;padding:14px;background:var(--bg-card);border-radius:14px;border:1px solid var(--border)">
+            ${q.question}
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            ${q.opts.map((opt,oi)=>{
+              let bg='var(--bg-card)', border='var(--border)', col='var(--text)', badge='';
+              if (answered!==null) {
+                if (oi===q.correct) { bg='#10B98115'; border='#10B981'; col='#10B981'; badge='✓ '; }
+                else if (oi===answered && answered!==q.correct) { bg='#EF444415'; border='#EF4444'; col='#EF4444'; badge='✗ '; }
+              }
+              const clickable = answered===null;
+              return `<button onclick="${clickable?`S.igcseQuizAnswered=${oi};if(${oi}===${q.correct})S.igcseQuizScore=(S.igcseQuizScore||0)+1;render()`:''})"
+                style="text-align:left;padding:12px 14px;background:${bg};border:2px solid ${border};color:${col};border-radius:12px;cursor:${clickable?'pointer':'default'};font-family:Cairo,sans-serif;font-size:12px;line-height:1.5;transition:.15s">
+                ${badge}${opt}
+              </button>`;
+            }).join('')}
+          </div>
+          ${answered!==null ? `
+          <button onclick="${qIdx<totalQs-1?`S.igcseQuizIdx=${qIdx+1};S.igcseQuizAnswered=null;render()`:`S.igcseQuizDone=true;render()`}"
+            style="width:100%;margin-top:14px;padding:12px;background:${subj.color};color:#fff;border:none;border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:13px">
+            ${qIdx<totalQs-1?'Next Question →':'See Results 🏆'}
+          </button>` : ''}
+        </div>`;
+    }
   } else if (S.igcseTab === 'questions') {
     tabContent = `
       <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:24px 16px;text-align:center;margin-bottom:12px">
