@@ -32,6 +32,12 @@ let S = {
   lessonResource: 'ministry', // 'ministry' | 'external'
   lessonContent: '',        // AI-generated lesson content
   lessonLoading: false,
+  // IGCSE Platform
+  igcseBoard: 'cie',
+  igcseSubject: null,
+  igcseChapter: null,
+  igcseTopic: null,
+  igcseTab: 'notes',
 };
 let _pomTimer = null;
 
@@ -188,6 +194,7 @@ function screenContent() {
     schedule: tplSchedule, history: tplHistory, leaderboard: tplLeaderboard,
     summary: tplSummary, mindmap: tplMindMap, textbook: tplTextbook,
     upgrade: tplUpgrade, lessons: tplLessons, admin: tplAdmin, onboarding: tplOnboarding,
+    igcse: tplIGCSE,
   };
   return (map[S.screen] || tplChat)();
 }
@@ -3191,6 +3198,7 @@ function tplShell(content) {
     { s:'summary',     icon:'📋', label: t('الملخص','summary') },
     { s:'mindmap',     icon:'🧠', label: t('خريطة ذهنية','mindmap') },
     { s:'textbook',    icon:'📚', label: t('الكتب','textbook') },
+    { s:'igcse',       icon:'🎓', label:'IGCSE' },
     { s:'stats',       icon:'📊', label: t('الإحصائيات','stats') },
     { s:'notes',       icon:'🗒', label: t('الملاحظات','notes') },
     { s:'bookmarks',   icon:'🔖', label: t('المحفوظات','bookmarks') },
@@ -3208,7 +3216,7 @@ function tplShell(content) {
       <span class="nav-icon">${n.icon}</span>
       <span class="nav-label">${n.label}</span>
     </button>`).join('');
-  const botNavScreens = ['chat','lessons','flashcards','textbook','stats','profile'];
+  const botNavScreens = ['chat','lessons','igcse','textbook','stats','profile'];
   const botNav = [
     ...nav.filter(n => botNavScreens.includes(n.s)),
     { s:'__more__', icon:'⋯', label:'المزيد' }
@@ -4431,6 +4439,938 @@ function viewPDF(url, viewUrl) {
   // viewUrl is only set for Google Drive /preview; all other books use their direct url
   S.textbookViewUrl = (viewUrl && viewUrl !== 'undefined' && viewUrl !== '') ? viewUrl : url;
   render();
+}
+
+// ════════════════════════════════════════════════════════════
+//  IGCSE REVISION PLATFORM
+// ════════════════════════════════════════════════════════════
+
+const IGCSE_BOARDS = {
+  cie:     { label:'Cambridge (CIE)', short:'Cambridge', color:'#003087', accent:'#0066CC', bg:'#EBF0FA', icon:'🏛️' },
+  edexcel: { label:'Pearson Edexcel', short:'Edexcel',   color:'#003DA5', accent:'#1855B8', bg:'#E6EBF7', icon:'📘' },
+  oxford:  { label:'Oxford AQA',      short:'Oxford AQA',color:'#002147', accent:'#1B4B8A', bg:'#E5EAEF', icon:'📙' },
+};
+
+const IGCSE_SUBJECTS = {
+  maths: {
+    label:'Mathematics', arabic:'الرياضيات', icon:'🔢', color:'#3B82F6',
+    boards: ['cie','edexcel','oxford'],
+    pastPapers: {
+      cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-mathematics-0580/past-papers/',
+      edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-mathematics-a-2016.coursematerials.html',
+      oxford:  'https://www.oxfordaqaexams.org.uk/igcse/mathematics/',
+    },
+    chapters: {
+      cie: [
+        { title:'Number', icon:'🔢', topics:[
+          { title:'Types of Numbers & Operations', points:[
+            'Integers, decimals, fractions — and converting between them',
+            'Order of operations: BODMAS (Brackets, Orders, Division, Multiplication, Addition, Subtraction)',
+            'Prime factorisation, HCF and LCM using factor trees or Venn diagrams',
+            'Rational numbers can be written as a fraction p/q; irrational cannot (e.g. √2, π)',
+            'Absolute value |x|: distance from zero — always non-negative',
+          ]},
+          { title:'Powers, Roots & Standard Form', points:[
+            'Index laws: aᵐ × aⁿ = aᵐ⁺ⁿ, aᵐ ÷ aⁿ = aᵐ⁻ⁿ, (aᵐ)ⁿ = aᵐⁿ, a⁰ = 1',
+            'Negative indices: a⁻ⁿ = 1/aⁿ (e.g. 2⁻³ = 1/8)',
+            'Fractional indices: a^(1/n) = ⁿ√a and a^(m/n) = (ⁿ√a)ᵐ',
+            'Standard form: A × 10ⁿ where 1 ≤ A < 10 (e.g. 3.2 × 10⁴ = 32000)',
+            'Adding in standard form: convert to same power of 10 first',
+          ]},
+          { title:'Percentages, Ratio & Proportion', points:[
+            'Percentage change = (change ÷ original) × 100%',
+            'Reverse percentage: original = value ÷ (1 ± r/100)',
+            'Compound interest: A = P(1 + r/100)ⁿ — exponential growth',
+            'Ratio simplification: divide all parts by HCF; divide quantity in ratio',
+            'Direct proportion: y = kx (graph through origin); inverse: y = k/x',
+          ]},
+        ]},
+        { title:'Algebra & Graphs', icon:'📈', topics:[
+          { title:'Algebraic Manipulation', points:[
+            'Expanding: (a+b)(c+d) = ac + ad + bc + bd',
+            'Perfect square: (a+b)² = a²+2ab+b² and (a−b)² = a²−2ab+b²',
+            'Difference of squares: a²−b² = (a+b)(a−b)',
+            'Factorising quadratics ax²+bx+c: find two numbers that multiply to ac and add to b',
+            'Simplify algebraic fractions by factorising numerator and denominator first',
+          ]},
+          { title:'Equations & Inequalities', points:[
+            'Solve linear equations: same operation both sides to isolate variable',
+            'Quadratic formula: x = (−b ± √(b²−4ac)) / 2a when factorising fails',
+            'Simultaneous equations — elimination: multiply to match coefficients, then add/subtract',
+            'Inequalities: solve like equations BUT flip sign when multiplying/dividing by negative',
+            'Represent inequalities on number line: open circle = strict (</>), filled = (≤/≥)',
+          ]},
+          { title:'Functions & Graphs', points:[
+            'Gradient of line: m = (y₂−y₁)/(x₂−x₁); equation of line: y = mx + c',
+            'Parallel lines have equal gradients; perpendicular lines: m₁ × m₂ = −1',
+            'Distance between two points: d = √((x₂−x₁)² + (y₂−y₁)²)',
+            'Midpoint: ((x₁+x₂)/2, (y₁+y₂)/2)',
+            'Key curves: y=x² (parabola), y=x³ (cubic), y=1/x (hyperbola), y=aˣ (exponential)',
+          ]},
+          { title:'Sequences', points:[
+            'Arithmetic sequence: constant difference d; nth term = a + (n−1)d',
+            'Geometric sequence: constant ratio r; nth term = arⁿ⁻¹',
+            'Quadratic sequences: second differences are constant; nth term has n² term',
+            'Find nth term by looking at differences and comparing to known sequences',
+          ]},
+        ]},
+        { title:'Coordinate Geometry', icon:'📍', topics:[
+          { title:'Lines & Circles', points:[
+            'Circle equation: (x−a)² + (y−b)² = r² where (a,b) is centre and r is radius',
+            'Tangent to circle is perpendicular to radius at point of contact',
+            'To find intersection: substitute line equation into circle equation',
+            'Length of a chord using coordinate geometry and Pythagoras',
+          ]},
+        ]},
+        { title:'Geometry', icon:'📐', topics:[
+          { title:'Angle Properties', points:[
+            'Angles on a straight line = 180°; angles around a point = 360°',
+            'Vertically opposite angles are equal; co-interior (same-side) angles add to 180°',
+            'Alternate angles (Z-angles) are equal; corresponding angles (F-angles) are equal',
+            'Sum of interior angles of n-sided polygon = (n−2) × 180°',
+            'Exterior angle of triangle = sum of the two non-adjacent interior angles',
+          ]},
+          { title:'Circle Theorems', points:[
+            'Angle at centre = 2 × angle at circumference (same arc)',
+            'Angles in the same segment are equal',
+            'Angle in a semicircle = 90° (diameter subtends right angle)',
+            'Opposite angles in a cyclic quadrilateral add to 180°',
+            'Tangent-radius: tangent is perpendicular to radius at point of contact',
+          ]},
+          { title:'Similarity & Congruence', points:[
+            'Similar shapes: same angles, proportional sides — ratio of sides = k',
+            'If lengths scale by k → areas scale by k² → volumes scale by k³',
+            'Congruence conditions: SSS, SAS, ASA, AAS, RHS',
+            'To prove triangles similar: show two pairs of equal angles (AA)',
+          ]},
+        ]},
+        { title:'Mensuration', icon:'📏', topics:[
+          { title:'Areas & Perimeters', points:[
+            'Rectangle: A = lw; Triangle: A = ½bh; Parallelogram: A = bh',
+            'Trapezium: A = ½(a+b)h; Circle: A = πr², C = 2πr',
+            'Sector: area = (θ/360)×πr²; arc length = (θ/360)×2πr',
+            'Composite shapes: split into rectangles, triangles, circles — add or subtract',
+          ]},
+          { title:'Volumes & Surface Areas', points:[
+            'Cuboid: V = lwh; SA = 2(lw+lh+wh)',
+            'Cylinder: V = πr²h; SA = 2πrh + 2πr²',
+            'Cone: V = ⅓πr²h; curved SA = πrl (l = slant height); total SA = πrl + πr²',
+            'Sphere: V = (4/3)πr³; SA = 4πr²',
+            'Pyramid: V = ⅓ × base area × perpendicular height',
+          ]},
+        ]},
+        { title:'Trigonometry', icon:'📐', topics:[
+          { title:'Right-Angled Triangles (SOH CAH TOA)', points:[
+            'sin θ = Opposite/Hypotenuse; cos θ = Adjacent/Hypotenuse; tan θ = Opposite/Adjacent',
+            'Pythagoras: a² + b² = c² (c is always the hypotenuse)',
+            'Use inverse trig (sin⁻¹, cos⁻¹, tan⁻¹) to find angles',
+            'Angle of elevation: looking up from horizontal; depression: looking down',
+            'Bearings: measured clockwise from North, always 3 digits (e.g. 045°)',
+          ]},
+          { title:'Sine & Cosine Rules (Non-Right Triangles)', points:[
+            'Sine rule: a/sinA = b/sinB = c/sinC — use with angle-side opposite pair',
+            'Cosine rule: a² = b²+c²−2bc cosA — use with 3 sides or 2 sides + included angle',
+            'Area of any triangle: Area = ½ab sinC',
+            'Ambiguous case: two possible triangles when given two sides and non-included angle',
+          ]},
+        ]},
+        { title:'Vectors & Transformations', icon:'↗️', topics:[
+          { title:'Vectors', points:[
+            'Vector has magnitude and direction; written as bold a or column vector (x y)',
+            'Adding vectors: add components; AB = OB − OA (position vectors)',
+            'Magnitude: |a| = √(x²+y²)',
+            'Scalar multiple: ka stretches magnitude by |k|; negative k reverses direction',
+            'Collinear points: AB = k×AC for some scalar k',
+          ]},
+          { title:'Transformations', points:[
+            'Translation: described by a column vector (all points shift same amount)',
+            'Reflection: mirror line required; image equidistant from line — shape unchanged',
+            'Rotation: centre, angle (degrees), direction (clockwise/anticlockwise)',
+            'Enlargement: centre and scale factor; area changes by SF²; negative SF flips shape',
+            'Combined transformations: apply right-to-left; describe single equivalent transformation',
+          ]},
+        ]},
+        { title:'Probability & Statistics', icon:'📊', topics:[
+          { title:'Statistics', points:[
+            'Mean = sum ÷ count; Median = middle value (sort first!); Mode = most frequent',
+            'Range = max − min; IQR = Q3 − Q1 (measure of spread)',
+            'Cumulative frequency: median at 50th %, Q1 at 25th %, Q3 at 75th %',
+            'Histogram: frequency density = frequency ÷ class width (y-axis)',
+            'Scatter graphs: describe correlation (positive/negative/none) and draw line of best fit',
+          ]},
+          { title:'Probability', points:[
+            'P(event) = favourable outcomes ÷ total equally likely outcomes; 0 ≤ P ≤ 1',
+            'P(not A) = 1 − P(A)',
+            'Mutually exclusive: P(A or B) = P(A) + P(B)',
+            'Independent events: P(A and B) = P(A) × P(B)',
+            'Tree diagrams: multiply along branches to get joint probability; add outcomes at end',
+          ]},
+        ]},
+      ],
+    }
+  },
+  physics: {
+    label:'Physics', arabic:'الفيزياء', icon:'⚡', color:'#F59E0B',
+    boards: ['cie','edexcel','oxford'],
+    pastPapers: {
+      cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-physics-0625/past-papers/',
+      edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-physics-2017.coursematerials.html',
+      oxford:  'https://www.oxfordaqaexams.org.uk/igcse/physics/',
+    },
+    chapters: {
+      cie: [
+        { title:'Motion, Forces & Energy', icon:'🚀', topics:[
+          { title:'Speed, Velocity & Acceleration', points:[
+            'Speed (scalar) = distance ÷ time; velocity (vector) = displacement ÷ time',
+            'Acceleration = change in velocity ÷ time: a = (v−u)/t (m/s²)',
+            'Distance-time graph: gradient = speed; horizontal line = stationary; curve = changing speed',
+            'Velocity-time graph: gradient = acceleration; area under graph = distance travelled',
+            'Equations of motion: v=u+at, s=ut+½at², v²=u²+2as, s=½(u+v)t',
+          ]},
+          { title:'Forces & Newton\'s Laws', points:[
+            '1st Law: object remains at rest or constant velocity unless resultant force acts',
+            '2nd Law: F = ma — larger force or smaller mass gives greater acceleration',
+            '3rd Law: every action has equal and opposite reaction (on different objects)',
+            'Weight = mass × gravitational field strength (W = mg; g = 10 N/kg on Earth)',
+            'Terminal velocity: drag force equals weight → zero acceleration → constant speed',
+          ]},
+          { title:'Work, Energy & Power', points:[
+            'Work done = force × distance (in direction of force): W = Fd (joules)',
+            'Kinetic energy: KE = ½mv²; Gravitational PE: GPE = mgh',
+            'Conservation of energy: total energy is always conserved, just changes form',
+            'Efficiency = (useful energy output ÷ total energy input) × 100%',
+            'Power = work done ÷ time = energy transferred ÷ time: P = W/t (watts)',
+          ]},
+          { title:'Pressure & Moments', points:[
+            'Pressure = force ÷ area: P = F/A (Pascals = N/m²)',
+            'Pressure in a fluid: P = ρgh (density × g × depth)',
+            'Moment = force × perpendicular distance from pivot (Nm)',
+            'Principle of moments: sum of clockwise moments = sum of anticlockwise moments',
+            'Centre of gravity: single point where weight appears to act',
+          ]},
+        ]},
+        { title:'Thermal Physics', icon:'🌡️', topics:[
+          { title:'States of Matter & Kinetic Theory', points:[
+            'Solid: particles in fixed positions, vibrate; strong forces between particles',
+            'Liquid: particles close together, can flow; weaker forces',
+            'Gas: particles far apart, move randomly at high speeds; almost no forces',
+            'Brownian motion (e.g. smoke particles): evidence for random particle movement',
+            'Evaporation: fastest particles escape from surface — liquid cools as a result',
+          ]},
+          { title:'Thermal Energy Transfer', points:[
+            'Specific heat capacity: Q = mcΔT (energy to heat 1 kg of substance by 1°C)',
+            'Specific latent heat: Q = mL (energy for change of state; no temperature change)',
+            'Conduction: energy transferred through vibrations of particles — best in metals',
+            'Convection: warm fluid rises (less dense), cool fluid sinks — creates currents',
+            'Radiation: infrared waves travel without medium; dark matt = best emitter & absorber',
+          ]},
+        ]},
+        { title:'Waves & Optics', icon:'〰️', topics:[
+          { title:'Wave Properties', points:[
+            'Transverse: oscillation perpendicular to direction of travel (light, water waves)',
+            'Longitudinal: oscillation parallel to direction (sound — compressions & rarefactions)',
+            'Wave equation: v = fλ (speed = frequency × wavelength)',
+            'Period T = 1/f; amplitude = maximum displacement from rest position',
+            'Wavefront: line joining points of same phase; waves refract at boundary between media',
+          ]},
+          { title:'Light & Electromagnetic Spectrum', points:[
+            'Law of reflection: angle of incidence = angle of reflection (measured from normal)',
+            'Refraction: bends toward normal when slowing down (entering denser medium)',
+            'Snell\'s law: n₁sinθ₁ = n₂sinθ₂; refractive index n = speed in vacuum ÷ speed in medium',
+            'Total internal reflection: when angle of incidence > critical angle; used in optical fibres',
+            'EM spectrum (shortest to longest λ): γ-rays → X-rays → UV → visible → IR → microwaves → radio',
+          ]},
+          { title:'Sound', points:[
+            'Sound is a longitudinal wave; needs a medium (cannot travel through vacuum)',
+            'Speed of sound ≈ 340 m/s in air; much faster in solids',
+            'Frequency determines pitch; amplitude determines loudness',
+            'Echo: reflection of sound; used in sonar and ultrasound imaging',
+            'Humans hear 20 Hz–20 kHz; ultrasound (>20 kHz) used in medicine and cleaning',
+          ]},
+        ]},
+        { title:'Electricity & Magnetism', icon:'🔌', topics:[
+          { title:'Electric Circuits', points:[
+            'Ohm\'s Law: V = IR (voltage = current × resistance)',
+            'Series: same current throughout; voltages add; R_total = R₁+R₂+...',
+            'Parallel: same voltage across each branch; currents add; 1/R = 1/R₁+1/R₂',
+            'Power: P = IV = I²R = V²/R (watts)',
+            'Charge: Q = It (coulombs); energy transferred: E = QV = IVt = Pt',
+          ]},
+          { title:'Electromagnetism', points:[
+            'Current-carrying wire creates a magnetic field; stronger with more turns or iron core',
+            'Motor effect: force on current-carrying conductor in a field (F = BIL)',
+            'Fleming\'s Left Hand Rule: thuMb=motion, First finger=Field, seCond finger=Current',
+            'Electromagnetic induction: changing magnetic field induces EMF in a conductor',
+            'Transformer: Vp/Vs = Np/Ns; step-up increases voltage, step-down decreases it',
+          ]},
+        ]},
+        { title:'Nuclear Physics', icon:'☢️', topics:[
+          { title:'Atomic Structure & Radiation', points:[
+            'Atom: protons + neutrons in nucleus; electrons in shells around nucleus',
+            'Atomic number = proton number; mass number = protons + neutrons',
+            'Isotopes: same protons, different neutrons (same element, different mass)',
+            'Alpha (α): 2p+2n, stopped by paper, highly ionising, short range in air',
+            'Beta (β): fast electron, stopped by 3mm Al, moderate ionisation',
+            'Gamma (γ): EM radiation, stopped by thick lead, penetrating, low ionisation',
+          ]},
+          { title:'Radioactive Decay & Half-Life', points:[
+            'Half-life: time for half the radioactive nuclei to decay (or activity to halve)',
+            'Activity decreases exponentially — never reaches zero',
+            'Uses: carbon-14 dating (t½ = 5700 yrs), medical tracers (short t½)',
+            'Nuclear fission: heavy nucleus splits, releasing large amount of energy + more neutrons',
+            'Chain reaction: neutrons cause further fissions — controlled in reactors, uncontrolled in bombs',
+          ]},
+        ]},
+      ],
+    }
+  },
+  chemistry: {
+    label:'Chemistry', arabic:'الكيمياء', icon:'🧪', color:'#8B5CF6',
+    boards: ['cie','edexcel','oxford'],
+    pastPapers: {
+      cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-chemistry-0620/past-papers/',
+      edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-chemistry-2017.coursematerials.html',
+      oxford:  'https://www.oxfordaqaexams.org.uk/igcse/chemistry/',
+    },
+    chapters: {
+      cie: [
+        { title:'Particulate Nature of Matter', icon:'⚗️', topics:[
+          { title:'States of Matter & Changes', points:[
+            'Solid: fixed shape & volume; particles in regular lattice, vibrate only',
+            'Liquid: fixed volume, no fixed shape; particles slide past each other',
+            'Gas: no fixed shape or volume; particles move fast, far apart, random directions',
+            'Melting/boiling point: energy input breaks intermolecular forces; temperature constant during change',
+            'Diffusion: random movement from high to low concentration; faster at high temperature, in gases',
+          ]},
+        ]},
+        { title:'Atomic Structure & Bonding', icon:'⚛️', topics:[
+          { title:'Atomic Structure', points:[
+            'Proton: relative charge +1, mass 1 (in nucleus)',
+            'Neutron: charge 0, mass 1 (in nucleus)',
+            'Electron: charge −1, negligible mass (in shells/orbitals around nucleus)',
+            'Atomic (proton) number = number of protons = number of electrons in neutral atom',
+            'Isotopes: same atomic number, different mass number (different neutrons)',
+          ]},
+          { title:'Electronic Configuration & Periodic Table', points:[
+            'Electrons fill shells: shell 1 → max 2; shell 2 → max 8; shell 3 → max 8 (at IGCSE)',
+            'Group number = number of outer electrons; Period = number of occupied shells',
+            'Na (11): 2,8,1 → Group I → loses 1e⁻ → Na⁺; Cl (17): 2,8,7 → gains 1e⁻ → Cl⁻',
+            'Noble gases (Group 0): full outer shells → very stable, unreactive',
+            'Periodic table trends: metallic character decreases across period; increases down group',
+          ]},
+          { title:'Ionic Bonding', points:[
+            'Metals lose electrons, non-metals gain electrons to achieve full outer shells',
+            'Ionic bond: electrostatic attraction between oppositely charged ions',
+            'Giant ionic lattice: high melting/boiling point; conducts when molten or dissolved',
+            'Formulae: charges must balance — Ca²⁺ + 2Cl⁻ → CaCl₂',
+            'Properties: brittle (layers shift → like charges repel), soluble in water',
+          ]},
+          { title:'Covalent Bonding', points:[
+            'Non-metals share pairs of electrons to achieve full outer shells',
+            'Single bond = 1 shared pair; double bond = 2 shared pairs (e.g. O₂, CO₂)',
+            'Simple molecular: low MP (weak intermolecular forces); do NOT conduct electricity',
+            'Giant covalent (macromolecular): very high MP — diamond (4 bonds to C), SiO₂',
+            'Diamond vs graphite: diamond (hard, no conduction) vs graphite (soft, conducts — delocalised e⁻)',
+          ]},
+          { title:'Metallic Bonding', points:[
+            'Positive metal ions in a "sea" of delocalised electrons',
+            'High melting point (strong attraction); good conductor of electricity (free electrons)',
+            'Malleable and ductile (layers slide — electrons move with them)',
+            'Alloys: mix of metals → different sized atoms → harder (e.g. steel = iron + carbon)',
+          ]},
+        ]},
+        { title:'Stoichiometry', icon:'🧮', topics:[
+          { title:'Moles & Calculations', points:[
+            'Relative atomic mass (Ar): mass relative to ¹²C = 12',
+            'Molar mass (Mr): sum of Ar values in formula (in g/mol)',
+            'Moles = mass ÷ molar mass; or = volume ÷ 24 dm³ (gas at RTP)',
+            'Concentration (mol/dm³) = moles ÷ volume (dm³)',
+            'Balanced equation gives molar ratios — use to find amounts of reactants/products',
+          ]},
+          { title:'Empirical & Molecular Formulae', points:[
+            'Empirical formula: simplest whole number ratio of atoms',
+            'Find from % composition: divide % by Ar, then divide by smallest',
+            'Molecular formula: actual number of atoms; may be multiple of empirical formula',
+            'Yield: actual yield may be less than theoretical due to impurities, reversible reactions',
+            'Atom economy = (Mr of desired product ÷ Mr of all products) × 100%',
+          ]},
+        ]},
+        { title:'Acids, Bases & Salts', icon:'🧫', topics:[
+          { title:'Acids & Bases', points:[
+            'Acid: produces H⁺ ions in aqueous solution; pH < 7',
+            'Alkali (soluble base): produces OH⁻ ions; pH > 7; neutral pH = 7',
+            'Strong acid: fully ionises (HCl, H₂SO₄, HNO₃); weak acid: partially (ethanoic)',
+            'Neutralisation: H⁺(aq) + OH⁻(aq) → H₂O(l)',
+            'Indicators: litmus (red→acid, blue→alkali); universal indicator for pH scale',
+          ]},
+          { title:'Making Salts', points:[
+            'Titration: soluble salt from soluble acid + soluble alkali — find exact volumes',
+            'Acid + metal (reactive): acid + metal → salt + hydrogen',
+            'Acid + metal oxide/hydroxide: → salt + water',
+            'Acid + carbonate: → salt + water + carbon dioxide',
+            'Precipitation: mix two solutions → insoluble product forms; filter to collect',
+          ]},
+        ]},
+        { title:'Energetics & Rates', icon:'🔥', topics:[
+          { title:'Energy Changes in Reactions', points:[
+            'Exothermic: releases energy → products lower energy than reactants → ΔH negative',
+            'Endothermic: absorbs energy → products higher energy than reactants → ΔH positive',
+            'Bond breaking: requires energy (endothermic); bond forming: releases energy (exothermic)',
+            'ΔH = energy needed to break bonds − energy released forming bonds',
+            'Activation energy: minimum energy needed for reaction to start (shown on energy profile)',
+          ]},
+          { title:'Rates of Reaction', points:[
+            'Rate of reaction = amount of product formed (or reactant used) ÷ time',
+            'Factors increasing rate: higher concentration, temperature, surface area, pressure (gases), catalyst',
+            'Catalyst: lowers activation energy, not consumed in reaction → more effective collisions',
+            'Collision theory: particles must collide with sufficient energy and correct orientation',
+            'Monitor rate: measure volume of gas, change in mass, colour change, turbidity',
+          ]},
+        ]},
+        { title:'Organic Chemistry', icon:'🌿', topics:[
+          { title:'Hydrocarbons', points:[
+            'Alkanes: CₙH₂ₙ₊₂, saturated (C−C single bonds), unreactive, combustion',
+            'Alkenes: CₙH₂ₙ, unsaturated (C=C double bond), more reactive — addition reactions',
+            'Test for alkene: bromine water turns from orange/brown to colourless',
+            'Crude oil: mixture of hydrocarbons separated by fractional distillation (boiling points)',
+            'Cracking: long alkanes → shorter alkanes + alkenes (thermal or catalytic)',
+          ]},
+          { title:'Alcohols, Polymers & Organic Chemistry', points:[
+            'Alcohols: −OH group; ethanol (C₂H₅OH) from fermentation of glucose',
+            'Ethanol combustion: C₂H₅OH + 3O₂ → 2CO₂ + 3H₂O',
+            'Addition polymerisation: alkene monomers join → polymer (e.g. ethene → poly(ethene))',
+            'Condensation polymerisation: two functional groups per monomer; small molecule (e.g. H₂O) eliminated',
+            'Nylon (polyamide): diamine + dioic acid; Polyester: diol + dioic acid',
+          ]},
+        ]},
+      ],
+    }
+  },
+  biology: {
+    label:'Biology', arabic:'الأحياء', icon:'🧬', color:'#10B981',
+    boards: ['cie','edexcel','oxford'],
+    pastPapers: {
+      cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-biology-0610/past-papers/',
+      edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-biology-2017.coursematerials.html',
+      oxford:  'https://www.oxfordaqaexams.org.uk/igcse/biology/',
+    },
+    chapters: {
+      cie: [
+        { title:'Cell Biology', icon:'🔬', topics:[
+          { title:'Cell Structure', points:[
+            'All living things are made of cells (cell theory)',
+            'Animal cell: cell membrane, cytoplasm, nucleus, mitochondria, ribosomes',
+            'Plant cell (extra): cell wall (cellulose), chloroplasts, large permanent vacuole',
+            'Nucleus: contains DNA; controls cell activities; has nuclear membrane',
+            'Mitochondria: aerobic respiration occurs here → produces ATP energy',
+          ]},
+          { title:'Movement In & Out of Cells', points:[
+            'Diffusion: net movement of particles from high to low concentration — passive, no energy',
+            'Osmosis: net movement of water through a semi-permeable membrane, from dilute to concentrated solution',
+            'Active transport: movement against concentration gradient — requires ATP energy',
+            'Turgid plant cell: full of water → stiff (provides support); plasmolysed: loses water → shrinks',
+            'Factors affecting diffusion rate: concentration gradient, surface area, distance, temperature',
+          ]},
+        ]},
+        { title:'Biological Molecules & Enzymes', icon:'⚗️', topics:[
+          { title:'Biological Molecules', points:[
+            'Carbohydrates (C,H,O): glucose for energy; starch for storage (plants); glycogen (animals)',
+            'Proteins (C,H,O,N,S): made from amino acids — enzymes, antibodies, haemoglobin, keratin',
+            'Lipids (C,H,O): fat stores energy; forms cell membranes; glycerol + 3 fatty acids',
+            'Test for starch: iodine solution → blue-black; for reducing sugars: Benedict\'s → brick-red',
+            'Test for protein: Biuret → purple/violet; fat: ethanol emulsion → white cloudy emulsion',
+          ]},
+          { title:'Enzymes', points:[
+            'Biological catalysts: speed up chemical reactions without being used up',
+            'Active site: specific 3D shape — only the complementary substrate can bind (lock and key model)',
+            'Optimum temperature (~37°C for human enzymes): above it → enzyme denatures (shape permanently changes)',
+            'pH: each enzyme has optimal pH; extreme pH → denaturation (e.g. pepsin pH 2, salivary amylase pH 7)',
+            'Substrate concentration: increases rate until all active sites occupied → plateau reached',
+          ]},
+        ]},
+        { title:'Plant Biology', icon:'🌿', topics:[
+          { title:'Photosynthesis', points:[
+            'Equation: 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂ (in chloroplasts)',
+            'Chlorophyll: green pigment that absorbs red and blue light (reflects green)',
+            'Limiting factors: light intensity, CO₂ concentration, temperature',
+            'Test for photosynthesis: destarch leaf first (dark 24 hrs) → expose to light → iodine test',
+            'Variegated leaf experiment: only green regions (chloroplasts) test positive for starch',
+          ]},
+          { title:'Transpiration & Transport', points:[
+            'Transpiration: loss of water vapour from leaves through stomata',
+            'Increases with: higher temperature, lower humidity, wind, greater light intensity',
+            'Xylem: carries water and minerals UP from roots (dead cells, no end walls)',
+            'Phloem: carries sugars UP and DOWN from leaves to rest of plant (live cells)',
+            'Root hair cells: increase surface area for absorption of water and minerals',
+          ]},
+        ]},
+        { title:'Human Biology', icon:'🫀', topics:[
+          { title:'Nutrition & Digestion', points:[
+            'Carbohydrates, proteins, fats, vitamins, minerals, water and fibre — all essential',
+            'Mechanical digestion: teeth and stomach churning; chemical: enzymes break down food',
+            'Amylase: starch → maltose; Protease: proteins → amino acids; Lipase: fats → glycerol + fatty acids',
+            'Bile (from liver): emulsifies fats (breaks into droplets) — increases surface area for lipase',
+            'Villi in small intestine: large surface area, rich blood supply → efficient absorption',
+          ]},
+          { title:'Respiration', points:[
+            'Aerobic: C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O + ATP (38 ATP molecules)',
+            'Anaerobic (muscle): glucose → lactic acid + small amount ATP → causes cramp, oxygen debt',
+            'Anaerobic (yeast): glucose → ethanol + CO₂ + small amount ATP (fermentation)',
+            'Gas exchange in alveoli: large SA, thin walls, moist, good blood supply → efficient diffusion',
+            'Breathing in: diaphragm contracts (flattens), ribs move up/out → volume↑, pressure↓',
+          ]},
+          { title:'Circulation', points:[
+            'Double circulation: pulmonary (heart ↔ lungs) + systemic (heart ↔ body)',
+            'Red blood cells: haemoglobin carries O₂; biconcave disc → large SA; no nucleus',
+            'White blood cells: phagocytes (engulf pathogens) + lymphocytes (produce antibodies)',
+            'Arteries: thick muscular wall, no valves, high pressure; veins: valves, thin wall, low pressure',
+            'Capillaries: one cell thick → exchange of materials with tissues',
+          ]},
+          { title:'Coordination & Homeostasis', points:[
+            'Neurone types: sensory (receptor → CNS), motor (CNS → effector), relay (within CNS)',
+            'Reflex arc: receptor → sensory → relay → motor neurone → effector (no brain involved)',
+            'Hormones: chemical messengers in blood; slower but longer lasting than nervous system',
+            'Insulin (from pancreas): lowers blood glucose → glycogen stored in liver',
+            'Glucagon: raises blood glucose → glycogen broken down; type 1 diabetes = no insulin',
+          ]},
+        ]},
+        { title:'Genetics & Evolution', icon:'🧬', topics:[
+          { title:'DNA & Inheritance', points:[
+            'DNA: double helix; base pairs A-T and C-G; gene = section of DNA coding for a protein',
+            'Chromosomes: humans have 46 (23 pairs); gametes (sex cells) have 23 (haploid)',
+            'Dominant allele: expressed in presence of one copy; recessive: only expressed when homozygous',
+            'Genotype: alleles present (e.g. Bb); phenotype: observable characteristic',
+            'Punnett square: cross two parents to predict offspring ratios',
+          ]},
+          { title:'Evolution & Natural Selection', points:[
+            'Natural selection: random variation → better-adapted individuals survive → reproduce → pass on alleles',
+            'Over generations: advantageous allele frequency increases in population → adaptation',
+            'Evidence for evolution: fossils, DNA comparison, antibiotic resistance development',
+            'Antibiotic resistance: bacteria with resistant allele survive → multiply → population becomes resistant',
+            'Speciation: populations become so different they can no longer interbreed → new species formed',
+          ]},
+        ]},
+      ],
+    }
+  },
+  cs: {
+    label:'Computer Science', arabic:'علوم الكمبيوتر', icon:'💻', color:'#0EA5E9',
+    boards: ['cie','edexcel'],
+    pastPapers: {
+      cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-computer-science-0478/past-papers/',
+      edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-computer-science-2017.coursematerials.html',
+    },
+    chapters: {
+      cie: [
+        { title:'Data Representation', icon:'💾', topics:[
+          { title:'Number Systems', points:[
+            'Binary (base 2): digits 0 and 1; place values: 128, 64, 32, 16, 8, 4, 2, 1',
+            'Hexadecimal (base 16): digits 0–9 and A–F; 1 hex digit = 4 binary bits',
+            'Binary → hex: split into groups of 4 from right, convert each group',
+            'Binary addition: 0+0=0, 0+1=1, 1+0=1, 1+1=10 (carry 1), 1+1+1=11 (carry 1)',
+            'Two\'s complement: to negate, invert all bits then add 1 (allows negative numbers)',
+          ]},
+          { title:'Data Storage & Encoding', points:[
+            '1 bit = 0 or 1; 8 bits = 1 byte; 1 KB = 1024 bytes; 1 MB = 1024 KB; 1 GB = 1024 MB',
+            'ASCII: 7-bit character code, 128 characters; Extended ASCII: 8-bit, 256 characters',
+            'Unicode: up to 32 bits → supports all world languages and symbols',
+            'Image file size = image width × height × colour depth (bits)',
+            'Sound file size = sample rate × bit depth × duration (seconds)',
+          ]},
+        ]},
+        { title:'Algorithms', icon:'🔁', topics:[
+          { title:'Algorithm Design', points:[
+            'Algorithm: precise step-by-step instructions to solve a problem (sequence, selection, iteration)',
+            'Pseudocode uses: INPUT/OUTPUT, IF...THEN...ELSE...ENDIF, WHILE...ENDWHILE, FOR...NEXT',
+            'Flowchart symbols: oval (start/end), rectangle (process), diamond (decision), parallelogram (I/O)',
+            'Trace table: track value of each variable at each step — used to test an algorithm',
+            'Decomposition: break complex problem into smaller sub-problems; abstraction: ignore irrelevant detail',
+          ]},
+          { title:'Sorting & Searching', points:[
+            'Bubble sort: compare adjacent pairs, swap if wrong order, repeat n−1 times; simple but slow',
+            'Merge sort: divide list in half repeatedly, sort halves, merge back; efficient for large lists',
+            'Insertion sort: take next item, insert into correct position in sorted sub-list',
+            'Linear search: check each item one by one; O(n); works on unsorted lists',
+            'Binary search: halve search space; compare middle item; requires sorted list; O(log n)',
+          ]},
+        ]},
+        { title:'Hardware & Software', icon:'🖥️', topics:[
+          { title:'Computer Architecture', points:[
+            'CPU components: ALU (calculations), Control Unit (fetch/decode instructions), registers (fast storage)',
+            'Fetch-Decode-Execute cycle: fetch instruction from RAM → decode → execute → repeat',
+            'RAM: volatile (lost when power off), random access, fast; ROM: non-volatile, stores boot program',
+            'Cache: small, very fast memory between CPU and RAM; reduces time to fetch data',
+            'Secondary storage: HDD (magnetic), SSD (flash/no moving parts), optical disc (CD/DVD)',
+          ]},
+          { title:'Operating Systems & Software', points:[
+            'OS manages: hardware resources, processes (multitasking), user interface, file system',
+            'High-level language: human-readable (Python, Java); compiled or interpreted to machine code',
+            'Compiler: translates entire program at once → produces executable; fast to run',
+            'Interpreter: translates line by line; slower, but easier to debug',
+            'IDE (Integrated Development Environment): editor, compiler/interpreter, debugger in one',
+          ]},
+        ]},
+        { title:'Networks & Security', icon:'🌐', topics:[
+          { title:'Networks', points:[
+            'LAN (Local Area Network): same site; WAN (Wide Area Network): multiple sites',
+            'Star topology: all devices connect to central switch → if one fails, others unaffected',
+            'IP address: unique numerical label for each device on a network',
+            'Packet switching: data split into packets, each takes best route, reassembled at destination',
+            'Protocols: HTTP/HTTPS (web), FTP (file transfer), TCP/IP (data transmission), SMTP (email)',
+          ]},
+          { title:'Cyber Security', points:[
+            'Phishing: fake emails/websites to steal login credentials',
+            'Malware: viruses, worms, ransomware, spyware — spread through downloads or email attachments',
+            'Brute force attack: tries all possible passwords systematically',
+            'Encryption: scrambles data so only authorised recipient can read it',
+            'Prevention: strong passwords, two-factor authentication, firewalls, antivirus, updates',
+          ]},
+        ]},
+        { title:'Programming Concepts', icon:'📝', topics:[
+          { title:'Programming Fundamentals', points:[
+            'Variable: named memory location to store data; must declare before use in some languages',
+            'Data types: integer, real/float, boolean (True/False), char, string',
+            'Selection: IF condition THEN ... ELSE ... ENDIF; CASE/SWITCH for multiple options',
+            'Count-controlled loop: FOR i ← 1 TO n ... NEXT; condition-controlled: WHILE/REPEAT...UNTIL',
+            'Procedures: named block of reusable code; functions: return a value; reduces repetition',
+          ]},
+          { title:'Arrays & File Handling', points:[
+            '1D array: list of items of same type with index (e.g. names[0], names[1]...)',
+            '2D array: table/grid; accessed with two indices (e.g. grid[row][col])',
+            'Traverse array: use FOR loop from 0 (or 1) to length−1',
+            'File operations: OPEN, READ, WRITE, CLOSE',
+            'Validation: check input is of correct type, range, length, format',
+          ]},
+        ]},
+      ],
+    }
+  },
+  economics: {
+    label:'Economics', arabic:'الاقتصاد', icon:'📊', color:'#D97706',
+    boards: ['cie','edexcel'],
+    pastPapers: {
+      cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-economics-0455/past-papers/',
+      edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-economics-2017.coursematerials.html',
+    },
+    chapters: {
+      cie: [
+        { title:'Basic Economic Problem', icon:'💡', topics:[
+          { title:'Scarcity & Opportunity Cost', points:[
+            'Scarcity: unlimited wants but limited resources — the fundamental economic problem',
+            'Factors of production: Land (natural), Labour (human), Capital (man-made), Enterprise',
+            'Opportunity cost: value of the next best alternative foregone when a choice is made',
+            'Production Possibility Curve (PPC): shows maximum output combinations for two goods',
+            'Inside PPC = inefficient; on PPC = efficient; outside = currently unachievable',
+          ]},
+          { title:'Economic Systems', points:[
+            'Free market economy: prices determined by supply and demand; private ownership',
+            'Planned (command) economy: government decides what, how and for whom to produce',
+            'Mixed economy: combination of market and government intervention (most countries)',
+            'Privatisation: transfer of public sector businesses to private sector',
+            'Price mechanism: signals producers and consumers; rises → less demanded, more supplied',
+          ]},
+        ]},
+        { title:'Supply & Demand', icon:'📈', topics:[
+          { title:'Demand', points:[
+            'Demand: quantity consumers are willing AND able to buy at each price (effective demand)',
+            'Law of demand: as price rises, quantity demanded falls — inverse (negative) relationship',
+            'Shifts in demand curve: changes in income, prices of substitutes/complements, tastes, population, advertising',
+            'PED = % change in quantity demanded ÷ % change in price (always negative, ignore sign)',
+            'PED > 1 elastic (luxuries); PED < 1 inelastic (necessities like petrol, salt); PED = 0 perfectly inelastic',
+          ]},
+          { title:'Supply', points:[
+            'Supply: quantity producers are willing AND able to sell at each price',
+            'Law of supply: as price rises, quantity supplied rises — direct (positive) relationship',
+            'Shifts in supply: costs of production, technology, subsidies/taxes, weather (agriculture)',
+            'PES = % change in quantity supplied ÷ % change in price (always positive)',
+            'Market equilibrium: quantity demanded = quantity supplied; no tendency to change',
+          ]},
+          { title:'Price Elasticity & Revenue', points:[
+            'If demand is elastic (PED>1): price ↑ → total revenue ↓ (% drop in Q > % rise in P)',
+            'If demand is inelastic (PED<1): price ↑ → total revenue ↑ (% rise in P > % drop in Q)',
+            'Determinants of PED: closeness of substitutes, proportion of income, necessity vs luxury, time',
+            'XED (cross elasticity): measures effect of change in price of one good on demand for another',
+            'Positive XED = substitutes; Negative XED = complements',
+          ]},
+        ]},
+        { title:'Government & Macroeconomy', icon:'🏛️', topics:[
+          { title:'Macroeconomic Aims & Indicators', points:[
+            'Four main macroeconomic goals: economic growth, low unemployment, low inflation, balance of payments equilibrium',
+            'GDP (Gross Domestic Product): total value of goods/services produced in a country in a year',
+            'Unemployment rate = (unemployed ÷ labour force) × 100%',
+            'Inflation: sustained general rise in price level; measured by CPI (Consumer Price Index)',
+            'Trade-off: e.g. reducing unemployment may increase inflation (Phillips curve)',
+          ]},
+          { title:'Economic Policies', points:[
+            'Fiscal policy: government uses taxation and public spending to influence economy',
+            'Expansionary fiscal policy: increase spending / cut taxes → stimulate growth',
+            'Monetary policy: central bank controls interest rates and money supply',
+            'Lower interest rates: encourage borrowing and spending → economic growth',
+            'Supply-side policies: improve productive capacity (education, deregulation, infrastructure)',
+          ]},
+        ]},
+        { title:'International Trade', icon:'🌍', topics:[
+          { title:'Trade & Globalisation', points:[
+            'Comparative advantage: produce goods at lower opportunity cost → basis of trade',
+            'Exports: goods/services sold abroad; imports: bought from abroad',
+            'Balance of trade: exports − imports; balance of payments: all international transactions',
+            'Protectionism: tariffs (import taxes), quotas (quantity limits), subsidies to domestic producers',
+            'Free trade: no barriers; promotes efficiency and lower prices for consumers',
+          ]},
+          { title:'Exchange Rates', points:[
+            'Exchange rate: price of one currency in terms of another',
+            'Appreciation: currency becomes worth more → exports more expensive, imports cheaper',
+            'Depreciation: currency worth less → exports cheaper (competitive), imports more expensive',
+            'Fixed exchange rate: government/central bank maintains rate; floating: set by market forces',
+            'Devaluation: deliberate reduction in fixed rate to make exports more competitive',
+          ]},
+        ]},
+      ],
+    }
+  },
+};
+
+// Use CIE chapters as fallback for Edexcel and Oxford AQA (90% overlap)
+Object.values(IGCSE_SUBJECTS).forEach(subj => {
+  if (!subj.chapters) subj.chapters = {};
+  if (subj.chapters.cie) {
+    if (!subj.chapters.edexcel) subj.chapters.edexcel = subj.chapters.cie;
+    if (!subj.chapters.oxford) subj.chapters.oxford = subj.chapters.cie;
+  }
+});
+
+// ── IGCSE Template Functions ──────────────────────────────
+
+function tplIGCSE() {
+  if (S.igcseTopic !== null) return tplIGCSETopic();
+  if (S.igcseSubject)        return tplIGCSESubject();
+  return tplIGCSEHub();
+}
+
+function tplIGCSEHub() {
+  const board = IGCSE_BOARDS[S.igcseBoard];
+  const boardTabs = Object.entries(IGCSE_BOARDS).map(([k,b]) => `
+    <button onclick="S.igcseBoard='${k}';render()"
+      style="padding:8px 18px;border-radius:20px;border:none;cursor:pointer;font-family:Cairo,sans-serif;font-size:13px;font-weight:700;transition:.2s;
+             ${S.igcseBoard===k?`background:${b.color};color:#fff;box-shadow:0 2px 12px ${b.color}55`:'background:var(--bg);color:var(--text-muted);border:1px solid var(--border)'}">
+      ${b.icon} ${b.short}
+    </button>`).join('');
+  const subjectCards = Object.entries(IGCSE_SUBJECTS)
+    .filter(([,subj]) => subj.boards.includes(S.igcseBoard))
+    .map(([k,subj]) => `
+    <div onclick="S.igcseSubject='${k}';S.igcseChapter=null;S.igcseTopic=null;render()"
+      style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:24px 16px;cursor:pointer;text-align:center;
+             transition:.2s;border-top:4px solid ${subj.color};"
+      onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px ${subj.color}33'"
+      onmouseout="this.style.transform='';this.style.boxShadow=''">
+      <div style="font-size:36px;margin-bottom:8px">${subj.icon}</div>
+      <div style="font-size:14px;font-weight:900;color:var(--text)">${subj.label}</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:2px">${subj.arabic}</div>
+      <div style="margin-top:10px;font-size:10px;background:${subj.color}22;color:${subj.color};padding:3px 10px;border-radius:20px;display:inline-block;font-weight:700">
+        ${(subj.chapters[S.igcseBoard]||[]).length} chapters
+      </div>
+    </div>`).join('');
+  return `
+<div style="max-width:900px;margin:0 auto;padding:0 0 80px">
+  <!-- Hero Header -->
+  <div style="background:linear-gradient(135deg,${board.color},${board.accent});border-radius:0 0 24px 24px;padding:28px 20px 32px;margin-bottom:24px;text-align:center;position:relative;overflow:hidden">
+    <div style="position:absolute;inset:0;opacity:.08;background:repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 50%);background-size:20px 20px"></div>
+    <div style="position:relative;z-index:1">
+      <div style="font-size:13px;color:#ffffff99;font-weight:700;letter-spacing:2px;margin-bottom:6px">REVISION PLATFORM</div>
+      <div style="font-size:28px;font-weight:900;color:#fff;margin-bottom:4px">🎓 IGCSE Hub</div>
+      <div style="font-size:13px;color:#ffffffcc">Notes · Past Papers · Practice Questions · ${board.label}</div>
+    </div>
+  </div>
+  <!-- Board Selector -->
+  <div style="padding:0 16px;margin-bottom:20px">
+    <div style="font-size:11px;color:var(--text-muted);font-weight:700;margin-bottom:10px;letter-spacing:1px">SELECT EXAM BOARD</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">${boardTabs}</div>
+  </div>
+  <!-- Subject Grid -->
+  <div style="padding:0 16px">
+    <div style="font-size:11px;color:var(--text-muted);font-weight:700;margin-bottom:12px;letter-spacing:1px">CHOOSE A SUBJECT</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px">${subjectCards}</div>
+  </div>
+  <!-- Footer note -->
+  <div style="margin:28px 16px 0;padding:14px 16px;background:var(--bg-card);border-radius:12px;border:1px solid var(--border);text-align:center;font-size:12px;color:var(--text-muted)">
+    📖 Revision notes follow official syllabuses · Use the AI chat for deeper explanations
+  </div>
+</div>`;
+}
+
+function tplIGCSESubject() {
+  const subj = IGCSE_SUBJECTS[S.igcseSubject];
+  if (!subj) return tplIGCSEHub();
+  const board = IGCSE_BOARDS[S.igcseBoard];
+  const chapters = subj.chapters[S.igcseBoard] || [];
+  const chapterList = chapters.map((ch, ci) => {
+    const isOpen = S.igcseChapter === ci;
+    const topicItems = ch.topics.map((tp, ti) => `
+      <div onclick="S.igcseChapter=${ci};S.igcseTopic=${ti};S.igcseTab='notes';render()"
+        style="padding:10px 16px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:.15s;margin-bottom:4px;border:1px solid transparent"
+        onmouseover="this.style.background='${subj.color}11';this.style.borderColor='${subj.color}33'"
+        onmouseout="this.style.background='';this.style.borderColor='transparent'">
+        <span style="font-size:16px">📖</span>
+        <span style="font-size:13px;font-weight:600;color:var(--text)">${tp.title}</span>
+        <span style="margin-right:auto;font-size:10px;color:var(--text-muted)">${tp.points.length} key points</span>
+        <span style="font-size:12px;color:${subj.color};font-weight:700">›</span>
+      </div>`).join('');
+    return `
+    <div style="border:1px solid var(--border);border-radius:14px;margin-bottom:10px;overflow:hidden">
+      <div onclick="S.igcseChapter=${isOpen?'null':ci};render()"
+        style="padding:14px 16px;cursor:pointer;display:flex;align-items:center;gap:12px;background:${isOpen?`${subj.color}11`:'var(--bg-card)'};transition:.15s">
+        <span style="font-size:20px">${ch.icon||'📘'}</span>
+        <div style="flex:1">
+          <div style="font-size:14px;font-weight:800;color:var(--text)">${ch.title}</div>
+          <div style="font-size:11px;color:var(--text-muted)">${ch.topics.length} topics</div>
+        </div>
+        <span style="font-size:18px;color:var(--text-muted);transition:.2s;transform:${isOpen?'rotate(90deg)':'rotate(0deg)'}">>
+        </span>
+      </div>
+      ${isOpen?`<div style="padding:8px 12px 12px;background:var(--bg)">${topicItems}</div>`:''}
+    </div>`;
+  }).join('');
+  const ppLink = subj.pastPapers[S.igcseBoard] || '#';
+  return `
+<div style="max-width:860px;margin:0 auto;padding:0 0 80px">
+  <!-- Subject Header -->
+  <div style="background:linear-gradient(135deg,${subj.color},${subj.color}cc);padding:22px 16px 28px;border-radius:0 0 20px 20px;margin-bottom:20px">
+    <button onclick="S.igcseSubject=null;S.igcseChapter=null;S.igcseTopic=null;render()"
+      style="background:#ffffff30;border:none;border-radius:10px;padding:6px 14px;color:#fff;cursor:pointer;font-size:12px;font-family:Cairo,sans-serif;font-weight:700;margin-bottom:16px">
+      ← Back to Subjects
+    </button>
+    <div style="display:flex;align-items:center;gap:16px">
+      <div style="font-size:44px">${subj.icon}</div>
+      <div>
+        <div style="font-size:22px;font-weight:900;color:#fff">${subj.label}</div>
+        <div style="font-size:12px;color:#ffffff99">${board.icon} ${board.label} · IGCSE · ${chapters.length} chapters</div>
+      </div>
+    </div>
+    <!-- Quick actions -->
+    <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">
+      <a href="${ppLink}" target="_blank" rel="noopener"
+        style="background:#ffffff25;border:1px solid #ffffff40;border-radius:10px;padding:8px 14px;color:#fff;text-decoration:none;font-size:12px;font-weight:700;font-family:Cairo,sans-serif">
+        📄 Past Papers
+      </a>
+      <button onclick="S.screen='chat';S.subject='${subj.label} IGCSE';S.messages=[];render()"
+        style="background:#ffffff25;border:1px solid #ffffff40;border-radius:10px;padding:8px 14px;color:#fff;cursor:pointer;font-size:12px;font-weight:700;font-family:Cairo,sans-serif">
+        💬 Ask AI Tutor
+      </button>
+    </div>
+  </div>
+  <!-- Chapter List -->
+  <div style="padding:0 12px">
+    <div style="font-size:11px;color:var(--text-muted);font-weight:700;margin-bottom:12px;letter-spacing:1px">CHAPTERS & TOPICS</div>
+    ${chapterList||'<div style="text-align:center;padding:40px;color:var(--text-muted)">No chapters available for this board yet</div>'}
+  </div>
+</div>`;
+}
+
+function tplIGCSETopic() {
+  const subj = IGCSE_SUBJECTS[S.igcseSubject];
+  if (!subj) return tplIGCSEHub();
+  const board = IGCSE_BOARDS[S.igcseBoard];
+  const chapters = subj.chapters[S.igcseBoard] || [];
+  const ch = chapters[S.igcseChapter];
+  if (!ch) return tplIGCSESubject();
+  const tp = ch.topics[S.igcseTopic];
+  if (!tp) return tplIGCSESubject();
+
+  // Navigation between topics
+  const allTopics = chapters.flatMap((c,ci) => c.topics.map((_,ti) => ({ci,ti})));
+  const curIdx = allTopics.findIndex(x => x.ci===S.igcseChapter && x.ti===S.igcseTopic);
+  const prevT = allTopics[curIdx-1] || null;
+  const nextT = allTopics[curIdx+1] || null;
+
+  const tabs = ['notes','questions','papers'].map(tab => {
+    const labels = {notes:'📖 Notes', questions:'❓ Practice', papers:'📄 Past Papers'};
+    return `<button onclick="S.igcseTab='${tab}';render()"
+      style="flex:1;padding:10px 4px;border:none;cursor:pointer;font-family:Cairo,sans-serif;font-size:12px;font-weight:700;transition:.15s;border-radius:10px;
+             ${S.igcseTab===tab?`background:${subj.color};color:#fff`:'background:var(--bg);color:var(--text-muted)'}">
+      ${labels[tab]}
+    </button>`;
+  }).join('');
+
+  let tabContent = '';
+  if (S.igcseTab === 'notes') {
+    const keyPoints = tp.points.map((p,i) => `
+      <div style="display:flex;gap:12px;padding:14px 16px;background:var(--bg-card);border-radius:12px;margin-bottom:8px;border-right:4px solid ${subj.color};border:1px solid var(--border);border-right:4px solid ${subj.color}">
+        <div style="min-width:24px;height:24px;border-radius:50%;background:${subj.color};color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center">${i+1}</div>
+        <div style="font-size:13px;color:var(--text);line-height:1.7;font-family:Cairo,sans-serif">${p}</div>
+      </div>`).join('');
+    tabContent = `
+      <div style="margin-bottom:12px;padding:12px 14px;background:${subj.color}11;border-radius:12px;border:1px solid ${subj.color}33">
+        <div style="font-size:11px;color:${subj.color};font-weight:800;letter-spacing:1px">KEY REVISION POINTS</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:2px">${tp.points.length} essential points for ${board.short}</div>
+      </div>
+      ${keyPoints}
+      <button onclick="S.screen='chat';S.subject='${subj.label} IGCSE — ${tp.title}';S.messages=[{role:'user',content:'Explain ${tp.title} for IGCSE ${subj.label} in detail with examples and exam tips'},{role:'assistant',content:''}];doSend&&doSend();render()"
+        style="width:100%;margin-top:12px;padding:12px;background:var(--primary);color:#fff;border:none;border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:13px">
+        🤖 Ask AI to Explain This Topic in Detail
+      </button>`;
+  } else if (S.igcseTab === 'questions') {
+    tabContent = `
+      <div style="text-align:center;padding:30px 16px">
+        <div style="font-size:40px;margin-bottom:12px">❓</div>
+        <div style="font-size:16px;font-weight:900;color:var(--text);margin-bottom:8px">Practice Questions</div>
+        <div style="font-size:13px;color:var(--text-muted);margin-bottom:20px">Let the AI generate exam-style questions on this topic</div>
+        <button onclick="S.screen='chat';S.subject='IGCSE ${subj.label}';S.messages=[];S.messages.push({role:'user',content:'Generate 5 IGCSE-style exam questions on ${tp.title} (${subj.label}) with mark schemes. Mix short answer, data response and extended questions.'});render();setTimeout(()=>doSend&&doSend(),100)"
+          style="display:inline-block;padding:12px 28px;background:${subj.color};color:#fff;border:none;border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:13px">
+          🤖 Generate Practice Questions
+        </button>
+        <div style="margin-top:20px;padding:14px;background:var(--bg-card);border-radius:12px;border:1px solid var(--border);font-size:12px;color:var(--text-muted)">
+          💡 Tip: Practice with past papers for the most exam-relevant questions
+        </div>
+      </div>`;
+  } else {
+    const ppLink = subj.pastPapers[S.igcseBoard] || '#';
+    tabContent = `
+      <div style="text-align:center;padding:20px 16px">
+        <div style="font-size:40px;margin-bottom:12px">📄</div>
+        <div style="font-size:16px;font-weight:900;color:var(--text);margin-bottom:8px">Official Past Papers</div>
+        <div style="font-size:13px;color:var(--text-muted);margin-bottom:20px">${board.label} · ${subj.label} IGCSE</div>
+        <a href="${ppLink}" target="_blank" rel="noopener"
+          style="display:inline-block;padding:12px 28px;background:${board.color};color:#fff;border-radius:12px;text-decoration:none;font-family:Cairo,sans-serif;font-weight:700;font-size:13px">
+          📥 Open Past Papers
+        </a>
+        <div style="margin-top:16px;padding:14px;background:var(--bg-card);border-radius:12px;border:1px solid var(--border);font-size:12px;color:var(--text-muted);text-align:right">
+          <div style="font-weight:700;margin-bottom:4px">📌 Exam Tips for ${tp.title}:</div>
+          <ul style="margin:0;padding-right:16px;line-height:2">
+            <li>Look for questions using keywords: 'explain', 'describe', 'calculate', 'deduce'</li>
+            <li>Check mark scheme carefully — every mark point counts</li>
+            <li>Practice timed conditions: ~1 minute per mark</li>
+          </ul>
+        </div>
+      </div>`;
+  }
+
+  return `
+<div style="max-width:860px;margin:0 auto;padding:0 0 80px">
+  <!-- Topic Header -->
+  <div style="background:linear-gradient(135deg,${subj.color}dd,${subj.color}99);padding:18px 16px 22px;border-radius:0 0 20px 20px;margin-bottom:16px">
+    <button onclick="S.igcseTopic=null;S.igcseChapter=S.igcseChapter;render()"
+      style="background:#ffffff30;border:none;border-radius:10px;padding:5px 12px;color:#fff;cursor:pointer;font-size:12px;font-family:Cairo,sans-serif;font-weight:700;margin-bottom:12px">
+      ← ${ch.title}
+    </button>
+    <div style="font-size:19px;font-weight:900;color:#fff;margin-bottom:4px">${tp.title}</div>
+    <div style="font-size:11px;color:#ffffff99">${subj.icon} ${subj.label} · ${board.icon} ${board.short} · ${ch.title}</div>
+  </div>
+  <!-- Tabs -->
+  <div style="display:flex;gap:6px;padding:0 12px;margin-bottom:16px">${tabs}</div>
+  <!-- Tab Content -->
+  <div style="padding:0 12px">${tabContent}</div>
+  <!-- Next / Prev navigation -->
+  <div style="display:flex;gap:10px;padding:16px 12px 0;justify-content:space-between">
+    ${prevT?`<button onclick="S.igcseChapter=${prevT.ci};S.igcseTopic=${prevT.ti};render()"
+      style="padding:10px 16px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);cursor:pointer;font-size:12px;color:var(--text);font-family:Cairo,sans-serif;font-weight:700">
+      ‹ Previous Topic
+    </button>`:'<div></div>'}
+    ${nextT?`<button onclick="S.igcseChapter=${nextT.ci};S.igcseTopic=${nextT.ti};render()"
+      style="padding:10px 16px;border:1px solid ${subj.color};border-radius:10px;background:${subj.color};cursor:pointer;font-size:12px;color:#fff;font-family:Cairo,sans-serif;font-weight:700">
+      Next Topic ›
+    </button>`:'<div></div>'}
+  </div>
+</div>`;
 }
 
 function tplTextbook() {
