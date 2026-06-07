@@ -4714,6 +4714,91 @@ P(both red) = 3/5 × 1/2 = 3/10`},
           ]},
         ]},
       ],
+      oxford: [
+        { title:'Number & Calculation', icon:'🔢', topics:[
+          { title:'Number Types & Operations', points:[
+            'Oxford AQA IGCSE Maths mirrors CIE in core content but uses different past paper style',
+            'Integers, fractions, decimals, percentages — fluent conversion between all forms',
+            'HCF and LCM: use prime factor trees; HCF = shared primes product; LCM = all primes product',
+            'Indices: aⁿ × aᵐ = aⁿ⁺ᵐ; aⁿ ÷ aᵐ = aⁿ⁻ᵐ; (aⁿ)ᵐ = aⁿᵐ; a⁰ = 1; a⁻ⁿ = 1/aⁿ',
+            'Standard form: A × 10ⁿ where 1 ≤ A < 10; used for very large/small numbers',
+          ], examTips:[
+            'Oxford AQA: show ALL working — method marks awarded even if final answer wrong',
+            'Write recurring decimals clearly: 0.̄3 means 0.3333... — use dot notation',
+          ]},
+          { title:'Fractions, Ratios & Percentages', points:[
+            'Add/subtract fractions: find common denominator; multiply: straight across; divide: flip and multiply',
+            'Ratio: simplify by dividing by HCF; divide quantity in a ratio by splitting into parts',
+            'Percentage increase/decrease: multiply by (1 + r/100) or (1 − r/100)',
+            'Reverse percentage: if after 20% increase is £120, original = 120 ÷ 1.2 = £100',
+            'Compound interest: A = P(1 + r/100)ⁿ; simple interest: I = PRT/100',
+          ]},
+        ]},
+        { title:'Algebra & Functions', icon:'📐', topics:[
+          { title:'Algebraic Manipulation', points:[
+            'Expand brackets: a(b+c) = ab+ac; (a+b)(c+d) = ac+ad+bc+bd (FOIL)',
+            'Factorise: take out common factor; difference of two squares: a²−b² = (a+b)(a−b)',
+            'Factorise quadratic: ax²+bx+c; find two numbers that multiply to ac and add to b',
+            'Solving equations: use inverse operations; check answer by substituting back',
+            'Simultaneous equations: elimination (multiply to match coefficients) or substitution',
+          ]},
+          { title:'Graphs & Functions', points:[
+            'y = mx + c: m = gradient, c = y-intercept; gradient = rise/run = (y₂−y₁)/(x₂−x₁)',
+            'Quadratic graphs: parabola; y = ax²+bx+c; turning point found by completing the square',
+            'Roots of quadratic from graph: where curve crosses x-axis (y = 0)',
+            'Quadratic formula: x = (−b ± √(b²−4ac)) / 2a; discriminant b²−4ac tells number of roots',
+            'Cubic, reciprocal, exponential graphs — recognise their shapes',
+          ], workedExample:`Solve x² + 5x + 6 = 0 by factorising:
+Find two numbers that multiply to 6 and add to 5: → 2 and 3
+(x + 2)(x + 3) = 0
+x = −2 or x = −3`},
+        ]},
+        { title:'Geometry & Measures', icon:'📏', topics:[
+          { title:'Angles, Polygons & Circles', points:[
+            'Angles in triangle = 180°; quadrilateral = 360°; polygon interior sum = (n−2)×180°',
+            'Parallel lines: alternate angles equal (Z-angles); co-interior = 180°; corresponding equal (F-angles)',
+            'Circle theorems: angle at centre = twice angle at circumference; angles in same segment equal',
+            'Tangent perpendicular to radius; opposite angles in cyclic quadrilateral sum to 180°',
+            'Arc length = (θ/360) × 2πr; sector area = (θ/360) × πr²',
+          ], examTips:[
+            'Circle theorem questions: always state the theorem used by name (e.g. "angle in semicircle = 90°")',
+            'Oxford AQA: expect 2–3 circle theorem proofs or applications per paper',
+          ]},
+          { title:'Pythagoras, Trigonometry & 3D', points:[
+            'Pythagoras: a² + b² = c² (only right-angled triangles; c = hypotenuse)',
+            'SOHCAHTOA: sin = opp/hyp; cos = adj/hyp; tan = opp/adj',
+            'Sine rule: a/sinA = b/sinB = c/sinC — use when given angle-side-angle or SSA',
+            'Cosine rule: a² = b² + c² − 2bc·cosA — use when given three sides or SAS',
+            '3D problems: find slant height using Pythagoras in 2D cross-section first',
+          ]},
+          { title:'Vectors & Transformations', points:[
+            'Vector addition: add components; scalar multiplication: multiply each component',
+            'Column vector: (x, y) represents move x right and y up; magnitude = √(x²+y²)',
+            'Transformations: rotation (centre, angle, direction), reflection (mirror line), translation (vector), enlargement (centre, scale factor)',
+            'Enlargement: scale factor > 1 = bigger; 0 < k < 1 = smaller; negative k = on other side of centre',
+            'Invariant point: a point that does not move under a transformation',
+          ]},
+        ]},
+        { title:'Statistics & Probability', icon:'📊', topics:[
+          { title:'Data & Averages', points:[
+            'Mean from frequency table: Σ(fx) ÷ Σf; where f = frequency, x = midpoint (for grouped data)',
+            'Cumulative frequency graph: plot upper class boundary vs cumulative frequency',
+            'Median from cumulative frequency: read off at n/2; IQR = Q3 − Q1 (at 3n/4 and n/4)',
+            'Histograms: frequency density = frequency ÷ class width; y-axis is frequency density',
+            'Box plots: minimum, Q1, median, Q3, maximum — shows spread and skew',
+          ]},
+          { title:'Probability', points:[
+            'P(A or B) = P(A) + P(B) for mutually exclusive events',
+            'P(A and B) = P(A) × P(B) for independent events',
+            'Tree diagrams: multiply along branches (AND), add between branches (OR)',
+            'Conditional probability: P(A|B) = P(A∩B) / P(B)',
+            'Venn diagrams: use for set problems; shade required region carefully',
+          ], workedExample:`Bag: 3 red, 2 blue. Draw 2 without replacement. P(both red)?
+P(1st red) = 3/5
+P(2nd red | 1st red) = 2/4 = 1/2
+P(both red) = 3/5 × 1/2 = 3/10`},
+        ]},
+      ],
     }
   },
   physics: {
@@ -5625,6 +5710,95 @@ Magnification = image ÷ actual = 0.1 ÷ 0.01 = ×10`},
             'Antibiotic resistance: mutations produce resistant bacteria; selection favours them → population becomes resistant',
             'Edexcel: includes classification — Kingdom, Phylum, Class, Order, Family, Genus, Species (KPCOFGS)',
             'Biodiversity: measured by number of species and individuals; high biodiversity = ecosystem stability',
+          ]},
+        ]},
+      ],
+      oxford: [
+        { title:'Cell Biology', icon:'🔬', topics:[
+          { title:'Cell Structure & Microscopy', points:[
+            'Animal cell: cell membrane, cytoplasm, nucleus, mitochondria, ribosomes',
+            'Plant cell: above + cell wall (cellulose), chloroplasts, vacuole (large, permanent)',
+            'Prokaryotic cell (bacteria): no nucleus, smaller, has plasmid, cell wall (peptidoglycan)',
+            'Light microscope: max ×2000 magnification; electron microscope: ×1,000,000; shows ultrastructure',
+            'Magnification = image size ÷ actual size; actual size = image size ÷ magnification',
+          ], examTips:[
+            'Oxford AQA: always label diagrams fully — missing label loses marks even if drawing is correct',
+            'Scale bar questions: use the scale bar to calculate actual size, not ruler estimates',
+          ]},
+          { title:'Diffusion, Osmosis & Active Transport', points:[
+            'Diffusion: net movement of particles from high to low concentration; no energy required',
+            'Osmosis: diffusion of water through a partially permeable membrane; from dilute to concentrated solution',
+            'Active transport: movement against concentration gradient; requires energy (ATP) and carrier proteins',
+            'Factors affecting diffusion rate: surface area, concentration gradient, distance, temperature',
+            'Turgor: plant cells in dilute solution → water enters → cell swells → turgor pressure supports plant',
+          ], workedExample:`Osmosis experiment: potato cylinders in different sucrose solutions.
+In distilled water (0%): potato gains mass (water enters by osmosis)
+In concentrated sucrose (20%): potato loses mass (water leaves by osmosis)
+At isotonic point: no change in mass (same concentration inside and outside)`},
+        ]},
+        { title:'Biological Molecules & Nutrition', icon:'🧪', topics:[
+          { title:'Biological Molecules', points:[
+            'Carbohydrates: glucose (C₆H₁₂O₆), starch, glycogen, cellulose — all contain C, H, O',
+            'Proteins: made of amino acids linked by peptide bonds; contain C, H, O, N (and S)',
+            'Lipids (fats/oils): glycerol + 3 fatty acids; less oxygen than carbohydrates; high energy store',
+            'DNA: double helix; deoxyribose sugar, phosphate, base (A-T, C-G); stores genetic information',
+            'Enzymes: biological catalysts; lower activation energy; specific to substrate (lock and key)',
+          ], examTips:[
+            'Food tests: starch → iodine (blue-black); glucose → Benedict\'s (brick-red precipitate); protein → Biuret (purple); fat → ethanol emulsion (milky white)',
+            'Always state the positive result colour change, not just "changes colour"',
+          ]},
+          { title:'Digestion & Enzymes', points:[
+            'Digestion: breaking large insoluble molecules into small soluble ones for absorption',
+            'Amylase (mouth/pancreas): starch → maltose; Protease (stomach/pancreas): proteins → amino acids',
+            'Lipase (pancreas): lipids → glycerol + fatty acids; Bile (liver/stored in gall bladder): emulsifies fats',
+            'Optimum pH: pepsin (stomach) = pH 2; amylase (mouth) = pH 7; trypsin (small intestine) = pH 8',
+            'Small intestine: villi increase surface area; thin walls; good blood supply for absorption',
+          ]},
+        ]},
+        { title:'Plants & Ecosystems', icon:'🌿', topics:[
+          { title:'Photosynthesis & Respiration', points:[
+            'Photosynthesis: 6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂ (light energy, chlorophyll)',
+            'Aerobic respiration: C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O + energy (ATP)',
+            'Anaerobic respiration (plants/yeast): glucose → ethanol + CO₂ (fermentation)',
+            'Anaerobic respiration (animals): glucose → lactic acid; causes muscle fatigue',
+            'Limiting factors for photosynthesis: light intensity, CO₂ concentration, temperature',
+          ], examTips:[
+            'Graph questions: at high light intensity, CO₂ becomes the limiting factor — look for plateau',
+            'Compensation point: rate of photosynthesis = rate of respiration (no net gas exchange)',
+          ]},
+          { title:'Ecology & Ecosystems', points:[
+            'Ecosystem: all living organisms (biotic) + non-living environment (abiotic) in an area',
+            'Food chain shows energy flow; food web shows more realistic feeding relationships',
+            'Trophic levels: producer → primary consumer → secondary consumer → tertiary consumer',
+            'Only ~10% energy transfers between levels; rest lost as heat and in waste',
+            'Carbon cycle: photosynthesis fixes CO₂; respiration, combustion, decomposition releases it',
+            'Nitrogen cycle: nitrogen fixing bacteria, nitrifying bacteria, denitrifying bacteria, decomposers',
+          ], workedExample:`Pyramid of biomass:
+Oak tree (producer): 10,000 kg
+Caterpillars (primary consumer): 1,000 kg
+Blue tits (secondary consumer): 100 kg
+Sparrowhawk (tertiary): 10 kg
+Energy lost at each level = ~90% (heat + faeces + uneaten parts)`},
+        ]},
+        { title:'Human Biology & Health', icon:'❤️', topics:[
+          { title:'The Heart & Circulatory System', points:[
+            'Double circulatory system: pulmonary (heart ↔ lungs) + systemic (heart ↔ body)',
+            'Right side: deoxygenated blood → lungs; Left side: oxygenated blood → body',
+            'Heart valves: prevent backflow; bicuspid (left), tricuspid (right), semilunar (arteries)',
+            'Arteries: thick muscular walls, carry blood away from heart, high pressure',
+            'Veins: thin walls, carry blood to heart, valves to prevent backflow, low pressure',
+            'Capillaries: one cell thick, exchange of gases/nutrients/waste with cells',
+          ]},
+          { title:'Genetics & Inheritance', points:[
+            'DNA → gene (section of DNA) → allele (version of gene)',
+            'Dominant allele expressed when present; recessive only expressed when homozygous recessive',
+            'Genotype: actual allele combination (e.g. Bb); Phenotype: physical appearance (e.g. brown eyes)',
+            'Monohybrid cross: use Punnett square; probabilities for offspring genotypes',
+            'Sex determination: XX = female; XY = male; 50% probability of each sex',
+            'Genetic disorders: cystic fibrosis (recessive), Huntington\'s (dominant)',
+          ], examTips:[
+            'Always draw a Punnett square — even if asked to "describe" inheritance',
+            'Oxford AQA: expect application questions — given unusual organisms, apply the same rules',
           ]},
         ]},
       ],
@@ -7939,6 +8113,93 @@ Analysis: The dynamic verbs "licking", "slung", "swung" and the onomatopoeic "jo
           ]},
         ]},
       ],
+      edexcel: [
+        { title:'Poetry (Edexcel Anthology)', icon:'🎵', topics:[
+          { title:'Edexcel Poetry Anthology', points:[
+            'Edexcel IGCSE Literature: students study a set anthology of poems; themes grouped by the board',
+            'Exam: compare two poems — one named, one of your choice from anthology',
+            'Or: respond to an unseen poem and compare to a studied anthology poem',
+            'Key skills: identify theme, voice (who is speaking?), tone, structure, imagery, sound devices',
+            'Comparative vocabulary: "Both poets...", "Unlike X, Y...", "Similarly...", "In contrast..."',
+          ], examTips:[
+            'Edexcel poetry: always write about BOTH poems equally — marks are split evenly',
+            'Don\'t just list techniques — analyse why the poet made that choice and what effect it creates',
+            'Structure: a strong thesis in intro ("Both poems explore loss, but through contrasting tones") — sets up whole essay',
+          ]},
+          { title:'Analysing Poetic Techniques', points:[
+            'Imagery: simile, metaphor, personification — what does it make the reader picture/feel?',
+            'Sound: alliteration (same consonant sounds), assonance (same vowel sounds), onomatopoeia',
+            'Rhythm and metre: regular rhythm = control/order; irregular = chaos/emotion; iambic pentameter = natural speech',
+            'Form: sonnet (14 lines, turns at volta), free verse (no set form), ballad (storytelling)',
+            'Enjambment: line runs on without pause — creates urgency or breathlessness; end-stopped = finality',
+          ], workedExample:`Line: "The trees are coming into leaf / Like something almost being said"
+Technique: simile ("like something almost being said")
+Effect: Philip Larkin compares spring growth to speech not quite spoken — creates a sense of hesitancy and unfulfilled promise. The vague "something" suggests the speaker cannot articulate the feeling spring evokes, conveying both wonder and melancholy.`},
+        ]},
+        { title:'Prose (Edexcel Texts)', icon:'📖', topics:[
+          { title:'Prose Analysis', points:[
+            'Edexcel prose: extract-based question + whole-text essay question',
+            'Extract question: close analysis of language, structure, and effect in 2–3 paragraphs',
+            'Whole-text question: argue a thesis about the whole novel using evidence from across the text',
+            'Character analysis: how is the character presented through action, speech, what others say, narrative voice?',
+            'Common Edexcel texts: Of Mice and Men, Lord of the Flies, A Raisin in the Sun, Never Let Me Go',
+          ], examTips:[
+            'Of Mice and Men: themes = friendship, dreams vs reality, loneliness, power/powerlessness',
+            'Lord of the Flies: themes = civilization vs savagery, power, loss of innocence, nature of evil',
+            'Always link to the writer\'s purpose: "Steinbeck uses Candy to show the vulnerability of the powerless..."',
+          ]},
+          { title:'Drama — Shakespeare', points:[
+            'Edexcel requires study of one Shakespeare play',
+            'Common choices: Macbeth, Romeo and Juliet, The Merchant of Venice, A Midsummer Night\'s Dream',
+            'Analyse: language (imagery, rhetoric), character motivation, theme, dramatic technique',
+            'Theatrical context: plays were performed outdoors, standing groundlings (cheap), limited staging',
+            'Soliloquy: reveals character\'s true thoughts directly to audience — contrast with what they say to others',
+          ], workedExample:`Essay thesis (Macbeth):
+"Shakespeare presents Macbeth as a man destroyed by ambition, but it is Lady Macbeth who initially represents the more calculating evil — suggesting that guilt ultimately affects those with conscience more than those without."
+This thesis establishes a comparison (Macbeth vs Lady Macbeth) and makes an argument about guilt — it can be developed across the whole essay.`},
+        ]},
+        { title:'Exam Technique (Edexcel Literature)', icon:'✍️', topics:[
+          { title:'Essay Writing for Edexcel', points:[
+            'Introduction: state your argument clearly in 2–3 sentences; do not retell plot',
+            'Body paragraphs: P (point/argument) → E (evidence/quote) → E (explain effect) → L (link back to question)',
+            'Quotations: embed short quotes in sentences; longer quotes should be indented and then analysed',
+            'Develop points: go beyond surface meaning — what does the writer want the reader to think/feel?',
+            'Conclusion: summarise argument, do NOT introduce new points; restate thesis with fresh phrasing',
+          ], examTips:[
+            'Edexcel Literature grade boundary tip: the difference between grade 7 and grade 9 is sustained critical argument vs list of techniques',
+            'Time plan: read question (2 min) → plan (5 min) → write (40 min) → check (3 min)',
+            'Never write "I liked this poem because..." — write analytically, not personally',
+          ]},
+        ]},
+      ],
+      oxford: [
+        { title:'Oxford AQA Literature', icon:'🏛️', topics:[
+          { title:'Oxford AQA Literature Overview', points:[
+            'Oxford AQA IGCSE Literature: prose, poetry, drama — studied texts and unseen extracts',
+            'Assessment: closed book — must know key quotes by heart; plan ahead which quotes to memorise',
+            'AO1: respond personally and critically to texts; AO2: analyse language, structure, form',
+            'AO3: relate texts to their contexts (historical, social, literary); AO4: compare texts',
+            'Unseen extract: apply same close reading skills to unfamiliar text — annotate before writing',
+          ], examTips:[
+            'Oxford AQA: "compare" questions are worth many marks — make comparisons explicit and sustained, not superficial',
+            'Memorise 10–12 key quotes per text; learn them with analysis ready to deploy in exam',
+          ]},
+          { title:'Unseen Text Skills', points:[
+            'Before writing: read twice; annotate (circle techniques, note tone, underline key words)',
+            'First impression: what is this text about? What is the tone? What effect does it create?',
+            'Identify the speaker/narrator: first person (personal, subjective), third person (detached/omniscient)',
+            'Track shifts: where does the tone, mood, or focus change? — often the key structural moment',
+            'Always analyse, not just identify: "The writer uses repetition of \'never\'" is worth less than adding the effect',
+          ]},
+          { title:'Studied Text Essay Skills', points:[
+            'Memorised quote strategy: learn quotes in thematic clusters, not in plot order',
+            'Argue, don\'t describe: "In chapter 3..." (description); "Throughout the novel, X is presented as..." (argument)',
+            'Vary your vocabulary: conveys, implies, suggests, reveals, contrasts, juxtaposes, emphasises, challenges',
+            'Paragraphing: clear topic sentences at the start of each paragraph; conclusion at start not after evidence',
+            'AO3 context integration: reference context once per paragraph maximum — it supports analysis, not replaces it',
+          ]},
+        ]},
+      ],
     }
   },
   french: {
@@ -8037,6 +8298,70 @@ Better: Ce weekend, je vais aller au cinéma avec mes amis. Hier, j'ai regardé 
           ], examTips:[
             'Past participle agreement with être verbs is a common mark-losing error — always check gender/number',
             'ne...pas wraps around auxiliary in compound tenses: je n\'ai PAS mangé; elle n\'est PAS allée',
+          ]},
+        ]},
+      ],
+      edexcel: [
+        { title:'Edexcel French — Core Grammar', icon:'📝', topics:[
+          { title:'Tenses (Edexcel Focus)', points:[
+            'Present tense: used for habits, current actions, and general truths',
+            'Near future (futur proche): aller + infinitive — je vais manger, nous allons partir',
+            'Future simple: stem + endings (-ai, -as, -a, -ons, -ez, -ont) — je mangerai, il finira',
+            'Conditional: stem + imperfect endings — je mangerais, il ferait (I would eat, he would do)',
+            'Imperfect vs passé composé: imperfect = continuous/habitual past; PC = completed event',
+          ], examTips:[
+            'Edexcel writing tasks: examiners reward use of THREE tenses — past, present, future — for higher marks',
+            'Irregular future stems: aller → ir-, avoir → aur-, être → ser-, faire → fer-, vouloir → voudr-',
+          ]},
+          { title:'Edexcel Key Themes & Vocabulary', points:[
+            'Edexcel IGCSE French themes: Identity & Culture, Local Area & Global Dimension, Current & Future Study/Employment',
+            'My life, family, friendships: ma famille, mes amis, mes passe-temps, les relations',
+            'Technology & social media: les réseaux sociaux, Internet, les portables, les avantages/inconvénients',
+            'Environment: l\'environnement, le réchauffement climatique, le recyclage, protéger la planète',
+            'Travel & tourism: les vacances, les transports, l\'hôtel, les attractions touristiques',
+          ]},
+          { title:'Expressing Opinions', points:[
+            'Je pense que... / Je crois que... / À mon avis... / Selon moi... (In my opinion)',
+            'C\'est + adjective: c\'est génial (it\'s great), c\'est nul (it\'s rubbish), c\'est important',
+            'Je préfère... parce que / J\'aime mieux... / Je trouve que... (I find that...)',
+            'Intensifiers: très (very), assez (quite), trop (too), vraiment (really), plutôt (rather)',
+            'Connectives for writing: cependant (however), de plus (furthermore), néanmoins (nevertheless), pourtant (yet)',
+          ]},
+        ]},
+        { title:'Edexcel French — Skills', icon:'🎧', topics:[
+          { title:'Listening & Reading Skills', points:[
+            'Edexcel Listening Paper: multiple choice, gap-fill, short answer — listen for gist and detail',
+            'Cognates: French words similar to English (l\'hôpital, le restaurant, l\'information) — use them!',
+            'Faux amis (false friends): sympathique ≠ sympathetic (it means nice/friendly); actuellement ≠ actually (it means currently)',
+            'Reading: skim for gist first; scan for specific information; pay attention to negatives (ne...pas, ne...jamais)',
+            'Question words: Qui (who), Quand (when), Où (where), Pourquoi (why), Comment (how), Combien (how many)',
+          ], examTips:[
+            'Edexcel reading: be careful with negatives in answers — "Il ne mange jamais de viande" means he NEVER eats meat',
+            'Listening: numbers, times, and dates are frequently tested — practise these specifically',
+          ]},
+          { title:'Writing & Speaking', points:[
+            'Edexcel writing tasks: photo card (describe, answer questions), role play, translation',
+            'Photo card strategy: describe what you see → extend with opinion → link to theme',
+            'Translation into French: highest marks — must be grammatically accurate; check agreements',
+            'Speaking: use full sentences; avoid one-word answers; use connectives and opinions',
+            'Spontaneous questions in speaking exam: prepare 3–4 opinions on each theme topic',
+          ], workedExample:`Edexcel writing task prompt: "Write about your town for a visitor. Include what there is to do and what you think of it."
+Mon quartier s'appelle Nottingham. C'est une grande ville dans le centre de l'Angleterre.
+Il y a beaucoup de choses à faire — par exemple, on peut visiter des musées, faire du shopping et aller au cinéma.
+À mon avis, ma ville est assez animée mais il y a trop de circulation. Cependant, les transports en commun sont excellents.
+[Uses: present tense, opinion phrases, intensifiers, connective, adjective agreement]`},
+        ]},
+        { title:'Edexcel French — Exam Paper Structure', icon:'📋', topics:[
+          { title:'Paper Overview', points:[
+            'Paper 1: Listening (35 mins + 5 reading time) — 50 marks',
+            'Paper 2: Reading & Writing (1hr 45mins) — 90 marks: reading (50) + writing (40)',
+            'Paper 3: Speaking (8–11 mins) — 60 marks: role play + photo card + general conversation',
+            'Foundation tier: grades 1–5; Higher tier: grades 4–9; can sit different tiers per paper',
+            'Translation tasks (English to French and French to English) are in Paper 2',
+          ], examTips:[
+            'Edexcel speaking role play: you get a task card with 5 prompts — one will be a "!" (unexpected question) — prepare to improvise',
+            'General conversation in speaking: give extended answers — aim for 3–4 sentences per answer',
+            'Photo card: describe what you see, say what might happen next, give your opinion with reason',
           ]},
         ]},
       ],
