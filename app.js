@@ -38,6 +38,8 @@ let S = {
   igcseChapter: null,
   igcseTopic: null,
   igcseTab: 'notes',
+  igcseSearch: '',
+  igcseDone: {},   // { 'subj-ci-ti': true } — completed topics
 };
 let _pomTimer = null;
 
@@ -6284,51 +6286,110 @@ function tplIGCSE() {
 
 function tplIGCSEHub() {
   const board = IGCSE_BOARDS[S.igcseBoard];
-  const boardTabs = Object.entries(IGCSE_BOARDS).map(([k,b]) => `
-    <button onclick="S.igcseBoard='${k}';render()"
-      style="padding:8px 18px;border-radius:20px;border:none;cursor:pointer;font-family:Cairo,sans-serif;font-size:13px;font-weight:700;transition:.2s;
-             ${S.igcseBoard===k?`background:${b.color};color:#fff;box-shadow:0 2px 12px ${b.color}55`:'background:var(--bg);color:var(--text-muted);border:1px solid var(--border)'}">
-      ${b.icon} ${b.short}
-    </button>`).join('');
-  const subjectCards = Object.entries(IGCSE_SUBJECTS)
-    .filter(([,subj]) => subj.boards.includes(S.igcseBoard))
-    .map(([k,subj]) => `
-    <div onclick="S.igcseSubject='${k}';S.igcseChapter=null;S.igcseTopic=null;render()"
-      style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:24px 16px;cursor:pointer;text-align:center;
-             transition:.2s;border-top:4px solid ${subj.color};"
-      onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px ${subj.color}33'"
-      onmouseout="this.style.transform='';this.style.boxShadow=''">
-      <div style="font-size:36px;margin-bottom:8px">${subj.icon}</div>
-      <div style="font-size:14px;font-weight:900;color:var(--text)">${subj.label}</div>
-      <div style="font-size:11px;color:var(--text-muted);margin-top:2px">${subj.arabic}</div>
-      <div style="margin-top:10px;font-size:10px;background:${subj.color}22;color:${subj.color};padding:3px 10px;border-radius:20px;display:inline-block;font-weight:700">
-        ${(subj.chapters[S.igcseBoard]||[]).length} chapters
+  const q = (S.igcseSearch||'').toLowerCase().trim();
+
+  // Stats
+  const allSubjects = Object.values(IGCSE_SUBJECTS);
+  const totalTopics = allSubjects.reduce((a,s)=>a+((s.chapters.cie||[]).reduce((b,c)=>b+c.topics.length,0)),0);
+  const doneCnt = Object.keys(S.igcseDone||{}).length;
+
+  // Board cards
+  const boardCards = Object.entries(IGCSE_BOARDS).map(([k,b]) => {
+    const active = S.igcseBoard === k;
+    const cnt = Object.values(IGCSE_SUBJECTS).filter(s=>s.boards.includes(k)).length;
+    return `
+    <div onclick="S.igcseBoard='${k}';S.igcseSearch='';render()"
+      style="flex:1;min-width:100px;padding:14px 10px;border-radius:16px;cursor:pointer;text-align:center;transition:.2s;
+             ${active?`background:${b.color};box-shadow:0 4px 20px ${b.color}55;`:'background:var(--bg-card);border:2px solid var(--border);'}">
+      <div style="font-size:22px;margin-bottom:4px">${b.icon}</div>
+      <div style="font-size:12px;font-weight:900;color:${active?'#fff':'var(--text)'}">${b.short}</div>
+      <div style="font-size:10px;color:${active?'#ffffff99':'var(--text-muted)'};margin-top:2px">${cnt} subjects</div>
+    </div>`;
+  }).join('');
+
+  // Subject cards with search filter
+  const filtered = Object.entries(IGCSE_SUBJECTS)
+    .filter(([,s]) => s.boards.includes(S.igcseBoard))
+    .filter(([,s]) => !q || s.label.toLowerCase().includes(q) || s.arabic.includes(q));
+
+  const subjectCards = filtered.map(([k,subj]) => {
+    const chapters = subj.chapters[S.igcseBoard]||[];
+    const topicCount = chapters.reduce((a,c)=>a+c.topics.length,0);
+    const doneCount = chapters.reduce((a,c,ci)=>a+c.topics.filter((_,ti)=>S.igcseDone[`${k}-${ci}-${ti}`]).length,0);
+    const pct = topicCount ? Math.round(doneCount/topicCount*100) : 0;
+    return `
+    <div onclick="S.igcseSubject='${k}';S.igcseChapter=null;S.igcseTopic=null;S.igcseSearch='';render()"
+      style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:18px 14px 14px;cursor:pointer;
+             transition:.2s;position:relative;overflow:hidden;"
+      onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px ${subj.color}30';this.style.borderColor='${subj.color}'"
+      onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor=''">
+      <!-- top color bar -->
+      <div style="position:absolute;top:0;left:0;right:0;height:4px;background:${subj.color}"></div>
+      <div style="font-size:32px;margin-bottom:8px">${subj.icon}</div>
+      <div style="font-size:13px;font-weight:900;color:var(--text);line-height:1.3">${subj.label}</div>
+      <div style="font-size:10px;color:var(--text-muted);margin-top:2px">${subj.arabic}</div>
+      <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:10px;background:${subj.color}18;color:${subj.color};padding:2px 8px;border-radius:20px;font-weight:700">${topicCount} topics</span>
+        ${pct>0?`<span style="font-size:10px;color:#10B981;font-weight:700">${pct}% ✓</span>`:''}
       </div>
-    </div>`).join('');
+      ${pct>0?`<div style="margin-top:8px;height:3px;background:var(--border);border-radius:2px"><div style="height:100%;width:${pct}%;background:#10B981;border-radius:2px;transition:.4s"></div></div>`:''}
+    </div>`;
+  }).join('');
+
   return `
-<div style="max-width:900px;margin:0 auto;padding:0 0 80px">
+<div style="max-width:920px;margin:0 auto;padding:0 0 80px">
   <!-- Hero Header -->
-  <div style="background:linear-gradient(135deg,${board.color},${board.accent});border-radius:0 0 24px 24px;padding:28px 20px 32px;margin-bottom:24px;text-align:center;position:relative;overflow:hidden">
-    <div style="position:absolute;inset:0;opacity:.08;background:repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 50%);background-size:20px 20px"></div>
+  <div style="background:linear-gradient(135deg,${board.color} 0%,${board.accent} 100%);padding:24px 20px 28px;border-radius:0 0 28px 28px;margin-bottom:20px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:-30px;right:-30px;width:160px;height:160px;border-radius:50%;background:#ffffff0d"></div>
+    <div style="position:absolute;bottom:-40px;left:-20px;width:120px;height:120px;border-radius:50%;background:#ffffff08"></div>
     <div style="position:relative;z-index:1">
-      <div style="font-size:13px;color:#ffffff99;font-weight:700;letter-spacing:2px;margin-bottom:6px">REVISION PLATFORM</div>
-      <div style="font-size:28px;font-weight:900;color:#fff;margin-bottom:4px">🎓 IGCSE Hub</div>
-      <div style="font-size:13px;color:#ffffffcc">Notes · Past Papers · Practice Questions · ${board.label}</div>
+      <div style="display:inline-block;background:#ffffff20;border-radius:20px;padding:3px 12px;font-size:10px;color:#ffffffcc;font-weight:800;letter-spacing:2px;margin-bottom:10px">IGCSE REVISION PLATFORM</div>
+      <div style="font-size:26px;font-weight:900;color:#fff;margin-bottom:6px">🎓 IGCSE Hub</div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <div style="text-align:center"><div style="font-size:20px;font-weight:900;color:#fff">${Object.keys(IGCSE_SUBJECTS).length}</div><div style="font-size:10px;color:#ffffffaa">Subjects</div></div>
+        <div style="width:1px;background:#ffffff30"></div>
+        <div style="text-align:center"><div style="font-size:20px;font-weight:900;color:#fff">${totalTopics}+</div><div style="font-size:10px;color:#ffffffaa">Topics</div></div>
+        <div style="width:1px;background:#ffffff30"></div>
+        <div style="text-align:center"><div style="font-size:20px;font-weight:900;color:#fff">${doneCnt}</div><div style="font-size:10px;color:#ffffffaa">Done ✓</div></div>
+        <div style="width:1px;background:#ffffff30"></div>
+        <div style="text-align:center"><div style="font-size:20px;font-weight:900;color:#fff">3</div><div style="font-size:10px;color:#ffffffaa">Boards</div></div>
+      </div>
     </div>
   </div>
+
   <!-- Board Selector -->
-  <div style="padding:0 16px;margin-bottom:20px">
-    <div style="font-size:11px;color:var(--text-muted);font-weight:700;margin-bottom:10px;letter-spacing:1px">SELECT EXAM BOARD</div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">${boardTabs}</div>
+  <div style="padding:0 14px;margin-bottom:18px">
+    <div style="font-size:10px;color:var(--text-muted);font-weight:800;letter-spacing:1.5px;margin-bottom:10px">EXAM BOARD</div>
+    <div style="display:flex;gap:10px">${boardCards}</div>
   </div>
+
+  <!-- Search -->
+  <div style="padding:0 14px;margin-bottom:16px">
+    <div style="position:relative">
+      <input id="igcse-search" type="text" placeholder="Search subjects..." value="${S.igcseSearch||''}"
+        oninput="S.igcseSearch=this.value;render()"
+        style="width:100%;padding:10px 16px 10px 40px;border-radius:12px;border:1px solid var(--border);background:var(--bg-card);color:var(--text);font-size:13px;font-family:Cairo,sans-serif;box-sizing:border-box;outline:none">
+      <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none">🔍</span>
+      ${q?`<button onclick="S.igcseSearch='';render()" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:var(--text-muted)">✕</button>`:''}
+    </div>
+  </div>
+
   <!-- Subject Grid -->
-  <div style="padding:0 16px">
-    <div style="font-size:11px;color:var(--text-muted);font-weight:700;margin-bottom:12px;letter-spacing:1px">CHOOSE A SUBJECT</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px">${subjectCards}</div>
+  <div style="padding:0 14px">
+    <div style="font-size:10px;color:var(--text-muted);font-weight:800;letter-spacing:1.5px;margin-bottom:12px">
+      ${q?`Results for "${q}" — ${filtered.length} subject(s)`:`ALL SUBJECTS · ${filtered.length} available`}
+    </div>
+    ${filtered.length?`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:12px">${subjectCards}</div>`
+      :`<div style="text-align:center;padding:40px;color:var(--text-muted)">No subjects found for "${q}"</div>`}
   </div>
-  <!-- Footer note -->
-  <div style="margin:28px 16px 0;padding:14px 16px;background:var(--bg-card);border-radius:12px;border:1px solid var(--border);text-align:center;font-size:12px;color:var(--text-muted)">
-    📖 Revision notes follow official syllabuses · Use the AI chat for deeper explanations
+
+  <!-- Footer -->
+  <div style="margin:24px 14px 0;padding:14px 16px;background:var(--bg-card);border-radius:14px;border:1px solid var(--border);display:flex;align-items:center;gap:12px">
+    <div style="font-size:28px">💡</div>
+    <div>
+      <div style="font-size:12px;font-weight:800;color:var(--text)">How to use this platform</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Pick a subject → choose a chapter → study key points → practice with AI questions → check past papers</div>
+    </div>
   </div>
 </div>`;
 }
@@ -6338,64 +6399,99 @@ function tplIGCSESubject() {
   if (!subj) return tplIGCSEHub();
   const board = IGCSE_BOARDS[S.igcseBoard];
   const chapters = subj.chapters[S.igcseBoard] || [];
+  const totalTopics = chapters.reduce((a,c)=>a+c.topics.length,0);
+  const doneTopics = chapters.reduce((a,c,ci)=>a+c.topics.filter((_,ti)=>S.igcseDone[`${S.igcseSubject}-${ci}-${ti}`]).length,0);
+  const pct = totalTopics ? Math.round(doneTopics/totalTopics*100) : 0;
+
   const chapterList = chapters.map((ch, ci) => {
     const isOpen = S.igcseChapter === ci;
-    const topicItems = ch.topics.map((tp, ti) => `
-      <div onclick="S.igcseChapter=${ci};S.igcseTopic=${ti};S.igcseTab='notes';render()"
-        style="padding:10px 16px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:.15s;margin-bottom:4px;border:1px solid transparent"
-        onmouseover="this.style.background='${subj.color}11';this.style.borderColor='${subj.color}33'"
-        onmouseout="this.style.background='';this.style.borderColor='transparent'">
-        <span style="font-size:16px">📖</span>
-        <span style="font-size:13px;font-weight:600;color:var(--text)">${tp.title}</span>
-        <span style="margin-right:auto;font-size:10px;color:var(--text-muted)">${tp.points.length} key points</span>
-        <span style="font-size:12px;color:${subj.color};font-weight:700">›</span>
-      </div>`).join('');
-    return `
-    <div style="border:1px solid var(--border);border-radius:14px;margin-bottom:10px;overflow:hidden">
-      <div onclick="S.igcseChapter=${isOpen?'null':ci};render()"
-        style="padding:14px 16px;cursor:pointer;display:flex;align-items:center;gap:12px;background:${isOpen?`${subj.color}11`:'var(--bg-card)'};transition:.15s">
-        <span style="font-size:20px">${ch.icon||'📘'}</span>
-        <div style="flex:1">
-          <div style="font-size:14px;font-weight:800;color:var(--text)">${ch.title}</div>
-          <div style="font-size:11px;color:var(--text-muted)">${ch.topics.length} topics</div>
+    const chDone = ch.topics.filter((_,ti)=>S.igcseDone[`${S.igcseSubject}-${ci}-${ti}`]).length;
+    const topicItems = ch.topics.map((tp, ti) => {
+      const done = !!S.igcseDone[`${S.igcseSubject}-${ci}-${ti}`];
+      return `
+      <div style="display:flex;align-items:center;gap:0;margin-bottom:4px">
+        <div onclick="S.igcseChapter=${ci};S.igcseTopic=${ti};S.igcseTab='notes';render()"
+          style="flex:1;padding:10px 14px;border-radius:10px 0 0 10px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:.15s;
+                 background:${done?'#10B98108':'transparent'};border:1px solid ${done?'#10B98130':'var(--border)'};border-right:none"
+          onmouseover="this.style.background='${subj.color}11';this.style.borderColor='${subj.color}44'"
+          onmouseout="this.style.background='${done?'#10B98108':'transparent'}';this.style.borderColor='${done?'#10B98130':'var(--border)'}'">
+          <span style="font-size:14px">${done?'✅':'📖'}</span>
+          <span style="font-size:13px;font-weight:${done?'600':'500'};color:${done?'#10B981':'var(--text)'};text-decoration:${done?'none':'none'}">${tp.title}</span>
+          <span style="margin-right:auto;font-size:10px;color:var(--text-muted)">${tp.points.length} pts</span>
+          <span style="font-size:11px;color:${subj.color}">›</span>
         </div>
-        <span style="font-size:18px;color:var(--text-muted);transition:.2s;transform:${isOpen?'rotate(90deg)':'rotate(0deg)'}">>
-        </span>
+        <button onclick="S.igcseDone=S.igcseDone||{};S.igcseDone['${S.igcseSubject}-${ci}-${ti}']=!S.igcseDone['${S.igcseSubject}-${ci}-${ti}'];if(!S.igcseDone['${S.igcseSubject}-${ci}-${ti}'])delete S.igcseDone['${S.igcseSubject}-${ci}-${ti}'];render()"
+          title="${done?'Mark as not done':'Mark as done'}"
+          style="padding:10px 10px;border-radius:0 10px 10px 0;border:1px solid ${done?'#10B98130':'var(--border)'};border-left:none;
+                 background:${done?'#10B98115':'var(--bg-card)'};cursor:pointer;font-size:14px;transition:.15s">
+          ${done?'✓':'○'}
+        </button>
+      </div>`;
+    }).join('');
+    return `
+    <div style="border:1px solid var(--border);border-radius:16px;margin-bottom:10px;overflow:hidden;transition:.15s">
+      <div onclick="S.igcseChapter=${isOpen?'null':ci};render()"
+        style="padding:14px 16px;cursor:pointer;display:flex;align-items:center;gap:12px;
+               background:${isOpen?`${subj.color}0f`:'var(--bg-card)'};transition:.15s">
+        <div style="width:36px;height:36px;border-radius:10px;background:${subj.color}20;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">${ch.icon||'📘'}</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:13px;font-weight:800;color:var(--text)">${ch.title}</div>
+          <div style="font-size:10px;color:var(--text-muted);margin-top:1px">${ch.topics.length} topics${chDone>0?` · ${chDone} done ✓`:''}</div>
+          ${chDone>0?`<div style="margin-top:5px;height:2px;background:var(--border);border-radius:1px"><div style="height:100%;width:${Math.round(chDone/ch.topics.length*100)}%;background:#10B981;border-radius:1px"></div></div>`:''}
+        </div>
+        <span style="font-size:16px;color:var(--text-muted);transition:transform .2s;transform:${isOpen?'rotate(90deg)':'rotate(0deg)'};display:inline-block">›</span>
       </div>
-      ${isOpen?`<div style="padding:8px 12px 12px;background:var(--bg)">${topicItems}</div>`:''}
+      ${isOpen?`<div style="padding:8px 12px 12px;background:var(--bg);border-top:1px solid var(--border)">${topicItems}</div>`:''}
     </div>`;
   }).join('');
+
   const ppLink = subj.pastPapers[S.igcseBoard] || '#';
   return `
-<div style="max-width:860px;margin:0 auto;padding:0 0 80px">
+<div style="max-width:880px;margin:0 auto;padding:0 0 80px">
   <!-- Subject Header -->
-  <div style="background:linear-gradient(135deg,${subj.color},${subj.color}cc);padding:22px 16px 28px;border-radius:0 0 20px 20px;margin-bottom:20px">
+  <div style="background:linear-gradient(135deg,${subj.color},${subj.color}bb);padding:20px 16px 24px;border-radius:0 0 24px 24px;margin-bottom:18px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:-20px;right:-20px;width:100px;height:100px;border-radius:50%;background:#ffffff0d"></div>
     <button onclick="S.igcseSubject=null;S.igcseChapter=null;S.igcseTopic=null;render()"
-      style="background:#ffffff30;border:none;border-radius:10px;padding:6px 14px;color:#fff;cursor:pointer;font-size:12px;font-family:Cairo,sans-serif;font-weight:700;margin-bottom:16px">
-      ← Back to Subjects
+      style="background:#ffffff25;border:1px solid #ffffff35;border-radius:10px;padding:5px 12px;color:#fff;cursor:pointer;font-size:11px;font-family:Cairo,sans-serif;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:6px">
+      ← All Subjects
     </button>
-    <div style="display:flex;align-items:center;gap:16px">
-      <div style="font-size:44px">${subj.icon}</div>
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
+      <div style="width:56px;height:56px;border-radius:16px;background:#ffffff25;display:flex;align-items:center;justify-content:center;font-size:30px;flex-shrink:0">${subj.icon}</div>
       <div>
-        <div style="font-size:22px;font-weight:900;color:#fff">${subj.label}</div>
-        <div style="font-size:12px;color:#ffffff99">${board.icon} ${board.label} · IGCSE · ${chapters.length} chapters</div>
+        <div style="font-size:21px;font-weight:900;color:#fff">${subj.label}</div>
+        <div style="font-size:11px;color:#ffffffbb;margin-top:2px">${board.icon} ${board.label} · IGCSE · ${chapters.length} chapters · ${totalTopics} topics</div>
+      </div>
+    </div>
+    <!-- Progress bar -->
+    <div style="margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+        <span style="font-size:10px;color:#ffffffbb;font-weight:700">PROGRESS</span>
+        <span style="font-size:10px;color:#fff;font-weight:900">${doneTopics}/${totalTopics} topics · ${pct}%</span>
+      </div>
+      <div style="height:6px;background:#ffffff25;border-radius:3px">
+        <div style="height:100%;width:${pct}%;background:#fff;border-radius:3px;transition:.5s"></div>
       </div>
     </div>
     <!-- Quick actions -->
-    <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
       <a href="${ppLink}" target="_blank" rel="noopener"
-        style="background:#ffffff25;border:1px solid #ffffff40;border-radius:10px;padding:8px 14px;color:#fff;text-decoration:none;font-size:12px;font-weight:700;font-family:Cairo,sans-serif">
+        style="background:#ffffff20;border:1px solid #ffffff35;border-radius:10px;padding:7px 14px;color:#fff;text-decoration:none;font-size:11px;font-weight:700;font-family:Cairo,sans-serif">
         📄 Past Papers
       </a>
       <button onclick="S.screen='chat';S.subject='${subj.label} IGCSE';S.messages=[];render()"
-        style="background:#ffffff25;border:1px solid #ffffff40;border-radius:10px;padding:8px 14px;color:#fff;cursor:pointer;font-size:12px;font-weight:700;font-family:Cairo,sans-serif">
-        💬 Ask AI Tutor
+        style="background:#ffffff20;border:1px solid #ffffff35;border-radius:10px;padding:7px 14px;color:#fff;cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif">
+        💬 AI Tutor
+      </button>
+      <button onclick="S.screen='flashcards';S.subject='${subj.label} IGCSE';doGenerateFlashcards()"
+        style="background:#ffffff20;border:1px solid #ffffff35;border-radius:10px;padding:7px 14px;color:#fff;cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif">
+        🗂️ Flashcards
       </button>
     </div>
   </div>
+
   <!-- Chapter List -->
   <div style="padding:0 12px">
-    <div style="font-size:11px;color:var(--text-muted);font-weight:700;margin-bottom:12px;letter-spacing:1px">CHAPTERS & TOPICS</div>
+    <div style="font-size:10px;color:var(--text-muted);font-weight:800;letter-spacing:1.5px;margin-bottom:14px">CHAPTERS & TOPICS</div>
     ${chapterList||'<div style="text-align:center;padding:40px;color:var(--text-muted)">No chapters available for this board yet</div>'}
   </div>
 </div>`;
@@ -6417,11 +6513,12 @@ function tplIGCSETopic() {
   const prevT = allTopics[curIdx-1] || null;
   const nextT = allTopics[curIdx+1] || null;
 
+  const isDone = !!(S.igcseDone||{})[`${S.igcseSubject}-${S.igcseChapter}-${S.igcseTopic}`];
   const tabs = ['notes','questions','papers'].map(tab => {
-    const labels = {notes:'📖 Notes', questions:'❓ Practice', papers:'📄 Past Papers'};
+    const labels = {notes:'📖 Notes', questions:'❓ Practice', papers:'📄 Papers'};
     return `<button onclick="S.igcseTab='${tab}';render()"
-      style="flex:1;padding:10px 4px;border:none;cursor:pointer;font-family:Cairo,sans-serif;font-size:12px;font-weight:700;transition:.15s;border-radius:10px;
-             ${S.igcseTab===tab?`background:${subj.color};color:#fff`:'background:var(--bg);color:var(--text-muted)'}">
+      style="flex:1;padding:9px 4px;border:none;cursor:pointer;font-family:Cairo,sans-serif;font-size:11px;font-weight:800;transition:.15s;border-radius:10px;letter-spacing:.3px;
+             ${S.igcseTab===tab?`background:${subj.color};color:#fff;box-shadow:0 2px 8px ${subj.color}44`:'background:var(--bg);color:var(--text-muted);border:1px solid var(--border)'}">
       ${labels[tab]}
     </button>`;
   }).join('');
@@ -6429,79 +6526,111 @@ function tplIGCSETopic() {
   let tabContent = '';
   if (S.igcseTab === 'notes') {
     const keyPoints = tp.points.map((p,i) => `
-      <div style="display:flex;gap:12px;padding:14px 16px;background:var(--bg-card);border-radius:12px;margin-bottom:8px;border-right:4px solid ${subj.color};border:1px solid var(--border);border-right:4px solid ${subj.color}">
-        <div style="min-width:24px;height:24px;border-radius:50%;background:${subj.color};color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center">${i+1}</div>
-        <div style="font-size:13px;color:var(--text);line-height:1.7;font-family:Cairo,sans-serif">${p}</div>
+      <div style="display:flex;gap:14px;padding:14px 16px;background:var(--bg-card);border-radius:14px;margin-bottom:8px;border:1px solid var(--border);border-left:4px solid ${subj.color}">
+        <div style="min-width:26px;height:26px;border-radius:8px;background:${subj.color};color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0">${i+1}</div>
+        <div style="font-size:13px;color:var(--text);line-height:1.75">${p}</div>
       </div>`).join('');
     tabContent = `
-      <div style="margin-bottom:12px;padding:12px 14px;background:${subj.color}11;border-radius:12px;border:1px solid ${subj.color}33">
-        <div style="font-size:11px;color:${subj.color};font-weight:800;letter-spacing:1px">KEY REVISION POINTS</div>
-        <div style="font-size:11px;color:var(--text-muted);margin-top:2px">${tp.points.length} essential points for ${board.short}</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding:10px 14px;background:${subj.color}0f;border-radius:12px;border:1px solid ${subj.color}25">
+        <div>
+          <div style="font-size:10px;color:${subj.color};font-weight:900;letter-spacing:1px">KEY REVISION NOTES</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:1px">${tp.points.length} points · ${board.short}</div>
+        </div>
+        <button onclick="S.igcseDone=S.igcseDone||{};S.igcseDone['${S.igcseSubject}-${S.igcseChapter}-${S.igcseTopic}']=!S.igcseDone['${S.igcseSubject}-${S.igcseChapter}-${S.igcseTopic}'];if(!S.igcseDone['${S.igcseSubject}-${S.igcseChapter}-${S.igcseTopic}'])delete S.igcseDone['${S.igcseSubject}-${S.igcseChapter}-${S.igcseTopic}'];render()"
+          style="padding:7px 14px;border-radius:10px;border:none;cursor:pointer;font-size:11px;font-weight:800;font-family:Cairo,sans-serif;transition:.15s;
+                 ${isDone?'background:#10B981;color:#fff':'background:var(--bg);color:var(--text-muted);border:1px solid var(--border)'}">
+          ${isDone?'✅ Done':'○ Mark Done'}
+        </button>
       </div>
       ${keyPoints}
-      <button onclick="S.screen='chat';S.subject='${subj.label} IGCSE — ${tp.title}';S.messages=[{role:'user',content:'Explain ${tp.title} for IGCSE ${subj.label} in detail with examples and exam tips'},{role:'assistant',content:''}];doSend&&doSend();render()"
-        style="width:100%;margin-top:12px;padding:12px;background:var(--primary);color:#fff;border:none;border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:13px">
-        🤖 Ask AI to Explain This Topic in Detail
-      </button>`;
+      <div style="display:flex;gap:8px;margin-top:14px">
+        <button onclick="S.screen='chat';S.subject='${subj.label} IGCSE — ${tp.title}';S.messages=[{role:'user',content:'Explain ${tp.title.replace(/'/g,"\\'")} for IGCSE ${subj.label} in detail with worked examples and exam tips'}];render();setTimeout(()=>doSend&&doSend(),100)"
+          style="flex:1;padding:11px;background:var(--primary);color:#fff;border:none;border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:12px">
+          🤖 Explain with AI
+        </button>
+        <button onclick="S.screen='flashcards';S.subject='${subj.label} — ${tp.title.replace(/'/g,"\\'")}';doGenerateFlashcards()"
+          style="padding:11px 14px;background:var(--bg-card);border:1px solid var(--border);color:var(--text);border-radius:12px;cursor:pointer;font-size:12px;font-weight:700">
+          🗂️
+        </button>
+      </div>`;
   } else if (S.igcseTab === 'questions') {
     tabContent = `
-      <div style="text-align:center;padding:30px 16px">
-        <div style="font-size:40px;margin-bottom:12px">❓</div>
-        <div style="font-size:16px;font-weight:900;color:var(--text);margin-bottom:8px">Practice Questions</div>
-        <div style="font-size:13px;color:var(--text-muted);margin-bottom:20px">Let the AI generate exam-style questions on this topic</div>
-        <button onclick="S.screen='chat';S.subject='IGCSE ${subj.label}';S.messages=[];S.messages.push({role:'user',content:'Generate 5 IGCSE-style exam questions on ${tp.title} (${subj.label}) with mark schemes. Mix short answer, data response and extended questions.'});render();setTimeout(()=>doSend&&doSend(),100)"
-          style="display:inline-block;padding:12px 28px;background:${subj.color};color:#fff;border:none;border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:13px">
-          🤖 Generate Practice Questions
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:24px 16px;text-align:center;margin-bottom:12px">
+        <div style="font-size:36px;margin-bottom:10px">❓</div>
+        <div style="font-size:15px;font-weight:900;color:var(--text);margin-bottom:6px">AI Practice Questions</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:18px;line-height:1.6">Get 5 IGCSE-style exam questions on <strong>${tp.title}</strong> with full mark schemes</div>
+        <button onclick="S.screen='chat';S.subject='IGCSE ${subj.label}';S.messages=[{role:'user',content:'Generate 5 IGCSE-style exam questions on the topic: ${tp.title.replace(/'/g,"\\'")} (${subj.label}). Include: 2 short answer (2-4 marks), 2 structured (4-6 marks), 1 extended response (6-8 marks). Provide full mark schemes for each.'}];render();setTimeout(()=>doSend&&doSend(),100)"
+          style="width:100%;padding:12px;background:${subj.color};color:#fff;border:none;border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:13px;margin-bottom:10px">
+          🤖 Generate 5 Exam Questions
         </button>
-        <div style="margin-top:20px;padding:14px;background:var(--bg-card);border-radius:12px;border:1px solid var(--border);font-size:12px;color:var(--text-muted)">
-          💡 Tip: Practice with past papers for the most exam-relevant questions
-        </div>
+        <button onclick="S.screen='quiz';S.subject='IGCSE ${subj.label} — ${tp.title.replace(/'/g,"\\'")}';doGenerateQuiz()"
+          style="width:100%;padding:12px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:13px">
+          📝 Quick MCQ Quiz
+        </button>
+      </div>
+      <div style="padding:12px 14px;background:#F59E0B0f;border-radius:12px;border:1px solid #F59E0B25;font-size:12px;color:var(--text-muted)">
+        💡 <strong>Exam tip:</strong> ~1 minute per mark. Read question carefully — note key command words: <em>state, describe, explain, calculate, evaluate, discuss</em>
       </div>`;
   } else {
     const ppLink = subj.pastPapers[S.igcseBoard] || '#';
     tabContent = `
-      <div style="text-align:center;padding:20px 16px">
-        <div style="font-size:40px;margin-bottom:12px">📄</div>
-        <div style="font-size:16px;font-weight:900;color:var(--text);margin-bottom:8px">Official Past Papers</div>
-        <div style="font-size:13px;color:var(--text-muted);margin-bottom:20px">${board.label} · ${subj.label} IGCSE</div>
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:24px 16px;text-align:center;margin-bottom:12px">
+        <div style="font-size:36px;margin-bottom:10px">📄</div>
+        <div style="font-size:15px;font-weight:900;color:var(--text);margin-bottom:4px">Official Past Papers</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:18px">${board.label} · ${subj.label}</div>
         <a href="${ppLink}" target="_blank" rel="noopener"
-          style="display:inline-block;padding:12px 28px;background:${board.color};color:#fff;border-radius:12px;text-decoration:none;font-family:Cairo,sans-serif;font-weight:700;font-size:13px">
-          📥 Open Past Papers
+          style="display:block;padding:12px;background:${board.color};color:#fff;border-radius:12px;text-decoration:none;font-family:Cairo,sans-serif;font-weight:700;font-size:13px;margin-bottom:8px">
+          📥 Open Official Past Papers
         </a>
-        <div style="margin-top:16px;padding:14px;background:var(--bg-card);border-radius:12px;border:1px solid var(--border);font-size:12px;color:var(--text-muted);text-align:right">
-          <div style="font-weight:700;margin-bottom:4px">📌 Exam Tips for ${tp.title}:</div>
-          <ul style="margin:0;padding-right:16px;line-height:2">
-            <li>Look for questions using keywords: 'explain', 'describe', 'calculate', 'deduce'</li>
-            <li>Check mark scheme carefully — every mark point counts</li>
-            <li>Practice timed conditions: ~1 minute per mark</li>
-          </ul>
+        <button onclick="S.screen='chat';S.subject='IGCSE ${subj.label}';S.messages=[{role:'user',content:'Give me 3 typical past paper questions about ${tp.title.replace(/'/g,"\\'")} from ${board.label} IGCSE exams, with example answers and examiner tips'}];render();setTimeout(()=>doSend&&doSend(),100)"
+          style="width:100%;padding:12px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:13px">
+          💬 Ask AI for Past Paper Questions
+        </button>
+      </div>
+      <div style="padding:12px 14px;background:var(--bg-card);border-radius:12px;border:1px solid var(--border)">
+        <div style="font-size:11px;font-weight:800;color:var(--text);margin-bottom:8px">📌 Exam Strategy for ${tp.title}</div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--text-muted)">
+          <div>✦ Read command words carefully — "state" (1-2 words), "explain" (reason needed), "discuss" (both sides)</div>
+          <div>✦ Show all working in calculations — method marks available even if final answer wrong</div>
+          <div>✦ Time management: ~1 minute per mark; move on if stuck</div>
         </div>
       </div>`;
   }
 
   return `
 <div style="max-width:860px;margin:0 auto;padding:0 0 80px">
-  <!-- Topic Header -->
-  <div style="background:linear-gradient(135deg,${subj.color}dd,${subj.color}99);padding:18px 16px 22px;border-radius:0 0 20px 20px;margin-bottom:16px">
-    <button onclick="S.igcseTopic=null;S.igcseChapter=S.igcseChapter;render()"
-      style="background:#ffffff30;border:none;border-radius:10px;padding:5px 12px;color:#fff;cursor:pointer;font-size:12px;font-family:Cairo,sans-serif;font-weight:700;margin-bottom:12px">
-      ← ${ch.title}
-    </button>
-    <div style="font-size:19px;font-weight:900;color:#fff;margin-bottom:4px">${tp.title}</div>
-    <div style="font-size:11px;color:#ffffff99">${subj.icon} ${subj.label} · ${board.icon} ${board.short} · ${ch.title}</div>
+  <!-- Breadcrumb + Topic Header -->
+  <div style="background:linear-gradient(135deg,${subj.color}ee,${subj.color}aa);padding:16px 16px 20px;border-radius:0 0 22px 22px;margin-bottom:14px">
+    <!-- Breadcrumb -->
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:12px;flex-wrap:wrap">
+      <button onclick="S.igcseSubject=null;S.igcseTopic=null;S.igcseChapter=null;render()"
+        style="background:#ffffff20;border:none;border-radius:8px;padding:3px 10px;color:#ffffffdd;cursor:pointer;font-size:10px;font-family:Cairo,sans-serif;font-weight:700">Hub</button>
+      <span style="color:#ffffff55;font-size:10px">›</span>
+      <button onclick="S.igcseTopic=null;render()"
+        style="background:#ffffff20;border:none;border-radius:8px;padding:3px 10px;color:#ffffffdd;cursor:pointer;font-size:10px;font-family:Cairo,sans-serif;font-weight:700">${subj.label}</button>
+      <span style="color:#ffffff55;font-size:10px">›</span>
+      <span style="font-size:10px;color:#ffffffbb">${ch.title}</span>
+    </div>
+    <!-- Topic title + progress -->
+    <div style="font-size:18px;font-weight:900;color:#fff;margin-bottom:4px;line-height:1.3">${tp.title}</div>
+    <div style="font-size:10px;color:#ffffffaa">${subj.icon} ${subj.label} · ${board.icon} ${board.short} · Topic ${curIdx+1} of ${allTopics.length}</div>
+    <!-- Mini progress bar -->
+    <div style="margin-top:10px;height:3px;background:#ffffff25;border-radius:2px">
+      <div style="height:100%;width:${Math.round((curIdx+1)/allTopics.length*100)}%;background:#fff;border-radius:2px;transition:.4s"></div>
+    </div>
   </div>
   <!-- Tabs -->
-  <div style="display:flex;gap:6px;padding:0 12px;margin-bottom:16px">${tabs}</div>
+  <div style="display:flex;gap:6px;padding:0 12px;margin-bottom:14px">${tabs}</div>
   <!-- Tab Content -->
   <div style="padding:0 12px">${tabContent}</div>
   <!-- Next / Prev navigation -->
   <div style="display:flex;gap:10px;padding:16px 12px 0;justify-content:space-between">
-    ${prevT?`<button onclick="S.igcseChapter=${prevT.ci};S.igcseTopic=${prevT.ti};render()"
-      style="padding:10px 16px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);cursor:pointer;font-size:12px;color:var(--text);font-family:Cairo,sans-serif;font-weight:700">
-      ‹ Previous Topic
+    ${prevT?`<button onclick="S.igcseChapter=${prevT.ci};S.igcseTopic=${prevT.ti};S.igcseTab='notes';render()"
+      style="padding:10px 16px;border:1px solid var(--border);border-radius:12px;background:var(--bg-card);cursor:pointer;font-size:12px;color:var(--text);font-family:Cairo,sans-serif;font-weight:700;display:flex;align-items:center;gap:6px">
+      ‹ Previous
     </button>`:'<div></div>'}
-    ${nextT?`<button onclick="S.igcseChapter=${nextT.ci};S.igcseTopic=${nextT.ti};render()"
-      style="padding:10px 16px;border:1px solid ${subj.color};border-radius:10px;background:${subj.color};cursor:pointer;font-size:12px;color:#fff;font-family:Cairo,sans-serif;font-weight:700">
+    ${nextT?`<button onclick="S.igcseChapter=${nextT.ci};S.igcseTopic=${nextT.ti};S.igcseTab='notes';render()"
+      style="padding:10px 18px;border:none;border-radius:12px;background:${subj.color};cursor:pointer;font-size:12px;color:#fff;font-family:Cairo,sans-serif;font-weight:700;box-shadow:0 2px 10px ${subj.color}44;display:flex;align-items:center;gap:6px">
       Next Topic ›
     </button>`:'<div></div>'}
   </div>
