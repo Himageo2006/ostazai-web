@@ -1515,7 +1515,8 @@ const CURRICULA = {
   egypt_ext: {
     label:'📗 كتب خارجية (مصر)',
     grades:{
-      high:{ label:'ثانوي عام', subjects:[] },
+      high:{ label:'أول / ثاني ثانوي', subjects:[] },
+      high2:{ label:'ثاني ثانوي', subjects:[] },
       middle:{ label:'إعدادي', subjects:[] },
     }
   },
@@ -4324,9 +4325,26 @@ const TEXTBOOK_DB = {
     ],
     middle: [
       { subj:'الرياضيات — المعاصر', icon:'🔢', color:'#3B82F6', books:[
-        { title:'المعاصر رياضيات — أول إعدادي ترم ثاني', term:'إعدادي أول', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/1-2_20220220' },
-        { title:'المعاصر هندسة لغات — ثالث إعدادي ترم ثاني', term:'إعدادي ثالث', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/3-2_20210525_202105' },
-        { title:'بحث عن المعاصر إعدادي', term:'جميع الصفوف', badge:'🌐 أرشيف', external:true, url:'https://archive.org/search?query=%D8%A7%D9%84%D9%85%D8%B9%D8%A7%D8%B5%D8%B1+%D8%A7%D8%B9%D8%AF%D8%A7%D8%AF%D9%8A' },
+        { title:'المعاصر رياضيات — أول إعدادي ترم أول', term:'إعدادي أول', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/1-1_20241009' },
+        { title:'المعاصر رياضيات — أول إعدادي ترم ثاني', term:'إعدادي أول', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2025_20250205' },
+        { title:'المعاصر رياضيات — ثاني إعدادي ترم أول', term:'إعدادي ثاني', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2-1_20240826' },
+        { title:'المعاصر رياضيات — ثالث إعدادي ترم أول', term:'إعدادي ثالث', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/3-1_20220817_202208' },
+        { title:'المعاصر رياضيات — ثالث إعدادي ترم ثاني', term:'إعدادي ثالث', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/3-2_20220224' },
+        { title:'المعاصر هندسة — ثالث إعدادي ترم ثاني', term:'إعدادي ثالث', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/3-2_20210525_202105' },
+      ]},
+      { subj:'العلوم — المعاصر', icon:'🔬', color:'#10B981', books:[
+        { title:'المعاصر سايس — أول إعدادي ترم أول', term:'إعدادي أول', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/1-1_20230814' },
+        { title:'المعاصر سايس — ثاني إعدادي ترم أول', term:'إعدادي ثاني', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2-1_20210820_202108' },
+        { title:'المعاصر سايس — ثاني إعدادي ترم ثاني', term:'إعدادي ثاني', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2-2_20210315' },
+        { title:'المعاصر سايس — ثالث إعدادي ترم أول', term:'إعدادي ثالث', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/3-1_20220909' },
+      ]},
+      { subj:'اللغة الإنجليزية — المعاصر', icon:'🗣️', color:'#F97316', books:[
+        { title:'المعاصر انجليزي — أول إعدادي ترم أول', term:'إعدادي أول', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/1-1_20210903' },
+        { title:'المعاصر انجليزي — ثاني إعدادي ترم أول', term:'إعدادي ثاني', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2-1-2_202408' },
+      ]},
+      { subj:'بحث عن المزيد', icon:'🔍', color:'#6B7280', books:[
+        { title:'بحث في Archive.org — كتب إعدادي', term:'جميع المواد', badge:'🌐 أرشيف', external:true, url:'https://archive.org/search?query=%D8%A7%D9%84%D9%85%D8%B9%D8%A7%D8%B5%D8%B1+%D8%A7%D8%B9%D8%AF%D8%A7%D8%AF%D9%8A' },
+        { title:'موقع المعاصر الرسمي', term:'جميع المراحل', badge:'🌐 موقع', external:true, url:'https://www.eltapalomesr.com/' },
       ]},
     ],
   },
