@@ -7158,7 +7158,7 @@ Interpretation: For every £1 of revenue, the business keeps 16.7p as net profit
   },
   add_maths: {
     label:'Additional Mathematics', arabic:'رياضيات إضافية', icon:'🔣', color:'#7C3AED',
-    boards: ['cie'],
+    boards: ['cie','edexcel'],
     pastPapers: {
       cie: 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-additional-mathematics-0606/past-papers/',
     },
@@ -7286,6 +7286,88 @@ dy/dx = 4u³ × 6x = 24x(3x² + 1)³`},
             'Coefficient of xᵏ: find r such that the power of x = k',
             '(1+x)ⁿ expansion: 1 + nx + n(n−1)/2! x² + ... (valid for |x|<1 if n not integer)',
             'Use binomial expansion for approximations: substitute small value of x',
+          ]},
+        ]},
+      ],
+      edexcel: [
+        { title:'Algebra & Functions (Add Maths)', icon:'📐', topics:[
+          { title:'Functions — Domain, Range & Inverse', points:[
+            'Function notation: f(x); domain = set of valid inputs; range = set of outputs',
+            'Composite function fg(x) = f(g(x)) — apply g first, then f',
+            'Inverse function f⁻¹(x): swap x and y, rearrange for y; only exists for one-to-one functions',
+            'Modulus function |x|: always positive; |x| = x if x ≥ 0; −x if x < 0',
+            'Graphing moduli: reflect negative portion above x-axis; |f(x)| reflects below x-axis portion up',
+          ], examTips:[
+            'Always state the range of the inverse function = domain of the original function',
+            'Composite functions: read right to left — fg means apply g first, then f',
+          ]},
+          { title:'Quadratics & Inequalities', points:[
+            'Completing the square: x²+bx = (x + b/2)² − (b/2)²',
+            'Discriminant: b²−4ac > 0 (two real roots), = 0 (repeated root), < 0 (no real roots)',
+            'Quadratic inequalities: solve quadratic = 0, sketch parabola, read off inequality regions',
+            'Simultaneous with circle: substitute linear into circle equation; discriminant tells number of intersections',
+            'Sum and product of roots: α+β = −b/a; αβ = c/a',
+          ], workedExample:`Complete the square: f(x) = 2x² − 8x + 5
+= 2(x² − 4x) + 5
+= 2[(x−2)² − 4] + 5
+= 2(x−2)² − 8 + 5
+= 2(x−2)² − 3
+Minimum value −3 at x = 2`},
+        ]},
+        { title:'Trigonometry (Add Maths)', icon:'📏', topics:[
+          { title:'Radians & Advanced Trig', points:[
+            'Radians: π rad = 180°; 1 rad ≈ 57.3°; convert: multiply by 180/π or π/180',
+            'Arc length: s = rθ; sector area: A = ½r²θ (θ must be in radians)',
+            'Exact values: sin30°=½, cos30°=√3/2, tan30°=1/√3; sin45°=cos45°=1/√2; sin60°=√3/2',
+            'sin²θ + cos²θ = 1; 1 + tan²θ = sec²θ; 1 + cot²θ = cosec²θ',
+            'Double angle: sin2θ = 2sinθcosθ; cos2θ = cos²θ−sin²θ = 1−2sin²θ = 2cos²θ−1',
+          ], examTips:[
+            'Radian mode essential for calculus involving trig — always check calculator is in correct mode',
+            'cos2θ has three forms — choose the one that simplifies the expression most',
+          ]},
+          { title:'Solving Trig Equations', points:[
+            'General solutions: sinθ = k has solutions in [0°, 360°] at θ and 180°−θ',
+            'For cosθ = k: θ and 360°−θ; for tanθ = k: θ and θ+180°',
+            'In radians: sinθ in [0, 2π] → θ and π−θ; cosθ → θ and 2π−θ',
+            'Use identities to simplify before solving (replace sin²θ using 1−cos²θ etc.)',
+            'CAST diagram or unit circle — always find all solutions in the given domain',
+          ]},
+        ]},
+        { title:'Calculus (Add Maths)', icon:'∫', topics:[
+          { title:'Differentiation', points:[
+            'Power rule: d/dx(xⁿ) = nxⁿ⁻¹; constant differentiates to 0',
+            'Chain rule: dy/dx = dy/du × du/dx — for composite functions',
+            'Product rule: d/dx(uv) = u(dv/dx) + v(du/dx)',
+            'Quotient rule: d/dx(u/v) = [v(du/dx) − u(dv/dx)] / v²',
+            'Trig derivatives: d/dx(sinx) = cosx; d/dx(cosx) = −sinx; d/dx(tanx) = sec²x',
+            'eˣ and ln: d/dx(eˣ) = eˣ; d/dx(ln x) = 1/x',
+          ], examTips:[
+            'Second derivative: d²y/dx² > 0 = minimum; < 0 = maximum; = 0 = check further (point of inflection?)',
+            'Connected rates of change: dy/dt = dy/dx × dx/dt',
+          ], workedExample:`Find gradient of y = (3x²+1)⁴ at x = 1:
+Let u = 3x²+1, y = u⁴
+dy/du = 4u³; du/dx = 6x
+dy/dx = 4u³ × 6x = 24x(3x²+1)³
+At x=1: u = 4; dy/dx = 24(1)(4)³ = 24×64 = 1536`},
+          { title:'Integration', points:[
+            'Power rule: ∫xⁿ dx = xⁿ⁺¹/(n+1) + c (n ≠ −1)',
+            '∫1/x dx = ln|x| + c; ∫eˣ dx = eˣ + c',
+            '∫sinx dx = −cosx + c; ∫cosx dx = sinx + c',
+            'Definite integral: ∫ₐᵇ f(x) dx = [F(x)]ₐᵇ = F(b) − F(a)',
+            'Area under curve = ∫ₐᵇ f(x) dx; area between two curves = ∫ₐᵇ [f(x)−g(x)] dx',
+            'Integration by substitution: let u = g(x); find du/dx; replace dx with du/(du/dx)',
+          ]},
+        ]},
+        { title:'Logarithms & Exponentials', icon:'📈', topics:[
+          { title:'Logarithms', points:[
+            'Definition: logₐ b = c ⟺ aᶜ = b',
+            'Laws: log(xy) = log x + log y; log(x/y) = log x − log y; log(xⁿ) = n log x',
+            'log base change: logₐ b = log b / log a',
+            'Natural log: ln x = logₑ x; ln(eˣ) = x; e^(ln x) = x',
+            'Exponential growth/decay: N = N₀eᵏᵗ; k > 0 growth; k < 0 decay',
+          ], examTips:[
+            'For equations like 3ˣ = 7: take ln both sides → x·ln3 = ln7 → x = ln7/ln3',
+            'Linearising data: if y = axⁿ, take log both sides → log y = n log x + log a (straight line)',
           ]},
         ]},
       ],
@@ -7889,7 +7971,7 @@ Shows: verb in question changed memory reconstruction → eyewitness testimony u
   },
   ict: {
     label:'ICT (Digital Literacy)', arabic:'تكنولوجيا المعلومات', icon:'🖥️', color:'#0284C7',
-    boards: ['cie'],
+    boards: ['cie','edexcel'],
     pastPapers: {
       cie: 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-information-and-communication-technology-0417/past-papers/',
     },
@@ -8015,6 +8097,84 @@ MP3 compression at 10:1 ratio → ~88 KB`},
             'Metadata: data about data — search engines use title, description, keywords tags',
             'HTML structure: DOCTYPE → html → head (title, css) → body (content)',
             'Presentation software: PowerPoint/Impress; slides, transitions, animations — use sparingly',
+          ]},
+        ]},
+      ],
+      edexcel: [
+        { title:'Hardware & Systems Architecture', icon:'🖥️', topics:[
+          { title:'Computer Hardware Components', points:[
+            'CPU: Central Processing Unit — brain of computer; contains ALU, CU, registers, cache',
+            'Primary storage: RAM (volatile, fast, stores running programs/data), ROM (non-volatile, stores boot instructions)',
+            'Cache memory: very fast SRAM between CPU and RAM; L1 (fastest, smallest) to L3 (slower, larger)',
+            'Secondary storage: HDD (magnetic, cheap, slow), SSD (flash, fast, no moving parts, expensive), optical (CD/DVD/Blu-ray)',
+            'Input devices: keyboard, mouse, scanner, webcam, microphone, touchscreen, barcode reader, biometric reader',
+            'Output devices: monitor, printer, speakers, projector, actuators (control physical systems)',
+          ], examTips:[
+            'RAM vs ROM: RAM = Read AND Write, volatile; ROM = Read Only, non-volatile — don\'t confuse them',
+            'HDD vs SSD: SSD has no moving parts → faster, quieter, more durable, uses less power, but costs more per GB',
+          ]},
+          { title:'Operating Systems & Software', points:[
+            'OS functions: process management (multitasking), memory management, device management (drivers), user interface, file system',
+            'GUI (Graphical User Interface): icons, windows, menus — user-friendly, needs more memory',
+            'CLI (Command Line Interface): text commands — faster for experts, uses less resources',
+            'Application software: word processor, spreadsheet, database, graphic design, browsers',
+            'Utility software: anti-virus, disk defragmenter, file compression, backup software, firewall',
+          ]},
+        ]},
+        { title:'Networks & Cybersecurity', icon:'🌐', topics:[
+          { title:'Networking Concepts', points:[
+            'LAN (Local Area Network): small geographic area (school, office); uses Ethernet/Wi-Fi',
+            'WAN (Wide Area Network): large area (internet is the largest WAN); uses routers and ISPs',
+            'Client-server: server provides resources; clients request them; central control and backup',
+            'Peer-to-peer: each computer equal; share resources directly; no central server — less secure',
+            'Network hardware: router (connects networks, routes data), switch (connects devices on LAN), NIC, WAP',
+            'IP address: unique identifier for device on network; IPv4 (32-bit), IPv6 (128-bit)',
+          ], examTips:[
+            'Packet switching: data broken into packets; each routed independently; reassembled at destination',
+            'Describe advantages AND disadvantages of networking — marks for balance',
+          ]},
+          { title:'Cybersecurity & Data Protection', points:[
+            'Threats: malware (virus, worm, trojan, ransomware, spyware), phishing, brute force, SQL injection',
+            'Virus: attaches to files, spreads when file shared; worm: self-replicating, spreads over networks',
+            'Phishing: fake emails/websites trick users into giving credentials',
+            'Protections: firewall, antivirus, encryption, strong passwords, two-factor authentication (2FA)',
+            'Encryption: symmetric (same key) vs asymmetric (public/private key pair)',
+            'Data Protection Act/GDPR: data must be lawfully processed, accurate, stored safely, not kept too long',
+          ], workedExample:`Caesar cipher (shift 3): A→D, B→E, C→F...
+Plaintext:  HELLO
+Ciphertext: KHOOR
+Decryption: shift back by 3
+Modern encryption (AES, RSA) is mathematically complex — not breakable by simple frequency analysis`},
+        ]},
+        { title:'Data Handling & Spreadsheets', icon:'📊', topics:[
+          { title:'Databases', points:[
+            'Database: organised collection of related data; managed by DBMS',
+            'Table: rows (records) and columns (fields); primary key uniquely identifies each record',
+            'Validation: checks data is acceptable type/range/format; verification: checks data matches original',
+            'Relational database: multiple linked tables; linked by foreign keys; reduces data redundancy',
+            'SQL: SELECT * FROM Table WHERE condition; INSERT INTO; UPDATE; DELETE',
+          ]},
+          { title:'Spreadsheets', points:[
+            'Cell references: A1 = column A row 1; absolute $A$1 does not change when formula copied',
+            'Common functions: SUM, AVERAGE, MAX, MIN, COUNT, IF, VLOOKUP',
+            'IF: =IF(condition, value_if_true, value_if_false)',
+            'VLOOKUP: =VLOOKUP(lookup_value, table_range, column_index, FALSE)',
+            'Charts: bar (compare), line (trends), pie (proportions), scatter (correlation)',
+          ]},
+        ]},
+        { title:'Digital Communication & Ethics', icon:'📱', topics:[
+          { title:'Communication Technologies', points:[
+            'Email, VoIP (Skype/Zoom), cloud computing, social media, e-commerce',
+            'Cloud: data stored on remote servers; accessible anywhere; risk = data breaches/dependency on internet',
+            'SSL/TLS encryption: secures data in transit (HTTPS padlock in browser)',
+            'Cookies: small files storing user preferences/session data — can be used to track behaviour',
+          ]},
+          { title:'Legal, Ethical & Environmental Issues', points:[
+            'Copyright: protects creator\'s work; illegal to copy software without licence',
+            'Software licences: proprietary (paid), open source (free to use/modify), freeware',
+            'Computer Misuse Act: criminalises hacking, spreading malware, and unauthorised access',
+            'Environmental impact: e-waste from old devices; data centres consume massive energy',
+            'Digital divide: inequality of access to technology between and within countries',
           ]},
         ]},
       ],
@@ -8833,6 +8993,71 @@ fui, fuiste, fue, fuimos, fuisteis, fueron
             'Current & future study: school life, subjects, future plans, employment',
             'Lifestyle: health, diet, sport, leisure activities, technology',
             'Expressing preferences: prefiero (I prefer), me encanta (I love), no me gusta (I don\'t like)',
+          ]},
+        ]},
+      ],
+      edexcel: [
+        { title:'Edexcel Spanish — Grammar', icon:'📝', topics:[
+          { title:'Tenses (Edexcel Spanish)', points:[
+            'Present tense: hablar → hablo, hablas, habla, hablamos, habláis, hablan',
+            'Preterite (past completed): hablé, hablaste, habló, hablamos, hablasteis, hablaron',
+            'Imperfect (past ongoing/description): hablaba, hablabas, hablaba, hablábamos...',
+            'Future: infinitive + endings: hablaré, hablarás, hablará, hablaremos, hablaréis, hablarán',
+            'Conditional: hablaría, hablarías, hablaría — "I would speak"; used for hypothetical situations',
+            'Edexcel rewards use of all 5 tenses in writing — use them deliberately',
+          ], examTips:[
+            'Irregular preterites: ser/ir → fui; tener → tuve; hacer → hice; estar → estuve; poder → pude',
+            'Irregular futures: tener → tendr-, hacer → har-, poder → podr-, venir → vendr-, ir → ir-',
+          ]},
+          { title:'Key Grammar Points', points:[
+            'Ser vs Estar: SER for permanent (nationality, profession, origin); ESTAR for temporary (location, emotion, state)',
+            'Reflexive verbs: levantarse → me levanto, te levantas, se levanta... (morning routine verbs)',
+            'Gustar: me gusta + singular noun; me gustan + plural noun; me gusta + infinitive',
+            'Negatives: no...nunca (never), no...nada (nothing), no...nadie (nobody), no...ningún (none)',
+            'Subjunctive (higher): espero que sea, quiero que vengas — after expressions of hope/wish/doubt',
+          ], workedExample:`Opinion sentence using full grammar range:
+"Cuando era pequeño, me gustaba jugar al fútbol, pero ahora prefiero la música porque es más creativa. En el futuro, me gustaría ser músico."
+Uses: imperfect (era, gustaba), present (prefiero, es), conditional (gustaría), porque, comparatives`},
+        ]},
+        { title:'Edexcel Spanish — Themes', icon:'🌍', topics:[
+          { title:'Edexcel Theme 1: Identity & Culture', points:[
+            'Family & relationships: mi familia, las relaciones, el matrimonio, la amistad',
+            'Technology & social media: las redes sociales, el móvil, Internet, los videojuegos',
+            'Free time & leisure: el deporte, la música, el cine, los pasatiempos, salir con amigos',
+            'Customs & traditions: las fiestas, la gastronomía, las tradiciones regionales',
+            'Key vocab: la convivencia (living together), el/la amigo/a, compartir (to share)',
+          ]},
+          { title:'Edexcel Theme 2: Local & Global', points:[
+            'Environment: el medio ambiente, el cambio climático, la contaminación, reciclar, proteger',
+            'Poverty & equality: la pobreza, la desigualdad, los derechos humanos, el voluntariado',
+            'Travel & tourism: las vacaciones, el alojamiento (accommodation), el transporte, las atracciones',
+            'Global issues: la guerra, los refugiados, el hambre, las organizaciones benéficas',
+            'Key phrases: hay que + inf (we must), es necesario (it is necessary), deberíamos (we should)',
+          ]},
+          { title:'Edexcel Theme 3: Study & Employment', points:[
+            'School life: las asignaturas (subjects), los deberes (homework), el uniforme, las notas (grades)',
+            'Future plans: voy a estudiar, quisiera ser, espero trabajar en...',
+            'Work & careers: el trabajo, el salario, la empresa (company), el jefe (boss), las prácticas (work experience)',
+            'Higher education: la universidad, la carrera, la beca (scholarship)',
+          ]},
+        ]},
+        { title:'Edexcel Spanish — Exam Skills', icon:'✍️', topics:[
+          { title:'Listening & Reading (Edexcel)', points:[
+            'Edexcel Paper 1 (Listening): questions in English; answers in English; 45 minutes',
+            'Edexcel Paper 2 (Reading & Writing): reading + translation + writing tasks; 2 hours',
+            'Watch for negatives that reverse meaning: nunca, jamás, nada, nadie, ninguno',
+            'Cognates help: similar to English (la información, el hospital, el restaurante, importante)',
+            'False friends: embarazada (pregnant ≠ embarrassed); realizar (to achieve ≠ to realise)',
+          ]},
+          { title:'Writing & Speaking', points:[
+            'Edexcel writing tasks: structured tasks (form filling), short essay, translation into Spanish',
+            'Speaking: role-play (from task card), photo description, general conversation',
+            'Photo card strategy: ¿Qué se ve en la foto? Describe → ¿Qué piensas? Opinion → Extiende (extend)',
+            'Grade 9 writing: show complexity — relative clauses (que, donde), subjunctive, range of tenses',
+            'SPaG in Spanish: accents (á, é, í, ó, ú, ñ, ü), ¿¡ at start of questions/exclamations',
+          ], examTips:[
+            'Translation task: most demanding part — learn key vocabulary, verb conjugations, and avoid word-for-word translation',
+            'General conversation: give extended answers with reasons — "porque", "ya que", "debido a"',
           ]},
         ]},
       ],
