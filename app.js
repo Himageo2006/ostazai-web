@@ -1518,6 +1518,7 @@ const CURRICULA = {
       high:{ label:'أول / ثاني ثانوي', subjects:[] },
       high2:{ label:'ثاني ثانوي', subjects:[] },
       middle:{ label:'إعدادي', subjects:[] },
+      primary:{ label:'ابتدائي', subjects:[] },
     }
   },
 
@@ -4344,6 +4345,23 @@ const TEXTBOOK_DB = {
       ]},
       { subj:'بحث عن المزيد', icon:'🔍', color:'#6B7280', books:[
         { title:'بحث في Archive.org — كتب إعدادي', term:'جميع المواد', badge:'🌐 أرشيف', external:true, url:'https://archive.org/search?query=%D8%A7%D9%84%D9%85%D8%B9%D8%A7%D8%B5%D8%B1+%D8%A7%D8%B9%D8%AF%D8%A7%D8%AF%D9%8A' },
+        { title:'موقع المعاصر الرسمي', term:'جميع المراحل', badge:'🌐 موقع', external:true, url:'https://www.eltapalomesr.com/' },
+      ]},
+    ],
+    primary: [
+      { subj:'الرياضيات — المعاصر', icon:'🔢', color:'#3B82F6', books:[
+        { title:'المعاصر ماث — أول ابتدائي ترم أول', term:'أول ابتدائي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/1-1_20201120_202011' },
+        { title:'المعاصر ماث — ثاني ابتدائي ترم أول', term:'ثاني ابتدائي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2-1_20201003_202010' },
+        { title:'المعاصر ماث — ثالث ابتدائي ترم أول', term:'ثالث ابتدائي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/3-1_20201003' },
+        { title:'المعاصر ماث — رابع ابتدائي ترم أول', term:'رابع ابتدائي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/4-1_20211013_20211013' },
+        { title:'المعاصر ماث — رابع ابتدائي ترم ثاني', term:'رابع ابتدائي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/4-2_20220304_202203' },
+        { title:'المعاصر ماث — خامس ابتدائي ترم أول', term:'خامس ابتدائي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/5-1_20220921' },
+      ]},
+      { subj:'اللغة الإنجليزية — المعاصر', icon:'🗣️', color:'#F97316', books:[
+        { title:'المعاصر كونكت بلس — ثاني ابتدائي ترم أول', term:'ثاني ابتدائي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2-1_20230803_202308' },
+      ]},
+      { subj:'بحث عن المزيد', icon:'🔍', color:'#6B7280', books:[
+        { title:'بحث في Archive.org — كتب ابتدائي', term:'جميع المواد', badge:'🌐 أرشيف', external:true, url:'https://archive.org/search?query=%D8%A7%D9%84%D9%85%D8%B9%D8%A7%D8%B5%D8%B1+%D8%A7%D8%A8%D8%AA%D8%AF%D8%A7%D8%A6%D9%8A' },
         { title:'موقع المعاصر الرسمي', term:'جميع المراحل', badge:'🌐 موقع', external:true, url:'https://www.eltapalomesr.com/' },
       ]},
     ],
