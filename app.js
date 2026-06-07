@@ -4091,11 +4091,14 @@ const TEXTBOOK_DB = {
         { title:'الرياضيات (عربي) ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BOOKS}/math_ar_1sec_t2.pdf` },
         { title:'الرياضيات (فرنساوي) ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BOOKS}/math_fr_1sec_t2.pdf` },
       ]},
+      { subj:'اللغة الإنجليزية ت٢', icon:'🗣️', color:'#EA580C', books:[
+        { title:'New Hello — Student Book ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BOOKS}/english_1sec_t2.pdf` },
+      ]},
     ],
     // ── الصف الثاني الثانوي ────────────────────────────────────────
     high2: [
       { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
-        { title:'اللغة العربية ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Arabic_language_Sec2_Tr1.pdf` },
+        { title:'اللغة العربية ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Arabic_language_Sec2_Tr1.pdf` /* 130MB – served from Azure */ },
         { title:'قراءات أدبية ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BOOKS}/arabic_story_2sec_t1.pdf` },
       ]},
       { subj:'اللغة الإنجليزية', icon:'🗣️', color:'#F97316', books:[
@@ -4104,6 +4107,7 @@ const TEXTBOOK_DB = {
       { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
         { title:'الرياضيات التطبيقية (عربي) ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BOOKS}/math_ar_2sec_t1.pdf` },
         { title:'الرياضيات التطبيقية (إنجليزي) ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BOOKS}/math_en_2sec_t1.pdf` },
+        { title:'تطبيقات الرياضيات (إنجليزي) ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BOOKS}/application_math_2sec_t1.pdf` },
       ]},
       { subj:'الفيزياء', icon:'⚡', color:'#F59E0B', books:[
         { title:'الفيزياء 2025-2026', term:'ثاني ثانوي', url:`${BOOKS}/physics_2sec.pdf` },
