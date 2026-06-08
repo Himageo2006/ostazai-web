@@ -19048,8 +19048,15 @@ async function doRegister() {
     S.token = d.token; S.user = d.user;
     S.curriculum = country in CURRICULA ? country : 'egypt';
     saveLocal();
-    const msg = refCode ? 'تم إنشاء الحساب + 7 أيام Pro هدية! 🎉' : 'تم إنشاء الحساب 🎉';
-    S.screen = 'chat'; render(); showToast(msg, 'success');
+    let msg;
+    if (d.trialBlocked) {
+      msg = '✅ تم إنشاء الحساب — النسخة المجانية (تم استخدام التجربة من هذا الجهاز مسبقاً)';
+    } else if (refCode) {
+      msg = 'تم إنشاء الحساب + 7 أيام Pro هدية! 🎉';
+    } else {
+      msg = 'تم إنشاء الحساب + 7 أيام Pro مجاناً! 🎉';
+    }
+    S.screen = 'chat'; render(); showToast(msg, d.trialBlocked ? 'info' : 'success');
   } catch(e) { showAuthErr(e.message); }
   finally { setBtnLoading('b-register', 'إنشاء حساب 🚀'); }
 }
