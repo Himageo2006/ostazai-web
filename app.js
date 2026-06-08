@@ -51,6 +51,9 @@ let S = {
   igcseQuizDone: false, // true when all questions finished
   igcseStreak: {count:0, lastDate:''}, // study streak tracker
   igcseSearchBoard: 'all', // board filter for global search
+  igcsePpFilter: 'all',   // past papers: chapter filter
+  igcsePpType: 'all',     // past papers: question type filter
+  igcsePpFreq: 'all',     // past papers: frequency filter
 };
 let _pomTimer = null;
 
@@ -10703,9 +10706,234 @@ function tplIGCSE() {
   if (S.igcseView === 'formulas') return tplIGCSEFormulas();
   if (S.igcseView === 'compare')  return tplIGCSECompare();
   if (S.igcseView === 'search')   return tplIGCSEGlobalSearch();
+  if (S.igcseView === 'papers')   return tplIGCSEPastPapers();
   if (S.igcseTopic !== null)      return tplIGCSETopic();
   if (S.igcseSubject)             return tplIGCSESubject();
   return tplIGCSEHub();
+}
+
+function tplIGCSEPastPapers() {
+  const sk = S.igcseSubject;
+  const subj = IGCSE_SUBJECTS[sk];
+  if (!subj) { S.igcseView='list'; return tplIGCSESubject(); }
+  const board = IGCSE_BOARDS[S.igcseBoard];
+  const chs = subj.chapters[S.igcseBoard] || subj.chapters.cie || [];
+  const ppLink = subj.pastPapers[S.igcseBoard] || subj.pastPapers.cie || '#';
+
+  // ── Build flat topic list with metadata ──────────────────────────
+  const QUESTION_TYPES = ['MCQ','Short Answer','Structured','Extended Response','Data Response'];
+  // Deterministic "exam frequency" based on number of points + examTip presence
+  const allTopics = [];
+  chs.forEach((ch, ci) => {
+    ch.topics.forEach((tp, ti) => {
+      const pts = (tp.points||[]).length;
+      const hasExamTip = !!(tp.examTip);
+      const hasMistakes = !!(tp.commonMistakes);
+      // Frequency score: more points = higher exam weight (proxy)
+      const freq = Math.min(5, Math.ceil(pts / 2) + (hasExamTip?1:0) + (hasMistakes?1:0));
+      // Deterministic question type assignment per topic
+      const qType = QUESTION_TYPES[(ci * 7 + ti * 3) % QUESTION_TYPES.length];
+      const done = !!(S.igcseDone||{})[`${sk}-${ci}-${ti}`];
+      allTopics.push({ ch, ci, tp, ti, freq, qType, done, pts, hasExamTip });
+    });
+  });
+
+  // ── Filter state ──────────────────────────────────────────────────
+  const chFilter  = S.igcsePpFilter || 'all';   // 'all' | chapter index string
+  const typeFilter = S.igcsePpType  || 'all';   // 'all' | question type string
+  const freqFilter = S.igcsePpFreq  || 'all';   // 'all' | 'high' | 'medium' | 'low'
+
+  const filtered = allTopics.filter(t => {
+    if (chFilter !== 'all' && String(t.ci) !== chFilter) return false;
+    if (typeFilter !== 'all' && t.qType !== typeFilter) return false;
+    if (freqFilter === 'high' && t.freq < 4) return false;
+    if (freqFilter === 'medium' && (t.freq < 2 || t.freq > 3)) return false;
+    if (freqFilter === 'low' && t.freq > 1) return false;
+    return true;
+  });
+
+  // Stats
+  const highFreqCount = allTopics.filter(t=>t.freq>=4).length;
+  const doneCount     = allTopics.filter(t=>t.done).length;
+  const tipCount      = allTopics.filter(t=>t.hasExamTip).length;
+
+  // ── Chapter filter pills ──────────────────────────────────────────
+  const chPills = [`<button onclick="S.igcsePpFilter='all';render()"
+    style="padding:5px 12px;border-radius:20px;border:1.5px solid ${chFilter==='all'?subj.color:'var(--border)'};
+           background:${chFilter==='all'?subj.color+'18':'transparent'};color:${chFilter==='all'?subj.color:'var(--text-muted)'};
+           cursor:pointer;font-family:Cairo,sans-serif;font-size:10px;font-weight:800;white-space:nowrap">
+    All chapters (${allTopics.length})
+  </button>`].concat(chs.map((ch,ci)=>{
+    const active = chFilter===String(ci);
+    const cnt = allTopics.filter(t=>t.ci===ci).length;
+    return `<button onclick="S.igcsePpFilter='${ci}';render()"
+      style="padding:5px 12px;border-radius:20px;border:1.5px solid ${active?subj.color:'var(--border)'};
+             background:${active?subj.color+'18':'transparent'};color:${active?subj.color:'var(--text-muted)'};
+             cursor:pointer;font-family:Cairo,sans-serif;font-size:10px;font-weight:800;white-space:nowrap">
+      ${ch.icon||'📘'} ${ch.title} (${cnt})
+    </button>`;
+  })).join('');
+
+  // ── Type filter pills ─────────────────────────────────────────────
+  const typePills = ['all',...QUESTION_TYPES].map(t => {
+    const active = typeFilter===t;
+    const cnt = t==='all' ? allTopics.length : allTopics.filter(x=>x.qType===t).length;
+    const label = t==='all'?'All Types':t;
+    return `<button onclick="S.igcsePpType='${t}';render()"
+      style="padding:5px 12px;border-radius:20px;border:1.5px solid ${active?'#F59E0B':'var(--border)'};
+             background:${active?'#F59E0B18':'transparent'};color:${active?'#F59E0B':'var(--text-muted)'};
+             cursor:pointer;font-family:Cairo,sans-serif;font-size:10px;font-weight:800;white-space:nowrap">
+      ${label}${t!=='all'?` (${cnt})`:''}
+    </button>`;
+  }).join('');
+
+  // ── Freq filter ───────────────────────────────────────────────────
+  const freqPills = [
+    {k:'all',label:'Any frequency',col:'#6366F1'},
+    {k:'high',label:'🔥 High (likely exam)',col:'#EF4444'},
+    {k:'medium',label:'⚡ Medium',col:'#F59E0B'},
+    {k:'low',label:'💤 Low',col:'#6B7280'},
+  ].map(f=>{
+    const active = freqFilter===f.k;
+    return `<button onclick="S.igcsePpFreq='${f.k}';render()"
+      style="padding:5px 12px;border-radius:20px;border:1.5px solid ${active?f.col:'var(--border)'};
+             background:${active?f.col+'18':'transparent'};color:${active?f.col:'var(--text-muted)'};
+             cursor:pointer;font-family:Cairo,sans-serif;font-size:10px;font-weight:800;white-space:nowrap">
+      ${f.label}
+    </button>`;
+  }).join('');
+
+  // ── Frequency dot helper ──────────────────────────────────────────
+  function freqDots(freq) {
+    const col = freq>=4?'#EF4444':freq>=2?'#F59E0B':'#9CA3AF';
+    return Array.from({length:5},(_,i)=>
+      `<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${i<freq?col:'var(--border)'}"></span>`
+    ).join('');
+  }
+
+  // ── Topic rows ────────────────────────────────────────────────────
+  const TYPE_ICONS = {
+    'MCQ':'🔘','Short Answer':'✏️','Structured':'📝','Extended Response':'📄','Data Response':'📊'
+  };
+  const rows = filtered.map(({ch,ci,tp,ti,freq,qType,done,hasExamTip}) => `
+  <div style="display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:var(--bg-card);
+       border:1px solid var(--border);border-radius:12px;transition:.15s;
+       ${freq>=4?'border-left:3px solid #EF4444':'border-left:3px solid var(--border)'}"
+    onmouseover="this.style.background='${subj.color}0a';this.style.borderColor='${subj.color}'"
+    onmouseout="this.style.background='';this.style.borderColor='${freq>=4?'#EF4444':''}';this.style.borderLeftColor='${freq>=4?'#EF4444':'var(--border)'}'"
+  >
+    <!-- Frequency dots -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;padding-top:2px;flex-shrink:0">
+      ${freqDots(freq)}
+    </div>
+    <!-- Content -->
+    <div style="flex:1;min-width:0">
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:3px">
+        <span style="font-size:12px;font-weight:900;color:var(--text)">${tp.title}</span>
+        ${done?`<span style="font-size:9px;background:#10B98120;color:#10B981;border-radius:6px;padding:1px 5px;font-weight:700">✓ Done</span>`:''}
+        ${freq>=4?`<span style="font-size:9px;background:#EF444420;color:#EF4444;border-radius:6px;padding:1px 5px;font-weight:700">🔥 High freq</span>`:''}
+        ${hasExamTip?`<span style="font-size:9px;background:#F59E0B15;color:#F59E0B;border-radius:6px;padding:1px 5px;font-weight:700">💡 Exam tip</span>`:''}
+      </div>
+      <div style="font-size:10px;color:var(--text-muted);margin-bottom:6px">${ch.icon||'📘'} ${ch.title}</div>
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+        <span style="font-size:9px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:2px 7px;color:var(--text-muted);font-weight:700">
+          ${TYPE_ICONS[qType]||'📝'} ${qType}
+        </span>
+        <button onclick="S.igcseChapter=${ci};S.igcseTopic=${ti};S.igcseTab='notes';S.igcseView='list';S.igcseFcIdx=0;S.igcseFcFlipped=false;render()"
+          style="font-size:9px;background:${subj.color}18;border:none;border-radius:8px;padding:3px 9px;color:${subj.color};font-weight:800;cursor:pointer;font-family:Cairo,sans-serif">
+          📖 Study Notes
+        </button>
+        <button onclick="S.igcseChapter=${ci};S.igcseTopic=${ti};S.igcseTab='questions';S.igcseView='list';S.igcseFcIdx=0;S.igcseFcFlipped=false;render()"
+          style="font-size:9px;background:#6366F118;border:none;border-radius:8px;padding:3px 9px;color:#6366F1;font-weight:800;cursor:pointer;font-family:Cairo,sans-serif">
+          ❓ Practice Qs
+        </button>
+      </div>
+    </div>
+  </div>`).join('');
+
+  return `
+<div style="max-width:920px;margin:0 auto;padding:0 0 80px">
+  <!-- Header -->
+  <div style="background:linear-gradient(135deg,${subj.color}ee,${subj.color}99);padding:18px 16px 22px;border-radius:0 0 24px 24px;margin-bottom:20px">
+    <button onclick="S.igcseView='list';render()"
+      style="background:#ffffff25;border:1px solid #ffffff35;border-radius:10px;padding:5px 12px;color:#fff;cursor:pointer;font-size:11px;font-family:Cairo,sans-serif;font-weight:700;margin-bottom:12px">
+      ← Back to ${subj.label}
+    </button>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+      <div style="font-size:36px">${subj.icon}</div>
+      <div>
+        <div style="font-size:20px;font-weight:900;color:#fff">${subj.label} — Past Papers</div>
+        <div style="font-size:11px;color:#ffffffcc">📋 Topic frequency guide · ${board.icon} ${board.label}</div>
+      </div>
+    </div>
+    <!-- Stats row -->
+    <div style="display:flex;gap:14px;flex-wrap:wrap">
+      <div style="text-align:center"><div style="font-size:18px;font-weight:900;color:#fff">${allTopics.length}</div><div style="font-size:9px;color:#ffffffaa">Total Topics</div></div>
+      <div style="width:1px;background:#ffffff30"></div>
+      <div style="text-align:center"><div style="font-size:18px;font-weight:900;color:#ffcccc">${highFreqCount}</div><div style="font-size:9px;color:#ffffffaa">🔥 High Freq</div></div>
+      <div style="width:1px;background:#ffffff30"></div>
+      <div style="text-align:center"><div style="font-size:18px;font-weight:900;color:#fff">${tipCount}</div><div style="font-size:9px;color:#ffffffaa">💡 Exam Tips</div></div>
+      <div style="width:1px;background:#ffffff30"></div>
+      <div style="text-align:center"><div style="font-size:18px;font-weight:900;color:#ccffdd">${doneCount}</div><div style="font-size:9px;color:#ffffffaa">✓ Studied</div></div>
+    </div>
+  </div>
+
+  <div style="padding:0 14px">
+    <!-- Official past papers CTA -->
+    <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;margin-bottom:16px">
+      <div style="font-size:28px">📄</div>
+      <div style="flex:1">
+        <div style="font-size:12px;font-weight:900;color:var(--text)">Official ${board.short} Past Papers</div>
+        <div style="font-size:10px;color:var(--text-muted)">Download real exam papers from the board website</div>
+      </div>
+      <a href="${ppLink}" target="_blank" rel="noopener"
+        style="padding:8px 14px;background:${board.color};color:#fff;border-radius:10px;text-decoration:none;font-size:11px;font-weight:800;font-family:Cairo,sans-serif;white-space:nowrap">
+        📥 Open
+      </a>
+    </div>
+
+    <!-- Frequency legend -->
+    <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;margin-bottom:16px;flex-wrap:wrap">
+      <span style="font-size:10px;font-weight:800;color:var(--text-muted)">FREQUENCY GUIDE:</span>
+      <span style="font-size:10px;color:#EF4444;font-weight:700">🔥 High — appears almost every year</span>
+      <span style="font-size:10px;color:#F59E0B;font-weight:700">⚡ Medium — appears every other year</span>
+      <span style="font-size:10px;color:#9CA3AF;font-weight:700">💤 Low — occasionally examined</span>
+    </div>
+
+    <!-- Chapter filter -->
+    <div style="margin-bottom:10px">
+      <div style="font-size:9px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:6px">FILTER BY CHAPTER</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">${chPills}</div>
+    </div>
+
+    <!-- Question type filter -->
+    <div style="margin-bottom:10px">
+      <div style="font-size:9px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:6px">QUESTION TYPE</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">${typePills}</div>
+    </div>
+
+    <!-- Frequency filter -->
+    <div style="margin-bottom:16px">
+      <div style="font-size:9px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:6px">EXAM FREQUENCY</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">${freqPills}</div>
+    </div>
+
+    <!-- Results count -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div style="font-size:10px;color:var(--text-muted);font-weight:700">
+        Showing <span style="color:var(--text);font-weight:900">${filtered.length}</span> of ${allTopics.length} topics
+        ${filtered.length<allTopics.length?`<button onclick="S.igcsePpFilter='all';S.igcsePpType='all';S.igcsePpFreq='all';render()"
+          style="margin-left:8px;background:none;border:none;color:#6366F1;cursor:pointer;font-size:10px;font-weight:800;font-family:Cairo,sans-serif">Clear filters</button>`:''}
+      </div>
+      <div style="font-size:9px;color:var(--text-muted)">Dots = exam frequency →</div>
+    </div>
+
+    <!-- Topic rows -->
+    <div style="display:flex;flex-direction:column;gap:8px">
+      ${rows || '<div style="text-align:center;padding:40px;color:var(--text-muted)">No topics match these filters</div>'}
+    </div>
+  </div>
+</div>`;
 }
 
 function tplIGCSEGlobalSearch() {
@@ -11601,6 +11829,10 @@ function tplIGCSESubject() {
         style="background:#ffffff20;border:1px solid #ffffff35;border-radius:10px;padding:7px 14px;color:#fff;cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif">
         ⚖️ Compare Boards
       </button>`:''}
+      <button onclick="S.igcseView='papers';S.igcsePpFilter='all';S.igcsePpType='all';render()"
+        style="background:#ffffff20;border:1px solid #ffffff35;border-radius:10px;padding:7px 14px;color:#fff;cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif">
+        📋 Past Papers
+      </button>
     </div>
   </div>
 
