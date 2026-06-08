@@ -54,6 +54,7 @@ let S = {
   igcsePpFilter: 'all',   // past papers: chapter filter
   igcsePpType: 'all',     // past papers: question type filter
   igcsePpFreq: 'all',     // past papers: frequency filter
+  igcseProgress: {},      // { 'sk|board|topicTitle': 'studied'|'review'|'mastered' }
 };
 let _pomTimer = null;
 
@@ -78,6 +79,7 @@ function saveLocal() {
     localStorage.setItem('oa_igcse_examdate', S.igcseExamDate || '');
     localStorage.setItem('oa_igcse_recent',   JSON.stringify(S.igcseRecent || []));
     localStorage.setItem('oa_igcse_streak',   JSON.stringify(S.igcseStreak || {count:0, lastDate:''}));
+    localStorage.setItem('oa_igcse_progress', JSON.stringify(S.igcseProgress || {}));
   } catch {}
 }
 function loadLocal() {
@@ -105,6 +107,8 @@ function loadLocal() {
     S.igcseRecent   = igRecent ? JSON.parse(igRecent) : [];
     const igStreak  = localStorage.getItem('oa_igcse_streak');
     S.igcseStreak   = igStreak ? JSON.parse(igStreak) : {count:0, lastDate:''};
+    const igProg    = localStorage.getItem('oa_igcse_progress');
+    S.igcseProgress = igProg ? JSON.parse(igProg) : {};
   } catch {}
 }
 
@@ -4841,7 +4845,37 @@ P(both red) = 3/5 × 1/2 = 3/10`},
             'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
             'Making sign errors when expanding brackets or rearranging — write each step on a new line',
           ]},
-      ], commonMistakes:[
+      ], workedExample:`Find the HCF and LCM of 24 and 36.
+24 = 2³ × 3    |    36 = 2² × 3²
+HCF = 2² × 3 = 12  (product of SHARED prime factors, lowest power)
+LCM = 2³ × 3² = 72 (product of ALL prime factors, highest power)
+Check: 72 ÷ 24 = 3 ✓   72 ÷ 36 = 2 ✓`, workedExample:`A = (1,3), B = (5,7). Find |AB| and the unit vector.
+AB = B − A = (4, 4)
+|AB| = √(16+16) = √32 = 4√2 ≈ 5.66
+Unit vector = (4,4) / 4√2 = (1/√2, 1/√2)`, workedExample:`From a point 50m from the base of a building, the angle of elevation is 32°.
+tan 32° = height / 50
+height = 50 × tan 32° = 50 × 0.6249 = 31.2 m`, workedExample:`Write 0.000456 in standard form and evaluate (2×10³) × (3×10⁻⁵).
+0.000456 = 4.56 × 10⁻⁴  (move decimal 4 places right)
+(2×10³) × (3×10⁻⁵) = 6 × 10³⁺⁽⁻⁵⁾ = 6 × 10⁻² = 0.06`, workedExample:`Find the HCF and LCM of 24 and 36.
+24 = 2³ × 3    |    36 = 2² × 3²
+HCF = 2² × 3 = 12  (product of SHARED prime factors, lowest power)
+LCM = 2³ × 3² = 72 (product of ALL prime factors, highest power)
+Check: 72 ÷ 24 = 3 ✓   72 ÷ 36 = 2 ✓`, workedExample:`Triangle P has vertices (1,1),(3,1),(2,3). Reflect in y = x.
+Rule: (x,y) → (y,x)
+P' = (1,1),(1,3),(3,2)
+Then rotate 90° clockwise about origin: (x,y) → (y,−x)
+P'' = (1,−1),(3,−1),(2,−3)`, workedExample:`A = (1,3), B = (5,7). Find |AB| and the unit vector.
+AB = B − A = (4, 4)
+|AB| = √(16+16) = √32 = 4√2 ≈ 5.66
+Unit vector = (4,4) / 4√2 = (1/√2, 1/√2)`, workedExample:`Angle at centre = 2 × angle at circumference.
+O is centre; angle AOB = 110°. Find angle ACB (C on major arc).
+Angle ACB = 110° / 2 = 55°
+Opposite angles in cyclic quad: ∠A + ∠C = 180° → ∠C = 180° − ∠A`, workedExample:`f(x) = 2x + 3. Find f⁻¹(x).
+Let y = 2x + 3 → x = (y−3)/2
+f⁻¹(x) = (x−3)/2
+Check: f(f⁻¹(5)) = f(1) = 5 ✓`, workedExample:`Write 0.000456 in standard form and evaluate (2×10³) × (3×10⁻⁵).
+0.000456 = 4.56 × 10⁻⁴  (move decimal 4 places right)
+(2×10³) × (3×10⁻⁵) = 6 × 10³⁺⁽⁻⁵⁾ = 6 × 10⁻² = 0.06`, commonMistakes:[
             'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
             'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
           ], commonMistakes:[
@@ -5264,7 +5298,25 @@ Activity = 800 × (1/2)³ = 800 ÷ 8 = 100 Bq`},
             'Using the wrong equation — always identify what is given and what is needed before choosing a formula',
             'Omitting units in answers — every numerical answer must have a unit unless it is a ratio',
           ]},
-      ], commonMistakes:[
+      ], workedExample:`A 60W motor lifts a 15 kg crate 3m in 9 seconds.
+Useful work done = mgh = 15 × 10 × 3 = 450 J
+Energy input = P × t = 60 × 9 = 540 J
+Efficiency = 450/540 × 100 = 83.3%`, workedExample:`A car accelerates from rest to 20 m/s in 8 s, then decelerates to stop in 5 s.
+Acceleration phase: a = (20−0)/8 = 2.5 m/s²
+Deceleration: a = (0−20)/5 = −4 m/s²
+Distance (area under v-t graph):
+Phase 1: ½ × 8 × 20 = 80 m
+Phase 2: ½ × 5 × 20 = 50 m
+Total = 130 m`, workedExample:`Calculate the pressure of a gas if volume doubles at constant temperature (Boyle's Law).
+P₁V₁ = P₂V₂
+If P₁ = 200 kPa, V₁ = 3 L:
+200 × 3 = P₂ × 6 → P₂ = 100 kPa
+Pressure halved when volume doubled ✓`, workedExample:`A uniform 4m plank (weight 200N) has a 500N load 1m from left end. Find support reactions.
+Take moments about left support:
+R_right × 4 = 200 × 2 + 500 × 1 = 900
+R_right = 225 N
+R_left = 200 + 500 − 225 = 475 N
+Check: 475 + 225 = 700N = total load ✓`, commonMistakes:[
             'Reading gradient of distance-time graph as velocity without dividing rise by run correctly',
             'Confusing distance (scalar) with displacement (vector) — displacement has direction, distance does not',
           ],
@@ -5469,7 +5521,10 @@ R = 12/4 = 3Ω`},
             'Using LHR for generators (should be RHR — Fleming\'s Right Hand Rule)',
             'Saying transformers work with DC — they require AC (changing field to induce EMF)',
           ]},
-        ]},
+        ], workedExample:`A wire of length 0.3m carries 4A in a field of 0.5T (perpendicular). Find the force.
+F = BIL = 0.5 × 4 × 0.3 = 0.6 N
+Use Fleming's Left Hand rule to find direction:
+Thumb = force, Index = field, Middle = current`},
         { title:'Waves & Radiation', icon:'〰️', topics:[
           { title:'Waves', points:[
             'Edexcel: transverse (light, water) and longitudinal (sound) waves',
@@ -5849,7 +5904,12 @@ Lower temp: yield ↑ but rate too slow → economically unviable
             'Writing unbalanced equations — check atom count for every element on both sides',
             'Confusing physical change (no new substance) with chemical change (new substance formed)',
           ]},
-      ], commonMistakes:[
+      ], workedExample:`Rate = k[A][B]. If [A] doubles: rate doubles (first order in A). If [B] triples: rate triples (first order in B). If both double: rate × 4.
+Activation energy: use Arrhenius or just state that catalysts provide an alternative pathway with lower Ea`, workedExample:`Propan-1-ol → propanoic acid (oxidation)
+CH₃CH₂CH₂OH → [O] → CH₃CH₂COOH
+Reagent: acidified KMnO₄ or K₂Cr₂O₇
+Propene → 1-bromopropane:
+CH₃CH=CH₂ + HBr → CH₃CH₂CH₂Br (Markovnikov: major) or CH₃CHBrCH₃ (minor)`, commonMistakes:[
             'Writing unbalanced equations — check atom count for every element on both sides',
             'Confusing physical change (no new substance) with chemical change (new substance formed)',
           ], commonMistakes:[
@@ -6105,7 +6165,11 @@ Moles HCl = (20/1000) × 0.5 = 0.01 mol
 NaOH + HCl → NaCl + H₂O (1:1 ratio)
 Moles NaOH = 0.01 mol
 [NaOH] = 0.01/(25/1000) = 0.4 mol/dm³`},
-      ],
+      ], workedExample:`25.0 cm³ of Na₂CO₃ neutralised by 20.0 cm³ of 0.25 mol/dm³ HCl.
+Na₂CO₃ + 2HCl → 2NaCl + H₂O + CO₂  (1:2 ratio)
+Moles HCl = 0.020 × 0.25 = 0.005 mol
+Moles Na₂CO₃ = 0.005/2 = 0.0025 mol
+[Na₂CO₃] = 0.0025/0.025 = 0.10 mol/dm³`,
     }
   },
   biology: {
@@ -6458,7 +6522,19 @@ Blood glucose rises → detected by pancreas
             'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
             'Writing "the cell does..." instead of naming the specific organelle responsible',
           ]},
-      ], commonMistakes:[
+      ], workedExample:`Calculate magnification.
+Actual size of cell = 0.05 mm; image size = 35 mm
+Magnification = image / actual = 35/0.05 = ×700
+Or: Actual size = image size / magnification
+= 40 mm / 1000 = 0.04 mm = 40 μm`, workedExample:`RQ (Respiratory Quotient) = CO₂ released / O₂ consumed
+Glucose: C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O
+RQ = 6/6 = 1.0 (pure carbohydrate)
+Fat: RQ ≈ 0.7; Protein: RQ ≈ 0.9
+Anaerobic (yeast): C₆H₁₂O₆ → 2C₂H₅OH + 2CO₂
+No O₂ used → RQ = undefined/infinite`, workedExample:`An experiment shows at 20°C with 1000 lux: rate = 30 units.
+At 30°C with 1000 lux: rate = 45 units.
+Since temperature change increased rate at high light — temperature was a limiting factor.
+At low light, rate = 10 units regardless of temperature → light is limiting`, commonMistakes:[
             'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
             'Writing "the cell does..." instead of naming the specific organelle responsible',
           ], commonMistakes:[
@@ -6711,7 +6787,12 @@ Energy lost at each level = ~90% (heat + faeces + uneaten parts)`},
             'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
             'Writing "the cell does..." instead of naming the specific organelle responsible',
           ]},
-      ], commonMistakes:[
+      ], workedExample:`Cross Tt × Tt (Tt = tall, tt = short):
+Gametes: T, t  ×  T, t
+Punnett square: TT, Tt, Tt, tt
+Phenotype ratio: 3 tall : 1 short
+Genotype ratio: 1 TT : 2 Tt : 1 tt
+Probability of tt = 25%`, commonMistakes:[
             'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
             'Writing "the cell does..." instead of naming the specific organelle responsible',
           ],
@@ -7365,7 +7446,11 @@ Break-even = 5000 ÷ 5 = 1000 units`},
             'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
             'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
           ]},
-      ], commonMistakes:[
+      ], workedExample:`Price ceiling below equilibrium (e.g. rent control):
+Qs < Qd → shortage = Qd − Qs at the ceiling price
+Consumer surplus: some gain (those who get the good at lower price)
+Producer surplus: falls
+Total welfare: net loss (deadweight loss) — show triangle on diagram`, commonMistakes:[
             'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
             'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
           ],
@@ -7817,7 +7902,12 @@ Figurative language: "Dust danced in the pale light filtering through cracked pa
             'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
             'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
           ]},
-      ], commonMistakes:[
+      ], workedExample:`Effective opening techniques:
+1. Shocking statistic: "Every 40 seconds, someone takes their own life."
+2. Rhetorical question: "How long will we ignore what is right in front of us?"
+3. In medias res: "The letter arrived on a Tuesday. Everything changed by Wednesday."
+4. Anecdote: Brief, vivid personal story to hook reader
+Avoid: starting with "I am going to write about..." — too weak`, commonMistakes:[
             'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
             'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
           ],
@@ -9107,7 +9197,9 @@ Same hazard; very different outcomes due to development level`},
             'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
             'Defining a term correctly but not applying it to the specific business in the question',
           ]},
-      ], commonMistakes:[
+      ], workedExample:`Maslow's Hierarchy: Physiological → Safety → Social → Esteem → Self-actualisation
+Apply to motivation: paying fair wages meets physiological needs; job security meets safety; teamwork meets social; recognition meets esteem; autonomy/promotion meets self-actualisation.
+Taylor (scientific management): pay per piece as sole motivator — criticised as too simplistic`, commonMistakes:[
             'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
             'Defining a term correctly but not applying it to the specific business in the question',
           ],
@@ -9545,7 +9637,19 @@ dy/dx = 4u³ × 6x = 24x(3x² + 1)³`},
             'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
             'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
           ]},
-      ], commonMistakes:[
+      ], workedExample:`Find ∫(3x² − 4x + 1)dx
+= x³ − 2x² + x + c   (always add +c for indefinite integrals)
+Definite: ∫₁³ (3x²−4x+1)dx = [x³−2x²+x]₁³
+= (27−18+3) − (1−2+1) = 12 − 0 = 12`, workedExample:`Find ∫(3x² − 4x + 1)dx
+= x³ − 2x² + x + c   (always add +c for indefinite integrals)
+Definite: ∫₁³ (3x²−4x+1)dx = [x³−2x²+x]₁³
+= (27−18+3) − (1−2+1) = 12 − 0 = 12`, workedExample:`Find ∫(3x² − 4x + 1)dx
+= x³ − 2x² + x + c   (always add +c for indefinite integrals)
+Definite: ∫₁³ (3x²−4x+1)dx = [x³−2x²+x]₁³
+= (27−18+3) − (1−2+1) = 12 − 0 = 12`, workedExample:`How many ways to arrange 5 people in a row if 2 specific people must be together?
+Treat the pair as 1 unit → 4! arrangements of 4 units = 24
+The pair can swap internally: × 2
+Total = 24 × 2 = 48`, commonMistakes:[
             'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
             'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
           ], commonMistakes:[
@@ -9957,7 +10061,18 @@ Quick ratio = (45,000−15,000) ÷ 20,000 = 30,000 ÷ 20,000 = 1.5:1 (good liqui
             'Treating cash flow and profit as the same — they are fundamentally different concepts',
             'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
           ]},
-      ], commonMistakes:[
+      ], workedExample:`Buy goods on credit £2,000 from supplier A:
+DR Purchases £2,000  (purchases account increases — debit)
+CR Accounts Payable £2,000  (liability increases — credit)
+Pay supplier A £2,000 by cheque:
+DR Accounts Payable £2,000  (liability decreases — debit)
+CR Bank £2,000  (asset decreases — credit)`, workedExample:`Net Profit Margin = Net Profit / Revenue × 100 = £18,000/£90,000 × 100 = 20%
+Current Ratio = Current Assets / Current Liabilities = £25,000/£12,000 = 2.08:1 (healthy — above 1.5:1)
+Acid Test = (CA − Inventory) / CL = (25,000−8,000)/12,000 = 1.42:1
+Return on Capital Employed = Net Profit / Capital Employed × 100`, workedExample:`Net Profit Margin = Net Profit / Revenue × 100 = £18,000/£90,000 × 100 = 20%
+Current Ratio = Current Assets / Current Liabilities = £25,000/£12,000 = 2.08:1 (healthy — above 1.5:1)
+Acid Test = (CA − Inventory) / CL = (25,000−8,000)/12,000 = 1.42:1
+Return on Capital Employed = Net Profit / Capital Employed × 100`, commonMistakes:[
             'Treating cash flow and profit as the same — they are fundamentally different concepts',
             'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
           ], commonMistakes:[
@@ -10183,7 +10298,13 @@ NET ASSETS:                  $35,000
         ], workedExample:`Month 1: Inflows £5,000; Outflows £6,500
 Net cash flow = 5,000 − 6,500 = −£1,500
 Opening balance = £2,000
-Closing balance = 2,000 + (−1,500) = £500`},
+Closing balance = 2,000 + (−1,500) = £500`, workedExample:`Month:        Jan    Feb    Mar
+Inflows:     £8000  £6000  £9000
+Outflows:    £7000  £8500  £7500
+Net CF:      +£1000 −£2500 +£1500
+Opening bal:  £500  £1500  −£1000
+Closing bal: £1500  −£1000  £500
+Feb closing is negative → overdraft needed → bank must be contacted in advance`},
         { title:'Financial Statements & Ratio Analysis (Oxford AQA)', icon:'📊', topics:[
           { title:'Income Statement & Balance Sheet', points:[
             'Income statement (P&L): Revenue − Cost of Sales = Gross Profit; Gross Profit − Expenses = Net Profit',
@@ -10442,7 +10563,24 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Describing society in general terms without linking to a specific sociological theory or concept',
             'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
           ]},
-      ], commonMistakes:[
+      ], workedExample:`Questionnaire on attitudes to education:
+Strength: large sample quickly — high representativeness; easy to quantify; cheap
+Weakness: low response rate; respondents may not answer honestly (social desirability bias)
+Positivists prefer questionnaires (quantitative); Interpretivists prefer interviews (qualitative — deeper meaning)`, workedExample:`Questionnaire on attitudes to education:
+Strength: large sample quickly — high representativeness; easy to quantify; cheap
+Weakness: low response rate; respondents may not answer honestly (social desirability bias)
+Positivists prefer questionnaires (quantitative); Interpretivists prefer interviews (qualitative — deeper meaning)`, workedExample:`Marx: bourgeoisie (own means of production) exploit proletariat (sell labour)
+→ class conflict inevitable → revolution → communism
+Weber: THREE dimensions of stratification — class (economic), status (social prestige), power (political)
+Weber: more nuanced — one can have high status but low income (e.g. vicar)`, workedExample:`Merton's Strain Theory: crime results from gap between cultural goals (success) and legitimate means.
+Adaptations: conformity, innovation (crime), ritualism, retreatism, rebellion
+Cohen: subcultures — working-class boys fail in school → form delinquent subcultures → gain status through crime
+Labelling (Becker): being labelled deviant leads to master status → self-fulfilling prophecy → more crime`, workedExample:`Functionalist view (Durkheim): education passes on shared values; social solidarity; role allocation by meritocracy
+Marxist view (Althusser): education is ideological state apparatus; hidden curriculum reproduces capitalist values; legitimises inequality
+Evaluation: evidence of inequality (social class gap in attainment) supports Marxist view`, workedExample:`Questionnaire on attitudes to education:
+Strength: large sample quickly — high representativeness; easy to quantify; cheap
+Weakness: low response rate; respondents may not answer honestly (social desirability bias)
+Positivists prefer questionnaires (quantitative); Interpretivists prefer interviews (qualitative — deeper meaning)`, commonMistakes:[
             'Describing society in general terms without linking to a specific sociological theory or concept',
             'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
           ], commonMistakes:[
@@ -11395,7 +11533,17 @@ Modern encryption (AES, RSA) is mathematically complex — not breakable by simp
             'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
             'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
           ]},
-      ], commonMistakes:[
+      ], workedExample:`Entity-Relationship: Student(StudentID PK, Name, DOB) takes Course(CourseID PK, Title) through Enrolment(StudentID FK, CourseID FK, Grade)
+SQL query:
+SELECT Student.Name, Course.Title, Enrolment.Grade
+FROM Student JOIN Enrolment ON Student.StudentID = Enrolment.StudentID
+JOIN Course ON Enrolment.CourseID = Course.CourseID
+WHERE Grade = 'A'`, workedExample:`Entity-Relationship: Student(StudentID PK, Name, DOB) takes Course(CourseID PK, Title) through Enrolment(StudentID FK, CourseID FK, Grade)
+SQL query:
+SELECT Student.Name, Course.Title, Enrolment.Grade
+FROM Student JOIN Enrolment ON Student.StudentID = Enrolment.StudentID
+JOIN Course ON Enrolment.CourseID = Course.CourseID
+WHERE Grade = 'A'`, commonMistakes:[
             'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
             'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
           ], commonMistakes:[
@@ -14958,6 +15106,10 @@ function tplIGCSEHub() {
         <div style="width:1px;background:#ffffff30"></div>
         <div style="text-align:center"><div style="font-size:20px;font-weight:900;color:#fff">${doneCnt}</div><div style="font-size:10px;color:#ffffffaa">Done ✓</div></div>
         <div style="width:1px;background:#ffffff30"></div>
+        <div style="text-align:center"><div style="font-size:20px;font-weight:900;color:#10B981">${Object.values(S.igcseProgress||{}).filter(v=>v==='mastered').length}</div><div style="font-size:10px;color:#ffffffaa">🏆 Mastered</div></div>
+        <div style="width:1px;background:#ffffff30"></div>
+        <div style="text-align:center"><div style="font-size:20px;font-weight:900;color:#F59E0B">${Object.values(S.igcseProgress||{}).filter(v=>v==='review').length}</div><div style="font-size:10px;color:#ffffffaa">⚠️ Review</div></div>
+        <div style="width:1px;background:#ffffff30"></div>
         <div style="text-align:center"><div style="font-size:20px;font-weight:900;color:#fff">3</div><div style="font-size:10px;color:#ffffffaa">Boards</div></div>
         <div style="width:1px;background:#ffffff30"></div>
         <div style="text-align:center"><div style="font-size:20px;font-weight:900;color:#fff">🔥${(S.igcseStreak||{count:0}).count}</div><div style="font-size:10px;color:#ffffffaa">Day Streak</div></div>
@@ -15199,6 +15351,13 @@ function tplIGCSESubject() {
   const doneTopics = chapters.reduce((a,c,ci)=>a+c.topics.filter((_,ti)=>S.igcseDone[`${S.igcseSubject}-${ci}-${ti}`]).length,0);
   const pct = totalTopics ? Math.round(doneTopics/totalTopics*100) : 0;
 
+  // igcseProgress breakdown for this subject+board
+  const _progKeys = Object.keys(S.igcseProgress||{}).filter(k=>k.startsWith(S.igcseSubject+'|'+S.igcseBoard+'|'));
+  const _masteredCnt = _progKeys.filter(k=>S.igcseProgress[k]==='mastered').length;
+  const _studiedCnt  = _progKeys.filter(k=>S.igcseProgress[k]==='studied').length;
+  const _reviewCnt   = _progKeys.filter(k=>S.igcseProgress[k]==='review').length;
+  const _progressPct = totalTopics ? Math.round(_progKeys.length/totalTopics*100) : 0;
+
   const chapterList = chapters.map((ch, ci) => {
     const isOpen = S.igcseChapter === ci;
     const chDone = ch.topics.filter((_,ti)=>S.igcseDone[`${S.igcseSubject}-${ci}-${ti}`]).length;
@@ -15211,8 +15370,8 @@ function tplIGCSESubject() {
                  background:${done?'#10B98108':'transparent'};border:1px solid ${done?'#10B98130':'var(--border)'};border-right:none"
           onmouseover="this.style.background='${subj.color}11';this.style.borderColor='${subj.color}44'"
           onmouseout="this.style.background='${done?'#10B98108':'transparent'}';this.style.borderColor='${done?'#10B98130':'var(--border)'}'">
-          <span style="font-size:14px">${done?'✅':'📖'}</span>
-          <span style="font-size:13px;font-weight:${done?'600':'500'};color:${done?'#10B981':'var(--text)'};text-decoration:${done?'none':'none'}">${tp.title}</span>
+          <span style="font-size:14px">${(()=>{const _s=((S.igcseProgress||{})[S.igcseSubject+'|'+S.igcseBoard+'|'+tp.title]);return _s==='mastered'?'🏆':_s==='studied'?'📖':_s==='review'?'⚠️':'○';})()}</span>
+          <span style="font-size:13px;font-weight:${done?'600':'500'};color:${(()=>{const _s=((S.igcseProgress||{})[S.igcseSubject+'|'+S.igcseBoard+'|'+tp.title]);return _s==='mastered'?'#10B981':_s==='review'?'#F59E0B':'var(--text)'})()}">${tp.title}</span>
           <span style="margin-right:auto;font-size:10px;color:var(--text-muted)">${tp.points.length} pts</span>
           <span style="font-size:11px;color:${subj.color}">›</span>
         </div>
@@ -15267,6 +15426,13 @@ function tplIGCSESubject() {
       <div style="height:6px;background:#ffffff25;border-radius:3px">
         <div style="height:100%;width:${pct}%;background:#fff;border-radius:3px;transition:.5s"></div>
       </div>
+    </div>
+    <!-- Progress breakdown chips -->
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+      ${_masteredCnt ? `<div style="padding:4px 10px;border-radius:20px;background:#10B98130;color:#10B981;font-size:10px;font-weight:800">🏆 ${_masteredCnt} Mastered</div>` : ''}
+      ${_studiedCnt  ? `<div style="padding:4px 10px;border-radius:20px;background:#3B82F630;color:#93C5FD;font-size:10px;font-weight:800">📖 ${_studiedCnt} Studied</div>` : ''}
+      ${_reviewCnt   ? `<div style="padding:4px 10px;border-radius:20px;background:#F59E0B30;color:#FCD34D;font-size:10px;font-weight:800">⚠️ ${_reviewCnt} Needs Review</div>` : ''}
+      ${!_progKeys.length ? `<div style="padding:4px 10px;border-radius:20px;background:#ffffff15;color:#ffffffaa;font-size:10px;font-weight:700">No progress marked yet</div>` : ''}
     </div>
     <!-- Quick actions -->
     <div style="display:flex;gap:8px;flex-wrap:wrap">
@@ -15351,11 +15517,28 @@ function tplIGCSETopic() {
           <div style="font-size:10px;color:${subj.color};font-weight:900;letter-spacing:1px">KEY REVISION NOTES</div>
           <div style="font-size:11px;color:var(--text-muted);margin-top:1px">${tp.points.length} points · ${board.short}</div>
         </div>
-        <button onclick="S.igcseDone=S.igcseDone||{};S.igcseDone['${S.igcseSubject}-${S.igcseChapter}-${S.igcseTopic}']=!S.igcseDone['${S.igcseSubject}-${S.igcseChapter}-${S.igcseTopic}'];if(!S.igcseDone['${S.igcseSubject}-${S.igcseChapter}-${S.igcseTopic}'])delete S.igcseDone['${S.igcseSubject}-${S.igcseChapter}-${S.igcseTopic}'];render()"
-          style="padding:7px 14px;border-radius:10px;border:none;cursor:pointer;font-size:11px;font-weight:800;font-family:Cairo,sans-serif;transition:.15s;
-                 ${isDone?'background:#10B981;color:#fff':'background:var(--bg);color:var(--text-muted);border:1px solid var(--border)'}">
-          ${isDone?'✅ Done':'○ Mark Done'}
-        </button>
+        <!-- Progress Tracker -->
+        ${(()=>{
+          const _pk = `${S.igcseSubject}|${S.igcseBoard}|${tp.title}`;
+          const _cur = (S.igcseProgress||{})[_pk] || '';
+          const _statuses = [
+            { id:'studied',  icon:'📖', label:'Studied',      bg:'#3B82F6' },
+            { id:'review',   icon:'⚠️', label:'Needs Review', bg:'#F59E0B' },
+            { id:'mastered', icon:'🏆', label:'Mastered',     bg:'#10B981' },
+          ];
+          return `<div style="display:flex;gap:5px;align-items:center">
+            ${_statuses.map(st => `
+            <button onclick="S.igcseProgress=S.igcseProgress||{};
+              if(S.igcseProgress['${_pk}']==='${st.id}'){delete S.igcseProgress['${_pk}'];}
+              else{S.igcseProgress['${_pk}']='${st.id}';}
+              saveLocal();render()"
+              title="${st.label}"
+              style="padding:6px 10px;border-radius:9px;border:none;cursor:pointer;font-size:11px;font-weight:800;font-family:Cairo,sans-serif;transition:.15s;white-space:nowrap;
+                     ${_cur===st.id?'background:'+st.bg+';color:#fff;box-shadow:0 2px 8px '+st.bg+'44':'background:var(--bg);color:var(--text-muted);border:1px solid var(--border)'}">
+              ${st.icon} ${st.label}
+            </button>`).join('')}
+          </div>`;
+        })()}
       </div>
       ${keyPoints}
       ${tp.workedExample ? `
