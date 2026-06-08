@@ -17184,6 +17184,50 @@ function tplIGCSEHub() {
     <div style="display:flex;gap:10px">${boardCards}</div>
   </div>
 
+  <!-- ══ PAST PAPERS BANNER ══ -->
+  <div style="padding:0 14px;margin-bottom:18px">
+    <div style="background:linear-gradient(135deg,#DC2626,#B91C1C);border-radius:18px;padding:18px 18px 14px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:-20px;right:-20px;width:100px;height:100px;border-radius:50%;background:#ffffff0d"></div>
+      <div style="position:absolute;bottom:-30px;left:-10px;width:80px;height:80px;border-radius:50%;background:#ffffff08"></div>
+      <div style="position:relative;z-index:1">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+          <div style="width:44px;height:44px;border-radius:12px;background:#ffffff20;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">📄</div>
+          <div>
+            <div style="font-size:17px;font-weight:900;color:#fff">Past Papers</div>
+            <div style="font-size:11px;color:#ffaaaa;margin-top:1px">Official exam papers · CIE · Edexcel · Oxford AQA</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:7px">
+          ${Object.entries(IGCSE_SUBJECTS).filter(([,s])=>s.boards.includes(S.igcseBoard)).map(([sk,subj])=>`
+          <button onclick="S.igcseSubject='${sk}';S.igcseView='papers';S.igcsePpFilter='all';S.igcsePpType='all';render()"
+            style="display:flex;align-items:center;gap:5px;padding:6px 11px;border-radius:20px;border:1.5px solid #ffffff30;
+                   background:#ffffff15;color:#fff;cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif;
+                   transition:.15s;white-space:nowrap"
+            onmouseover="this.style.background='#ffffff30'" onmouseout="this.style.background='#ffffff15'">
+            ${subj.icon} ${subj.label}
+          </button>`).join('')}
+        </div>
+        <div style="margin-top:12px;padding-top:10px;border-top:1px solid #ffffff20;display:flex;gap:8px;flex-wrap:wrap">
+          <a href="https://www.cambridgeinternational.org/exam-administration/cambridge-exams/past-papers/" target="_blank" rel="noopener"
+            style="display:flex;align-items:center;gap:5px;padding:7px 14px;border-radius:10px;background:#ffffff20;border:1px solid #ffffff30;
+                   color:#fff;text-decoration:none;font-size:11px;font-weight:800;font-family:Cairo,sans-serif">
+            🎓 Cambridge (CIE)
+          </a>
+          <a href="https://qualifications.pearson.com/en/support/support-topics/exams/past-papers.html" target="_blank" rel="noopener"
+            style="display:flex;align-items:center;gap:5px;padding:7px 14px;border-radius:10px;background:#ffffff20;border:1px solid #ffffff30;
+                   color:#fff;text-decoration:none;font-size:11px;font-weight:800;font-family:Cairo,sans-serif">
+            📘 Edexcel
+          </a>
+          <a href="https://www.oxfordaqaexams.org.uk/resources/past-papers/" target="_blank" rel="noopener"
+            style="display:flex;align-items:center;gap:5px;padding:7px 14px;border-radius:10px;background:#ffffff20;border:1px solid #ffffff30;
+                   color:#fff;text-decoration:none;font-size:11px;font-weight:800;font-family:Cairo,sans-serif">
+            📙 Oxford AQA
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Search -->
   <div style="padding:0 14px;margin-bottom:16px">
     <div style="display:flex;gap:8px;align-items:center">
@@ -17592,9 +17636,14 @@ function tplIGCSESubject() {
     <!-- Quick actions -->
     <div style="display:flex;gap:8px;flex-wrap:wrap">
       <a href="${ppLink}" target="_blank" rel="noopener"
-        style="background:#ffffff20;border:1px solid #ffffff35;border-radius:10px;padding:7px 14px;color:#fff;text-decoration:none;font-size:11px;font-weight:700;font-family:Cairo,sans-serif">
-        📄 Past Papers
+        style="background:#DC2626;border:2px solid #ffffff40;border-radius:10px;padding:8px 16px;color:#fff;text-decoration:none;font-size:12px;font-weight:900;font-family:Cairo,sans-serif;
+               box-shadow:0 3px 12px #DC262655;display:flex;align-items:center;gap:6px">
+        📄 Past Papers ↗
       </a>
+      <button onclick="S.igcseView='papers';S.igcsePpFilter='all';S.igcsePpType='all';render()"
+        style="background:#ffffff20;border:2px solid #ffffff40;border-radius:10px;padding:8px 16px;color:#fff;cursor:pointer;font-size:12px;font-weight:900;font-family:Cairo,sans-serif;display:flex;align-items:center;gap:6px">
+        📊 Topic Analysis
+      </button>
       <button onclick="S.screen='chat';S.subject='${subj.label} IGCSE';S.messages=[];render()"
         style="background:#ffffff20;border:1px solid #ffffff35;border-radius:10px;padding:7px 14px;color:#fff;cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif">
         💬 AI Tutor
