@@ -7,97 +7,67 @@ const API = 'https://ostazai-server-production.up.railway.app/api';
 
 /* ══════════════════════════════════════════════════════════════
    DEVICE FINGERPRINTING — prevents multi-account trial abuse
+   Never throws — always returns a string (null-safe)
    ══════════════════════════════════════════════════════════════ */
 async function getDeviceFingerprint() {
-  // Return cached fingerprint if already generated
-  const cached = localStorage.getItem('oa_device_id');
-  if (cached && cached.length > 20) return cached;
-
-  const signals = [];
-
-  // 1. Screen properties
-  signals.push(screen.width + 'x' + screen.height + 'x' + screen.colorDepth);
-  signals.push(screen.availWidth + 'x' + screen.availHeight);
-
-  // 2. Navigator properties
-  signals.push(navigator.language || '');
-  signals.push(navigator.languages ? navigator.languages.join(',') : '');
-  signals.push(navigator.platform || '');
-  signals.push(String(navigator.hardwareConcurrency || 0));
-  signals.push(String(navigator.deviceMemory || 0));
-  signals.push(navigator.userAgent || '');
-
-  // 3. Timezone
-  signals.push(Intl.DateTimeFormat().resolvedOptions().timeZone || '');
-  signals.push(String(new Date().getTimezoneOffset()));
-
-  // 4. Canvas fingerprint (most unique signal)
   try {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = 200; canvas.height = 50;
-    ctx.textBaseline = 'top';
-    ctx.font = '14px Arial';
-    ctx.fillStyle = '#f60';
-    ctx.fillRect(125, 1, 62, 20);
-    ctx.fillStyle = '#069';
-    ctx.fillText('OstazAI🎓', 2, 15);
-    ctx.fillStyle = 'rgba(102,204,0,0.7)';
-    ctx.fillText('OstazAI🎓', 4, 17);
-    signals.push(canvas.toDataURL());
-  } catch(e) { signals.push('no-canvas'); }
+    // Return cached fingerprint if already generated
+    const cached = localStorage.getItem('oa_device_id');
+    if (cached && cached.length > 10) return cached;
 
-  // 5. WebGL renderer
-  try {
-    const gl = document.createElement('canvas').getContext('webgl');
-    const ext = gl && gl.getExtension('WEBGL_debug_renderer_info');
-    if (ext) {
-      signals.push(gl.getParameter(ext.UNMASKED_VENDOR_WEBGL) || '');
-      signals.push(gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) || '');
-    }
-  } catch(e) { signals.push('no-webgl'); }
+    const signals = [];
 
-  // 6. Audio fingerprint
-  try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const osc = ctx.createOscillator();
-    const analyser = ctx.createAnalyser();
-    const gain = ctx.createGain();
-    gain.gain.value = 0;
-    osc.connect(analyser);
-    analyser.connect(gain);
-    gain.connect(ctx.destination);
-    osc.start(0);
-    const data = new Float32Array(analyser.frequencyBinCount);
-    analyser.getFloatFrequencyData(data);
-    signals.push(data.slice(0, 10).join(','));
-    osc.stop(0);
-    ctx.close();
-  } catch(e) { signals.push('no-audio'); }
+    // 1. Screen + Navigator (always available)
+    try { signals.push(screen.width+'x'+screen.height+'x'+screen.colorDepth); } catch(e){}
+    try { signals.push(navigator.language || ''); } catch(e){}
+    try { signals.push((navigator.languages||[]).join(',')); } catch(e){}
+    try { signals.push(navigator.platform || ''); } catch(e){}
+    try { signals.push(String(navigator.hardwareConcurrency||0)); } catch(e){}
+    try { signals.push(String(navigator.deviceMemory||0)); } catch(e){}
+    try { signals.push(navigator.userAgent || ''); } catch(e){}
+    try { signals.push(Intl.DateTimeFormat().resolvedOptions().timeZone||''); } catch(e){}
+    try { signals.push(String(new Date().getTimezoneOffset())); } catch(e){}
 
-  // Hash all signals into a fingerprint
-  const raw = signals.join('|||');
-  const fp = await hashString(raw);
+    // 2. Canvas fingerprint
+    try {
+      const c = document.createElement('canvas');
+      const x = c.getContext('2d');
+      c.width=200; c.height=50;
+      x.textBaseline='top'; x.font='14px Arial';
+      x.fillStyle='#f60'; x.fillRect(125,1,62,20);
+      x.fillStyle='#069'; x.fillText('OstazAI',2,15);
+      x.fillStyle='rgba(102,204,0,0.7)'; x.fillText('OstazAI',4,17);
+      signals.push(c.toDataURL());
+    } catch(e){ signals.push('nc'); }
 
-  // Store persistently
-  localStorage.setItem('oa_device_id', fp);
-  return fp;
+    // 3. WebGL (no AudioContext — it requires user gesture)
+    try {
+      const gl = document.createElement('canvas').getContext('webgl');
+      const ext = gl && gl.getExtension('WEBGL_debug_renderer_info');
+      if (ext) {
+        signals.push(gl.getParameter(ext.UNMASKED_VENDOR_WEBGL)||'');
+        signals.push(gl.getParameter(ext.UNMASKED_RENDERER_WEBGL)||'');
+      }
+    } catch(e){ signals.push('ng'); }
+
+    const raw = signals.join('|||');
+    const fp = await _hashStr(raw);
+    try { localStorage.setItem('oa_device_id', fp); } catch(e){}
+    return fp;
+  } catch(e) {
+    // Absolute fallback — never block login
+    return 'fp-fallback-' + Math.random().toString(36).slice(2,10);
+  }
 }
 
-async function hashString(str) {
+async function _hashStr(str) {
   try {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(str);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('').substring(0, 32);
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('').slice(0,32);
   } catch(e) {
-    // Fallback simple hash
     let h = 0;
-    for (let i = 0; i < str.length; i++) {
-      h = Math.imul(31, h) + str.charCodeAt(i) | 0;
-    }
-    return Math.abs(h).toString(16).padStart(8, '0');
+    for (let i=0;i<str.length;i++) h = Math.imul(31,h)+str.charCodeAt(i)|0;
+    return Math.abs(h).toString(16).padStart(16,'0');
   }
 }
 
