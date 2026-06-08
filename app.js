@@ -55,6 +55,11 @@ let S = {
   igcsePpType: 'all',     // past papers: question type filter
   igcsePpFreq: 'all',     // past papers: frequency filter
   igcseProgress: {},      // { 'sk|board|topicTitle': 'studied'|'review'|'mastered' }
+  igcseTopicNotes: {},    // { 'sk|board|topicTitle': 'user note text' }
+  igcseLastStudied: {},   // { 'sk|board|topicTitle': 'YYYY-MM-DD' } for spaced repetition
+  igcseMockExam: null,    // { subject:'all'|sk, questions:[], idx:0, answers:[], startTime, done:false }
+  igcseMockSubject: 'all',// subject filter for mock exam
+  igcseMockCount: 20,     // number of questions
 };
 let _pomTimer = null;
 
@@ -79,7 +84,9 @@ function saveLocal() {
     localStorage.setItem('oa_igcse_examdate', S.igcseExamDate || '');
     localStorage.setItem('oa_igcse_recent',   JSON.stringify(S.igcseRecent || []));
     localStorage.setItem('oa_igcse_streak',   JSON.stringify(S.igcseStreak || {count:0, lastDate:''}));
-    localStorage.setItem('oa_igcse_progress', JSON.stringify(S.igcseProgress || {}));
+    localStorage.setItem('oa_igcse_progress',     JSON.stringify(S.igcseProgress || {}));
+    localStorage.setItem('oa_igcse_topic_notes',  JSON.stringify(S.igcseTopicNotes || {}));
+    localStorage.setItem('oa_igcse_last_studied', JSON.stringify(S.igcseLastStudied || {}));
   } catch {}
 }
 function loadLocal() {
@@ -109,6 +116,10 @@ function loadLocal() {
     S.igcseStreak   = igStreak ? JSON.parse(igStreak) : {count:0, lastDate:''};
     const igProg    = localStorage.getItem('oa_igcse_progress');
     S.igcseProgress = igProg ? JSON.parse(igProg) : {};
+    const igNotes   = localStorage.getItem('oa_igcse_topic_notes');
+    S.igcseTopicNotes = igNotes ? JSON.parse(igNotes) : {};
+    const igLS      = localStorage.getItem('oa_igcse_last_studied');
+    S.igcseLastStudied = igLS ? JSON.parse(igLS) : {};
   } catch {}
 }
 
@@ -15998,12 +16009,13 @@ Object.values(IGCSE_SUBJECTS).forEach(subj => {
 // ── IGCSE Template Functions ──────────────────────────────
 
 function tplIGCSE() {
-  if (S.igcseView === 'formulas') return tplIGCSEFormulas();
-  if (S.igcseView === 'compare')  return tplIGCSECompare();
-  if (S.igcseView === 'search')   return tplIGCSEGlobalSearch();
-  if (S.igcseView === 'papers')   return tplIGCSEPastPapers();
-  if (S.igcseView === 'planner')  return tplIGCSEPlanner();
+  if (S.igcseView === 'formulas')  return tplIGCSEFormulas();
+  if (S.igcseView === 'compare')   return tplIGCSECompare();
+  if (S.igcseView === 'search')    return tplIGCSEGlobalSearch();
+  if (S.igcseView === 'papers')    return tplIGCSEPastPapers();
+  if (S.igcseView === 'planner')   return tplIGCSEPlanner();
   if (S.igcseView === 'bookmarks') return tplIGCSEBookmarks();
+  if (S.igcseView === 'mockexam')  return tplIGCSEMockExam();
   if (S.igcseTopic !== null)      return tplIGCSETopic();
   if (S.igcseSubject)             return tplIGCSESubject();
   return tplIGCSEHub();
@@ -16654,13 +16666,38 @@ function printTopicNotes(sk, ci, ti) {
 }
 
 function tplIGCSEFormulas() {
+  // Allow browsing any subject that has formulas
+  const formulaSubjects = Object.entries(IGCSE_FORMULAS||{});
+  if(!S.igcseSubject || !IGCSE_FORMULAS[S.igcseSubject]) {
+    // Show subject picker
+    return `<div style="max-width:860px;margin:0 auto;padding:0 0 80px">
+      <div style="background:linear-gradient(135deg,#7C3AED,#5B21B6);padding:18px 16px 22px;border-radius:0 0 22px 22px;margin-bottom:18px">
+        <button onclick="S.igcseView='list';render()" style="background:#ffffff25;border:1px solid #ffffff35;border-radius:10px;padding:5px 12px;color:#fff;cursor:pointer;font-size:11px;font-family:Cairo,sans-serif;font-weight:700;margin-bottom:12px">← Back</button>
+        <div style="font-size:30px;margin-bottom:6px">📐</div>
+        <div style="font-size:20px;font-weight:900;color:#fff">Formula Sheets</div>
+        <div style="font-size:12px;color:#ffffffbb;margin-top:4px">Select a subject to view its formula sheet</div>
+      </div>
+      <div style="padding:0 14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px">
+        ${formulaSubjects.map(([sk])=>{
+          const s = IGCSE_SUBJECTS[sk];
+          if(!s) return '';
+          return `<div onclick="S.igcseSubject='${sk}';S.igcseView='formulas';render()"
+            style="padding:16px 12px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;cursor:pointer;text-align:center;transition:.15s;border-top:3px solid ${s.color}"
+            onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+            <div style="font-size:26px;margin-bottom:6px">${s.icon}</div>
+            <div style="font-size:11px;font-weight:900;color:var(--text)">${s.label}</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  }
   const subj = IGCSE_SUBJECTS[S.igcseSubject];
   const formulas = IGCSE_FORMULAS[S.igcseSubject];
   if (!subj || !formulas) {
     return `<div style="padding:40px;text-align:center;color:var(--text-muted)">
       <div style="font-size:36px;margin-bottom:12px">📐</div>
       <div style="font-size:15px;font-weight:700">No formula sheet for this subject yet</div>
-      <button onclick="S.igcseView='list';render()" style="margin-top:16px;padding:10px 20px;border-radius:10px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;font-family:Cairo,sans-serif;font-size:13px;color:var(--text);font-weight:700">← Back</button>
+      <button onclick="S.igcseSubject=null;S.igcseView='formulas';render()" style="margin-top:16px;padding:10px 20px;border-radius:10px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;font-family:Cairo,sans-serif;font-size:13px;color:var(--text);font-weight:700">← All Subjects</button>
     </div>`;
   }
   const sections = formulas.map(sec => `
@@ -16679,10 +16716,16 @@ function tplIGCSEFormulas() {
   return `
 <div style="max-width:860px;margin:0 auto;padding:0 0 80px">
   <div style="background:linear-gradient(135deg,${subj.color},${subj.color}bb);padding:18px 16px 22px;border-radius:0 0 22px 22px;margin-bottom:18px">
-    <button onclick="S.igcseView='list';render()"
-      style="background:#ffffff25;border:1px solid #ffffff35;border-radius:10px;padding:5px 12px;color:#fff;cursor:pointer;font-size:11px;font-family:Cairo,sans-serif;font-weight:700;margin-bottom:12px">
-      ← Back to ${subj.label}
-    </button>
+    <div style="display:flex;gap:8px;margin-bottom:12px">
+      <button onclick="S.igcseView='list';render()"
+        style="background:#ffffff25;border:1px solid #ffffff35;border-radius:10px;padding:5px 12px;color:#fff;cursor:pointer;font-size:11px;font-family:Cairo,sans-serif;font-weight:700">
+        ← Back
+      </button>
+      <button onclick="S.igcseSubject=null;S.igcseView='formulas';render()"
+        style="background:#ffffff15;border:1px solid #ffffff25;border-radius:10px;padding:5px 12px;color:#ffffffcc;cursor:pointer;font-size:11px;font-family:Cairo,sans-serif;font-weight:700">
+        📐 All Subjects
+      </button>
+    </div>
     <div style="display:flex;align-items:center;gap:12px">
       <div style="font-size:36px">${subj.icon}</div>
       <div>
@@ -16985,6 +17028,20 @@ function tplIGCSEHub() {
         onmouseout="this.style.background='#F59E0B18';this.style.color='#F59E0B'">
         ⭐ Bookmarks
       </button>
+      <button onclick="S.igcseView='mockexam';S.igcseMockExam=null;render()"
+        style="white-space:nowrap;padding:10px 13px;border-radius:12px;border:1.5px solid #8B5CF6;background:#8B5CF618;
+               color:#8B5CF6;cursor:pointer;font-family:Cairo,sans-serif;font-size:11px;font-weight:800;transition:.15s"
+        onmouseover="this.style.background='#8B5CF6';this.style.color='#fff'"
+        onmouseout="this.style.background='#8B5CF618';this.style.color='#8B5CF6'">
+        🎓 Mock Exam
+      </button>
+      <button onclick="S.igcseSubject=null;S.igcseView='formulas';render()"
+        style="white-space:nowrap;padding:10px 13px;border-radius:12px;border:1.5px solid #EC4899;background:#EC489918;
+               color:#EC4899;cursor:pointer;font-family:Cairo,sans-serif;font-size:11px;font-weight:800;transition:.15s"
+        onmouseover="this.style.background='#EC4899';this.style.color='#fff'"
+        onmouseout="this.style.background='#EC489918';this.style.color='#EC4899'">
+        📐 Formulas
+      </button>
     </div>
   </div>
 
@@ -17037,9 +17094,9 @@ function tplIGCSEHub() {
     <div style="flex:1;min-width:160px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:14px 16px">
       <div style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--text-muted);margin-bottom:10px">⚡ QUICK ACTIONS</div>
       <div style="display:flex;flex-direction:column;gap:7px">
-        <button onclick="S.screen='chat';S.subject='IGCSE';S.messages=[{role:'user',content:'Give me a 10-question IGCSE mixed quiz covering: Maths, Physics, Chemistry, and Biology — with answers at the end'}];render();setTimeout(()=>doSend&&doSend(),100)"
-          style="padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif;text-align:left">
-          🎯 Mixed IGCSE Quiz
+        <button onclick="S.igcseView='mockexam';S.igcseMockExam=null;render()"
+          style="padding:7px 10px;border-radius:8px;border:1.5px solid #8B5CF6;background:#8B5CF618;color:#8B5CF6;cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif;text-align:left">
+          🎓 Mock Exam
         </button>
         <button onclick="S.screen='chat';S.subject='IGCSE Study Plan';S.messages=[{role:'user',content:'Create a 4-week IGCSE revision plan for: Maths, Physics, Chemistry, Biology, and English. I have 2 hours per day. Include what to revise each week and past paper practice schedule.'}];render();setTimeout(()=>doSend&&doSend(),100)"
           style="padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif;text-align:left">
@@ -17048,6 +17105,10 @@ function tplIGCSEHub() {
         <button onclick="S.screen='chat';S.subject='IGCSE Examiner Tips';S.messages=[{role:'user',content:'Give me the top 10 examiner tips that apply to ALL IGCSE subjects — what do Cambridge examiners look for?'}];render();setTimeout(()=>doSend&&doSend(),100)"
           style="padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif;text-align:left">
           💡 Examiner Tips
+        </button>
+        <button onclick="exportIGCSEProgress()"
+          style="padding:7px 10px;border-radius:8px;border:1.5px solid #10B981;background:#10B98118;color:#10B981;cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif;text-align:left">
+          📊 Export Progress PDF
         </button>
       </div>
     </div>
@@ -17069,6 +17130,51 @@ function tplIGCSEHub() {
     </div>
   </div>
   `:''}
+
+  <!-- Spaced Repetition Panel -->
+  ${(()=>{
+    const today = new Date().toISOString().slice(0,10);
+    const ls = S.igcseLastStudied || {};
+    const due = [];
+    Object.entries(IGCSE_SUBJECTS).forEach(([sk,subj])=>{
+      if(!subj.boards.includes(S.igcseBoard)) return;
+      const chs = subj.chapters[S.igcseBoard]||[];
+      chs.forEach((ch,ci)=>{
+        ch.topics.forEach((tp,ti)=>{
+          const key = `${sk}|${S.igcseBoard}|${tp.title}`;
+          const lastDate = ls[key];
+          if(!lastDate) return;
+          const daysSince = Math.floor((new Date(today)-new Date(lastDate))/(1000*60*60*24));
+          const prog = (S.igcseProgress||{})[key] || '';
+          const threshold = prog==='mastered' ? 14 : prog==='studied' ? 7 : 3;
+          if(daysSince >= threshold) due.push({sk,subj,ch,tp,ci,ti,daysSince,key});
+        });
+      });
+    });
+    if(!due.length) return '';
+    due.sort((a,b)=>b.daysSince-a.daysSince);
+    return `
+    <div style="margin:16px 14px 0;background:var(--bg-card);border:1px solid #F59E0B44;border-radius:14px;padding:14px 16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:#F59E0B">🔁 DUE FOR REVIEW (${due.length})</div>
+        <div style="font-size:9px;color:var(--text-muted)">Spaced repetition</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        ${due.slice(0,5).map(({sk,subj,tp,ci,ti,daysSince})=>`
+        <div onclick="S.igcseSubject='${sk}';S.igcseChapter=${ci};S.igcseTopic=${ti};S.igcseTab='notes';render()"
+          style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:10px;cursor:pointer;background:var(--bg);border:1px solid #F59E0B33;transition:.15s"
+          onmouseover="this.style.borderColor='#F59E0B'" onmouseout="this.style.borderColor='#F59E0B33'">
+          <span style="font-size:16px">${subj.icon}</span>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:11px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${tp.title}</div>
+            <div style="font-size:10px;color:var(--text-muted)">${subj.label}</div>
+          </div>
+          <span style="font-size:10px;color:#F59E0B;font-weight:800;white-space:nowrap">${daysSince}d ago</span>
+        </div>`).join('')}
+        ${due.length>5?`<div style="text-align:center;font-size:10px;color:var(--text-muted);padding:4px">+${due.length-5} more due for review</div>`:''}
+      </div>
+    </div>`;
+  })()}
 
   <!-- Weak Spots Panel -->
   ${(()=>{
@@ -17333,11 +17439,18 @@ function tplIGCSETopic() {
   const nextT = allTopics[curIdx+1] || null;
 
   const isDone = !!(S.igcseDone||{})[`${S.igcseSubject}-${S.igcseChapter}-${S.igcseTopic}`];
-  // Track recently studied
+  // Track recently studied + spaced repetition last-studied date
   (()=>{
     const key = `${S.igcseSubject}-${S.igcseChapter}-${S.igcseTopic}`;
     const rec = {sk:S.igcseSubject,ci:S.igcseChapter,ti:S.igcseTopic,label:subj.label,icon:subj.icon,topicTitle:tp.title,color:subj.color};
     S.igcseRecent = [rec,...(S.igcseRecent||[]).filter(r=>!(r.sk===rec.sk&&r.ci===rec.ci&&r.ti===rec.ti))].slice(0,6);
+    const srKey = `${S.igcseSubject}|${S.igcseBoard}|${tp.title}`;
+    const today = new Date().toISOString().slice(0,10);
+    if(!(S.igcseLastStudied||{})[srKey]) {
+      S.igcseLastStudied = S.igcseLastStudied || {};
+      S.igcseLastStudied[srKey] = today;
+      saveLocal();
+    }
   })();
 
   const tabs = ['notes','flashcards','quiz','questions','papers'].map(tab => {
@@ -17419,10 +17532,31 @@ function tplIGCSETopic() {
           ${tp.commonMistakes.map(m=>`<div style="display:flex;gap:8px;padding:6px 0;border-bottom:1px solid #EF444415;font-size:12px;color:var(--text);line-height:1.6"><span style="color:#EF4444;flex-shrink:0">✗</span>${m}</div>`).join('')}
         </div>
       </div>` : ''}
+      <!-- Personal Notes -->
+      ${(()=>{
+        const _nk = `${S.igcseSubject}|${S.igcseBoard}|${tp.title}`;
+        const _note = (S.igcseTopicNotes||{})[_nk] || '';
+        return `
+        <div style="margin-top:14px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden">
+          <div style="padding:10px 14px;background:var(--bg);border-bottom:1px solid var(--border);font-size:11px;font-weight:900;color:var(--text-muted);letter-spacing:.5px;display:flex;justify-content:space-between;align-items:center">
+            <span>📝 MY NOTES</span>
+            ${_note?`<span style="font-size:9px;color:#10B981;font-weight:700">✓ Saved</span>`:'<span style="font-size:9px;color:var(--text-muted)">Personal notes for this topic</span>'}
+          </div>
+          <textarea id="topic-note-${_nk.replace(/[^a-z0-9]/gi,'_')}"
+            placeholder="Write your own notes here... (auto-saved)"
+            oninput="S.igcseTopicNotes=S.igcseTopicNotes||{};S.igcseTopicNotes['${_nk}']=this.value;saveLocal()"
+            style="width:100%;min-height:80px;padding:12px 14px;border:none;background:transparent;color:var(--text);font-size:12px;font-family:Cairo,sans-serif;line-height:1.7;resize:vertical;outline:none;box-sizing:border-box">${_note}</textarea>
+        </div>`;
+      })()}
       <div style="display:flex;gap:8px;margin-top:14px">
         <button onclick="S.screen='chat';S.subject='${subj.label} IGCSE — ${tp.title}';S.messages=[{role:'user',content:'Explain ${tp.title.replace(/'/g,"\\'")} for IGCSE ${subj.label} in detail with worked examples and exam tips'}];render();setTimeout(()=>doSend&&doSend(),100)"
           style="flex:1;padding:11px;background:var(--primary);color:#fff;border:none;border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:12px">
           🤖 Explain with AI
+        </button>
+        <button onclick="shareIGCSETopic('${S.igcseSubject}','${S.igcseBoard}',${S.igcseChapter},${S.igcseTopic})"
+          style="padding:11px 14px;background:var(--bg-card);border:1px solid var(--border);color:var(--text);border-radius:12px;cursor:pointer;font-size:12px;font-weight:700"
+          title="Share this topic">
+          🔗
         </button>
         <button onclick="printTopicNotes('${S.igcseSubject}',${S.igcseChapter},${S.igcseTopic})"
           style="padding:11px 14px;background:var(--bg-card);border:1px solid var(--border);color:var(--text);border-radius:12px;cursor:pointer;font-size:12px;font-weight:700"
@@ -20214,3 +20348,340 @@ async function init() {
 }
 
 init();
+
+/* ================================================================
+   IGCSE — Share Topic
+   ================================================================ */
+function shareIGCSETopic(sk, board, ci, ti) {
+  const subj = IGCSE_SUBJECTS[sk];
+  const ch   = (subj && subj.chapters[board]||[])[ci];
+  const tp   = ch && ch.topics[ti];
+  if (!tp) return;
+  const text = `📚 IGCSE ${subj.label} — ${tp.title}\n\n${tp.points.slice(0,3).join('\n')}\n\n✏️ ${tp.workedExample ? tp.workedExample.split('\n')[0] : ''}\n\nStudy with أستاذ AI → ostazai.surge.sh`;
+  if (navigator.share) {
+    navigator.share({ title: `IGCSE ${subj.label} — ${tp.title}`, text });
+  } else {
+    navigator.clipboard.writeText(text).then(() => showToast('🔗 Copied to clipboard!', 'success'));
+  }
+}
+
+/* ================================================================
+   IGCSE — Export Progress PDF
+   ================================================================ */
+function exportIGCSEProgress() {
+  const board = IGCSE_BOARDS[S.igcseBoard];
+  const prog  = S.igcseProgress || {};
+  const done  = S.igcseDone || {};
+  const rows  = [];
+  Object.entries(IGCSE_SUBJECTS).forEach(([sk, subj]) => {
+    if (!subj.boards.includes(S.igcseBoard)) return;
+    const chs = subj.chapters[S.igcseBoard] || [];
+    const total = chs.reduce((a,c)=>a+c.topics.length, 0);
+    const doneCount  = chs.reduce((a,c,ci)=>a+c.topics.filter((_,ti)=>done[`${sk}-${ci}-${ti}`]).length, 0);
+    const mastCount  = chs.reduce((a,c)=>a+c.topics.filter(tp=>(prog[`${sk}|${S.igcseBoard}|${tp.title}`]||'')==='mastered').length, 0);
+    const reviewCount= chs.reduce((a,c)=>a+c.topics.filter(tp=>(prog[`${sk}|${S.igcseBoard}|${tp.title}`]||'')==='review').length, 0);
+    rows.push({subj, total, doneCount, mastCount, reviewCount});
+  });
+  const totalTopics = rows.reduce((a,r)=>a+r.total, 0);
+  const totalDone   = rows.reduce((a,r)=>a+r.doneCount, 0);
+  const totalMast   = rows.reduce((a,r)=>a+r.mastCount, 0);
+  const overallPct  = totalTopics ? Math.round(totalDone/totalTopics*100) : 0;
+  const today = new Date().toLocaleDateString('en-GB', {day:'numeric',month:'long',year:'numeric'});
+  const win = window.open('', '_blank');
+  win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <title>IGCSE Progress Report</title>
+  <style>
+    body{font-family:Arial,sans-serif;margin:30px;color:#1e293b;background:#fff}
+    h1{color:#2563eb;font-size:22px;margin-bottom:4px}
+    .sub{color:#64748b;font-size:13px;margin-bottom:24px}
+    .summary{display:flex;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+    .stat{background:#f1f5f9;padding:14px 20px;border-radius:10px;text-align:center;min-width:100px}
+    .stat-n{font-size:28px;font-weight:900;color:#2563eb}
+    .stat-l{font-size:11px;color:#64748b;margin-top:2px}
+    table{width:100%;border-collapse:collapse;font-size:12px}
+    th{background:#2563eb;color:#fff;padding:8px 10px;text-align:left;font-size:11px;letter-spacing:.5px}
+    td{padding:8px 10px;border-bottom:1px solid #e2e8f0}
+    tr:nth-child(even)td{background:#f8fafc}
+    .bar-wrap{background:#e2e8f0;border-radius:4px;height:8px;width:100px;display:inline-block;vertical-align:middle}
+    .bar-fill{background:#2563eb;border-radius:4px;height:8px}
+    .mastered{color:#10b981;font-weight:700}
+    .review{color:#f59e0b;font-weight:700}
+    @media print{.no-print{display:none}}
+  </style></head><body>
+  <h1>📊 IGCSE Progress Report</h1>
+  <div class="sub">${board.label} · Generated ${today} · أستاذ AI</div>
+  <div class="summary">
+    <div class="stat"><div class="stat-n">${overallPct}%</div><div class="stat-l">Overall Progress</div></div>
+    <div class="stat"><div class="stat-n">${totalDone}</div><div class="stat-l">Topics Done</div></div>
+    <div class="stat"><div class="stat-n">${totalTopics}</div><div class="stat-l">Total Topics</div></div>
+    <div class="stat"><div class="stat-n" style="color:#10b981">${totalMast}</div><div class="stat-l">Mastered</div></div>
+  </div>
+  <table>
+    <tr><th>Subject</th><th>Progress</th><th>Done</th><th>Mastered</th><th>Review</th><th>Remaining</th></tr>
+    ${rows.map(r=>{
+      const pct = r.total ? Math.round(r.doneCount/r.total*100) : 0;
+      return `<tr>
+        <td><span style="margin-right:6px">${r.subj.icon}</span>${r.subj.label}</td>
+        <td><div class="bar-wrap"><div class="bar-fill" style="width:${pct}%"></div></div> ${pct}%</td>
+        <td>${r.doneCount}/${r.total}</td>
+        <td class="mastered">${r.mastCount}</td>
+        <td class="review">${r.reviewCount}</td>
+        <td style="color:#ef4444">${r.total-r.doneCount}</td>
+      </tr>`;
+    }).join('')}
+  </table>
+  <div style="margin-top:24px;font-size:11px;color:#94a3b8">
+    Generated by أستاذ AI IGCSE Platform · ostazai.surge.sh
+  </div>
+  <div class="no-print" style="margin-top:20px">
+    <button onclick="window.print()" style="padding:10px 24px;background:#2563eb;color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;font-family:Arial,sans-serif">🖨️ Print / Save PDF</button>
+  </div>
+  </body></html>`);
+  win.document.close();
+}
+
+/* ================================================================
+   IGCSE — Mock Exam Generator
+   ================================================================ */
+function startIGCSEMockExam() {
+  const sk = S.igcseMockSubject;
+  const count = S.igcseMockCount || 20;
+  const pool = [];
+  Object.entries(IGCSE_SUBJECTS).forEach(([subjKey, subj]) => {
+    if (sk !== 'all' && subjKey !== sk) return;
+    if (!subj.boards.includes(S.igcseBoard)) return;
+    const chs = subj.chapters[S.igcseBoard] || [];
+    chs.forEach((ch, ci) => {
+      ch.topics.forEach((tp, ti) => {
+        tp.points.forEach((p, pi) => {
+          const parts = p.split(/:\s+|—\s+|–\s+/);
+          const concept = parts[0].trim();
+          const correct = p.trim();
+          // get 3 distractors from other topics
+          pool.push({ subjKey, subj, tp, p, concept, correct, ci, ti });
+        });
+      });
+    });
+  });
+  // Shuffle pool
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  const selected = pool.slice(0, count);
+  const questions = selected.map(item => {
+    const distractors = pool
+      .filter(x => x.subjKey !== item.subjKey || x.tp.title !== item.tp.title)
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3)
+      .map(x => x.correct);
+    const pos = Math.floor(Math.random() * 4);
+    const opts = [...distractors];
+    opts.splice(pos, 0, item.correct);
+    return {
+      question: `What is the correct statement about "${item.concept}"?`,
+      opts, correct: pos,
+      subject: item.subj.label,
+      topic: item.tp.title,
+      subjectIcon: item.subj.icon,
+      color: item.subj.color,
+    };
+  });
+  S.igcseMockExam = { questions, idx: 0, answers: [], startTime: Date.now(), done: false };
+  render();
+}
+
+function tplIGCSEMockExam() {
+  const mx = S.igcseMockExam;
+
+  // Setup screen
+  if (!mx) {
+    const subjects = Object.entries(IGCSE_SUBJECTS).filter(([,s])=>s.boards.includes(S.igcseBoard));
+    return `
+<div style="max-width:860px;margin:0 auto;padding:0 0 80px">
+  <div style="background:linear-gradient(135deg,#7C3AED,#5B21B6);padding:18px 16px 24px;border-radius:0 0 22px 22px;margin-bottom:18px">
+    <button onclick="S.igcseView='list';render()" style="background:#ffffff25;border:1px solid #ffffff35;border-radius:10px;padding:5px 12px;color:#fff;cursor:pointer;font-size:11px;font-family:Cairo,sans-serif;font-weight:700;margin-bottom:14px">← Back</button>
+    <div style="font-size:32px;margin-bottom:6px">🎓</div>
+    <div style="font-size:22px;font-weight:900;color:#fff">Mock Exam</div>
+    <div style="font-size:12px;color:#ffffffbb;margin-top:4px">Timed exam with mixed questions from any subject</div>
+  </div>
+  <div style="padding:0 14px">
+    <!-- Subject filter -->
+    <div style="margin-bottom:16px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:14px 16px">
+      <div style="font-size:11px;font-weight:800;color:var(--text-muted);letter-spacing:1px;margin-bottom:10px">📚 SUBJECT</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <button onclick="S.igcseMockSubject='all';render()"
+          style="padding:7px 14px;border-radius:10px;border:none;cursor:pointer;font-family:Cairo,sans-serif;font-size:11px;font-weight:800;transition:.15s;
+                 ${S.igcseMockSubject==='all'?'background:#7C3AED;color:#fff':'background:var(--bg);color:var(--text-muted);border:1px solid var(--border)'}">
+          🌍 All Subjects
+        </button>
+        ${subjects.map(([sk,s])=>`
+        <button onclick="S.igcseMockSubject='${sk}';render()"
+          style="padding:7px 14px;border-radius:10px;border:none;cursor:pointer;font-family:Cairo,sans-serif;font-size:11px;font-weight:800;transition:.15s;
+                 ${S.igcseMockSubject===sk?`background:${s.color};color:#fff`:'background:var(--bg);color:var(--text-muted);border:1px solid var(--border)'}">
+          ${s.icon} ${s.label}
+        </button>`).join('')}
+      </div>
+    </div>
+    <!-- Question count -->
+    <div style="margin-bottom:16px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:14px 16px">
+      <div style="font-size:11px;font-weight:800;color:var(--text-muted);letter-spacing:1px;margin-bottom:10px">🔢 NUMBER OF QUESTIONS</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        ${[10,20,30,50].map(n=>`
+        <button onclick="S.igcseMockCount=${n};render()"
+          style="padding:8px 18px;border-radius:10px;border:none;cursor:pointer;font-family:Cairo,sans-serif;font-size:13px;font-weight:900;transition:.15s;
+                 ${(S.igcseMockCount||20)===n?'background:#7C3AED;color:#fff':'background:var(--bg);color:var(--text-muted);border:1px solid var(--border)'}">
+          ${n}
+        </button>`).join('')}
+      </div>
+    </div>
+    <!-- Exam info card -->
+    <div style="margin-bottom:20px;background:#7C3AED0f;border:1px solid #7C3AED25;border-radius:14px;padding:14px 16px;font-size:12px;color:var(--text);line-height:1.7">
+      <div style="font-weight:800;color:#7C3AED;margin-bottom:6px">📋 Exam conditions</div>
+      <div>• ${S.igcseMockCount||20} MCQ questions — approximately ${Math.round((S.igcseMockCount||20)*1.2)} minutes</div>
+      <div>• Questions drawn from ${S.igcseMockSubject==='all'?'all subjects':((IGCSE_SUBJECTS[S.igcseMockSubject]||{}).label||'selected subject')}</div>
+      <div>• Timer starts when you press Start</div>
+      <div>• Results and score shown at the end</div>
+    </div>
+    <button onclick="startIGCSEMockExam()"
+      style="width:100%;padding:15px;background:linear-gradient(135deg,#7C3AED,#5B21B6);color:#fff;border:none;border-radius:14px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:900;font-size:16px;letter-spacing:.5px;box-shadow:0 4px 20px #7C3AED44">
+      🚀 Start Mock Exam
+    </button>
+  </div>
+</div>`;
+  }
+
+  // Results screen
+  if (mx.done) {
+    const score   = mx.answers.filter((a,i)=>a===mx.questions[i].correct).length;
+    const total   = mx.questions.length;
+    const pct     = Math.round(score/total*100);
+    const timeSec = Math.round((Date.now() - mx.startTime)/1000);
+    const timeFmt = `${Math.floor(timeSec/60)}m ${timeSec%60}s`;
+    const grade   = pct>=80?{label:'Excellent 🏆',c:'#10B981'}:pct>=60?{label:'Good 👍',c:'#3B82F6'}:pct>=40?{label:'Keep Studying 📚',c:'#F59E0B'}:{label:'Review Notes First 💪',c:'#EF4444'};
+    // Per-subject breakdown
+    const bySubj = {};
+    mx.questions.forEach((q,i)=>{
+      if(!bySubj[q.subject]) bySubj[q.subject] = {icon:q.subjectIcon,color:q.color,correct:0,total:0};
+      bySubj[q.subject].total++;
+      if(mx.answers[i]===q.correct) bySubj[q.subject].correct++;
+    });
+    return `
+<div style="max-width:860px;margin:0 auto;padding:0 0 80px">
+  <div style="background:linear-gradient(135deg,#7C3AED,#5B21B6);padding:18px 16px 24px;border-radius:0 0 22px 22px;margin-bottom:18px;text-align:center">
+    <div style="font-size:52px;margin-bottom:8px">${pct>=80?'🏆':pct>=60?'⭐':'📚'}</div>
+    <div style="font-size:26px;font-weight:900;color:#fff;margin-bottom:4px">${score}/${total} Correct</div>
+    <div style="font-size:36px;font-weight:900;color:#fff">${pct}%</div>
+    <div style="font-size:14px;color:#ffffffbb;margin-top:4px;font-weight:700">${grade.label}</div>
+    <div style="font-size:11px;color:#ffffff88;margin-top:6px">⏱ Time: ${timeFmt}</div>
+  </div>
+  <div style="padding:0 14px">
+    <div style="height:10px;background:#ffffff25;border-radius:5px;margin-bottom:20px;overflow:hidden">
+      <div style="height:100%;width:${pct}%;background:#fff;border-radius:5px;transition:1s"></div>
+    </div>
+    <!-- Subject breakdown -->
+    ${Object.entries(bySubj).length>1?`
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:16px">
+      <div style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--text-muted);margin-bottom:10px">BREAKDOWN BY SUBJECT</div>
+      ${Object.entries(bySubj).map(([name,d])=>{
+        const p=Math.round(d.correct/d.total*100);
+        return `<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <span style="font-size:18px">${d.icon}</span>
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;justify-content:space-between;margin-bottom:3px">
+              <span style="font-size:11px;font-weight:700;color:var(--text)">${name}</span>
+              <span style="font-size:11px;font-weight:800;color:${d.color}">${d.correct}/${d.total} (${p}%)</span>
+            </div>
+            <div style="height:5px;background:var(--border);border-radius:3px;overflow:hidden">
+              <div style="height:100%;width:${p}%;background:${d.color};border-radius:3px;transition:.5s"></div>
+            </div>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`:'' }
+    <!-- Review wrong answers -->
+    ${mx.answers.some((a,i)=>a!==mx.questions[i].correct)?`
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:16px">
+      <div style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:#EF4444;margin-bottom:10px">✗ WRONG ANSWERS — REVIEW THESE</div>
+      ${mx.questions.map((q,i)=>mx.answers[i]===q.correct?'':`
+      <div style="margin-bottom:10px;padding:10px 12px;background:#EF444408;border:1px solid #EF444425;border-radius:10px">
+        <div style="font-size:10px;color:${q.color};font-weight:800;margin-bottom:4px">${q.subjectIcon} ${q.subject} · ${q.topic}</div>
+        <div style="font-size:11px;color:var(--text);margin-bottom:4px;font-weight:700">${q.question}</div>
+        <div style="font-size:11px;color:#EF4444">✗ Your answer: ${q.opts[mx.answers[i]]||'Not answered'}</div>
+        <div style="font-size:11px;color:#10B981;margin-top:2px">✓ Correct: ${q.opts[q.correct]}</div>
+      </div>`).join('')}
+    </div>`:''}
+    <div style="display:flex;gap:10px">
+      <button onclick="S.igcseMockExam=null;render()"
+        style="flex:1;padding:13px;background:linear-gradient(135deg,#7C3AED,#5B21B6);color:#fff;border:none;border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:13px">
+        🔁 New Mock Exam
+      </button>
+      <button onclick="S.igcseView='list';S.igcseMockExam=null;render()"
+        style="flex:1;padding:13px;background:var(--bg-card);border:1px solid var(--border);color:var(--text);border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:13px">
+        📚 Back to Study
+      </button>
+    </div>
+  </div>
+</div>`;
+  }
+
+  // Active exam
+  const { questions, idx, answers } = mx;
+  const q = questions[idx];
+  const total = questions.length;
+  const answered = answers[idx] !== undefined ? answers[idx] : null;
+  const elapsed = Math.floor((Date.now() - mx.startTime)/1000);
+  const timeFmt = `${Math.floor(elapsed/60)}:${String(elapsed%60).padStart(2,'0')}`;
+  // Auto-refresh timer every second
+  if (!mx._timerInterval) {
+    mx._timerInterval = setInterval(()=>{ if(S.igcseView==='mockexam'&&S.igcseMockExam&&!S.igcseMockExam.done) render(); else clearInterval(mx._timerInterval); }, 1000);
+  }
+  return `
+<div style="max-width:860px;margin:0 auto;padding:0 0 80px">
+  <!-- Header -->
+  <div style="background:linear-gradient(135deg,#7C3AED,#5B21B6);padding:14px 16px 18px;border-radius:0 0 22px 22px;margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <button onclick="if(confirm('Exit exam?')){clearInterval(S.igcseMockExam._timerInterval);S.igcseView='list';S.igcseMockExam=null;render()}"
+        style="background:#ffffff25;border:none;border-radius:8px;padding:5px 10px;color:#fff;cursor:pointer;font-size:11px;font-family:Cairo,sans-serif;font-weight:700">✕ Exit</button>
+      <div style="font-size:13px;font-weight:900;color:#fff">⏱ ${timeFmt}</div>
+    </div>
+    <div style="height:6px;background:#ffffff25;border-radius:3px;overflow:hidden">
+      <div style="height:100%;width:${Math.round(idx/total*100)}%;background:#fff;border-radius:3px;transition:.3s"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:5px">
+      <span style="font-size:10px;color:#ffffffbb">Question ${idx+1} of ${total}</span>
+      <span style="font-size:10px;color:#ffffffbb">${answers.filter((a,i)=>a===questions[i].correct).length} correct so far</span>
+    </div>
+  </div>
+  <div style="padding:0 14px">
+    <!-- Subject badge -->
+    <div style="display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;background:${q.color}18;border:1px solid ${q.color}44;margin-bottom:12px">
+      <span>${q.subjectIcon}</span>
+      <span style="font-size:10px;font-weight:800;color:${q.color}">${q.subject} · ${q.topic}</span>
+    </div>
+    <!-- Question -->
+    <div style="font-size:14px;font-weight:800;color:var(--text);line-height:1.6;padding:16px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;margin-bottom:14px">
+      ${q.question}
+    </div>
+    <!-- Options -->
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
+      ${q.opts.map((opt,oi)=>{
+        let bg='var(--bg-card)', border='var(--border)', col='var(--text)', badge='';
+        if(answered!==null){
+          if(oi===q.correct){bg='#10B98115';border='#10B981';col='#10B981';badge='✓ ';}
+          else if(oi===answered){bg='#EF444415';border='#EF4444';col='#EF4444';badge='✗ ';}
+        }
+        return `<button onclick="${answered===null?`S.igcseMockExam.answers[${idx}]=${oi};render()`:''}"
+          style="text-align:left;padding:12px 14px;background:${bg};border:2px solid ${border};color:${col};border-radius:12px;cursor:${answered===null?'pointer':'default'};font-family:Cairo,sans-serif;font-size:12px;line-height:1.5;transition:.15s">
+          ${badge}${opt}
+        </button>`;
+      }).join('')}
+    </div>
+    ${answered!==null?`
+    <button onclick="${idx<total-1?`S.igcseMockExam.idx=${idx+1};render()`:`clearInterval(S.igcseMockExam._timerInterval);S.igcseMockExam.done=true;render()`}"
+      style="width:100%;padding:13px;background:linear-gradient(135deg,#7C3AED,#5B21B6);color:#fff;border:none;border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:13px">
+      ${idx<total-1?'Next Question →':'See Results 🏆'}
+    </button>`:''}
+  </div>
+</div>`;
+}
