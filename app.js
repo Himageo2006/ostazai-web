@@ -3992,6 +3992,7 @@ function tplStats() {
 function tplProfile() {
   const u = S.user || {};
   const curData = CURRICULA[S.curriculum] || CURRICULA.egypt;
+  const gradeData = (curData.grades && (curData.grades[S.grade] || curData.grades.high || Object.values(curData.grades)[0])) || { label: S.grade || 'ثانوي', subjects: [] };
   const planExpiry = u.planExpiry ? new Date(u.planExpiry).toLocaleDateString('ar-EG') : null;
   const isPro = u.plan === 'pro';
   return `
