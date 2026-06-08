@@ -5301,7 +5301,16 @@ Activity = 800 × (1/2)³ = 800 ÷ 8 = 100 Bq`},
       ], workedExample:`A 60W motor lifts a 15 kg crate 3m in 9 seconds.
 Useful work done = mgh = 15 × 10 × 3 = 450 J
 Energy input = P × t = 60 × 9 = 540 J
-Efficiency = 450/540 × 100 = 83.3%`, workedExample:`A car accelerates from rest to 20 m/s in 8 s, then decelerates to stop in 5 s.
+Efficiency = 450/540 × 100 = 83.3%`, workedExample:`Visible light refracted entering glass (n=1.5).
+Incident angle 45°. Find refracted angle.
+Snell: n₁sinθ₁ = n₂sinθ₂
+1×sin45° = 1.5×sinθ₂
+sinθ₂ = 0.707/1.5 = 0.471 → θ₂ = 28.1°
+Total internal reflection: sinC = 1/n = 1/1.5 → C = 41.8°`, workedExample:`Gas: 300K, 1.5×10⁵ Pa, volume 2.0L. Find new volume at 450K, 1.0×10⁵ Pa.
+Using pV/T = constant:
+p₁V₁/T₁ = p₂V₂/T₂
+(1.5×10⁵×2)/(300) = (1.0×10⁵×V₂)/(450)
+V₂ = (1.5×2×450)/(300×1.0) = 4.5 L`, workedExample:`A car accelerates from rest to 20 m/s in 8 s, then decelerates to stop in 5 s.
 Acceleration phase: a = (20−0)/8 = 2.5 m/s²
 Deceleration: a = (0−20)/5 = −4 m/s²
 Distance (area under v-t graph):
@@ -5524,7 +5533,11 @@ R = 12/4 = 3Ω`},
         ], workedExample:`A wire of length 0.3m carries 4A in a field of 0.5T (perpendicular). Find the force.
 F = BIL = 0.5 × 4 × 0.3 = 0.6 N
 Use Fleming's Left Hand rule to find direction:
-Thumb = force, Index = field, Middle = current`},
+Thumb = force, Index = field, Middle = current`, workedExample:`Transformer: primary 240V, 800 turns; secondary 40V.
+N_s/N_p = V_s/V_p → N_s = 800×40/240 = 133 turns
+If primary current = 0.5A, find secondary (100% efficiency):
+P = V_p×I_p = V_s×I_s → I_s = 240×0.5/40 = 3A
+Step-down transformer: V decreases, I increases`},
         { title:'Waves & Radiation', icon:'〰️', topics:[
           { title:'Waves', points:[
             'Edexcel: transverse (light, water) and longitudinal (sound) waves',
@@ -6037,7 +6050,10 @@ Conclusion: the sample that decolourises bromine water is ethene`},
             'Writing unbalanced equations — check atom count for every element on both sides',
             'Confusing physical change (no new substance) with chemical change (new substance formed)',
           ]},
-      ],
+      ], workedExample:`Reactivity series (high to low): K,Na,Ca,Mg,Al,Zn,Fe,Pb,H,Cu,Ag,Au
+Zn + CuSO₄ → ZnSO₄ + Cu (displacement: Zn more reactive than Cu)
+Extraction: Al by electrolysis (very reactive); Fe by blast furnace (moderate)
+Corroding of iron: needs O₂ AND water; galvanising (Zn coating) prevents rusting`,
       oxford: [
         { title:'Atomic Structure & Bonding', icon:'⚛️', topics:[
           { title:'Atomic Structure', points:[
@@ -6526,7 +6542,12 @@ Blood glucose rises → detected by pancreas
 Actual size of cell = 0.05 mm; image size = 35 mm
 Magnification = image / actual = 35/0.05 = ×700
 Or: Actual size = image size / magnification
-= 40 mm / 1000 = 0.04 mm = 40 μm`, workedExample:`RQ (Respiratory Quotient) = CO₂ released / O₂ consumed
+= 40 mm / 1000 = 0.04 mm = 40 μm`, workedExample:`Enzyme activity vs temperature:
+20°C: slow (low KE); 37°C: optimal (most substrate-enzyme collisions)
+50°C: activity falls (enzyme denatured — H-bonds broken, active site shape changes)
+Lock-and-key model: specific substrate fits active site
+Inhibitors: competitive (blocks active site, overcome by more substrate)
+non-competitive (changes shape of enzyme permanently)`, workedExample:`RQ (Respiratory Quotient) = CO₂ released / O₂ consumed
 Glucose: C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O
 RQ = 6/6 = 1.0 (pure carbohydrate)
 Fat: RQ ≈ 0.7; Protein: RQ ≈ 0.9
@@ -7450,7 +7471,12 @@ Break-even = 5000 ÷ 5 = 1000 units`},
 Qs < Qd → shortage = Qd − Qs at the ceiling price
 Consumer surplus: some gain (those who get the good at lower price)
 Producer surplus: falls
-Total welfare: net loss (deadweight loss) — show triangle on diagram`, commonMistakes:[
+Total welfare: net loss (deadweight loss) — show triangle on diagram`, workedExample:`Negative externality — factory pollutes river:
+Private MC < Social MC → overproduction at Q₁ > Q*
+Deadweight loss = triangle between SMC and demand curves
+Government solutions: tax equal to marginal external cost (Pigouvian tax),
+regulation (ban/limit), tradable permits, education
+Positive externality (education): private MB < SMB → underproduction; solution: subsidy`, commonMistakes:[
             'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
             'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
           ],
@@ -8870,7 +8896,14 @@ Evaluation: hard engineering more effective short-term but expensive; soft engin
             'Giving generic answers without case study evidence — always name a specific place with supporting data',
             'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
           ]},
-      ], commonMistakes:[
+      ], workedExample:`Upper course: steep gradient, vertical erosion (V-shaped valley, interlocking spurs)
+Middle course: lateral erosion begins, meanders form (faster flow on outside = erosion; slower inside = deposition)
+Lower course: broad flat floodplain, oxbow lakes, delta at mouth
+Hydrology: flood hydrograph — peak discharge delayed from peak rainfall (lag time)`, workedExample:`Erosion: hydraulic action (wave compresses air into cracks), abrasion (rocks scratch cliff), attrition (rocks knock together → smaller)
+Transport: longshore drift — waves hit at angle, sediment moves along coast
+Deposition: where energy decreases — beaches, spits, bars
+Hard engineering: sea walls (£2000/m, reflect waves), groynes (trap sediment)
+Soft: beach nourishment (natural, temporary), managed retreat`, commonMistakes:[
             'Giving generic answers without case study evidence — always name a specific place with supporting data',
             'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
           ], commonMistakes:[
@@ -9008,7 +9041,11 @@ Same hazard; very different outcomes due to development level`},
             'Giving generic answers without case study evidence — always name a specific place with supporting data',
             'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
           ]},
-      ],
+      ], workedExample:`Malthus theory (1798): population grows geometrically; food supply arithmetically → famine checks population
+Evaluate: Green Revolution increased food supply; technology challenged Malthus
+Carrying capacity: maximum population an ecosystem can sustain
+Ecological footprint: land area needed to support one person's lifestyle
+UK footprint: ~4.4 global hectares/person; world average: 2.8; available: 1.7 → global overshoot`,
     }
   },
   business: {
@@ -9199,7 +9236,12 @@ Same hazard; very different outcomes due to development level`},
           ]},
       ], workedExample:`Maslow's Hierarchy: Physiological → Safety → Social → Esteem → Self-actualisation
 Apply to motivation: paying fair wages meets physiological needs; job security meets safety; teamwork meets social; recognition meets esteem; autonomy/promotion meets self-actualisation.
-Taylor (scientific management): pay per piece as sole motivator — criticised as too simplistic`, commonMistakes:[
+Taylor (scientific management): pay per piece as sole motivator — criticised as too simplistic`, workedExample:`Primary research: questionnaire, interview, observation, test marketing
+Advantage: tailored to your purpose; up-to-date
+Disadvantage: time-consuming, expensive, potential bias
+Secondary research: government data, trade journals, competitor reports
+Advantage: cheap, quick; Disadvantage: may be outdated, not specific to your purpose
+Sample: size matters — larger = more reliable but more expensive`, commonMistakes:[
             'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
             'Defining a term correctly but not applying it to the specific business in the question',
           ],
@@ -9904,7 +9946,10 @@ d²y/dx² = 6x−12: at x=1: −6 < 0 → maximum; at x=3: +6 > 0 → minimum`},
             'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
             'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
           ]},
-      ],
+      ], workedExample:`Find area between y=x² and y=x+2
+Intersections: x²=x+2 → x²-x-2=0 → x=-1 or x=2
+Area = ∫₋₁² (x+2-x²)dx = [x²/2+2x-x³/3]₋₁²
+= (2+4-8/3) - (½-2+⅓) = 10/3 - (-7/6) = 27/6 = 4.5 sq units`,
     }
   },
   accounting: {
@@ -13467,7 +13512,11 @@ Key: "llevo + time + gerund" for "have been doing"; "creo que" for "I think"; ad
             'Confusing ser (permanent/identity) and estar (temporary state/location) — these are tested heavily',
             'Using masculine adjective forms for feminine nouns — check the gender of the noun first',
           ]},
-      ], commonMistakes:[
+      ], workedExample:`Sample photo card: Describe a photo of young people using smartphones in a cafe.
+Key structures: Il y a... / On voit... / A mon avis...
+Pronunciation: practise liaison — les enfants, vous avez
+Extend answer: add opinion + reason + future plan
+If you forget a word: describe it (un truc pour ecrire = a thing for writing = a pen)`, commonMistakes:[
             'Confusing ser (permanent/identity) and estar (temporary state/location) — these are tested heavily',
             'Using masculine adjective forms for feminine nouns — check the gender of the noun first',
           ],
@@ -15235,7 +15284,14 @@ function tplIGCSEHub() {
     <div style="position:absolute;top:-30px;right:-30px;width:160px;height:160px;border-radius:50%;background:#ffffff0d"></div>
     <div style="position:absolute;bottom:-40px;left:-20px;width:120px;height:120px;border-radius:50%;background:#ffffff08"></div>
     <div style="position:relative;z-index:1">
-      <div style="display:inline-block;background:#ffffff20;border-radius:20px;padding:3px 12px;font-size:10px;color:#ffffffcc;font-weight:800;letter-spacing:2px;margin-bottom:10px">IGCSE REVISION PLATFORM</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <div style="display:inline-block;background:#ffffff20;border-radius:20px;padding:3px 12px;font-size:10px;color:#ffffffcc;font-weight:800;letter-spacing:2px">IGCSE REVISION PLATFORM</div>
+        <button onclick="S.darkMode=!S.darkMode;document.getElementById('app').className=S.darkMode?'':'light';saveLocal();render()"
+          title="Toggle dark/light mode"
+          style="background:#ffffff25;border:none;border-radius:20px;padding:5px 12px;color:#fff;cursor:pointer;font-size:13px;font-weight:700;font-family:Cairo,sans-serif">
+          ${S.darkMode?'☀️ Light':'🌙 Dark'}
+        </button>
+      </div>
       <div style="font-size:26px;font-weight:900;color:#fff;margin-bottom:6px">🎓 IGCSE Hub</div>
       <div style="display:flex;gap:16px;flex-wrap:wrap">
         <div style="text-align:center"><div style="font-size:20px;font-weight:900;color:#fff">${Object.keys(IGCSE_SUBJECTS).length}</div><div style="font-size:10px;color:#ffffffaa">Subjects</div></div>
@@ -15942,7 +15998,13 @@ function tplIGCSETopic() {
     </div>
     <!-- Topic title + progress -->
     <div style="font-size:18px;font-weight:900;color:#fff;margin-bottom:4px;line-height:1.3">${tp.title}</div>
-    <div style="font-size:10px;color:#ffffffaa">${subj.icon} ${subj.label} · ${board.icon} ${board.short} · Topic ${curIdx+1} of ${allTopics.length}</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:2px">
+      <div style="font-size:10px;color:#ffffffaa">${subj.icon} ${subj.label} · ${board.icon} ${board.short} · Topic ${curIdx+1} of ${allTopics.length}</div>
+      <button onclick="window.print()" title="Print / Save as PDF"
+        style="background:#ffffff25;border:none;border-radius:8px;padding:4px 10px;color:#fff;cursor:pointer;font-size:11px;font-family:Cairo,sans-serif;font-weight:700">
+        🖨️ Print
+      </button>
+    </div>
     <!-- Mini progress bar -->
     <div style="margin-top:10px;height:3px;background:#ffffff25;border-radius:2px">
       <div style="height:100%;width:${Math.round((curIdx+1)/allTopics.length*100)}%;background:#fff;border-radius:2px;transition:.4s"></div>
@@ -17959,7 +18021,15 @@ function bind() {
     ul{padding-right:20px;line-height:2}
     h1,h2,h3{margin:8px 0 4px;color:var(--primary)}
     .lesson-topic:hover{background:var(--primary)11 !important;border-color:var(--primary) !important}
-  `;
+  
+    @media print {
+      body { background:#fff !important; color:#000 !important; }
+      #app { display:block !important; }
+      button, .no-print { display:none !important; }
+      div[style*="fixed"], div[style*="sticky"] { display:none !important; }
+      * { color:#000 !important; background:transparent !important; border-color:#ccc !important; box-shadow:none !important; }
+      pre, .workedExample, [style*="monospace"] { border:1px solid #ccc; padding:8px; }
+    }`;
   document.head.appendChild(style);
 })();
 
