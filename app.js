@@ -3418,13 +3418,24 @@ function tplHome() {
     </div>
 
     <!-- Current selection badge -->
-    <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--primary)12;border-radius:12px;border:1px solid var(--primary)30">
+    <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--primary)12;border-radius:12px;border:1px solid var(--primary)30;margin-bottom:14px">
       <span style="font-size:18px">✅</span>
       <div>
         <div style="font-size:13px;font-weight:900;color:var(--primary)">${curData.label}</div>
         <div style="font-size:12px;color:var(--text-muted)">${gradeData.label}</div>
       </div>
     </div>
+
+    <!-- Continue button -->
+    <button onclick="S.screen='chat';render()"
+      style="width:100%;padding:14px;border-radius:14px;border:none;
+             background:linear-gradient(135deg,#2563EB,#7C3AED);
+             color:#fff;font-size:16px;font-weight:900;font-family:Cairo,sans-serif;
+             cursor:pointer;box-shadow:0 4px 16px #2563EB44;transition:.2s;letter-spacing:.5px"
+      onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px #2563EB66'"
+      onmouseout="this.style.transform='';this.style.boxShadow='0 4px 16px #2563EB44'">
+      🚀 ابدأ المذاكرة
+    </button>
   </div>
 
   <!-- Quick access label -->
