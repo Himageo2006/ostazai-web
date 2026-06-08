@@ -3385,17 +3385,19 @@ function tplHome() {
   ).join('');
 
   return `
-<div style="display:flex;flex-direction:column;align-items:center;padding:28px 16px 80px;min-height:60vh">
+<div style="display:flex;flex-direction:column;align-items:center;padding:0 0 80px;min-height:60vh">
 
-  <!-- Greeting -->
-  <div style="font-size:42px;margin-bottom:8px">🎓</div>
-  <div style="font-size:22px;font-weight:900;color:var(--text);margin-bottom:4px">
-    ${userName ? 'أهلاً ' + userName + '!' : 'أهلاً بك في أستاذ AI'}
+  <!-- Big colored header -->
+  <div style="width:100%;background:linear-gradient(135deg,#2563EB,#7C3AED);padding:32px 20px 28px;display:flex;flex-direction:column;align-items:center;margin-bottom:24px">
+    <div style="font-size:48px;margin-bottom:10px">🏠</div>
+    <div style="font-size:24px;font-weight:900;color:#fff;margin-bottom:4px">
+      ${userName ? 'أهلاً ' + userName + '! 👋' : 'الصفحة الرئيسية 🏠'}
+    </div>
+    <div style="font-size:13px;color:#ffffffbb">اختر بلدك ومرحلتك ثم ابدأ المذاكرة</div>
   </div>
-  <div style="font-size:13px;color:var(--text-muted);margin-bottom:22px">اختر بلدك ومرحلتك الدراسية ثم ابدأ</div>
 
   <!-- Country & Grade selector card -->
-  <div style="width:100%;max-width:420px;background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:20px 20px 16px;margin-bottom:24px;box-shadow:0 4px 20px #0002">
+  <div style="width:calc(100% - 32px);max-width:420px;background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:20px 20px 16px;margin-bottom:24px;box-shadow:0 4px 20px #0002">
 
     <div style="font-size:12px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:12px">🌍 بلدك ومنهجك</div>
 
