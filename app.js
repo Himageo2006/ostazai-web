@@ -4537,7 +4537,37 @@ const IGCSE_SUBJECTS = {
           ], workedExample:`A car costs $12,000 after a 20% discount. What was the original price?
 After 20% discount → multiplier = 0.8
 Original = 12000 ÷ 0.8 = $15,000`},
-        ]},
+        ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ], examTips:[
+            'Standard form: coefficient must be between 1 and 10 — check A × 10ⁿ where 1 ≤ A < 10',
+            'Index laws: when multiplying, ADD powers; dividing, SUBTRACT; bracket, MULTIPLY — do not mix these up',
+          ], commonMistakes:[
+            'Adding instead of multiplying powers when multiplying: aᵐ × aⁿ = aᵐ⁺ⁿ NOT a²ᵐⁿ',
+            'Writing standard form with coefficient ≥ 10 or < 1 — always adjust the power to fix this',
+          ], examTips:[
+            'BODMAS/BIDMAS: work out Brackets first, then Orders, Division, Multiplication, Addition, Subtraction — left to right for same priority',
+            'Prime factorisation: use a factor tree; HCF = product of common prime factors; LCM = product of all prime factors (highest power)',
+          ], commonMistakes:[
+            'Applying operations in wrong order — always follow BODMAS strictly',
+            'Confusing HCF (highest common factor) with LCM (lowest common multiple) — HCF divides both; LCM is divisible by both',
+          ], examTips:[
+            'Standard form: coefficient must be between 1 and 10 — check A × 10ⁿ where 1 ≤ A < 10',
+            'Index laws: when multiplying, ADD powers; dividing, SUBTRACT; bracket, MULTIPLY — do not mix these up',
+          ], commonMistakes:[
+            'Adding instead of multiplying powers when multiplying: aᵐ × aⁿ = aᵐ⁺ⁿ NOT a²ᵐⁿ',
+            'Writing standard form with coefficient ≥ 10 or < 1 — always adjust the power to fix this',
+          ], examTips:[
+            'BODMAS/BIDMAS: work out Brackets first, then Orders, Division, Multiplication, Addition, Subtraction — left to right for same priority',
+            'Prime factorisation: use a factor tree; HCF = product of common prime factors; LCM = product of all prime factors (highest power)',
+          ], commonMistakes:[
+            'Applying operations in wrong order — always follow BODMAS strictly',
+            'Confusing HCF (highest common factor) with LCM (lowest common multiple) — HCF divides both; LCM is divisible by both',
+          ]},
         { title:'Algebra & Graphs', icon:'📈', topics:[
           { title:'Algebraic Manipulation', points:[
             'Expanding: (a+b)(c+d) = ac + ad + bc + bd',
@@ -4577,7 +4607,43 @@ x = 3  or  x = −0.5`},
             'Quadratic sequences: second differences are constant; nth term has n² term',
             'Find nth term by looking at differences and comparing to known sequences',
           ]},
-        ]},
+        ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ]},
         { title:'Coordinate Geometry', icon:'📍', topics:[
           { title:'Lines & Circles', points:[
             'Circle equation: (x−a)² + (y−b)² = r² where (a,b) is centre and r is radius',
@@ -4585,7 +4651,13 @@ x = 3  or  x = −0.5`},
             'To find intersection: substitute line equation into circle equation',
             'Length of a chord using coordinate geometry and Pythagoras',
           ]},
-        ]},
+        ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ]},
         { title:'Geometry', icon:'📐', topics:[
           { title:'Angle Properties', points:[
             'Angles on a straight line = 180°; angles around a point = 360°',
@@ -4607,7 +4679,25 @@ x = 3  or  x = −0.5`},
             'Congruence conditions: SSS, SAS, ASA, AAS, RHS',
             'To prove triangles similar: show two pairs of equal angles (AA)',
           ]},
-        ]},
+        ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ]},
         { title:'Mensuration', icon:'📏', topics:[
           { title:'Areas & Perimeters', points:[
             'Rectangle: A = lw; Triangle: A = ½bh; Parallelogram: A = bh',
@@ -4622,7 +4712,19 @@ x = 3  or  x = −0.5`},
             'Sphere: V = (4/3)πr³; SA = 4πr²',
             'Pyramid: V = ⅓ × base area × perpendicular height',
           ]},
-        ]},
+        ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ]},
         { title:'Trigonometry', icon:'📐', topics:[
           { title:'Right-Angled Triangles (SOH CAH TOA)', points:[
             'sin θ = Opposite/Hypotenuse; cos θ = Adjacent/Hypotenuse; tan θ = Opposite/Adjacent',
@@ -4637,7 +4739,27 @@ x = 3  or  x = −0.5`},
             'Area of any triangle: Area = ½ab sinC',
             'Ambiguous case: two possible triangles when given two sides and non-included angle',
           ]},
-        ]},
+        ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ], workedExample:`In triangle ABC, angle A = 35°, BC = 8cm. Find AB.
+sin A = opposite/hypotenuse → sin 35° = BC/AB
+AB = BC/sin 35° = 8/0.574 = 13.9 cm`, examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ]},
         { title:'Vectors & Transformations', icon:'↗️', topics:[
           { title:'Vectors', points:[
             'Vector has magnitude and direction; written as bold a or column vector (x y)',
@@ -4653,7 +4775,25 @@ x = 3  or  x = −0.5`},
             'Enlargement: centre and scale factor; area changes by SF²; negative SF flips shape',
             'Combined transformations: apply right-to-left; describe single equivalent transformation',
           ]},
-        ]},
+        ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ]},
         { title:'Probability & Statistics', icon:'📊', topics:[
           { title:'Statistics', points:[
             'Mean = sum ÷ count; Median = middle value (sort first!); Mode = most frequent',
@@ -4676,8 +4816,38 @@ x = 3  or  x = −0.5`},
 P(1st red) = 3/5
 P(2nd red | 1st red) = 2/4 = 1/2
 P(both red) = 3/5 × 1/2 = 3/10`},
-        ]},
-      ],
+        ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ]},
+      ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ],
       edexcel: [
         { title:'Number', icon:'🔢', topics:[
           { title:'Types of Numbers & Operations', points:[
@@ -4719,7 +4889,19 @@ P(both red) = 3/5 × 1/2 = 3/10`},
             'Recognise and sketch: linear, quadratic, cubic, reciprocal, exponential, circle',
             'Edexcel Higher: calculus — differentiation to find gradient and turning points',
           ]},
-        ]},
+        ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ]},
         { title:'Geometry & Trigonometry', icon:'📐', topics:[
           { title:'Angles, Shapes & Proofs', points:[
             'Angle facts, parallel lines, polygons — same as CIE',
@@ -4734,7 +4916,13 @@ P(both red) = 3/5 × 1/2 = 3/10`},
             'Area of triangle = ½ab sinC',
             'Edexcel IGCSE: bearings questions often combine trigonometry with geometry',
           ]},
-        ]},
+        ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ]},
         { title:'Statistics & Probability', icon:'📊', topics:[
           { title:'Statistics', points:[
             'Mean, median, mode, range, IQR — same as CIE',
@@ -4769,7 +4957,16 @@ P(both red) = 3/5 × 1/2 = 3/10`},
             'Reverse percentage: if after 20% increase is £120, original = 120 ÷ 1.2 = £100',
             'Compound interest: A = P(1 + r/100)ⁿ; simple interest: I = PRT/100',
           ]},
-        ]},
+        ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ]},
         { title:'Algebra & Functions', icon:'📐', topics:[
           { title:'Algebraic Manipulation', points:[
             'Expand brackets: a(b+c) = ab+ac; (a+b)(c+d) = ac+ad+bc+bd (FOIL)',
@@ -4814,7 +5011,16 @@ x = −2 or x = −3`},
             'Enlargement: scale factor > 1 = bigger; 0 < k < 1 = smaller; negative k = on other side of centre',
             'Invariant point: a point that does not move under a transformation',
           ]},
-        ]},
+        ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ]},
         { title:'Statistics & Probability', icon:'📊', topics:[
           { title:'Data & Averages', points:[
             'Mean from frequency table: Σ(fx) ÷ Σf; where f = frequency, x = midpoint (for grouped data)',
@@ -4833,7 +5039,13 @@ x = −2 or x = −3`},
 P(1st red) = 3/5
 P(2nd red | 1st red) = 2/4 = 1/2
 P(both red) = 3/5 × 1/2 = 3/10`},
-        ]},
+        ], examTips:[
+            'Show all working step by step — method marks awarded even if final answer wrong',
+            'Check answer by substituting back into original equation or expression',
+          ], commonMistakes:[
+            'Forgetting to check whether an answer is reasonable — always sanity-check (e.g. length cannot be negative)',
+            'Making sign errors when expanding brackets or rearranging — write each step on a new line',
+          ]},
       ],
     }
   },
@@ -4894,7 +5106,21 @@ s = ut + ½at² = 0 + ½×5×36 = 90 m
             'Principle of moments: sum of clockwise moments = sum of anticlockwise moments',
             'Centre of gravity: single point where weight appears to act',
           ]},
-        ]},
+        ], examTips:[
+            'State the equation first, then substitute values with correct units',
+            'Check units are consistent throughout — convert km/h to m/s, cm to m, etc. before calculating',
+          ], commonMistakes:[
+            'Using the wrong equation — always identify what is given and what is needed before choosing a formula',
+            'Omitting units in answers — every numerical answer must have a unit unless it is a ratio',
+          ], workedExample:`A 3m beam has a 20N weight at 1m from pivot. Find balancing force at 2.5m from pivot.
+Clockwise moment = 20 × 1 = 20 Nm
+Anticlockwise: F × 2.5 = 20 → F = 20/2.5 = 8N`, examTips:[
+            'Energy conservation: always check energy IN = energy OUT + losses (as heat/sound)',
+            'Efficiency: express as decimal (0.75) or percentage (75%) — specify which the question asks for',
+          ], commonMistakes:[
+            'Using total distance instead of displacement in work done — W = Fs (force × displacement in direction of force)',
+            'Confusing power (rate of energy transfer, watts) with energy (joules) — P = E/t',
+          ]},
         { title:'Thermal Physics', icon:'🌡️', topics:[
           { title:'States of Matter & Kinetic Theory', points:[
             'Solid: particles in fixed positions, vibrate; strong forces between particles',
@@ -4910,7 +5136,20 @@ s = ut + ½at² = 0 + ½×5×36 = 90 m
             'Convection: warm fluid rises (less dense), cool fluid sinks — creates currents',
             'Radiation: infrared waves travel without medium; dark matt = best emitter & absorber',
           ]},
-        ]},
+        ], examTips:[
+            'State the equation first, then substitute values with correct units',
+            'Check units are consistent throughout — convert km/h to m/s, cm to m, etc. before calculating',
+          ], commonMistakes:[
+            'Using the wrong equation — always identify what is given and what is needed before choosing a formula',
+            'Omitting units in answers — every numerical answer must have a unit unless it is a ratio',
+          ], examTips:[
+            'State the equation first, then substitute values with correct units',
+            'Check units are consistent throughout — convert km/h to m/s, cm to m, etc. before calculating',
+          ], commonMistakes:[
+            'Using the wrong equation — always identify what is given and what is needed before choosing a formula',
+            'Omitting units in answers — every numerical answer must have a unit unless it is a ratio',
+          ], workedExample:`Explain why gas pressure increases when temperature rises (constant volume):
+Higher temperature → particles have more kinetic energy → move faster → collide with container walls more frequently AND with greater force → pressure increases`},
         { title:'Waves & Optics', icon:'〰️', topics:[
           { title:'Wave Properties', points:[
             'Transverse: oscillation perpendicular to direction of travel (light, water waves)',
@@ -4945,7 +5184,16 @@ v = fλ = 500 × 0.68 = 340 m/s (speed of sound in air ✓)`},
             'Echo calculation: distance = (speed × time) ÷ 2 — divide by 2 because sound travels there AND back',
           ], workedExample:`Sonar pulse takes 0.4 s to return. Speed of sound in water = 1500 m/s.
 Distance to seabed = (1500 × 0.4) ÷ 2 = 300 m`},
-        ]},
+        ], commonMistakes:[
+            'Using the wrong equation — always identify what is given and what is needed before choosing a formula',
+            'Omitting units in answers — every numerical answer must have a unit unless it is a ratio',
+          ], commonMistakes:[
+            'Using the wrong equation — always identify what is given and what is needed before choosing a formula',
+            'Omitting units in answers — every numerical answer must have a unit unless it is a ratio',
+          ], commonMistakes:[
+            'Using the wrong equation — always identify what is given and what is needed before choosing a formula',
+            'Omitting units in answers — every numerical answer must have a unit unless it is a ratio',
+          ]},
         { title:'Electricity & Magnetism', icon:'🔌', topics:[
           { title:'Electric Circuits', points:[
             'Ohm\'s Law: V = IR (voltage = current × resistance)',
@@ -4976,7 +5224,10 @@ R_total = 2Ω  (always less than smallest resistor in parallel)`},
           ], workedExample:`Transformer: primary 240V, 2000 turns; secondary 20 turns. Find output voltage.
 Vp/Vs = Np/Ns → 240/Vs = 2000/20 = 100
 Vs = 240/100 = 2.4 V  (step-down transformer)`},
-        ]},
+        ], commonMistakes:[
+            'Using the wrong equation — always identify what is given and what is needed before choosing a formula',
+            'Omitting units in answers — every numerical answer must have a unit unless it is a ratio',
+          ]},
         { title:'Nuclear Physics', icon:'☢️', topics:[
           { title:'Atomic Structure & Radiation', points:[
             'Atom: protons + neutrons in nucleus; electrons in shells around nucleus',
@@ -5006,8 +5257,17 @@ Proton: 88 = 2 + 86 → daughter = element 86 (Radon, Rn)
           ], workedExample:`Initial activity = 800 Bq, half-life = 3 hours. Activity after 9 hours?
 n = 9/3 = 3 half-lives
 Activity = 800 × (1/2)³ = 800 ÷ 8 = 100 Bq`},
-        ]},
-      ],
+        ], commonMistakes:[
+            'Using the wrong equation — always identify what is given and what is needed before choosing a formula',
+            'Omitting units in answers — every numerical answer must have a unit unless it is a ratio',
+          ], commonMistakes:[
+            'Using the wrong equation — always identify what is given and what is needed before choosing a formula',
+            'Omitting units in answers — every numerical answer must have a unit unless it is a ratio',
+          ]},
+      ], commonMistakes:[
+            'Reading gradient of distance-time graph as velocity without dividing rise by run correctly',
+            'Confusing distance (scalar) with displacement (vector) — displacement has direction, distance does not',
+          ],
       oxford: [
         { title:'Forces & Motion', icon:'🚀', topics:[
           { title:'Speed, Velocity & Acceleration', points:[
@@ -5027,7 +5287,13 @@ Activity = 800 × (1/2)³ = 800 ÷ 8 = 100 Bq`},
             'Weight (W = mg), normal reaction, friction, tension, air resistance — identify all forces in a problem',
             'Oxford AQA: include analysis of circular motion — centripetal force directed toward centre',
           ]},
-        ]},
+        ], examTips:[
+            'State the equation first, then substitute values with correct units',
+            'Check units are consistent throughout — convert km/h to m/s, cm to m, etc. before calculating',
+          ], commonMistakes:[
+            'Using the wrong equation — always identify what is given and what is needed before choosing a formula',
+            'Omitting units in answers — every numerical answer must have a unit unless it is a ratio',
+          ]},
         { title:'Energy & Electricity', icon:'⚡', topics:[
           { title:'Energy', points:[
             'Oxford AQA organises energy as: kinetic, gravitational potential, elastic potential, thermal, chemical, nuclear',
@@ -5046,7 +5312,13 @@ Activity = 800 × (1/2)³ = 800 ÷ 8 = 100 Bq`},
             'Oxford AQA: Interpret I-V graphs — gradient is NOT resistance; resistance = V/I at any point',
             'Potential divider calculations: identify which resistor is R₂ (the one across which V_out is measured)',
           ]},
-        ]},
+        ], examTips:[
+            'State the equation first, then substitute values with correct units',
+            'Check units are consistent throughout — convert km/h to m/s, cm to m, etc. before calculating',
+          ], commonMistakes:[
+            'Using the wrong equation — always identify what is given and what is needed before choosing a formula',
+            'Omitting units in answers — every numerical answer must have a unit unless it is a ratio',
+          ]},
         { title:'Waves & Matter', icon:'〰️', topics:[
           { title:'Waves', points:[
             'Oxford AQA: wave behaviour — reflection, refraction, diffraction, superposition',
@@ -5068,7 +5340,13 @@ Activity = 800 × (1/2)³ = 800 ÷ 8 = 100 Bq`},
             'Saying temperature rises during a change of state — it stays constant until change is complete',
             'Confusing quarks in protons and neutrons — learn the combinations carefully',
           ]},
-        ]},
+        ], examTips:[
+            'State the equation first, then substitute values with correct units',
+            'Check units are consistent throughout — convert km/h to m/s, cm to m, etc. before calculating',
+          ], commonMistakes:[
+            'Using the wrong equation — always identify what is given and what is needed before choosing a formula',
+            'Omitting units in answers — every numerical answer must have a unit unless it is a ratio',
+          ]},
         { title:'Electricity & Radioactivity (Oxford AQA)', icon:'⚡', topics:[
           { title:'Circuits & Electrical Energy', points:[
             'Oxford AQA: V = IR, P = IV = I²R = V²/R; Q = It; energy = QV = IVt',
@@ -5107,8 +5385,14 @@ Vout = 9 × 12/(6+12) = 9 × 12/18 = 9 × 0.667 = 6V`},
             'Six-mark questions: use key words — "increases", "decreases", "proportional to", "inversely proportional"',
             'Calculate questions: always show working even if calculator error — method marks are available',
           ]},
-        ]},
-      ],
+        ], commonMistakes:[
+            'Using the wrong equation — always identify what is given and what is needed before choosing a formula',
+            'Omitting units in answers — every numerical answer must have a unit unless it is a ratio',
+          ]},
+      ], commonMistakes:[
+            'Using the wrong equation — always identify what is given and what is needed before choosing a formula',
+            'Omitting units in answers — every numerical answer must have a unit unless it is a ratio',
+          ],
       edexcel: [
         { title:'Forces & Motion', icon:'🚀', topics:[
           { title:'Motion & Equations', points:[
@@ -5266,7 +5550,13 @@ Q = mcΔT = 2 × 4200 × (80−20) = 2 × 4200 × 60 = 504,000 J`},
             'Melting/boiling point: energy input breaks intermolecular forces; temperature constant during change',
             'Diffusion: random movement from high to low concentration; faster at high temperature, in gases',
           ]},
-        ]},
+        ], examTips:[
+            'Balance the equation before attempting any calculations',
+            'Include state symbols (s), (l), (g), (aq) in all equations where required',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ]},
         { title:'Atomic Structure & Bonding', icon:'⚛️', topics:[
           { title:'Atomic Structure', points:[
             'Proton: relative charge +1, mass 1 (in nucleus)',
@@ -5302,7 +5592,37 @@ Q = mcΔT = 2 × 4200 × (80−20) = 2 × 4200 × 60 = 504,000 J`},
             'Malleable and ductile (layers slide — electrons move with them)',
             'Alloys: mix of metals → different sized atoms → harder (e.g. steel = iron + carbon)',
           ]},
-        ]},
+        ], examTips:[
+            'Balance the equation before attempting any calculations',
+            'Include state symbols (s), (l), (g), (aq) in all equations where required',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ], examTips:[
+            'Balance the equation before attempting any calculations',
+            'Include state symbols (s), (l), (g), (aq) in all equations where required',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ], examTips:[
+            'Balance the equation before attempting any calculations',
+            'Include state symbols (s), (l), (g), (aq) in all equations where required',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ], examTips:[
+            'Balance the equation before attempting any calculations',
+            'Include state symbols (s), (l), (g), (aq) in all equations where required',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ], examTips:[
+            'Balance the equation before attempting any calculations',
+            'Include state symbols (s), (l), (g), (aq) in all equations where required',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ]},
         { title:'Stoichiometry', icon:'🧮', topics:[
           { title:'Moles & Calculations', points:[
             'Relative atomic mass (Ar): mass relative to ¹²C = 12',
@@ -5325,7 +5645,16 @@ NaOH + HCl → NaCl + H₂O  [1:1 ratio]
             'Yield: actual yield may be less than theoretical due to impurities, reversible reactions',
             'Atom economy = (Mr of desired product ÷ Mr of all products) × 100%',
           ]},
-        ]},
+        ], examTips:[
+            'Balance the equation before attempting any calculations',
+            'Include state symbols (s), (l), (g), (aq) in all equations where required',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ]},
         { title:'Acids, Bases & Salts', icon:'🧫', topics:[
           { title:'Acids & Bases', points:[
             'Acid: produces H⁺ ions in aqueous solution; pH < 7',
@@ -5349,7 +5678,13 @@ NaOH + HCl → NaCl + H₂O  [1:1 ratio]
 2. Filter to remove excess CuO
 3. Evaporate solution to concentrate
 4. Leave to crystallise → blue CuSO₄·5H₂O crystals`},
-        ]},
+        ], examTips:[
+            'Balance the equation before attempting any calculations',
+            'Include state symbols (s), (l), (g), (aq) in all equations where required',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ]},
         { title:'Energetics & Rates', icon:'🔥', topics:[
           { title:'Energy Changes in Reactions', points:[
             'Exothermic: releases energy → products lower energy than reactants → ΔH negative',
@@ -5375,7 +5710,19 @@ NaOH + HCl → NaCl + H₂O  [1:1 ratio]
 Small chips (large SA): more collisions per second → faster rate → steeper initial gradient
 Same total mass → same moles → same final volume of CO₂
 Large chips: slower rate → shallower gradient, but same final volume`},
-        ]},
+        ], examTips:[
+            'Rate factors: temperature, concentration, surface area, catalyst — know HOW each affects collision frequency and energy',
+            'Graph interpretation: steeper gradient = faster rate; horizontal line = reaction complete',
+          ], commonMistakes:[
+            'Saying a catalyst lowers activation energy so less energy is needed — correct, but also state it is unchanged itself (not used up)',
+            'Confusing rate of reaction with amount of product — higher rate = faster reaction, not necessarily MORE product',
+          ], examTips:[
+            'Balance the equation before attempting any calculations',
+            'Include state symbols (s), (l), (g), (aq) in all equations where required',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ]},
         { title:'Organic Chemistry', icon:'🌿', topics:[
           { title:'Hydrocarbons', points:[
             'Alkanes: CₙH₂ₙ₊₂, saturated (C−C single bonds), unreactive, combustion',
@@ -5396,7 +5743,22 @@ Balance: 3C → 3CO₂; 8H → 4H₂O; O needed = 6+4 = 10, so 5O₂`},
             'Condensation polymerisation: two functional groups per monomer; small molecule (e.g. H₂O) eliminated',
             'Nylon (polyamide): diamine + dioic acid; Polyester: diol + dioic acid',
           ]},
-        ]},
+        ], examTips:[
+            'Balance the equation before attempting any calculations',
+            'Include state symbols (s), (l), (g), (aq) in all equations where required',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ], examTips:[
+            'Balance the equation before attempting any calculations',
+            'Include state symbols (s), (l), (g), (aq) in all equations where required',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ]},
         { title:'Electrochemistry', icon:'⚡', topics:[
           { title:'Electrolysis', points:[
             'Electrolysis: decomposition of ionic compound by electric current when molten or in solution',
@@ -5418,7 +5780,16 @@ Used in copper purification — anode loses mass, cathode gains mass`},
             'Blast furnace: iron ore + coke + limestone → molten iron + slag (calcium silicate)',
             'Rusting: iron + water + oxygen → hydrated iron(III) oxide (rust); prevented by galvanising, painting, alloying',
           ]},
-        ]},
+        ], examTips:[
+            'Balance the equation before attempting any calculations',
+            'Include state symbols (s), (l), (g), (aq) in all equations where required',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ]},
         { title:'Industrial Chemistry', icon:'🏭', topics:[
           { title:'Haber Process & Fertilisers', points:[
             'Haber process: N₂ + 3H₂ ⇌ 2NH₃  (reversible reaction)',
@@ -5443,7 +5814,13 @@ Lower temp: yield ↑ but rate too slow → economically unviable
             'Stage 3: SO₃ + H₂SO₄ → H₂S₂O₇ (oleum) → add water → H₂SO₄',
             'Uses of H₂SO₄: fertilisers, detergents, car batteries, dyes, paints',
           ]},
-        ]},
+        ], examTips:[
+            'Balance the equation before attempting any calculations',
+            'Include state symbols (s), (l), (g), (aq) in all equations where required',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ]},
         { title:'Qualitative Analysis', icon:'🔍', topics:[
           { title:'Identifying Ions & Gases', points:[
             'Flame tests: Li⁺ red; Na⁺ yellow/orange; K⁺ lilac; Ca²⁺ brick-red; Cu²⁺ blue-green',
@@ -5462,8 +5839,26 @@ Lower temp: yield ↑ but rate too slow → economically unviable
             'Chlorine: damp litmus paper → bleaches white',
             'Ammonia: damp red litmus paper → turns blue (alkaline)',
           ]},
-        ]},
-      ],
+        ], examTips:[
+            'Balance the equation before attempting any calculations',
+            'Include state symbols (s), (l), (g), (aq) in all equations where required',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ]},
+      ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ],
       edexcel: [
         { title:'Principles of Chemistry', icon:'⚗️', topics:[
           { title:'Atomic Structure & The Periodic Table', points:[
@@ -5486,7 +5881,16 @@ Lower temp: yield ↑ but rate too slow → economically unviable
 Mg is a metal (Group 2), Cl is a non-metal (Group 7) → ionic bonding
 Mg loses 2 electrons → Mg²⁺; each Cl gains 1 electron → Cl⁻
 Formula: MgCl₂ (2 Cl⁻ for every Mg²⁺ to balance charges)`},
-        ]},
+        ], examTips:[
+            'Balance the equation before attempting any calculations',
+            'Include state symbols (s), (l), (g), (aq) in all equations where required',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ]},
         { title:'Inorganic Chemistry', icon:'🧪', topics:[
           { title:'Acids, Bases & Salts', points:[
             'Acids: produce H⁺ ions in solution; HCl (hydrochloric), H₂SO₄ (sulfuric), HNO₃ (nitric)',
@@ -5509,7 +5913,13 @@ Salt = sodium chloride (NaCl) = table salt`},
             'Rusting: iron + water + oxygen → hydrated iron(III) oxide; prevented by painting, galvanising, alloy',
             'Alloys: mixtures of metals; brass (Cu+Zn), steel (Fe+C), stainless steel (Fe+Cr+Ni)',
           ]},
-        ]},
+        ], examTips:[
+            'Balance the equation before attempting any calculations',
+            'Include state symbols (s), (l), (g), (aq) in all equations where required',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ]},
         { title:'Physical Chemistry', icon:'⚡', topics:[
           { title:'Energy Changes', points:[
             'Exothermic: energy released to surroundings; temperature rises; products lower energy (combustion, neutralisation)',
@@ -5531,7 +5941,10 @@ Bonds formed: 2 × H−Cl (2 × 431 = 862 kJ)
             'Catalyst: provides alternative pathway with lower activation energy; not consumed in reaction',
             'Measuring rate: gas collected in syringe; change in mass (CO₂ escaping); colour change; titration',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ]},
         { title:'Organic Chemistry', icon:'🔬', topics:[
           { title:'Carbon Compounds', points:[
             'Organic chemistry: study of carbon-containing compounds (except CO, CO₂, carbonates)',
@@ -5554,7 +5967,16 @@ Conclusion: the sample that decolourises bromine water is ethene`},
             'Fermentation: glucose → ethanol + CO₂ (yeast, 25–35°C, anaerobic); fractional distillation to purify',
             'Esterification: alcohol + carboxylic acid → ester + water (concentrated H₂SO₄ catalyst); pleasant smell',
           ]},
-        ]},
+        ], examTips:[
+            'Balance the equation before attempting any calculations',
+            'Include state symbols (s), (l), (g), (aq) in all equations where required',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ]},
       ],
       oxford: [
         { title:'Atomic Structure & Bonding', icon:'⚛️', topics:[
@@ -5575,7 +5997,13 @@ Ar = (35 × 75 + 37 × 25) / 100 = (2625 + 925) / 100 = 3550 / 100 = 35.5`},
             'Oxford AQA: includes intermolecular forces (van der Waals) explaining properties of simple molecules',
             'Hydrogen bonding: between H and electronegative atom (F, O, N) — explains water\'s high boiling point',
           ]},
-        ]},
+        ], examTips:[
+            'Balance the equation before attempting any calculations',
+            'Include state symbols (s), (l), (g), (aq) in all equations where required',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ]},
         { title:'Chemical Reactions & Energy', icon:'🔥', topics:[
           { title:'Rates & Energy Changes', points:[
             'Oxford AQA: emphasis on practical skills — describe how to measure rate experimentally',
@@ -5597,7 +6025,10 @@ Bonds made: 2 × H-Cl (2×431) = 862 kJ
             'Addition reactions of alkenes: + H₂ (hydrogenation), + Br₂ (bromination, test for C=C), + HBr',
             'Condensation polymers: nylon, polyester — require two different monomers; water produced',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ]},
         { title:'Earth, Atmosphere & Resources', icon:'🌍', topics:[
           { title:'The Earth & Its Resources', points:[
             'Earth\'s structure: inner core (solid Fe/Ni), outer core (liquid), mantle (semi-solid), crust (thin, rock)',
@@ -5619,7 +6050,13 @@ Bonds made: 2 × H-Cl (2×431) = 862 kJ
             'Saying humans produce all greenhouse gases — water vapour and CH₄ from natural sources too',
             'Confusing carbon monoxide (CO, toxic, from incomplete combustion) with carbon dioxide (CO₂)',
           ]},
-        ]},
+        ], examTips:[
+            'Balance the equation before attempting any calculations',
+            'Include state symbols (s), (l), (g), (aq) in all equations where required',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ]},
         { title:'Quantitative Chemistry (Oxford AQA)', icon:'⚖️', topics:[
           { title:'Moles & Calculations', points:[
             'Mole = 6.02×10²³ particles (Avogadro\'s number); moles = mass ÷ molar mass (g/mol)',
@@ -5657,7 +6094,17 @@ Mass CO₂ = 1 × 44 = 44g`},
             'State/name/identify questions: one correct answer only — do not write multiple answers hoping one is right',
             'Required practical: know the specific method steps, including safety measures and why controls are needed',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ], commonMistakes:[
+            'Writing unbalanced equations — check atom count for every element on both sides',
+            'Confusing physical change (no new substance) with chemical change (new substance formed)',
+          ], workedExample:`25.0cm³ of NaOH neutralised by 20.0cm³ of 0.5 mol/dm³ HCl. Find [NaOH].
+Moles HCl = (20/1000) × 0.5 = 0.01 mol
+NaOH + HCl → NaCl + H₂O (1:1 ratio)
+Moles NaOH = 0.01 mol
+[NaOH] = 0.01/(25/1000) = 0.4 mol/dm³`},
       ],
     }
   },
@@ -5686,7 +6133,19 @@ Mass CO₂ = 1 × 44 = 44g`},
             'Turgid plant cell: full of water → stiff (provides support); plasmolysed: loses water → shrinks',
             'Factors affecting diffusion rate: concentration gradient, surface area, distance, temperature',
           ]},
-        ]},
+        ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ], examTips:[
+            'Animal vs plant cells: plant has cell wall (cellulose), chloroplasts, large permanent vacuole — animals have none of these',
+            'Electron microscope vs light microscope: electron has greater magnification AND resolution — both differences matter',
+          ], commonMistakes:[
+            'Saying plants have a cell membrane but no cell wall — plants have BOTH',
+            'Confusing magnification (how much bigger image appears) with resolution (minimum detail that can be distinguished)',
+          ]},
         { title:'Biological Molecules & Enzymes', icon:'⚗️', topics:[
           { title:'Biological Molecules', points:[
             'Carbohydrates (C,H,O): glucose for energy; starch for storage (plants); glycogen (animals)',
@@ -5702,7 +6161,25 @@ Mass CO₂ = 1 × 44 = 44g`},
             'pH: each enzyme has optimal pH; extreme pH → denaturation (e.g. pepsin pH 2, salivary amylase pH 7)',
             'Substrate concentration: increases rate until all active sites occupied → plateau reached',
           ]},
-        ]},
+        ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ]},
         { title:'Plant Biology', icon:'🌿', topics:[
           { title:'Photosynthesis', points:[
             'Equation: 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂ (in chloroplasts)',
@@ -5718,7 +6195,19 @@ Mass CO₂ = 1 × 44 = 44g`},
             'Phloem: carries sugars UP and DOWN from leaves to rest of plant (live cells)',
             'Root hair cells: increase surface area for absorption of water and minerals',
           ]},
-        ]},
+        ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ], examTips:[
+            'Word equation: carbon dioxide + water → glucose + oxygen (light and chlorophyll required)',
+            'Limiting factors: at low light, increasing light helps; at high light, CO₂ or temperature becomes limiting',
+          ], commonMistakes:[
+            'Saying chlorophyll produces glucose — it only absorbs light energy; the Calvin cycle makes glucose',
+            'Confusing reactants (CO₂ and H₂O) with products (glucose and O₂) — plants take in CO₂, not O₂, for photosynthesis',
+          ]},
         { title:'Human Biology', icon:'🫀', topics:[
           { title:'Nutrition & Digestion', points:[
             'Carbohydrates, proteins, fats, vitamins, minerals, water and fibre — all essential',
@@ -5748,7 +6237,31 @@ Mass CO₂ = 1 × 44 = 44g`},
             'Insulin (from pancreas): lowers blood glucose → glycogen stored in liver',
             'Glucagon: raises blood glucose → glycogen broken down; type 1 diabetes = no insulin',
           ]},
-        ]},
+        ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ], examTips:[
+            'Aerobic vs anaerobic: aerobic needs oxygen and releases more ATP; anaerobic produces lactic acid (animals) or ethanol+CO₂ (yeast)',
+            'Respiration happens in ALL living cells ALL the time — not just when exercising',
+          ], commonMistakes:[
+            'Confusing breathing (gas exchange, mechanical) with respiration (cellular energy release, chemical)',
+            'Writing the photosynthesis equation for respiration — respiration is the REVERSE: glucose + O₂ → CO₂ + water',
+          ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ]},
         { title:'Genetics & Evolution', icon:'🧬', topics:[
           { title:'DNA & Inheritance', points:[
             'DNA: double helix; base pairs A-T and C-G; gene = section of DNA coding for a protein',
@@ -5775,7 +6288,13 @@ Probability of cystic fibrosis (ff) = 1/4 = 25%`},
             'Antibiotic resistance: bacteria with resistant allele survive → multiply → population becomes resistant',
             'Speciation: populations become so different they can no longer interbreed → new species formed',
           ]},
-        ]},
+        ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ]},
         { title:'Reproduction', icon:'🌱', topics:[
           { title:'Sexual & Asexual Reproduction', points:[
             'Sexual reproduction: involves fusion of gametes (fertilisation) → genetic variation produced',
@@ -5801,7 +6320,19 @@ Probability of cystic fibrosis (ff) = 1/4 = 25%`},
             'Wind-pollinated flowers: no petals/scent, feathery stigma, light pollen, anthers hang outside',
             'Fertilisation in plants: pollen tube grows down style → male nucleus fuses with female nucleus in ovule',
           ]},
-        ]},
+        ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ]},
         { title:'Ecology & Environment', icon:'🌍', topics:[
           { title:'Ecosystems & Food Webs', points:[
             'Ecosystem: all organisms in an area + their non-living environment interacting',
@@ -5827,7 +6358,19 @@ Probability of cystic fibrosis (ff) = 1/4 = 25%`},
             'Conservation: in-situ (nature reserves, national parks) and ex-situ (zoos, seed banks, captive breeding)',
             'Sustainable use: fishing quotas, selective logging, crop rotation, recycling',
           ]},
-        ]},
+        ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ]},
         { title:'Disease & Immunity', icon:'🛡️', topics:[
           { title:'Pathogens & Disease', points:[
             'Pathogens: bacteria (produce toxins), viruses (take over host cell machinery), fungi, protoctists',
@@ -5850,7 +6393,13 @@ Probability of cystic fibrosis (ff) = 1/4 = 25%`},
             'Saying vaccines "cure" disease — vaccines prevent, not cure',
             'Confusing phagocytosis (engulf) with antibody production',
           ]},
-        ]},
+        ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ]},
         { title:'Excretion & Homeostasis', icon:'💧', topics:[
           { title:'Excretion', points:[
             'Excretion: removal of metabolic waste products — CO₂ (lungs), urea (kidneys), water + salts (skin)',
@@ -5874,7 +6423,13 @@ Blood glucose rises → detected by pancreas
 → beta cells release insulin into blood
 → liver/muscle cells absorb glucose → stored as glycogen
 → blood glucose returns to normal → insulin secretion stops`},
-        ]},
+        ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ]},
         { title:'Biotechnology', icon:'🔬', topics:[
           { title:'Genetic Engineering & Biotechnology', points:[
             'Genetic engineering: isolate gene → use restriction enzyme to cut DNA → insert into vector (plasmid) → introduce to host organism',
@@ -5893,8 +6448,29 @@ Blood glucose rises → detected by pancreas
             'Disadvantage: reduces genetic variation → population more vulnerable to new diseases',
             'Compare to natural selection: selective breeding driven by human choice, not environment',
           ]},
-        ]},
-      ],
+        ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ]},
+      ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ],
       edexcel: [
         { title:'Cell Biology & Microscopy', icon:'🔬', topics:[
           { title:'Cell Structure & Microscopy', points:[
@@ -5915,7 +6491,16 @@ Magnification = image ÷ actual = 0.1 ÷ 0.01 = ×10`},
             'Edexcel: exchange surfaces must be large SA, thin, moist, good blood supply — apply to lungs, intestines, gills',
             'Calculating surface area to volume ratio: as cells get larger, SA:V ratio falls → less efficient exchange',
           ]},
-        ]},
+        ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ]},
         { title:'Biological Molecules & Nutrition', icon:'⚗️', topics:[
           { title:'Biological Molecules', points:[
             'Carbohydrates: glucose (respiration), starch (storage in plants), glycogen (storage in animals), cellulose (cell wall)',
@@ -5931,7 +6516,13 @@ Magnification = image ÷ actual = 0.1 ÷ 0.01 = ×10`},
             'Coronary heart disease: linked to saturated fat, high cholesterol, smoking, high blood pressure, lack of exercise',
             'Type 2 diabetes: insulin resistance due to poor diet/obesity; managed by diet, exercise, medication',
           ]},
-        ]},
+        ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ]},
         { title:'Body Systems', icon:'🫀', topics:[
           { title:'The Heart & Circulation', points:[
             'Double circulation: pulmonary (heart → lungs → heart) and systemic (heart → body → heart)',
@@ -5957,7 +6548,22 @@ Magnification = image ÷ actual = 0.1 ÷ 0.01 = ×10`},
             'Reflex arc: fast, automatic response — no conscious thought required; spinal cord coordinates',
             'Edexcel: includes structure and function of the brain — cerebrum (thinking), cerebellum (balance), medulla (breathing/heartbeat)',
           ]},
-        ]},
+        ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ]},
         { title:'Ecology & Evolution', icon:'🌱', topics:[
           { title:'Ecosystems & Interdependence', points:[
             'Population: all individuals of one species in an area; Community: all populations together; Ecosystem: community + abiotic environment',
@@ -5973,8 +6579,23 @@ Magnification = image ÷ actual = 0.1 ÷ 0.01 = ×10`},
             'Edexcel: includes classification — Kingdom, Phylum, Class, Order, Family, Genus, Species (KPCOFGS)',
             'Biodiversity: measured by number of species and individuals; high biodiversity = ecosystem stability',
           ]},
-        ]},
-      ],
+        ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ]},
+      ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ],
       oxford: [
         { title:'Cell Biology', icon:'🔬', topics:[
           { title:'Cell Structure & Microscopy', points:[
@@ -5997,7 +6618,13 @@ Magnification = image ÷ actual = 0.1 ÷ 0.01 = ×10`},
 In distilled water (0%): potato gains mass (water enters by osmosis)
 In concentrated sucrose (20%): potato loses mass (water leaves by osmosis)
 At isotonic point: no change in mass (same concentration inside and outside)`},
-        ]},
+        ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ]},
         { title:'Biological Molecules & Nutrition', icon:'🧪', topics:[
           { title:'Biological Molecules', points:[
             'Carbohydrates: glucose (C₆H₁₂O₆), starch, glycogen, cellulose — all contain C, H, O',
@@ -6016,7 +6643,13 @@ At isotonic point: no change in mass (same concentration inside and outside)`},
             'Optimum pH: pepsin (stomach) = pH 2; amylase (mouth) = pH 7; trypsin (small intestine) = pH 8',
             'Small intestine: villi increase surface area; thin walls; good blood supply for absorption',
           ]},
-        ]},
+        ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ]},
         { title:'Plants & Ecosystems', icon:'🌿', topics:[
           { title:'Photosynthesis & Respiration', points:[
             'Photosynthesis: 6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂ (light energy, chlorophyll)',
@@ -6041,7 +6674,16 @@ Caterpillars (primary consumer): 1,000 kg
 Blue tits (secondary consumer): 100 kg
 Sparrowhawk (tertiary): 10 kg
 Energy lost at each level = ~90% (heat + faeces + uneaten parts)`},
-        ]},
+        ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ]},
         { title:'Human Biology & Health', icon:'❤️', topics:[
           { title:'The Heart & Circulatory System', points:[
             'Double circulatory system: pulmonary (heart ↔ lungs) + systemic (heart ↔ body)',
@@ -6062,8 +6704,17 @@ Energy lost at each level = ~90% (heat + faeces + uneaten parts)`},
             'Always draw a Punnett square — even if asked to "describe" inheritance',
             'Oxford AQA: expect application questions — given unusual organisms, apply the same rules',
           ]},
-        ]},
-      ],
+        ], examTips:[
+            'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
+            'Learn key definitions word-for-word — examiners check for specific command words',
+          ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ]},
+      ], commonMistakes:[
+            'Confusing plant and animal cell organelles — plant cells have cell wall, chloroplasts, large vacuole; animal cells do not',
+            'Writing "the cell does..." instead of naming the specific organelle responsible',
+          ],
     }
   },
   cs: {
@@ -6090,7 +6741,19 @@ Energy lost at each level = ~90% (heat + faeces + uneaten parts)`},
             'Image file size = image width × height × colour depth (bits)',
             'Sound file size = sample rate × bit depth × duration (seconds)',
           ]},
-        ]},
+        ], examTips:[
+            'Use correct technical vocabulary — "increment variable" not "add one to the number"',
+            'Trace tables: complete each column in order; show every step, including unchanged variables',
+          ], commonMistakes:[
+            'Writing pseudocode that skips initialisation of variables — always declare and set starting values',
+            'Confusing iteration (loop) with selection (if/else) — read the problem carefully to identify which is needed',
+          ], examTips:[
+            'Use correct technical vocabulary — "increment variable" not "add one to the number"',
+            'Trace tables: complete each column in order; show every step, including unchanged variables',
+          ], commonMistakes:[
+            'Writing pseudocode that skips initialisation of variables — always declare and set starting values',
+            'Confusing iteration (loop) with selection (if/else) — read the problem carefully to identify which is needed',
+          ]},
         { title:'Algorithms', icon:'🔁', topics:[
           { title:'Algorithm Design', points:[
             'Algorithm: precise step-by-step instructions to solve a problem (sequence, selection, iteration)',
@@ -6113,7 +6776,19 @@ Energy lost at each level = ~90% (heat + faeces + uneaten parts)`},
 Indices 0–6; mid = 3 → value 19 → too high
 Search left half [3,7,14]; mid=1 → value 7 → too low
 Search right of that: [14]; mid=2 → value 14 ✓ Found!`},
-        ]},
+        ], examTips:[
+            'Use correct technical vocabulary — "increment variable" not "add one to the number"',
+            'Trace tables: complete each column in order; show every step, including unchanged variables',
+          ], commonMistakes:[
+            'Writing pseudocode that skips initialisation of variables — always declare and set starting values',
+            'Confusing iteration (loop) with selection (if/else) — read the problem carefully to identify which is needed',
+          ], examTips:[
+            'Use correct technical vocabulary — "increment variable" not "add one to the number"',
+            'Trace tables: complete each column in order; show every step, including unchanged variables',
+          ], commonMistakes:[
+            'Writing pseudocode that skips initialisation of variables — always declare and set starting values',
+            'Confusing iteration (loop) with selection (if/else) — read the problem carefully to identify which is needed',
+          ]},
         { title:'Hardware & Software', icon:'🖥️', topics:[
           { title:'Computer Architecture', points:[
             'CPU components: ALU (calculations), Control Unit (fetch/decode instructions), registers (fast storage)',
@@ -6129,7 +6804,25 @@ Search right of that: [14]; mid=2 → value 14 ✓ Found!`},
             'Interpreter: translates line by line; slower, but easier to debug',
             'IDE (Integrated Development Environment): editor, compiler/interpreter, debugger in one',
           ]},
-        ]},
+        ], examTips:[
+            'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
+            'Give specific examples for every advantage or disadvantage you state',
+          ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ], examTips:[
+            'Use correct technical vocabulary — "increment variable" not "add one to the number"',
+            'Trace tables: complete each column in order; show every step, including unchanged variables',
+          ], commonMistakes:[
+            'Writing pseudocode that skips initialisation of variables — always declare and set starting values',
+            'Confusing iteration (loop) with selection (if/else) — read the problem carefully to identify which is needed',
+          ], examTips:[
+            'Use correct technical vocabulary — "increment variable" not "add one to the number"',
+            'Trace tables: complete each column in order; show every step, including unchanged variables',
+          ], commonMistakes:[
+            'Writing pseudocode that skips initialisation of variables — always declare and set starting values',
+            'Confusing iteration (loop) with selection (if/else) — read the problem carefully to identify which is needed',
+          ]},
         { title:'Networks & Security', icon:'🌐', topics:[
           { title:'Networks', points:[
             'LAN (Local Area Network): same site; WAN (Wide Area Network): multiple sites',
@@ -6149,7 +6842,25 @@ Search right of that: [14]; mid=2 → value 14 ✓ Found!`},
             'Encryption questions: know symmetric (same key) vs asymmetric (public/private key pair)',
             'Social engineering (e.g. phishing) exploits human behaviour, not software vulnerabilities',
           ]},
-        ]},
+        ], examTips:[
+            'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
+            'Give specific examples for every advantage or disadvantage you state',
+          ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ], examTips:[
+            'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
+            'Give specific examples for every advantage or disadvantage you state',
+          ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ], examTips:[
+            'Use correct technical vocabulary — "increment variable" not "add one to the number"',
+            'Trace tables: complete each column in order; show every step, including unchanged variables',
+          ], commonMistakes:[
+            'Writing pseudocode that skips initialisation of variables — always declare and set starting values',
+            'Confusing iteration (loop) with selection (if/else) — read the problem carefully to identify which is needed',
+          ]},
         { title:'Programming Concepts', icon:'📝', topics:[
           { title:'Programming Fundamentals', points:[
             'Variable: named memory location to store data; must declare before use in some languages',
@@ -6165,8 +6876,38 @@ Search right of that: [14]; mid=2 → value 14 ✓ Found!`},
             'File operations: OPEN, READ, WRITE, CLOSE',
             'Validation: check input is of correct type, range, length, format',
           ]},
-        ]},
-      ],
+        ], examTips:[
+            'Use correct technical vocabulary — "increment variable" not "add one to the number"',
+            'Trace tables: complete each column in order; show every step, including unchanged variables',
+          ], commonMistakes:[
+            'Writing pseudocode that skips initialisation of variables — always declare and set starting values',
+            'Confusing iteration (loop) with selection (if/else) — read the problem carefully to identify which is needed',
+          ], examTips:[
+            'Use correct technical vocabulary — "increment variable" not "add one to the number"',
+            'Trace tables: complete each column in order; show every step, including unchanged variables',
+          ], commonMistakes:[
+            'Writing pseudocode that skips initialisation of variables — always declare and set starting values',
+            'Confusing iteration (loop) with selection (if/else) — read the problem carefully to identify which is needed',
+          ]},
+      ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ], commonMistakes:[
+            'Off-by-one errors in loops: FOR i = 1 TO 10 runs 10 times; FOR i = 0 TO 9 also runs 10 times',
+            'Using = for comparison in pseudocode — use == or = consistently as specified by your syllabus',
+          ], commonMistakes:[
+            'Dividing by 2 but writing quotient wrong in binary conversion — write remainders from bottom to top',
+            'Confusing sign-magnitude and two\'s complement representations of negative binary numbers',
+          ], commonMistakes:[
+            'Writing pseudocode that skips initialisation of variables — always declare and set starting values',
+            'Confusing iteration (loop) with selection (if/else) — read the problem carefully to identify which is needed',
+          ], commonMistakes:[
+            'Writing pseudocode that skips initialisation of variables — always declare and set starting values',
+            'Confusing iteration (loop) with selection (if/else) — read the problem carefully to identify which is needed',
+          ], commonMistakes:[
+            'Writing pseudocode that skips initialisation of variables — always declare and set starting values',
+            'Confusing iteration (loop) with selection (if/else) — read the problem carefully to identify which is needed',
+          ],
       edexcel: [
         { title:'Systems Architecture & Memory', icon:'🖥️', topics:[
           { title:'CPU Architecture', points:[
@@ -6186,7 +6927,16 @@ Search right of that: [14]; mid=2 → value 14 ✓ Found!`},
             'Virtual memory: uses secondary storage as extension of RAM when RAM is full (slower)',
             'Cloud storage: data stored on remote servers; accessible anywhere; depends on internet',
           ]},
-        ]},
+        ], examTips:[
+            'Use correct technical vocabulary — "increment variable" not "add one to the number"',
+            'Trace tables: complete each column in order; show every step, including unchanged variables',
+          ], commonMistakes:[
+            'Writing pseudocode that skips initialisation of variables — always declare and set starting values',
+            'Confusing iteration (loop) with selection (if/else) — read the problem carefully to identify which is needed',
+          ], commonMistakes:[
+            'Writing pseudocode that skips initialisation of variables — always declare and set starting values',
+            'Confusing iteration (loop) with selection (if/else) — read the problem carefully to identify which is needed',
+          ]},
         { title:'Data & Number Systems', icon:'💾', topics:[
           { title:'Binary & Hexadecimal', points:[
             'Binary (base 2): place values 128, 64, 32, 16, 8, 4, 2, 1',
@@ -6207,7 +6957,16 @@ Check: 9×16 + 12 = 144 + 12 = 156 ✓`},
             'Sound: sampling rate (Hz) × bit depth × channels = file size per second',
             'Data compression: lossless (exact original restored — ZIP, PNG); lossy (data discarded — MP3, JPEG)',
           ]},
-        ]},
+        ], examTips:[
+            'Use correct technical vocabulary — "increment variable" not "add one to the number"',
+            'Trace tables: complete each column in order; show every step, including unchanged variables',
+          ], commonMistakes:[
+            'Writing pseudocode that skips initialisation of variables — always declare and set starting values',
+            'Confusing iteration (loop) with selection (if/else) — read the problem carefully to identify which is needed',
+          ], commonMistakes:[
+            'Writing pseudocode that skips initialisation of variables — always declare and set starting values',
+            'Confusing iteration (loop) with selection (if/else) — read the problem carefully to identify which is needed',
+          ]},
         { title:'Networks & Security', icon:'🌐', topics:[
           { title:'Network Types & Topologies', points:[
             'LAN (Local Area Network): small geographic area, privately owned, fast',
@@ -6226,7 +6985,19 @@ Check: 9×16 + 12 = 144 + 12 = 156 ✓`},
             'For each threat, give a specific defence — generic "use antivirus" scores less than "use a firewall to block unauthorised network access"',
             'Encryption: data scrambled with a key — only correct key can decrypt; protects data in transit',
           ]},
-        ]},
+        ], examTips:[
+            'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
+            'Give specific examples for every advantage or disadvantage you state',
+          ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ], examTips:[
+            'Use correct technical vocabulary — "increment variable" not "add one to the number"',
+            'Trace tables: complete each column in order; show every step, including unchanged variables',
+          ], commonMistakes:[
+            'Writing pseudocode that skips initialisation of variables — always declare and set starting values',
+            'Confusing iteration (loop) with selection (if/else) — read the problem carefully to identify which is needed',
+          ]},
         { title:'Algorithms & Programming', icon:'🔁', topics:[
           { title:'Algorithm Design', points:[
             'Decomposition: breaking a problem into smaller, manageable sub-problems',
@@ -6247,7 +7018,10 @@ Check: 9×16 + 12 = 144 + 12 = 156 ✓`},
           ], workedExample:`Binary search for 43 in [12, 25, 37, 43, 56, 78, 91]:
 Mid index = 3 → value = 43 → FOUND in 1 comparison
 If searching for 56: mid=43 (too low) → search right half [56,78,91] → mid=78 (too high) → [56] → found`},
-        ]},
+        ], commonMistakes:[
+            'Writing pseudocode that skips initialisation of variables — always declare and set starting values',
+            'Confusing iteration (loop) with selection (if/else) — read the problem carefully to identify which is needed',
+          ]},
       ],
       oxford: [
         { title:'Data & Computer Systems (Cambridge IGCSE CS)', icon:'💾', topics:[
@@ -6277,7 +7051,13 @@ Reading remainders upward: 101101 → 00101101 = 45₁₀`},
             'Cache: L1 (on chip, fastest), L2, L3 — stores recently used instructions to speed up fetch cycle',
             'Clock speed: measured in GHz; higher = more instructions per second; heat and power increase too',
           ]},
-        ]},
+        ], examTips:[
+            'Use correct technical vocabulary — "increment variable" not "add one to the number"',
+            'Trace tables: complete each column in order; show every step, including unchanged variables',
+          ], commonMistakes:[
+            'Writing pseudocode that skips initialisation of variables — always declare and set starting values',
+            'Confusing iteration (loop) with selection (if/else) — read the problem carefully to identify which is needed',
+          ]},
         { title:'Networks & Security (Oxford CS)', icon:'🌐', topics:[
           { title:'Network Fundamentals', points:[
             'LAN: small area, privately owned; WAN: large area (internet = largest WAN)',
@@ -6298,7 +7078,16 @@ Reading remainders upward: 101101 → 00101101 = 45₁₀`},
             'Asymmetric encryption: public key encrypts, private key decrypts (RSA); solves key distribution',
             'Digital certificate: issued by Certificate Authority (CA); proves server is genuine; used in HTTPS',
           ]},
-        ]},
+        ], examTips:[
+            'Use correct technical vocabulary — "increment variable" not "add one to the number"',
+            'Trace tables: complete each column in order; show every step, including unchanged variables',
+          ], commonMistakes:[
+            'Writing pseudocode that skips initialisation of variables — always declare and set starting values',
+            'Confusing iteration (loop) with selection (if/else) — read the problem carefully to identify which is needed',
+          ], commonMistakes:[
+            'Writing pseudocode that skips initialisation of variables — always declare and set starting values',
+            'Confusing iteration (loop) with selection (if/else) — read the problem carefully to identify which is needed',
+          ]},
         { title:'Programming & Algorithms (Oxford CS)', icon:'💻', topics:[
           { title:'Programming Concepts', points:[
             'Variable: named memory location storing a value; must be declared with data type in many languages',
@@ -6324,7 +7113,13 @@ factorial(5) → 5*factorial(4) → 5*4*factorial(3) → 5*4*3*factorial(2) → 
             'Bubble sort: compare adjacent pairs, swap; n−1 passes; slow on large data',
             'Merge sort: divide and conquer; always O(n log n); needs extra memory',
           ]},
-        ]},
+        ], examTips:[
+            'Use correct technical vocabulary — "increment variable" not "add one to the number"',
+            'Trace tables: complete each column in order; show every step, including unchanged variables',
+          ], commonMistakes:[
+            'Writing pseudocode that skips initialisation of variables — always declare and set starting values',
+            'Confusing iteration (loop) with selection (if/else) — read the problem carefully to identify which is needed',
+          ]},
         { title:'Databases & Software Dev (Oxford CS)', icon:'🗄️', topics:[
           { title:'Database Concepts', points:[
             'Relational database: data stored in related tables; linked by primary and foreign keys',
@@ -6345,7 +7140,16 @@ factorial(5) → 5*factorial(4) → 5*4*factorial(3) → 5*4*3*factorial(2) → 
             'Black-box testing: tester doesn\'t see code; tests inputs and expected outputs only',
             'Testing types: unit (individual function), integration (modules together), system (whole system)',
           ]},
-        ]},
+        ], examTips:[
+            'Use correct technical vocabulary — "increment variable" not "add one to the number"',
+            'Trace tables: complete each column in order; show every step, including unchanged variables',
+          ], commonMistakes:[
+            'Writing pseudocode that skips initialisation of variables — always declare and set starting values',
+            'Confusing iteration (loop) with selection (if/else) — read the problem carefully to identify which is needed',
+          ], commonMistakes:[
+            'Writing pseudocode that skips initialisation of variables — always declare and set starting values',
+            'Confusing iteration (loop) with selection (if/else) — read the problem carefully to identify which is needed',
+          ]},
       ],
     }
   },
@@ -6373,7 +7177,19 @@ factorial(5) → 5*factorial(4) → 5*4*factorial(3) → 5*4*3*factorial(2) → 
             'Privatisation: transfer of public sector businesses to private sector',
             'Price mechanism: signals producers and consumers; rises → less demanded, more supplied',
           ]},
-        ]},
+        ], examTips:[
+            'Always use a diagram to support your explanation — clearly label axes, curves, and equilibrium points',
+            'Evaluate both sides before reaching a conclusion — one-sided answers cap at lower mark bands',
+          ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ], examTips:[
+            'Always use a diagram to support your explanation — clearly label axes, curves, and equilibrium points',
+            'Evaluate both sides before reaching a conclusion — one-sided answers cap at lower mark bands',
+          ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ]},
         { title:'Supply & Demand', icon:'📈', topics:[
           { title:'Demand', points:[
             'Demand: quantity consumers are willing AND able to buy at each price (effective demand)',
@@ -6406,7 +7222,19 @@ factorial(5) → 5*factorial(4) → 5*4*factorial(3) → 5*4*3*factorial(2) → 
 % ΔP = (2/10) × 100 = 20%
 % ΔQd = (40/200) × 100 = 20%
 PED = 20/20 = 1  → Unit elastic`},
-        ]},
+        ], examTips:[
+            'Always use a diagram to support your explanation — clearly label axes, curves, and equilibrium points',
+            'Evaluate both sides before reaching a conclusion — one-sided answers cap at lower mark bands',
+          ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ], examTips:[
+            'Always use a diagram to support your explanation — clearly label axes, curves, and equilibrium points',
+            'Evaluate both sides before reaching a conclusion — one-sided answers cap at lower mark bands',
+          ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ]},
         { title:'Government & Macroeconomy', icon:'🏛️', topics:[
           { title:'Macroeconomic Aims & Indicators', points:[
             'Four main macroeconomic goals: economic growth, low unemployment, low inflation, balance of payments equilibrium',
@@ -6422,7 +7250,19 @@ PED = 20/20 = 1  → Unit elastic`},
             'Lower interest rates: encourage borrowing and spending → economic growth',
             'Supply-side policies: improve productive capacity (education, deregulation, infrastructure)',
           ]},
-        ]},
+        ], examTips:[
+            'Always use a diagram to support your explanation — clearly label axes, curves, and equilibrium points',
+            'Evaluate both sides before reaching a conclusion — one-sided answers cap at lower mark bands',
+          ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ], examTips:[
+            'Always use a diagram to support your explanation — clearly label axes, curves, and equilibrium points',
+            'Evaluate both sides before reaching a conclusion — one-sided answers cap at lower mark bands',
+          ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ]},
         { title:'International Trade', icon:'🌍', topics:[
           { title:'Trade & Globalisation', points:[
             'Comparative advantage: produce goods at lower opportunity cost → basis of trade',
@@ -6438,7 +7278,31 @@ PED = 20/20 = 1  → Unit elastic`},
             'Fixed exchange rate: government/central bank maintains rate; floating: set by market forces',
             'Devaluation: deliberate reduction in fixed rate to make exports more competitive',
           ]},
-        ]},
+        ], examTips:[
+            'Always apply theory to the specific business in the question — do not write generic definitions alone',
+            'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
+          ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ], examTips:[
+            'Always use a diagram to support your explanation — clearly label axes, curves, and equilibrium points',
+            'Evaluate both sides before reaching a conclusion — one-sided answers cap at lower mark bands',
+          ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ], examTips:[
+            'Always use a diagram to support your explanation — clearly label axes, curves, and equilibrium points',
+            'Evaluate both sides before reaching a conclusion — one-sided answers cap at lower mark bands',
+          ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ], examTips:[
+            'Always use a diagram to support your explanation — clearly label axes, curves, and equilibrium points',
+            'Evaluate both sides before reaching a conclusion — one-sided answers cap at lower mark bands',
+          ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ]},
         { title:'Market Failure & Government Intervention', icon:'⚖️', topics:[
           { title:'Market Failure', points:[
             'Market failure: when free market produces socially inefficient allocation of resources',
@@ -6458,7 +7322,16 @@ PED = 20/20 = 1  → Unit elastic`},
             'Price controls — minimum price (price floor): prevents price falling below set level → surplus',
             'Regulation: rules that ban or limit harmful activities (e.g. emissions standards, minimum wage)',
           ]},
-        ]},
+        ], examTips:[
+            'Always use a diagram to support your explanation — clearly label axes, curves, and equilibrium points',
+            'Evaluate both sides before reaching a conclusion — one-sided answers cap at lower mark bands',
+          ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ]},
         { title:'Business & Firms', icon:'🏢', topics:[
           { title:'Business Objectives & Types', points:[
             'Sole trader: single owner, unlimited liability, keeps all profit, easy to set up',
@@ -6479,8 +7352,23 @@ PED = 20/20 = 1  → Unit elastic`},
           ], workedExample:`Fixed costs = $5000; Variable cost per unit = $3; Selling price = $8
 Contribution per unit = 8 − 3 = $5
 Break-even = 5000 ÷ 5 = 1000 units`},
-        ]},
-      ],
+        ], examTips:[
+            'Always apply theory to the specific business in the question — do not write generic definitions alone',
+            'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
+          ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ], examTips:[
+            'Always use a diagram to support your explanation — clearly label axes, curves, and equilibrium points',
+            'Evaluate both sides before reaching a conclusion — one-sided answers cap at lower mark bands',
+          ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ]},
+      ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ],
       edexcel: [
         { title:'The Market System', icon:'📈', topics:[
           { title:'Demand & Supply', points:[
@@ -6502,7 +7390,19 @@ Break-even = 5000 ÷ 5 = 1000 units`},
           ], workedExample:`PED calculation: Price rises from $5 to $6 (+20%). Quantity falls from 100 to 80 (−20%)
 PED = −20 ÷ 20 = −1 (unit elastic)
 Revenue unchanged: was $500, now 80×$6 = $480 → actually fell slightly — check the math!`},
-        ]},
+        ], examTips:[
+            'Always use a diagram to support your explanation — clearly label axes, curves, and equilibrium points',
+            'Evaluate both sides before reaching a conclusion — one-sided answers cap at lower mark bands',
+          ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ], examTips:[
+            'Always use a diagram to support your explanation — clearly label axes, curves, and equilibrium points',
+            'Evaluate both sides before reaching a conclusion — one-sided answers cap at lower mark bands',
+          ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ]},
         { title:'Government & Economy', icon:'🏛️', topics:[
           { title:'Government Objectives & Policy', points:[
             'Macroeconomic objectives: economic growth (↑ GDP), low inflation (CPI target ~2%), low unemployment, current account balance',
@@ -6521,7 +7421,13 @@ Revenue unchanged: was $500, now 80×$6 = $480 → actually fell slightly — ch
             'Evaluation point: always consider government failure as a counter to any intervention policy',
             'Draw a diagram for externalities — show the divergence between private and social cost/benefit',
           ]},
-        ]},
+        ], examTips:[
+            'Always use a diagram to support your explanation — clearly label axes, curves, and equilibrium points',
+            'Evaluate both sides before reaching a conclusion — one-sided answers cap at lower mark bands',
+          ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ]},
         { title:'International Trade & Development', icon:'🌍', topics:[
           { title:'Trade & Protectionism', points:[
             'Absolute advantage: produce more of a good using same resources',
@@ -6540,7 +7446,13 @@ Revenue unchanged: was $500, now 80×$6 = $480 → actually fell slightly — ch
             'Distinguish GDP per capita (average income) from HDI (multidimensional measure of development)',
             'Evaluate: for every benefit of free trade, consider who loses (e.g. domestic industries)',
           ]},
-        ]},
+        ], examTips:[
+            'Always use a diagram to support your explanation — clearly label axes, curves, and equilibrium points',
+            'Evaluate both sides before reaching a conclusion — one-sided answers cap at lower mark bands',
+          ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ]},
         { title:'Personal Finance & Business', icon:'💰', topics:[
           { title:'Personal Finance (Edexcel-specific)', points:[
             'Edexcel includes personal finance: budgeting, saving, borrowing, insurance',
@@ -6559,8 +7471,26 @@ Revenue unchanged: was $500, now 80×$6 = $480 → actually fell slightly — ch
             'Cash flow vs profit — this distinction frequently appears in Edexcel exam questions',
             'For evaluate questions, weigh short-run vs long-run effects of financial decisions',
           ]},
-        ]},
-      ],
+        ], examTips:[
+            'Always use a diagram to support your explanation — clearly label axes, curves, and equilibrium points',
+            'Evaluate both sides before reaching a conclusion — one-sided answers cap at lower mark bands',
+          ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ]},
+      ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ],
       oxford: [
         { title:'Microeconomics (Oxford AQA)', icon:'🏪', topics:[
           { title:'Markets & Price Mechanism', points:[
@@ -6588,7 +7518,10 @@ Draw: S curve shifts left; new equilibrium at higher price, lower quantity`},
             'YED = % change in Qd ÷ % change in income; positive YED = normal good; negative = inferior good',
             'XED: positive = substitutes; negative = complements',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ]},
         { title:'Macroeconomics (Oxford AQA)', icon:'🌐', topics:[
           { title:'National Income & Economic Performance', points:[
             'GDP: total value of goods/services produced in a country in one year',
@@ -6607,7 +7540,16 @@ Draw: S curve shifts left; new equilibrium at higher price, lower quantity`},
             'Trade-off: expansionary policy may cause inflation; contractionary may cause recession',
             'Government budget: surplus (tax > spending), deficit (spending > tax), national debt accumulates from deficits',
           ]},
-        ]},
+        ], examTips:[
+            'Always use a diagram to support your explanation — clearly label axes, curves, and equilibrium points',
+            'Evaluate both sides before reaching a conclusion — one-sided answers cap at lower mark bands',
+          ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ]},
         { title:'International Trade (Oxford AQA)', icon:'🌍', topics:[
           { title:'Trade & Globalisation', points:[
             'Comparative advantage: country should specialise in goods with lower opportunity cost',
@@ -6626,7 +7568,10 @@ Draw: S curve shifts left; new equilibrium at higher price, lower quantity`},
             'Oxford AQA development questions: use specific data — country examples and statistics strengthen evaluation',
             'Evaluate aid critically: who provides it, what conditions attached, what evidence of impact?',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ]},
         { title:'Markets, Government & Exam Skills (Oxford AQA)', icon:'🏛️', topics:[
           { title:'Market Failure & Government Intervention', points:[
             'Market failure: when free market produces an inefficient outcome for society',
@@ -6661,7 +7606,13 @@ Draw: S curve shifts left; new equilibrium at higher price, lower quantity`},
             'Diagrams in Oxford AQA: always show original and new equilibrium; label P₁, Q₁ and P₂, Q₂',
             'Evaluation: a conclusion that says "it depends on..." followed by conditions scores highest marks',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ], commonMistakes:[
+            'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
+            'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
+          ]},
       ],
     }
   },
@@ -6697,7 +7648,19 @@ Draw: S curve shifts left; new equilibrium at higher price, lower quantity`},
             'Check word limit — stay within the given range (usually 80–100 words)',
             'Start summary without restating the question — go straight into content',
           ]},
-        ]},
+        ], examTips:[
+            'Embed short quotes inside your analysis sentence — do not block-quote then comment separately',
+            'Use the technique → quote → effect structure: name the device, quote it, explain its impact on the reader',
+          ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ], examTips:[
+            'Embed short quotes inside your analysis sentence — do not block-quote then comment separately',
+            'Use the technique → quote → effect structure: name the device, quote it, explain its impact on the reader',
+          ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ]},
         { title:'Writing Skills', icon:'✍️', topics:[
           { title:'Directed Writing', points:[
             'Match the FORMAT exactly: letter (address, date, Dear..., yours sincerely/faithfully), report (headings), speech',
@@ -6727,7 +7690,31 @@ Draw: S curve shifts left; new equilibrium at higher price, lower quantity`},
 Hook: "Every minute, 500,000 tweets flood our screens. Every minute, another young person spirals deeper into anxiety."
 Rhetorical Q: "Is this the connected world we truly wanted?"
 Direct address + statistic: "You may not know it, but research shows 41% of teens report feeling worse after using Instagram."`},
-        ]},
+        ], examTips:[
+            'Use a range of tenses in all writing tasks — include at least preterite, present, and future',
+            'Check gender agreement for all adjectives — masculine and feminine forms differ for most adjectives',
+          ], commonMistakes:[
+            'Confusing ser (permanent/identity) and estar (temporary state/location) — these are tested heavily',
+            'Using masculine adjective forms for feminine nouns — check the gender of the noun first',
+          ], examTips:[
+            'Embed short quotes inside your analysis sentence — do not block-quote then comment separately',
+            'Use the technique → quote → effect structure: name the device, quote it, explain its impact on the reader',
+          ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ], examTips:[
+            'Embed short quotes inside your analysis sentence — do not block-quote then comment separately',
+            'Use the technique → quote → effect structure: name the device, quote it, explain its impact on the reader',
+          ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ], examTips:[
+            'Embed short quotes inside your analysis sentence — do not block-quote then comment separately',
+            'Use the technique → quote → effect structure: name the device, quote it, explain its impact on the reader',
+          ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ]},
         { title:'Language & Grammar', icon:'📝', topics:[
           { title:'Grammar & Punctuation', points:[
             'Sentence types: simple (one clause), compound (two main clauses joined by and/but/or), complex (main + subordinate clause)',
@@ -6753,7 +7740,22 @@ Direct address + statistic: "You may not know it, but research shows 41% of teen
             'Common mistakes: could of (should be "could have"); loose/lose; passed/past',
             'Homophones: where/wear/ware; hear/here; weather/whether; principal/principle',
           ]},
-        ]},
+        ], examTips:[
+            'Embed short quotes inside your analysis sentence — do not block-quote then comment separately',
+            'Use the technique → quote → effect structure: name the device, quote it, explain its impact on the reader',
+          ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ], examTips:[
+            'Embed short quotes inside your analysis sentence — do not block-quote then comment separately',
+            'Use the technique → quote → effect structure: name the device, quote it, explain its impact on the reader',
+          ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ]},
         { title:'Reading Non-Fiction', icon:'📰', topics:[
           { title:'Analysing Non-Fiction Texts', points:[
             'Purpose: inform, explain, describe, argue, persuade, advise, review — identify from context and language',
@@ -6773,7 +7775,16 @@ Direct address + statistic: "You may not know it, but research shows 41% of teen
             'Quote from BOTH texts — don\'t focus on just one',
             'End with a clear evaluative judgement: which is more effective and why?',
           ]},
-        ]},
+        ], examTips:[
+            'Embed short quotes inside your analysis sentence — do not block-quote then comment separately',
+            'Use the technique → quote → effect structure: name the device, quote it, explain its impact on the reader',
+          ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ]},
         { title:'Exam Technique', icon:'🎯', topics:[
           { title:'Reading Paper Strategy', points:[
             'Time management: check marks available — allocate roughly 1–1.5 minutes per mark',
@@ -6796,8 +7807,20 @@ Opening (hook): "The gate groaned as I pushed it open — a sound like a wounded
 Senses: "The smell hit me first: damp timber, rotting leaves, and something else. Something older."
 Short sentence for impact: "I stepped inside. Silence."
 Figurative language: "Dust danced in the pale light filtering through cracked panes, each mote a ghost refusing to leave."`},
-        ]},
-      ],
+        ], examTips:[
+            'Embed short quotes inside your analysis sentence — do not block-quote then comment separately',
+            'Use the technique → quote → effect structure: name the device, quote it, explain its impact on the reader',
+          ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ]},
+      ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ],
       edexcel: [
         { title:'Paper 1: Non-Fiction Reading', icon:'📰', topics:[
           { title:'Reading Non-Fiction Texts', points:[
@@ -6831,7 +7854,19 @@ Figurative language: "Dust danced in the pale light filtering through cracked pa
 Writer A (article, 2020): Uses emotive language — "toxic wasteland of comparison" — suggests social media causes psychological harm. The metaphor of a "wasteland" implies barrenness and destruction.
 By contrast, Writer B (blog, 2022): Uses enthusiastic tone — "revolutionary tool for connection" — the adjective "revolutionary" presents social media as transformative and positive.
 Both writers acknowledge social media's power, but Writer A focuses on its harmful potential while Writer B emphasises its positive communal aspects.`},
-        ]},
+        ], examTips:[
+            'Embed short quotes inside your analysis sentence — do not block-quote then comment separately',
+            'Use the technique → quote → effect structure: name the device, quote it, explain its impact on the reader',
+          ], examTips:[
+            'Embed short quotes inside your analysis sentence — do not block-quote then comment separately',
+            'Use the technique → quote → effect structure: name the device, quote it, explain its impact on the reader',
+          ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ]},
         { title:'Paper 1: Writing (Transactional)', icon:'✍️', topics:[
           { title:'Transactional Writing Forms', points:[
             'Edexcel Paper 1 Section B: one writing task (45 mins); choose from 2 options',
@@ -6859,7 +7894,16 @@ Techniques used: direct address (you/imagine), tripling (regardless of postcode 
             '"Show don\'t tell": "His hands shook" not "He was nervous"',
             'Zoom technique: start wide (setting) → zoom in (detail) → zoom out (reflection/implication)',
           ]},
-        ]},
+        ], examTips:[
+            'Embed short quotes inside your analysis sentence — do not block-quote then comment separately',
+            'Use the technique → quote → effect structure: name the device, quote it, explain its impact on the reader',
+          ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ]},
         { title:'Paper 2: Literature & Creative Reading', icon:'📚', topics:[
           { title:'Responding to Literature', points:[
             'Edexcel Paper 2: unseen poetry + anthology poem comparison; prose extract analysis',
@@ -6878,8 +7922,20 @@ Techniques used: direct address (you/imagine), tripling (regardless of postcode 
             'Edexcel IGCSE English Language: examiners reward students who SHOW understanding through selection of precise quotes',
             'Grade 9 tip: go beyond technique-spotting to discuss how meaning is constructed and how it positions the reader',
           ]},
-        ]},
-      ],
+        ], examTips:[
+            'Embed short quotes inside your analysis sentence — do not block-quote then comment separately',
+            'Use the technique → quote → effect structure: name the device, quote it, explain its impact on the reader',
+          ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ]},
+      ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ],
       oxford: [
         { title:'Reading Non-Fiction', icon:'📰', topics:[
           { title:'Oxford AQA Paper Structure', points:[
@@ -6912,7 +7968,13 @@ Techniques used: direct address (you/imagine), tripling (regardless of postcode 
             'Writing about both texts separately (AABB) instead of making direct comparisons (ABAB)',
             'Summarising what the texts say instead of analysing HOW the writers use language',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ]},
         { title:'Writing Skills', icon:'✍️', topics:[
           { title:'Writing for Purpose & Audience', points:[
             'Oxford AQA writing tasks: always consider Purpose (why are you writing?), Audience (who are you writing for?), Form (what type of text?)',
@@ -6944,7 +8006,16 @@ Techniques: personification (ship groaned), colour contrast (bruised, angry grey
             'Oxford AQA: SPaG marks are separate — always proofread in the final 3 minutes',
             'Avoid starting every sentence with "I" — vary openings: "Although... Despite... This is why..."',
           ]},
-        ]},
+        ], examTips:[
+            'Embed short quotes inside your analysis sentence — do not block-quote then comment separately',
+            'Use the technique → quote → effect structure: name the device, quote it, explain its impact on the reader',
+          ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ]},
         { title:'Exam Skills', icon:'🎯', topics:[
           { title:'Exam Strategy & Timing', points:[
             'Oxford AQA English Language papers are typically 1 hour 45 minutes each',
@@ -6960,7 +8031,10 @@ Techniques: personification (ship groaned), colour contrast (bruised, angry grey
             'Offering personal opinion on topic content instead of analytical opinion on writer\'s technique',
           ]},
         ]},
-      ],
+      ], commonMistakes:[
+            'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
+            'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
+          ],
     }
   },
   history: {
@@ -7001,7 +8075,19 @@ Techniques: personification (ship groaned), colour contrast (bruised, angry grey
             'Nazi-Soviet Pact 1939: Hitler and Stalin agreed non-aggression → Hitler free to invade Poland',
             'German invasion of Poland 1 Sept 1939 → Britain and France declared war 3 Sept 1939',
           ]},
-        ]},
+        ], examTips:[
+            'Use specific dates, names and statistics as evidence — vague statements lose marks',
+            'Structure extended answers: argue → counter-argue → reach a supported judgement',
+          ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ], examTips:[
+            'Use specific dates, names and statistics as evidence — vague statements lose marks',
+            'Structure extended answers: argue → counter-argue → reach a supported judgement',
+          ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ]},
         { title:'World War II 1939–1945', icon:'⚔️', topics:[
           { title:'Key Events of WWII', points:[
             'Blitzkrieg ("lightning war"): fast tank and air attacks overwhelmed defences — fall of France 1940',
@@ -7017,7 +8103,19 @@ Techniques: personification (ship groaned), colour contrast (bruised, angry grey
             'Wannsee Conference 1942: "Final Solution" — planned systematic extermination in death camps',
             'Auschwitz-Birkenau: largest death camp; over 1.1 million killed, mostly Jews',
           ]},
-        ]},
+        ], examTips:[
+            'Use specific dates, names and statistics as evidence — vague statements lose marks',
+            'Structure extended answers: argue → counter-argue → reach a supported judgement',
+          ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ], examTips:[
+            'Use specific dates, names and statistics as evidence — vague statements lose marks',
+            'Structure extended answers: argue → counter-argue → reach a supported judgement',
+          ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ]},
         { title:'Cold War 1945–1991', icon:'🌐', topics:[
           { title:'Origins of the Cold War', points:[
             'Ideological conflict: USA (capitalism, democracy) vs USSR (communism, one-party state)',
@@ -7044,7 +8142,31 @@ Techniques: personification (ship groaned), colour contrast (bruised, angry grey
             'Eastern European countries broke free from Soviet control 1989–1991',
             'USSR dissolved December 1991 → Cold War ended; Russia became independent state',
           ]},
-        ]},
+        ], examTips:[
+            'Use specific dates, names and statistics as evidence — vague statements lose marks',
+            'Structure extended answers: argue → counter-argue → reach a supported judgement',
+          ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ], examTips:[
+            'Use specific dates, names and statistics as evidence — vague statements lose marks',
+            'Structure extended answers: argue → counter-argue → reach a supported judgement',
+          ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ], examTips:[
+            'Use specific dates, names and statistics as evidence — vague statements lose marks',
+            'Structure extended answers: argue → counter-argue → reach a supported judgement',
+          ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ], examTips:[
+            'Use specific dates, names and statistics as evidence — vague statements lose marks',
+            'Structure extended answers: argue → counter-argue → reach a supported judgement',
+          ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ]},
         { title:'Source Skills', icon:'📜', topics:[
           { title:'Evaluating Historical Sources', points:[
             'Nature: what type of source is it? (photograph, speech, cartoon, diary, official document)',
@@ -7069,8 +8191,20 @@ Step 2 — Origin: Author, date, type of source
 Step 3 — Purpose: Why was it created? Propaganda? Personal? Official?
 Step 4 — Value: What can we learn? Cross-reference with own knowledge
 Step 5 — Limitation: What does it not tell us? Is it biased?`},
-        ]},
-      ],
+        ], examTips:[
+            'Use specific dates, names and statistics as evidence — vague statements lose marks',
+            'Structure extended answers: argue → counter-argue → reach a supported judgement',
+          ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ]},
+      ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ],
       edexcel: [
         { title:'Medicine Through Time (c1250–present)', icon:'💊', topics:[
           { title:'Medieval Medicine (c1250–1500)', points:[
@@ -7103,7 +8237,19 @@ Step 5 — Limitation: What does it not tell us? Is it biased?`},
 Agree: Germ Theory (Pasteur/Koch) identified causes; X-rays (Röntgen 1895) enabled diagnosis; DNA discovery (Watson/Crick 1953) → genetic medicine
 Disagree: Government/war equally important — WWII accelerated penicillin mass production; government funding for NHS and vaccination programmes
 Conclusion: Science provides breakthroughs but government and communication factors are needed to apply them — both essential`},
-        ]},
+        ], examTips:[
+            'Use specific dates, names and statistics as evidence — vague statements lose marks',
+            'Structure extended answers: argue → counter-argue → reach a supported judgement',
+          ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ]},
         { title:'The American West (c1835–c1895)', icon:'🤠', topics:[
           { title:'The Plains Indians', points:[
             'Tribes: Sioux, Cheyenne, Comanche, Arapaho — nomadic peoples of the Great Plains',
@@ -7129,7 +8275,19 @@ Conclusion: Science provides breakthroughs but government and communication fact
             'Wounded Knee 1890: US cavalry killed ~250 Sioux including women and children — end of armed resistance',
             'Destruction of buffalo: 30 million → ~1,000 by 1890; deliberate US policy to destroy Indian way of life',
           ]},
-        ]},
+        ], examTips:[
+            'Use specific dates, names and statistics as evidence — vague statements lose marks',
+            'Structure extended answers: argue → counter-argue → reach a supported judgement',
+          ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ], examTips:[
+            'Use specific dates, names and statistics as evidence — vague statements lose marks',
+            'Structure extended answers: argue → counter-argue → reach a supported judgement',
+          ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ]},
         { title:'Weimar Germany & Nazi Germany (1918–1939)', icon:'🇩🇪', topics:[
           { title:'Weimar Republic 1918–1933', points:[
             'November 1918: Germany defeated; Kaiser abdicated; republic declared — "stabbed in the back" myth',
@@ -7151,7 +8309,16 @@ Conclusion: Science provides breakthroughs but government and communication fact
 Terror argument: SS and Gestapo created climate of fear; Dachau opened 1933; Night of Long Knives removed SA threat; people self-censored knowing consequences
 Propaganda argument: Volksempfänger (people's receiver) radios in 70% of homes; youth indoctrinated through Hitler Youth; Olympic Games 1936 showed Germany's "glory"
 Conclusion: Both worked together — terror prevented open opposition; propaganda built genuine support especially among youth and those who benefited from economic recovery`},
-        ]},
+        ], examTips:[
+            'Use specific dates, names and statistics as evidence — vague statements lose marks',
+            'Structure extended answers: argue → counter-argue → reach a supported judgement',
+          ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ]},
         { title:'Cold War 1945–1991 (Edexcel Focus)', icon:'🌐', topics:[
           { title:'Origins & Early Cold War', points:[
             'Iron Curtain speech 1946 (Churchill): division of Europe; Soviet-dominated east vs free west',
@@ -7180,8 +8347,20 @@ Conclusion: Both worked together — terror prevented open opposition; propagand
 Agree: Glasnost/perestroika allowed dissent; refused to send tanks to Eastern Europe (unlike 1956/68); signed INF Treaty 1987; accepted German reunification
 Disagree: Reagan's defence spending (SDI) bankrupted USSR; Eastern European peoples demanded freedom; economic failure of Soviet system was structural not Gorbachev's fault
 Conclusion: Gorbachev was a necessary condition — without his restraint the Cold War could not have ended peacefully — but the underlying cause was the failure of the Soviet economic and political model`},
-        ]},
-      ],
+        ], examTips:[
+            'Use specific dates, names and statistics as evidence — vague statements lose marks',
+            'Structure extended answers: argue → counter-argue → reach a supported judgement',
+          ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ]},
+      ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ],
       oxford: [
         { title:'Oxford AQA: Conflict & Tension 1918–1939', icon:'🕊️', topics:[
           { title:'Paris Peace Conference & its Consequences', points:[
@@ -7205,7 +8384,16 @@ Conclusion: Gorbachev was a necessary condition — without his restraint the Co
 Agree: Munich (1938) showed Hitler he could act with impunity; Rhineland/Anschluss went unchallenged; gave Hitler confidence
 Disagree: Long-term causes — harsh Versailles created conditions for extremism; Great Depression fuelled support for Hitler; USSR-Nazi Pact (Aug 1939) was more immediate trigger
 Judgement: Appeasement was a significant cause but not the main one — the structural failure of Versailles and the economic crisis created the conditions; appeasement just removed barriers to aggression`},
-        ]},
+        ], examTips:[
+            'Use specific dates, names and statistics as evidence — vague statements lose marks',
+            'Structure extended answers: argue → counter-argue → reach a supported judgement',
+          ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ]},
         { title:'Oxford AQA: WW2 & The Cold War', icon:'🌐', topics:[
           { title:'Origins & Course of World War Two', points:[
             'Nazi-Soviet Non-Aggression Pact (August 1939): secret protocol to divide Poland; freed Hitler\'s eastern flank',
@@ -7227,7 +8415,10 @@ Judgement: Appeasement was a significant cause but not the main one — the stru
             'NATO (1949) vs Warsaw Pact (1955): military alliances cementing Cold War division',
             'Cuban Missile Crisis (1962): USSR placed missiles in Cuba; 13 days; resolved via secret deal — removal of missiles in Cuba and Turkey',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ]},
         { title:'Oxford AQA: Exam Technique', icon:'✍️', topics:[
           { title:'History Essay Skills', points:[
             'Source questions: content (what does it say?) + provenance (who wrote it, when, why?) + evaluation (how useful/reliable?)',
@@ -7240,7 +8431,10 @@ Judgement: Appeasement was a significant cause but not the main one — the stru
             'Do not just describe events — always analyse significance, cause, or consequence',
             'Provenance formula: The source is [useful/limited] because it was written by [X] in [context], which means [implication for reliability/value]',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ]},
         { title:'Cold War & Modern World (Oxford AQA)', icon:'🌏', topics:[
           { title:'Origins of the Cold War 1945–1949', points:[
             'Cold War: ideological conflict between USA (capitalism/democracy) and USSR (communism)',
@@ -7275,7 +8469,13 @@ Judgement: Appeasement was a significant cause but not the main one — the stru
             'Source usefulness: do not just say "it was written at the time so it is useful" — explain what specific aspect it is useful for',
             'Significance criteria: remember GREAT — Groundbreaking, Remembered, Effect (impact), Affected (many people), Time (lasting change)',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ], commonMistakes:[
+            'Describing events without analysing their significance or cause — always answer "so what?"',
+            'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
+          ]},
       ],
     }
   },
@@ -7311,7 +8511,25 @@ Judgement: Appeasement was a significant cause but not the main one — the stru
             'Urbanisation: 55%+ of world population in cities; fastest in LICs (Low Income Countries)',
             'Problems in rapidly growing cities: squatter settlements, traffic, pollution, inadequate services',
           ]},
-        ]},
+        ], examTips:[
+            'Name specific case study examples with dates and statistics — generic answers score lower marks',
+            'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
+          ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ], examTips:[
+            'Name specific case study examples with dates and statistics — generic answers score lower marks',
+            'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
+          ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ], examTips:[
+            'Name specific case study examples with dates and statistics — generic answers score lower marks',
+            'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
+          ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ]},
         { title:'Natural Environment', icon:'🌋', topics:[
           { title:'Plate Tectonics', points:[
             'Earth\'s crust divided into tectonic plates moving on molten mantle (convection currents)',
@@ -7341,7 +8559,19 @@ Judgement: Appeasement was a significant cause but not the main one — the stru
             'Deforestation: reduces rainfall, increases flooding, destroys biodiversity, releases CO₂',
             'Climate change: rising CO₂ → enhanced greenhouse effect → global warming → sea level rise',
           ]},
-        ]},
+        ], examTips:[
+            'Name specific case study examples with dates and statistics — generic answers score lower marks',
+            'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
+          ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ], examTips:[
+            'Name specific case study examples with dates and statistics — generic answers score lower marks',
+            'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
+          ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ]},
         { title:'Economic Development', icon:'📈', topics:[
           { title:'Development & Indicators', points:[
             'Development: improvement in standard of living and quality of life',
@@ -7357,7 +8587,19 @@ Judgement: Appeasement was a significant cause but not the main one — the stru
             'Globalisation: world more interconnected through trade, technology, migration',
             'Tourism: major income source for LICs; but leakage (money leaves country), cultural damage',
           ]},
-        ]},
+        ], examTips:[
+            'Name specific case study examples with dates and statistics — generic answers score lower marks',
+            'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
+          ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ], examTips:[
+            'Name specific case study examples with dates and statistics — generic answers score lower marks',
+            'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
+          ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ]},
         { title:'Geographic Skills', icon:'🗺️', topics:[
           { title:'Map Skills & Data Interpretation', points:[
             'Contour lines: connect points of equal height; close together = steep; far apart = gentle slope',
@@ -7376,7 +8618,13 @@ Judgement: Appeasement was a significant cause but not the main one — the stru
             '6-figure grid references: first 3 digits = easting (along bottom), last 3 = northing (up side)',
             'When describing a map pattern: name areas, give compass direction, use data if possible',
           ]},
-        ]},
+        ], examTips:[
+            'Name specific case study examples with dates and statistics — generic answers score lower marks',
+            'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
+          ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ]},
         { title:'Climate Change & Sustainability', icon:'🌡️', topics:[
           { title:'Causes & Evidence of Climate Change', points:[
             'Natural causes: Milankovitch cycles (Earth\'s orbit changes), volcanic eruptions, solar output variation',
@@ -7402,8 +8650,29 @@ Judgement: Appeasement was a significant cause but not the main one — the stru
             'Groundwater depletion: over-extraction of aquifers (e.g. Ogallala aquifer, USA) — non-renewable',
             'Solutions: water recycling/grey water, desalination, drip irrigation, demand management',
           ]},
-        ]},
-      ],
+        ], examTips:[
+            'Name specific case study examples with dates and statistics — generic answers score lower marks',
+            'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
+          ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ], examTips:[
+            'Name specific case study examples with dates and statistics — generic answers score lower marks',
+            'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
+          ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ]},
+      ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ],
       edexcel: [
         { title:'River Environments', icon:'🌊', topics:[
           { title:'River Processes', points:[
@@ -7426,7 +8695,16 @@ Judgement: Appeasement was a significant cause but not the main one — the stru
 Hard engineering: flood walls along channel, storage reservoirs upstream
 Soft engineering: washlands (allow controlled flooding), floodplain zoning (no new building in flood zones), afforestation upstream to increase interception
 Evaluation: hard engineering more effective short-term but expensive; soft engineering sustainable but slower to show results`},
-        ]},
+        ], examTips:[
+            'Name specific case study examples with dates and statistics — generic answers score lower marks',
+            'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
+          ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ]},
         { title:'Coastal Environments', icon:'🏖️', topics:[
           { title:'Coastal Processes', points:[
             'Wave types: constructive (low frequency, long wavelength, strong swash) build beaches; destructive (high frequency, strong backwash) erode',
@@ -7445,7 +8723,13 @@ Evaluation: hard engineering more effective short-term but expensive; soft engin
             'Evaluate management: cost vs effectiveness vs environmental impact — examiners want balance',
             'Holderness Coast (UK): fastest eroding coast in Europe — 2m/year; case study for erosion management',
           ]},
-        ]},
+        ], examTips:[
+            'Name specific case study examples with dates and statistics — generic answers score lower marks',
+            'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
+          ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ]},
         { title:'Urban Environments', icon:'🏙️', topics:[
           { title:'Urbanisation', points:[
             'Urbanisation: increasing % of population living in cities; fastest in LICs/MICs',
@@ -7464,7 +8748,13 @@ Evaluation: hard engineering more effective short-term but expensive; soft engin
             'Always use named case studies — Dharavi (Mumbai) for squatter settlements, Canary Wharf for HIC regeneration',
             'Sustainability question: consider social, economic, and environmental dimensions of any urban strategy',
           ]},
-        ]},
+        ], examTips:[
+            'Name specific case study examples with dates and statistics — generic answers score lower marks',
+            'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
+          ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ]},
         { title:'Development & Globalisation', icon:'🌐', topics:[
           { title:'Global Development Differences', points:[
             'Development gap: difference in wealth and quality of life between HICs and LICs',
@@ -7483,8 +8773,23 @@ Evaluation: hard engineering more effective short-term but expensive; soft engin
             'Development question: always use data to support — "GNI per capita in Nigeria is $2,160 vs $47,000 in UK"',
             'Evaluate tourism: who benefits most? Local communities or multinational hotel chains? Consider leakage',
           ]},
-        ]},
-      ],
+        ], examTips:[
+            'Name specific case study examples with dates and statistics — generic answers score lower marks',
+            'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
+          ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ]},
+      ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ],
       oxford: [
         { title:'Physical Geography (Oxford AQA)', icon:'🌋', topics:[
           { title:'Plate Tectonics & Hazards', points:[
@@ -7508,7 +8813,16 @@ Same hazard; very different outcomes due to development level`},
             'Causes: greenhouse effect enhanced by CO₂, CH₄ — from fossil fuels, farming, deforestation',
             'Impacts: flooding in low-lying areas, drought in semi-arid regions, coral bleaching, species migration',
           ]},
-        ]},
+        ], examTips:[
+            'Name specific case study examples with dates and statistics — generic answers score lower marks',
+            'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
+          ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ]},
         { title:'Human Geography (Oxford AQA)', icon:'🏙️', topics:[
           { title:'Urbanisation & Urban Issues', points:[
             'Urbanisation: increasing proportion of population living in urban areas',
@@ -7528,7 +8842,16 @@ Same hazard; very different outcomes due to development level`},
             'Food security: enough nutritious food for all; threatened by population growth, climate change, water shortage',
             'Water cycle: evaporation → condensation → precipitation → run-off/infiltration → evaporation',
           ]},
-        ]},
+        ], examTips:[
+            'Name specific case study examples with dates and statistics — generic answers score lower marks',
+            'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
+          ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ]},
         { title:'Geographical Skills (Oxford AQA)', icon:'🗺️', topics:[
           { title:'Map Skills & Data Interpretation', points:[
             'OS maps: contour lines (closer = steeper), grid references (4-figure and 6-figure), symbols, scale',
@@ -7550,7 +8873,10 @@ Same hazard; very different outcomes due to development level`},
             'Fieldwork questions: explain WHY you chose each method, not just what you did',
             'Data presentation: justify your choice — "I used a scatter graph because I was investigating correlation between X and Y"',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ]},
         { title:'Global Issues & Exam Skills (Oxford AQA)', icon:'🌍', topics:[
           { title:'Climate Change & Natural Hazards', points:[
             'Climate change causes: enhanced greenhouse effect from CO₂, CH₄, N₂O from human activity',
@@ -7585,7 +8911,13 @@ Same hazard; very different outcomes due to development level`},
             'Named examples (case studies): use specific place names, dates, statistics — vague answers score lower marks',
             'Describe distribution on a map: reference compass directions, specific locations, patterns (clustered/dispersed)',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ], commonMistakes:[
+            'Giving generic answers without case study evidence — always name a specific place with supporting data',
+            'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
+          ]},
       ],
     }
   },
@@ -7615,7 +8947,19 @@ Same hazard; very different outcomes due to development level`},
             'CSR (Corporate Social Responsibility): business considers impact on society and environment',
             'Social enterprise: business with mainly social/environmental objectives',
           ]},
-        ]},
+        ], examTips:[
+            'Always apply theory to the specific business in the question — do not write generic definitions alone',
+            'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
+          ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ], examTips:[
+            'Always apply theory to the specific business in the question — do not write generic definitions alone',
+            'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
+          ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ]},
         { title:'Marketing', icon:'📣', topics:[
           { title:'The Marketing Mix (4Ps)', points:[
             'Product: design, features, USP (unique selling point), product life cycle',
@@ -7635,7 +8979,22 @@ Same hazard; very different outcomes due to development level`},
             'Market segmentation: divide market by age, gender, income, location, lifestyle',
             'USP (Unique Selling Point): what makes the product different from competitors',
           ]},
-        ]},
+        ], examTips:[
+            'Always apply theory to the specific business in the question — do not write generic definitions alone',
+            'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
+          ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ], examTips:[
+            'Always apply theory to the specific business in the question — do not write generic definitions alone',
+            'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
+          ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ]},
         { title:'Finance', icon:'💰', topics:[
           { title:'Costs, Revenue & Profit', points:[
             'Fixed costs: don\'t change with output (rent, salaries); variable: change with output (materials)',
@@ -7651,7 +9010,13 @@ Same hazard; very different outcomes due to development level`},
             'Internal finance: retained profit, sale of assets; External: bank loan, overdraft, share issue',
             'Overdraft: short-term borrowing; bank loan: medium/long term; cheaper to borrow long-term',
           ]},
-        ]},
+        ], examTips:[
+            'Always apply theory to the specific business in the question — do not write generic definitions alone',
+            'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
+          ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ]},
         { title:'Human Resources', icon:'👥', topics:[
           { title:'Motivation & Leadership', points:[
             'Maslow\'s Hierarchy: physiological → safety → social → esteem → self-actualisation',
@@ -7667,7 +9032,31 @@ Same hazard; very different outcomes due to development level`},
             'Induction training: introduction for new employees; reduces mistakes, builds confidence',
             'Employment contract: legal document stating terms — hours, pay, notice period',
           ]},
-        ]},
+        ], examTips:[
+            'Always apply theory to the specific business in the question — do not write generic definitions alone',
+            'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
+          ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ], examTips:[
+            'Always apply theory to the specific business in the question — do not write generic definitions alone',
+            'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
+          ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ], examTips:[
+            'Always apply theory to the specific business in the question — do not write generic definitions alone',
+            'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
+          ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ], examTips:[
+            'Always apply theory to the specific business in the question — do not write generic definitions alone',
+            'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
+          ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ]},
         { title:'Operations Management', icon:'⚙️', topics:[
           { title:'Production Methods', points:[
             'Job production: one-off, customised product (e.g. wedding cake, aircraft); high quality, expensive',
@@ -7686,7 +9075,16 @@ Same hazard; very different outcomes due to development level`},
             'External growth: mergers (two firms combine), takeovers (one buys another), franchises',
             'Economies of scale: as output increases, average cost falls (bulk buying, specialisation)',
           ]},
-        ]},
+        ], examTips:[
+            'Always apply theory to the specific business in the question — do not write generic definitions alone',
+            'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
+          ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ]},
         { title:'International Business', icon:'🌍', topics:[
           { title:'Trade & Globalisation', points:[
             'Globalisation: increasing integration of world economies through trade, investment and technology',
@@ -7705,8 +9103,14 @@ Same hazard; very different outcomes due to development level`},
             'Evaluate CSR: short-run cost but can improve reputation, customer loyalty, and staff motivation long-run',
             '"Justify your recommendation" = give reasons, consider alternatives, reach a clear conclusion',
           ]},
-        ]},
-      ],
+        ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ]},
+      ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ],
       edexcel: [
         { title:'Business Activity & Stakeholders', icon:'🏢', topics:[
           { title:'Purpose of Business', points:[
@@ -7726,7 +9130,13 @@ Same hazard; very different outcomes due to development level`},
             'Identify which stakeholder is most important for the given context — justify your choice',
             'Conflict questions: state both sides and suggest how business might resolve them',
           ]},
-        ]},
+        ], examTips:[
+            'Always apply theory to the specific business in the question — do not write generic definitions alone',
+            'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
+          ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ]},
         { title:'Marketing', icon:'📣', topics:[
           { title:'The Marketing Mix (4Ps)', points:[
             'Product: features, quality, branding, USP (unique selling point), product lifecycle',
@@ -7745,7 +9155,10 @@ Same hazard; very different outcomes due to development level`},
             'Always link marketing mix decisions to the target market — e.g. "skimming pricing suits a high-income niche"',
             'Evaluate: consider whether a strategy is appropriate given the stage of product lifecycle',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ]},
         { title:'People in Business', icon:'👥', topics:[
           { title:'Motivation & Leadership', points:[
             'Maslow\'s Hierarchy: physiological → safety → social → esteem → self-actualisation',
@@ -7764,7 +9177,10 @@ Same hazard; very different outcomes due to development level`},
             'Link motivation theory to business context — e.g. "Maslow suggests this worker needs social needs met, so team-working would motivate them"',
             'Evaluate: consider limitations of motivation theories — they are generalisations',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ]},
         { title:'Finance & Operations', icon:'💰', topics:[
           { title:'Business Finance', points:[
             'Sources of finance: internal (retained profit, owner\'s savings) and external (bank loan, share issue, overdraft)',
@@ -7786,8 +9202,17 @@ Same hazard; very different outcomes due to development level`},
 Net cash flow = 5000 − 6500 = −$1500
 Closing balance = 2000 + (−1500) = $500
 Month 2: Inflows $4000, Outflows $3000 → Net = +$1000 → Closing balance = $1500`},
-        ]},
-      ],
+        ], examTips:[
+            'Always apply theory to the specific business in the question — do not write generic definitions alone',
+            'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
+          ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ]},
+      ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ],
       oxford: [
         { title:'Enterprise & Business Environment', icon:'🏢', topics:[
           { title:'What is Enterprise?', points:[
@@ -7807,7 +9232,13 @@ Month 2: Inflows $4000, Outflows $3000 → Net = +$1000 → Closing balance = $1
             'Oxford AQA: questions often set in UK context — refer to UK examples (e.g. NHS, Tesco, Dyson)',
             'Evaluate how business objectives change with size and stage — start-up focuses on survival, large firms on growth',
           ]},
-        ]},
+        ], examTips:[
+            'Always apply theory to the specific business in the question — do not write generic definitions alone',
+            'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
+          ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ]},
         { title:'Marketing', icon:'📣', topics:[
           { title:'Market Research & Segmentation', points:[
             'Primary research: first-hand data collected for specific purpose — surveys, interviews, observation',
@@ -7826,7 +9257,13 @@ Month 2: Inflows $4000, Outflows $3000 → Net = +$1000 → Closing balance = $1
             'For any marketing decision: consider cost, effectiveness, and whether it reaches the target market',
             'Digital vs traditional: digital (social media) cheaper and more targeted; traditional (TV) broader reach',
           ]},
-        ]},
+        ], examTips:[
+            'Always apply theory to the specific business in the question — do not write generic definitions alone',
+            'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
+          ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ]},
         { title:'Human Resources & Production', icon:'👥', topics:[
           { title:'Human Resources', points:[
             'Workforce planning: matching number and skills of employees to business needs',
@@ -7849,7 +9286,10 @@ Job production: too expensive for bakery prices; too slow
 Batch production: BEST — produces 50 loaves at a time; flexible to change flavours; moderate cost; manageable with small team
 Flow production: requires expensive equipment; only viable at very large scale
 Recommendation: Batch production allows flexibility and cost efficiency for a small-medium bakery`},
-        ]},
+        ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ]},
         { title:'Finance', icon:'💰', topics:[
           { title:'Revenue, Costs & Profit', points:[
             'Revenue = selling price × quantity sold',
@@ -7873,8 +9313,23 @@ GPM = (48,000 ÷ 120,000) × 100 = 40%
 Net Profit = 48,000 − 28,000 = £20,000
 NPM = (20,000 ÷ 120,000) × 100 = 16.7%
 Interpretation: For every £1 of revenue, the business keeps 16.7p as net profit`},
-        ]},
-      ],
+        ], examTips:[
+            'Always apply theory to the specific business in the question — do not write generic definitions alone',
+            'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
+          ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ]},
+      ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ], commonMistakes:[
+            'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
+            'Defining a term correctly but not applying it to the specific business in the question',
+          ],
     }
   },
   add_maths: {
@@ -7900,7 +9355,19 @@ Interpretation: For every £1 of revenue, the business keeps 16.7p as net profit
             'Solving |f(x)| < b: −b < f(x) < b (and/intersection)',
             'Solving |f(x)| > b: f(x) > b OR f(x) < −b (or/union)',
           ]},
-        ]},
+        ], examTips:[
+            'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
+            'Verify answers: substitute back into the original equation to confirm correctness',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ], examTips:[
+            'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
+            'Verify answers: substitute back into the original equation to confirm correctness',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ]},
         { title:'Algebra & Equations', icon:'🔢', topics:[
           { title:'Quadratic Functions', points:[
             'Completing the square: x²+bx = (x + b/2)² − (b/2)² — vertex form: a(x−h)²+k',
@@ -7937,7 +9404,25 @@ Factorise: x² − 5x + 6 = (x−2)(x−3)
             'For circle problems: substitute line y = mx+c into circle equation',
             'Always check solutions by substituting back into both original equations',
           ]},
-        ]},
+        ], examTips:[
+            'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
+            'Verify answers: substitute back into the original equation to confirm correctness',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ], examTips:[
+            'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
+            'Verify answers: substitute back into the original equation to confirm correctness',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ], examTips:[
+            'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
+            'Verify answers: substitute back into the original equation to confirm correctness',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ]},
         { title:'Logarithms & Exponentials', icon:'📊', topics:[
           { title:'Logarithms', points:[
             'Definition: logₐ b = c ↔ aᶜ = b (a is the base)',
@@ -7953,7 +9438,19 @@ Factorise: x² − 5x + 6 = (x−2)(x−3)
             'If y = axⁿ then log y = log a + n log x → straight line (log y vs log x)',
             'Gradient and intercept of linearised graph give n and log a (or ln a)',
           ]},
-        ]},
+        ], examTips:[
+            'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
+            'Verify answers: substitute back into the original equation to confirm correctness',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ], examTips:[
+            'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
+            'Verify answers: substitute back into the original equation to confirm correctness',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ]},
         { title:'Trigonometry', icon:'📐', topics:[
           { title:'Trigonometric Functions & Identities', points:[
             'Exact values: sin 30°=½, cos 30°=√3/2, tan 30°=1/√3; sin 45°=cos 45°=1/√2; sin 60°=√3/2',
@@ -7969,7 +9466,19 @@ Factorise: x² − 5x + 6 = (x−2)(x−3)
             'cos θ = k: solutions at θ and 360° − θ',
             'tan θ = k: solutions at θ and θ + 180°',
           ]},
-        ]},
+        ], examTips:[
+            'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
+            'Verify answers: substitute back into the original equation to confirm correctness',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ], examTips:[
+            'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
+            'Verify answers: substitute back into the original equation to confirm correctness',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ]},
         { title:'Calculus', icon:'∫', topics:[
           { title:'Differentiation', points:[
             'd/dx (xⁿ) = nxⁿ⁻¹; d/dx (eˣ) = eˣ; d/dx (ln x) = 1/x; d/dx (sin x) = cos x; d/dx (cos x) = −sin x',
@@ -7992,7 +9501,22 @@ dy/dx = 4u³ × 6x = 24x(3x² + 1)³`},
             'Definite integral ∫ₐᵇ f(x) dx = F(b) − F(a) where F is the antiderivative',
             'Area under curve = definite integral; if below x-axis, result is negative → take |value|',
           ]},
-        ]},
+        ], examTips:[
+            'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
+            'Verify answers: substitute back into the original equation to confirm correctness',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ], examTips:[
+            'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
+            'Verify answers: substitute back into the original equation to confirm correctness',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ]},
         { title:'Binomial & Statistics', icon:'📊', topics:[
           { title:'Permutations & Combinations', points:[
             'Permutation: ordered arrangement; ⁿPᵣ = n!/(n−r)! — order matters',
@@ -8008,8 +9532,32 @@ dy/dx = 4u³ × 6x = 24x(3x² + 1)³`},
             '(1+x)ⁿ expansion: 1 + nx + n(n−1)/2! x² + ... (valid for |x|<1 if n not integer)',
             'Use binomial expansion for approximations: substitute small value of x',
           ]},
-        ]},
-      ],
+        ], examTips:[
+            'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
+            'Verify answers: substitute back into the original equation to confirm correctness',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ], examTips:[
+            'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
+            'Verify answers: substitute back into the original equation to confirm correctness',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ]},
+      ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ],
       edexcel: [
         { title:'Algebra & Functions (Add Maths)', icon:'📐', topics:[
           { title:'Functions — Domain, Range & Inverse', points:[
@@ -8034,7 +9582,16 @@ dy/dx = 4u³ × 6x = 24x(3x² + 1)³`},
 = 2(x−2)² − 8 + 5
 = 2(x−2)² − 3
 Minimum value −3 at x = 2`},
-        ]},
+        ], examTips:[
+            'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
+            'Verify answers: substitute back into the original equation to confirm correctness',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ]},
         { title:'Trigonometry (Add Maths)', icon:'📏', topics:[
           { title:'Radians & Advanced Trig', points:[
             'Radians: π rad = 180°; 1 rad ≈ 57.3°; convert: multiply by 180/π or π/180',
@@ -8053,7 +9610,16 @@ Minimum value −3 at x = 2`},
             'Use identities to simplify before solving (replace sin²θ using 1−cos²θ etc.)',
             'CAST diagram or unit circle — always find all solutions in the given domain',
           ]},
-        ]},
+        ], examTips:[
+            'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
+            'Verify answers: substitute back into the original equation to confirm correctness',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ]},
         { title:'Calculus (Add Maths)', icon:'∫', topics:[
           { title:'Differentiation', points:[
             'Power rule: d/dx(xⁿ) = nxⁿ⁻¹; constant differentiates to 0',
@@ -8116,7 +9682,16 @@ f(2) = 8 − 14 + 6 = 0 ✓ (by Factor Theorem)
 Divide x³−7x+6 by (x−2):
 = (x−2)(x²+2x−3) = (x−2)(x+3)(x−1)
 Roots: x = 2, −3, 1`},
-        ]},
+        ], examTips:[
+            'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
+            'Verify answers: substitute back into the original equation to confirm correctness',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ]},
         { title:'Calculus (Oxford Add Maths)', icon:'∫', topics:[
           { title:'Differentiation Applications', points:[
             'Tangent to curve at P: gradient = f\'(x₀); equation: y−y₀ = m(x−x₀)',
@@ -8141,7 +9716,16 @@ Dimensions: 10cm × 10cm (square); maximum area = 100 cm²`},
             'Integration as reverse differentiation: always add +c for indefinite integrals',
             'Trapezium rule: approximate area using trapezoids; A ≈ ½h[y₀+2(y₁+y₂+...+yₙ₋₁)+yₙ]',
           ]},
-        ]},
+        ], examTips:[
+            'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
+            'Verify answers: substitute back into the original equation to confirm correctness',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ]},
         { title:'Vectors & Matrices (Oxford Add Maths)', icon:'➡️', topics:[
           { title:'Vectors', points:[
             'Vector: has both magnitude and direction; column vector (x y) or bold a',
@@ -8168,7 +9752,13 @@ det = 2×3 − 1×1 = 5
 Inverse = (1/5)[[3,−1],[−1,2]]
 [[x],[y]] = (1/5)[[3,−1],[−1,2]][[7],[11]] = (1/5)[[21−11],[−7+22]] = (1/5)[[10],[15]] = [[2],[3]]
 x=2, y=3`},
-        ]},
+        ], examTips:[
+            'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
+            'Verify answers: substitute back into the original equation to confirm correctness',
+          ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ]},
         { title:'Calculus & Further Topics (Oxford Add Maths)', icon:'∫', topics:[
           { title:'Differentiation', points:[
             'Differentiation: finding the gradient function; d/dx(xⁿ) = nxⁿ⁻¹',
@@ -8206,7 +9796,10 @@ d²y/dx² = 6x−12: at x=1: −6 < 0 → maximum; at x=3: +6 > 0 → minimum`},
             'No formula sheet: learn core derivatives (xⁿ, sinx, cosx, eˣ, lnx) and integration results',
             'Trigonometric identities to memorise: sin²x+cos²x=1; sin2x=2sinxcosx; cos2x=cos²x−sin²x',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
+            'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
+          ]},
       ],
     }
   },
@@ -8245,7 +9838,19 @@ CR  Ali (Trade Payable) $500  (liability increases → credit)
 Paid Ali $500 by bank:
 DR  Ali (Trade Payable) $500  (liability decreases → debit)
 CR  Bank $500  (asset decreases → credit)`},
-        ]},
+        ], examTips:[
+            'Use correct accounting layout — headings, subtotals, double-underline totals — presentation marks are real',
+            'Distinguish between capital expenditure (long-term asset) and revenue expenditure (day-to-day cost)',
+          ], commonMistakes:[
+            'Treating cash flow and profit as the same — they are fundamentally different concepts',
+            'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
+          ], examTips:[
+            'Use correct accounting layout — headings, subtotals, double-underline totals — presentation marks are real',
+            'Distinguish between capital expenditure (long-term asset) and revenue expenditure (day-to-day cost)',
+          ], commonMistakes:[
+            'Treating cash flow and profit as the same — they are fundamentally different concepts',
+            'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
+          ]},
         { title:'Books of Original Entry', icon:'📚', topics:[
           { title:'Books of Prime Entry', points:[
             'Sales day book: records credit sales (not cash sales)',
@@ -8261,7 +9866,19 @@ CR  Bank $500  (asset decreases → credit)`},
             'Suspense account: temporary account to make trial balance agree while errors are found',
             'Correcting journal entries: reverse the error, then record correctly',
           ]},
-        ]},
+        ], examTips:[
+            'Use correct accounting layout — headings, subtotals, double-underline totals — presentation marks are real',
+            'Distinguish between capital expenditure (long-term asset) and revenue expenditure (day-to-day cost)',
+          ], commonMistakes:[
+            'Treating cash flow and profit as the same — they are fundamentally different concepts',
+            'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
+          ], examTips:[
+            'Use correct accounting layout — headings, subtotals, double-underline totals — presentation marks are real',
+            'Distinguish between capital expenditure (long-term asset) and revenue expenditure (day-to-day cost)',
+          ], commonMistakes:[
+            'Treating cash flow and profit as the same — they are fundamentally different concepts',
+            'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
+          ]},
         { title:'Financial Statements', icon:'📊', topics:[
           { title:'Income Statement (Trading Account)', points:[
             'Trading section: Sales − Cost of Goods Sold = Gross Profit',
@@ -8284,7 +9901,31 @@ CR  Bank $500  (asset decreases → credit)`},
             'Accruals: expenses incurred but not yet paid — add to expense, add to liabilities',
             'Prepayments: expenses paid in advance — deduct from expense, add to current assets',
           ]},
-        ]},
+        ], examTips:[
+            'Use correct accounting layout — headings, subtotals, double-underline totals — presentation marks are real',
+            'Distinguish between capital expenditure (long-term asset) and revenue expenditure (day-to-day cost)',
+          ], commonMistakes:[
+            'Treating cash flow and profit as the same — they are fundamentally different concepts',
+            'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
+          ], examTips:[
+            'Use correct accounting layout — headings, subtotals, double-underline totals — presentation marks are real',
+            'Distinguish between capital expenditure (long-term asset) and revenue expenditure (day-to-day cost)',
+          ], commonMistakes:[
+            'Treating cash flow and profit as the same — they are fundamentally different concepts',
+            'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
+          ], examTips:[
+            'Use correct accounting layout — headings, subtotals, double-underline totals — presentation marks are real',
+            'Distinguish between capital expenditure (long-term asset) and revenue expenditure (day-to-day cost)',
+          ], commonMistakes:[
+            'Treating cash flow and profit as the same — they are fundamentally different concepts',
+            'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
+          ], examTips:[
+            'Use correct accounting layout — headings, subtotals, double-underline totals — presentation marks are real',
+            'Distinguish between capital expenditure (long-term asset) and revenue expenditure (day-to-day cost)',
+          ], commonMistakes:[
+            'Treating cash flow and profit as the same — they are fundamentally different concepts',
+            'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
+          ]},
         { title:'Analysis & Interpretation', icon:'📈', topics:[
           { title:'Ratio Analysis', points:[
             'Gross profit margin = (Gross profit ÷ Revenue) × 100%',
@@ -8306,8 +9947,29 @@ Quick ratio = (45,000−15,000) ÷ 20,000 = 30,000 ÷ 20,000 = 1.5:1 (good liqui
             'Inventory turnover = COGS ÷ Average inventory (times per year); higher = faster selling',
             'Limitations: ratios are based on historical cost; do not show non-financial factors',
           ]},
-        ]},
-      ],
+        ], examTips:[
+            'Use correct accounting layout — headings, subtotals, double-underline totals — presentation marks are real',
+            'Distinguish between capital expenditure (long-term asset) and revenue expenditure (day-to-day cost)',
+          ], commonMistakes:[
+            'Treating cash flow and profit as the same — they are fundamentally different concepts',
+            'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
+          ], commonMistakes:[
+            'Treating cash flow and profit as the same — they are fundamentally different concepts',
+            'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
+          ]},
+      ], commonMistakes:[
+            'Treating cash flow and profit as the same — they are fundamentally different concepts',
+            'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
+          ], commonMistakes:[
+            'Treating cash flow and profit as the same — they are fundamentally different concepts',
+            'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
+          ], commonMistakes:[
+            'Treating cash flow and profit as the same — they are fundamentally different concepts',
+            'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
+          ], commonMistakes:[
+            'Treating cash flow and profit as the same — they are fundamentally different concepts',
+            'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
+          ],
       edexcel: [
         { title:'The Accounting Framework', icon:'📋', topics:[
           { title:'Purpose & Concepts', points:[
@@ -8351,7 +10013,16 @@ Net Profit = $81,000 − $50,000 = $31,000`},
             'Non-current liabilities: owed after 1 year (long-term loan)',
             'Capital/equity = Total assets − Total liabilities; Owner\'s capital + Retained profit',
           ]},
-        ]},
+        ], examTips:[
+            'Use correct accounting layout — headings, subtotals, double-underline totals — presentation marks are real',
+            'Distinguish between capital expenditure (long-term asset) and revenue expenditure (day-to-day cost)',
+          ], commonMistakes:[
+            'Treating cash flow and profit as the same — they are fundamentally different concepts',
+            'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
+          ], commonMistakes:[
+            'Treating cash flow and profit as the same — they are fundamentally different concepts',
+            'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
+          ]},
         { title:'Depreciation & Adjustments', icon:'📉', topics:[
           { title:'Depreciation Methods', points:[
             'Straight-line: (Cost − Residual value) ÷ Useful life = annual depreciation charge',
@@ -8377,7 +10048,16 @@ Year 3: 9,800 × 30% = $2,940 → NBV = $6,860`},
             'Deferred income: income received in advance — deduct from income, show as current liability',
             'Irrecoverable debts: written off as expense; Allowance for receivables: estimate of expected non-payment',
           ]},
-        ]},
+        ], examTips:[
+            'Use correct accounting layout — headings, subtotals, double-underline totals — presentation marks are real',
+            'Distinguish between capital expenditure (long-term asset) and revenue expenditure (day-to-day cost)',
+          ], commonMistakes:[
+            'Treating cash flow and profit as the same — they are fundamentally different concepts',
+            'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
+          ], commonMistakes:[
+            'Treating cash flow and profit as the same — they are fundamentally different concepts',
+            'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
+          ]},
         { title:'Ratios & Analysis', icon:'📐', topics:[
           { title:'Profitability & Liquidity Ratios', points:[
             'Gross Profit Margin = (Gross Profit ÷ Revenue) × 100%',
@@ -8400,8 +10080,17 @@ GPM = (80,000 ÷ 200,000) × 100 = 40%
 NPM = (30,000 ÷ 200,000) × 100 = 15%
 ROCE = (30,000 ÷ 150,000) × 100 = 20%
 Interpretation: 40% GPM suggests good pricing; 15% NPM means expenses are 25% of revenue — management may need to reduce costs`},
-        ]},
-      ],
+        ], examTips:[
+            'Use correct accounting layout — headings, subtotals, double-underline totals — presentation marks are real',
+            'Distinguish between capital expenditure (long-term asset) and revenue expenditure (day-to-day cost)',
+          ], commonMistakes:[
+            'Treating cash flow and profit as the same — they are fundamentally different concepts',
+            'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
+          ]},
+      ], commonMistakes:[
+            'Treating cash flow and profit as the same — they are fundamentally different concepts',
+            'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
+          ],
       oxford: [
         { title:'Accounting Principles (Oxford AQA)', icon:'📋', topics:[
           { title:'The Purpose of Accounting', points:[
@@ -8426,7 +10115,16 @@ CR Trade Payables (liability increases) $500
 Later pay the creditor $500:
 DR Trade Payables $500
 CR Bank (asset decreases) $500`},
-        ]},
+        ], examTips:[
+            'Use correct accounting layout — headings, subtotals, double-underline totals — presentation marks are real',
+            'Distinguish between capital expenditure (long-term asset) and revenue expenditure (day-to-day cost)',
+          ], commonMistakes:[
+            'Treating cash flow and profit as the same — they are fundamentally different concepts',
+            'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
+          ], commonMistakes:[
+            'Treating cash flow and profit as the same — they are fundamentally different concepts',
+            'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
+          ]},
         { title:'Financial Statements (Oxford AQA)', icon:'📊', topics:[
           { title:'Income Statement', points:[
             'Income statement (profit and loss account): shows financial performance over a period',
@@ -8451,7 +10149,13 @@ Total assets less CL:        $47,000
 Less non-current liabilities:($12,000)
 NET ASSETS:                  $35,000
 = Capital/Equity:            $35,000`},
-        ]},
+        ], examTips:[
+            'Use correct accounting layout — headings, subtotals, double-underline totals — presentation marks are real',
+            'Distinguish between capital expenditure (long-term asset) and revenue expenditure (day-to-day cost)',
+          ], commonMistakes:[
+            'Treating cash flow and profit as the same — they are fundamentally different concepts',
+            'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
+          ]},
         { title:'Analysis & Decision Making (Oxford AQA)', icon:'📈', topics:[
           { title:'Ratio Analysis', points:[
             'Profitability: Gross profit margin; Net profit margin; ROCE — higher = better performance',
@@ -8476,7 +10180,10 @@ NET ASSETS:                  $35,000
             'Treating profit and cash as the same — a business can make profit but have negative cash flow (e.g. unpaid debtors)',
             'Forgetting that closing balance = opening balance + net cash flow (not just net cash flow alone)',
           ]},
-        ]},
+        ], workedExample:`Month 1: Inflows £5,000; Outflows £6,500
+Net cash flow = 5,000 − 6,500 = −£1,500
+Opening balance = £2,000
+Closing balance = 2,000 + (−1,500) = £500`},
         { title:'Financial Statements & Ratio Analysis (Oxford AQA)', icon:'📊', topics:[
           { title:'Income Statement & Balance Sheet', points:[
             'Income statement (P&L): Revenue − Cost of Sales = Gross Profit; Gross Profit − Expenses = Net Profit',
@@ -8513,7 +10220,10 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Presentation matters: accountancy has strict layout conventions — marks are lost for incorrect format',
             'Discussion questions: always use data to support your argument: "The current ratio fell from 2.1 to 1.4, suggesting..."',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Treating cash flow and profit as the same — they are fundamentally different concepts',
+            'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
+          ]},
       ],
     }
   },
@@ -8541,7 +10251,31 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Participant observation: researcher joins group — high validity but time-consuming and risk of bias',
             'Reliability: same results if repeated; validity: truly measures what it claims to measure',
           ]},
-        ]},
+        ], examTips:[
+            'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
+            'State strength AND weakness of any method — examiners look for balanced evaluation',
+          ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ], examTips:[
+            'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
+            'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
+          ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ], examTips:[
+            'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
+            'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
+          ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ], examTips:[
+            'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
+            'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
+          ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ]},
         { title:'Family', icon:'👨‍👩‍👧', topics:[
           { title:'Family Structures & Functions', points:[
             'Nuclear family: parents + children; extended: nuclear + relatives; reconstituted: step-family',
@@ -8557,7 +10291,19 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Reconstituted (blended) families: increasingly common; may cause identity issues for children',
             'Empty nest: when children leave home; beanpole family: multi-generational but few members per generation',
           ]},
-        ]},
+        ], examTips:[
+            'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
+            'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
+          ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ], examTips:[
+            'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
+            'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
+          ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ]},
         { title:'Education', icon:'🏫', topics:[
           { title:'Role of Education', points:[
             'Functionalist: education transmits shared values (secondary socialisation), allocates roles by merit',
@@ -8580,7 +10326,19 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Writing about psychology instead of sociology — focus on social structures, not individual minds',
             'Only giving one perspective — IGCSE requires you to show different sociological views',
           ]},
-        ]},
+        ], examTips:[
+            'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
+            'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
+          ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ], examTips:[
+            'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
+            'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
+          ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ]},
         { title:'Crime & Deviance', icon:'⚖️', topics:[
           { title:'Theories of Crime', points:[
             'Crime: breaking the law; deviance: behaviour that breaks social norms (not necessarily illegal)',
@@ -8596,7 +10354,25 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Class and crime: working class over-represented — but may reflect policing bias',
             'Moral panic: media exaggerates threat of a group → public fear → increased policing',
           ]},
-        ]},
+        ], examTips:[
+            'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
+            'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
+          ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ], examTips:[
+            'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
+            'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
+          ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ], examTips:[
+            'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
+            'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
+          ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ]},
         { title:'Mass Media', icon:'📺', topics:[
           { title:'Media & Its Influence', points:[
             'Traditional media: newspapers, TV, radio; New media: internet, social media, streaming',
@@ -8612,7 +10388,19 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Positive effects of social media: campaigns, activism, diverse voices, counter-narratives',
             'Hyperreality (Baudrillard): media images become more "real" than reality itself',
           ]},
-        ]},
+        ], examTips:[
+            'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
+            'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
+          ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ], examTips:[
+            'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
+            'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
+          ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ]},
         { title:'Social Stratification', icon:'📊', topics:[
           { title:'Social Class & Inequality', points:[
             'Social stratification: hierarchical ranking of groups in society based on wealth, power, status',
@@ -8635,8 +10423,35 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Multiculturalism: celebration of diverse cultures within one society',
             'Immigration: contributes economically and culturally; may face integration challenges',
           ]},
-        ]},
-      ],
+        ], examTips:[
+            'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
+            'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
+          ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ], examTips:[
+            'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
+            'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
+          ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ], examTips:[
+            'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
+            'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
+          ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ]},
+      ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ],
       edexcel: [
         { title:'Families', icon:'👨‍👩‍👧', topics:[
           { title:'Family Structures & Diversity', points:[
@@ -8656,7 +10471,13 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Always use sociological perspectives — functionalist, Marxist, feminist — to evaluate family changes',
             'Give statistics to support trends (divorce rate, marriage rate, cohabitation statistics)',
           ]},
-        ]},
+        ], examTips:[
+            'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
+            'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
+          ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ]},
         { title:'Education', icon:'🏫', topics:[
           { title:'Role of Education', points:[
             'Functionalist: education socialises children into shared values; Durkheim — social solidarity',
@@ -8675,7 +10496,10 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Use specific sociologist names — Bourdieu (cultural capital), Becker (labelling), Willis (counter-school culture)',
             'Internal factors (labelling, streaming) vs external factors (material deprivation, cultural factors) is a classic exam comparison',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ]},
         { title:'Crime & Deviance', icon:'⚖️', topics:[
           { title:'Defining Crime & Deviance', points:[
             'Crime: behaviour that breaks the criminal law — officially recorded and prosecuted',
@@ -8694,7 +10518,13 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Always support explanations with named sociologist — un-attributed theories score less',
             'Evaluate each theory: what does it fail to explain? (e.g. strain theory ignores white-collar crime)',
           ]},
-        ]},
+        ], examTips:[
+            'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
+            'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
+          ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ]},
         { title:'Social Stratification (Edexcel)', icon:'📊', topics:[
           { title:'Class, Status & Power', points:[
             'Weber\'s three dimensions: class (economic), status (social prestige), party (political power)',
@@ -8713,8 +10543,23 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Absolute vs relative poverty — define both clearly; examiners reward precise definitions',
             'Link poverty to life chances across health, education, housing, and life expectancy',
           ]},
-        ]},
-      ],
+        ], examTips:[
+            'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
+            'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
+          ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ]},
+      ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ],
       oxford: [
         { title:'Sociological Theory & Methods (Oxford AQA)', icon:'🔬', topics:[
           { title:'Sociological Perspectives', points:[
@@ -8754,7 +10599,13 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Evaluation: for every theory, give a criticism — Marxists ignore positive functions; functionalists ignore inequality',
             'Use named sociologists with their concepts: Bourdieu (cultural capital), Willis (lads), Becker (labelling)',
           ]},
-        ]},
+        ], examTips:[
+            'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
+            'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
+          ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ]},
         { title:'Crime, Deviance & Stratification (Oxford AQA)', icon:'⚖️', topics:[
           { title:'Crime & Deviance', points:[
             'Crime: behaviour that breaks the law; deviance: behaviour that breaks social norms (not necessarily illegal)',
@@ -8808,7 +10659,13 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'AO3 evaluation: phrases like "However, Marxists would argue...", "This view is challenged by...", "A limitation of this is..." signal evaluative thinking',
             'Use evidence: named studies, statistics from the item, or sociological research — do not make unsupported assertions',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ], commonMistakes:[
+            'Describing society in general terms without linking to a specific sociological theory or concept',
+            'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
+          ]},
       ],
     }
   },
@@ -8836,7 +10693,13 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Validity: does the study measure what it claims? Internal and external validity',
             'Ethics: informed consent, right to withdraw, confidentiality, protection from harm (BPS guidelines)',
           ]},
-        ]},
+        ], examTips:[
+            'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
+            'State strength AND weakness of any method — examiners look for balanced evaluation',
+          ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ]},
         { title:'Memory', icon:'🧩', topics:[
           { title:'Models of Memory', points:[
             'Multi-store model (Atkinson & Shiffrin): sensory register → STM → LTM',
@@ -8852,7 +10715,19 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'State-dependent forgetting: emotional/physical state at encoding differs from recall',
             'Repression (Freud): motivated forgetting of traumatic or anxiety-provoking memories',
           ]},
-        ]},
+        ], examTips:[
+            'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
+            'State strength AND weakness of any method — examiners look for balanced evaluation',
+          ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ], examTips:[
+            'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
+            'State strength AND weakness of any method — examiners look for balanced evaluation',
+          ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ]},
         { title:'Developmental Psychology', icon:'👶', topics:[
           { title:'Cognitive Development (Piaget)', points:[
             'Piaget: children actively construct knowledge through schemas, assimilation and accommodation',
@@ -8868,7 +10743,19 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Secure attachment: caregiver responsive → child explores freely, upset when left, comforted on return',
             'Deprivation (separation): short/long term effects — delinquency, depression, intellectual delay',
           ]},
-        ]},
+        ], examTips:[
+            'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
+            'State strength AND weakness of any method — examiners look for balanced evaluation',
+          ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ], examTips:[
+            'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
+            'State strength AND weakness of any method — examiners look for balanced evaluation',
+          ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ]},
         { title:'Social Psychology', icon:'👥', topics:[
           { title:'Obedience (Milgram)', points:[
             'Milgram 1963: 65% of participants administered maximum 450V shocks to a "learner" when ordered',
@@ -8891,7 +10778,13 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Asch line study: 75% conformed at least once; 5% always conformed; group size matters',
             'Minority influence: consistency over time can change majority view (Moscovici)',
           ]},
-        ]},
+        ], examTips:[
+            'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
+            'State strength AND weakness of any method — examiners look for balanced evaluation',
+          ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ]},
         { title:'Biological Psychology', icon:'🧬', topics:[
           { title:'Brain & Behaviour', points:[
             'Neurons: nerve cells transmit electrical signals; synapse: gap between neurons',
@@ -8910,7 +10803,16 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Cortisol: stress hormone from adrenal cortex; chronic high levels → impaired immune function, memory issues',
             'Oxytocin: "bonding hormone" — released during social contact, breastfeeding; increases trust and affiliation',
           ]},
-        ]},
+        ], examTips:[
+            'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
+            'State strength AND weakness of any method — examiners look for balanced evaluation',
+          ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ]},
         { title:'Individual Differences', icon:'🧠', topics:[
           { title:'Intelligence', points:[
             'Binet: first intelligence test, developed to identify children needing educational support',
@@ -8929,8 +10831,20 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Always evaluate definitions of abnormality — each has strengths and limitations',
             'Link treatment to explanation: if biological cause (low serotonin) → drug treatment; if learned (conditioning) → systematic desensitisation',
           ]},
-        ]},
-      ],
+        ], examTips:[
+            'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
+            'State strength AND weakness of any method — examiners look for balanced evaluation',
+          ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ]},
+      ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ],
       edexcel: [
         { title:'Perception & Dreaming', icon:'👁️', topics:[
           { title:'Visual Perception', points:[
@@ -8950,7 +10864,16 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Dement & Kleitman (1957): EEG + eye movement monitoring; awakened in REM → 80% recalled dreams; in NREM → rarely recalled',
             'Evaluation of Freud: unfalsifiable (cannot disprove); subjective interpretation; but case studies rich in detail',
           ]},
-        ]},
+        ], examTips:[
+            'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
+            'State strength AND weakness of any method — examiners look for balanced evaluation',
+          ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ]},
         { title:'Memory', icon:'🧠', topics:[
           { title:'Memory Models', points:[
             'Multi-store model (Atkinson & Shiffrin): sensory register → short-term memory (STM) → long-term memory (LTM)',
@@ -8972,7 +10895,13 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
 Participants saw car accident video. Asked "About how fast were the cars going when they [hit/smashed/collided/bumped/contacted]?"
 "Smashed" group estimated 40.8 mph average; "Contacted" group estimated 31.8 mph
 Shows: verb in question changed memory reconstruction → eyewitness testimony unreliable`},
-        ]},
+        ], examTips:[
+            'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
+            'State strength AND weakness of any method — examiners look for balanced evaluation',
+          ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ]},
         { title:'Learning', icon:'📚', topics:[
           { title:'Classical & Operant Conditioning', points:[
             'Classical conditioning (Pavlov): neutral stimulus paired with unconditioned stimulus → becomes conditioned stimulus',
@@ -8991,7 +10920,13 @@ Shows: verb in question changed memory reconstruction → eyewitness testimony u
             'Bandura Bobo doll: strength = controlled conditions; weakness = demand characteristics (children may perform for observer)',
             'Classical vs operant: classical = involuntary/reflexive responses; operant = voluntary behaviour shaped by consequences',
           ]},
-        ]},
+        ], examTips:[
+            'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
+            'State strength AND weakness of any method — examiners look for balanced evaluation',
+          ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ]},
         { title:'Social Behaviour', icon:'👥', topics:[
           { title:'Obedience & Authority', points:[
             'Milgram (1963): 65% of participants delivered maximum 450V shocks when ordered by authority figure',
@@ -9010,8 +10945,20 @@ Shows: verb in question changed memory reconstruction → eyewitness testimony u
             'Edexcel Psych: always apply studies to real-world contexts — examiners reward application marks',
             'Evaluate bystander research: lacks ecological validity (staged) but replicated in field studies (subway studies)',
           ]},
-        ]},
-      ],
+        ], examTips:[
+            'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
+            'State strength AND weakness of any method — examiners look for balanced evaluation',
+          ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ]},
+      ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ],
       oxford: [
         { title:'Core Studies (Oxford AQA)', icon:'🔬', topics:[
           { title:'Biological Approach', points:[
@@ -9035,7 +10982,16 @@ Shows: verb in question changed memory reconstruction → eyewitness testimony u
 Participants watched car crash video; then asked "How fast were the cars going when they ______ each other?"
 Verb used: smashed → estimated ~41 mph; hit → ~34 mph; contacted → ~32 mph
 Conclusion: the wording of a question can alter memory — has implications for eyewitness testimony in court`},
-        ]},
+        ], examTips:[
+            'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
+            'State strength AND weakness of any method — examiners look for balanced evaluation',
+          ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ]},
         { title:'Social & Developmental Psychology (Oxford AQA)', icon:'👥', topics:[
           { title:'Social Influence', points:[
             'Conformity: changing behaviour to match group norms; informational (uncertain what is right) vs normative (wanting to fit in)',
@@ -9058,7 +11014,13 @@ Conclusion: the wording of a question can alter memory — has implications for 
             'Oxford AQA evaluation structure: strength → specific evidence supporting strength → limitation → specific evidence → conclusion',
             'Apply to real life: Piaget\'s concrete operational stage explains why 6-year-olds struggle with abstract maths',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ]},
         { title:'Research Methods (Oxford AQA Psychology)', icon:'📋', topics:[
           { title:'Methods & Design', points:[
             'Experiment: manipulate IV, measure DV, control extraneous variables; establishes cause and effect',
@@ -9078,7 +11040,13 @@ Conclusion: the wording of a question can alter memory — has implications for 
             'Method question: always state strength AND weakness; link to the specific study context',
             'Oxford AQA 4-mark describe: who, what, procedure, findings — be specific about numbers and results',
           ]},
-        ]},
+        ], examTips:[
+            'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
+            'State strength AND weakness of any method — examiners look for balanced evaluation',
+          ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ]},
         { title:'Applied Psychology & Exam Skills (Oxford AQA)', icon:'🧩', topics:[
           { title:'Psychological Applications', points:[
             'Criminal psychology: Eysenck\'s personality theory (extraversion/neuroticism); social learning — criminal behaviour is learnt',
@@ -9113,8 +11081,17 @@ Conclusion: the wording of a question can alter memory — has implications for 
             'Core studies: know all 20 studies — who, aim, method, results, conclusion, one strength, one weakness',
             'Avoid "it was a good/bad study" — always specify WHAT makes it valid/invalid, reliable/unreliable, ethical/unethical',
           ]},
-        ]},
-      ],
+        ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ]},
+      ], commonMistakes:[
+            'Describing findings without naming the specific study or researcher — always include "who, what, when"',
+            'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
+          ],
     }
   },
   ict: {
@@ -9140,7 +11117,19 @@ Conclusion: the wording of a question can alter memory — has implications for 
             'Cloud storage: data stored on remote servers — access anywhere, dependent on internet',
             'Backup: copy of data in case original is lost; grandfather-father-son rotation for organisations',
           ]},
-        ]},
+        ], examTips:[
+            'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
+            'Give specific examples for every advantage or disadvantage you state',
+          ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ], examTips:[
+            'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
+            'Give specific examples for every advantage or disadvantage you state',
+          ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ]},
         { title:'Networks & Communication', icon:'🌐', topics:[
           { title:'Network Types & Topologies', points:[
             'LAN: within one building/site; WAN: covers large geographic area (e.g. internet)',
@@ -9156,7 +11145,13 @@ Conclusion: the wording of a question can alter memory — has implications for 
             'Streaming: data delivered continuously in real-time (YouTube, Spotify)',
             'Bandwidth: amount of data transferred per second; higher bandwidth = faster speeds',
           ]},
-        ]},
+        ], examTips:[
+            'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
+            'Give specific examples for every advantage or disadvantage you state',
+          ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ]},
         { title:'Software & Applications', icon:'📱', topics:[
           { title:'Types of Software', points:[
             'Operating system: manages hardware, provides user interface, runs programs (Windows, macOS, Linux)',
@@ -9172,7 +11167,19 @@ Conclusion: the wording of a question can alter memory — has implications for 
             'Spreadsheet formulas: =SUM(), =AVERAGE(), =IF(), =VLOOKUP(), =COUNT()',
             'Relative cell reference (A1) changes when copied; absolute ($A$1) stays fixed',
           ]},
-        ]},
+        ], examTips:[
+            'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
+            'Give specific examples for every advantage or disadvantage you state',
+          ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ], examTips:[
+            'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
+            'Give specific examples for every advantage or disadvantage you state',
+          ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ]},
         { title:'Safety, Security & Ethics', icon:'🔒', topics:[
           { title:'Cyber Security', points:[
             'Malware types: virus (attaches to files), worm (self-replicates), Trojan (disguised), ransomware (encrypts files)',
@@ -9192,7 +11199,10 @@ Conclusion: the wording of a question can alter memory — has implications for 
             'Data Protection principles: purpose limitation, data minimisation, accuracy, storage limitation, security',
             'Digital divide: not just rich vs poor countries — also elderly vs young, urban vs rural within same country',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ]},
         { title:'Systems & Control', icon:'⚙️', topics:[
           { title:'Systems Analysis & Design', points:[
             'Systems life cycle: analysis → design → implementation → testing → evaluation → maintenance',
@@ -9216,7 +11226,13 @@ Process: microprocessor compares readings to set levels
 Outputs: heaters (if too cold), fans (if too hot), lights (if too dark)
 Feedback: sensors continuously monitor; system adjusts automatically
 Advantage: no human needed; works 24/7; consistent conditions for plants`},
-        ]},
+        ], examTips:[
+            'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
+            'Give specific examples for every advantage or disadvantage you state',
+          ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ]},
         { title:'Multimedia & Communication', icon:'🎨', topics:[
           { title:'Multimedia Components', points:[
             'Multimedia: combination of text, images, audio, video, animation in a digital product',
@@ -9246,8 +11262,26 @@ MP3 compression at 10:1 ratio → ~88 KB`},
             'HTML structure: DOCTYPE → html → head (title, css) → body (content)',
             'Presentation software: PowerPoint/Impress; slides, transitions, animations — use sparingly',
           ]},
-        ]},
-      ],
+        ], examTips:[
+            'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
+            'Give specific examples for every advantage or disadvantage you state',
+          ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ], examTips:[
+            'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
+            'Give specific examples for every advantage or disadvantage you state',
+          ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ]},
+      ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ],
       edexcel: [
         { title:'Hardware & Systems Architecture', icon:'🖥️', topics:[
           { title:'Computer Hardware Components', points:[
@@ -9268,7 +11302,10 @@ MP3 compression at 10:1 ratio → ~88 KB`},
             'Application software: word processor, spreadsheet, database, graphic design, browsers',
             'Utility software: anti-virus, disk defragmenter, file compression, backup software, firewall',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ]},
         { title:'Networks & Cybersecurity', icon:'🌐', topics:[
           { title:'Networking Concepts', points:[
             'LAN (Local Area Network): small geographic area (school, office); uses Ethernet/Wi-Fi',
@@ -9293,7 +11330,16 @@ Plaintext:  HELLO
 Ciphertext: KHOOR
 Decryption: shift back by 3
 Modern encryption (AES, RSA) is mathematically complex — not breakable by simple frequency analysis`},
-        ]},
+        ], examTips:[
+            'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
+            'Give specific examples for every advantage or disadvantage you state',
+          ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ]},
         { title:'Data Handling & Spreadsheets', icon:'📊', topics:[
           { title:'Databases', points:[
             'Database: organised collection of related data; managed by DBMS',
@@ -9309,7 +11355,19 @@ Modern encryption (AES, RSA) is mathematically complex — not breakable by simp
             'VLOOKUP: =VLOOKUP(lookup_value, table_range, column_index, FALSE)',
             'Charts: bar (compare), line (trends), pie (proportions), scatter (correlation)',
           ]},
-        ]},
+        ], examTips:[
+            'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
+            'Give specific examples for every advantage or disadvantage you state',
+          ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ], examTips:[
+            'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
+            'Give specific examples for every advantage or disadvantage you state',
+          ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ]},
         { title:'Digital Communication & Ethics', icon:'📱', topics:[
           { title:'Communication Technologies', points:[
             'Email, VoIP (Skype/Zoom), cloud computing, social media, e-commerce',
@@ -9324,8 +11382,26 @@ Modern encryption (AES, RSA) is mathematically complex — not breakable by simp
             'Environmental impact: e-waste from old devices; data centres consume massive energy',
             'Digital divide: inequality of access to technology between and within countries',
           ]},
-        ]},
-      ],
+        ], examTips:[
+            'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
+            'Give specific examples for every advantage or disadvantage you state',
+          ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ], examTips:[
+            'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
+            'Give specific examples for every advantage or disadvantage you state',
+          ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ]},
+      ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ],
       oxford: [
         { title:'Digital Systems (Oxford AQA ICT)', icon:'💻', topics:[
           { title:'Hardware & Software', points:[
@@ -9347,7 +11423,13 @@ Modern encryption (AES, RSA) is mathematically complex — not breakable by simp
             'Compression: lossy (removes data permanently — JPEG, MP3) vs lossless (recoverable — PNG, FLAC)',
             'Encryption: scrambles data using a key; only authorised users with the key can decrypt',
           ]},
-        ]},
+        ], examTips:[
+            'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
+            'Give specific examples for every advantage or disadvantage you state',
+          ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ]},
         { title:'Networks & Online Safety (Oxford AQA)', icon:'🌐', topics:[
           { title:'Networks', points:[
             'LAN: small area (school, office); WAN: large geographic area; internet = global WAN',
@@ -9366,7 +11448,10 @@ Modern encryption (AES, RSA) is mathematically complex — not breakable by simp
           ], examTips:[
             'Oxford AQA ICT online safety: give specific, practical advice — not vague ("be careful") but "don\'t share your password with anyone, including friends"',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ]},
         { title:'Spreadsheets & Databases (Oxford AQA)', icon:'📊', topics:[
           { title:'Spreadsheet Skills', points:[
             'Cell reference: column letter + row number (B4); absolute $B$4 locked when copied',
@@ -9385,7 +11470,13 @@ Modern encryption (AES, RSA) is mathematically complex — not breakable by simp
             'Oxford AQA practical tasks: save your work frequently; use meaningful file names; follow the exact format specified in the question',
             'Database vs spreadsheet: database better for multiple related tables and complex queries; spreadsheet better for calculations and charts',
           ]},
-        ]},
+        ], examTips:[
+            'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
+            'Give specific examples for every advantage or disadvantage you state',
+          ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ]},
         { title:'Networks, Security & Emerging Tech (Oxford AQA)', icon:'🌐', topics:[
           { title:'Networks & Communication', points:[
             'LAN (Local Area Network): small geographic area (school, office); connected by cables or WiFi',
@@ -9420,7 +11511,10 @@ Modern encryption (AES, RSA) is mathematically complex — not breakable by simp
             'Practical marks: lost for wrong font size, missing header/footer, wrong file format — check the mark scheme requirements',
             'Theory questions: if asked to "give two reasons", write exactly two — extra reasons are not marked and waste time',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
+            'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
+          ]},
       ],
     }
   },
@@ -9456,7 +11550,25 @@ Modern encryption (AES, RSA) is mathematically complex — not breakable by simp
             'Use connectives: "Similarly...", "In contrast...", "Both poets...", "However...", "Whereas..."',
             'Avoid just describing — analyse WHY the poet made each choice and its effect on the reader',
           ]},
-        ]},
+        ], examTips:[
+            'Every paragraph needs: a point, a well-chosen embedded quote, and analysis of effect on the reader',
+            'Avoid plot summary — ask yourself how the writer presents this, not what happens',
+          ], commonMistakes:[
+            'Retelling plot instead of analysing the writer craft — always answer how the writer presents the theme',
+            'Using long block quotes without analysis — short embedded quotes with detailed analysis score more marks',
+          ], examTips:[
+            'Every paragraph needs: a point, a well-chosen embedded quote, and analysis of effect on the reader',
+            'Avoid plot summary — ask yourself how the writer presents this, not what happens',
+          ], commonMistakes:[
+            'Retelling plot instead of analysing the writer craft — always answer how the writer presents the theme',
+            'Using long block quotes without analysis — short embedded quotes with detailed analysis score more marks',
+          ], examTips:[
+            'Every paragraph needs: a point, a well-chosen embedded quote, and analysis of effect on the reader',
+            'Avoid plot summary — ask yourself how the writer presents this, not what happens',
+          ], commonMistakes:[
+            'Retelling plot instead of analysing the writer craft — always answer how the writer presents the theme',
+            'Using long block quotes without analysis — short embedded quotes with detailed analysis score more marks',
+          ]},
         { title:'Prose (Novels & Short Stories)', icon:'📖', topics:[
           { title:'Analysing Prose Fiction', points:[
             'Narrative voice: first person (I — intimate, limited view), third person (omniscient — knows all)',
@@ -9472,7 +11584,19 @@ Modern encryption (AES, RSA) is mathematically complex — not breakable by simp
             'Consider motivation: why does the character act this way?',
             'Consider relationship between characters and power dynamics',
           ]},
-        ]},
+        ], examTips:[
+            'Every paragraph needs: a point, a well-chosen embedded quote, and analysis of effect on the reader',
+            'Avoid plot summary — ask yourself how the writer presents this, not what happens',
+          ], commonMistakes:[
+            'Retelling plot instead of analysing the writer craft — always answer how the writer presents the theme',
+            'Using long block quotes without analysis — short embedded quotes with detailed analysis score more marks',
+          ], examTips:[
+            'Every paragraph needs: a point, a well-chosen embedded quote, and analysis of effect on the reader',
+            'Avoid plot summary — ask yourself how the writer presents this, not what happens',
+          ], commonMistakes:[
+            'Retelling plot instead of analysing the writer craft — always answer how the writer presents the theme',
+            'Using long block quotes without analysis — short embedded quotes with detailed analysis score more marks',
+          ]},
         { title:'Drama', icon:'🎭', topics:[
           { title:'Analysing Drama Texts', points:[
             'Stage directions: writer\'s instructions for how play should be performed — not just decoration',
@@ -9495,7 +11619,13 @@ Modern encryption (AES, RSA) is mathematically complex — not breakable by simp
 Point: Heaney presents the father as a skilled craftsman who commands admiration.
 Evidence: "His licking straps / Once looped, it slung and swung / Till the chains would jounce and jingle."
 Analysis: The dynamic verbs "licking", "slung", "swung" and the onomatopoeic "jounce and jingle" create a sense of energy and mastery, conveying the young speaker's awe of his father's physical competence.`},
-        ]},
+        ], examTips:[
+            'Every paragraph needs: a point, a well-chosen embedded quote, and analysis of effect on the reader',
+            'Avoid plot summary — ask yourself how the writer presents this, not what happens',
+          ], commonMistakes:[
+            'Retelling plot instead of analysing the writer craft — always answer how the writer presents the theme',
+            'Using long block quotes without analysis — short embedded quotes with detailed analysis score more marks',
+          ]},
         { title:'Themes & Context', icon:'🌍', topics:[
           { title:'Common Literary Themes', points:[
             'Power & control: who holds power? How is it maintained or subverted? (Animal Farm, Macbeth)',
@@ -9515,8 +11645,20 @@ Analysis: The dynamic verbs "licking", "slung", "swung" and the onomatopoeic "jo
             'Edexcel Literature: longer essays with more focus on whole-text argument — develop a thesis statement',
             'Shakespeare questions: reference theatrical context (performances, Elizabethan/Jacobean audience expectations)',
           ]},
-        ]},
-      ],
+        ], examTips:[
+            'Every paragraph needs: a point, a well-chosen embedded quote, and analysis of effect on the reader',
+            'Avoid plot summary — ask yourself how the writer presents this, not what happens',
+          ], commonMistakes:[
+            'Retelling plot instead of analysing the writer craft — always answer how the writer presents the theme',
+            'Using long block quotes without analysis — short embedded quotes with detailed analysis score more marks',
+          ]},
+      ], commonMistakes:[
+            'Retelling plot instead of analysing the writer craft — always answer how the writer presents the theme',
+            'Using long block quotes without analysis — short embedded quotes with detailed analysis score more marks',
+          ], commonMistakes:[
+            'Retelling plot instead of analysing the writer craft — always answer how the writer presents the theme',
+            'Using long block quotes without analysis — short embedded quotes with detailed analysis score more marks',
+          ],
       edexcel: [
         { title:'Poetry (Edexcel Anthology)', icon:'🎵', topics:[
           { title:'Edexcel Poetry Anthology', points:[
@@ -9539,7 +11681,16 @@ Analysis: The dynamic verbs "licking", "slung", "swung" and the onomatopoeic "jo
           ], workedExample:`Line: "The trees are coming into leaf / Like something almost being said"
 Technique: simile ("like something almost being said")
 Effect: Philip Larkin compares spring growth to speech not quite spoken — creates a sense of hesitancy and unfulfilled promise. The vague "something" suggests the speaker cannot articulate the feeling spring evokes, conveying both wonder and melancholy.`},
-        ]},
+        ], examTips:[
+            'Every paragraph needs: a point, a well-chosen embedded quote, and analysis of effect on the reader',
+            'Avoid plot summary — ask yourself how the writer presents this, not what happens',
+          ], commonMistakes:[
+            'Retelling plot instead of analysing the writer craft — always answer how the writer presents the theme',
+            'Using long block quotes without analysis — short embedded quotes with detailed analysis score more marks',
+          ], commonMistakes:[
+            'Retelling plot instead of analysing the writer craft — always answer how the writer presents the theme',
+            'Using long block quotes without analysis — short embedded quotes with detailed analysis score more marks',
+          ]},
         { title:'Prose (Edexcel Texts)', icon:'📖', topics:[
           { title:'Prose Analysis', points:[
             'Edexcel prose: extract-based question + whole-text essay question',
@@ -9561,7 +11712,16 @@ Effect: Philip Larkin compares spring growth to speech not quite spoken — crea
           ], workedExample:`Essay thesis (Macbeth):
 "Shakespeare presents Macbeth as a man destroyed by ambition, but it is Lady Macbeth who initially represents the more calculating evil — suggesting that guilt ultimately affects those with conscience more than those without."
 This thesis establishes a comparison (Macbeth vs Lady Macbeth) and makes an argument about guilt — it can be developed across the whole essay.`},
-        ]},
+        ], examTips:[
+            'Every paragraph needs: a point, a well-chosen embedded quote, and analysis of effect on the reader',
+            'Avoid plot summary — ask yourself how the writer presents this, not what happens',
+          ], commonMistakes:[
+            'Retelling plot instead of analysing the writer craft — always answer how the writer presents the theme',
+            'Using long block quotes without analysis — short embedded quotes with detailed analysis score more marks',
+          ], commonMistakes:[
+            'Retelling plot instead of analysing the writer craft — always answer how the writer presents the theme',
+            'Using long block quotes without analysis — short embedded quotes with detailed analysis score more marks',
+          ]},
         { title:'Exam Technique (Edexcel Literature)', icon:'✍️', topics:[
           { title:'Essay Writing for Edexcel', points:[
             'Introduction: state your argument clearly in 2–3 sentences; do not retell plot',
@@ -9597,7 +11757,13 @@ This thesis establishes a comparison (Macbeth vs Lady Macbeth) and makes an argu
             'Unseen: the first thing to do is identify TONE — this guides your entire analysis',
             'Comparison questions: make 3–4 direct comparisons; avoid "Text A does this. Text B does that." — interweave them',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Retelling plot instead of analysing the writer craft — always answer how the writer presents the theme',
+            'Using long block quotes without analysis — short embedded quotes with detailed analysis score more marks',
+          ], commonMistakes:[
+            'Retelling plot instead of analysing the writer craft — always answer how the writer presents the theme',
+            'Using long block quotes without analysis — short embedded quotes with detailed analysis score more marks',
+          ]},
       ],
       oxford: [
         { title:'Poetry (Oxford AQA)', icon:'✍️', topics:[
@@ -9636,7 +11802,10 @@ Effect: The comparison of the speaker to a cloud suggests aimlessness and detach
             'Paraphrasing the poem instead of analysing the language choices',
             'Forgetting to comment on the effect of sound techniques (alliteration, assonance) on the reader',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Retelling plot instead of analysing the writer craft — always answer how the writer presents the theme',
+            'Using long block quotes without analysis — short embedded quotes with detailed analysis score more marks',
+          ]},
         { title:'Prose Fiction (Oxford AQA)', icon:'📖', topics:[
           { title:'Analysing Prose Extracts', points:[
             'Oxford AQA prose: close reading of an extract plus a whole-text question on studied novel',
@@ -9664,7 +11833,10 @@ Analysis: The violent verb "exploded" and the finality of "ceased to exist" sugg
             'Oxford AQA: essays must argue a position — state it clearly in the introduction and return to it in the conclusion',
             'Use vocabulary of literary analysis: "Golding presents...", "this implies...", "the reader is invited to consider..."',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Retelling plot instead of analysing the writer craft — always answer how the writer presents the theme',
+            'Using long block quotes without analysis — short embedded quotes with detailed analysis score more marks',
+          ]},
         { title:'Drama & Exam Technique', icon:'🎭', topics:[
           { title:'Analysing Drama', points:[
             'Oxford AQA drama: study of one Shakespeare play and/or one modern drama text',
@@ -9701,8 +11873,17 @@ This intro: states a clear argument, references context (Jacobean audience), and
             'Learning quotes without knowing their context — examiners can tell when quotes are dropped in without understanding',
             'Spending revision time re-reading texts rather than practising timed essay writing',
           ]},
-        ]},
-      ],
+        ], commonMistakes:[
+            'Retelling plot instead of analysing the writer craft — always answer how the writer presents the theme',
+            'Using long block quotes without analysis — short embedded quotes with detailed analysis score more marks',
+          ]},
+      ], examTips:[
+            'Every paragraph needs: a point, a well-chosen embedded quote, and analysis of effect on the reader',
+            'Avoid plot summary — ask yourself how the writer presents this, not what happens',
+          ], examTips:[
+            'Every paragraph needs: a point, a well-chosen embedded quote, and analysis of effect on the reader',
+            'Avoid plot summary — ask yourself how the writer presents this, not what happens',
+          ],
     }
   },
   french: {
@@ -9736,7 +11917,25 @@ This intro: states a clear argument, references context (Jacobean audience), and
             'Object pronouns: le/la/les (direct), lui/leur (indirect) — placed before verb',
             'Relative pronouns: qui (subject), que (object), où (place/time)',
           ]},
-        ]},
+        ], examTips:[
+            'Use at least three tenses in writing tasks — past, present, future — to access higher mark bands',
+            'Check adjective agreement before submitting: gender and number must match the noun',
+          ], commonMistakes:[
+            'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
+            'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
+          ], examTips:[
+            'Use at least three tenses in writing tasks — past, present, future — to access higher mark bands',
+            'Check adjective agreement before submitting: gender and number must match the noun',
+          ], commonMistakes:[
+            'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
+            'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
+          ], examTips:[
+            'Use at least three tenses in writing tasks — past, present, future — to access higher mark bands',
+            'Check adjective agreement before submitting: gender and number must match the noun',
+          ], commonMistakes:[
+            'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
+            'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
+          ]},
         { title:'Topic Vocabulary', icon:'🗣️', topics:[
           { title:'Personal Life & Identity', points:[
             'Family: la famille, les parents, le frère, la sœur, les grands-parents, l\'oncle, la tante',
@@ -9759,7 +11958,25 @@ This intro: states a clear argument, references context (Jacobean audience), and
             'Healthy living: manger équilibré, faire du sport, éviter le tabac et l\'alcool',
             'Travel: les vacances, l\'hôtel, le camping, prendre l\'avion/le train, les pays francophones',
           ]},
-        ]},
+        ], examTips:[
+            'Use at least three tenses in writing tasks — past, present, future — to access higher mark bands',
+            'Check adjective agreement before submitting: gender and number must match the noun',
+          ], commonMistakes:[
+            'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
+            'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
+          ], examTips:[
+            'Use at least three tenses in writing tasks — past, present, future — to access higher mark bands',
+            'Check adjective agreement before submitting: gender and number must match the noun',
+          ], commonMistakes:[
+            'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
+            'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
+          ], examTips:[
+            'Use at least three tenses in writing tasks — past, present, future — to access higher mark bands',
+            'Check adjective agreement before submitting: gender and number must match the noun',
+          ], commonMistakes:[
+            'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
+            'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
+          ]},
         { title:'Exam Skills', icon:'✍️', topics:[
           { title:'Listening & Reading Strategies', points:[
             'Skim read first to get the gist before attempting detailed comprehension',
@@ -9783,7 +12000,13 @@ This intro: states a clear argument, references context (Jacobean audience), and
 Basic: Je vais au cinéma. (1 tense, no detail)
 Better: Ce weekend, je vais aller au cinéma avec mes amis. Hier, j'ai regardé un film à la télé, mais je préfère sortir. J'adore les films d'action parce qu'ils sont passionnants.
 (3 tenses + opinion + reason + connective = target grade response)`},
-        ]},
+        ], examTips:[
+            'Use at least three tenses in writing tasks — past, present, future — to access higher mark bands',
+            'Check adjective agreement before submitting: gender and number must match the noun',
+          ], commonMistakes:[
+            'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
+            'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
+          ]},
         { title:'Grammar Reference', icon:'📋', topics:[
           { title:'Key Verb Tables', points:[
             'AVOIR (to have): j\'ai, tu as, il a, nous avons, vous avez, ils ont',
@@ -9802,8 +12025,26 @@ Better: Ce weekend, je vais aller au cinéma avec mes amis. Hier, j'ai regardé 
             'Past participle agreement with être verbs is a common mark-losing error — always check gender/number',
             'ne...pas wraps around auxiliary in compound tenses: je n\'ai PAS mangé; elle n\'est PAS allée',
           ]},
-        ]},
-      ],
+        ], examTips:[
+            'Use at least three tenses in writing tasks — past, present, future — to access higher mark bands',
+            'Check adjective agreement before submitting: gender and number must match the noun',
+          ], commonMistakes:[
+            'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
+            'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
+          ]},
+      ], commonMistakes:[
+            'Answering comprehension questions from general knowledge rather than text evidence',
+            'Losing marks by translating too literally — maintain the meaning and natural flow in the target language',
+          ], commonMistakes:[
+            'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
+            'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
+          ], commonMistakes:[
+            'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
+            'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
+          ], commonMistakes:[
+            'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
+            'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
+          ],
       edexcel: [
         { title:'Edexcel French — Core Grammar', icon:'📝', topics:[
           { title:'Tenses (Edexcel Focus)', points:[
@@ -9830,7 +12071,22 @@ Better: Ce weekend, je vais aller au cinéma avec mes amis. Hier, j'ai regardé 
             'Intensifiers: très (very), assez (quite), trop (too), vraiment (really), plutôt (rather)',
             'Connectives for writing: cependant (however), de plus (furthermore), néanmoins (nevertheless), pourtant (yet)',
           ]},
-        ]},
+        ], examTips:[
+            'Use at least three tenses in writing tasks — past, present, future — to access higher mark bands',
+            'Check adjective agreement before submitting: gender and number must match the noun',
+          ], commonMistakes:[
+            'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
+            'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
+          ], examTips:[
+            'Use at least three tenses in writing tasks — past, present, future — to access higher mark bands',
+            'Check adjective agreement before submitting: gender and number must match the noun',
+          ], commonMistakes:[
+            'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
+            'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
+          ], commonMistakes:[
+            'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
+            'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
+          ]},
         { title:'Edexcel French — Skills', icon:'🎧', topics:[
           { title:'Listening & Reading Skills', points:[
             'Edexcel Listening Paper: multiple choice, gap-fill, short answer — listen for gist and detail',
@@ -9853,7 +12109,16 @@ Mon quartier s'appelle Nottingham. C'est une grande ville dans le centre de l'An
 Il y a beaucoup de choses à faire — par exemple, on peut visiter des musées, faire du shopping et aller au cinéma.
 À mon avis, ma ville est assez animée mais il y a trop de circulation. Cependant, les transports en commun sont excellents.
 [Uses: present tense, opinion phrases, intensifiers, connective, adjective agreement]`},
-        ]},
+        ], examTips:[
+            'Use at least three tenses in writing tasks — past, present, future — to access higher mark bands',
+            'Check adjective agreement before submitting: gender and number must match the noun',
+          ], commonMistakes:[
+            'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
+            'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
+          ], commonMistakes:[
+            'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
+            'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
+          ]},
         { title:'Edexcel French — Exam Paper Structure', icon:'📋', topics:[
           { title:'Paper Overview', points:[
             'Paper 1: Listening (35 mins + 5 reading time) — 50 marks',
@@ -9866,7 +12131,10 @@ Il y a beaucoup de choses à faire — par exemple, on peut visiter des musées,
             'General conversation in speaking: give extended answers — aim for 3–4 sentences per answer',
             'Photo card: describe what you see, say what might happen next, give your opinion with reason',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
+            'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
+          ]},
         { title:'Edexcel French — Advanced Grammar', icon:'📐', topics:[
           { title:'Subjunctive, Passive & Complex Structures', points:[
             'Subjunctive (le subjonctif): required after il faut que, bien que, pour que, je veux que, avant que',
@@ -9903,8 +12171,17 @@ Il y a beaucoup de choses à faire — par exemple, on peut visiter des musées,
           ], workedExample:`Translate: "If the weather were better, we would go to the beach more often."
 Si le temps était meilleur, nous irions à la plage plus souvent.
 Structure: si + imparfait (était) + conditionnel (irions) — classic "si clause" for hypothetical situations`},
-        ]},
-      ],
+        ], commonMistakes:[
+            'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
+            'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
+          ], commonMistakes:[
+            'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
+            'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
+          ]},
+      ], commonMistakes:[
+            'Confusing ser (permanent/identity) and estar (temporary state/location) — these are tested heavily',
+            'Using masculine adjective forms for feminine nouns — check the gender of the noun first',
+          ],
       oxford: [
         { title:'Grammar Foundations', icon:'📝', topics:[
           { title:'Core Grammar (Oxford AQA)', points:[
@@ -9944,7 +12221,13 @@ Structure: si + imparfait (était) + conditionnel (irions) — classic "si claus
             'Subjunctive instantly boosts writing grade — use: "Il faut que tu fasses tes devoirs" or "bien que ce soit difficile"',
             'Oxford AQA Higher: including one subjunctive or passive construction signals advanced grammar competence',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Confusing ser (permanent/identity) and estar (temporary state/location) — these are tested heavily',
+            'Using masculine adjective forms for feminine nouns — check the gender of the noun first',
+          ], commonMistakes:[
+            'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
+            'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
+          ]},
         { title:'Themes & Vocabulary', icon:'💬', topics:[
           { title:'Identity, Family & Relationships', points:[
             'Family vocabulary: les parents (parents), le frère/la sœur (brother/sister), les grands-parents, le beau-père (stepfather)',
@@ -9982,7 +12265,10 @@ Si tout le monde faisait un effort, on pourrait réduire la pollution considéra
             'Using masculine job titles for female subjects — "elle est médecin" (no article; no feminine for many professions)',
             'Forgetting that school subjects in French are often plural: "les mathématiques", "les sciences"',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
+            'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
+          ]},
         { title:'Listening & Reading Skills', icon:'🎧', topics:[
           { title:'Listening Strategies', points:[
             'Oxford AQA Listening: questions in English, recording in French; multiple choice, gap-fill, short answer',
@@ -10007,7 +12293,10 @@ Si tout le monde faisait un effort, on pourrait réduire la pollution considéra
             'Translation task: work word by word first, then re-read for natural English flow; check tenses are correctly translated',
             'Inference questions: use evidence from the text to justify your answer — do not guess from general knowledge',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
+            'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
+          ]},
         { title:'Writing & Speaking', icon:'✍️', topics:[
           { title:'Writing Skills & Tasks', points:[
             'Oxford AQA Writing Paper: structured tasks + extended writing (essay 90+ words) + translation into French',
@@ -10039,7 +12328,10 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
             'Stopping and saying "I don\'t know" — paraphrase instead: "je ne connais pas le mot exact, mais..."',
           ]},
         ]},
-      ],
+      ], examTips:[
+            'Use at least three tenses in writing tasks — past, present, future — to access higher mark bands',
+            'Check adjective agreement before submitting: gender and number must match the noun',
+          ],
     }
   },
   arabic_lang: {
@@ -10065,7 +12357,25 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
             'Narrative text: characters, setting, plot, dialogue',
             'Formal vs informal register: formal uses correct grammar and no slang; identify appropriately',
           ]},
-        ]},
+        ], examTips:[
+            'Use a range of tenses in all writing tasks — include at least preterite, present, and future',
+            'Check gender agreement for all adjectives — masculine and feminine forms differ for most adjectives',
+          ], commonMistakes:[
+            'Confusing ser (permanent/identity) and estar (temporary state/location) — these are tested heavily',
+            'Using masculine adjective forms for feminine nouns — check the gender of the noun first',
+          ], examTips:[
+            'Read the questions before the passage to know what to look for',
+            'Quote directly from the text to support comprehension answers — do not paraphrase without evidence',
+          ], commonMistakes:[
+            'Answering comprehension questions from general knowledge rather than text evidence',
+            'Losing marks by translating too literally — maintain the meaning and natural flow in the target language',
+          ], examTips:[
+            'Read the questions before the passage to know what to look for',
+            'Quote directly from the text to support comprehension answers — do not paraphrase without evidence',
+          ], commonMistakes:[
+            'Answering comprehension questions from general knowledge rather than text evidence',
+            'Losing marks by translating too literally — maintain the meaning and natural flow in the target language',
+          ]},
         { title:'Writing Skills', icon:'✍️', topics:[
           { title:'Formal Writing (Composition)', points:[
             'Essay structure: مقدمة (introduction) → عرض (body paragraphs) → خاتمة (conclusion)',
@@ -10088,7 +12398,13 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
 مقدمة: هل تعلم أن القراءة هي مفتاح العلم والمعرفة؟ يرى كثير من المفكرين أن الكتاب خير جليس في الأنام.
 عرض: تساهم القراءة في تنمية المهارات اللغوية وتوسيع المدارك، فضلاً عن تقوية الذاكرة. علاوة على ذلك، تُعدّ وسيلةً للترفيه الهادف.
 خاتمة: وختاماً، أدعو كل شاب إلى أن يجعل القراءة عادةً يومية لا غنى عنها.`},
-        ]},
+        ], examTips:[
+            'Read the questions before the passage to know what to look for',
+            'Quote directly from the text to support comprehension answers — do not paraphrase without evidence',
+          ], commonMistakes:[
+            'Answering comprehension questions from general knowledge rather than text evidence',
+            'Losing marks by translating too literally — maintain the meaning and natural flow in the target language',
+          ]},
         { title:'Listening & Speaking', icon:'🎧', topics:[
           { title:'Listening Techniques', points:[
             'Before listening: read questions carefully, predict topic from context',
@@ -10117,7 +12433,19 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
             'Emphasis: لا شك أن | من الواضح أن | الجدير بالذكر أن | من المهم أن نُشير إلى',
             'Conclusion: وختاماً | وفي الخلاصة | ومما سبق يتضح | لذلك يمكن القول',
           ]},
-        ]},
+        ], examTips:[
+            'Read the questions before the passage to know what to look for',
+            'Quote directly from the text to support comprehension answers — do not paraphrase without evidence',
+          ], commonMistakes:[
+            'Answering comprehension questions from general knowledge rather than text evidence',
+            'Losing marks by translating too literally — maintain the meaning and natural flow in the target language',
+          ], commonMistakes:[
+            'Answering comprehension questions from general knowledge rather than text evidence',
+            'Losing marks by translating too literally — maintain the meaning and natural flow in the target language',
+          ], commonMistakes:[
+            'Answering comprehension questions from general knowledge rather than text evidence',
+            'Losing marks by translating too literally — maintain the meaning and natural flow in the target language',
+          ]},
       ],
     }
   },
@@ -10149,7 +12477,22 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
             'Status of women: equal spiritual status; specific roles in family; scholars debate modernity and tradition',
             'Environmental responsibility: humans are khalifah — must protect earth, avoid israf (waste)',
           ]},
-        ]},
+        ], examTips:[
+            'Present at least two different religious perspectives on every ethical issue',
+            'Structure evaluate questions: agree (3 reasons) → disagree (3 reasons) → balanced conclusion with your judgement',
+          ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ], examTips:[
+            'Present at least two different religious perspectives on every ethical issue',
+            'Structure evaluate questions: agree (3 reasons) → disagree (3 reasons) → balanced conclusion with your judgement',
+          ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ]},
         { title:'Christianity', icon:'✝️', topics:[
           { title:'Beliefs & Practices', points:[
             'Trinity: God the Father, God the Son (Jesus), God the Holy Spirit — three persons, one God',
@@ -10165,7 +12508,13 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
             'Social justice: many Christians support action against poverty, inequality, discrimination',
             'Conscience: inner moral guide; some say it reflects divine guidance',
           ]},
-        ]},
+        ], examTips:[
+            'Present at least two different religious perspectives on every ethical issue',
+            'Structure evaluate questions: agree (3 reasons) → disagree (3 reasons) → balanced conclusion with your judgement',
+          ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ]},
         { title:'Philosophical Questions', icon:'🤔', topics:[
           { title:'Arguments for God\'s Existence', points:[
             'Cosmological argument: everything has a cause; universe must have a first cause → God',
@@ -10185,7 +12534,10 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
             'Reference specific thinkers/scholars: Bentham, Mill, Kant, Aquinas strengthen evaluation',
             'Ethical questions in RS: apply a named ethical theory, then apply a religious perspective (e.g. Islamic view on euthanasia)',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ]},
         { title:'Applied Ethics', icon:'⚖️', topics:[
           { title:'Life & Death Issues', points:[
             'Sanctity of life: life is sacred and God-given — no human has the right to take it (religious view)',
@@ -10212,7 +12564,22 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
             'Causes of global poverty: historical exploitation, debt, poor governance, natural disasters, inequality',
             'Faith responses: Christian Aid, Islamic Relief, Oxfam — religious organisations provide development aid',
           ]},
-        ]},
+        ], examTips:[
+            'Present at least two different religious perspectives on every ethical issue',
+            'Structure evaluate questions: agree (3 reasons) → disagree (3 reasons) → balanced conclusion with your judgement',
+          ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ], examTips:[
+            'Present at least two different religious perspectives on every ethical issue',
+            'Structure evaluate questions: agree (3 reasons) → disagree (3 reasons) → balanced conclusion with your judgement',
+          ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ]},
         { title:'Buddhism', icon:'☸️', topics:[
           { title:'Buddhist Beliefs & Practices', points:[
             'Four Noble Truths: suffering exists (dukkha), craving causes suffering (tanha), suffering can end (nirvana), the Eightfold Path leads to nirvana',
@@ -10231,7 +12598,13 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
             'Buddhism exam questions: link practices back to core beliefs — show how the belief motivates the action',
             'Distinguish Theravada (individual liberation, meditation) from Mahayana (bodhisattva path, helping all beings)',
           ]},
-        ]},
+        ], examTips:[
+            'Present at least two different religious perspectives on every ethical issue',
+            'Structure evaluate questions: agree (3 reasons) → disagree (3 reasons) → balanced conclusion with your judgement',
+          ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ]},
         { title:'Judaism', icon:'✡️', topics:[
           { title:'Jewish Beliefs & Practices', points:[
             'Monotheism: belief in one God (YHWH); Shema — "Hear O Israel, the Lord our God, the Lord is one"',
@@ -10247,8 +12620,23 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
             'Medical ethics: most Jews support medical research and treatment; organ donation generally permitted',
             'Holocaust (Shoah): destruction of 6 million Jews; raises profound questions about God and suffering (theodicy)',
           ]},
-        ]},
-      ],
+        ], examTips:[
+            'Present at least two different religious perspectives on every ethical issue',
+            'Structure evaluate questions: agree (3 reasons) → disagree (3 reasons) → balanced conclusion with your judgement',
+          ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ], examTips:[
+            'Present at least two different religious perspectives on every ethical issue',
+            'Structure evaluate questions: agree (3 reasons) → disagree (3 reasons) → balanced conclusion with your judgement',
+          ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ]},
+      ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ],
       edexcel: [
         { title:'Christianity: Beliefs & Teachings', icon:'✝️', topics:[
           { title:'Christian Beliefs', points:[
@@ -10268,7 +12656,13 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
             'Edexcel RS: know specific differences between denominations (Catholic vs Protestant vs Pentecostal) — they appear in questions',
             '"How important is..." questions: give a balanced view, then justify your conclusion based on evidence',
           ]},
-        ]},
+        ], examTips:[
+            'Present at least two different religious perspectives on every ethical issue',
+            'Structure evaluate questions: agree (3 reasons) → disagree (3 reasons) → balanced conclusion with your judgement',
+          ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ]},
         { title:'Christianity: Ethics & Issues', icon:'⚖️', topics:[
           { title:'Christian Views on Life & Death', points:[
             'Sanctity of life: life is sacred, created by God, belonging to God — basis for opposing abortion/euthanasia',
@@ -10287,7 +12681,16 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
             'Forgiveness: central to Christian ethics — "forgive us our trespasses as we forgive those who trespass against us"',
             'Aid and development: Christian Aid, CAFOD, Tearfund — practical expression of Christian love (agape)',
           ]},
-        ]},
+        ], examTips:[
+            'Present at least two different religious perspectives on every ethical issue',
+            'Structure evaluate questions: agree (3 reasons) → disagree (3 reasons) → balanced conclusion with your judgement',
+          ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ]},
         { title:'Islam: Beliefs & Teachings', icon:'☪️', topics:[
           { title:'Islamic Beliefs', points:[
             'Tawhid: oneness of Allah — the most fundamental belief; Allah has no partners, no equals, no form',
@@ -10306,7 +12709,13 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
             'Edexcel Islam: know Sunni AND Shia differences — e.g. Shia observe additional pillars (Khums, Imamate)',
             'Hajj question: list rituals in ORDER — Ihram → Mecca → tawaf → sa\'i → Mina → Arafah → Muzdalifah → Eid ul-Adha',
           ]},
-        ]},
+        ], examTips:[
+            'Present at least two different religious perspectives on every ethical issue',
+            'Structure evaluate questions: agree (3 reasons) → disagree (3 reasons) → balanced conclusion with your judgement',
+          ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ]},
         { title:'Islam: Ethics & Issues', icon:'📿', topics:[
           { title:'Islamic Views on Life & Death', points:[
             'Sanctity of life: "Do not take a life which Allah has made sacred" (Quran 6:151)',
@@ -10330,8 +12739,23 @@ Agree (Christian): Catholic: sanctity of life absolute; hospice movement (Christ
 Disagree: Quality of life argument — some argue a dignified death respects human dignity; situation ethics (Fletcher) — loving action may support euthanasia
 Disagree: Some liberal Protestants accept passive euthanasia; Netherlands: legal euthanasia with safeguards
 Conclusion: While most religious traditions oppose euthanasia on sanctity of life grounds, there is internal diversity and the debate remains complex — blanket statements oversimplify religious positions`},
-        ]},
-      ],
+        ], examTips:[
+            'Present at least two different religious perspectives on every ethical issue',
+            'Structure evaluate questions: agree (3 reasons) → disagree (3 reasons) → balanced conclusion with your judgement',
+          ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ]},
+      ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ],
       oxford: [
         { title:'Christianity (Oxford AQA)', icon:'✝️', topics:[
           { title:'Christian Beliefs & Practices', points:[
@@ -10352,7 +12776,16 @@ Conclusion: While most religious traditions oppose euthanasia on sanctity of lif
             'Natural Law (Aquinas): moral principles discoverable through reason; used in Catholic moral theology',
             'Justice and peace: Christian duty to work for social justice; Quakers = pacifist; just war theory criteria',
           ]},
-        ]},
+        ], examTips:[
+            'Present at least two different religious perspectives on every ethical issue',
+            'Structure evaluate questions: agree (3 reasons) → disagree (3 reasons) → balanced conclusion with your judgement',
+          ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ]},
         { title:'Islam (Oxford AQA)', icon:'☪️', topics:[
           { title:'Islamic Beliefs & Practices', points:[
             'Six Articles of Faith (Sunni): Tawhid (oneness of Allah), Angels, Holy Books, Prophets, Day of Judgement, Al-Qadar (predestination)',
@@ -10375,7 +12808,16 @@ Conclusion: While most religious traditions oppose euthanasia on sanctity of lif
 Agree: 5 daily prayers maintain constant connection with Allah; Prophet said "Salah is the pillar of religion"; distinguishes Muslim from non-Muslim
 Disagree: Shahada is foundational — without it, no other actions count; Zakah addresses social justice which has broader community impact; Hajj unites the ummah (global community)
 Conclusion: While Salah is central to daily Muslim life, the Shahada underpins all other practice — but all pillars are interconnected and each essential in different ways`},
-        ]},
+        ], examTips:[
+            'Present at least two different religious perspectives on every ethical issue',
+            'Structure evaluate questions: agree (3 reasons) → disagree (3 reasons) → balanced conclusion with your judgement',
+          ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ]},
         { title:'Ethics & Philosophy (Oxford AQA)', icon:'⚖️', topics:[
           { title:'Arguments for the Existence of God', points:[
             'Cosmological argument (Aquinas): everything has a cause; must be an uncaused first cause = God',
@@ -10400,7 +12842,10 @@ Conclusion: While Salah is central to daily Muslim life, the Shahada underpins a
             'Presenting only one religious perspective — always show diversity within and between traditions',
             'Confusing stewardship (caring for creation on behalf of God) with environmentalism (secular motivation)',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ]},
         { title:'Religion, Science & Society (Oxford AQA)', icon:'🔬', topics:[
           { title:'Science & Religion', points:[
             'Creation vs evolution: literal Genesis (6 days), day-age theory, theistic evolution, evolutionary naturalism',
@@ -10435,7 +12880,13 @@ Conclusion: While Salah is central to daily Muslim life, the Shahada underpins a
             'Evaluation conclusion: do not sit on the fence — take a position and justify it with the strongest evidence',
             'Paper 2 themes: link BOTH religions studied to each theme — examiners want comparative analysis, not just description',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ], commonMistakes:[
+            'Presenting only one religious viewpoint — always show diversity within and between traditions',
+            'Writing "religious people think..." without naming the specific religion or denomination',
+          ]},
       ],
     }
   },
@@ -10466,7 +12917,13 @@ Conclusion: While Salah is central to daily Muslim life, the Shahada underpins a
             'Kyoto Protocol (1997) vs Paris Agreement (2015): Paris is more inclusive with national targets (NDCs)',
             'For "evaluate" questions: always consider economic costs of solutions vs environmental benefits',
           ]},
-        ]},
+        ], examTips:[
+            'Link every environmental problem to a specific human activity as its cause',
+            'Suggest realistic, specific solutions — not just "reduce pollution" but "switch to renewable energy sources"',
+          ], commonMistakes:[
+            'Confusing mitigation (reducing the cause of climate change) with adaptation (adjusting to its effects)',
+            'Stating environmental problems without linking to specific causes or suggesting specific solutions',
+          ]},
         { title:'Water & Ecosystems', icon:'💧', topics:[
           { title:'Water Resources & Pollution', points:[
             'Hydrological cycle: evaporation → condensation → precipitation → runoff → infiltration',
@@ -10489,7 +12946,13 @@ Conclusion: While Salah is central to daily Muslim life, the Shahada underpins a
 Cause: agricultural runoff from surrounding farmland (phosphates and nitrates)
 Effect: algal blooms covering water surface → reduced light penetration → death of aquatic plants → bacteria consume oxygen → fish kills
 Management: buffer strips along waterways, reduced fertiliser application, phosphate stripping at sewage works`},
-        ]},
+        ], examTips:[
+            'Link every environmental problem to a specific human activity as its cause',
+            'Suggest realistic, specific solutions — not just "reduce pollution" but "switch to renewable energy sources"',
+          ], commonMistakes:[
+            'Confusing mitigation (reducing the cause of climate change) with adaptation (adjusting to its effects)',
+            'Stating environmental problems without linking to specific causes or suggesting specific solutions',
+          ]},
         { title:'Energy & Resources', icon:'⚡', topics:[
           { title:'Energy Sources', points:[
             'Non-renewable: coal, oil, natural gas, nuclear — finite; fossil fuels release CO₂',
@@ -10511,7 +12974,13 @@ Management: buffer strips along waterways, reduced fertiliser application, phosp
 Solar: Uses photovoltaic cells/thermal collectors. Advantages: no emissions, low running cost, modular. Disadvantages: intermittent, large land area, costly to install.
 HEP: Flowing water drives turbines. Advantages: reliable, large capacity, long lifespan. Disadvantages: dam construction floods valleys, displaces communities, affects fish migration.
 Suitability: HEP best for countries with large rivers (e.g. Brazil); solar best for sunny, arid regions (e.g. Saudi Arabia)`},
-        ]},
+        ], examTips:[
+            'Link every environmental problem to a specific human activity as its cause',
+            'Suggest realistic, specific solutions — not just "reduce pollution" but "switch to renewable energy sources"',
+          ], commonMistakes:[
+            'Confusing mitigation (reducing the cause of climate change) with adaptation (adjusting to its effects)',
+            'Stating environmental problems without linking to specific causes or suggesting specific solutions',
+          ]},
         { title:'Human Impact & Solutions', icon:'🌍', topics:[
           { title:'Population & Development', points:[
             'World population: 8 billion and growing — most growth in LICs',
@@ -10527,8 +12996,29 @@ Suitability: HEP best for countries with large rivers (e.g. Brazil); solar best 
             'Carbon offsetting: compensating for emissions by funding equivalent CO₂ reductions elsewhere',
             'Green technology: electric vehicles, LED lighting, smart grids, carbon capture and storage',
           ]},
-        ]},
-      ],
+        ], examTips:[
+            'Link every environmental problem to a specific human activity as its cause',
+            'Suggest realistic, specific solutions — not just "reduce pollution" but "switch to renewable energy sources"',
+          ], commonMistakes:[
+            'Confusing mitigation (reducing the cause of climate change) with adaptation (adjusting to its effects)',
+            'Stating environmental problems without linking to specific causes or suggesting specific solutions',
+          ], examTips:[
+            'Link every environmental problem to a specific human activity as its cause',
+            'Suggest realistic, specific solutions — not just "reduce pollution" but "switch to renewable energy sources"',
+          ], commonMistakes:[
+            'Confusing mitigation (reducing the cause of climate change) with adaptation (adjusting to its effects)',
+            'Stating environmental problems without linking to specific causes or suggesting specific solutions',
+          ]},
+      ], commonMistakes:[
+            'Confusing mitigation (reducing the cause of climate change) with adaptation (adjusting to its effects)',
+            'Stating environmental problems without linking to specific causes or suggesting specific solutions',
+          ], commonMistakes:[
+            'Confusing mitigation (reducing the cause of climate change) with adaptation (adjusting to its effects)',
+            'Stating environmental problems without linking to specific causes or suggesting specific solutions',
+          ], commonMistakes:[
+            'Confusing mitigation (reducing the cause of climate change) with adaptation (adjusting to its effects)',
+            'Stating environmental problems without linking to specific causes or suggesting specific solutions',
+          ],
     }
   },
   spanish: {
@@ -10560,7 +13050,10 @@ Suitability: HEP best for countries with large rivers (e.g. Brazil); solar best 
             'Adjective agreement: adjective must match gender and number (e.g. casas bonitas)',
             'Common false friends: embarazada (pregnant, not embarrassed); realizar (to achieve, not to realise)',
           ]},
-        ]},
+        ], commonMistakes:[
+            'Confusing ser (permanent/identity) and estar (temporary state/location) — these are tested heavily',
+            'Using masculine adjective forms for feminine nouns — check the gender of the noun first',
+          ]},
         { title:'Speaking & Writing', icon:'🗣️', topics:[
           { title:'Speaking Exam Skills', points:[
             'Role-play: use set phrases — Me gustaría... (I would like), ¿Podría...? (Could I...?)',
@@ -10605,7 +13098,16 @@ fui, fuiste, fue, fuimos, fuisteis, fueron
             'Comparatives: más...que (more than), menos...que (less than), tan...como (as...as)',
             'Superlatives: el/la más + adjective + de (the most...in/of)',
           ]},
-        ]},
+        ], examTips:[
+            'Use a range of tenses in all writing tasks — include at least preterite, present, and future',
+            'Check gender agreement for all adjectives — masculine and feminine forms differ for most adjectives',
+          ], commonMistakes:[
+            'Confusing ser (permanent/identity) and estar (temporary state/location) — these are tested heavily',
+            'Using masculine adjective forms for feminine nouns — check the gender of the noun first',
+          ], commonMistakes:[
+            'Confusing ser (permanent/identity) and estar (temporary state/location) — these are tested heavily',
+            'Using masculine adjective forms for feminine nouns — check the gender of the noun first',
+          ]},
         { title:'Topics & Vocabulary', icon:'🌍', topics:[
           { title:'Key IGCSE Topics', points:[
             'Identity & culture: family, relationships, social media, customs, festivals',
@@ -10614,7 +13116,13 @@ fui, fuiste, fue, fuimos, fuisteis, fueron
             'Lifestyle: health, diet, sport, leisure activities, technology',
             'Expressing preferences: prefiero (I prefer), me encanta (I love), no me gusta (I don\'t like)',
           ]},
-        ]},
+        ], examTips:[
+            'Use a range of tenses in all writing tasks — include at least preterite, present, and future',
+            'Check gender agreement for all adjectives — masculine and feminine forms differ for most adjectives',
+          ], commonMistakes:[
+            'Confusing ser (permanent/identity) and estar (temporary state/location) — these are tested heavily',
+            'Using masculine adjective forms for feminine nouns — check the gender of the noun first',
+          ]},
       ],
       edexcel: [
         { title:'Edexcel Spanish — Grammar', icon:'📝', topics:[
@@ -10638,7 +13146,16 @@ fui, fuiste, fue, fuimos, fuisteis, fueron
           ], workedExample:`Opinion sentence using full grammar range:
 "Cuando era pequeño, me gustaba jugar al fútbol, pero ahora prefiero la música porque es más creativa. En el futuro, me gustaría ser músico."
 Uses: imperfect (era, gustaba), present (prefiero, es), conditional (gustaría), porque, comparatives`},
-        ]},
+        ], examTips:[
+            'Use a range of tenses in all writing tasks — include at least preterite, present, and future',
+            'Check gender agreement for all adjectives — masculine and feminine forms differ for most adjectives',
+          ], commonMistakes:[
+            'Confusing ser (permanent/identity) and estar (temporary state/location) — these are tested heavily',
+            'Using masculine adjective forms for feminine nouns — check the gender of the noun first',
+          ], commonMistakes:[
+            'Confusing ser (permanent/identity) and estar (temporary state/location) — these are tested heavily',
+            'Using masculine adjective forms for feminine nouns — check the gender of the noun first',
+          ]},
         { title:'Edexcel Spanish — Themes', icon:'🌍', topics:[
           { title:'Edexcel Theme 1: Identity & Culture', points:[
             'Family & relationships: mi familia, las relaciones, el matrimonio, la amistad',
@@ -10660,7 +13177,25 @@ Uses: imperfect (era, gustaba), present (prefiero, es), conditional (gustaría),
             'Work & careers: el trabajo, el salario, la empresa (company), el jefe (boss), las prácticas (work experience)',
             'Higher education: la universidad, la carrera, la beca (scholarship)',
           ]},
-        ]},
+        ], examTips:[
+            'Use a range of tenses in all writing tasks — include at least preterite, present, and future',
+            'Check gender agreement for all adjectives — masculine and feminine forms differ for most adjectives',
+          ], commonMistakes:[
+            'Confusing ser (permanent/identity) and estar (temporary state/location) — these are tested heavily',
+            'Using masculine adjective forms for feminine nouns — check the gender of the noun first',
+          ], examTips:[
+            'Use a range of tenses in all writing tasks — include at least preterite, present, and future',
+            'Check gender agreement for all adjectives — masculine and feminine forms differ for most adjectives',
+          ], commonMistakes:[
+            'Confusing ser (permanent/identity) and estar (temporary state/location) — these are tested heavily',
+            'Using masculine adjective forms for feminine nouns — check the gender of the noun first',
+          ], examTips:[
+            'Use a range of tenses in all writing tasks — include at least preterite, present, and future',
+            'Check gender agreement for all adjectives — masculine and feminine forms differ for most adjectives',
+          ], commonMistakes:[
+            'Confusing ser (permanent/identity) and estar (temporary state/location) — these are tested heavily',
+            'Using masculine adjective forms for feminine nouns — check the gender of the noun first',
+          ]},
         { title:'Edexcel Spanish — Exam Skills', icon:'✍️', topics:[
           { title:'Listening & Reading (Edexcel)', points:[
             'Edexcel Paper 1 (Listening): questions in English; answers in English; 45 minutes',
@@ -10679,7 +13214,13 @@ Uses: imperfect (era, gustaba), present (prefiero, es), conditional (gustaría),
             'Translation task: most demanding part — learn key vocabulary, verb conjugations, and avoid word-for-word translation',
             'General conversation: give extended answers with reasons — "porque", "ya que", "debido a"',
           ]},
-        ]},
+        ], examTips:[
+            'Use a range of tenses in all writing tasks — include at least preterite, present, and future',
+            'Check gender agreement for all adjectives — masculine and feminine forms differ for most adjectives',
+          ], commonMistakes:[
+            'Confusing ser (permanent/identity) and estar (temporary state/location) — these are tested heavily',
+            'Using masculine adjective forms for feminine nouns — check the gender of the noun first',
+          ]},
       ],
       oxford: [
         { title:'Oxford AQA Spanish — Grammar', icon:'📝', topics:[
@@ -10703,7 +13244,13 @@ Uses: imperfect (era, gustaba), present (prefiero, es), conditional (gustaría),
             'Relative pronouns: que (that/which/who); donde (where); lo que (what/that which)',
             'Negatives: no...nunca, no...nada, no...nadie, no...ningún — double negative is correct in Spanish',
           ]},
-        ]},
+        ], examTips:[
+            'Use a range of tenses in all writing tasks — include at least preterite, present, and future',
+            'Check gender agreement for all adjectives — masculine and feminine forms differ for most adjectives',
+          ], commonMistakes:[
+            'Confusing ser (permanent/identity) and estar (temporary state/location) — these are tested heavily',
+            'Using masculine adjective forms for feminine nouns — check the gender of the noun first',
+          ]},
         { title:'Oxford AQA Spanish — Themes & Exam', icon:'🌍', topics:[
           { title:'Themes (Oxford AQA)', points:[
             'Theme 1: Identity and Culture — family, friendships, technology, social media, customs, values',
@@ -10722,7 +13269,13 @@ Uses: imperfect (era, gustaba), present (prefiero, es), conditional (gustaría),
             'Oxford AQA speaking: general conversation questions are open-ended — prepare 4–5 sentences per topic area',
             'Writing essay: plan before writing — 5-point plan (intro, point1, point2, counterpoint, conclusion) takes 2 mins and saves marks',
           ]},
-        ]},
+        ], examTips:[
+            'Use a range of tenses in all writing tasks — include at least preterite, present, and future',
+            'Check gender agreement for all adjectives — masculine and feminine forms differ for most adjectives',
+          ], commonMistakes:[
+            'Confusing ser (permanent/identity) and estar (temporary state/location) — these are tested heavily',
+            'Using masculine adjective forms for feminine nouns — check the gender of the noun first',
+          ]},
         { title:'Oxford AQA Spanish — Skills & Vocabulary', icon:'🎧', topics:[
           { title:'Listening & Reading Skills', points:[
             'Oxford AQA Listening: multiple choice, gap-fill, short answer — questions in English, recordings in Spanish',
@@ -10762,8 +13315,14 @@ Key: "llevo + time + gerund" for "have been doing"; "creo que" for "I think"; ad
             'Giving one-word answers in speaking — always extend: not "sí" but "Sí, porque..."',
             'Incorrect gender agreement in speaking ("el problema" is masculine, "la mano" is feminine despite -a ending)',
           ]},
-        ]},
-      ],
+        ], commonMistakes:[
+            'Confusing ser (permanent/identity) and estar (temporary state/location) — these are tested heavily',
+            'Using masculine adjective forms for feminine nouns — check the gender of the noun first',
+          ]},
+      ], commonMistakes:[
+            'Confusing ser (permanent/identity) and estar (temporary state/location) — these are tested heavily',
+            'Using masculine adjective forms for feminine nouns — check the gender of the noun first',
+          ],
     },
   },
 };
