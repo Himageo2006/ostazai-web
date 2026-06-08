@@ -50,6 +50,7 @@ let S = {
   igcseQuizScore: 0,    // score so far
   igcseQuizDone: false, // true when all questions finished
   igcseStreak: {count:0, lastDate:''}, // study streak tracker
+  igcseSearchBoard: 'all', // board filter for global search
 };
 let _pomTimer = null;
 
@@ -10701,9 +10702,220 @@ Object.values(IGCSE_SUBJECTS).forEach(subj => {
 function tplIGCSE() {
   if (S.igcseView === 'formulas') return tplIGCSEFormulas();
   if (S.igcseView === 'compare')  return tplIGCSECompare();
+  if (S.igcseView === 'search')   return tplIGCSEGlobalSearch();
   if (S.igcseTopic !== null)      return tplIGCSETopic();
   if (S.igcseSubject)             return tplIGCSESubject();
   return tplIGCSEHub();
+}
+
+function tplIGCSEGlobalSearch() {
+  const q = (S.igcseSearch || '').toLowerCase().trim();
+
+  // ── Collect results across ALL boards ──────────────────────────────
+  const results = []; // { sk, subj, board, boardKey, ch, ci, tp, ti, matchType, snippet }
+
+  if (q) {
+    Object.entries(IGCSE_SUBJECTS).forEach(([sk, subj]) => {
+      subj.boards.forEach(bk => {
+        const b = IGCSE_BOARDS[bk];
+        const chs = subj.chapters[bk] || subj.chapters.cie || [];
+        chs.forEach((ch, ci) => {
+          ch.topics.forEach((tp, ti) => {
+            const titleMatch = tp.title.toLowerCase().includes(q);
+            const pointMatch = tp.points && tp.points.some(p => p.toLowerCase().includes(q));
+            const examMatch  = tp.examTip && tp.examTip.toLowerCase().includes(q);
+            const chMatch    = ch.title.toLowerCase().includes(q);
+            const subjMatch  = subj.label.toLowerCase().includes(q) || (subj.arabic||'').includes(q);
+            if (titleMatch || pointMatch || examMatch || chMatch || subjMatch) {
+              // Avoid duplicates when boards share identical chapter data (fallback)
+              const dedupKey = `${sk}-${ci}-${ti}-${bk}`;
+              if (!results.find(r => r.dedupKey === dedupKey)) {
+                // Build a short snippet from matching point
+                let snippet = '';
+                if (pointMatch) {
+                  const mp = tp.points.find(p => p.toLowerCase().includes(q));
+                  const idx = mp.toLowerCase().indexOf(q);
+                  snippet = '…' + mp.slice(Math.max(0,idx-30), idx+60) + '…';
+                }
+                results.push({
+                  dedupKey, sk, subj, board: b, boardKey: bk, ch, ci, tp, ti,
+                  matchType: titleMatch ? 'title' : pointMatch ? 'point' : chMatch ? 'chapter' : 'subject',
+                  snippet
+                });
+              }
+            }
+          });
+        });
+      });
+    });
+  }
+
+  // ── Group by subject ───────────────────────────────────────────────
+  const bySubject = {};
+  results.forEach(r => {
+    if (!bySubject[r.sk]) bySubject[r.sk] = { subj: r.subj, sk: r.sk, items: [] };
+    bySubject[r.sk].items.push(r);
+  });
+
+  // ── Board filter chips ─────────────────────────────────────────────
+  const activeBoardFilter = S.igcseSearchBoard || 'all';
+  const boardCounts = {};
+  results.forEach(r => { boardCounts[r.boardKey] = (boardCounts[r.boardKey]||0)+1; });
+  const boardChips = [
+    { k:'all', label:'All Boards', icon:'🌐', count: results.length }
+  ].concat(Object.entries(IGCSE_BOARDS).map(([k,b]) => ({
+    k, label: b.short, icon: b.icon, count: boardCounts[k]||0, color: b.color
+  }))).map(chip => {
+    const active = activeBoardFilter === chip.k;
+    return `<button onclick="S.igcseSearchBoard='${chip.k}';render()"
+      style="display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:20px;border:1.5px solid ${active?(chip.color||'#6366F1'):'var(--border)'};
+             background:${active?(chip.color||'#6366F1')+'18':'transparent'};color:${active?(chip.color||'#6366F1'):'var(--text-muted)'};
+             cursor:pointer;font-family:Cairo,sans-serif;font-size:10px;font-weight:800;white-space:nowrap;transition:.15s">
+      <span>${chip.icon}</span><span>${chip.label}</span>
+      <span style="background:${active?(chip.color||'#6366F1'):'var(--border)'};color:${active?'#fff':'var(--text-muted)'};
+             border-radius:10px;padding:0 5px;font-size:9px">${chip.count}</span>
+    </button>`;
+  }).join('');
+
+  // ── Filter results by board ────────────────────────────────────────
+  const visibleResults = activeBoardFilter === 'all'
+    ? results
+    : results.filter(r => r.boardKey === activeBoardFilter);
+
+  // ── Group visible results by subject ──────────────────────────────
+  const visibleBySubject = {};
+  visibleResults.forEach(r => {
+    if (!visibleBySubject[r.sk]) visibleBySubject[r.sk] = { subj: r.subj, sk: r.sk, items: [] };
+    visibleBySubject[r.sk].items.push(r);
+  });
+
+  // ── Render result cards ────────────────────────────────────────────
+  const LIMIT = 40; // max results rendered
+  let renderedCount = 0;
+  const subjectBlocks = Object.values(visibleBySubject).map(({ subj, sk, items }) => {
+    const remaining = LIMIT - renderedCount;
+    if (remaining <= 0) return '';
+    const toShow = items.slice(0, remaining);
+    renderedCount += toShow.length;
+
+    const cards = toShow.map(r => {
+      const b = r.board;
+      const done = S.igcseDone[`${sk}-${r.ci}-${r.ti}`];
+      return `
+      <div onclick="S.igcseBoard='${r.boardKey}';S.igcseSubject='${sk}';S.igcseChapter=${r.ci};S.igcseTopic=${r.ti};S.igcseTab='notes';S.igcseView='list';S.igcseFcIdx=0;S.igcseFcFlipped=false;render()"
+        style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--bg-card);border:1px solid var(--border);
+               border-radius:12px;cursor:pointer;transition:.15s;border-left:3px solid ${b.color}"
+        onmouseover="this.style.background='${b.color}0a';this.style.borderColor='${b.color}'"
+        onmouseout="this.style.background='';this.style.borderColor=''">
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:2px">
+            <span style="font-size:11px;font-weight:900;color:var(--text)">${r.tp.title}</span>
+            ${done?`<span style="font-size:9px;background:#10B98120;color:#10B981;border-radius:6px;padding:1px 5px;font-weight:700">✓ Done</span>`:''}
+          </div>
+          <div style="font-size:9px;color:var(--text-muted);margin-bottom:${r.snippet?4:0}px">${r.ch.title}</div>
+          ${r.snippet?`<div style="font-size:9px;color:var(--text-muted);line-height:1.5;font-style:italic">${r.snippet.replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark style="background:#F59E0B30;color:#F59E0B;border-radius:2px;padding:0 2px">$1</mark>')}</div>`:''}
+        </div>
+        <span style="display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:10px;background:${b.color}18;color:${b.color};font-size:9px;font-weight:800;white-space:nowrap;flex-shrink:0">
+          ${b.icon} ${b.short}
+        </span>
+      </div>`;
+    }).join('');
+
+    return `
+    <div style="margin-bottom:16px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;padding:0 2px">
+        <span style="font-size:18px">${subj.icon}</span>
+        <span style="font-size:12px;font-weight:900;color:var(--text)">${subj.label}</span>
+        <span style="font-size:9px;background:${subj.color}18;color:${subj.color};border-radius:10px;padding:1px 7px;font-weight:700">${items.length} match${items.length>1?'es':''}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">${cards}</div>
+    </div>`;
+  }).join('');
+
+  // ── "No results" suggestions ───────────────────────────────────────
+  const popularSearches = ['cell division','photosynthesis','trigonometry','acids and bases','Newton\'s laws','electricity','genetics','quadratic'];
+
+  return `
+<div style="max-width:920px;margin:0 auto;padding:0 0 80px">
+  <!-- Header -->
+  <div style="background:linear-gradient(135deg,#6366F1,#4F46E5);padding:18px 16px 22px;border-radius:0 0 24px 24px;margin-bottom:20px">
+    <button onclick="S.igcseView='list';render()"
+      style="background:#ffffff25;border:1px solid #ffffff35;border-radius:10px;padding:5px 12px;color:#fff;cursor:pointer;font-size:11px;font-family:Cairo,sans-serif;font-weight:700;margin-bottom:12px">
+      ← Back to Hub
+    </button>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+      <div style="font-size:32px">🔎</div>
+      <div>
+        <div style="font-size:20px;font-weight:900;color:#fff">Global Search</div>
+        <div style="font-size:11px;color:#ffffffcc">Search across all 21 subjects & 3 boards simultaneously</div>
+      </div>
+    </div>
+    <!-- Search input -->
+    <div style="position:relative">
+      <input id="igcse-global-search" type="text" placeholder="e.g. photosynthesis, quadratic formula, Newton…"
+        value="${S.igcseSearch||''}"
+        oninput="S.igcseSearch=this.value;render()"
+        autofocus
+        style="width:100%;padding:12px 44px 12px 16px;border-radius:14px;border:2px solid #ffffff40;background:#ffffff18;
+               color:#fff;font-size:14px;font-family:Cairo,sans-serif;box-sizing:border-box;outline:none;
+               caret-color:#fff;backdrop-filter:blur(4px)"
+        onfocus="this.style.borderColor='#ffffff80'" onblur="this.style.borderColor='#ffffff40'">
+      ${q?`<button onclick="S.igcseSearch='';render()"
+        style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px;color:#ffffffcc">✕</button>`
+       :`<span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:18px;pointer-events:none">🔍</span>`}
+    </div>
+  </div>
+
+  <div style="padding:0 14px">
+    ${!q ? `
+    <!-- Empty state with suggestions -->
+    <div style="text-align:center;padding:30px 10px 20px">
+      <div style="font-size:48px;margin-bottom:10px">🔎</div>
+      <div style="font-size:16px;font-weight:900;color:var(--text);margin-bottom:6px">Search everything at once</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:24px">Topics, chapters, notes, exam tips — across all boards in one go</div>
+      <div style="font-size:11px;color:var(--text-muted);font-weight:700;margin-bottom:10px">POPULAR SEARCHES</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
+        ${popularSearches.map(s=>`
+        <button onclick="S.igcseSearch='${s}';render()"
+          style="padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);background:var(--bg-card);
+                 color:var(--text);cursor:pointer;font-family:Cairo,sans-serif;font-size:11px;font-weight:700;transition:.15s"
+          onmouseover="this.style.borderColor='#6366F1';this.style.color='#6366F1'"
+          onmouseout="this.style.borderColor='';this.style.color=''">
+          ${s}
+        </button>`).join('')}
+      </div>
+    </div>
+    ` : `
+    <!-- Results summary + board filter -->
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px">
+      <div style="font-size:11px;color:var(--text-muted);font-weight:700">
+        ${visibleResults.length > 0
+          ? `<span style="color:var(--text);font-weight:900">${visibleResults.length}</span> result${visibleResults.length!==1?'s':''} for "<span style="color:#6366F1">${S.igcseSearch}</span>"`
+          : `No results for "<span style="color:#EF4444">${S.igcseSearch}</span>"`}
+        ${visibleResults.length !== results.length ? ` · <span style="color:var(--text)">${results.length} total across all boards</span>`:''}
+      </div>
+    </div>
+    <!-- Board filter chips -->
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">
+      ${boardChips}
+    </div>
+
+    ${visibleResults.length === 0 ? `
+    <div style="text-align:center;padding:40px 20px;color:var(--text-muted)">
+      <div style="font-size:40px;margin-bottom:10px">😕</div>
+      <div style="font-size:14px;font-weight:700;margin-bottom:6px">No matches found</div>
+      <div style="font-size:11px">Try a shorter keyword, or switch board filter to "All Boards"</div>
+    </div>
+    ` : `
+    ${subjectBlocks}
+    ${renderedCount < results.length ? `
+    <div style="text-align:center;padding:12px;font-size:11px;color:var(--text-muted);background:var(--bg-card);border-radius:10px;border:1px solid var(--border)">
+      Showing ${renderedCount} of ${results.length} results — refine your search to narrow down
+    </div>`:``}
+    `}
+    `}
+  </div>
+</div>`;
 }
 
 function tplIGCSECompare() {
@@ -11072,12 +11284,21 @@ function tplIGCSEHub() {
 
   <!-- Search -->
   <div style="padding:0 14px;margin-bottom:16px">
-    <div style="position:relative">
-      <input id="igcse-search" type="text" placeholder="Search subjects..." value="${S.igcseSearch||''}"
-        oninput="S.igcseSearch=this.value;render()"
-        style="width:100%;padding:10px 16px 10px 40px;border-radius:12px;border:1px solid var(--border);background:var(--bg-card);color:var(--text);font-size:13px;font-family:Cairo,sans-serif;box-sizing:border-box;outline:none">
-      <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none">🔍</span>
-      ${q?`<button onclick="S.igcseSearch='';render()" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:var(--text-muted)">✕</button>`:''}
+    <div style="display:flex;gap:8px;align-items:center">
+      <div style="position:relative;flex:1">
+        <input id="igcse-search" type="text" placeholder="Search subjects…" value="${S.igcseSearch||''}"
+          oninput="S.igcseSearch=this.value;render()"
+          style="width:100%;padding:10px 16px 10px 40px;border-radius:12px;border:1px solid var(--border);background:var(--bg-card);color:var(--text);font-size:13px;font-family:Cairo,sans-serif;box-sizing:border-box;outline:none">
+        <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none">🔍</span>
+        ${q?`<button onclick="S.igcseSearch='';render()" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:var(--text-muted)">✕</button>`:''}
+      </div>
+      <button onclick="S.igcseView='search';S.igcseSearchBoard='all';render()"
+        style="white-space:nowrap;padding:10px 13px;border-radius:12px;border:1.5px solid #6366F1;background:#6366F118;
+               color:#6366F1;cursor:pointer;font-family:Cairo,sans-serif;font-size:11px;font-weight:800;transition:.15s"
+        onmouseover="this.style.background='#6366F1';this.style.color='#fff'"
+        onmouseout="this.style.background='#6366F118';this.style.color='#6366F1'">
+        🔎 All Boards
+      </button>
     </div>
   </div>
 
