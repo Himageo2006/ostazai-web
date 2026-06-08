@@ -16134,19 +16134,73 @@ const IGCSE_VIDEOS = {
     { title:'RS Key Concepts', channel:'Tutor2u RS', type:'channel', url:'https://www.youtube.com/@tutor2u', icon:'📿' },
   ],
 };
+function igcseGoBack() {
+  // Smart back: topic → subject, subject → hub, special view → hub, hub → chat
+  if (S.igcseTopic !== null)      { S.igcseTopic=null; S.igcseChapter=null; render(); return; }
+  if (S.igcseView !== 'list')     { S.igcseView='list'; render(); return; }
+  if (S.igcseSubject)             { S.igcseSubject=null; S.igcseChapter=null; render(); return; }
+  S.screen='chat'; render();
+}
+
+function tplIGCSENavBar() {
+  // Determine what "back" means for the label
+  let backLabel = L('Home','الرئيسية');
+  if (S.igcseTopic !== null)  backLabel = L('Topic','الموضوع');
+  else if (S.igcseView !== 'list') backLabel = L('Back','رجوع');
+  else if (S.igcseSubject)    backLabel = L('Subjects','المواد');
+
+  const isAtHub = (S.igcseView==='list' && !S.igcseSubject && S.igcseTopic===null);
+
+  return `<div style="position:sticky;top:0;z-index:90;background:var(--bg);border-bottom:1px solid var(--border);
+    display:flex;align-items:center;gap:6px;padding:8px 12px;backdrop-filter:blur(8px)">
+    <!-- Back -->
+    <button onclick="igcseGoBack()"
+      style="display:flex;align-items:center;gap:5px;padding:7px 12px;border-radius:10px;border:1px solid var(--border);
+             background:var(--bg-card);color:var(--text);cursor:pointer;font-size:12px;font-weight:700;font-family:Cairo,sans-serif;transition:.15s"
+      onmouseover="this.style.background='var(--border)'" onmouseout="this.style.background='var(--bg-card)'">
+      ← ${backLabel}
+    </button>
+    <!-- Home / Hub -->
+    ${!isAtHub ? `<button onclick="S.igcseView='list';S.igcseSubject=null;S.igcseChapter=null;S.igcseTopic=null;render()"
+      title="${L('IGCSE Hub','الصفحة الرئيسية')}"
+      style="display:flex;align-items:center;gap:5px;padding:7px 12px;border-radius:10px;border:1px solid var(--border);
+             background:var(--bg-card);color:var(--text);cursor:pointer;font-size:12px;font-weight:700;font-family:Cairo,sans-serif;transition:.15s"
+      onmouseover="this.style.background='var(--border)'" onmouseout="this.style.background='var(--bg-card)'">
+      🏠 ${L('Hub','الرئيسية')}
+    </button>` : ''}
+    <div style="flex:1"></div>
+    <!-- Subject breadcrumb pill -->
+    ${S.igcseSubject ? (()=>{
+      const subj = IGCSE_SUBJECTS[S.igcseSubject];
+      return subj ? `<div style="padding:5px 10px;border-radius:20px;background:${subj.color}18;border:1px solid ${subj.color}33;
+        font-size:10px;font-weight:800;color:${subj.color};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px">
+        ${subj.icon} ${subj.label}</div>` : '';
+    })() : ''}
+    <!-- Logout -->
+    <button onclick="document.getElementById('b-logout')&&document.getElementById('b-logout').click()"
+      title="${L('Sign Out','تسجيل الخروج')}"
+      style="display:flex;align-items:center;gap:5px;padding:7px 12px;border-radius:10px;border:1px solid #EF444430;
+             background:#EF444408;color:#EF4444;cursor:pointer;font-size:12px;font-weight:700;font-family:Cairo,sans-serif;transition:.15s;white-space:nowrap"
+      onmouseover="this.style.background='#EF444420'" onmouseout="this.style.background='#EF444408'">
+      🚪 ${L('Logout','خروج')}
+    </button>
+  </div>`;
+}
+
 function tplIGCSE() {
-  if (S.igcseView === 'formulas')  return tplIGCSEFormulas();
-  if (S.igcseView === 'compare')   return tplIGCSECompare();
-  if (S.igcseView === 'search')    return tplIGCSEGlobalSearch();
-  if (S.igcseView === 'papers')    return tplIGCSEPastPapers();
-  if (S.igcseView === 'planner')   return tplIGCSEPlanner();
-  if (S.igcseView === 'bookmarks') return tplIGCSEBookmarks();
-  if (S.igcseView === 'mockexam')  return tplIGCSEMockExam();
-  if (S.igcseView === 'stats')     return tplIGCSEStats();
-  if (S.igcseView === 'mindmap')   return tplIGCSEMindMap();
-  if (S.igcseTopic !== null)      return tplIGCSETopic();
-  if (S.igcseSubject)             return tplIGCSESubject();
-  return tplIGCSEHub();
+  const navBar = tplIGCSENavBar();
+  if (S.igcseView === 'formulas')  return navBar + tplIGCSEFormulas();
+  if (S.igcseView === 'compare')   return navBar + tplIGCSECompare();
+  if (S.igcseView === 'search')    return navBar + tplIGCSEGlobalSearch();
+  if (S.igcseView === 'papers')    return navBar + tplIGCSEPastPapers();
+  if (S.igcseView === 'planner')   return navBar + tplIGCSEPlanner();
+  if (S.igcseView === 'bookmarks') return navBar + tplIGCSEBookmarks();
+  if (S.igcseView === 'mockexam')  return navBar + tplIGCSEMockExam();
+  if (S.igcseView === 'stats')     return navBar + tplIGCSEStats();
+  if (S.igcseView === 'mindmap')   return navBar + tplIGCSEMindMap();
+  if (S.igcseTopic !== null)      return navBar + tplIGCSETopic();
+  if (S.igcseSubject)             return navBar + tplIGCSESubject();
+  return navBar + tplIGCSEHub();
 }
 
 function tplIGCSEPastPapers() {
