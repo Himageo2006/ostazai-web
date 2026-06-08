@@ -5810,7 +5810,7 @@ Energy lost at each level = ~90% (heat + faeces + uneaten parts)`},
   },
   cs: {
     label:'Computer Science', arabic:'علوم الكمبيوتر', icon:'💻', color:'#0EA5E9',
-    boards: ['cie','edexcel'],
+    boards: ['cie','edexcel','oxford'],
     pastPapers: {
       cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-computer-science-0478/past-papers/',
       edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-computer-science-2017.coursematerials.html',
@@ -5989,6 +5989,104 @@ Check: 9×16 + 12 = 144 + 12 = 156 ✓`},
           ], workedExample:`Binary search for 43 in [12, 25, 37, 43, 56, 78, 91]:
 Mid index = 3 → value = 43 → FOUND in 1 comparison
 If searching for 56: mid=43 (too low) → search right half [56,78,91] → mid=78 (too high) → [56] → found`},
+        ]},
+      ],
+      oxford: [
+        { title:'Data & Computer Systems (Cambridge IGCSE CS)', icon:'💾', topics:[
+          { title:'Data Representation', points:[
+            'Binary (base 2): digits 0 and 1; place values 128,64,32,16,8,4,2,1',
+            'Convert denary to binary: divide repeatedly by 2, read remainders upward',
+            'Hexadecimal (base 16): digits 0–9 then A(10)–F(15); group binary into nibbles of 4',
+            'Binary to hex: group into 4 bits (e.g. 1010 1111 → A F → AF)',
+            'Two\'s complement: invert all bits then add 1 — represents negative numbers',
+            'Character encoding: ASCII (7-bit, 128 chars); Unicode (up to 32-bit, 1M+ chars, covers all languages)',
+          ], examTips:[
+            'Oxford CS: show working for ALL number conversions — method marks available even if final wrong',
+            'Two\'s complement range: n bits → −2ⁿ⁻¹ to 2ⁿ⁻¹−1 (e.g. 8 bits: −128 to 127)',
+          ], workedExample:`Convert 45 to binary:
+45 ÷ 2 = 22 r 1
+22 ÷ 2 = 11 r 0
+11 ÷ 2 = 5  r 1
+5  ÷ 2 = 2  r 1
+2  ÷ 2 = 1  r 0
+1  ÷ 2 = 0  r 1
+Reading remainders upward: 101101 → 00101101 = 45₁₀`},
+          { title:'Computer Architecture & Memory', points:[
+            'Von Neumann architecture: CPU + memory + I/O connected by buses (data, address, control)',
+            'CPU: ALU (arithmetic/logic), CU (control unit), PC (program counter), MAR, MDR, IR, accumulator',
+            'Fetch-Decode-Execute: PC → MAR → memory → MDR → IR → decode → ALU execute → store result',
+            'RAM: volatile, read/write, stores current programs and data; ROM: non-volatile, read-only, BIOS',
+            'Cache: L1 (on chip, fastest), L2, L3 — stores recently used instructions to speed up fetch cycle',
+            'Clock speed: measured in GHz; higher = more instructions per second; heat and power increase too',
+          ]},
+        ]},
+        { title:'Networks & Security (Oxford CS)', icon:'🌐', topics:[
+          { title:'Network Fundamentals', points:[
+            'LAN: small area, privately owned; WAN: large area (internet = largest WAN)',
+            'Topology: bus (single cable, collision risk), ring (token passing), star (central switch — most common), mesh (multiple paths)',
+            'Star topology: each device connects to central switch; failure of one device doesn\'t bring down network',
+            'Protocols: TCP/IP (reliable delivery, splits data into packets); HTTP/HTTPS (web); FTP (file transfer); SMTP/IMAP (email)',
+            'TCP vs UDP: TCP = reliable, ordered, slower (video conferencing, web); UDP = fast, no guarantee (live streaming, gaming)',
+            'IP address: 32-bit (IPv4) or 128-bit (IPv6); subnet mask defines network and host portions',
+          ], examTips:[
+            'Oxford CS: for network topology, state both strength AND weakness — not just one',
+            'Packet switching: each packet may take different route; includes header (source, destination, sequence number)',
+          ]},
+          { title:'Cybersecurity', points:[
+            'Social engineering: manipulating people rather than systems — phishing, pretexting, baiting',
+            'Malware types: virus (attaches to files), worm (self-replicating, no host file), trojan (disguised as legitimate software), ransomware (encrypts and demands payment)',
+            'SQL injection: malicious SQL inserted into input fields to manipulate database queries',
+            'Symmetric encryption: same key for encrypt and decrypt (AES); fast but key distribution problem',
+            'Asymmetric encryption: public key encrypts, private key decrypts (RSA); solves key distribution',
+            'Digital certificate: issued by Certificate Authority (CA); proves server is genuine; used in HTTPS',
+          ]},
+        ]},
+        { title:'Programming & Algorithms (Oxford CS)', icon:'💻', topics:[
+          { title:'Programming Concepts', points:[
+            'Variable: named memory location storing a value; must be declared with data type in many languages',
+            'Sequence, Selection (IF/CASE), Iteration (FOR/WHILE/REPEAT) — three fundamental constructs',
+            'Procedure: named block of code; subroutine that does not return a value',
+            'Function: returns a value to the calling code; e.g. function square(n) RETURNS n*n',
+            'Parameters: values passed into a procedure/function; local variables exist only within that block',
+            'Recursion: function calls itself; must have a base case to stop; uses call stack',
+          ], examTips:[
+            'Trace tables: execute code step by step, recording variable values each iteration — practice this skill',
+            'Pseudocode: write clearly; be consistent — examiners mark for logic, not exact syntax',
+          ], workedExample:`Trace this code for x=5:
+FUNCTION factorial(n)
+  IF n <= 1 THEN RETURN 1
+  ELSE RETURN n * factorial(n-1)
+factorial(5) → 5*factorial(4) → 5*4*factorial(3) → 5*4*3*factorial(2) → 5*4*3*2*1 = 120`},
+          { title:'Algorithms & Complexity', points:[
+            'Algorithm efficiency: time complexity describes how time grows with input size',
+            'O(1): constant time (accessing array by index); O(log n): binary search; O(n): linear search',
+            'O(n²): bubble sort; O(n log n): merge sort — better for large datasets',
+            'Linear search: check each element; works on unsorted data; O(n) worst case',
+            'Binary search: halve search space each step; MUST be sorted; O(log n)',
+            'Bubble sort: compare adjacent pairs, swap; n−1 passes; slow on large data',
+            'Merge sort: divide and conquer; always O(n log n); needs extra memory',
+          ]},
+        ]},
+        { title:'Databases & Software Dev (Oxford CS)', icon:'🗄️', topics:[
+          { title:'Database Concepts', points:[
+            'Relational database: data stored in related tables; linked by primary and foreign keys',
+            'Primary key: unique identifier for each record; cannot be NULL; e.g. StudentID',
+            'Foreign key: field in one table that refers to primary key in another table',
+            'SQL: SELECT col FROM table WHERE condition ORDER BY col; INSERT INTO; UPDATE; DELETE',
+            'Joins: INNER JOIN returns rows matching in both tables; LEFT JOIN returns all from left table',
+            'Normalisation: organise data to reduce redundancy; 1NF (no repeating groups), 2NF, 3NF',
+          ], examTips:[
+            'Oxford CS SQL: practice writing SELECT with WHERE, ORDER BY, and JOIN — these are commonly tested',
+            'Always identify primary key and explain WHY that field is suitable (must be unique and not null)',
+          ]},
+          { title:'Software Development & Testing', points:[
+            'Software development lifecycle (SDLC): analysis → design → coding → testing → maintenance',
+            'Waterfall: sequential phases; rigid; good for well-defined requirements',
+            'Agile: iterative; flexible; regular client feedback; better for changing requirements',
+            'White-box testing: tester knows the code; tests internal logic and paths',
+            'Black-box testing: tester doesn\'t see code; tests inputs and expected outputs only',
+            'Testing types: unit (individual function), integration (modules together), system (whole system)',
+          ]},
         ]},
       ],
     }
@@ -7353,7 +7451,7 @@ Interpretation: For every £1 of revenue, the business keeps 16.7p as net profit
   },
   add_maths: {
     label:'Additional Mathematics', arabic:'رياضيات إضافية', icon:'🔣', color:'#7C3AED',
-    boards: ['cie','edexcel'],
+    boards: ['cie','edexcel','oxford'],
     pastPapers: {
       cie: 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-additional-mathematics-0606/past-papers/',
     },
@@ -7564,6 +7662,84 @@ At x=1: u = 4; dy/dx = 24(1)(4)³ = 24×64 = 1536`},
             'For equations like 3ˣ = 7: take ln both sides → x·ln3 = ln7 → x = ln7/ln3',
             'Linearising data: if y = axⁿ, take log both sides → log y = n log x + log a (straight line)',
           ]},
+        ]},
+      ],
+      oxford: [
+        { title:'Functions & Equations (Oxford Add Maths)', icon:'📐', topics:[
+          { title:'Functions — Mappings, Domain & Range', points:[
+            'Oxford AQA Add Maths: same core as CIE but different paper style; more emphasis on proof and justification',
+            'One-to-one function: each input maps to exactly one unique output — has an inverse',
+            'Many-to-one: multiple inputs → same output (e.g. f(x)=x²); no inverse unless domain restricted',
+            'Composite fg(x): apply g first, then f; NOT the same as gf(x) in general',
+            'Inverse f⁻¹: swap x and y, rearrange; domain of f⁻¹ = range of f',
+            'Modulus |x|: |x| = x if x≥0; −x if x<0; graph reflects negative part of curve above x-axis',
+          ], examTips:[
+            'Oxford Add Maths: always STATE the domain and range — not just graph them',
+            'For ff⁻¹(x): always equals x — useful as a check that inverse is correct',
+          ]},
+          { title:'Quadratics & Polynomials', points:[
+            'Completing the square: x²+bx+c = (x+b/2)²−(b/2)²+c — gives vertex of parabola',
+            'Sum of roots α+β = −b/a; product αβ = c/a (for ax²+bx+c=0)',
+            'Remainder theorem: when f(x) divided by (x−a), remainder = f(a)',
+            'Factor theorem: (x−a) is a factor of f(x) iff f(a) = 0',
+            'Polynomial division: long division or synthetic division to find quotient and remainder',
+          ], workedExample:`Show (x−2) is a factor of f(x)=x³−7x+6:
+f(2) = 8 − 14 + 6 = 0 ✓ (by Factor Theorem)
+Divide x³−7x+6 by (x−2):
+= (x−2)(x²+2x−3) = (x−2)(x+3)(x−1)
+Roots: x = 2, −3, 1`},
+        ]},
+        { title:'Calculus (Oxford Add Maths)', icon:'∫', topics:[
+          { title:'Differentiation Applications', points:[
+            'Tangent to curve at P: gradient = f\'(x₀); equation: y−y₀ = m(x−x₀)',
+            'Normal to curve at P: gradient = −1/f\'(x₀) (perpendicular to tangent)',
+            'Stationary points: f\'(x) = 0; classify using f\'\'(x): >0 minimum, <0 maximum, =0 inconclusive',
+            'Point of inflection: f\'\'(x) = 0 AND changes sign; not necessarily stationary',
+            'Increasing function: f\'(x) > 0; decreasing: f\'(x) < 0 — find intervals',
+            'Connected rates: dy/dt = dy/dx × dx/dt (chain rule applied to time)',
+          ], examTips:[
+            'Oxford Add Maths: always check BOTH conditions for a point of inflection — f\'\'=0 AND sign change',
+            'Optimisation: form expression, differentiate, set to 0, solve; verify it\'s max/min with second derivative',
+          ], workedExample:`A rectangle has perimeter 40cm. Find dimensions for maximum area.
+Let length = x; width = 20−x (since 2x+2w=40)
+Area A = x(20−x) = 20x−x²
+dA/dx = 20−2x = 0 → x = 10
+d²A/dx² = −2 < 0 ✓ maximum
+Dimensions: 10cm × 10cm (square); maximum area = 100 cm²`},
+          { title:'Integration Applications', points:[
+            'Area between curve and x-axis: A = ∫ₐᵇ f(x) dx — area below x-axis gives negative result',
+            'Area between two curves: A = ∫ₐᵇ [f(x)−g(x)] dx (f(x) is upper curve)',
+            'Definite integral: [F(x)]ₐᵇ = F(b) − F(a); always evaluate upper limit − lower limit',
+            'Integration as reverse differentiation: always add +c for indefinite integrals',
+            'Trapezium rule: approximate area using trapezoids; A ≈ ½h[y₀+2(y₁+y₂+...+yₙ₋₁)+yₙ]',
+          ]},
+        ]},
+        { title:'Vectors & Matrices (Oxford Add Maths)', icon:'➡️', topics:[
+          { title:'Vectors', points:[
+            'Vector: has both magnitude and direction; column vector (x y) or bold a',
+            'Addition: add components; scalar multiplication: multiply each component',
+            'Magnitude: |a| = √(x²+y²) for 2D vector (x,y)',
+            'Unit vector: â = a/|a| — vector of magnitude 1 in same direction',
+            'Position vector: OP⃗ = position of P from origin; AB⃗ = OB⃗ − OA⃗',
+            'Parallel vectors: b = ka for some scalar k; collinear points: AB⃗ = kAC⃗',
+          ], examTips:[
+            'Oxford Add Maths vectors: always write vectors as column vectors or in component form in workings',
+            'Midpoint M of AB: OM⃗ = ½(OA⃗ + OB⃗)',
+          ]},
+          { title:'Matrices', points:[
+            'Matrix: rectangular array of numbers; m×n matrix has m rows and n columns',
+            'Matrix addition/subtraction: same size; add/subtract corresponding elements',
+            'Matrix multiplication: A(m×n) × B(n×p) = C(m×p); element cᵢⱼ = row i of A · column j of B',
+            'Identity matrix I: square; 1s on diagonal, 0s elsewhere; AI = IA = A',
+            'Determinant of 2×2: |A| = ad−bc for matrix [[a,b],[c,d]]',
+            'Inverse of 2×2: A⁻¹ = (1/|A|)[[d,−b],[−c,a]]; exists only if |A| ≠ 0',
+            'Solving simultaneous equations using matrices: AX = B → X = A⁻¹B',
+          ], workedExample:`Solve using matrices: 2x+y=7, x+3y=11
+Matrix form: [[2,1],[1,3]][[x],[y]] = [[7],[11]]
+det = 2×3 − 1×1 = 5
+Inverse = (1/5)[[3,−1],[−1,2]]
+[[x],[y]] = (1/5)[[3,−1],[−1,2]][[7],[11]] = (1/5)[[21−11],[−7+22]] = (1/5)[[10],[15]] = [[2],[3]]
+x=2, y=3`},
         ]},
       ],
     }
@@ -8364,7 +8540,7 @@ Conclusion: the wording of a question can alter memory — has implications for 
   },
   ict: {
     label:'ICT (Digital Literacy)', arabic:'تكنولوجيا المعلومات', icon:'🖥️', color:'#0284C7',
-    boards: ['cie','edexcel'],
+    boards: ['cie','edexcel','oxford'],
     pastPapers: {
       cie: 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-information-and-communication-technology-0417/past-papers/',
     },
@@ -8571,6 +8747,67 @@ Modern encryption (AES, RSA) is mathematically complex — not breakable by simp
           ]},
         ]},
       ],
+      oxford: [
+        { title:'Digital Systems (Oxford AQA ICT)', icon:'💻', topics:[
+          { title:'Hardware & Software', points:[
+            'Oxford AQA ICT: focuses on practical digital literacy as well as technical knowledge',
+            'Input devices: keyboard, mouse, touchscreen, scanner, webcam, microphone, barcode reader, biometric sensor',
+            'Output devices: monitor (LCD/OLED), printer (inkjet/laser), speakers, projector',
+            'CPU performance: clock speed (GHz), number of cores, cache size — all affect processing speed',
+            'RAM vs storage: RAM = fast temporary (volatile); HDD/SSD = permanent storage (non-volatile)',
+            'Operating system: manages hardware resources, provides user interface, handles file management and security',
+          ], examTips:[
+            'Oxford AQA ICT: for hardware questions, give specific examples — not just "input device" but "barcode reader in supermarket checkout"',
+            'Describe function AND advantage: SSD has no moving parts → faster, quieter, more shock-resistant than HDD',
+          ]},
+          { title:'Number Systems & Data', points:[
+            'Binary (base 2): represents all computer data as 0s and 1s',
+            'Bit: single binary digit; Byte = 8 bits; KB = 1024 bytes; MB = 1024 KB; GB = 1024 MB',
+            'File size calculation: image = width × height × colour depth (bits) ÷ 8 = bytes',
+            'Sound file size: sample rate × bit depth × duration × channels',
+            'Compression: lossy (removes data permanently — JPEG, MP3) vs lossless (recoverable — PNG, FLAC)',
+            'Encryption: scrambles data using a key; only authorised users with the key can decrypt',
+          ]},
+        ]},
+        { title:'Networks & Online Safety (Oxford AQA)', icon:'🌐', topics:[
+          { title:'Networks', points:[
+            'LAN: small area (school, office); WAN: large geographic area; internet = global WAN',
+            'Wi-Fi: wireless LAN using radio waves; Bluetooth: short-range personal area network',
+            'Network devices: router (connects networks and routes packets), switch (connects devices on LAN), modem (modulates/demodulates signal)',
+            'Cloud storage: data held on remote servers; advantages: access anywhere, automatic backup, scalable storage',
+            'Bandwidth: amount of data transmitted per second (Mbps); higher = faster downloads/streams',
+          ]},
+          { title:'Online Safety & Ethics', points:[
+            'Cyberbullying: harassment via digital platforms; impacts on mental health; report and block tools',
+            'Phishing: fraudulent emails/sites impersonating trusted organisations to steal credentials',
+            'Strong passwords: 12+ characters, mix upper/lower/numbers/symbols; use different password per site',
+            'Two-factor authentication (2FA): requires second verification (phone code); much more secure',
+            'Digital footprint: data trail left online; permanent and searchable; affects future opportunities',
+            'Fake news: misinformation spread online; check sources, look for multiple reputable corroborations',
+          ], examTips:[
+            'Oxford AQA ICT online safety: give specific, practical advice — not vague ("be careful") but "don\'t share your password with anyone, including friends"',
+          ]},
+        ]},
+        { title:'Spreadsheets & Databases (Oxford AQA)', icon:'📊', topics:[
+          { title:'Spreadsheet Skills', points:[
+            'Cell reference: column letter + row number (B4); absolute $B$4 locked when copied',
+            'Common functions: =SUM(A1:A10), =AVERAGE(B1:B5), =MAX(C1:C10), =IF(D1>50,"Pass","Fail")',
+            'Sorting: ascending (A→Z, 0→9) or descending; filter: show only rows matching criteria',
+            'Charts: choose type to match data — bar/column for comparison, line for trend, pie for proportion',
+            'Conditional formatting: highlight cells meeting a condition (e.g. values >90 in green)',
+          ]},
+          { title:'Databases', points:[
+            'Database: organised collection of related data; more powerful than spreadsheets for large datasets',
+            'Record: one row (one entity); field: one column (one attribute); table: collection of records',
+            'Primary key: unique identifier for each record; must not be null or repeated',
+            'Query: search/filter records; sort; calculate — e.g. "find all students with grade > B"',
+            'Form: user-friendly interface for data entry; report: formatted output for printing/sharing',
+          ], examTips:[
+            'Oxford AQA practical tasks: save your work frequently; use meaningful file names; follow the exact format specified in the question',
+            'Database vs spreadsheet: database better for multiple related tables and complex queries; spreadsheet better for calculations and charts',
+          ]},
+        ]},
+      ],
     }
   },
   literature: {
@@ -8757,7 +8994,7 @@ This thesis establishes a comparison (Macbeth vs Lady Macbeth) and makes an argu
   },
   french: {
     label:'French', arabic:'اللغة الفرنسية', icon:'🇫🇷', color:'#2563EB',
-    boards: ['cie','edexcel'],
+    boards: ['cie','edexcel','oxford'],
     pastPapers: {
       cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-french-0520/past-papers/',
       edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-french-2017.coursematerials.html',
@@ -8915,6 +9152,38 @@ Il y a beaucoup de choses à faire — par exemple, on peut visiter des musées,
             'Edexcel speaking role play: you get a task card with 5 prompts — one will be a "!" (unexpected question) — prepare to improvise',
             'General conversation in speaking: give extended answers — aim for 3–4 sentences per answer',
             'Photo card: describe what you see, say what might happen next, give your opinion with reason',
+          ]},
+        ]},
+      ],
+      oxford: [
+        { title:'Oxford AQA French — Grammar & Skills', icon:'📝', topics:[
+          { title:'Core Grammar (Oxford AQA)', points:[
+            'Oxford AQA IGCSE French: same tenses as CIE/Edexcel; distinct paper style with emphasis on accuracy',
+            'Present tense: regular -er, -ir, -re verbs + key irregulars (être, avoir, aller, faire, pouvoir, vouloir)',
+            'Perfect tense: avoir/être + past participle; être verbs agree with subject gender/number',
+            'Imperfect: descriptions and habitual past; j\'habitais, il faisait, nous allions',
+            'Future simple: add endings to infinitive (-ai/-as/-a/-ons/-ez/-ont); irregular stems for common verbs',
+            'Conditional: same stems as future + imperfect endings; used for hypothetical situations',
+          ], examTips:[
+            'Oxford AQA French: grammar accuracy weighted heavily — one mark per error in writing tasks',
+            'Use SINCE (depuis) + present tense in French: "J\'apprends le français depuis trois ans" (I have been learning French for 3 years)',
+          ]},
+          { title:'Oxford AQA Themes', points:[
+            'Theme 1: Identity and Culture — family, friends, technology, customs, festivals, relationships',
+            'Theme 2: Local, national, international & global areas of interest — environment, travel, current issues',
+            'Theme 3: Current and future study and employment — school, career plans, work experience',
+            'Key opinion phrases: je pense que, à mon avis, selon moi, je trouve que, il me semble que',
+            'Connectives for higher marks: cependant (however), de plus (furthermore), bien que + subjunctive (although)',
+          ]},
+          { title:'Oxford AQA Exam Structure', points:[
+            'Paper 1: Listening — 35 mins; multiple choice, gap-fill, short answer; questions in English',
+            'Paper 2: Reading — 45 mins; comprehension, gap-fill, translation into English',
+            'Paper 3: Writing — 1hr 15mins; structured tasks, essay (90 words), translation into French',
+            'Paper 4: Speaking — 10–12 mins; role play, photo card description, general conversation',
+            'Foundation: grades 1–5; Higher: grades 4–9; candidates choose tier',
+          ], examTips:[
+            'Translation into French (Paper 3): most demanding task — learn set phrases and verb forms precisely',
+            'Speaking photo card: structure answer as describe → extend → opinion → reason; use full sentences throughout',
           ]},
         ]},
       ],
@@ -9370,7 +9639,7 @@ Suitability: HEP best for countries with large rivers (e.g. Brazil); solar best 
   },
   spanish: {
     label:'Spanish', arabic:'الإسبانية', icon:'🇪🇸', color:'#C0392B',
-    boards: ['cie','edexcel'],
+    boards: ['cie','edexcel','oxford'],
     pastPapers: {
       cie:     'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-spanish-0530/past-papers/',
       edexcel: 'https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-spanish-2017.coursematerials.html',
@@ -9515,6 +9784,49 @@ Uses: imperfect (era, gustaba), present (prefiero, es), conditional (gustaría),
           ], examTips:[
             'Translation task: most demanding part — learn key vocabulary, verb conjugations, and avoid word-for-word translation',
             'General conversation: give extended answers with reasons — "porque", "ya que", "debido a"',
+          ]},
+        ]},
+      ],
+      oxford: [
+        { title:'Oxford AQA Spanish — Grammar', icon:'📝', topics:[
+          { title:'Core Grammar (Oxford AQA)', points:[
+            'Oxford AQA IGCSE Spanish: same tenses tested; distinct paper layout; accuracy weighted heavily in writing',
+            'Present: -AR → hablo; -ER → como; -IR → vivo; key irregulars: soy/estoy/voy/tengo/hago/puedo/quiero',
+            'Preterite: -AR → hablé; -ER/-IR → comí; irregulars: fui, tuve, hice, estuve, pude, vine',
+            'Imperfect: -AR → hablaba; -ER/-IR → comía; only 3 irregulars: ser (era), ir (iba), ver (veía)',
+            'Future: infinitive + -é/-ás/-á/-emos/-éis/-án; irregular stems: tendr-, vendr-, podr-, querr-, har-',
+            'Conditional: same stems as future + -ía/-ías/-ía/-íamos/-íais/-ían; used for "would" statements',
+          ], examTips:[
+            'Oxford AQA Spanish: examiners reward range of tenses — deliberately include past, present, future and opinion in all writing tasks',
+            'Accuracy tip: write accents on ALL required words — missing accents penalised in writing mark scheme',
+          ], workedExample:`Photo card — describe then extend:
+"En la foto, veo a un grupo de jóvenes que están comiendo en un restaurante. Parecen contentos. En mi opinión, es importante comer con la familia porque fortalece los lazos familiares. Cuando era pequeño, siempre comíamos juntos. En el futuro, espero seguir esta tradición."
+→ Uses: present (veo, están, es), imperfect (comíamos, era), future (espero), opinion, connectives`},
+          { title:'Oxford AQA Key Grammar Points', points:[
+            'Ser vs Estar: SER = identity/permanent (soy inglés, es médico); ESTAR = state/location/temporary (estoy cansado, está en Madrid)',
+            'Por vs Para: por = because of/through/per (gracias por, por la mañana); para = in order to/for (para mí, para aprender)',
+            'Subjunctive mood: after espero que, quiero que, ojalá, cuando (future reference) — espero que vengas',
+            'Relative pronouns: que (that/which/who); donde (where); lo que (what/that which)',
+            'Negatives: no...nunca, no...nada, no...nadie, no...ningún — double negative is correct in Spanish',
+          ]},
+        ]},
+        { title:'Oxford AQA Spanish — Themes & Exam', icon:'🌍', topics:[
+          { title:'Themes (Oxford AQA)', points:[
+            'Theme 1: Identity and Culture — family, friendships, technology, social media, customs, values',
+            'Theme 2: Local, national, international & global — environment, climate change, travel, global issues',
+            'Theme 3: Current and future study and employment — school, subjects, ambitions, work',
+            'Lifestyle and health: diet, sport, healthy living, mental health, peer pressure',
+            'Expressing views: creo que, pienso que, me parece que, estoy de acuerdo/en desacuerdo con',
+          ]},
+          { title:'Exam Structure (Oxford AQA)', points:[
+            'Paper 1: Listening — questions in English; answers in English; multiple choice & short answer',
+            'Paper 2: Reading — comprehension in English; translation passage into English',
+            'Paper 3: Writing — structured tasks + 90-word essay + translation into Spanish',
+            'Paper 4: Speaking — role play + photo card + general conversation (10–12 mins)',
+            'Foundation: grades 1–5; Higher: grades 4–9; translation into Spanish = Higher only',
+          ], examTips:[
+            'Oxford AQA speaking: general conversation questions are open-ended — prepare 4–5 sentences per topic area',
+            'Writing essay: plan before writing — 5-point plan (intro, point1, point2, counterpoint, conclusion) takes 2 mins and saves marks',
           ]},
         ]},
       ],
@@ -10649,6 +10961,70 @@ function tplIGCSEHub() {
         ${weak.length>6?`<span style="font-size:10px;color:${board.color};font-weight:700">${weak.length-6} more...</span>`:''}
       </div>
       <div style="display:flex;flex-direction:column;gap:6px">${items}</div>
+    </div>`;
+  })()}
+
+  <!-- Study Planner -->
+  ${(()=>{
+    if (!S.igcseExamDate) return `
+    <div style="margin:16px 14px 0;padding:14px 16px;background:var(--bg-card);border:1px dashed var(--border);border-radius:14px;text-align:center">
+      <div style="font-size:20px;margin-bottom:4px">📅</div>
+      <div style="font-size:12px;font-weight:800;color:var(--text);margin-bottom:2px">Study Planner</div>
+      <div style="font-size:11px;color:var(--text-muted)">Set your exam date above to get a personalised daily study plan</div>
+    </div>`;
+    const daysLeft = Math.max(0, Math.ceil((new Date(S.igcseExamDate) - new Date()) / 86400000));
+    const done = S.igcseDone || {};
+    const remaining = [];
+    Object.entries(IGCSE_SUBJECTS).forEach(([sk, subj]) => {
+      if (!subj.boards.includes(S.igcseBoard)) return;
+      const chs = subj.chapters[S.igcseBoard] || [];
+      chs.forEach((ch, ci) => ch.topics.forEach((tp, ti) => {
+        if (!done[`${sk}-${ci}-${ti}`]) remaining.push({sk, subj, ch, tp, ci, ti});
+      }));
+    });
+    const total = remaining.length;
+    if (total === 0) return '';
+    // How many topics per day needed
+    const perDay = daysLeft > 0 ? Math.ceil(total / daysLeft) : total;
+    // Today's recommended topics — first perDay from remaining
+    const todayTopics = remaining.slice(0, Math.min(perDay, 4));
+    const urgency = daysLeft <= 7 ? '#EF4444' : daysLeft <= 21 ? '#F59E0B' : '#10B981';
+    const urgencyLabel = daysLeft <= 7 ? '🚨 Final stretch!' : daysLeft <= 21 ? '⚡ Keep pushing' : '✅ On track';
+    return `
+    <div style="margin:16px 14px 0;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:14px 16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--text-muted)">📅 STUDY PLANNER</div>
+        <span style="font-size:10px;color:${urgency};font-weight:800;padding:2px 8px;background:${urgency}18;border-radius:6px">${urgencyLabel}</span>
+      </div>
+      <div style="display:flex;gap:10px;margin-bottom:10px">
+        <div style="flex:1;text-align:center;padding:8px;background:${urgency}0f;border-radius:10px;border:1px solid ${urgency}25">
+          <div style="font-size:20px;font-weight:900;color:${urgency}">${daysLeft}</div>
+          <div style="font-size:9px;color:var(--text-muted);font-weight:700">DAYS LEFT</div>
+        </div>
+        <div style="flex:1;text-align:center;padding:8px;background:var(--bg);border-radius:10px;border:1px solid var(--border)">
+          <div style="font-size:20px;font-weight:900;color:var(--text)">${total}</div>
+          <div style="font-size:9px;color:var(--text-muted);font-weight:700">TOPICS LEFT</div>
+        </div>
+        <div style="flex:1;text-align:center;padding:8px;background:${board.color}0f;border-radius:10px;border:1px solid ${board.color}25">
+          <div style="font-size:20px;font-weight:900;color:${board.color}">${perDay}</div>
+          <div style="font-size:9px;color:var(--text-muted);font-weight:700">PER DAY</div>
+        </div>
+      </div>
+      <div style="font-size:10px;font-weight:800;color:var(--text-muted);letter-spacing:1px;margin-bottom:6px">TODAY'S TOPICS</div>
+      <div style="display:flex;flex-direction:column;gap:5px">
+        ${todayTopics.map(({sk,subj,tp,ci,ti}) => `
+        <div onclick="S.igcseSubject='${sk}';S.igcseChapter=${ci};S.igcseTopic=${ti};S.igcseTab='notes';render()"
+          style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;cursor:pointer;background:${subj.color}08;border:1px solid ${subj.color}25;transition:.15s"
+          onmouseover="this.style.background='${subj.color}18'" onmouseout="this.style.background='${subj.color}08'">
+          <span style="font-size:16px">${subj.icon}</span>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:11px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${tp.title}</div>
+            <div style="font-size:10px;color:var(--text-muted)">${subj.label}</div>
+          </div>
+          <span style="font-size:18px;color:${subj.color}">▶</span>
+        </div>`).join('')}
+      </div>
+      ${perDay > 4 ? `<div style="margin-top:8px;font-size:10px;color:var(--text-muted);text-align:center">+${perDay-4} more topics needed today · <span style="color:${urgency};font-weight:700">Study ${perDay}/day to finish on time</span></div>` : ''}
     </div>`;
   })()}
 
