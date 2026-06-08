@@ -3978,7 +3978,12 @@ function tplProfile() {
   const planExpiry = u.planExpiry ? new Date(u.planExpiry).toLocaleDateString('ar-EG') : null;
   const isPro = u.plan === 'pro';
   return `
-<div class="screen-header"><div class="screen-title">\u{1F464} ${t('ملفي الشخصي','myProfile').replace('👤 ','')}</div></div>
+<div class="screen-header">
+  <div class="screen-title">👤 ${t('ملفي الشخصي','myProfile').replace('👤 ','')}</div>
+  <button onclick="doLogout()" style="background:#EF444420;border:1px solid #EF444440;color:#EF4444;padding:6px 14px;border-radius:10px;font-family:Cairo,sans-serif;font-size:13px;font-weight:700;cursor:pointer">
+    🚪 ${t('خروج','Sign Out')}
+  </button>
+</div>
 <div class="screen-body">
 
   <!-- Avatar + Plan -->
@@ -4063,7 +4068,7 @@ function tplProfile() {
     📲 تثبيت التطبيق على هاتفك
   </button>
 
-  <button class="btn btn-secondary" id="b-logout" style="width:100%">${t('🚪 تسجيل الخروج','logout')}</button>
+  <button class="btn btn-secondary" id="b-logout" onclick="doLogout()" style="width:100%">${t('🚪 تسجيل الخروج','logout')}</button>
 </div>`;
 }
 function tplNotes() {
