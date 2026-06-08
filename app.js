@@ -5061,6 +5061,188 @@ Activity = 800 × (1/2)³ = 800 ÷ 8 = 100 Bq`},
             'Oxford AQA introduces basic particle physics: protons, neutrons, electrons; quarks (up and down)',
             'Proton = 2 up quarks + 1 down quark; neutron = 1 up quark + 2 down quarks',
             'Strong nuclear force: holds nucleus together; overcomes electrostatic repulsion between protons',
+          ], examTips:[
+            'State changes: energy is absorbed (melting/boiling) or released (freezing/condensing) — temperature stays constant during change',
+            'Gas pressure: increasing temperature → particles move faster → more frequent/forceful collisions → higher pressure',
+          ], commonMistakes:[
+            'Saying temperature rises during a change of state — it stays constant until change is complete',
+            'Confusing quarks in protons and neutrons — learn the combinations carefully',
+          ]},
+        ]},
+        { title:'Electricity & Radioactivity (Oxford AQA)', icon:'⚡', topics:[
+          { title:'Circuits & Electrical Energy', points:[
+            'Oxford AQA: V = IR, P = IV = I²R = V²/R; Q = It; energy = QV = IVt',
+            'Series: same current, voltages add, resistances add; Parallel: same voltage, currents add',
+            'Resistance factors: length (longer→higher R), cross-section (wider→lower R), material, temperature',
+            'I-V characteristics: ohmic conductor (linear), filament lamp (curve, R increases), diode (one-way)',
+            'Potential divider: Vout = Vin × R₂/(R₁+R₂); used in sensing circuits with LDR and thermistor',
+          ], examTips:[
+            'Oxford AQA: always show formula, substitution, and answer with units — marks are method marks',
+            'Resistance of a wire: ρL/A — doubling length doubles R; doubling area halves R',
+          ], commonMistakes:[
+            'Reading gradient of I-V graph as resistance — resistance = V/I at any single point, not the gradient',
+            'Forgetting units: resistance in Ω, charge in C, energy in J',
+          ], workedExample:`Two resistors: R₁=6Ω (upper), R₂=12Ω (lower) as potential divider; Vin=9V. Find Vout across R₂.
+Vout = 9 × 12/(6+12) = 9 × 12/18 = 9 × 0.667 = 6V`},
+          { title:'Radioactivity & Nuclear Energy', points:[
+            'Oxford AQA: alpha (α) = ²₄He nucleus — most ionising, least penetrating; stopped by paper/skin',
+            'Beta (β⁻) = fast electron — moderate ionisation; stopped by 3–5mm aluminium',
+            'Gamma (γ) = EM radiation — least ionising, most penetrating; reduced by thick lead/concrete',
+            'Half-life: time for activity (or number of undecayed nuclei) to halve; after n half-lives: A = A₀(½)ⁿ',
+            'Nuclear fission: U-235 or Pu-239 splits when struck by neutron; releases energy + 2–3 more neutrons (chain reaction)',
+          ], examTips:[
+            'Balance nuclear equations: proton number (bottom) AND mass number (top) must both balance',
+            'Background radiation: always deduct from readings; comes from rocks (radon), cosmic rays, medical sources',
+          ], commonMistakes:[
+            'Confusing alpha and beta penetration — remember alpha=paper, beta=aluminium, gamma=lead',
+            'Not subtracting background radiation in half-life experiments — always correct corrected count rate first',
+          ]},
+          { title:'Oxford AQA Physics — Exam Strategy', points:[
+            'Oxford AQA Physics: two papers; Paper 1 and Paper 2 each 1 hour 15 minutes; equal weighting',
+            'Required practicals: knowledge of method, variables, and analysis is assessed in written papers',
+            'Six marks questions: plan your answer — typically need 3 pairs of (point + explanation)',
+            'Equations given on formula sheet — but knowing them helps speed and confidence',
+            'Graphs: label axes with quantity AND unit; appropriate scale; best-fit straight line or curve',
+          ], examTips:[
+            'Six-mark questions: use key words — "increases", "decreases", "proportional to", "inversely proportional"',
+            'Calculate questions: always show working even if calculator error — method marks are available',
+          ]},
+        ]},
+      ],
+      edexcel: [
+        { title:'Forces & Motion', icon:'🚀', topics:[
+          { title:'Motion & Equations', points:[
+            'Edexcel IGCSE Physics uses equations of motion: v=u+at, s=½(u+v)t, v²=u²+2as, s=ut+½at²',
+            'Scalar (speed, distance, mass) vs vector (velocity, displacement, force, acceleration)',
+            'Distance-time graphs: gradient = speed; velocity-time graphs: gradient = acceleration, area = distance',
+            'Resultant velocity: use Pythagoras or scale drawing for perpendicular components',
+            'Relative velocity: velocity of object A relative to B = velocity of A minus velocity of B',
+          ], examTips:[
+            'Always state the equation you are using before substituting values — method marks awarded',
+            'Velocity-time graph: area under line = distance (use triangles and rectangles for irregular shapes)',
+            'Edexcel often gives multi-step motion problems — break into separate stages with clear working',
+          ], commonMistakes:[
+            'Using equations of motion when acceleration is NOT constant — only valid for uniform acceleration',
+            'Forgetting to square the velocity in v²=u²+2as',
+          ], workedExample:`A ball is thrown upward at 15 m/s. How high does it reach? (g=10 m/s²)
+v=0 (at top), u=15, a=−10
+v²=u²+2as → 0=225+2(−10)s → s=225/20=11.25 m`},
+          { title:'Forces & Newton\'s Laws', points:[
+            'Newton\'s 1st Law: no resultant force → constant velocity (or rest)',
+            'Newton\'s 2nd Law: F = ma; larger force or smaller mass → greater acceleration',
+            'Newton\'s 3rd Law: equal and opposite forces on DIFFERENT objects',
+            'Edexcel: free body diagrams — draw all forces with correct directions and labels',
+            'Friction, air resistance, tension, normal force, weight — identify all in a given situation',
+          ], examTips:[
+            'Free body diagrams: draw arrows from the object, label each force with name and value',
+            'Terminal velocity: when drag = weight — resultant force = 0, so no acceleration',
+          ], commonMistakes:[
+            'Confusing Newton\'s 3rd Law pairs with balanced forces — they act on different objects',
+            'Forgetting that weight = mg (not mass alone)',
+          ], workedExample:`Car mass 1200 kg accelerates at 2.5 m/s². Engine force = 4000 N. Find friction force.
+F_net = ma = 1200×2.5 = 3000 N
+Friction = Engine force − F_net = 4000 − 3000 = 1000 N`},
+          { title:'Momentum & Pressure', points:[
+            'Momentum = mass × velocity: p = mv (kg m/s); vector quantity',
+            'Conservation of momentum: total momentum before = total momentum after (no external forces)',
+            'Impulse = force × time = change in momentum: Ft = Δp = m(v−u)',
+            'Pressure = force ÷ area: P = F/A (Pascals); pressure in fluids: P = ρgh',
+            'Hydraulic systems: pressure transmitted equally throughout fluid (Pascal\'s principle)',
+          ], examTips:[
+            'Momentum: always assign positive/negative direction FIRST — be consistent throughout',
+            'Impulse = area under force-time graph — useful for varying forces',
+          ], commonMistakes:[
+            'Forgetting momentum is a vector — objects moving in opposite directions have opposite signs',
+            'Confusing impulse (force × time) with work done (force × distance)',
+          ]},
+        ]},
+        { title:'Electricity & Magnetism', icon:'⚡', topics:[
+          { title:'Electric Circuits', points:[
+            'Edexcel IGCSE: charge Q = It, energy E = QV, power P = IV = I²R = V²/R',
+            'Ohm\'s Law: V = IR for ohmic conductors at constant temperature',
+            'Series circuit: same current, voltages add, resistances add',
+            'Parallel circuit: same voltage, currents add, 1/R_total = 1/R₁ + 1/R₂',
+            'Edexcel includes LDR (decreases resistance in light) and thermistor (decreases resistance when hot)',
+          ], examTips:[
+            'Circuit diagrams: use standard symbols — examiners deduct marks for incorrect symbols',
+            'LDR and thermistor: explain resistance change in terms of electron flow and energy',
+          ], commonMistakes:[
+            'Adding parallel resistances directly — must use the reciprocal formula',
+            'Confusing ammeter (in series) and voltmeter (in parallel) connections',
+          ], workedExample:`Resistors 4Ω and 12Ω in parallel. Find combined resistance.
+1/R = 1/4 + 1/12 = 3/12 + 1/12 = 4/12
+R = 12/4 = 3Ω`},
+          { title:'Magnetism & Electromagnetism', points:[
+            'Permanent magnets: poles N and S; like poles repel, unlike attract; field from N to S outside magnet',
+            'Electromagnetism: current-carrying wire creates magnetic field; solenoid behaves like a bar magnet',
+            'Motor effect: force on current in magnetic field; F = BIL; direction by Fleming\'s Left Hand Rule',
+            'Generator (dynamo): rotating coil in field induces AC; brushes and slip rings for external circuit',
+            'Transformers: Vp/Vs = Np/Ns; step-up increases V, step-down decreases V; only work with AC',
+          ], examTips:[
+            'Fleming\'s Left Hand Rule: thuMb=Motion, First finger=Field, seCond finger=Current',
+            'Transformer ratio: if turns double, voltage doubles (step-up) — identify which winding is primary',
+          ], commonMistakes:[
+            'Using LHR for generators (should be RHR — Fleming\'s Right Hand Rule)',
+            'Saying transformers work with DC — they require AC (changing field to induce EMF)',
+          ]},
+        ]},
+        { title:'Waves & Radiation', icon:'〰️', topics:[
+          { title:'Waves', points:[
+            'Edexcel: transverse (light, water) and longitudinal (sound) waves',
+            'Wave speed: v = fλ; period T = 1/f; amplitude, wavelength, frequency, wave speed all defined',
+            'Reflection: angle of incidence = angle of reflection (measured from normal)',
+            'Refraction: wave changes speed at boundary; bends toward normal when slowing (entering denser medium)',
+            'Diffraction: spreading of waves through a gap; most pronounced when gap ≈ wavelength',
+          ], examTips:[
+            'Draw ray diagrams with ruler — show incident ray, normal (dashed), and refracted/reflected ray',
+            'Diffraction: wider gap → less diffraction; narrower gap → more spreading',
+          ], commonMistakes:[
+            'Drawing normals to the surface (not the boundary) — normal must be perpendicular to the surface at point of incidence',
+            'Confusing refraction (bending) with reflection (bouncing back)',
+          ]},
+          { title:'Electromagnetic Spectrum & Radioactivity', points:[
+            'EM spectrum: gamma → X-ray → UV → visible → IR → microwave → radio (wavelength increases)',
+            'All EM waves travel at 3×10⁸ m/s in vacuum; transverse waves',
+            'Radioactive decay: alpha (α) = 2p+2n; beta (β) = electron; gamma (γ) = EM radiation',
+            'Half-life: time for activity (or number of nuclei) to halve; after n half-lives: N = N₀×(½)ⁿ',
+            'Edexcel: nuclear equations — balance proton number AND mass number on both sides',
+          ], examTips:[
+            'EM spectrum: higher frequency = more energy = more penetrating (gamma > X-ray > UV > visible...)',
+            'Half-life: use graph or repeated halving — show each step clearly in working',
+          ], commonMistakes:[
+            'Confusing alpha particle (helium nucleus, charge +2) with beta particle (electron, charge −1)',
+            'Not balancing both mass number AND atomic number in nuclear equations',
+          ], workedExample:`Isotope X has half-life 4 days. Initial activity = 640 Bq. Activity after 12 days?
+Number of half-lives = 12÷4 = 3
+Activity = 640 × (½)³ = 640÷8 = 80 Bq`},
+        ]},
+        { title:'Thermal Physics & Matter', icon:'🌡️', topics:[
+          { title:'Thermal Energy', points:[
+            'Internal energy: sum of kinetic and potential energies of all particles in a substance',
+            'Specific heat capacity: c = Q/(mΔT); energy needed to raise 1 kg by 1°C',
+            'Specific latent heat: L = Q/m; energy for change of state — temperature does NOT change',
+            'Conduction (solids), convection (fluids), radiation (EM waves, no medium needed)',
+            'Edexcel: thermal insulation — trapped air, reflective surfaces, double glazing reduce heat loss',
+          ], examTips:[
+            'Q = mcΔT: check units — mass in kg, temperature in °C or K (ΔT is same in both)',
+            'Latent heat: energy supplied during change of state goes to breaking/forming bonds, NOT raising temperature',
+          ], commonMistakes:[
+            'Adding temperature change when calculating latent heat — no temperature change during state change',
+            'Confusing conduction (particle vibrations) with convection (particle movement)',
+          ], workedExample:`How much energy to heat 2 kg of water from 20°C to 80°C? (c=4200 J/kg°C)
+Q = mcΔT = 2 × 4200 × (80−20) = 2 × 4200 × 60 = 504,000 J`},
+          { title:'Properties of Matter', points:[
+            'Density: ρ = m/V (kg/m³); measured by displacement for irregular objects',
+            'Hooke\'s Law: extension ∝ force (F = ke) up to elastic limit; spring constant k (N/m)',
+            'Elastic deformation: object returns to original shape; plastic: permanent change',
+            'Pressure in fluids: P = ρgh; increases with depth and density of fluid',
+            'Upthrust (buoyancy) = weight of fluid displaced (Archimedes\' principle)',
+          ], examTips:[
+            'Hooke\'s Law graph: straight line through origin = spring obeying Hooke\'s Law; curve beyond = elastic limit exceeded',
+            'Archimedes: object floats when upthrust = weight; sinks when weight > upthrust',
+          ], commonMistakes:[
+            'Using Hooke\'s Law beyond the elastic limit — it only applies to the linear region',
+            'Confusing upthrust (upward force from fluid) with weight (downward force)',
           ]},
         ]},
       ],
@@ -5430,6 +5612,50 @@ Bonds made: 2 × H-Cl (2×431) = 862 kJ
             'Current atmosphere: ~78% N₂, ~21% O₂, ~0.04% CO₂, trace noble gases',
             'Greenhouse gases: CO₂, CH₄, water vapour → trap heat; human activity increasing CO₂',
             'Pollution: CO (poisonous), SO₂ (acid rain), NOₓ (smog), particulates (respiratory issues)',
+          ], examTips:[
+            'Atmosphere composition: learn the percentages — N₂ 78%, O₂ 21%, Ar ~0.9%, CO₂ ~0.04%',
+            'Pollution: match pollutant to source and effect: SO₂ from burning fossil fuels → acid rain',
+          ], commonMistakes:[
+            'Saying humans produce all greenhouse gases — water vapour and CH₄ from natural sources too',
+            'Confusing carbon monoxide (CO, toxic, from incomplete combustion) with carbon dioxide (CO₂)',
+          ]},
+        ]},
+        { title:'Quantitative Chemistry (Oxford AQA)', icon:'⚖️', topics:[
+          { title:'Moles & Calculations', points:[
+            'Mole = 6.02×10²³ particles (Avogadro\'s number); moles = mass ÷ molar mass (g/mol)',
+            'Relative formula mass (Mr): sum of all atomic masses in the formula',
+            'Concentration: C = n/V (mol/dm³); rearrange for n = CV or V = n/C',
+            'Percentage yield = (actual yield ÷ theoretical yield) × 100%',
+            'Atom economy = (mass of desired product ÷ total mass of all products) × 100%',
+          ], examTips:[
+            'Always show your working: moles → mass → concentration — each step can earn a method mark',
+            'Atom economy: industries prefer high atom economy to reduce waste and cost',
+          ], commonMistakes:[
+            'Using mass instead of moles in ratio calculations — always convert to moles first',
+            'Forgetting to balance equations before calculating theoretical yield',
+          ], workedExample:`How many grams of CO₂ are produced from 12g of C? (C + O₂ → CO₂; Ar: C=12, O=16)
+Moles of C = 12÷12 = 1 mol
+Ratio 1:1 → moles CO₂ = 1 mol
+Mass CO₂ = 1 × 44 = 44g`},
+          { title:'Titration & Electrolysis', points:[
+            'Titration: used to find concentration of unknown solution; indicator shows endpoint',
+            'Concordant results: titres within 0.1 cm³ of each other — use mean of concordant results',
+            'Electrolysis: decomposition using electricity; anode (+) = oxidation; cathode (-) = reduction',
+            'Aqueous solutions: at cathode — H₂ or metal ions discharged depending on reactivity',
+            'At anode: O₂ or Cl₂ produced depending on whether halide ions present',
+          ], examTips:[
+            'Titration calculation: C₁V₁ = C₂V₂ only when ratio is 1:1; for other ratios use moles method',
+            'Electrolysis in industry: chlor-alkali process (brine) produces Cl₂, H₂, NaOH — learn all three products',
+          ]},
+          { title:'Oxford AQA Chemistry Exam Technique', points:[
+            'Oxford AQA Chemistry: Paper 1 (Modules 1–4) and Paper 2 (Modules 5–8); each 1hr 30min',
+            'Required practicals knowledge: method, hazards, variables, data analysis — tested in written papers',
+            'Calculation questions: show formula → substitution → answer with correct unit and significant figures',
+            'Explain questions: use correct scientific vocabulary; do not use everyday language for science terms',
+            'Six-mark extended writing: plan with bullet points first; include cause → mechanism → effect structure',
+          ], examTips:[
+            'State/name/identify questions: one correct answer only — do not write multiple answers hoping one is right',
+            'Required practical: know the specific method steps, including safety measures and why controls are needed',
           ]},
         ]},
       ],
@@ -6401,6 +6627,41 @@ Draw: S curve shifts left; new equilibrium at higher price, lower quantity`},
             'Evaluate aid critically: who provides it, what conditions attached, what evidence of impact?',
           ]},
         ]},
+        { title:'Markets, Government & Exam Skills (Oxford AQA)', icon:'🏛️', topics:[
+          { title:'Market Failure & Government Intervention', points:[
+            'Market failure: when free market produces an inefficient outcome for society',
+            'Externalities: costs or benefits to third parties not in the transaction (e.g. pollution = negative externality)',
+            'Public goods: non-excludable, non-rival (e.g. national defence) — market will under-provide',
+            'Government responses: taxation, subsidies, price controls, regulation, public provision',
+            'Evaluation: government intervention can also fail — imperfect information, unintended consequences',
+          ], examTips:[
+            'Externalities: always draw the external cost/benefit diagram — shifts supply or demand curve',
+            'Evaluate intervention: for every policy benefit, consider a disadvantage to score Level 3+ marks',
+          ], commonMistakes:[
+            'Saying government intervention always solves market failure — it can create inefficiencies too',
+            'Confusing positive externality (benefit to third parties) with normal consumer benefit',
+          ]},
+          { title:'International Trade & Exchange Rates', points:[
+            'Comparative advantage: produce where opportunity cost is lower — basis for international trade',
+            'Protectionism: tariffs, quotas, subsidies, embargoes — restrict imports to protect domestic industry',
+            'Exchange rate: price of one currency in terms of another; appreciation = currency worth more',
+            'Effect of appreciation: exports more expensive (fewer sold), imports cheaper (more bought) → worsens trade balance',
+            'Balance of payments: current account (trade in goods/services) + capital account',
+          ], examTips:[
+            'Exchange rate effects: think of it from BOTH the exporter\'s AND importer\'s perspective',
+            'Comparative advantage: even if one country is better at everything, both can gain from specialisation',
+          ]},
+          { title:'Oxford AQA Economics Exam Technique', points:[
+            'Oxford AQA: Paper 1 (Multiple choice + data response) and Paper 2 (extended writing)',
+            'Data response: read the extract carefully — answers must use evidence from the data',
+            'Evaluate questions: structure as: argument → counter-argument → supported judgement',
+            'Diagrams: draw neatly, label axes (Price/Quantity), label curves (S, D), show shifts with arrows',
+            'Key command words: identify (name it), explain (give reason), analyse (chain of reasoning), evaluate (weigh up)',
+          ], examTips:[
+            'Diagrams in Oxford AQA: always show original and new equilibrium; label P₁, Q₁ and P₂, Q₂',
+            'Evaluation: a conclusion that says "it depends on..." followed by conditions scores highest marks',
+          ]},
+        ]},
       ],
     }
   },
@@ -6618,23 +6879,85 @@ Techniques used: direct address (you/imagine), tripling (regardless of postcode 
             'Grade 9 tip: go beyond technique-spotting to discuss how meaning is constructed and how it positions the reader',
           ]},
         ]},
-        { title:'Oxford AQA: English Language', icon:'🏛️', topics:[
-          { title:'Oxford AQA Structure', points:[
-            'Paper 1: Reading and Writing (creative/imaginative); Paper 2: Reading and Writing (non-fiction)',
+      ],
+      oxford: [
+        { title:'Reading Non-Fiction', icon:'📰', topics:[
+          { title:'Oxford AQA Paper Structure', points:[
+            'Paper 1: Reading and Writing (creative/imaginative contexts); Paper 2: Reading and Writing (non-fiction)',
             'Section A (Reading): comprehension, language analysis, evaluation of writer\'s technique',
-            'Section B (Writing): one extended writing task; creative or non-fiction depending on paper',
-            'Oxford AQA values: sustained control of tone, varied vocabulary, accurate SPaG',
-            'Assessment objectives: AO1 (identify/interpret), AO2 (explain/analyse), AO3 (compare), AO4 (evaluate)',
-          ]},
-          { title:'Key Writing Skills (Oxford AQA)', points:[
-            'Structural variety: vary between simple, compound, complex, and minor sentences for effect',
-            'Vocabulary: choose precise, sophisticated words; avoid vague words (nice, good, big, got)',
-            'Paragraphing: clear topic sentences; developed points with evidence; link back to question',
-            'Cohesion: use cohesive devices — pronouns, connectives, lexical chains, repetition',
-            'Register: match tone exactly to task — formal for letter to authority; informal for blog post',
+            'Section B (Writing): one extended writing task (creative or non-fiction based on paper)',
+            'Assessment objectives: AO1 (identify/interpret), AO2 (explain/analyse language/structure), AO3 (compare), AO4 (evaluate)',
+            'Oxford AQA rewards: precise vocabulary, sustained control of tone, accurate SPaG throughout',
           ], examTips:[
-            'Oxford AQA writing: do not over-plan — spend 5 mins planning, 35–38 mins writing, 2–5 mins proofreading',
-            'Evaluation questions: give a personal judgement with evidence — "I think this is effective because..." shows AO4 skill',
+            'Read questions before texts — know what you are looking for before you start reading',
+            'AO2 questions: always identify technique → quote → explain effect — do not list techniques without analysis',
+          ]},
+          { title:'Language & Structure Analysis', points:[
+            'Identify language technique (metaphor, simile, alliteration, personification, repetition)',
+            'Explain the connotations of word choices — what does it suggest/imply to the reader?',
+            'Structure: how does the text develop? Opening hook, build-up, climax, resolution or conclusion',
+            'Sentence variety: short sentences for impact, complex for detail, questions to engage',
+            'Tone shifts: does the writer\'s tone change? How and why? — this often scores well in evaluations',
+          ], examTips:[
+            'Do not just identify the technique — always explain the EFFECT: "This creates a sense of... for the reader"',
+            'Higher marks: comment on WHY the writer might have chosen this technique given the context/purpose',
+          ]},
+          { title:'Comparing Perspectives', points:[
+            'Compare: purpose, audience, tone, language choices, structure, and viewpoint of two texts',
+            'ABAB structure: alternate between texts rather than writing all about one then the other',
+            'Use comparative connectives: "Both writers... Similarly... However, unlike Text A, Text B..."',
+            'Quote from BOTH texts equally — examiners look for balanced analysis',
+            'Synthesis: identify a shared theme and explore how each writer approaches it differently',
+          ], commonMistakes:[
+            'Writing about both texts separately (AABB) instead of making direct comparisons (ABAB)',
+            'Summarising what the texts say instead of analysing HOW the writers use language',
+          ]},
+        ]},
+        { title:'Writing Skills', icon:'✍️', topics:[
+          { title:'Writing for Purpose & Audience', points:[
+            'Oxford AQA writing tasks: always consider Purpose (why are you writing?), Audience (who are you writing for?), Form (what type of text?)',
+            'Forms: article, report, letter, speech, leaflet, blog post — each has distinct conventions',
+            'Register: formal (letter to authority), semi-formal (article in magazine), informal (blog, diary)',
+            'Vary sentence structures for effect: declarative, interrogative, exclamatory, imperative',
+            'Develop ideas with detail — avoid lists; explore and elaborate on each point',
+          ], examTips:[
+            'Spend 5 minutes planning: identify 4–5 key points, order them logically before writing',
+            'First and last paragraphs carry most impact — invest time in a strong opening hook and memorable ending',
+          ]},
+          { title:'Creative & Descriptive Writing', points:[
+            '"Show don\'t tell": use specific details, sensory language, and figurative devices rather than bland statements',
+            'All five senses: sight, sound, smell, touch, taste — not all in every piece, but use where effective',
+            'Zoom technique: open with wide view → focus on one telling detail → reflect on its significance',
+            'Narrative pace: short sentences create tension; longer sentences slow pace for reflection',
+            'Figurative language: metaphors, similes, personification, pathetic fallacy — use purposefully, not randomly',
+          ], workedExample:`Descriptive writing — "A Storm at Sea":
+"The ship groaned as another wave crested over the bow — not the polished blue of postcards, but a bruised, angry grey. Salt hit the back of my throat. Ropes thrashed. The horizon tilted.
+And then, silence."
+Techniques: personification (ship groaned), colour contrast (bruised, angry grey), sensory detail (salt), short sentence for impact (And then, silence.)`},
+          { title:'Argument & Persuasion', points:[
+            'Structure: clear thesis → evidence and examples → counter-argument → rebuttal → conclusion',
+            'Rhetorical devices: rhetorical question, tripling (rule of three), anaphora, direct address, emotive language',
+            'Statistics and expert opinion add credibility — can be invented but must be plausible',
+            'Concede and rebut: "While some argue that X, in reality..." — shows sophisticated thinking',
+            'Tone: confident and measured; avoid aggression; use modal verbs to modulate certainty',
+          ], examTips:[
+            'Oxford AQA: SPaG marks are separate — always proofread in the final 3 minutes',
+            'Avoid starting every sentence with "I" — vary openings: "Although... Despite... This is why..."',
+          ]},
+        ]},
+        { title:'Exam Skills', icon:'🎯', topics:[
+          { title:'Exam Strategy & Timing', points:[
+            'Oxford AQA English Language papers are typically 1 hour 45 minutes each',
+            'Reading section: spend roughly 1 minute per mark; manage time carefully across all questions',
+            'Writing section: plan first (5 mins), write (35–38 mins), proofread (2–5 mins)',
+            'Command words: identify (find it), explain (give reasons), analyse (technique + effect + context), evaluate (judge with evidence)',
+            'Annotation: read through texts and underline key words, techniques, and structural features before answering',
+          ], examTips:[
+            'If you run out of time on reading: bullet points still earn marks — full sentences not always needed',
+            'Evaluation (AO4): personal judgement must be supported with evidence — "I think X is effective because [quote + analysis]"',
+          ], commonMistakes:[
+            'Spending too long on early questions and running out of time for high-mark writing tasks',
+            'Offering personal opinion on topic content instead of analytical opinion on writer\'s technique',
           ]},
         ]},
       ],
@@ -6918,6 +7241,41 @@ Judgement: Appeasement was a significant cause but not the main one — the stru
             'Provenance formula: The source is [useful/limited] because it was written by [X] in [context], which means [implication for reliability/value]',
           ]},
         ]},
+        { title:'Cold War & Modern World (Oxford AQA)', icon:'🌏', topics:[
+          { title:'Origins of the Cold War 1945–1949', points:[
+            'Cold War: ideological conflict between USA (capitalism/democracy) and USSR (communism)',
+            'Yalta (Feb 1945): agreed post-war Europe division; Stalin promised free elections (later broken)',
+            'Potsdam (July 1945): tensions over Germany; Truman more hostile to Stalin than Roosevelt',
+            'Iron Curtain: Churchill\'s term for the division of Europe into Soviet and Western spheres',
+            'Truman Doctrine (1947): USA would support free peoples resisting communist takeover',
+          ], examTips:[
+            'Cold War causes: remember ideological, political, economic AND personal factors (distrust between leaders)',
+            'Conference comparisons: Yalta = cooperation; Potsdam = growing tensions — explain the shift',
+          ], commonMistakes:[
+            'Saying the Cold War was a "real" war — it was ideological; no direct military conflict between superpowers',
+            'Confusing Yalta and Potsdam — different leaders, different outcomes, different level of agreement',
+          ]},
+          { title:'Cold War Crises & Détente', points:[
+            'Berlin Blockade 1948–49: USSR blockaded West Berlin; USA/UK responded with airlift for 11 months',
+            'Korean War 1950–53: UN forces (mainly USA) vs North Korea (backed by China/USSR); ended in stalemate',
+            'Cuban Missile Crisis 1962: USSR placed missiles in Cuba; 13-day standoff; resolved diplomatically',
+            'Vietnam War: USA intervention failed to prevent communist takeover; humiliating withdrawal 1975',
+            'Détente 1970s: period of relaxed tensions; SALT agreements, Nixon visits China',
+          ], examTips:[
+            'Cuban Missile Crisis: explain WHY it was the most dangerous moment — nuclear weapons, 13-day countdown, miscommunication risk',
+            'Détente causes: both sides exhausted by arms race; economic pressures; MAD doctrine made war too dangerous',
+          ]},
+          { title:'Oxford AQA History Paper Skills', points:[
+            'Oxford AQA History: Paper 1 (breadth study) + Paper 2 (depth study); each 1 hour 30 minutes',
+            'Source evaluation: consider origin, purpose, and context; evaluate usefulness for a specific enquiry',
+            'Significance: what were the short-term and long-term consequences? Who was affected and how widely?',
+            'Interpretation questions: describe what the historian argues → explain evidence used → evaluate the interpretation',
+            'Essay structure: clear thesis → developed evidence → counter-argument → supported conclusion',
+          ], examTips:[
+            'Source usefulness: do not just say "it was written at the time so it is useful" — explain what specific aspect it is useful for',
+            'Significance criteria: remember GREAT — Groundbreaking, Remembered, Effect (impact), Affected (many people), Time (lasting change)',
+          ]},
+        ]},
       ],
     }
   },
@@ -7188,6 +7546,44 @@ Same hazard; very different outcomes due to development level`},
             'Secondary data: already collected (census, OS maps, photographs, statistics)',
             'Risk assessment: identify hazards and control measures before fieldwork',
             'Presenting data: choose appropriate technique for type of data (e.g. scatter for correlation)',
+          ], examTips:[
+            'Fieldwork questions: explain WHY you chose each method, not just what you did',
+            'Data presentation: justify your choice — "I used a scatter graph because I was investigating correlation between X and Y"',
+          ]},
+        ]},
+        { title:'Global Issues & Exam Skills (Oxford AQA)', icon:'🌍', topics:[
+          { title:'Climate Change & Natural Hazards', points:[
+            'Climate change causes: enhanced greenhouse effect from CO₂, CH₄, N₂O from human activity',
+            'Evidence: rising sea levels, retreating glaciers, increased extreme weather events, rising global temperatures',
+            'Natural hazards: earthquakes (tectonic plate boundaries), volcanoes, tropical storms, floods',
+            'Responses to climate change: mitigation (reduce emissions — renewables, efficiency, afforestation) vs adaptation (sea walls, drought-resistant crops)',
+            'Sustainable development: development that meets present needs without compromising future generations (Brundtland definition)',
+          ], examTips:[
+            'Climate change: distinguish between CAUSE (greenhouse gases), EFFECT (temperature rise, sea level rise), and RESPONSE (mitigation/adaptation)',
+            'Natural hazard questions: always link type of hazard to appropriate management strategy',
+          ], commonMistakes:[
+            'Saying climate change causes earthquakes — tectonic hazards are NOT caused by climate change',
+            'Confusing mitigation (reducing the cause) with adaptation (adjusting to the effects)',
+          ]},
+          { title:'Urbanisation & Economic Development', points:[
+            'Urbanisation: increasing proportion of population living in cities; fastest in LICs/NEEs',
+            'Push factors (rural): poverty, lack of services, natural disasters, drought, conflict',
+            'Pull factors (urban): jobs, education, healthcare, infrastructure, social opportunities',
+            'Megacities: cities with 10 million+ people; rapid growth creates housing, traffic, pollution challenges',
+            'Economic development: measured by GDP, HDI; influenced by trade, investment, aid, education, governance',
+          ], examTips:[
+            'Push-pull migration: always give both push AND pull factors for full marks; relate to specific example countries',
+            'Development indicators: explain WHY HDI is better than GDP alone (includes health and education)',
+          ]},
+          { title:'Oxford AQA Geography Exam Technique', points:[
+            'Oxford AQA Geography: Paper 1 (Living with the Physical Environment) + Paper 2 (Challenges in the Human Environment)',
+            'Command words: describe (what? where?), explain (why? how?), assess/evaluate (weigh up evidence for judgement)',
+            'Photo/map questions: describe what you see systematically — patterns, anomalies, trends',
+            'Case studies: know at least one example for each theme with specific facts and statistics',
+            '6-mark "assess" questions: present both sides before reaching a supported conclusion',
+          ], examTips:[
+            'Named examples (case studies): use specific place names, dates, statistics — vague answers score lower marks',
+            'Describe distribution on a map: reference compass directions, specific locations, patterns (clustered/dispersed)',
           ]},
         ]},
       ],
@@ -7773,6 +8169,44 @@ Inverse = (1/5)[[3,−1],[−1,2]]
 [[x],[y]] = (1/5)[[3,−1],[−1,2]][[7],[11]] = (1/5)[[21−11],[−7+22]] = (1/5)[[10],[15]] = [[2],[3]]
 x=2, y=3`},
         ]},
+        { title:'Calculus & Further Topics (Oxford Add Maths)', icon:'∫', topics:[
+          { title:'Differentiation', points:[
+            'Differentiation: finding the gradient function; d/dx(xⁿ) = nxⁿ⁻¹',
+            'Product rule: d/dx(uv) = u\'v + uv\'; Quotient rule: d/dx(u/v) = (u\'v − uv\')/v²',
+            'Chain rule: d/dx[f(g(x))] = f\'(g(x)) · g\'(x) — differentiate outer, multiply by inner derivative',
+            'Stationary points: set dy/dx = 0; minimum if d²y/dx² > 0; maximum if d²y/dx² < 0',
+            'Applications: rate of change, velocity/acceleration from displacement function, optimisation',
+          ], examTips:[
+            'Always find BOTH first and second derivative for stationary point classification',
+            'Optimisation: write expression for quantity to maximise/minimise, differentiate, set to zero, verify nature',
+          ], commonMistakes:[
+            'Forgetting to multiply by the derivative of the inner function in chain rule',
+            'Not checking whether a stationary point is max or min — always use second derivative test',
+          ], workedExample:`Find stationary points of y = x³ − 6x² + 9x
+dy/dx = 3x² − 12x + 9 = 3(x² − 4x + 3) = 3(x−1)(x−3)
+Stationary at x=1 and x=3
+d²y/dx² = 6x−12: at x=1: −6 < 0 → maximum; at x=3: +6 > 0 → minimum`},
+          { title:'Integration', points:[
+            'Integration is the reverse of differentiation: ∫xⁿ dx = xⁿ⁺¹/(n+1) + c (n ≠ −1)',
+            'Definite integral: ∫ₐᵇ f(x)dx = F(b) − F(a); gives area under curve between x=a and x=b',
+            'Area between curves: ∫ₐᵇ [f(x) − g(x)]dx where f(x) is the upper curve',
+            'Trapezium rule (numerical integration): Area ≈ ½h[y₀ + 2(y₁+y₂+...+yₙ₋₁) + yₙ]',
+            'Integration by substitution: let u = inner function; rewrite integral in terms of u; integrate; back-substitute',
+          ], examTips:[
+            'Always add + c for indefinite integrals — losing this mark is common and avoidable',
+            'Area below x-axis: the definite integral gives a negative value — take the modulus for the actual area',
+          ]},
+          { title:'Oxford AQA Additional Maths Exam Strategy', points:[
+            'Oxford AQA Additional Mathematics: two papers, each 2 hours; no formula sheet — must memorise key results',
+            'Show all working: method marks available at every step; final answer alone rarely earns full credit',
+            'Proof questions: start with one side, manipulate using algebra/identities, reach the other side — do not work both sides simultaneously',
+            'Checking: substitute answer back into original equation; check boundary conditions for optimisation',
+            'Time management: 2-hour paper; do not spend >10 minutes on any single part question',
+          ], examTips:[
+            'No formula sheet: learn core derivatives (xⁿ, sinx, cosx, eˣ, lnx) and integration results',
+            'Trigonometric identities to memorise: sin²x+cos²x=1; sin2x=2sinxcosx; cos2x=cos²x−sin²x',
+          ]},
+        ]},
       ],
     }
   },
@@ -8035,6 +8469,49 @@ NET ASSETS:                  $35,000
             'Cash flow problems: overtrading, poor credit control, seasonal fluctuations',
             'Solutions: overdraft, factoring debtors, sale and leaseback, delaying payments to suppliers',
             'Difference: profit is accounting concept; cash is liquidity — can be profitable but cash-poor',
+          ], examTips:[
+            'Cash flow forecasts: always check opening balance = previous closing balance — common error to spot',
+            'Distinguish cash flow solutions: overdraft = short-term borrowing; sale and leaseback = raise cash from asset',
+          ], commonMistakes:[
+            'Treating profit and cash as the same — a business can make profit but have negative cash flow (e.g. unpaid debtors)',
+            'Forgetting that closing balance = opening balance + net cash flow (not just net cash flow alone)',
+          ]},
+        ]},
+        { title:'Financial Statements & Ratio Analysis (Oxford AQA)', icon:'📊', topics:[
+          { title:'Income Statement & Balance Sheet', points:[
+            'Income statement (P&L): Revenue − Cost of Sales = Gross Profit; Gross Profit − Expenses = Net Profit',
+            'Balance sheet: Assets = Liabilities + Equity; snapshot of financial position at one point in time',
+            'Non-current assets: used for more than one year (buildings, machinery, vehicles)',
+            'Current assets: used within one year (inventory, receivables, cash); current liabilities: due within one year',
+            'Depreciation: reduction in asset value over time; straight-line: equal annual charge; reducing balance: % of remaining value',
+          ], examTips:[
+            'Income statement order: Revenue → Gross Profit → Net Profit → always show workings for each line',
+            'Balance sheet must balance: if it doesn\'t, recheck figures — common sign of a calculation error',
+          ], commonMistakes:[
+            'Confusing gross profit (before expenses) and net profit (after expenses)',
+            'Using straight-line depreciation formula incorrectly: (Cost − Residual Value) ÷ Useful Life',
+          ], workedExample:`Straight-line depreciation: Machine cost £24,000; residual value £4,000; useful life 5 years.
+Annual depreciation = (24,000 − 4,000) ÷ 5 = £4,000 per year
+After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
+          { title:'Ratio Analysis', points:[
+            'Profitability: Gross Profit Margin = (Gross Profit ÷ Revenue) × 100%; Net Profit Margin = (Net Profit ÷ Revenue) × 100%',
+            'Liquidity: Current Ratio = Current Assets ÷ Current Liabilities (ideal ~2:1)',
+            'Acid Test Ratio = (Current Assets − Inventory) ÷ Current Liabilities (ideal ~1:1)',
+            'Return on Capital Employed (ROCE) = (Net Profit ÷ Capital Employed) × 100%',
+            'Interpreting ratios: compare to previous year AND to industry average; one ratio alone is insufficient',
+          ], examTips:[
+            'Always interpret ratios in context — a falling current ratio may be fine if the business has reliable cash inflows',
+            'Acid test: removes inventory because it may be slow to convert to cash — more stringent liquidity measure',
+          ]},
+          { title:'Oxford AQA Accounting Exam Approach', points:[
+            'Oxford AQA Accounting: Paper 1 (preparation of accounts) + Paper 2 (interpretation/decision making)',
+            'Paper 1 tasks: preparing income statements, balance sheets, cash flow forecasts, ledger accounts',
+            'Paper 2 tasks: ratio calculation and analysis, recommend and justify business decisions',
+            'Layout marks: use correct accounting layout — headings, subtotals, double-underlining totals',
+            'Justify recommendations: state ratio/figure → compare → conclude → recommend with reasoning',
+          ], examTips:[
+            'Presentation matters: accountancy has strict layout conventions — marks are lost for incorrect format',
+            'Discussion questions: always use data to support your argument: "The current ratio fell from 2.1 to 1.4, suggesting..."',
           ]},
         ]},
       ],
@@ -8295,6 +8772,41 @@ NET ASSETS:                  $35,000
           ], examTips:[
             'Oxford AQA 12-mark questions: write a short introduction stating opposing views, then 3+ developed points with evaluation, conclude with balanced judgement',
             'Always challenge your own argument — AO2 evaluation marks require engaging with counter-views',
+          ]},
+        ]},
+        { title:'Power, Politics & Social Change (Oxford AQA)', icon:'⚖️', topics:[
+          { title:'Power & Politics', points:[
+            'Power: ability to achieve goals despite resistance (Weber); three dimensions — decision-making, agenda-setting, shaping desires',
+            'Types of authority: traditional (custom), legal-rational (rules/law), charismatic (personal qualities)',
+            'Political participation: voting, joining parties, protest, direct action; declining turnout concerns sociologists',
+            'Pluralism vs elite theory: pluralists argue power is dispersed; elite theorists argue a ruling class dominates',
+            'Marxist view: state serves the interests of the ruling class — policies protect capitalist system',
+          ], examTips:[
+            'Power questions: contrast perspectives — functionalist (power is legitimate, shared), Marxist (power serves ruling class), feminist (male power dominates)',
+            'Include sociologist names and studies: Weber, Lukes, Dahl, Miliband — named theorists earn AO2 marks',
+          ], commonMistakes:[
+            'Treating power as purely about politics — remember economic, cultural, and social forms of power',
+            'Confusing authority (legitimate power) with coercion (forced power)',
+          ]},
+          { title:'Social Change & Globalisation', points:[
+            'Social change: transformation of social institutions, norms, and values over time',
+            'Globalisation: increased interconnection of world economies, cultures, and politics',
+            'Cultural globalisation: spread of Western values and consumer culture (McDonaldisation — Ritzer)',
+            'Economic globalisation: TNCs operating across borders; wealth concentrated in Global North',
+            'Digital technology: social media reshapes identity, community, political mobilisation, and inequality',
+          ], examTips:[
+            'Globalisation evaluation: consider BOTH positive (development opportunities) AND negative (exploitation, cultural homogenisation) effects',
+            'Digital divide: unequal access to technology reinforces existing inequalities — use as evaluation of technology as liberating',
+          ]},
+          { title:'Oxford AQA Sociology Exam Skills', points:[
+            'Oxford AQA: Paper 1 (Theory, Methods, Family, Education) + Paper 2 (Crime, Work, Power, Global Development)',
+            'Item/source questions: refer to the item — use quotations or paraphrase; this is an AO1 skill',
+            '12-mark evaluate questions: present both sides then make a supported judgement',
+            'Key sociologists: Durkheim, Marx, Weber, Parsons, Merton, Goffman, Becker, Willis — know each\'s perspective',
+            'Research methods: always link method choice to topic (e.g. observation for hidden deviants)',
+          ], examTips:[
+            'AO3 evaluation: phrases like "However, Marxists would argue...", "This view is challenged by...", "A limitation of this is..." signal evaluative thinking',
+            'Use evidence: named studies, statistics from the item, or sociological research — do not make unsupported assertions',
           ]},
         ]},
       ],
@@ -8565,6 +9077,41 @@ Conclusion: the wording of a question can alter memory — has implications for 
           ], examTips:[
             'Method question: always state strength AND weakness; link to the specific study context',
             'Oxford AQA 4-mark describe: who, what, procedure, findings — be specific about numbers and results',
+          ]},
+        ]},
+        { title:'Applied Psychology & Exam Skills (Oxford AQA)', icon:'🧩', topics:[
+          { title:'Psychological Applications', points:[
+            'Criminal psychology: Eysenck\'s personality theory (extraversion/neuroticism); social learning — criminal behaviour is learnt',
+            'Sport psychology: self-efficacy (Bandura), arousal and performance (inverted-U hypothesis), team cohesion',
+            'Health psychology: health belief model, locus of control (internal vs external), stress and immune function',
+            'Consumer psychology: persuasion techniques, brand loyalty, cognitive dissonance in decision-making',
+            'Educational psychology: growth mindset (Dweck), learning styles debate, self-fulfilling prophecy (teacher expectations)',
+          ], examTips:[
+            'Application questions: name the specific psychological concept → define it → apply to the scenario given',
+            'Always evaluate applications — psychological findings in real settings are often more complex than lab studies suggest',
+          ], commonMistakes:[
+            'Describing psychology generally instead of applying a named concept to the specific context given',
+            'Ignoring individual differences — not everyone responds the same way to psychological interventions',
+          ]},
+          { title:'Approaches in Psychology', points:[
+            'Biological: behaviour explained by genetics, brain structure, hormones, neurotransmitters',
+            'Behaviourist: all behaviour is learnt through conditioning (Pavlov, Skinner, Watson)',
+            'Cognitive: mental processes (memory, perception, thinking) shape behaviour — mind as information processor',
+            'Social learning: observe and imitate models — reinforced if rewarded; key: identification, attention, retention, reproduction',
+            'Humanistic: free will, self-actualisation, hierarchy of needs (Maslow) — holistic view of person',
+          ], examTips:[
+            'Approach comparison: for any behaviour, explain how TWO different approaches would explain it — then evaluate',
+            'Nature vs nurture: embed in every approach discussion — biological = nature; behaviourist = nurture; most now say interaction',
+          ]},
+          { title:'Oxford AQA Psychology Paper Skills', points:[
+            'Oxford AQA: Paper 1 (Core studies and psychological investigations) + Paper 2 (Psychological applications)',
+            'Core study evaluation: strengths (validity, reliability, ethics, application) and weaknesses',
+            '4-mark "describe" question: be specific — say WHO conducted it, WHAT they did, WHAT they found',
+            '8-mark evaluate: describe → strength with elaboration → weakness with elaboration → conclusion',
+            'Application questions (12 marks): define concept → link to scenario → evaluate approach in context',
+          ], examTips:[
+            'Core studies: know all 20 studies — who, aim, method, results, conclusion, one strength, one weakness',
+            'Avoid "it was a good/bad study" — always specify WHAT makes it valid/invalid, reliable/unreliable, ethical/unethical',
           ]},
         ]},
       ],
@@ -8839,6 +9386,41 @@ Modern encryption (AES, RSA) is mathematically complex — not breakable by simp
             'Database vs spreadsheet: database better for multiple related tables and complex queries; spreadsheet better for calculations and charts',
           ]},
         ]},
+        { title:'Networks, Security & Emerging Tech (Oxford AQA)', icon:'🌐', topics:[
+          { title:'Networks & Communication', points:[
+            'LAN (Local Area Network): small geographic area (school, office); connected by cables or WiFi',
+            'WAN (Wide Area Network): large geographic area; uses public infrastructure (Internet = world\'s largest WAN)',
+            'Network topologies: star (central switch/hub), bus (shared cable), mesh (all devices connected)',
+            'Protocols: set of rules for communication; HTTP (web), HTTPS (secure), FTP (file transfer), SMTP/IMAP (email)',
+            'Bandwidth: amount of data that can be transmitted per second (Mbps/Gbps); affects speed and capacity',
+          ], examTips:[
+            'Network questions: explain advantages AND disadvantages — star topology: easy fault finding but single point of failure at hub',
+            'Client-server vs peer-to-peer: client-server = centralised control and security; P2P = no central server, harder to manage',
+          ], commonMistakes:[
+            'Confusing bandwidth (capacity) with speed — high bandwidth = can carry more data, not necessarily faster',
+            'Saying WiFi is always less secure than wired — WiFi can be secured with WPA3 encryption',
+          ]},
+          { title:'Cybersecurity & Data Protection', points:[
+            'Threats: malware (virus, worm, trojan, ransomware), phishing, hacking, social engineering',
+            'Protection: strong passwords, two-factor authentication, firewalls, encryption, regular updates, backups',
+            'Encryption: converting data into unreadable form without a key; HTTPS uses TLS encryption',
+            'Data Protection Act / GDPR: data must be accurate, secure, used for stated purpose, not kept longer than needed',
+            'Biometric authentication: fingerprint, face ID, iris scan — more secure but raises privacy concerns',
+          ], examTips:[
+            'Phishing vs hacking: phishing tricks users into revealing credentials; hacking directly attacks systems',
+            'Describe how to protect a network: always give multiple layers — not just "use a password"',
+          ]},
+          { title:'Oxford AQA ICT Exam Technique', points:[
+            'Oxford AQA ICT: theory paper + practical tasks (word processing, spreadsheet, database, presentation)',
+            'Theory paper: short answer and extended response; use correct technical terminology throughout',
+            'Practical tasks: read the brief carefully; use exactly the format, font, and layout specified',
+            'Describe questions: give enough detail — "use a password" scores less than "use a strong password of 12+ characters including symbols"',
+            'Evaluate questions: discuss both advantages AND disadvantages before reaching a conclusion',
+          ], examTips:[
+            'Practical marks: lost for wrong font size, missing header/footer, wrong file format — check the mark scheme requirements',
+            'Theory questions: if asked to "give two reasons", write exactly two — extra reasons are not marked and waste time',
+          ]},
+        ]},
       ],
     }
   },
@@ -8992,33 +9574,132 @@ This thesis establishes a comparison (Macbeth vs Lady Macbeth) and makes an argu
             'Time plan: read question (2 min) → plan (5 min) → write (40 min) → check (3 min)',
             'Never write "I liked this poem because..." — write analytically, not personally',
           ]},
+          { title:'Contextual Analysis', points:[
+            'Context: historical, social, and biographical factors that influenced the writer\'s choices',
+            'Contextual reference must be relevant: link to a specific language or structural choice',
+            'Edexcel AO3: "the writer was influenced by..." must connect to "which is why they chose..."',
+            'Social context: class, gender, race of the period — how do they shape character experiences?',
+            'Biographical context: use sparingly; focus on how it illuminates the text, not as biography',
+          ], examTips:[
+            'AO3 tip: one contextual reference per paragraph is enough — do not write a history essay',
+            'Context integrated: "Writing in post-war Britain, Orwell uses... to reflect anxieties about..." — weave context into analysis',
+          ], commonMistakes:[
+            'Dropping context in without linking it to the text: "Dickens lived in Victorian times" scores nothing unless connected to language choices',
+            'Using context as a substitute for textual analysis — AO2 language analysis must dominate',
+          ]},
+          { title:'Unseen Text & Comparing Texts', points:[
+            'Unseen text: read twice — first for general meaning, second for specific techniques and effects',
+            'Annotation strategy: circle language techniques, underline key words, note tone changes in margins',
+            'Edexcel unseen: write about writer\'s choices, not just what happens in the text',
+            'Comparing texts: identify a shared theme → compare HOW each writer approaches it → evaluate which is more effective',
+            'Comparison connectives: "Both writers...", "While X uses..., Y instead...", "Unlike...", "Similarly..."',
+          ], examTips:[
+            'Unseen: the first thing to do is identify TONE — this guides your entire analysis',
+            'Comparison questions: make 3–4 direct comparisons; avoid "Text A does this. Text B does that." — interweave them',
+          ]},
         ]},
       ],
       oxford: [
-        { title:'Oxford AQA Literature', icon:'🏛️', topics:[
-          { title:'Oxford AQA Literature Overview', points:[
-            'Oxford AQA IGCSE Literature: prose, poetry, drama — studied texts and unseen extracts',
-            'Assessment: closed book — must know key quotes by heart; plan ahead which quotes to memorise',
-            'AO1: respond personally and critically to texts; AO2: analyse language, structure, form',
-            'AO3: relate texts to their contexts (historical, social, literary); AO4: compare texts',
-            'Unseen extract: apply same close reading skills to unfamiliar text — annotate before writing',
+        { title:'Poetry (Oxford AQA)', icon:'✍️', topics:[
+          { title:'Oxford AQA Poetry Approach', points:[
+            'Oxford AQA Literature: studied poetry anthology + unseen poem comparison',
+            'Assessment objectives: AO1 (personal/critical response), AO2 (language/structure/form analysis), AO3 (context), AO4 (comparison)',
+            'Comparison essays: ABAB structure — alternate between poems rather than writing about one then the other',
+            'Always analyse EFFECT: "the use of enjambment creates breathless pace, reflecting the speaker\'s urgency"',
+            'Memorise 2–3 key quotes per poem with ready-made analysis — do not rely on memory of whole stanzas',
           ], examTips:[
-            'Oxford AQA: "compare" questions are worth many marks — make comparisons explicit and sustained, not superficial',
-            'Memorise 10–12 key quotes per text; learn them with analysis ready to deploy in exam',
+            'Oxford AQA: "compare" questions are worth many marks — make comparisons explicit and sustained throughout',
+            'Start with a thesis: "Both poems explore loss, but Poem A presents it as violent rupture while Poem B sees it as gradual fading"',
+          ], commonMistakes:[
+            'Listing techniques without explaining their effect on the reader',
+            'Writing about one poem fully then the other — always interweave the comparison',
           ]},
-          { title:'Unseen Text Skills', points:[
-            'Before writing: read twice; annotate (circle techniques, note tone, underline key words)',
-            'First impression: what is this text about? What is the tone? What effect does it create?',
-            'Identify the speaker/narrator: first person (personal, subjective), third person (detached/omniscient)',
-            'Track shifts: where does the tone, mood, or focus change? — often the key structural moment',
-            'Always analyse, not just identify: "The writer uses repetition of \'never\'" is worth less than adding the effect',
+          { title:'Poetic Techniques & Form', points:[
+            'Imagery: simile ("like"), metaphor ("is"), personification (human traits to non-human)',
+            'Sound: alliteration (consonants), assonance (vowels), onomatopoeia — always explain effect on mood/tone',
+            'Structure: regular stanzas = control; irregular = chaos/emotion; enjambment = urgency; caesura = pause/disruption',
+            'Voice: who is speaking? Tone of voice (bitter, nostalgic, celebratory, resigned, defiant)',
+            'Volta: turning point in poem where tone or argument shifts — often the most important moment to analyse',
+          ], examTips:[
+            'Form mirrors content: a poem about chaos using irregular form is making a deliberate structural choice — say so',
+            'Caesura and enjambment: always comment on where line breaks fall — they are always intentional choices',
+          ], workedExample:`Analyse: "I wandered lonely as a cloud" (Wordsworth)
+Technique: simile ("as a cloud")
+Effect: The comparison of the speaker to a cloud suggests aimlessness and detachment from the world. Clouds drift without purpose — Wordsworth presents the speaker as similarly solitary and directionless, which makes the sudden encounter with the daffodils all the more transformative.`},
+          { title:'Unseen Poetry Skills', points:[
+            'Read twice: first for meaning, second for technique and effect',
+            'Annotate before writing: circle techniques, note tone shifts, underline striking word choices',
+            'First paragraph: state the overall meaning/message and dominant tone',
+            'Middle paragraphs: close analysis of specific techniques with quotes and explained effects',
+            'Final paragraph: comment on form/structure as a whole and how it supports the poem\'s meaning',
+          ], commonMistakes:[
+            'Paraphrasing the poem instead of analysing the language choices',
+            'Forgetting to comment on the effect of sound techniques (alliteration, assonance) on the reader',
           ]},
-          { title:'Studied Text Essay Skills', points:[
-            'Memorised quote strategy: learn quotes in thematic clusters, not in plot order',
-            'Argue, don\'t describe: "In chapter 3..." (description); "Throughout the novel, X is presented as..." (argument)',
-            'Vary your vocabulary: conveys, implies, suggests, reveals, contrasts, juxtaposes, emphasises, challenges',
-            'Paragraphing: clear topic sentences at the start of each paragraph; conclusion at start not after evidence',
-            'AO3 context integration: reference context once per paragraph maximum — it supports analysis, not replaces it',
+        ]},
+        { title:'Prose Fiction (Oxford AQA)', icon:'📖', topics:[
+          { title:'Analysing Prose Extracts', points:[
+            'Oxford AQA prose: close reading of an extract plus a whole-text question on studied novel',
+            'Narrative voice: first person (intimate, biased, limited) vs third person omniscient (knows all) vs limited third (follows one character)',
+            'Setting and atmosphere: how does the setting reflect or contrast with character\'s emotions?',
+            'Characterisation: direct (told by narrator) vs indirect (shown through speech, action, others\' reactions)',
+            'Sentence length and structure: long sentences = flow/reflection; short = shock/action; fragments = disorientation',
+          ], examTips:[
+            'Extract questions: don\'t rush — re-read the extract twice before writing; mark key moments to analyse',
+            'Whole-text questions: write a thesis in the introduction and sustain your argument through every paragraph',
+          ], commonMistakes:[
+            'Retelling the plot instead of analysing how the writer presents ideas through language',
+            'Using vague analysis: "This shows he is sad" — instead: "The verb \'dragged\' implies reluctance, suggesting..."',
+          ], workedExample:`Novel analysis paragraph (Lord of the Flies):
+Point: Golding presents the conch as a symbol of democratic order that becomes increasingly fragile.
+Evidence: "The conch exploded into a thousand white fragments and ceased to exist."
+Analysis: The violent verb "exploded" and the finality of "ceased to exist" suggest that civilisation is not merely lost but shattered — the passive construction implies no single person is responsible, implicating all the boys in its destruction.`},
+          { title:'Themes in Prose', points:[
+            'Common themes: power and corruption, loss of innocence, identity and belonging, friendship and loyalty, justice',
+            'Track theme across the whole text — how does the theme develop from beginning to end?',
+            'Characters as theme vehicles: characters often embody or challenge a theme (e.g. Piggy = intellect vs brute power)',
+            'Symbols: objects/places that represent abstract ideas — track how they are described throughout the text',
+            'Writer\'s purpose: what does the author want the reader to think/question by the end of the novel?',
+          ], examTips:[
+            'Oxford AQA: essays must argue a position — state it clearly in the introduction and return to it in the conclusion',
+            'Use vocabulary of literary analysis: "Golding presents...", "this implies...", "the reader is invited to consider..."',
+          ]},
+        ]},
+        { title:'Drama & Exam Technique', icon:'🎭', topics:[
+          { title:'Analysing Drama', points:[
+            'Oxford AQA drama: study of one Shakespeare play and/or one modern drama text',
+            'Stage directions: deliberate choices by the playwright — analyse them as carefully as dialogue',
+            'Soliloquy: character reveals true thoughts to audience alone — compare to what they say to others for dramatic irony',
+            'Dramatic irony: audience knows something characters do not — creates tension, sympathy, or dark humour',
+            'Staging and theatre context: consider how the play would look/sound on stage — Oxford AQA rewards theatrical awareness',
+          ], examTips:[
+            'Shakespeare: always reference the theatrical context — Elizabethan/Jacobean audiences, open-air Globe theatre, no lighting',
+            'Drama essays: write about the PLAYWRIGHT\'S choices, not the characters as if they were real people',
+          ], commonMistakes:[
+            'Saying "Shakespeare writes..." — should be "Shakespeare presents..." or "in this scene, Shakespeare conveys..."',
+            'Ignoring stage directions — they are as important as dialogue for revealing character and meaning',
+          ]},
+          { title:'Oxford AQA Exam Technique', points:[
+            'Time management: read the paper first (5 min); plan each answer briefly; write; review',
+            'Command words: analyse (language + effect), compare (two texts side by side), evaluate (judge with evidence), explore (multiple angles)',
+            'AO1 (response): clear argument and personal engagement with the text',
+            'AO2 (language/form): specific analysis of how language, structure, and form create meaning',
+            'AO3 (context): integrate context to explain WHY the writer made choices — not as separate history paragraphs',
+          ], examTips:[
+            'Context mark (AO3): one well-integrated contextual point per paragraph is enough — do not write a history essay',
+            'Vary critical vocabulary: conveys, suggests, implies, reveals, challenges, subverts, juxtaposes, foreshadows',
+          ], workedExample:`Exam introduction (Macbeth — ambition theme):
+"Shakespeare presents ambition as a corrupting force that strips away humanity — a warning to his Jacobean audience about the dangers of unchecked power. While Macbeth begins the play as a celebrated hero, his ambition, catalysed by Lady Macbeth and the witches, drives him towards increasingly brutal acts that alienate him from every human relationship."
+This intro: states a clear argument, references context (Jacobean audience), and sets up a whole-essay discussion of character development.`},
+          { title:'Studied Text Revision', points:[
+            'Quote bank: learn 10–12 key quotes per studied text in thematic clusters (power, identity, loss, etc.)',
+            'Each quote: know the context (who says it, when, why), the technique used, and the effect/meaning',
+            'Practice essay plans: timed 5-minute plans for likely questions — builds confidence and fluency',
+            'Past questions: Oxford AQA releases specimen papers; practise with real questions then compare to mark scheme',
+            'Group study: discuss texts with peers — hearing different interpretations strengthens analytical thinking',
+          ], commonMistakes:[
+            'Learning quotes without knowing their context — examiners can tell when quotes are dropped in without understanding',
+            'Spending revision time re-reading texts rather than practising timed essay writing',
           ]},
         ]},
       ],
@@ -9186,36 +9867,176 @@ Il y a beaucoup de choses à faire — par exemple, on peut visiter des musées,
             'Photo card: describe what you see, say what might happen next, give your opinion with reason',
           ]},
         ]},
+        { title:'Edexcel French — Advanced Grammar', icon:'📐', topics:[
+          { title:'Subjunctive, Passive & Complex Structures', points:[
+            'Subjunctive (le subjonctif): required after il faut que, bien que, pour que, je veux que, avant que',
+            'Form: take ils-present, remove -ent, add: -e/-es/-e/-ions/-iez/-ent',
+            'Key irregular subjunctives: être→sois, avoir→aie, aller→aille, faire→fasse, pouvoir→puisse',
+            'Passive voice: être + past participle (+ par if agent given): "La lettre a été écrite par le directeur"',
+            'Relative pronouns: qui (subject), que (object), dont (de + noun), où (place/time)',
+          ], examTips:[
+            'Subjunctive instantly signals advanced grammar — use in writing: "Il faut que tu fasses un effort" or "Bien que ce soit difficile"',
+            'Passive voice: useful for writing about social issues: "Des millions d\'arbres sont coupés chaque année" (millions of trees are cut down every year)',
+          ], commonMistakes:[
+            'Using indicative after subjunctive triggers — check the conjunction and use the correct mood',
+            'Passive voice agreement: past participle must agree with the subject in gender and number',
+          ]},
+          { title:'Advanced Vocabulary & Idioms', points:[
+            'Idiomatic expressions: avoir envie de (to want to), avoir du mal à (to have difficulty), il s\'agit de (it\'s about)',
+            'Connectives for sophistication: par conséquent (consequently), en revanche (on the other hand), c\'est pourquoi (that\'s why)',
+            'Impersonal expressions: il est essentiel que + subj, il est évident que + indic, il vaut mieux + inf',
+            'Comparison: plus...que (more than), moins...que (less than), aussi...que (as...as), le plus (the most)',
+            'Time phrases: autrefois (in the past), de nos jours (nowadays), à l\'avenir (in the future), dorénavant (from now on)',
+          ], examTips:[
+            'Grade 9 tip: use idiomatic expressions rather than literal translations — "avoir du mal à comprendre" not "avoir difficulté à comprendre"',
+            'Advanced connectives: replace "mais" with "cependant" or "néanmoins"; replace "et" with "de plus" or "par ailleurs"',
+          ]},
+          { title:'Translation Masterclass', points:[
+            'English → French translation: most marks available; most difficult — requires precise grammar',
+            'Approach: read the whole sentence → identify verb tense → translate → check agreement → check accents',
+            'Tricky structures: "for + time + present" = depuis + present: "I have lived here for 5 years" = j\'habite ici depuis 5 ans',
+            '"Would": use conditional → "I would like" = je voudrais; "he would go" = il irait',
+            '"If" clauses: si + imperfect + conditional: "If I had money, I would travel" = Si j\'avais de l\'argent, je voyagerais',
+          ], examTips:[
+            'Edexcel translation: marks awarded per phrase/clause — even if some errors, correct phrases earn marks',
+            'Check before submitting: accents on verbs (il présente, nous préférons), noun gender, negatives (ne...pas)',
+          ], workedExample:`Translate: "If the weather were better, we would go to the beach more often."
+Si le temps était meilleur, nous irions à la plage plus souvent.
+Structure: si + imparfait (était) + conditionnel (irions) — classic "si clause" for hypothetical situations`},
+        ]},
       ],
       oxford: [
-        { title:'Oxford AQA French — Grammar & Skills', icon:'📝', topics:[
+        { title:'Grammar Foundations', icon:'📝', topics:[
           { title:'Core Grammar (Oxford AQA)', points:[
-            'Oxford AQA IGCSE French: same tenses as CIE/Edexcel; distinct paper style with emphasis on accuracy',
-            'Present tense: regular -er, -ir, -re verbs + key irregulars (être, avoir, aller, faire, pouvoir, vouloir)',
-            'Perfect tense: avoir/être + past participle; être verbs agree with subject gender/number',
-            'Imperfect: descriptions and habitual past; j\'habitais, il faisait, nous allions',
-            'Future simple: add endings to infinitive (-ai/-as/-a/-ons/-ez/-ont); irregular stems for common verbs',
-            'Conditional: same stems as future + imperfect endings; used for hypothetical situations',
+            'Oxford AQA IGCSE French: emphasis on grammar accuracy — errors cost marks in writing tasks',
+            'Present tense: -er (parler), -ir (finir), -re (vendre); key irregulars: être, avoir, aller, faire',
+            'Perfect tense (passé composé): avoir/être + past participle; être verbs agree gender/number',
+            'Imperfect (imparfait): descriptions and habitual past; j\'habitais, il faisait, nous allions',
+            'Future simple: infinitive + endings (-ai/-as/-a/-ons/-ez/-ont); irregular stems for common verbs',
+            'Conditional: same stems as future + imperfect endings; used for hypothetical and polite requests',
           ], examTips:[
-            'Oxford AQA French: grammar accuracy weighted heavily — one mark per error in writing tasks',
-            'Use SINCE (depuis) + present tense in French: "J\'apprends le français depuis trois ans" (I have been learning French for 3 years)',
+            'Oxford AQA French: grammar accuracy is heavily weighted — check agreement of adjectives and past participles',
+            'DEPUIS + present tense: "J\'apprends le français depuis trois ans" = I have been learning French for 3 years',
+          ], commonMistakes:[
+            'Using passé composé for descriptions/habitual past — use imparfait instead (e.g. "Quand j\'étais petit, je jouais...")',
+            'Forgetting être verb past participle agreement: "elle est allée" not "elle est allé"',
           ]},
-          { title:'Oxford AQA Themes', points:[
-            'Theme 1: Identity and Culture — family, friends, technology, customs, festivals, relationships',
-            'Theme 2: Local, national, international & global areas of interest — environment, travel, current issues',
-            'Theme 3: Current and future study and employment — school, career plans, work experience',
-            'Key opinion phrases: je pense que, à mon avis, selon moi, je trouve que, il me semble que',
-            'Connectives for higher marks: cependant (however), de plus (furthermore), bien que + subjunctive (although)',
-          ]},
-          { title:'Oxford AQA Exam Structure', points:[
-            'Paper 1: Listening — 35 mins; multiple choice, gap-fill, short answer; questions in English',
-            'Paper 2: Reading — 45 mins; comprehension, gap-fill, translation into English',
-            'Paper 3: Writing — 1hr 15mins; structured tasks, essay (90 words), translation into French',
-            'Paper 4: Speaking — 10–12 mins; role play, photo card description, general conversation',
-            'Foundation: grades 1–5; Higher: grades 4–9; candidates choose tier',
+          { title:'Adjectives, Pronouns & Negatives', points:[
+            'Adjective agreement: add -e for feminine, -s for plural, -es for feminine plural (grand → grande → grands → grandes)',
+            'BAGS adjectives come BEFORE the noun: Beau, Age, Good/bad, Size (beau, vieux, bon/mauvais, grand/petit)',
+            'Object pronouns: me/te/le/la/nous/vous/les — placed before the verb: "Je le vois" (I see him)',
+            'Negatives: ne...pas (not), ne...jamais (never), ne...plus (no longer), ne...rien (nothing), ne...personne (nobody)',
+            'Relative pronouns: qui (subject), que (object): "le film qui m\'a plu" / "le film que j\'ai vu"',
           ], examTips:[
-            'Translation into French (Paper 3): most demanding task — learn set phrases and verb forms precisely',
-            'Speaking photo card: structure answer as describe → extend → opinion → reason; use full sentences throughout',
+            'Negatives in compound tenses: ne wraps around auxiliary: "je n\'ai PAS mangé", "elle n\'est PAS allée"',
+            'Object pronouns order: me/te/nous/vous → le/la/les → lui/leur → y → en (when multiple pronouns used)',
+          ], commonMistakes:[
+            'Putting BAGS adjectives after the noun — they must come before: "une grande maison" not "une maison grande"',
+            'Forgetting ne in negatives — "je mange pas" is informal/spoken only, not acceptable in writing exam',
+          ]},
+          { title:'Subjunctive & Advanced Structures', points:[
+            'Subjunctive (le subjonctif): used after certain expressions — il faut que, bien que, pour que, vouloir que',
+            'Present subjunctive formation: ils-form of present tense, remove -ent, add: -e/-es/-e/-ions/-iez/-ent',
+            'Key irregular subjunctives: être → sois, avoir → aie, aller → aille, faire → fasse, pouvoir → puisse',
+            'Relative pronoun "dont": replaces de + noun — "le livre dont j\'ai besoin" (the book I need)',
+            'Passive voice: être + past participle: "La lettre a été écrite par Marie" (The letter was written by Marie)',
+          ], examTips:[
+            'Subjunctive instantly boosts writing grade — use: "Il faut que tu fasses tes devoirs" or "bien que ce soit difficile"',
+            'Oxford AQA Higher: including one subjunctive or passive construction signals advanced grammar competence',
+          ]},
+        ]},
+        { title:'Themes & Vocabulary', icon:'💬', topics:[
+          { title:'Identity, Family & Relationships', points:[
+            'Family vocabulary: les parents (parents), le frère/la sœur (brother/sister), les grands-parents, le beau-père (stepfather)',
+            'Describing people: grand(e), petit(e), mince (slim), fort(e) (strong), sympa (nice), généreux/généreuse',
+            'Relationships: s\'entendre bien avec (to get on well with), se disputer avec (to argue with), faire confiance à (to trust)',
+            'Daily routine: se lever, se doucher, s\'habiller, prendre le petit déjeuner, aller au collège, se coucher',
+            'Social issues: l\'égalité (equality), le racisme, le harcèlement (bullying), les droits (rights)',
+          ], examTips:[
+            'Photo card: describe the people shown → their relationship → their emotions → what might happen next',
+            'Use reflexive verbs for daily routine — they signal grammatical sophistication to examiners',
+          ]},
+          { title:'Environment & Global Issues', points:[
+            'Environmental problems: le réchauffement climatique (global warming), la pollution, la déforestation, les espèces menacées',
+            'Solutions: recycler, économiser l\'eau/l\'énergie, utiliser les transports en commun, les énergies renouvelables',
+            'Opinions: Il est important de..., On devrait..., Il faut que + subj, Il est essentiel que...',
+            'Statistics phrases: de plus en plus (more and more), de moins en moins (less and less), la moitié (half)',
+            'Global issues: la pauvreté (poverty), la faim (hunger), les réfugiés (refugees), le bénévolat (volunteering)',
+          ], examTips:[
+            'Environment essay: structure as problem → cause → effect → solution; use pour + infinitive for purpose',
+            'Oxford AQA writing: give specific examples and facts (can be invented): "Selon une étude récente, 80% des jeunes..."',
+          ], workedExample:`Writing task: "What can young people do for the environment?"
+À mon avis, les jeunes doivent prendre des responsabilités pour l'environnement.
+D'abord, on peut recycler les déchets et économiser l'énergie à la maison.
+De plus, il faut que nous utilisions les transports en commun plutôt que la voiture.
+Cependant, le gouvernement doit aussi agir — par exemple, investir dans les énergies renouvelables.
+Si tout le monde faisait un effort, on pourrait réduire la pollution considérablement.
+[Uses: opinion, present, subjunctive, conditional, connectives — target: A/A* equivalent]`},
+          { title:'School, Work & Future Plans', points:[
+            'School subjects: les maths, les sciences, l\'histoire-géo, l\'informatique, les langues, l\'EPS (PE)',
+            'Opinions on school: J\'aime/je n\'aime pas... parce que c\'est + adjective; le prof est sympa/sévère',
+            'Work vocabulary: le métier (profession), travailler, gagner sa vie, un stage (work placement)',
+            'Career aspirations: je voudrais être..., j\'espère devenir..., mon ambition est de...',
+            'Future plans: l\'université, les études supérieures, un apprentissage (apprenticeship), voyager',
+          ], commonMistakes:[
+            'Using masculine job titles for female subjects — "elle est médecin" (no article; no feminine for many professions)',
+            'Forgetting that school subjects in French are often plural: "les mathématiques", "les sciences"',
+          ]},
+        ]},
+        { title:'Listening & Reading Skills', icon:'🎧', topics:[
+          { title:'Listening Strategies', points:[
+            'Oxford AQA Listening: questions in English, recording in French; multiple choice, gap-fill, short answer',
+            'Before listening: read questions carefully to identify what information to listen for',
+            'Numbers, dates, times: practise these specifically — they are frequently tested and easily missed',
+            'Synonyms: speakers often use different words from questions — listen for meaning, not identical words',
+            'Negatives: listen carefully for ne...pas, ne...jamais — these reverse the meaning completely',
+          ], examTips:[
+            'During listening: write notes on first playing; confirm and complete on second playing',
+            'If you miss an answer: do not panic — stay focused; come back if there is time at the end',
+          ], commonMistakes:[
+            'Writing what you expect to hear rather than what is actually said — stay alert and objective',
+            'Missing negatives — "il ne va jamais à la piscine" means he NEVER goes, not that he goes',
+          ]},
+          { title:'Reading Strategies', points:[
+            'Oxford AQA Reading: comprehension (French text, English answers), gap-fill, translation into English',
+            'Skim for gist: read once quickly to understand the overall topic and tone',
+            'Scan for detail: read again with specific questions in mind; underline key words',
+            'False friends: actuellement = currently (not actually), sensible = sensitive (not sensible), blessé = injured (not blessed)',
+            'Translation into English: accuracy matters — do not add or omit information; use natural English phrasing',
+          ], examTips:[
+            'Translation task: work word by word first, then re-read for natural English flow; check tenses are correctly translated',
+            'Inference questions: use evidence from the text to justify your answer — do not guess from general knowledge',
+          ]},
+        ]},
+        { title:'Writing & Speaking', icon:'✍️', topics:[
+          { title:'Writing Skills & Tasks', points:[
+            'Oxford AQA Writing Paper: structured tasks + extended writing (essay 90+ words) + translation into French',
+            'Structured tasks: answer all bullet points; missing one costs marks',
+            'Extended writing: plan first (2–3 mins); include: opinion + reason, past experience, future plan',
+            'Tense variety: use at least 3 tenses for higher marks — past (what happened), present (current), future (plans)',
+            'Translation into French: highest marks, hardest task — learn set structures; check every agreement',
+          ], examTips:[
+            'Extended writing: quality beats quantity — 100 words of accurate French beats 150 words of errors',
+            'Connectives to vary: mais (but), donc (so), cependant (however), de plus (moreover), par conséquent (as a result)',
+          ], commonMistakes:[
+            'Not covering all bullet points in structured tasks — plan quickly and tick off each point as you write',
+            'Translating English idioms literally — "it\'s raining cats and dogs" ≠ "il pleut des chats et des chiens"',
+          ], workedExample:`Translation task (English → French):
+"Last summer, I went to France with my family. We visited Paris and I really enjoyed the Eiffel Tower."
+L'été dernier, je suis allé(e) en France avec ma famille. Nous avons visité Paris et j'ai vraiment apprécié la tour Eiffel.
+Key checks: passé composé (être verb "allé" must agree with subject), "vraiment" for "really", no capital for "Paris" adjective — wait, Paris IS a proper noun so capital retained.`},
+          { title:'Speaking Exam Preparation', points:[
+            'Oxford AQA Speaking: role play + photo card + general conversation (10–12 mins total)',
+            'Role play: given a scenario; ask/answer questions; one unexpected element (!)',
+            'Photo card: describe image → extend with imagination → give opinion → answer follow-up questions',
+            'General conversation: 2 themes from your chosen topics; prepared and spontaneous questions',
+            'Fillers: euh... (um), eh bien... (well...), c\'est-à-dire... (that is to say) — better than silence',
+          ], examTips:[
+            'Practise speaking aloud every day — fluency comes from habit, not just studying notes',
+            'General conversation: prepare 5–6 sentences per theme topic so you have something ready for any angle',
+          ], commonMistakes:[
+            'Giving one-word answers in speaking — always extend: not just "oui" but "Oui, parce que..."',
+            'Stopping and saying "I don\'t know" — paraphrase instead: "je ne connais pas le mot exact, mais..."',
           ]},
         ]},
       ],
@@ -9572,6 +10393,47 @@ Conclusion: While Salah is central to daily Muslim life, the Shahada underpins a
             'Environment: stewardship (responsible care) vs dominion (human authority over nature); climate change as moral issue',
             'Prejudice and discrimination: all major religions teach equality; racism, sexism, homophobia as ethical issues',
             'Wealth and poverty: Christian (preferential option for the poor), Islamic (Zakah, prohibition of riba/interest)',
+          ], examTips:[
+            'Ethics questions: always present multiple perspectives — at least two religious views and one secular viewpoint',
+            '"Discuss whether...": structure as agree (with reasons) → disagree (with reasons) → balanced conclusion',
+          ], commonMistakes:[
+            'Presenting only one religious perspective — always show diversity within and between traditions',
+            'Confusing stewardship (caring for creation on behalf of God) with environmentalism (secular motivation)',
+          ]},
+        ]},
+        { title:'Religion, Science & Society (Oxford AQA)', icon:'🔬', topics:[
+          { title:'Science & Religion', points:[
+            'Creation vs evolution: literal Genesis (6 days), day-age theory, theistic evolution, evolutionary naturalism',
+            'Design argument (Paley): complexity of nature implies a designer — "watchmaker" analogy',
+            'Big Bang: most scientists accept; some religious thinkers see it as compatible with God as first cause',
+            'Cosmological argument (Aquinas): everything has a cause; chain leads to uncaused cause = God',
+            'Problem of evil: if God is all-good, all-knowing, all-powerful — why does evil exist? (theodicy)',
+          ], examTips:[
+            'Science vs religion: do not present them as always in conflict — many scientists are religious; many theologians accept science',
+            'Free will defence (Alvin Plantinga): God allows evil because free will requires possibility of choosing evil',
+          ], commonMistakes:[
+            'Saying all religious people reject evolution — many accept theistic evolution (God working through evolution)',
+            'Presenting the problem of evil as unanswerable — always include at least one theodicy response',
+          ]},
+          { title:'Peace, Conflict & Social Justice', points:[
+            'Just War Theory (Aquinas): war justified if: right intention, last resort, declared by authority, proportionate',
+            'Pacifism: all violence morally wrong; absolute (e.g. Quakers) vs conditional (e.g. self-defence)',
+            'Nuclear weapons: deterrence argument (prevents war) vs moral objection (mass civilian casualties)',
+            'Social justice: fair distribution of wealth and opportunity; link to religious teachings on equality',
+            'Forgiveness and reconciliation: central to Christianity (Lord\'s Prayer), Islam (\'Afu), Judaism (Yom Kippur)',
+          ], examTips:[
+            'Just War criteria: learn all conditions — one missing condition can invalidate a war as "just"',
+            'Pacifism evaluation: distinguish between absolute (no violence ever) and relative (sometimes justified) pacifism',
+          ]},
+          { title:'Oxford AQA Religious Studies Exam Technique', points:[
+            'Oxford AQA RS: Paper 1 (Religious beliefs, teachings and practices) + Paper 2 (Thematic studies)',
+            'Command words: state (1–2 words), outline (key features, no evaluation), explain (reasons/meaning), evaluate (argue both sides)',
+            '12-mark evaluate question: "I agree because..." (3 reasons) + "However..." (3 counter-reasons) + balanced conclusion',
+            'Quote religious texts: specific quotes score highly — learn 2–3 key quotes per theme',
+            'Named beliefs: state the religious tradition you are writing about — marks are given for accurate religious knowledge',
+          ], examTips:[
+            'Evaluation conclusion: do not sit on the fence — take a position and justify it with the strongest evidence',
+            'Paper 2 themes: link BOTH religions studied to each theme — examiners want comparative analysis, not just description',
           ]},
         ]},
       ],
@@ -9859,6 +10721,46 @@ Uses: imperfect (era, gustaba), present (prefiero, es), conditional (gustaría),
           ], examTips:[
             'Oxford AQA speaking: general conversation questions are open-ended — prepare 4–5 sentences per topic area',
             'Writing essay: plan before writing — 5-point plan (intro, point1, point2, counterpoint, conclusion) takes 2 mins and saves marks',
+          ]},
+        ]},
+        { title:'Oxford AQA Spanish — Skills & Vocabulary', icon:'🎧', topics:[
+          { title:'Listening & Reading Skills', points:[
+            'Oxford AQA Listening: multiple choice, gap-fill, short answer — questions in English, recordings in Spanish',
+            'Before listening: read questions; predict possible vocabulary from context',
+            'Numbers, times, dates: very commonly tested in listening — practise these specifically',
+            'False friends: embarazada = pregnant (not embarrassed); actualmente = currently (not actually); sensible = sensitive',
+            'Reading: skim for overall meaning, scan for specific detail; watch for negatives that reverse meaning',
+          ], examTips:[
+            'Listening: never leave blanks — if unsure, make your best educated guess based on context',
+            'Reading comprehension: answers must match the text — do not use general knowledge; quote or paraphrase the text',
+          ], commonMistakes:[
+            'Missing negatives like "no...nunca" (never) — reversing meaning loses the mark entirely',
+            'Over-relying on cognates — Spanish words that look like English may have different meanings (false friends)',
+          ]},
+          { title:'Writing Tasks & Translation', points:[
+            'Structured writing: answer all bullet points — missing one loses significant marks',
+            'Extended writing (90 words): include opinion, past experience, future plan; use connectives',
+            'Translation into Spanish: most challenging — focus on verb forms, gender agreement, accents',
+            'Key translation pitfalls: "I have been doing" = llevo + gerund (llevo tres años aprendiendo español)',
+            'SPaG marks: accents matter (é, á, ó, ú, í, ñ, ü); ¿¡ at start of question/exclamation',
+          ], examTips:[
+            'Translation trick: write rough translation → check verb tense, noun gender, adjective agreement → write clean version',
+            'Essay opener: "Hoy en día..." (Nowadays), "En mi opinión..." (In my opinion), "Hay que reconocer que..." (It must be recognised that)',
+          ], workedExample:`Translation: "I have been learning Spanish for two years and I think it is very useful."
+Llevo dos años aprendiendo español y creo que es muy útil.
+Key: "llevo + time + gerund" for "have been doing"; "creo que" for "I think"; adjective "útil" agrees with "español" (masc)`},
+          { title:'Speaking Preparation', points:[
+            'Role play: given a task card with 5 prompts; one is a ! (unexpected question) — stay calm and improvise',
+            'Photo card: describe what you see → what might be happening → your opinion → extend with personal connection',
+            'General conversation: two themes from Oxford AQA topic list; show range of tenses and complex grammar',
+            'Filler phrases: bueno... (well...), pues... (so/well...), a ver... (let\'s see...), es que... (it\'s that...)',
+            'If you forget a word: paraphrase — "una cosa para escribir" instead of "un bolígrafo" (pen)',
+          ], examTips:[
+            'Practise speaking aloud every day — fluency is built through habit; record yourself to spot errors',
+            'Photo card: never say "I can see" — say "se puede ver" (one can see) or describe directly with nouns and adjectives',
+          ], commonMistakes:[
+            'Giving one-word answers in speaking — always extend: not "sí" but "Sí, porque..."',
+            'Incorrect gender agreement in speaking ("el problema" is masculine, "la mano" is feminine despite -a ending)',
           ]},
         ]},
       ],
