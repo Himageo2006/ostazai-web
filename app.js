@@ -3373,73 +3373,130 @@ function tplShell(content) {
 function tplHome() {
   const curData   = CURRICULA[S.curriculum] || CURRICULA.egypt;
   const gradeData = curData.grades[S.grade] || Object.values(curData.grades)[0];
+  const userName  = (S.user && S.user.name) ? S.user.name.split(' ')[0] : '';
+
+  // Build country options
+  const countryOpts = Object.entries(CURRICULA).map(([k,v]) =>
+    `<option value="${k}" ${S.curriculum===k?'selected':''}>${v.label}</option>`
+  ).join('');
+  // Build grade options for current curriculum
+  const gradeOpts = Object.entries(curData.grades).map(([k,v]) =>
+    `<option value="${k}" ${S.grade===k?'selected':''}>${v.label}</option>`
+  ).join('');
+
   return `
-<div style="display:flex;flex-direction:column;align-items:center;padding:32px 16px 80px;min-height:60vh">
-  <div style="font-size:48px;margin-bottom:10px">🎓</div>
+<div style="display:flex;flex-direction:column;align-items:center;padding:28px 16px 80px;min-height:60vh">
+
+  <!-- Greeting -->
+  <div style="font-size:42px;margin-bottom:8px">🎓</div>
   <div style="font-size:22px;font-weight:900;color:var(--text);margin-bottom:4px">
-    ${S.lang==='en'?'Welcome to OstazAI':'أهلاً بك في أستاذ AI'}
+    ${userName ? 'أهلاً ' + userName + '!' : 'أهلاً بك في أستاذ AI'}
   </div>
-  <div style="font-size:13px;color:var(--text-muted);margin-bottom:24px">
-    ${curData.label} · ${gradeData.label}
+  <div style="font-size:13px;color:var(--text-muted);margin-bottom:22px">اختر بلدك ومرحلتك الدراسية ثم ابدأ</div>
+
+  <!-- Country & Grade selector card -->
+  <div style="width:100%;max-width:420px;background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:20px 20px 16px;margin-bottom:24px;box-shadow:0 4px 20px #0002">
+
+    <div style="font-size:12px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:12px">🌍 بلدك ومنهجك</div>
+
+    <div style="margin-bottom:12px">
+      <label style="font-size:12px;font-weight:700;color:var(--text-muted);display:block;margin-bottom:5px">الدولة / المنهج</label>
+      <select id="home-country" onchange="homeUpdateCountry(this.value)"
+        style="width:100%;padding:11px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;font-family:Cairo,sans-serif;font-weight:700;cursor:pointer">
+        ${countryOpts}
+      </select>
+    </div>
+
+    <div style="margin-bottom:16px">
+      <label style="font-size:12px;font-weight:700;color:var(--text-muted);display:block;margin-bottom:5px">المرحلة الدراسية</label>
+      <select id="home-grade" onchange="homeUpdateGrade(this.value)"
+        style="width:100%;padding:11px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;font-family:Cairo,sans-serif;font-weight:700;cursor:pointer">
+        ${gradeOpts}
+      </select>
+    </div>
+
+    <!-- Current selection badge -->
+    <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--primary)12;border-radius:12px;border:1px solid var(--primary)30">
+      <span style="font-size:18px">✅</span>
+      <div>
+        <div style="font-size:13px;font-weight:900;color:var(--primary)">${curData.label}</div>
+        <div style="font-size:12px;color:var(--text-muted)">${gradeData.label}</div>
+      </div>
+    </div>
   </div>
 
+  <!-- Quick access label -->
   <div style="font-size:11px;color:#3B82F6;font-weight:800;letter-spacing:1px;margin-bottom:12px">⚡ الأدوات الرئيسية</div>
-  <div style="display:flex;flex-wrap:wrap;gap:12px;width:100%;max-width:600px;margin-bottom:24px;justify-content:center">
+
+  <!-- Feature cards -->
+  <div style="display:flex;flex-wrap:wrap;gap:12px;width:100%;max-width:560px;margin-bottom:16px;justify-content:center">
 
     <button onclick="S.screen='igcse';render()"
-      style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:16px;border-radius:16px;width:170px;min-height:110px;border:2px solid #6366F144;background:linear-gradient(135deg,#6366F115,#6366F108);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+      style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px;border-radius:16px;width:155px;min-height:100px;border:2px solid #6366F144;background:linear-gradient(135deg,#6366F115,#6366F108);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
       onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#6366F1'" onmouseout="this.style.transform='';this.style.borderColor='#6366F144'">
-      <div style="font-size:28px">🎓</div>
-      <div style="font-size:14px;font-weight:900;color:#6366F1">${S.lang==='en'?'IGCSE Hub':'منصة IGCSE'}</div>
-      <div style="font-size:11px;color:var(--text-muted);line-height:1.4">${S.lang==='en'?'Notes, topics & revision':'مواد ومراجعة'}</div>
+      <div style="font-size:26px">🎓</div>
+      <div style="font-size:13px;font-weight:900;color:#6366F1">منصة IGCSE</div>
+      <div style="font-size:11px;color:var(--text-muted);line-height:1.4">مواد ومراجعة</div>
     </button>
 
     <button onclick="S.screen='chat';render()"
-      style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:16px;border-radius:16px;width:170px;min-height:110px;border:2px solid #3B82F644;background:linear-gradient(135deg,#3B82F615,#3B82F608);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+      style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px;border-radius:16px;width:155px;min-height:100px;border:2px solid #3B82F644;background:linear-gradient(135deg,#3B82F615,#3B82F608);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
       onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#3B82F6'" onmouseout="this.style.transform='';this.style.borderColor='#3B82F644'">
-      <div style="font-size:28px">💬</div>
-      <div style="font-size:14px;font-weight:900;color:#3B82F6">${S.lang==='en'?'AI Chat':'المحادثة'}</div>
-      <div style="font-size:11px;color:var(--text-muted);line-height:1.4">${S.lang==='en'?'Ask anything':'اسأل أي سؤال'}</div>
+      <div style="font-size:26px">💬</div>
+      <div style="font-size:13px;font-weight:900;color:#3B82F6">المحادثة</div>
+      <div style="font-size:11px;color:var(--text-muted);line-height:1.4">اسأل أي سؤال</div>
     </button>
 
     <button onclick="S.screen='lessons';render()"
-      style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:16px;border-radius:16px;width:170px;min-height:110px;border:2px solid #10B98144;background:linear-gradient(135deg,#10B98115,#10B98108);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+      style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px;border-radius:16px;width:155px;min-height:100px;border:2px solid #10B98144;background:linear-gradient(135deg,#10B98115,#10B98108);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
       onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#10B981'" onmouseout="this.style.transform='';this.style.borderColor='#10B98144'">
-      <div style="font-size:28px">📖</div>
-      <div style="font-size:14px;font-weight:900;color:#10B981">${S.lang==='en'?'Lessons':'الدروس'}</div>
-      <div style="font-size:11px;color:var(--text-muted);line-height:1.4">${S.lang==='en'?'Structured lessons':'دروس منظمة'}</div>
+      <div style="font-size:26px">📖</div>
+      <div style="font-size:13px;font-weight:900;color:#10B981">الدروس</div>
+      <div style="font-size:11px;color:var(--text-muted);line-height:1.4">دروس منظمة</div>
     </button>
 
     <button onclick="S.screen='flashcards';render()"
-      style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:16px;border-radius:16px;width:170px;min-height:110px;border:2px solid #F59E0B44;background:linear-gradient(135deg,#F59E0B15,#F59E0B08);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+      style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px;border-radius:16px;width:155px;min-height:100px;border:2px solid #F59E0B44;background:linear-gradient(135deg,#F59E0B15,#F59E0B08);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
       onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#F59E0B'" onmouseout="this.style.transform='';this.style.borderColor='#F59E0B44'">
-      <div style="font-size:28px">🗂️</div>
-      <div style="font-size:14px;font-weight:900;color:#F59E0B">${S.lang==='en'?'Flashcards':'بطاقات'}</div>
-      <div style="font-size:11px;color:var(--text-muted);line-height:1.4">${S.lang==='en'?'Quick revision':'مراجعة سريعة'}</div>
+      <div style="font-size:26px">🗂️</div>
+      <div style="font-size:13px;font-weight:900;color:#F59E0B">بطاقات</div>
+      <div style="font-size:11px;color:var(--text-muted);line-height:1.4">مراجعة سريعة</div>
     </button>
 
     <button onclick="S.screen='quiz';render()"
-      style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:16px;border-radius:16px;width:170px;min-height:110px;border:2px solid #EF444444;background:linear-gradient(135deg,#EF444415,#EF444408);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+      style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px;border-radius:16px;width:155px;min-height:100px;border:2px solid #EF444444;background:linear-gradient(135deg,#EF444415,#EF444408);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
       onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#EF4444'" onmouseout="this.style.transform='';this.style.borderColor='#EF444444'">
-      <div style="font-size:28px">📝</div>
-      <div style="font-size:14px;font-weight:900;color:#EF4444">${S.lang==='en'?'Quiz':'اختبار'}</div>
-      <div style="font-size:11px;color:var(--text-muted);line-height:1.4">${S.lang==='en'?'Test yourself':'تحقق من نفسك'}</div>
+      <div style="font-size:26px">📝</div>
+      <div style="font-size:13px;font-weight:900;color:#EF4444">اختبار</div>
+      <div style="font-size:11px;color:var(--text-muted);line-height:1.4">تحقق من نفسك</div>
     </button>
 
     <button onclick="S.screen='summary';render()"
-      style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:16px;border-radius:16px;width:170px;min-height:110px;border:2px solid #8B5CF644;background:linear-gradient(135deg,#8B5CF615,#8B5CF608);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+      style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px;border-radius:16px;width:155px;min-height:100px;border:2px solid #8B5CF644;background:linear-gradient(135deg,#8B5CF615,#8B5CF608);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
       onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#8B5CF6'" onmouseout="this.style.transform='';this.style.borderColor='#8B5CF644'">
-      <div style="font-size:28px">📋</div>
-      <div style="font-size:14px;font-weight:900;color:#8B5CF6">${S.lang==='en'?'Summary':'ملخص'}</div>
-      <div style="font-size:11px;color:var(--text-muted);line-height:1.4">${S.lang==='en'?'Key points':'نقاط رئيسية'}</div>
+      <div style="font-size:26px">📋</div>
+      <div style="font-size:13px;font-weight:900;color:#8B5CF6">ملخص</div>
+      <div style="font-size:11px;color:var(--text-muted);line-height:1.4">نقاط رئيسية</div>
     </button>
 
   </div>
-
-  <div style="font-size:11px;color:var(--text-muted);text-align:center">
-    ${S.lang==='en'?'Choose a tool to get started':'اختر أداة للبدء'}
-  </div>
 </div>`;
+}
+
+function homeUpdateCountry(val) {
+  S.curriculum = val;
+  const cur = CURRICULA[val] || CURRICULA.egypt;
+  const firstGrade = Object.keys(cur.grades)[0];
+  S.grade = firstGrade;
+  S.subject = cur.grades[firstGrade].subjects[0]?.name || S.subject;
+  saveLocal(); render();
+}
+function homeUpdateGrade(val) {
+  S.grade = val;
+  const cur = CURRICULA[S.curriculum] || CURRICULA.egypt;
+  const gr  = cur.grades[val] || Object.values(cur.grades)[0];
+  S.subject = gr.subjects[0]?.name || S.subject;
+  saveLocal(); render();
 }
 
 function tplChat() {
