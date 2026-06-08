@@ -3420,7 +3420,7 @@ function tplShell(content) {
   <div style="width:40px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 20px"></div>
   <div style="font-size:14px;font-weight:900;color:var(--text-muted);margin-bottom:14px">الأدوات الأخرى</div>
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
-    ${nav.filter(n=>!['chat','lessons','flashcards','stats','profile','admin'].includes(n.s)).map(n=>`
+    ${nav.filter(n=>!['chat','lessons','flashcards','stats','admin'].includes(n.s)).map(n=>`
     <button onclick="ge('more-drawer').style.transform='translateY(100%)';setTimeout(()=>{ge('more-drawer-overlay').style.display='none'},250);S.screen='${n.s}';render()"
       style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 4px;background:var(--bg);border:1px solid var(--border);border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;transition:.15s"
       class="drawer-btn">
