@@ -19090,13 +19090,15 @@ async function handleGoogleCredential(response) {
   try {
     const deviceId = await getDeviceFingerprint();
     const d = await req('/auth/google', 'POST', { credential: response.credential, deviceId });
+    if (!d || !d.token) throw new Error('لم يتم استلام بيانات الجلسة من الخادم');
     S.token = d.token; S.user = d.user;
-    if (d.user.country && d.user.country in CURRICULA) S.curriculum = d.user.country;
+    if (d.user && d.user.country && d.user.country in CURRICULA) S.curriculum = d.user.country;
     saveLocal();
     S.screen = 'chat'; render();
-    showToast('أهلاً ' + d.user.name + ' 👋', 'success');
+    showToast('أهلاً ' + (d.user?.name || '') + ' 👋', 'success');
   } catch(e) {
-    showToast(e.message || 'فشل تسجيل الدخول بـ Google', 'error');
+    console.error('[Google Auth Error]', e);
+    showToast('❌ ' + (e.message || 'فشل تسجيل الدخول بـ Google') + ' — حاول مرة أخرى', 'error');
   }
 }
 // Must be on window so Google's iframe can call it
