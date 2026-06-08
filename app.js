@@ -60,6 +60,8 @@ let S = {
   igcseMockExam: null,    // { subject:'all'|sk, questions:[], idx:0, answers:[], startTime, done:false }
   igcseMockSubject: 'all',// subject filter for mock exam
   igcseMockCount: 20,     // number of questions
+  igcseDailyLog: {},      // { 'YYYY-MM-DD': topicsStudied } for chart
+  igcseAchievements: [],  // earned achievement ids
 };
 let _pomTimer = null;
 
@@ -86,7 +88,9 @@ function saveLocal() {
     localStorage.setItem('oa_igcse_streak',   JSON.stringify(S.igcseStreak || {count:0, lastDate:''}));
     localStorage.setItem('oa_igcse_progress',     JSON.stringify(S.igcseProgress || {}));
     localStorage.setItem('oa_igcse_topic_notes',  JSON.stringify(S.igcseTopicNotes || {}));
-    localStorage.setItem('oa_igcse_last_studied', JSON.stringify(S.igcseLastStudied || {}));
+    localStorage.setItem('oa_igcse_last_studied',  JSON.stringify(S.igcseLastStudied || {}));
+    localStorage.setItem('oa_igcse_daily_log',     JSON.stringify(S.igcseDailyLog || {}));
+    localStorage.setItem('oa_igcse_achievements',  JSON.stringify(S.igcseAchievements || []));
   } catch {}
 }
 function loadLocal() {
@@ -119,7 +123,11 @@ function loadLocal() {
     const igNotes   = localStorage.getItem('oa_igcse_topic_notes');
     S.igcseTopicNotes = igNotes ? JSON.parse(igNotes) : {};
     const igLS      = localStorage.getItem('oa_igcse_last_studied');
-    S.igcseLastStudied = igLS ? JSON.parse(igLS) : {};
+    S.igcseLastStudied  = igLS ? JSON.parse(igLS) : {};
+    const igDL          = localStorage.getItem('oa_igcse_daily_log');
+    S.igcseDailyLog     = igDL ? JSON.parse(igDL) : {};
+    const igAch         = localStorage.getItem('oa_igcse_achievements');
+    S.igcseAchievements = igAch ? JSON.parse(igAch) : [];
   } catch {}
 }
 
@@ -16008,6 +16016,122 @@ Object.values(IGCSE_SUBJECTS).forEach(subj => {
 
 // ── IGCSE Template Functions ──────────────────────────────
 
+
+/* ================================================================
+   IGCSE Video Resources — curated YouTube playlists & channels
+   ================================================================ */
+const IGCSE_VIDEOS = {
+  maths: [
+    { title:'IGCSE Maths Full Playlist', channel:'Cognito', type:'playlist', url:'https://www.youtube.com/playlist?list=PLidqqIGKox7XmjE_q3h4WMKNGRlT-iKvr', icon:'🎓' },
+    { title:'IGCSE Maths (0580) Worked Examples', channel:'ExamSolutions', type:'playlist', url:'https://www.youtube.com/c/ExamSolutions_Maths', icon:'✏️' },
+    { title:'IGCSE Maths Revision', channel:'Mr Maths', type:'channel', url:'https://www.youtube.com/@mrmathsigcse', icon:'📐' },
+    { title:'IGCSE Maths Past Paper Walkthrough', channel:'Save My Exams', type:'playlist', url:'https://www.youtube.com/c/SaveMyExams', icon:'📄' },
+  ],
+  add_maths: [
+    { title:'Additional Maths Full Course', channel:'Cognito', type:'playlist', url:'https://www.youtube.com/playlist?list=PLidqqIGKox7XmjE_q3h4WMKNGRlT-iKvr', icon:'🎓' },
+    { title:'A-Level / Add Maths Calculus', channel:'ExamSolutions', type:'channel', url:'https://www.youtube.com/c/ExamSolutions_Maths', icon:'📈' },
+    { title:'IGCSE Additional Maths Revision', channel:'TLMaths', type:'channel', url:'https://www.youtube.com/@TLMaths', icon:'✏️' },
+  ],
+  physics: [
+    { title:'IGCSE Physics Full Course', channel:'Cognito', type:'playlist', url:'https://www.youtube.com/playlist?list=PLidqqIGKox7WVRLBgaA5jOt97N2iFiNOF', icon:'⚡' },
+    { title:'IGCSE Physics (0625) Complete', channel:'FreeScienceLessons', type:'playlist', url:'https://www.youtube.com/c/freesciencelessons', icon:'🔬' },
+    { title:'IGCSE Physics Revision Notes', channel:'Save My Exams', type:'channel', url:'https://www.youtube.com/c/SaveMyExams', icon:'📄' },
+    { title:'Physics IGCSE Past Papers', channel:'Physics Online', type:'channel', url:'https://www.youtube.com/@PhysicsOnline', icon:'🎯' },
+  ],
+  chemistry: [
+    { title:'IGCSE Chemistry Full Course', channel:'Cognito', type:'playlist', url:'https://www.youtube.com/playlist?list=PLidqqIGKox7VKBm-DJrqiPKlC4UbmjU30', icon:'⚗️' },
+    { title:'IGCSE Chemistry Complete Revision', channel:'Richard Thornley', type:'channel', url:'https://www.youtube.com/@RichardThornley', icon:'🧪' },
+    { title:'IGCSE Chemistry (0620)', channel:'FreeScienceLessons', type:'playlist', url:'https://www.youtube.com/c/freesciencelessons', icon:'🔬' },
+    { title:'Chemistry IGCSE Save My Exams', channel:'Save My Exams', type:'channel', url:'https://www.youtube.com/c/SaveMyExams', icon:'📄' },
+  ],
+  biology: [
+    { title:'IGCSE Biology Full Course', channel:'Cognito', type:'playlist', url:'https://www.youtube.com/playlist?list=PLidqqIGKox7WBKA-t-Cs4NxDvK1l5FgPC', icon:'🌱' },
+    { title:'IGCSE Biology Complete (0610)', channel:'FreeScienceLessons', type:'playlist', url:'https://www.youtube.com/c/freesciencelessons', icon:'🔬' },
+    { title:'IGCSE Biology Revision', channel:'Mr Exham', type:'channel', url:'https://www.youtube.com/@MrExham', icon:'🧬' },
+    { title:'Biology IGCSE Flashcard Videos', channel:'Save My Exams', type:'channel', url:'https://www.youtube.com/c/SaveMyExams', icon:'📄' },
+  ],
+  cs: [
+    { title:'IGCSE Computer Science Full', channel:"Craig'n'Dave", type:'playlist', url:'https://www.youtube.com/@craigndave', icon:'💻' },
+    { title:'IGCSE CS (0478) Revision', channel:'Mr. Majeed', type:'channel', url:'https://www.youtube.com/@mrmajeedCS', icon:'🖥️' },
+    { title:'IGCSE CS Past Paper Walkthrough', channel:'Revision Village CS', type:'channel', url:'https://www.youtube.com/@revisionvillage', icon:'📄' },
+    { title:'Python Programming for IGCSE', channel:'Tech With Tim', type:'playlist', url:'https://www.youtube.com/c/TechWithTim', icon:'🐍' },
+  ],
+  ict: [
+    { title:'IGCSE ICT Full Playlist', channel:'GcseRevisionHelper', type:'channel', url:'https://www.youtube.com/@GcseRevisionHelper', icon:'💾' },
+    { title:'IGCSE ICT (0417) Revision', channel:'Hina Khan ICT', type:'channel', url:'https://www.youtube.com/results?search_query=igcse+ict+revision', icon:'🖱️' },
+    { title:'ICT Theory & Practical Tips', channel:'AQA ICT', type:'channel', url:'https://www.youtube.com/results?search_query=igcse+ict+0417+theory', icon:'📡' },
+  ],
+  english: [
+    { title:'IGCSE English Language Revision', channel:'Mr Bruff', type:'playlist', url:'https://www.youtube.com/c/mrbruff', icon:'📝' },
+    { title:'IGCSE English Language (0500)', channel:'English with Lucy', type:'channel', url:'https://www.youtube.com/c/EnglishwithLucy', icon:'🗣️' },
+    { title:'IGCSE Paper 1 & 2 Techniques', channel:'The English Teacher', type:'channel', url:'https://www.youtube.com/results?search_query=igcse+english+language+0500+revision', icon:'✍️' },
+  ],
+  literature: [
+    { title:'IGCSE Literature Revision', channel:'Mr Bruff', type:'playlist', url:'https://www.youtube.com/c/mrbruff', icon:'📚' },
+    { title:'IGCSE Literature Analysis', channel:'Anil Sathu', type:'channel', url:'https://www.youtube.com/results?search_query=igcse+literature+revision', icon:'🎭' },
+    { title:'Poetry Analysis Techniques', channel:'Lisa Study Guides', type:'channel', url:'https://www.youtube.com/c/LisaStudyGuides', icon:'📖' },
+  ],
+  history: [
+    { title:'IGCSE History Full Revision', channel:'Mr Allsop History', type:'playlist', url:'https://www.youtube.com/@MrAllsopHistory', icon:'🏛️' },
+    { title:'IGCSE History Source Skills', channel:'History Teachers', type:'channel', url:'https://www.youtube.com/results?search_query=igcse+history+0470+revision', icon:'📜' },
+    { title:'Cold War & WWII Revision', channel:'Crash Course History', type:'playlist', url:'https://www.youtube.com/c/crashcourse', icon:'🌍' },
+  ],
+  geography: [
+    { title:'IGCSE Geography Full Course', channel:'Geographer Online', type:'playlist', url:'https://www.youtube.com/@GeographerOnline', icon:'🌍' },
+    { title:'IGCSE Geography (0460) Revision', channel:'GeoGirl', type:'channel', url:'https://www.youtube.com/results?search_query=igcse+geography+revision+0460', icon:'🗺️' },
+    { title:'IGCSE Geography Case Studies', channel:'Save My Exams', type:'channel', url:'https://www.youtube.com/c/SaveMyExams', icon:'📄' },
+  ],
+  economics: [
+    { title:'IGCSE Economics Full Course', channel:'EconplusDal', type:'playlist', url:'https://www.youtube.com/@EconplusDal', icon:'📊' },
+    { title:'IGCSE Economics (0455) Revision', channel:'Econplusdal', type:'channel', url:'https://www.youtube.com/@EconplusDal', icon:'💹' },
+    { title:'Supply & Demand Explained', channel:'Jacob Clifford', type:'playlist', url:'https://www.youtube.com/c/ACDCEcon', icon:'📈' },
+  ],
+  business: [
+    { title:'IGCSE Business Studies Revision', channel:'Business Bytes', type:'playlist', url:'https://www.youtube.com/results?search_query=igcse+business+studies+0450+revision', icon:'💼' },
+    { title:'IGCSE Business (0450) Full', channel:'Tutor2u', type:'channel', url:'https://www.youtube.com/@tutor2u', icon:'🏢' },
+    { title:'Business Concepts Explained', channel:'Two Teachers', type:'channel', url:'https://www.youtube.com/results?search_query=igcse+business+studies+revision', icon:'📋' },
+  ],
+  accounting: [
+    { title:'IGCSE Accounting Full Course', channel:'Accountancy Learning', type:'playlist', url:'https://www.youtube.com/results?search_query=igcse+accounting+0452+revision', icon:'📒' },
+    { title:'IGCSE Accounting (0452) Tutorials', channel:'IGCSE Accounting', type:'channel', url:'https://www.youtube.com/results?search_query=igcse+accounting+double+entry', icon:'🧾' },
+    { title:'Financial Statements Explained', channel:'Tutor2u', type:'channel', url:'https://www.youtube.com/@tutor2u', icon:'💰' },
+  ],
+  sociology: [
+    { title:'IGCSE Sociology Full Revision', channel:'Sociology Live', type:'playlist', url:'https://www.youtube.com/results?search_query=igcse+sociology+0495+revision', icon:'👥' },
+    { title:'Sociological Perspectives', channel:'Mr Cresswell', type:'channel', url:'https://www.youtube.com/results?search_query=functionalism+marxism+feminism+igcse', icon:'🌐' },
+    { title:'Research Methods Explained', channel:'Tutor2u Sociology', type:'channel', url:'https://www.youtube.com/@tutor2u', icon:'🔍' },
+  ],
+  psychology: [
+    { title:'IGCSE Psychology Full Course', channel:'Simply Psychology', type:'playlist', url:'https://www.youtube.com/results?search_query=igcse+psychology+0478+revision', icon:'🧠' },
+    { title:'Memory & Obedience Studies', channel:'PsychBoost', type:'channel', url:'https://www.youtube.com/results?search_query=milgram+igcse+psychology', icon:'💭' },
+    { title:'Psychology Key Studies', channel:'Tutor2u Psychology', type:'channel', url:'https://www.youtube.com/@tutor2u', icon:'🔬' },
+  ],
+  french: [
+    { title:'IGCSE French Full Revision', channel:'French with Alexa', type:'playlist', url:'https://www.youtube.com/c/FrenchwithAlexa', icon:'🇫🇷' },
+    { title:'IGCSE French Grammar Essentials', channel:'Learn French with Alexa', type:'channel', url:'https://www.youtube.com/c/FrenchwithAlexa', icon:'📚' },
+    { title:'French Speaking Practice', channel:'Piece of French', type:'channel', url:'https://www.youtube.com/results?search_query=igcse+french+speaking+revision', icon:'🗣️' },
+  ],
+  spanish: [
+    { title:'IGCSE Spanish Full Revision', channel:'Señor Jordan', type:'playlist', url:'https://www.youtube.com/c/senorjordan', icon:'🇪🇸' },
+    { title:'IGCSE Spanish Grammar', channel:'Butterfly Spanish', type:'channel', url:'https://www.youtube.com/c/ButterflySpanish', icon:'📖' },
+    { title:'Spanish Listening Practice', channel:'Easy Spanish', type:'channel', url:'https://www.youtube.com/c/easyspanish', icon:'🎧' },
+  ],
+  arabic_lang: [
+    { title:'Arabic Language IGCSE Revision', channel:'Arabic Online', type:'channel', url:'https://www.youtube.com/results?search_query=igcse+arabic+language+revision', icon:'🇦🇪' },
+    { title:'Arabic Grammar Explained', channel:'Bayyinah', type:'channel', url:'https://www.youtube.com/@bayyinah', icon:'📖' },
+    { title:'Arabic Writing Techniques', channel:'Learn Arabic', type:'channel', url:'https://www.youtube.com/results?search_query=arabic+language+writing+skills+gcse', icon:'✍️' },
+  ],
+  environmental: [
+    { title:'IGCSE Environmental Management', channel:'GeoGirl', type:'playlist', url:'https://www.youtube.com/results?search_query=igcse+environmental+management+0680', icon:'🌿' },
+    { title:'Climate Change & Ecosystems', channel:'Crash Course', type:'playlist', url:'https://www.youtube.com/c/crashcourse', icon:'🌍' },
+    { title:'Energy & Resources Revision', channel:'Geographer Online', type:'channel', url:'https://www.youtube.com/@GeographerOnline', icon:'⚡' },
+  ],
+  religious_studies: [
+    { title:'IGCSE Religious Studies Revision', channel:'BBC Religious Studies', type:'playlist', url:'https://www.youtube.com/results?search_query=igcse+religious+studies+0490+revision', icon:'✝️' },
+    { title:'Ethics & Philosophy Explained', channel:'Philosophy Tube', type:'channel', url:'https://www.youtube.com/@PhilosophyTube', icon:'🕊️' },
+    { title:'RS Key Concepts', channel:'Tutor2u RS', type:'channel', url:'https://www.youtube.com/@tutor2u', icon:'📿' },
+  ],
+};
 function tplIGCSE() {
   if (S.igcseView === 'formulas')  return tplIGCSEFormulas();
   if (S.igcseView === 'compare')   return tplIGCSECompare();
@@ -16016,6 +16140,7 @@ function tplIGCSE() {
   if (S.igcseView === 'planner')   return tplIGCSEPlanner();
   if (S.igcseView === 'bookmarks') return tplIGCSEBookmarks();
   if (S.igcseView === 'mockexam')  return tplIGCSEMockExam();
+  if (S.igcseView === 'stats')     return tplIGCSEStats();
   if (S.igcseTopic !== null)      return tplIGCSETopic();
   if (S.igcseSubject)             return tplIGCSESubject();
   return tplIGCSEHub();
@@ -17042,6 +17167,13 @@ function tplIGCSEHub() {
         onmouseout="this.style.background='#EC489918';this.style.color='#EC4899'">
         📐 Formulas
       </button>
+      <button onclick="S.igcseView='stats';render()"
+        style="white-space:nowrap;padding:10px 13px;border-radius:12px;border:1.5px solid #0EA5E9;background:#0EA5E918;
+               color:#0EA5E9;cursor:pointer;font-family:Cairo,sans-serif;font-size:11px;font-weight:800;transition:.15s"
+        onmouseover="this.style.background='#0EA5E9';this.style.color='#fff'"
+        onmouseout="this.style.background='#0EA5E918';this.style.color='#0EA5E9'">
+        📊 My Stats
+      </button>
     </div>
   </div>
 
@@ -17446,10 +17578,14 @@ function tplIGCSETopic() {
     S.igcseRecent = [rec,...(S.igcseRecent||[]).filter(r=>!(r.sk===rec.sk&&r.ci===rec.ci&&r.ti===rec.ti))].slice(0,6);
     const srKey = `${S.igcseSubject}|${S.igcseBoard}|${tp.title}`;
     const today = new Date().toISOString().slice(0,10);
-    if(!(S.igcseLastStudied||{})[srKey]) {
-      S.igcseLastStudied = S.igcseLastStudied || {};
+    S.igcseLastStudied = S.igcseLastStudied || {};
+    if(!S.igcseLastStudied[srKey]) {
       S.igcseLastStudied[srKey] = today;
+      // Update daily log
+      S.igcseDailyLog = S.igcseDailyLog || {};
+      S.igcseDailyLog[today] = (S.igcseDailyLog[today] || 0) + 1;
       saveLocal();
+      checkIGCSEAchievements();
     }
   })();
 
@@ -20684,4 +20820,174 @@ function tplIGCSEMockExam() {
     </button>`:''}
   </div>
 </div>`;
+}
+
+
+/* ================================================================
+   IGCSE — Achievements System
+   ================================================================ */
+const IGCSE_ACHIEVEMENTS = [
+  { id:'first_topic',  icon:'🌱', title:'First Step',      desc:'Study your first topic',                   check: s => Object.keys(s.igcseLastStudied||{}).length >= 1 },
+  { id:'ten_topics',   icon:'📚', title:'Getting Started', desc:'Study 10 topics',                          check: s => Object.keys(s.igcseLastStudied||{}).length >= 10 },
+  { id:'fifty_topics', icon:'🎯', title:'Dedicated',       desc:'Study 50 topics',                          check: s => Object.keys(s.igcseLastStudied||{}).length >= 50 },
+  { id:'century',      icon:'💯', title:'Century',         desc:'Study 100 topics',                         check: s => Object.keys(s.igcseLastStudied||{}).length >= 100 },
+  { id:'first_master', icon:'🏆', title:'First Master',    desc:'Mark your first topic as Mastered',        check: s => Object.values(s.igcseProgress||{}).filter(v=>v==='mastered').length >= 1 },
+  { id:'ten_mastered', icon:'👑', title:'Subject Expert',  desc:'Master 10 topics',                         check: s => Object.values(s.igcseProgress||{}).filter(v=>v==='mastered').length >= 10 },
+  { id:'streak_3',     icon:'🔥', title:'On Fire',         desc:'3-day study streak',                       check: s => (s.igcseStreak||{count:0}).count >= 3 },
+  { id:'streak_7',     icon:'⚡', title:'Unstoppable',     desc:'7-day study streak',                       check: s => (s.igcseStreak||{count:0}).count >= 7 },
+  { id:'streak_30',    icon:'🌟', title:'Legend',          desc:'30-day study streak',                      check: s => (s.igcseStreak||{count:0}).count >= 30 },
+  { id:'first_mock',   icon:'🎓', title:'Exam Ready',      desc:'Complete your first Mock Exam',            check: s => !!(s.igcseMockExam && s.igcseMockExam.done) },
+  { id:'mock_80',      icon:'🥇', title:'High Achiever',   desc:'Score 80%+ on a Mock Exam',                check: s => { const mx=s.igcseMockExam; if(!mx||!mx.done||!mx.questions) return false; return mx.answers.filter((a,i)=>a===mx.questions[i].correct).length/mx.questions.length >= 0.8; }},
+  { id:'daily_5',      icon:'📅', title:'Productive Day',  desc:'Study 5 topics in one day',                check: s => Object.values(s.igcseDailyLog||{}).some(v=>v>=5) },
+  { id:'notes_writer', icon:'✍️', title:'Note Taker',      desc:'Write personal notes on 5 topics',         check: s => Object.values(s.igcseTopicNotes||{}).filter(v=>v&&v.trim().length>10).length >= 5 },
+  { id:'all_subjects', icon:'🌍', title:'All-Rounder',     desc:'Study a topic in every subject',           check: s => Object.keys(IGCSE_SUBJECTS).every(sk=>Object.keys(s.igcseLastStudied||{}).some(k=>k.startsWith(sk+'|'))) },
+];
+
+function checkIGCSEAchievements() {
+  const earned = S.igcseAchievements || [];
+  const newOnes = [];
+  IGCSE_ACHIEVEMENTS.forEach(ach => {
+    if (!earned.includes(ach.id)) {
+      try { if (ach.check(S)) { earned.push(ach.id); newOnes.push(ach); } } catch(e) {}
+    }
+  });
+  if (newOnes.length) {
+    S.igcseAchievements = earned;
+    saveLocal();
+    newOnes.forEach((a,i) => setTimeout(() => showToast(a.icon + ' Achievement unlocked: ' + a.title + '!', 'success'), 300 + i*600));
+  }
+}
+
+/* ================================================================
+   IGCSE — Stats Dashboard
+   ================================================================ */
+function tplIGCSEStats() {
+  const done      = S.igcseDone || {};
+  const prog      = S.igcseProgress || {};
+  const ls        = S.igcseLastStudied || {};
+  const dl        = S.igcseDailyLog || {};
+  const streak    = (S.igcseStreak || {count:0}).count;
+  const earned    = S.igcseAchievements || [];
+  const mastCount = Object.values(prog).filter(v=>v==='mastered').length;
+  const studCount = Object.values(prog).filter(v=>v==='studied').length;
+  const revCount  = Object.values(prog).filter(v=>v==='review').length;
+  const totalStudied = Object.keys(ls).length;
+
+  const todayStr = new Date().toISOString().slice(0,10);
+  const last14 = Array.from({length:14}, function(_,i) {
+    const d = new Date(); d.setDate(d.getDate() - (13-i));
+    return d.toISOString().slice(0,10);
+  });
+  const maxDay = Math.max(1, Math.max.apply(null, last14.map(function(d){ return dl[d]||0; })));
+
+  const subjRows = Object.entries(IGCSE_SUBJECTS)
+    .filter(function(e){ return e[1].boards.includes(S.igcseBoard); })
+    .map(function(e) {
+      const sk = e[0], subj = e[1];
+      const chs = subj.chapters[S.igcseBoard] || [];
+      const total = chs.reduce(function(a,c){ return a+c.topics.length; }, 0);
+      const doneC = chs.reduce(function(a,c,ci){ return a+c.topics.filter(function(_,ti){ return done[sk+'-'+ci+'-'+ti]; }).length; }, 0);
+      const mastC = chs.reduce(function(a,c){ return a+c.topics.filter(function(tp){ return (prog[sk+'|'+S.igcseBoard+'|'+tp.title]||'')==='mastered'; }).length; }, 0);
+      const pct   = total ? Math.round(doneC/total*100) : 0;
+      return { sk:sk, subj:subj, total:total, doneC:doneC, mastC:mastC, pct:pct };
+    })
+    .sort(function(a,b){ return b.pct - a.pct; });
+
+  const bars = last14.map(function(d) {
+    const count = dl[d] || 0;
+    const h = Math.max(4, Math.round(count/maxDay*56));
+    const isToday = d === todayStr;
+    const day = new Date(d+'T12:00:00').toLocaleDateString('en-GB',{weekday:'narrow'});
+    return '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px">'
+      + '<div title="'+d+': '+count+' topics" style="width:100%;height:'+h+'px;border-radius:4px 4px 2px 2px;background:'+(count>0?'#0EA5E9':'var(--border)')+(isToday?';outline:2px solid #0EA5E9;outline-offset:1px':'')+'"></div>'
+      + '<div style="font-size:7px;color:var(--text-muted);font-weight:'+(isToday?900:400)+'">'+day+'</div>'
+      + '</div>';
+  }).join('');
+
+  const statCards = [
+    { label:'Studied',  value: totalStudied, icon:'📚', color:'#3B82F6' },
+    { label:'Mastered', value: mastCount,    icon:'🏆', color:'#10B981' },
+    { label:'Streak',   value: streak+'🔥',  icon:'',   color:'#F59E0B' },
+    { label:'Badges',   value: earned.length+'/'+IGCSE_ACHIEVEMENTS.length, icon:'🎖️', color:'#8B5CF6' },
+  ].map(function(s) {
+    return '<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:14px 12px;text-align:center;border-top:3px solid '+s.color+'">'
+    + '<div style="font-size:22px;font-weight:900;color:'+s.color+'">'+s.value+'</div>'
+    + '<div style="font-size:10px;color:var(--text-muted);margin-top:3px;font-weight:700">'+s.icon+' '+s.label+'</div>'
+    + '</div>';
+  }).join('');
+
+  const masteryRows = [
+    { label:'Mastered',     count: mastCount, color:'#10B981', icon:'🏆' },
+    { label:'Studied',      count: studCount, color:'#3B82F6', icon:'📖' },
+    { label:'Needs Review', count: revCount,  color:'#F59E0B', icon:'⚠️' },
+  ].map(function(r) {
+    const pct = totalStudied ? Math.round(r.count/totalStudied*100) : 0;
+    return '<div style="margin-bottom:10px">'
+      + '<div style="display:flex;justify-content:space-between;margin-bottom:4px">'
+      + '<span style="font-size:11px;font-weight:700;color:var(--text)">'+r.icon+' '+r.label+'</span>'
+      + '<span style="font-size:11px;font-weight:800;color:'+r.color+'">'+r.count+' topics ('+pct+'%)</span>'
+      + '</div>'
+      + '<div style="height:7px;background:var(--border);border-radius:4px;overflow:hidden">'
+      + '<div style="height:100%;width:'+pct+'%;background:'+r.color+';border-radius:4px;transition:.5s"></div>'
+      + '</div></div>';
+  }).join('');
+
+  const subjectTable = subjRows.map(function(r) {
+    return '<div onclick="S.igcseSubject=\''+r.sk+'\';S.igcseView=\'list\';render()"'
+    + ' style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;cursor:pointer;transition:.15s"'
+    + ' onmouseover="this.style.background=\''+r.subj.color+'0a\'" onmouseout="this.style.background=\'\'">'
+    + '<span style="font-size:18px;flex-shrink:0">'+r.subj.icon+'</span>'
+    + '<div style="flex:1;min-width:0">'
+    + '<div style="display:flex;justify-content:space-between;margin-bottom:3px">'
+    + '<span style="font-size:11px;font-weight:700;color:var(--text)">'+r.subj.label+'</span>'
+    + '<span style="font-size:10px;font-weight:800;color:'+r.subj.color+'">'+r.doneC+'/'+r.total+' · '+r.pct+'%</span>'
+    + '</div>'
+    + '<div style="height:5px;background:var(--border);border-radius:3px;overflow:hidden">'
+    + '<div style="height:100%;width:'+r.pct+'%;background:'+r.subj.color+';border-radius:3px;transition:.5s"></div>'
+    + '</div></div>'
+    + (r.mastC ? '<span style="font-size:10px;color:#10B981;font-weight:800;flex-shrink:0">🏆'+r.mastC+'</span>' : '')
+    + '</div>';
+  }).join('');
+
+  const achGrid = IGCSE_ACHIEVEMENTS.map(function(a) {
+    const unlocked = earned.includes(a.id);
+    return '<div style="padding:10px 12px;border-radius:12px;border:1px solid '+(unlocked?'#8B5CF644':'var(--border)')
+      + ';background:'+(unlocked?'#8B5CF608':'transparent')+'" title="'+a.desc+'">'
+      + '<div style="font-size:22px;margin-bottom:4px;'+(unlocked?'':'filter:grayscale(1);opacity:.4')+'">'+a.icon+'</div>'
+      + '<div style="font-size:11px;font-weight:800;color:'+(unlocked?'var(--text)':'var(--text-muted)')+'">'+a.title+'</div>'
+      + '<div style="font-size:10px;color:var(--text-muted);margin-top:2px;line-height:1.4">'+a.desc+'</div>'
+      + (unlocked ? '<div style="margin-top:4px;font-size:9px;color:#8B5CF6;font-weight:800">✓ UNLOCKED</div>'
+                  : '<div style="margin-top:4px;font-size:9px;color:var(--text-muted)">Locked</div>')
+      + '</div>';
+  }).join('');
+
+  return '<div style="max-width:860px;margin:0 auto;padding:0 0 80px">'
+    + '<div style="background:linear-gradient(135deg,#0EA5E9,#0284C7);padding:18px 16px 24px;border-radius:0 0 22px 22px;margin-bottom:18px">'
+    + '<button onclick="S.igcseView=\'list\';render()" style="background:#ffffff25;border:1px solid #ffffff35;border-radius:10px;padding:5px 12px;color:#fff;cursor:pointer;font-size:11px;font-family:Cairo,sans-serif;font-weight:700;margin-bottom:14px">← Back</button>'
+    + '<div style="font-size:30px;margin-bottom:6px">📊</div>'
+    + '<div style="font-size:22px;font-weight:900;color:#fff">My Study Stats</div>'
+    + '<div style="font-size:12px;color:#ffffffbb;margin-top:4px">Your IGCSE progress at a glance</div>'
+    + '</div>'
+    + '<div style="padding:0 14px">'
+    + '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;margin-bottom:18px">'+statCards+'</div>'
+    + '<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:18px">'
+    + '<div style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--text-muted);margin-bottom:14px">📅 14-DAY ACTIVITY</div>'
+    + '<div style="display:flex;align-items:flex-end;gap:3px;height:60px">'+bars+'</div>'
+    + '<div style="margin-top:8px;font-size:10px;color:var(--text-muted);text-align:right">Topics studied per day</div>'
+    + '</div>'
+    + '<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:18px">'
+    + '<div style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--text-muted);margin-bottom:12px">📈 MASTERY BREAKDOWN</div>'
+    + masteryRows + '</div>'
+    + '<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:18px">'
+    + '<div style="padding:12px 16px;background:var(--bg);border-bottom:1px solid var(--border);font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--text-muted)">🏫 BY SUBJECT</div>'
+    + '<div style="padding:8px 12px;display:flex;flex-direction:column;gap:4px">'+subjectTable+'</div>'
+    + '</div>'
+    + '<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;overflow:hidden">'
+    + '<div style="padding:12px 16px;background:var(--bg);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">'
+    + '<div style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--text-muted)">🎖️ ACHIEVEMENTS</div>'
+    + '<div style="font-size:10px;color:#8B5CF6;font-weight:800">'+earned.length+' / '+IGCSE_ACHIEVEMENTS.length+' earned</div>'
+    + '</div>'
+    + '<div style="padding:10px 12px;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px">'+achGrid+'</div>'
+    + '</div>'
+    + '</div></div>';
 }
