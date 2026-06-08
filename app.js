@@ -49,6 +49,7 @@ let S = {
   igcseQuizAnswered: null, // index of chosen answer (null = not yet answered)
   igcseQuizScore: 0,    // score so far
   igcseQuizDone: false, // true when all questions finished
+  igcseStreak: {count:0, lastDate:''}, // study streak tracker
 };
 let _pomTimer = null;
 
@@ -67,6 +68,12 @@ function saveLocal() {
     if (S.stats) localStorage.setItem('oa_stats', JSON.stringify(S.stats));
     localStorage.setItem('oa_dark', S.darkMode ? '1' : '');
     localStorage.setItem('oa_lang', S.lang || 'ar');
+    // IGCSE platform persistence
+    localStorage.setItem('oa_igcse_done',     JSON.stringify(S.igcseDone || {}));
+    localStorage.setItem('oa_igcse_board',    S.igcseBoard || 'cie');
+    localStorage.setItem('oa_igcse_examdate', S.igcseExamDate || '');
+    localStorage.setItem('oa_igcse_recent',   JSON.stringify(S.igcseRecent || []));
+    localStorage.setItem('oa_igcse_streak',   JSON.stringify(S.igcseStreak || {count:0, lastDate:''}));
   } catch {}
 }
 function loadLocal() {
@@ -85,6 +92,15 @@ function loadLocal() {
     S.lang       = localStorage.getItem('oa_lang') || 'ar';
     const st     = localStorage.getItem('oa_stats');
     S.stats      = st ? JSON.parse(st) : { xp:0, streak:1, totalChats:0, weeklyActivity:[0,0,0,0,0,0,0], quizzesDone:0, bestScore:0 };
+    // IGCSE platform persistence
+    const igDone = localStorage.getItem('oa_igcse_done');
+    S.igcseDone     = igDone ? JSON.parse(igDone) : {};
+    S.igcseBoard    = localStorage.getItem('oa_igcse_board') || 'cie';
+    S.igcseExamDate = localStorage.getItem('oa_igcse_examdate') || '';
+    const igRecent  = localStorage.getItem('oa_igcse_recent');
+    S.igcseRecent   = igRecent ? JSON.parse(igRecent) : [];
+    const igStreak  = localStorage.getItem('oa_igcse_streak');
+    S.igcseStreak   = igStreak ? JSON.parse(igStreak) : {count:0, lastDate:''};
   } catch {}
 }
 
@@ -195,6 +211,18 @@ function render() {
   else if (S.screen === 'forgot')        { el.innerHTML = tplForgotPassword(); }
   else if (S.screen === 'reset-password'){ el.innerHTML = tplResetPassword(S.resetToken || ''); }
   else                                   { el.innerHTML = tplShell(screenContent()); }
+  // Update study streak when on IGCSE screen
+  if (S.screen === 'igcse') {
+    const today = new Date().toISOString().slice(0,10);
+    const streak = S.igcseStreak || {count:0, lastDate:''};
+    if (streak.lastDate !== today) {
+      const yesterday = new Date(Date.now()-86400000).toISOString().slice(0,10);
+      streak.count = streak.lastDate === yesterday ? streak.count + 1 : 1;
+      streak.lastDate = today;
+      S.igcseStreak = streak;
+    }
+  }
+  saveLocal();
   bind();
 }
 function screenContent() {
@@ -10796,9 +10824,9 @@ function tplIGCSEHub() {
       <div style="font-size:10px;color:var(--text-muted);margin-top:2px">${subj.arabic}</div>
       <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center">
         <span style="font-size:10px;background:${subj.color}18;color:${subj.color};padding:2px 8px;border-radius:20px;font-weight:700">${topicCount} topics</span>
-        ${pct>0?`<span style="font-size:10px;color:#10B981;font-weight:700">${pct}% ✓</span>`:''}
+        <span style="font-size:10px;color:${pct===100?'#10B981':pct>0?'var(--text-muted)':'var(--border)'};font-weight:700">${pct===100?'✅ Done':pct>0?`${pct}%`:'Not started'}</span>
       </div>
-      ${pct>0?`<div style="margin-top:8px;height:3px;background:var(--border);border-radius:2px"><div style="height:100%;width:${pct}%;background:#10B981;border-radius:2px;transition:.4s"></div></div>`:''}
+      <div style="margin-top:8px;height:3px;background:var(--border);border-radius:2px"><div style="height:100%;width:${pct}%;background:${pct===100?'#10B981':subj.color};border-radius:2px;transition:.4s"></div></div>
     </div>`;
   }).join('');
 
@@ -10819,6 +10847,8 @@ function tplIGCSEHub() {
         <div style="text-align:center"><div style="font-size:20px;font-weight:900;color:#fff">${doneCnt}</div><div style="font-size:10px;color:#ffffffaa">Done ✓</div></div>
         <div style="width:1px;background:#ffffff30"></div>
         <div style="text-align:center"><div style="font-size:20px;font-weight:900;color:#fff">3</div><div style="font-size:10px;color:#ffffffaa">Boards</div></div>
+        <div style="width:1px;background:#ffffff30"></div>
+        <div style="text-align:center"><div style="font-size:20px;font-weight:900;color:#fff">🔥${(S.igcseStreak||{count:0}).count}</div><div style="font-size:10px;color:#ffffffaa">Day Streak</div></div>
       </div>
     </div>
   </div>
