@@ -10700,9 +10700,129 @@ Object.values(IGCSE_SUBJECTS).forEach(subj => {
 
 function tplIGCSE() {
   if (S.igcseView === 'formulas') return tplIGCSEFormulas();
+  if (S.igcseView === 'compare')  return tplIGCSECompare();
   if (S.igcseTopic !== null)      return tplIGCSETopic();
   if (S.igcseSubject)             return tplIGCSESubject();
   return tplIGCSEHub();
+}
+
+function tplIGCSECompare() {
+  const subj = IGCSE_SUBJECTS[S.igcseSubject];
+  if (!subj) { S.igcseView='list'; return tplIGCSEHub(); }
+
+  // Boards this subject supports
+  const availableBoards = subj.boards.map(k => ({ key:k, ...IGCSE_BOARDS[k] }));
+
+  // Calculate per-board stats
+  const boardStats = availableBoards.map(b => {
+    const chs = subj.chapters[b.key] || [];
+    const topicCount = chs.reduce((a,c) => a + c.topics.length, 0);
+    const doneCount = chs.reduce((a,c,ci) =>
+      a + c.topics.filter((_,ti) => S.igcseDone[`${S.igcseSubject}-${ci}-${ti}`]).length, 0);
+    const pct = topicCount ? Math.round(doneCount/topicCount*100) : 0;
+    const hasOwn = !!subj.chapters[b.key];
+    return { ...b, chs, topicCount, doneCount, pct, hasOwn };
+  });
+
+  // Side-by-side chapter columns
+  const maxChapters = Math.max(...boardStats.map(b => b.chs.length));
+
+  const columns = boardStats.map(b => {
+    const rows = b.chs.map((ch, ci) => {
+      const chDone = ch.topics.filter((_,ti) => S.igcseDone[`${S.igcseSubject}-${ci}-${ti}`]).length;
+      const chPct = ch.topics.length ? Math.round(chDone/ch.topics.length*100) : 0;
+      return `
+      <div style="padding:10px 12px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;margin-bottom:8px;cursor:pointer;transition:.15s"
+        onclick="S.igcseBoard='${b.key}';S.igcseChapter=${ci};S.igcseView='list';render()"
+        onmouseover="this.style.borderColor='${b.color}';this.style.background='${b.color}08'"
+        onmouseout="this.style.borderColor='';this.style.background='var(--bg-card)'">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <span style="font-size:15px">${ch.icon||'📘'}</span>
+          <span style="font-size:11px;font-weight:800;color:var(--text);flex:1;line-height:1.3">${ch.title}</span>
+          ${chPct>0?`<span style="font-size:9px;color:#10B981;font-weight:700">${chPct}%</span>`:''}
+        </div>
+        <div style="font-size:10px;color:var(--text-muted);margin-bottom:${chPct>0?5:0}px">${ch.topics.length} topics</div>
+        ${chPct>0?`<div style="height:2px;background:var(--border);border-radius:1px"><div style="height:100%;width:${chPct}%;background:#10B981;border-radius:1px"></div></div>`:''}
+      </div>`;
+    }).join('');
+
+    // Unique topics not in other boards (rough count by title)
+    const allOtherTopicTitles = new Set(
+      boardStats.filter(x=>x.key!==b.key).flatMap(x=>x.chs.flatMap(c=>c.topics.map(t=>t.title.toLowerCase())))
+    );
+    const uniqueTopics = b.chs.flatMap(c=>c.topics).filter(t=>!allOtherTopicTitles.has(t.title.toLowerCase())).length;
+
+    return `
+    <div style="flex:1;min-width:240px">
+      <!-- Board Header -->
+      <div style="background:${b.color};border-radius:14px;padding:14px;margin-bottom:12px;text-align:center">
+        <div style="font-size:22px;margin-bottom:4px">${b.icon}</div>
+        <div style="font-size:14px;font-weight:900;color:#fff">${b.short}</div>
+        <div style="font-size:10px;color:#ffffffcc;margin-top:1px">${b.label}</div>
+      </div>
+      <!-- Stats row -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:12px">
+        <div style="text-align:center;padding:8px 4px;background:var(--bg-card);border-radius:10px;border:1px solid var(--border)">
+          <div style="font-size:16px;font-weight:900;color:${b.color}">${b.chs.length}</div>
+          <div style="font-size:9px;color:var(--text-muted);font-weight:700">chapters</div>
+        </div>
+        <div style="text-align:center;padding:8px 4px;background:var(--bg-card);border-radius:10px;border:1px solid var(--border)">
+          <div style="font-size:16px;font-weight:900;color:${b.color}">${b.topicCount}</div>
+          <div style="font-size:9px;color:var(--text-muted);font-weight:700">topics</div>
+        </div>
+        <div style="text-align:center;padding:8px 4px;background:var(--bg-card);border-radius:10px;border:1px solid var(--border)">
+          <div style="font-size:16px;font-weight:900;color:${uniqueTopics>0?b.color:'var(--text-muted)'}">${uniqueTopics}</div>
+          <div style="font-size:9px;color:var(--text-muted);font-weight:700">unique</div>
+        </div>
+      </div>
+      <!-- Progress -->
+      <div style="margin-bottom:12px;padding:10px 12px;background:var(--bg-card);border-radius:12px;border:1px solid var(--border)">
+        <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+          <span style="font-size:10px;color:var(--text-muted);font-weight:700">YOUR PROGRESS</span>
+          <span style="font-size:10px;color:${b.color};font-weight:800">${b.doneCount}/${b.topicCount} · ${b.pct}%</span>
+        </div>
+        <div style="height:5px;background:var(--border);border-radius:3px">
+          <div style="height:100%;width:${b.pct}%;background:${b.pct===100?'#10B981':b.color};border-radius:3px;transition:.5s"></div>
+        </div>
+      </div>
+      <!-- Switch to this board button -->
+      <button onclick="S.igcseBoard='${b.key}';S.igcseView='list';render()"
+        style="width:100%;padding:9px;margin-bottom:12px;border-radius:10px;border:2px solid ${b.color};background:${S.igcseBoard===b.key?b.color:'transparent'};color:${S.igcseBoard===b.key?'#fff':b.color};cursor:pointer;font-family:Cairo,sans-serif;font-weight:800;font-size:11px;transition:.15s">
+        ${S.igcseBoard===b.key?'✓ Currently Selected':'Switch to '+b.short}
+      </button>
+      <!-- Chapter list -->
+      <div style="font-size:9px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:8px">CHAPTERS (click to study)</div>
+      ${rows || '<div style="text-align:center;padding:20px;color:var(--text-muted);font-size:12px">Same as CIE (fallback)</div>'}
+    </div>`;
+  }).join('');
+
+  return `
+<div style="max-width:980px;margin:0 auto;padding:0 0 80px">
+  <!-- Header -->
+  <div style="background:linear-gradient(135deg,${subj.color},${subj.color}99);padding:18px 16px 22px;border-radius:0 0 24px 24px;margin-bottom:20px">
+    <button onclick="S.igcseView='list';render()"
+      style="background:#ffffff25;border:1px solid #ffffff35;border-radius:10px;padding:5px 12px;color:#fff;cursor:pointer;font-size:11px;font-family:Cairo,sans-serif;font-weight:700;margin-bottom:12px">
+      ← Back to ${subj.label}
+    </button>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="font-size:36px">${subj.icon}</div>
+      <div>
+        <div style="font-size:20px;font-weight:900;color:#fff">${subj.label}</div>
+        <div style="font-size:11px;color:#ffffffcc">⚖️ Board Comparison · ${availableBoards.length} boards available</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comparison tip -->
+  <div style="margin:0 14px 16px;padding:10px 14px;background:var(--bg-card);border-radius:12px;border:1px solid var(--border);font-size:11px;color:var(--text-muted)">
+    💡 Click any chapter to switch to that board and start studying. <strong style="color:var(--text)">"Unique"</strong> = topics exclusive to that board not found in others.
+  </div>
+
+  <!-- Board columns -->
+  <div style="padding:0 14px;display:flex;gap:14px;align-items:flex-start;overflow-x:auto">
+    ${columns}
+  </div>
+</div>`;
 }
 
 function printTopicNotes(sk, ci, ti) {
@@ -11255,6 +11375,10 @@ function tplIGCSESubject() {
       ${IGCSE_FORMULAS[S.igcseSubject]?`<button onclick="S.igcseView='formulas';render()"
         style="background:#ffffff20;border:1px solid #ffffff35;border-radius:10px;padding:7px 14px;color:#fff;cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif">
         📐 Formula Sheet
+      </button>`:''}
+      ${subj.boards.length>1?`<button onclick="S.igcseView='compare';render()"
+        style="background:#ffffff20;border:1px solid #ffffff35;border-radius:10px;padding:7px 14px;color:#fff;cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif">
+        ⚖️ Compare Boards
       </button>`:''}
     </div>
   </div>
