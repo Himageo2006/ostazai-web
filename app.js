@@ -5,6 +5,102 @@
 
 const API = 'https://ostazai-server-production.up.railway.app/api';
 
+/* ══════════════════════════════════════════════════════════════
+   DEVICE FINGERPRINTING — prevents multi-account trial abuse
+   ══════════════════════════════════════════════════════════════ */
+async function getDeviceFingerprint() {
+  // Return cached fingerprint if already generated
+  const cached = localStorage.getItem('oa_device_id');
+  if (cached && cached.length > 20) return cached;
+
+  const signals = [];
+
+  // 1. Screen properties
+  signals.push(screen.width + 'x' + screen.height + 'x' + screen.colorDepth);
+  signals.push(screen.availWidth + 'x' + screen.availHeight);
+
+  // 2. Navigator properties
+  signals.push(navigator.language || '');
+  signals.push(navigator.languages ? navigator.languages.join(',') : '');
+  signals.push(navigator.platform || '');
+  signals.push(String(navigator.hardwareConcurrency || 0));
+  signals.push(String(navigator.deviceMemory || 0));
+  signals.push(navigator.userAgent || '');
+
+  // 3. Timezone
+  signals.push(Intl.DateTimeFormat().resolvedOptions().timeZone || '');
+  signals.push(String(new Date().getTimezoneOffset()));
+
+  // 4. Canvas fingerprint (most unique signal)
+  try {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = 200; canvas.height = 50;
+    ctx.textBaseline = 'top';
+    ctx.font = '14px Arial';
+    ctx.fillStyle = '#f60';
+    ctx.fillRect(125, 1, 62, 20);
+    ctx.fillStyle = '#069';
+    ctx.fillText('OstazAI🎓', 2, 15);
+    ctx.fillStyle = 'rgba(102,204,0,0.7)';
+    ctx.fillText('OstazAI🎓', 4, 17);
+    signals.push(canvas.toDataURL());
+  } catch(e) { signals.push('no-canvas'); }
+
+  // 5. WebGL renderer
+  try {
+    const gl = document.createElement('canvas').getContext('webgl');
+    const ext = gl && gl.getExtension('WEBGL_debug_renderer_info');
+    if (ext) {
+      signals.push(gl.getParameter(ext.UNMASKED_VENDOR_WEBGL) || '');
+      signals.push(gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) || '');
+    }
+  } catch(e) { signals.push('no-webgl'); }
+
+  // 6. Audio fingerprint
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const analyser = ctx.createAnalyser();
+    const gain = ctx.createGain();
+    gain.gain.value = 0;
+    osc.connect(analyser);
+    analyser.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(0);
+    const data = new Float32Array(analyser.frequencyBinCount);
+    analyser.getFloatFrequencyData(data);
+    signals.push(data.slice(0, 10).join(','));
+    osc.stop(0);
+    ctx.close();
+  } catch(e) { signals.push('no-audio'); }
+
+  // Hash all signals into a fingerprint
+  const raw = signals.join('|||');
+  const fp = await hashString(raw);
+
+  // Store persistently
+  localStorage.setItem('oa_device_id', fp);
+  return fp;
+}
+
+async function hashString(str) {
+  try {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(str);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('').substring(0, 32);
+  } catch(e) {
+    // Fallback simple hash
+    let h = 0;
+    for (let i = 0; i < str.length; i++) {
+      h = Math.imul(31, h) + str.charCodeAt(i) | 0;
+    }
+    return Math.abs(h).toString(16).padStart(8, '0');
+  }
+}
+
 let S = {
   screen: 'loading',
   token: null, user: null, messages: [], thinking: false,
@@ -18945,7 +19041,8 @@ async function doRegister() {
   }
   setBtnLoading('b-register', 'جارٍ الإنشاء...');
   try {
-    const body = { name, email, password: pass, country };
+    const deviceId = await getDeviceFingerprint();
+    const body = { name, email, password: pass, country, deviceId };
     if (refCode) body.referralCode = refCode;
     const d = await req('/auth/register', 'POST', body);
     S.token = d.token; S.user = d.user;
@@ -18992,7 +19089,8 @@ async function handleGoogleCredential(response) {
   }
   showToast('جارٍ تسجيل الدخول...', 'info');
   try {
-    const d = await req('/auth/google', 'POST', { credential: response.credential });
+    const deviceId = await getDeviceFingerprint();
+    const d = await req('/auth/google', 'POST', { credential: response.credential, deviceId });
     S.token = d.token; S.user = d.user;
     if (d.user.country && d.user.country in CURRICULA) S.curriculum = d.user.country;
     saveLocal();
