@@ -16371,22 +16371,22 @@ function tplIGCSEPastPapers() {
     <!-- Content -->
     <div style="flex:1;min-width:0">
       <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:3px">
-        <span style="font-size:12px;font-weight:900;color:var(--text)">${tp.title}</span>
-        ${done?`<span style="font-size:9px;background:#10B98120;color:#10B981;border-radius:6px;padding:1px 5px;font-weight:700">✓ Done</span>`:''}
-        ${freq>=4?`<span style="font-size:9px;background:#EF444420;color:#EF4444;border-radius:6px;padding:1px 5px;font-weight:700">🔥 High freq</span>`:''}
-        ${hasExamTip?`<span style="font-size:9px;background:#F59E0B15;color:#F59E0B;border-radius:6px;padding:1px 5px;font-weight:700">💡 Exam tip</span>`:''}
+        <span style="font-size:14px;font-weight:900;color:var(--text)">${tp.title}</span>
+        ${done?`<span style="font-size:11px;background:#10B98120;color:#10B981;border-radius:6px;padding:2px 7px;font-weight:700">✓ Done</span>`:''}
+        ${freq>=4?`<span style="font-size:11px;background:#EF444420;color:#EF4444;border-radius:6px;padding:2px 7px;font-weight:700">🔥 High freq</span>`:''}
+        ${hasExamTip?`<span style="font-size:11px;background:#F59E0B15;color:#F59E0B;border-radius:6px;padding:2px 7px;font-weight:700">💡 Exam tip</span>`:''}
       </div>
-      <div style="font-size:10px;color:var(--text-muted);margin-bottom:6px">${ch.icon||'📘'} ${ch.title}</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:6px">${ch.icon||'📘'} ${ch.title}</div>
       <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-        <span style="font-size:9px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:2px 7px;color:var(--text-muted);font-weight:700">
+        <span style="font-size:11px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:3px 9px;color:var(--text-muted);font-weight:700">
           ${TYPE_ICONS[qType]||'📝'} ${qType}
         </span>
         <button onclick="S.igcseChapter=${ci};S.igcseTopic=${ti};S.igcseTab='notes';S.igcseView='list';S.igcseFcIdx=0;S.igcseFcFlipped=false;render()"
-          style="font-size:9px;background:${subj.color}18;border:none;border-radius:8px;padding:3px 9px;color:${subj.color};font-weight:800;cursor:pointer;font-family:Cairo,sans-serif">
+          style="font-size:12px;background:${subj.color}18;border:none;border-radius:8px;padding:5px 12px;color:${subj.color};font-weight:800;cursor:pointer;font-family:Cairo,sans-serif">
           📖 Study Notes
         </button>
         <button onclick="S.igcseChapter=${ci};S.igcseTopic=${ti};S.igcseTab='questions';S.igcseView='list';S.igcseFcIdx=0;S.igcseFcFlipped=false;render()"
-          style="font-size:9px;background:#6366F118;border:none;border-radius:8px;padding:3px 9px;color:#6366F1;font-weight:800;cursor:pointer;font-family:Cairo,sans-serif">
+          style="font-size:12px;background:#6366F118;border:none;border-radius:8px;padding:5px 12px;color:#6366F1;font-weight:800;cursor:pointer;font-family:Cairo,sans-serif">
           ❓ Practice Qs
         </button>
       </div>
@@ -16410,13 +16410,13 @@ function tplIGCSEPastPapers() {
     </div>
     <!-- Stats row -->
     <div style="display:flex;gap:14px;flex-wrap:wrap">
-      <div style="text-align:center"><div style="font-size:18px;font-weight:900;color:#fff">${allTopics.length}</div><div style="font-size:9px;color:#ffffffaa">Total Topics</div></div>
+      <div style="text-align:center"><div style="font-size:18px;font-weight:900;color:#fff">${allTopics.length}</div><div style="font-size:12px;color:#ffffffaa">Total Topics</div></div>
       <div style="width:1px;background:#ffffff30"></div>
-      <div style="text-align:center"><div style="font-size:18px;font-weight:900;color:#ffcccc">${highFreqCount}</div><div style="font-size:9px;color:#ffffffaa">🔥 High Freq</div></div>
+      <div style="text-align:center"><div style="font-size:18px;font-weight:900;color:#ffcccc">${highFreqCount}</div><div style="font-size:12px;color:#ffffffaa">🔥 High Freq</div></div>
       <div style="width:1px;background:#ffffff30"></div>
-      <div style="text-align:center"><div style="font-size:18px;font-weight:900;color:#fff">${tipCount}</div><div style="font-size:9px;color:#ffffffaa">💡 Exam Tips</div></div>
+      <div style="text-align:center"><div style="font-size:18px;font-weight:900;color:#fff">${tipCount}</div><div style="font-size:12px;color:#ffffffaa">💡 Exam Tips</div></div>
       <div style="width:1px;background:#ffffff30"></div>
-      <div style="text-align:center"><div style="font-size:18px;font-weight:900;color:#ccffdd">${doneCount}</div><div style="font-size:9px;color:#ffffffaa">✓ Studied</div></div>
+      <div style="text-align:center"><div style="font-size:18px;font-weight:900;color:#ccffdd">${doneCount}</div><div style="font-size:12px;color:#ffffffaa">✓ Studied</div></div>
     </div>
   </div>
 
@@ -16436,38 +16436,38 @@ function tplIGCSEPastPapers() {
 
     <!-- Frequency legend -->
     <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;margin-bottom:16px;flex-wrap:wrap">
-      <span style="font-size:10px;font-weight:800;color:var(--text-muted)">FREQUENCY GUIDE:</span>
-      <span style="font-size:10px;color:#EF4444;font-weight:700">🔥 High — appears almost every year</span>
-      <span style="font-size:10px;color:#F59E0B;font-weight:700">⚡ Medium — appears every other year</span>
-      <span style="font-size:10px;color:#9CA3AF;font-weight:700">💤 Low — occasionally examined</span>
+      <span style="font-size:12px;font-weight:800;color:var(--text-muted)">FREQUENCY GUIDE:</span>
+      <span style="font-size:12px;color:#EF4444;font-weight:700">🔥 High — appears almost every year</span>
+      <span style="font-size:12px;color:#F59E0B;font-weight:700">⚡ Medium — appears every other year</span>
+      <span style="font-size:12px;color:#9CA3AF;font-weight:700">💤 Low — occasionally examined</span>
     </div>
 
     <!-- Chapter filter -->
     <div style="margin-bottom:10px">
-      <div style="font-size:9px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:6px">FILTER BY CHAPTER</div>
+      <div style="font-size:12px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:6px">FILTER BY CHAPTER</div>
       <div style="display:flex;gap:6px;flex-wrap:wrap">${chPills}</div>
     </div>
 
     <!-- Question type filter -->
     <div style="margin-bottom:10px">
-      <div style="font-size:9px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:6px">QUESTION TYPE</div>
+      <div style="font-size:12px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:6px">QUESTION TYPE</div>
       <div style="display:flex;gap:6px;flex-wrap:wrap">${typePills}</div>
     </div>
 
     <!-- Frequency filter -->
     <div style="margin-bottom:16px">
-      <div style="font-size:9px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:6px">EXAM FREQUENCY</div>
+      <div style="font-size:12px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:6px">EXAM FREQUENCY</div>
       <div style="display:flex;gap:6px;flex-wrap:wrap">${freqPills}</div>
     </div>
 
     <!-- Results count -->
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-      <div style="font-size:10px;color:var(--text-muted);font-weight:700">
+      <div style="font-size:13px;color:var(--text-muted);font-weight:700">
         Showing <span style="color:var(--text);font-weight:900">${filtered.length}</span> of ${allTopics.length} topics
         ${filtered.length<allTopics.length?`<button onclick="S.igcsePpFilter='all';S.igcsePpType='all';S.igcsePpFreq='all';render()"
           style="margin-left:8px;background:none;border:none;color:#6366F1;cursor:pointer;font-size:10px;font-weight:800;font-family:Cairo,sans-serif">Clear filters</button>`:''}
       </div>
-      <div style="font-size:9px;color:var(--text-muted)">Dots = exam frequency →</div>
+      <div style="font-size:12px;color:var(--text-muted)">Dots = exam frequency →</div>
     </div>
 
     <!-- Topic rows -->
