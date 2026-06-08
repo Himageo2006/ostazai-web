@@ -3354,10 +3354,16 @@ function tplShell(content) {
   const botNav = [
     ...nav.filter(n => botNavScreens.includes(n.s)),
     { s:'__more__', icon:'⋯', label:'المزيد' }
-  ].map(n => `
-    <button class="bot-nav-item${S.screen===n.s?' active':''}" onclick="navTo('${n.s}')" style="background:none;border:none;cursor:pointer;font-family:Cairo,sans-serif;flex:1">
+  ].map(n => {
+    if (n.s === 'profile') {
+      return `<button class="bot-nav-item${S.screen===n.s?' active':''}" onclick="navTo('profile')" style="background:none;border:none;cursor:pointer;font-family:Cairo,sans-serif;flex:1">
+        <span>👤</span><span style="font-size:10px;display:block">${t('الملف','Profile')}</span>
+      </button>`;
+    }
+    return `<button class="bot-nav-item${S.screen===n.s?' active':''}" onclick="navTo('${n.s}')" style="background:none;border:none;cursor:pointer;font-family:Cairo,sans-serif;flex:1">
       <span>${n.icon}</span><span style="font-size:10px;display:block">${n.label}</span>
-    </button>`).join('');
+    </button>`;
+  }).join('');
   const curData = CURRICULA[S.curriculum] || CURRICULA.egypt;
   const gradeData = (curData.grades && (curData.grades[S.grade] || curData.grades.high || Object.values(curData.grades)[0])) || { label: S.grade || 'ثانوي', subjects: [] };
   return `
@@ -3394,6 +3400,10 @@ function tplShell(content) {
         ${S.lang==='ar'?'🇬🇧 EN':'🇸🇦 عر'}
       </button>
     </div>
+    <!-- Logout button — always visible in sidebar -->
+    <button onclick="doLogout()" style="width:calc(100% - 16px);margin:0 8px 12px;padding:10px;background:#EF444415;border:1px solid #EF444435;border-radius:14px;color:#EF4444;cursor:pointer;font-family:Cairo,sans-serif;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px">
+      🚪 ${S.lang==='en'?'Sign Out':'تسجيل الخروج'}
+    </button>
   </aside>
   <main class="content">${content}</main>
 </div>
@@ -3419,6 +3429,13 @@ function tplShell(content) {
     </button>`).join('')}
   </div>
 </div>
+<!-- Floating Logout Button (mobile only) -->
+<button onclick="doLogout()" id="float-logout"
+  style="position:fixed;top:14px;left:14px;z-index:999;background:#EF444420;border:1px solid #EF444450;
+         color:#EF4444;border-radius:12px;padding:7px 13px;font-family:Cairo,sans-serif;font-size:12px;
+         font-weight:800;cursor:pointer;display:none;align-items:center;gap:5px">
+  🚪 ${S.lang==='en'?'Logout':'خروج'}
+</button>
 <!-- Floating Feedback Button -->
 <button id="b-feedback-float" title="ملاحظات أو مشكلة؟"
   style="position:fixed;bottom:72px;left:16px;z-index:999;width:44px;height:44px;border-radius:50%;
@@ -20348,7 +20365,7 @@ function bind() {
     .bot-nav-item.active{color:var(--primary)}
     .bot-nav-item.active span:first-child{transform:scale(1.15);display:inline-block}
     .drawer-btn:hover{border-color:var(--primary)!important;color:var(--primary)!important}
-    @media(max-width:768px){.sidebar{display:none}.bottom-nav{display:flex}.content{padding-bottom:75px}}
+    @media(max-width:768px){.sidebar{display:none}.bottom-nav{display:flex}.content{padding-bottom:75px}#float-logout{display:flex!important}}
     .auth-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
     .auth-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;width:100%;max-width:420px;display:flex;flex-direction:column;gap:16px}
     .auth-logo{font-size:48px;text-align:center}
