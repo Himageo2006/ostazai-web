@@ -62,6 +62,8 @@ let S = {
   igcseMockCount: 20,     // number of questions
   igcseDailyLog: {},      // { 'YYYY-MM-DD': topicsStudied } for chart
   igcseAchievements: [],  // earned achievement ids
+  igcseLang: 'en',        // 'en' | 'ar'
+  igcseFcRatings: {},     // { 'sk|board|topic': { cardIdx: 'know'|'unsure'|'forgot' } }
 };
 let _pomTimer = null;
 
@@ -16141,6 +16143,7 @@ function tplIGCSE() {
   if (S.igcseView === 'bookmarks') return tplIGCSEBookmarks();
   if (S.igcseView === 'mockexam')  return tplIGCSEMockExam();
   if (S.igcseView === 'stats')     return tplIGCSEStats();
+  if (S.igcseView === 'mindmap')   return tplIGCSEMindMap();
   if (S.igcseTopic !== null)      return tplIGCSETopic();
   if (S.igcseSubject)             return tplIGCSESubject();
   return tplIGCSEHub();
@@ -17096,6 +17099,11 @@ function tplIGCSEHub() {
           style="background:#ffffff25;border:none;border-radius:20px;padding:5px 12px;color:#fff;cursor:pointer;font-size:13px;font-weight:700;font-family:Cairo,sans-serif">
           ${S.darkMode?'☀️ Light':'🌙 Dark'}
         </button>
+        <button onclick="toggleIGCSELang()"
+          title="Toggle Arabic/English"
+          style="background:#ffffff25;border:none;border-radius:20px;padding:5px 12px;color:#fff;cursor:pointer;font-size:13px;font-weight:700;font-family:Cairo,sans-serif">
+          ${S.igcseLang==='ar'?'🇬🇧 EN':'🇦🇪 عربي'}
+        </button>
       </div>
       <div style="font-size:26px;font-weight:900;color:#fff;margin-bottom:6px">🎓 IGCSE Hub</div>
       <div style="display:flex;gap:16px;flex-wrap:wrap">
@@ -17471,11 +17479,21 @@ function tplIGCSESubject() {
       <div onclick="S.igcseChapter=${isOpen?'null':ci};render()"
         style="padding:14px 16px;cursor:pointer;display:flex;align-items:center;gap:12px;
                background:${isOpen?`${subj.color}0f`:'var(--bg-card)'};transition:.15s">
-        <div style="width:36px;height:36px;border-radius:10px;background:${subj.color}20;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">${ch.icon||'📘'}</div>
+        ${(()=>{
+          const _r=16,_c=2*Math.PI*_r,_pct=ch.topics.length?chDone/ch.topics.length:0,_dash=_c*_pct,_gap=_c-_dash;
+          const _col=_pct===1?'#10B981':_pct>0?subj.color:'var(--border)';
+          return `<div style="position:relative;width:40px;height:40px;flex-shrink:0">
+            <svg width="40" height="40" style="transform:rotate(-90deg)">
+              <circle cx="20" cy="20" r="${_r}" fill="${subj.color}18" stroke="var(--border)" stroke-width="2.5"/>
+              <circle cx="20" cy="20" r="${_r}" fill="none" stroke="${_col}" stroke-width="2.5"
+                stroke-dasharray="${_dash.toFixed(1)} ${_gap.toFixed(1)}" stroke-linecap="round" style="transition:.5s"/>
+            </svg>
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px">${ch.icon||'📘'}</div>
+          </div>`;
+        })()}
         <div style="flex:1;min-width:0">
           <div style="font-size:13px;font-weight:800;color:var(--text)">${ch.title}</div>
-          <div style="font-size:10px;color:var(--text-muted);margin-top:1px">${ch.topics.length} topics${chDone>0?` · ${chDone} done ✓`:''}</div>
-          ${chDone>0?`<div style="margin-top:5px;height:2px;background:var(--border);border-radius:1px"><div style="height:100%;width:${Math.round(chDone/ch.topics.length*100)}%;background:#10B981;border-radius:1px"></div></div>`:''}
+          <div style="font-size:10px;color:var(--text-muted);margin-top:1px">${ch.topics.length} topics${chDone>0?` · <span style="color:#10B981;font-weight:800">${chDone} done ✓</span>`:''}</div>
         </div>
         <span style="font-size:16px;color:var(--text-muted);transition:transform .2s;transform:${isOpen?'rotate(90deg)':'rotate(0deg)'};display:inline-block">›</span>
       </div>
@@ -17491,7 +17509,7 @@ function tplIGCSESubject() {
     <div style="position:absolute;top:-20px;right:-20px;width:100px;height:100px;border-radius:50%;background:#ffffff0d"></div>
     <button onclick="S.igcseSubject=null;S.igcseChapter=null;S.igcseTopic=null;render()"
       style="background:#ffffff25;border:1px solid #ffffff35;border-radius:10px;padding:5px 12px;color:#fff;cursor:pointer;font-size:11px;font-family:Cairo,sans-serif;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:6px">
-      ← All Subjects
+      ← ${L('All Subjects','كل المواد')}
     </button>
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
       <div style="width:56px;height:56px;border-radius:16px;background:#ffffff25;display:flex;align-items:center;justify-content:center;font-size:30px;flex-shrink:0">${subj.icon}</div>
@@ -17543,12 +17561,16 @@ function tplIGCSESubject() {
         style="background:#ffffff20;border:1px solid #ffffff35;border-radius:10px;padding:7px 14px;color:#fff;cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif">
         📋 Past Papers
       </button>
+      <button onclick="S.igcseView='mindmap';render()"
+        style="background:#ffffff20;border:1px solid #ffffff35;border-radius:10px;padding:7px 14px;color:#fff;cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif">
+        🗺️ Mind Map
+      </button>
     </div>
   </div>
 
   <!-- Chapter List -->
   <div style="padding:0 12px">
-    <div style="font-size:10px;color:var(--text-muted);font-weight:800;letter-spacing:1.5px;margin-bottom:14px">CHAPTERS & TOPICS</div>
+    <div style="font-size:10px;color:var(--text-muted);font-weight:800;letter-spacing:1.5px;margin-bottom:14px">${L('CHAPTERS & TOPICS','الفصول والمواضيع')}</div>
     ${chapterList||'<div style="text-align:center;padding:40px;color:var(--text-muted)">No chapters available for this board yet</div>'}
   </div>
 </div>`;
@@ -17590,7 +17612,7 @@ function tplIGCSETopic() {
   })();
 
   const tabs = ['notes','flashcards','quiz','questions','papers'].map(tab => {
-    const labels = {notes:'📖 Notes', flashcards:'🃏 Cards', quiz:'🎯 Quiz', questions:'❓ Practice', papers:'📄 Papers'};
+    const labels = {notes:'📖 '+L('Notes','ملاحظات'), flashcards:'🃏 '+L('Cards','بطاقات'), quiz:'🎯 '+L('Quiz','اختبار'), questions:'❓ '+L('Practice','تدريب'), papers:'📄 '+L('Papers','أوراق')};
     return `<button onclick="S.igcseTab='${tab}';S.igcseQuizIdx=0;S.igcseQuizAnswered=null;S.igcseQuizScore=0;S.igcseQuizDone=false;render()"
       style="flex:1;padding:9px 2px;border:none;cursor:pointer;font-family:Cairo,sans-serif;font-size:10px;font-weight:800;transition:.15s;border-radius:10px;letter-spacing:.2px;
              ${S.igcseTab===tab?`background:${subj.color};color:#fff;box-shadow:0 2px 8px ${subj.color}44`:'background:var(--bg);color:var(--text-muted);border:1px solid var(--border)'}">
@@ -17712,49 +17734,91 @@ function tplIGCSETopic() {
       return {front, back};
     });
     const totalCards = cards.length;
+    S.igcseFcRatings = S.igcseFcRatings || {};
+    const fcKey = `${S.igcseSubject}|${S.igcseBoard}|${tp.title}`;
+    const ratings = S.igcseFcRatings[fcKey] || {};
     const fcIdx = Math.min(S.igcseFcIdx||0, totalCards-1);
     const card = cards[fcIdx];
     const flipped = S.igcseFcFlipped||false;
+    const knownCount = Object.values(ratings).filter(v=>v==='know').length;
+    const unsureCount = Object.values(ratings).filter(v=>v==='unsure').length;
+    const forgotCount = Object.values(ratings).filter(v=>v==='forgot').length;
+    const dots = cards.map((_,i) => {
+      const r = ratings[i];
+      const col = r==='know'?'#10B981':r==='unsure'?'#F59E0B':r==='forgot'?'#EF4444':'var(--border)';
+      const sz = i===fcIdx ? '10px' : '7px';
+      return `<div style="width:${sz};height:${sz};border-radius:50%;background:${col};transition:.2s;flex-shrink:0"></div>`;
+    }).join('');
     tabContent = `
-      <div style="text-align:center;margin-bottom:12px">
-        <div style="font-size:10px;color:var(--text-muted);font-weight:800;letter-spacing:1px">FLASHCARD ${fcIdx+1} OF ${totalCards}</div>
-        <div style="height:3px;background:var(--border);border-radius:2px;margin:6px auto;max-width:200px">
-          <div style="height:100%;width:${Math.round((fcIdx+1)/totalCards*100)}%;background:${subj.color};border-radius:2px;transition:.4s"></div>
+      <style>
+        .fc-scene{perspective:800px;width:100%;min-height:200px;margin-bottom:14px;cursor:pointer}
+        .fc-card{position:relative;width:100%;min-height:200px;transform-style:preserve-3d;transition:transform .45s cubic-bezier(.4,0,.2,1)}
+        .fc-card.flipped{transform:rotateY(180deg)}
+        .fc-face{position:absolute;width:100%;min-height:200px;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 20px;text-align:center;box-sizing:border-box}
+        .fc-front{background:var(--bg-card);border:2px solid ${subj.color}55;box-shadow:0 4px 20px ${subj.color}18}
+        .fc-back{background:${subj.color}0f;border:2px solid ${subj.color}88;transform:rotateY(180deg);box-shadow:0 4px 20px ${subj.color}28}
+      </style>
+      <!-- Progress dots -->
+      <div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:center;margin-bottom:10px;padding:0 8px">${dots}</div>
+      <!-- Score row -->
+      <div style="display:flex;justify-content:center;gap:12px;margin-bottom:12px">
+        <span style="font-size:10px;font-weight:800;color:#10B981">✅ ${knownCount}</span>
+        <span style="font-size:10px;font-weight:800;color:#F59E0B">🤔 ${unsureCount}</span>
+        <span style="font-size:10px;font-weight:800;color:#EF4444">❌ ${forgotCount}</span>
+        <span style="font-size:10px;font-weight:800;color:var(--text-muted)">${fcIdx+1}/${totalCards}</span>
+      </div>
+      <!-- 3D Flip Card -->
+      <div class="fc-scene" onclick="S.igcseFcFlipped=!S.igcseFcFlipped;render()">
+        <div class="fc-card ${flipped?'flipped':''}">
+          <div class="fc-face fc-front">
+            <div style="font-size:10px;color:var(--text-muted);font-weight:900;letter-spacing:1.5px;margin-bottom:14px">TAP TO FLIP</div>
+            <div style="font-size:17px;font-weight:900;color:var(--text);line-height:1.5;max-width:300px">${card.front}</div>
+            <div style="margin-top:14px;font-size:24px;opacity:.35">🃏</div>
+          </div>
+          <div class="fc-face fc-back">
+            <div style="font-size:10px;color:${subj.color};font-weight:900;letter-spacing:1.5px;margin-bottom:12px">ANSWER</div>
+            <div style="font-size:13px;color:var(--text);line-height:1.8;max-width:340px">${card.back}</div>
+          </div>
         </div>
       </div>
-      <!-- Card -->
-      <div onclick="S.igcseFcFlipped=!S.igcseFcFlipped;render()" style="cursor:pointer;min-height:180px;background:var(--bg-card);border:2px solid ${subj.color}55;border-radius:20px;padding:28px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;margin-bottom:14px;transition:.2s;box-shadow:0 4px 20px ${subj.color}18"
-        onmouseover="this.style.boxShadow='0 8px 30px ${subj.color}33'" onmouseout="this.style.boxShadow='0 4px 20px ${subj.color}18'">
-        ${flipped ? `
-          <div style="font-size:10px;color:${subj.color};font-weight:900;letter-spacing:1px;margin-bottom:12px">ANSWER</div>
-          <div style="font-size:13px;color:var(--text);line-height:1.75;max-width:340px">${card.back}</div>
-        ` : `
-          <div style="font-size:10px;color:var(--text-muted);font-weight:900;letter-spacing:1px;margin-bottom:12px">TAP TO REVEAL</div>
-          <div style="font-size:16px;font-weight:900;color:var(--text);line-height:1.5;max-width:300px">${card.front}</div>
-          <div style="margin-top:12px;font-size:22px;opacity:.4">🃏</div>
-        `}
-      </div>
+      <!-- Self-rating (shown after flip) -->
+      ${flipped ? `
+      <div style="margin-bottom:14px">
+        <div style="font-size:10px;color:var(--text-muted);font-weight:800;text-align:center;margin-bottom:8px;letter-spacing:1px">HOW WELL DID YOU KNOW IT?</div>
+        <div style="display:flex;gap:8px">
+          <button onclick="event.stopPropagation();S.igcseFcRatings=S.igcseFcRatings||{};(S.igcseFcRatings['${fcKey}']=S.igcseFcRatings['${fcKey}']||{})[${fcIdx}]='forgot';S.igcseFcFlipped=false;S.igcseFcIdx=Math.min(${totalCards-1},(S.igcseFcIdx||0)+1);render()"
+            style="flex:1;padding:11px 6px;border-radius:12px;border:2px solid #EF444433;background:#EF444410;color:#EF4444;cursor:pointer;font-weight:800;font-size:12px;font-family:Cairo,sans-serif">❌ Forgot</button>
+          <button onclick="event.stopPropagation();S.igcseFcRatings=S.igcseFcRatings||{};(S.igcseFcRatings['${fcKey}']=S.igcseFcRatings['${fcKey}']||{})[${fcIdx}]='unsure';S.igcseFcFlipped=false;S.igcseFcIdx=Math.min(${totalCards-1},(S.igcseFcIdx||0)+1);render()"
+            style="flex:1;padding:11px 6px;border-radius:12px;border:2px solid #F59E0B33;background:#F59E0B10;color:#F59E0B;cursor:pointer;font-weight:800;font-size:12px;font-family:Cairo,sans-serif">🤔 Unsure</button>
+          <button onclick="event.stopPropagation();S.igcseFcRatings=S.igcseFcRatings||{};(S.igcseFcRatings['${fcKey}']=S.igcseFcRatings['${fcKey}']||{})[${fcIdx}]='know';S.igcseFcFlipped=false;S.igcseFcIdx=Math.min(${totalCards-1},(S.igcseFcIdx||0)+1);render()"
+            style="flex:1;padding:11px 6px;border-radius:12px;border:2px solid #10B98133;background:#10B98110;color:#10B981;cursor:pointer;font-weight:800;font-size:12px;font-family:Cairo,sans-serif">✅ Know It!</button>
+        </div>
+      </div>` : ''}
       <!-- Controls -->
-      <div style="display:flex;gap:10px;justify-content:center;margin-bottom:12px">
+      <div style="display:flex;gap:8px;justify-content:center">
         <button onclick="S.igcseFcIdx=Math.max(0,(S.igcseFcIdx||0)-1);S.igcseFcFlipped=false;render()"
-          ${fcIdx===0?'disabled':''} style="padding:10px 20px;border-radius:12px;border:1px solid var(--border);background:var(--bg-card);color:var(--text);cursor:pointer;font-size:12px;font-weight:700;font-family:Cairo,sans-serif;${fcIdx===0?'opacity:.4;cursor:default':''}">
+          ${fcIdx===0?'disabled':''} style="padding:9px 18px;border-radius:12px;border:1px solid var(--border);background:var(--bg-card);color:var(--text);cursor:pointer;font-size:12px;font-weight:700;font-family:Cairo,sans-serif;${fcIdx===0?'opacity:.4;cursor:default':''}">
           ‹ Prev
         </button>
-        <button onclick="S.igcseFcFlipped=!S.igcseFcFlipped;render()"
-          style="padding:10px 20px;border-radius:12px;border:none;background:${subj.color};color:#fff;cursor:pointer;font-size:12px;font-weight:700;font-family:Cairo,sans-serif">
-          ${flipped?'🙈 Hide':'👁️ Reveal'}
+        <button onclick="S.igcseFcRatings=S.igcseFcRatings||{};S.igcseFcRatings['${fcKey}']={};S.igcseFcIdx=0;S.igcseFcFlipped=false;render()"
+          style="padding:9px 14px;border-radius:12px;border:1px solid var(--border);background:var(--bg);color:var(--text-muted);cursor:pointer;font-size:12px;font-weight:700;font-family:Cairo,sans-serif">
+          ↺ Reset
         </button>
         <button onclick="S.igcseFcIdx=Math.min(${totalCards-1},(S.igcseFcIdx||0)+1);S.igcseFcFlipped=false;render()"
-          ${fcIdx===totalCards-1?'disabled':''} style="padding:10px 20px;border-radius:12px;border:1px solid var(--border);background:var(--bg-card);color:var(--text);cursor:pointer;font-size:12px;font-weight:700;font-family:Cairo,sans-serif;${fcIdx===totalCards-1?'opacity:.4;cursor:default':''}">
+          ${fcIdx===totalCards-1?'disabled':''} style="padding:9px 18px;border-radius:12px;border:1px solid var(--border);background:var(--bg-card);color:var(--text);cursor:pointer;font-size:12px;font-weight:700;font-family:Cairo,sans-serif;${fcIdx===totalCards-1?'opacity:.4;cursor:default':''}">
           Next ›
         </button>
       </div>
-      <!-- Shuffle / Reset -->
-      <div style="display:flex;gap:8px;justify-content:center">
-        <button onclick="S.igcseFcIdx=0;S.igcseFcFlipped=false;render()"
-          style="padding:8px 16px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text-muted);cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif">
-          ↺ Reset
-        </button>
+      ${knownCount+unsureCount+forgotCount===totalCards ? `
+      <div style="margin-top:12px;padding:14px 16px;background:#10B98110;border:1px solid #10B98130;border-radius:14px;text-align:center">
+        <div style="font-size:16px;margin-bottom:4px">${knownCount===totalCards?'🏆 Perfect!':'🎯 Round complete!'}</div>
+        <div style="font-size:12px;color:var(--text-muted)">You know <strong style="color:#10B981">${knownCount}</strong> · unsure <strong style="color:#F59E0B">${unsureCount}</strong> · forgot <strong style="color:#EF4444">${forgotCount}</strong></div>
+        ${forgotCount>0?`<button onclick="S.igcseFcRatings=S.igcseFcRatings||{};const r=S.igcseFcRatings['${fcKey}']||{};const fi=Object.keys(r).filter(k=>r[k]==='forgot'||r[k]==='unsure');S.igcseFcRatings['${fcKey}']={};fi.forEach((k,i)=>{}),S.igcseFcIdx=0;S.igcseFcFlipped=false;render()"
+          style="margin-top:8px;padding:8px 16px;border-radius:10px;border:none;background:${subj.color};color:#fff;cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif">
+          🔄 Retry missed cards
+        </button>`:''}
+      </div>` : ''}
+      <div style="margin-top:10px;text-align:center">
         <button onclick="S.screen='chat';S.subject='${subj.label} Flashcards';S.messages=[{role:'user',content:'Create 10 Q&A flashcards for IGCSE ${subj.label} topic: ${tp.title.replace(/'/g,"\\'")}. Format each as Q: ... / A: ...'}];render();setTimeout(()=>doSend&&doSend(),100)"
           style="padding:8px 16px;border-radius:10px;border:1px solid ${subj.color}44;background:${subj.color}10;color:${subj.color};cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif">
           🤖 AI Flashcards (×10)
@@ -20990,4 +21054,126 @@ function tplIGCSEStats() {
     + '<div style="padding:10px 12px;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px">'+achGrid+'</div>'
     + '</div>'
     + '</div></div>';
+}
+
+
+/* ================================================================
+   IGCSE — Mind Map View
+   ================================================================ */
+function tplIGCSEMindMap() {
+  const subj = IGCSE_SUBJECTS[S.igcseSubject];
+  if (!subj) return tplIGCSEHub();
+  const chapters = subj.chapters[S.igcseBoard] || [];
+  const done = S.igcseDone || {};
+  const prog = S.igcseProgress || {};
+
+  const chNodes = chapters.map(function(ch, ci) {
+    const chDone = ch.topics.filter(function(_,ti){ return done[S.igcseSubject+'-'+ci+'-'+ti]; }).length;
+    const pct = ch.topics.length ? Math.round(chDone/ch.topics.length*100) : 0;
+    const colFill = pct===100?'#10B981':pct>0?subj.color:'var(--text-muted)';
+    const topicNodes = ch.topics.map(function(tp, ti) {
+      const isDone = !!done[S.igcseSubject+'-'+ci+'-'+ti];
+      const st = (prog[S.igcseSubject+'|'+S.igcseBoard+'|'+tp.title])||'';
+      const dot = st==='mastered'?'🏆':st==='studied'?'📖':st==='review'?'⚠️':'·';
+      return '<div onclick="S.igcseChapter='+ci+';S.igcseTopic='+ti+';S.igcseTab=\'notes\';S.igcseView=\'list\';render()"'
+        + ' style="display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:10px;cursor:pointer;transition:.15s;'
+        + 'background:'+(isDone?'#10B98108':'var(--bg-card)')+';border:1px solid '+(isDone?'#10B98130':'var(--border)')+'"'
+        + ' onmouseover="this.style.background=\''+subj.color+'11\'" onmouseout="this.style.background=\''+(isDone?'#10B98108':'var(--bg-card)')+'\';">'
+        + '<span style="font-size:11px;flex-shrink:0">'+dot+'</span>'
+        + '<span style="font-size:11px;font-weight:'+(isDone?700:500)+';color:var(--text);line-height:1.4">'+tp.title+'</span>'
+        + '</div>';
+    }).join('');
+
+    return '<div style="margin-bottom:12px;background:var(--bg-card);border:1px solid var(--border);border-radius:16px;overflow:hidden;border-top:3px solid '+colFill+'">'
+      + '<div onclick="S.igcseChapter='+(S.igcseChapter===ci?'null':ci)+';render()"'
+      + ' style="padding:12px 14px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:.15s"'
+      + ' onmouseover="this.style.background=\''+subj.color+'0a\'" onmouseout="this.style.background=\'\'">'
+      + '<span style="font-size:18px;flex-shrink:0">'+( ch.icon||'📘')+'</span>'
+      + '<div style="flex:1;min-width:0">'
+      + '<div style="font-size:12px;font-weight:800;color:var(--text)">'+ch.title+'</div>'
+      + '<div style="font-size:10px;color:var(--text-muted);margin-top:1px">'+ch.topics.length+' topics · '+pct+'% done</div>'
+      + '</div>'
+      + '<div style="font-size:10px;font-weight:800;color:'+colFill+'">'+chDone+'/'+ch.topics.length+'</div>'
+      + '<span style="font-size:14px;color:var(--text-muted);transition:transform .2s;transform:'+(S.igcseChapter===ci?'rotate(90deg)':'rotate(0deg)')+';display:inline-block">›</span>'
+      + '</div>'
+      + (S.igcseChapter===ci ? '<div style="padding:6px 10px 10px;background:var(--bg);border-top:1px solid var(--border);display:flex;flex-direction:column;gap:4px">'+topicNodes+'</div>' : '')
+      + '</div>';
+  }).join('');
+
+  const totalTopics = chapters.reduce(function(a,c){ return a+c.topics.length; }, 0);
+  const totalDone = chapters.reduce(function(a,c,ci){ return a+c.topics.filter(function(_,ti){ return done[S.igcseSubject+'-'+ci+'-'+ti]; }).length; }, 0);
+  const totalPct = totalTopics ? Math.round(totalDone/totalTopics*100) : 0;
+
+  return '<div style="max-width:860px;margin:0 auto;padding:0 0 80px">'
+    + '<div style="background:linear-gradient(135deg,'+subj.color+','+subj.color+'bb);padding:18px 16px 24px;border-radius:0 0 22px 22px;margin-bottom:18px">'
+    + '<button onclick="S.igcseView=\'list\';render()" style="background:#ffffff25;border:1px solid #ffffff35;border-radius:10px;padding:5px 12px;color:#fff;cursor:pointer;font-size:11px;font-family:Cairo,sans-serif;font-weight:700;margin-bottom:12px">← Back</button>'
+    + '<div style="display:flex;align-items:center;gap:12px">'
+    + '<span style="font-size:28px">'+subj.icon+'</span>'
+    + '<div>'
+    + '<div style="font-size:20px;font-weight:900;color:#fff">🗺️ '+subj.label+' Mind Map</div>'
+    + '<div style="font-size:11px;color:#ffffffbb;margin-top:2px">'+chapters.length+' chapters · '+totalTopics+' topics · '+totalPct+'% complete</div>'
+    + '</div></div>'
+    + '<div style="margin-top:14px;height:5px;background:#ffffff25;border-radius:3px"><div style="height:100%;width:'+totalPct+'%;background:#fff;border-radius:3px;transition:.5s"></div></div>'
+    + '</div>'
+    + '<div style="padding:0 12px">'
+    + '<div style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--text-muted);margin-bottom:12px">CHAPTERS — tap to expand topics</div>'
+    + chNodes
+    + '</div></div>';
+}
+
+/* ================================================================
+   IGCSE — Arabic / English UI Toggle
+   ================================================================ */
+const IGCSE_AR = {
+  'All Subjects':'كل المواد',
+  'Back':'رجوع',
+  'CHAPTERS & TOPICS':'الفصول والمواضيع',
+  'PROGRESS':'التقدم',
+  'Mastered':'محترف',
+  'Studied':'تمت الدراسة',
+  'Needs Review':'يحتاج مراجعة',
+  'Past Papers':'أوراق امتحانات',
+  'AI Tutor':'مدرس ذكي',
+  'Flashcards':'بطاقات تعليمية',
+  'Formula Sheet':'ورقة القوانين',
+  'Compare Boards':'مقارنة اللجان',
+  'Mind Map':'خريطة ذهنية',
+  'Mock Exam':'اختبار تجريبي',
+  'My Stats':'إحصائياتي',
+  'KEY REVISION NOTES':'نقاط المراجعة',
+  'WORKED EXAMPLE':'مثال محلول',
+  'EXAM TIPS':'نصائح الامتحان',
+  'COMMON MISTAKES':'أخطاء شائعة',
+  'MY NOTES':'ملاحظاتي',
+  'Explain with AI':'شرح بالذكاء الاصطناعي',
+  'TAP TO FLIP':'اضغط للقلب',
+  'ANSWER':'الإجابة',
+  'Know It!':'أعرفها!',
+  'Unsure':'غير متأكد',
+  'Forgot':'نسيتها',
+  'Reset':'إعادة',
+  'Next':'التالي',
+  'Prev':'السابق',
+  'topics':'مواضيع',
+  'chapters':'فصول',
+  'done':'مكتمل',
+  'Study Stats':'إحصائيات الدراسة',
+  'Achievements':'الإنجازات',
+  'Streak':'سلسلة',
+  'Badges':'شارات',
+  'Studied':'تمت الدراسة',
+  '14-DAY ACTIVITY':'نشاط 14 يوم',
+  'BY SUBJECT':'حسب المادة',
+};
+
+function L(en, ar) {
+  if (S.igcseLang === 'ar') return ar || IGCSE_AR[en] || en;
+  return en;
+}
+
+function toggleIGCSELang() {
+  S.igcseLang = S.igcseLang === 'ar' ? 'en' : 'ar';
+  document.documentElement.setAttribute('dir', S.igcseLang === 'ar' ? 'rtl' : 'ltr');
+  saveLocal();
+  render();
 }
