@@ -3350,26 +3350,26 @@ function tplShell(content) {
       <span class="nav-icon">${n.icon}</span>
       <span class="nav-label">${n.label}</span>
     </button>`).join('');
-  const botNavScreens = ['chat','lessons','igcse','textbook','stats','profile'];
+  const botNavScreens = ['chat','lessons','igcse','textbook','stats'];
   const botNav = [
     ...nav.filter(n => botNavScreens.includes(n.s)),
-    { s:'__more__', icon:'⋯', label:'المزيد' }
-  ].map(n => {
-    if (n.s === 'profile') {
-      return `<button class="bot-nav-item${S.screen===n.s?' active':''}" onclick="navTo('profile')" style="background:none;border:none;cursor:pointer;font-family:Cairo,sans-serif;flex:1">
-        <span>👤</span><span style="font-size:10px;display:block">${t('الملف','Profile')}</span>
-      </button>`;
-    }
-    return `<button class="bot-nav-item${S.screen===n.s?' active':''}" onclick="navTo('${n.s}')" style="background:none;border:none;cursor:pointer;font-family:Cairo,sans-serif;flex:1">
+    { s:'__more__', icon:'⋯', label: S.lang==='en'?'More':'المزيد' }
+  ].map(n => `
+    <button class="bot-nav-item${S.screen===n.s?' active':''}" onclick="navTo('${n.s}')" style="background:none;border:none;cursor:pointer;font-family:Cairo,sans-serif;flex:1">
       <span>${n.icon}</span><span style="font-size:10px;display:block">${n.label}</span>
-    </button>`;
-  }).join('');
+    </button>`).join('') +
+  `<button onclick="doLogout()" style="background:none;border:none;cursor:pointer;font-family:Cairo,sans-serif;flex:1;color:#EF4444">
+    <span>🚪</span><span style="font-size:10px;display:block">${S.lang==='en'?'Logout':'خروج'}</span>
+  </button>`;
   const curData = CURRICULA[S.curriculum] || CURRICULA.egypt;
   const gradeData = (curData.grades && (curData.grades[S.grade] || curData.grades.high || Object.values(curData.grades)[0])) || { label: S.grade || 'ثانوي', subjects: [] };
   return `
 <div class="shell">
   <aside class="sidebar">
-    <div class="sidebar-logo">🎓 أستاذ AI</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:0 8px;margin-bottom:2px">
+      <div class="sidebar-logo" style="margin-bottom:0">🎓 أستاذ AI</div>
+      <button onclick="doLogout()" style="background:#EF444420;border:1px solid #EF444440;color:#EF4444;padding:5px 10px;border-radius:10px;font-family:Cairo,sans-serif;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap">🚪 ${S.lang==='en'?'Logout':'خروج'}</button>
+    </div>
     <div class="sidebar-cur">${curData.label} · ${gradeData.label}</div>
     <!-- Streak + stats mini bar -->
     <div style="display:flex;gap:6px;margin:6px 8px 2px;flex-wrap:wrap">
