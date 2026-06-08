@@ -1,6 +1,6 @@
 // OstazAI Service Worker v3.0
 // Version bump forces cache refresh on all clients
-const CACHE_VERSION = 'ostazai-v79';
+const CACHE_VERSION = 'ostazai-v80';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -11,13 +11,9 @@ const STATIC_ASSETS = [
   'https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap',
 ];
 
-// ── Install: pre-cache static assets ─────────────────────────────────────────
+// ── Install: skip waiting immediately so new SW activates right away ──────────
 self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open(CACHE_VERSION)
-      .then(cache => cache.addAll(STATIC_ASSETS.filter(u => !u.startsWith('http'))))
-      .then(() => self.skipWaiting())
-  );
+  e.waitUntil(self.skipWaiting());
 });
 
 // ── Activate: clean up old caches ─────────────────────────────────────────────
