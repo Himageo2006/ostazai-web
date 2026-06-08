@@ -4516,14 +4516,22 @@ const IGCSE_SUBJECTS = {
             'Prime factorisation, HCF and LCM using factor trees or Venn diagrams',
             'Rational numbers can be written as a fraction p/q; irrational cannot (e.g. √2, π)',
             'Absolute value |x|: distance from zero — always non-negative',
-          ]},
+          ], workedExample:`Classify: −3, 0, 0.5, √2, π, 7
+Natural numbers: 7
+Integers: −3, 0, 7
+Rational: −3, 0, 0.5, 7 (can be written as p/q)
+Irrational: √2, π (cannot be written as exact fraction)`},
           { title:'Powers, Roots & Standard Form', points:[
             'Index laws: aᵐ × aⁿ = aᵐ⁺ⁿ, aᵐ ÷ aⁿ = aᵐ⁻ⁿ, (aᵐ)ⁿ = aᵐⁿ, a⁰ = 1',
             'Negative indices: a⁻ⁿ = 1/aⁿ (e.g. 2⁻³ = 1/8)',
             'Fractional indices: a^(1/n) = ⁿ√a and a^(m/n) = (ⁿ√a)ᵐ',
             'Standard form: A × 10ⁿ where 1 ≤ A < 10 (e.g. 3.2 × 10⁴ = 32000)',
             'Adding in standard form: convert to same power of 10 first',
-          ]},
+          ], workedExample:`A bacterium multiplies every 20 minutes. Starting with 1, how many after 3 hours?
+3 hours = 180 minutes; doublings = 180/20 = 9
+Population = 2⁹ = 512
+In standard form: 5.12 × 10²
+Check: 2¹⁰ = 1024, so 2⁹ = 512 ✓`},
           { title:'Percentages, Ratio & Proportion', points:[
             'Percentage change = (change ÷ original) × 100%',
             'Reverse percentage: original = value ÷ (1 ± r/100)',
@@ -4579,7 +4587,9 @@ Original = 12000 ÷ 0.8 = $15,000`},
             'Difference of squares: a²−b² = (a+b)(a−b)',
             'Factorising quadratics ax²+bx+c: find two numbers that multiply to ac and add to b',
             'Simplify algebraic fractions by factorising numerator and denominator first',
-          ]},
+          ], workedExample:`Factorise 6x²+7x-3:
+Find pair: 6×(-3)=-18; pair summing to 7: 9,-2
+6x²+9x-2x-3=3x(2x+3)-(2x+3)=(3x-1)(2x+3)`},
           { title:'Equations & Inequalities', points:[
             'Solve linear equations: same operation both sides to isolate variable',
             'Quadratic formula: x = (−b ± √(b²−4ac)) / 2a when factorising fails',
@@ -4604,13 +4614,19 @@ x = 3  or  x = −0.5`},
             'Distance between two points: d = √((x₂−x₁)² + (y₂−y₁)²)',
             'Midpoint: ((x₁+x₂)/2, (y₁+y₂)/2)',
             'Key curves: y=x² (parabola), y=x³ (cubic), y=1/x (hyperbola), y=aˣ (exponential)',
-          ]},
+          ], workedExample:`f(x) = 2x² − 3x + 1. Find f(2) and the roots.
+f(2) = 2(4) − 3(2) + 1 = 8 − 6 + 1 = 3
+Roots: 2x² − 3x + 1 = 0 → (2x − 1)(x − 1) = 0 → x = 0.5 or x = 1`},
           { title:'Sequences', points:[
             'Arithmetic sequence: constant difference d; nth term = a + (n−1)d',
             'Geometric sequence: constant ratio r; nth term = arⁿ⁻¹',
             'Quadratic sequences: second differences are constant; nth term has n² term',
             'Find nth term by looking at differences and comparing to known sequences',
-          ]},
+          ], workedExample:`Find the nth term of: 3, 7, 11, 15, 19...
+Differences: 4, 4, 4, 4 → arithmetic with common difference d = 4
+First term a = 3
+nth term = a + (n−1)d = 3 + (n−1)×4 = 3 + 4n − 4 = 4n − 1
+Check: n=1 → 4(1)−1 = 3 ✓, n=2 → 7 ✓`},
         ], examTips:[
             'Show all working step by step — method marks awarded even if final answer wrong',
             'Check answer by substituting back into original equation or expression',
@@ -4654,7 +4670,9 @@ x = 3  or  x = −0.5`},
             'Tangent to circle is perpendicular to radius at point of contact',
             'To find intersection: substitute line equation into circle equation',
             'Length of a chord using coordinate geometry and Pythagoras',
-          ]},
+          ], workedExample:`Circle x²+y²-6x+4y-12=0. Find centre and radius.
+Complete square: (x-3)²-9+(y+2)²-4-12=0
+(x-3)²+(y+2)²=25 → centre (3,-2), radius 5`},
         ], examTips:[
             'Show all working step by step — method marks awarded even if final answer wrong',
             'Check answer by substituting back into original equation or expression',
@@ -4669,20 +4687,28 @@ x = 3  or  x = −0.5`},
             'Alternate angles (Z-angles) are equal; corresponding angles (F-angles) are equal',
             'Sum of interior angles of n-sided polygon = (n−2) × 180°',
             'Exterior angle of triangle = sum of the two non-adjacent interior angles',
-          ]},
+          ], workedExample:`Parallel lines cut by transversal:
+Alternate angles equal (Z-angles): both=65°
+Co-interior angles supplementary: 65°+115°=180°
+Corresponding angles equal (F-angles)`},
           { title:'Circle Theorems', points:[
             'Angle at centre = 2 × angle at circumference (same arc)',
             'Angles in the same segment are equal',
             'Angle in a semicircle = 90° (diameter subtends right angle)',
             'Opposite angles in a cyclic quadrilateral add to 180°',
             'Tangent-radius: tangent is perpendicular to radius at point of contact',
-          ]},
+          ], workedExample:`Points A,B,C,D on circle. AB is diameter.
+∠ACB=90° (angle in semicircle)
+If ∠ADB=90° too (both subtend same arc AB)
+Opposite angles ABCD cyclic quad: ∠A+∠C=180°`},
           { title:'Similarity & Congruence', points:[
             'Similar shapes: same angles, proportional sides — ratio of sides = k',
             'If lengths scale by k → areas scale by k² → volumes scale by k³',
             'Congruence conditions: SSS, SAS, ASA, AAS, RHS',
             'To prove triangles similar: show two pairs of equal angles (AA)',
-          ]},
+          ], workedExample:`Triangles ABC and PQR similar. AB=6, BC=9, PQ=4.
+Scale factor=4/6=⅔. QR=9×⅔=6.
+Area ratio=(⅔)²=4/9. If area ABC=27: area PQR=12`},
         ], examTips:[
             'Show all working step by step — method marks awarded even if final answer wrong',
             'Check answer by substituting back into original equation or expression',
@@ -4708,14 +4734,18 @@ x = 3  or  x = −0.5`},
             'Trapezium: A = ½(a+b)h; Circle: A = πr², C = 2πr',
             'Sector: area = (θ/360)×πr²; arc length = (θ/360)×2πr',
             'Composite shapes: split into rectangles, triangles, circles — add or subtract',
-          ]},
+          ], workedExample:`Composite shape: rectangle 10×6 with semicircle on top (radius 3).
+Area=60+½π×9=60+14.14=74.14cm²
+Perimeter=10+6+6+½×2π×3=10+12+9.42=31.42cm (no top edge)`},
           { title:'Volumes & Surface Areas', points:[
             'Cuboid: V = lwh; SA = 2(lw+lh+wh)',
             'Cylinder: V = πr²h; SA = 2πrh + 2πr²',
             'Cone: V = ⅓πr²h; curved SA = πrl (l = slant height); total SA = πrl + πr²',
             'Sphere: V = (4/3)πr³; SA = 4πr²',
             'Pyramid: V = ⅓ × base area × perpendicular height',
-          ]},
+          ], workedExample:`Sphere: radius 5cm. Volume=⁴⁄₃π×125=523.6cm³
+Surface area=4π×25=314.2cm²
+Cylinder: r=4, h=10. V=π×16×10=502.7cm³. SA=2π×4×10+2π×16=351.9cm²`},
         ], examTips:[
             'Show all working step by step — method marks awarded even if final answer wrong',
             'Check answer by substituting back into original equation or expression',
@@ -4736,13 +4766,18 @@ x = 3  or  x = −0.5`},
             'Use inverse trig (sin⁻¹, cos⁻¹, tan⁻¹) to find angles',
             'Angle of elevation: looking up from horizontal; depression: looking down',
             'Bearings: measured clockwise from North, always 3 digits (e.g. 045°)',
-          ]},
+          ], workedExample:`A ladder 5m long leans against a wall. It makes 60° with the ground. How high up the wall?
+sin 60° = opposite/hypotenuse = h/5
+h = 5 × sin 60° = 5 × 0.866 = 4.33 m`},
           { title:'Sine & Cosine Rules (Non-Right Triangles)', points:[
             'Sine rule: a/sinA = b/sinB = c/sinC — use with angle-side opposite pair',
             'Cosine rule: a² = b²+c²−2bc cosA — use with 3 sides or 2 sides + included angle',
             'Area of any triangle: Area = ½ab sinC',
             'Ambiguous case: two possible triangles when given two sides and non-included angle',
-          ]},
+          ], workedExample:`In triangle PQR: PQ = 8cm, PR = 6cm, angle P = 110°. Find QR.
+Cosine rule: QR² = PQ² + PR² − 2(PQ)(PR)cos P
+QR² = 64 + 36 − 2(8)(6)cos110° = 100 − 96(−0.342) = 100 + 32.8 = 132.8
+QR = 11.5 cm`},
         ], examTips:[
             'Show all working step by step — method marks awarded even if final answer wrong',
             'Check answer by substituting back into original equation or expression',
@@ -4771,14 +4806,20 @@ AB = BC/sin 35° = 8/0.574 = 13.9 cm`, examTips:[
             'Magnitude: |a| = √(x²+y²)',
             'Scalar multiple: ka stretches magnitude by |k|; negative k reverses direction',
             'Collinear points: AB = k×AC for some scalar k',
-          ]},
+          ], workedExample:`p=(5,2), q=(-1,4). Find p+2q and |p+2q|.
+p+2q=(5-2, 2+8)=(3,10)
+|p+2q|=√(9+100)=√109≈10.44
+Unit vector of p: p/|p|=(5,2)/√29`},
           { title:'Transformations', points:[
             'Translation: described by a column vector (all points shift same amount)',
             'Reflection: mirror line required; image equidistant from line — shape unchanged',
             'Rotation: centre, angle (degrees), direction (clockwise/anticlockwise)',
             'Enlargement: centre and scale factor; area changes by SF²; negative SF flips shape',
             'Combined transformations: apply right-to-left; describe single equivalent transformation',
-          ]},
+          ], workedExample:`Describe transformation: (x,y)→(x+3, -y+1)
+Reflection in y=½ (vertical shift), then translate (3,0)? No:
+This is reflection in y=½ then translation? Check: reflection in x-axis gives (x,-y), then translate (+3,+1).
+→ Reflection in x-axis then translation by vector (3,1)`},
         ], examTips:[
             'Show all working step by step — method marks awarded even if final answer wrong',
             'Check answer by substituting back into original equation or expression',
@@ -4805,7 +4846,10 @@ AB = BC/sin 35° = 8/0.574 = 13.9 cm`, examTips:[
             'Cumulative frequency: median at 50th %, Q1 at 25th %, Q3 at 75th %',
             'Histogram: frequency density = frequency ÷ class width (y-axis)',
             'Scatter graphs: describe correlation (positive/negative/none) and draw line of best fit',
-          ]},
+          ], workedExample:`Mean of frequency table:
+Score: 1(f=3), 2(f=7), 3(f=12), 4(f=6), 5(f=2). n=30
+Σfx=3+14+36+24+10=87
+Mean=87/30=2.9. Median: 15th+16th both in score=3 → median=3`},
           { title:'Probability', points:[
             'P(event) = favourable outcomes ÷ total equally likely outcomes; 0 ≤ P ≤ 1',
             'P(not A) = 1 − P(A)',
@@ -4890,19 +4934,29 @@ Check: f(f⁻¹(5)) = f(1) = 5 ✓`, workedExample:`Write 0.000456 in standard f
             'Prime factorisation, HCF and LCM using factor trees or Venn diagrams',
             'Rational numbers can be written as a fraction p/q; irrational cannot (e.g. √2, π)',
             'Edexcel Spec: includes recurring decimals → fractions (e.g. 0.̄3 = 1/3)',
-          ]},
+          ], workedExample:`Classify: −3, 0, 0.5, √2, π, 7
+Natural numbers: 7
+Integers: −3, 0, 7
+Rational: −3, 0, 0.5, 7 (can be written as p/q)
+Irrational: √2, π (cannot be written as exact fraction)`},
           { title:'Powers, Roots & Standard Form', points:[
             'Index laws: aᵐ × aⁿ = aᵐ⁺ⁿ, aᵐ ÷ aⁿ = aᵐ⁻ⁿ, (aᵐ)ⁿ = aᵐⁿ',
             'Standard form: A × 10ⁿ where 1 ≤ A < 10',
             'Edexcel: emphasis on surds — √a × √b = √(ab); √(a/b) = √a/√b; rationalise denominator',
             'Edexcel IGCSE uses formula sheet for some topics — know what is given vs memorised',
-          ]},
+          ], workedExample:`A bacterium multiplies every 20 minutes. Starting with 1, how many after 3 hours?
+3 hours = 180 minutes; doublings = 180/20 = 9
+Population = 2⁹ = 512
+In standard form: 5.12 × 10²
+Check: 2¹⁰ = 1024, so 2⁹ = 512 ✓`},
           { title:'Percentages, Ratio & Proportion', points:[
             'Percentage change = (change ÷ original) × 100%',
             'Compound interest: A = P(1 + r/100)ⁿ',
             'Edexcel: includes exponential growth and decay in context of finance/population',
             'Direct and inverse proportion with graphs and equations',
-          ]},
+          ], workedExample:`A car costs $12,000 after a 20% discount. What was the original price?
+After 20% discount → multiplier = 0.8
+Original = 12000 ÷ 0.8 = $15,000`},
         ]},
         { title:'Algebra & Graphs', icon:'📈', topics:[
           { title:'Algebraic Manipulation', points:[
@@ -4910,19 +4964,27 @@ Check: f(f⁻¹(5)) = f(1) = 5 ✓`, workedExample:`Write 0.000456 in standard f
             'Edexcel IGCSE Higher: includes algebraic proof — show expression always odd/even etc.',
             'Completing the square: x²+bx = (x+b/2)²−(b/2)²  — used to find vertex of parabola',
             'Edexcel: function notation f(x), composite functions fg(x), inverse f⁻¹(x)',
-          ]},
+          ], workedExample:`Factorise 6x²+7x-3:
+Find pair: 6×(-3)=-18; pair summing to 7: 9,-2
+6x²+9x-2x-3=3x(2x+3)-(2x+3)=(3x-1)(2x+3)`},
           { title:'Equations & Inequalities', points:[
             'Solve linear and quadratic equations; simultaneous equations',
             'Edexcel IGCSE: includes linear programming with inequalities on a graph',
             'Quadratic formula essential — not always given on Edexcel papers',
             'Inequalities on number lines and graphs; region shading',
-          ]},
+          ], workedExample:`Solve 2x² − 5x − 3 = 0 using the quadratic formula:
+a=2, b=−5, c=−3
+x = (5 ± √(25 + 24)) / 4 = (5 ± √49) / 4 = (5 ± 7) / 4
+x = 3  or  x = −0.5`},
           { title:'Graphs & Functions', points:[
             'y = mx + c; perpendicular gradients; distance and midpoint',
             'Edexcel: transformation of functions — y=f(x)+a (shift up), y=f(x+a) (shift left)',
             'Recognise and sketch: linear, quadratic, cubic, reciprocal, exponential, circle',
             'Edexcel Higher: calculus — differentiation to find gradient and turning points',
-          ]},
+          ], workedExample:`Solve x² + 5x + 6 = 0 by factorising:
+Find two numbers that multiply to 6 and add to 5: → 2 and 3
+(x + 2)(x + 3) = 0
+x = −2 or x = −3`},
         ], examTips:[
             'Show all working step by step — method marks awarded even if final answer wrong',
             'Check answer by substituting back into original equation or expression',
@@ -4942,14 +5004,22 @@ Check: f(f⁻¹(5)) = f(1) = 5 ✓`, workedExample:`Write 0.000456 in standard f
             'Edexcel: geometric proof required — state reasons at each step formally',
             'Loci and constructions: perpendicular bisector, angle bisector, locus of equidistant point',
             'Transformations: rotation, reflection, translation, enlargement (positive and negative scale factor)',
-          ]},
+          ], workedExample:`Prove that angles in a triangle sum to 180°.
+Draw line DE parallel to BC through vertex A.
+Angle DAB = Angle ABC (alternate angles, DE || BC)
+Angle EAC = Angle BCA (alternate angles, DE || BC)
+Angle DAB + Angle BAC + Angle EAC = 180° (angles on a straight line)
+Therefore Angle ABC + Angle BAC + Angle BCA = 180° ∎`},
           { title:'Trigonometry', points:[
             'SOH CAH TOA for right-angled triangles',
             'Sine rule: a/sinA = b/sinB = c/sinC — use for non-right-angled triangles',
             'Cosine rule: a² = b² + c² − 2bc cosA — use when SAS or SSS given',
             'Area of triangle = ½ab sinC',
             'Edexcel IGCSE: bearings questions often combine trigonometry with geometry',
-          ]},
+          ], workedExample:`Solve: sin(x) = 0.6 for 0° ≤ x ≤ 360°
+Primary solution: x = sin⁻¹(0.6) = 36.9°
+Sine is also positive in 2nd quadrant: x = 180° − 36.9° = 143.1°
+Answer: x = 36.9° or 143.1°`},
         ], examTips:[
             'Show all working step by step — method marks awarded even if final answer wrong',
             'Check answer by substituting back into original equation or expression',
@@ -4963,13 +5033,19 @@ Check: f(f⁻¹(5)) = f(1) = 5 ✓`, workedExample:`Write 0.000456 in standard f
             'Edexcel: moving averages and time series — calculate 3-point or 4-point moving average',
             'Edexcel: stratified sampling — number from stratum = (stratum size/total) × sample size',
             'Box plots and comparing distributions: compare median AND IQR/range',
-          ]},
+          ], workedExample:`Mean of frequency table:
+Score: 1(f=3), 2(f=7), 3(f=12), 4(f=6), 5(f=2). n=30
+Σfx=3+14+36+24+10=87
+Mean=87/30=2.9. Median: 15th+16th both in score=3 → median=3`},
           { title:'Probability', points:[
             'Basic probability, mutually exclusive, independent events, tree diagrams',
             'Edexcel IGCSE Higher: conditional probability P(A|B) = P(A∩B)/P(B)',
             'Edexcel: relative frequency (experimental probability) vs theoretical probability',
             'Venn diagrams with set notation: ∪ (union), ∩ (intersection), A\' (complement)',
-          ]},
+          ], workedExample:`Bag: 3 red, 2 blue. Two drawn without replacement. P(both red)?
+P(1st red) = 3/5
+P(2nd red | 1st red) = 2/4 = 1/2
+P(both red) = 3/5 × 1/2 = 3/10`},
         ]},
       ],
       oxford: [
@@ -4983,14 +5059,20 @@ Check: f(f⁻¹(5)) = f(1) = 5 ✓`, workedExample:`Write 0.000456 in standard f
           ], examTips:[
             'Oxford AQA: show ALL working — method marks awarded even if final answer wrong',
             'Write recurring decimals clearly: 0.̄3 means 0.3333... — use dot notation',
-          ]},
+          ], workedExample:`Prime factorisation of 360:
+360=2×180=2×2×90=2²×2×45=2³×3²×5
+HCF(360,252): 252=2²×3²×7 → HCF=2²×3²=36
+LCM=2³×3²×5×7=2520`},
           { title:'Fractions, Ratios & Percentages', points:[
             'Add/subtract fractions: find common denominator; multiply: straight across; divide: flip and multiply',
             'Ratio: simplify by dividing by HCF; divide quantity in a ratio by splitting into parts',
             'Percentage increase/decrease: multiply by (1 + r/100) or (1 − r/100)',
             'Reverse percentage: if after 20% increase is £120, original = 120 ÷ 1.2 = £100',
             'Compound interest: A = P(1 + r/100)ⁿ; simple interest: I = PRT/100',
-          ]},
+          ], workedExample:`Ratio 3:5, total=£240. Share:
+Each part=£240/8=£30. Shares: £90, £150.
+Fraction: ³⁄₄ of 360=270
+Percentage: 72 as % of 96=(72/96)×100=75%`},
         ], examTips:[
             'Show all working step by step — method marks awarded even if final answer wrong',
             'Check answer by substituting back into original equation or expression',
@@ -5008,7 +5090,9 @@ Check: f(f⁻¹(5)) = f(1) = 5 ✓`, workedExample:`Write 0.000456 in standard f
             'Factorise quadratic: ax²+bx+c; find two numbers that multiply to ac and add to b',
             'Solving equations: use inverse operations; check answer by substituting back',
             'Simultaneous equations: elimination (multiply to match coefficients) or substitution',
-          ]},
+          ], workedExample:`Factorise 6x²+7x-3:
+Find pair: 6×(-3)=-18; pair summing to 7: 9,-2
+6x²+9x-2x-3=3x(2x+3)-(2x+3)=(3x-1)(2x+3)`},
           { title:'Graphs & Functions', points:[
             'y = mx + c: m = gradient, c = y-intercept; gradient = rise/run = (y₂−y₁)/(x₂−x₁)',
             'Quadratic graphs: parabola; y = ax²+bx+c; turning point found by completing the square',
@@ -5030,21 +5114,30 @@ x = −2 or x = −3`},
           ], examTips:[
             'Circle theorem questions: always state the theorem used by name (e.g. "angle in semicircle = 90°")',
             'Oxford AQA: expect 2–3 circle theorem proofs or applications per paper',
-          ]},
+          ], workedExample:`Find the interior angle of a regular hexagon.
+Sum of interior angles = (n−2) × 180° = (6−2) × 180° = 720°
+Each interior angle = 720°/6 = 120°`},
           { title:'Pythagoras, Trigonometry & 3D', points:[
             'Pythagoras: a² + b² = c² (only right-angled triangles; c = hypotenuse)',
             'SOHCAHTOA: sin = opp/hyp; cos = adj/hyp; tan = opp/adj',
             'Sine rule: a/sinA = b/sinB = c/sinC — use when given angle-side-angle or SSA',
             'Cosine rule: a² = b² + c² − 2bc·cosA — use when given three sides or SAS',
             '3D problems: find slant height using Pythagoras in 2D cross-section first',
-          ]},
+          ], workedExample:`Right pyramid: square base 8cm, height 6cm.
+Slant edge: base diagonal=8√2, half=4√2.
+Slant edge=√((4√2)²+6²)=√(32+36)=√68=2√17≈8.25cm
+Angle to base: tan θ=6/(4√2)=6/5.66 → θ=46.7°`},
           { title:'Vectors & Transformations', points:[
             'Vector addition: add components; scalar multiplication: multiply each component',
             'Column vector: (x, y) represents move x right and y up; magnitude = √(x²+y²)',
             'Transformations: rotation (centre, angle, direction), reflection (mirror line), translation (vector), enlargement (centre, scale factor)',
             'Enlargement: scale factor > 1 = bigger; 0 < k < 1 = smaller; negative k = on other side of centre',
             'Invariant point: a point that does not move under a transformation',
-          ]},
+          ], workedExample:`ABCD parallelogram. AB⃗=a, AD⃗=b.
+AC⃗=a+b, BD⃗=b-a
+Midpoint M of AC: AM⃗=½(a+b)
+Rotation 90° anticlockwise: (x,y)→(-y,x)
+Point (3,4)→(-4,3)`},
         ], examTips:[
             'Show all working step by step — method marks awarded even if final answer wrong',
             'Check answer by substituting back into original equation or expression',
@@ -5062,7 +5155,10 @@ x = −2 or x = −3`},
             'Median from cumulative frequency: read off at n/2; IQR = Q3 − Q1 (at 3n/4 and n/4)',
             'Histograms: frequency density = frequency ÷ class width; y-axis is frequency density',
             'Box plots: minimum, Q1, median, Q3, maximum — shows spread and skew',
-          ]},
+          ], workedExample:`Heights: 150, 162, 155, 170, 148 cm. Find mean, median, range.
+Mean = (150+162+155+170+148)/5 = 785/5 = 157 cm
+Sorted: 148, 150, 155, 162, 170 → Median = 155 cm
+Range = 170 − 148 = 22 cm`},
           { title:'Probability', points:[
             'P(A or B) = P(A) + P(B) for mutually exclusive events',
             'P(A and B) = P(A) × P(B) for independent events',
@@ -5125,21 +5221,28 @@ s = ut + ½at² = 0 + ½×5×36 = 90 m
           ], commonMistakes:[
             'Confusing mass (kg) and weight (N) — weight = mg',
             'Saying action and reaction cancel — they act on different objects so they cannot cancel',
-          ]},
+          ], workedExample:`Car mass 1200 kg accelerates at 2.5 m/s². Engine force = 4000 N. Find friction force.
+F_net = ma = 1200×2.5 = 3000 N
+Friction = Engine force − F_net = 4000 − 3000 = 1000 N`},
           { title:'Work, Energy & Power', points:[
             'Work done = force × distance (in direction of force): W = Fd (joules)',
             'Kinetic energy: KE = ½mv²; Gravitational PE: GPE = mgh',
             'Conservation of energy: total energy is always conserved, just changes form',
             'Efficiency = (useful energy output ÷ total energy input) × 100%',
             'Power = work done ÷ time = energy transferred ÷ time: P = W/t (watts)',
-          ]},
+          ], workedExample:`A 50kg box is lifted 3m in 5 seconds. Calculate work done and power.
+Work = Force × distance = (50 × 10) × 3 = 1500 J
+Power = Work/time = 1500/5 = 300 W`},
           { title:'Pressure & Moments', points:[
             'Pressure = force ÷ area: P = F/A (Pascals = N/m²)',
             'Pressure in a fluid: P = ρgh (density × g × depth)',
             'Moment = force × perpendicular distance from pivot (Nm)',
             'Principle of moments: sum of clockwise moments = sum of anticlockwise moments',
             'Centre of gravity: single point where weight appears to act',
-          ]},
+          ], workedExample:`A 4m uniform beam weighing 200N is supported at one end. A 100N weight hangs 1m from the supported end. Find the support force at the other end.
+Taking moments about the support:
+Clockwise: 200N × 2m + 100N × 1m = 400 + 100 = 500 Nm
+Anticlockwise: F × 4m = 500 → F = 125 N`},
         ], examTips:[
             'State the equation first, then substitute values with correct units',
             'Check units are consistent throughout — convert km/h to m/s, cm to m, etc. before calculating',
@@ -5162,14 +5265,19 @@ Anticlockwise: F × 2.5 = 20 → F = 20/2.5 = 8N`, examTips:[
             'Gas: particles far apart, move randomly at high speeds; almost no forces',
             'Brownian motion (e.g. smoke particles): evidence for random particle movement',
             'Evaporation: fastest particles escape from surface — liquid cools as a result',
-          ]},
+          ], workedExample:`Why does a gas exert pressure on the walls of its container?
+Gas particles move randomly at high speeds.
+They collide with container walls — each collision exerts a force.
+Pressure = total force of collisions per unit area.
+Higher temperature → faster particles → more frequent, harder collisions → higher pressure.`},
           { title:'Thermal Energy Transfer', points:[
             'Specific heat capacity: Q = mcΔT (energy to heat 1 kg of substance by 1°C)',
             'Specific latent heat: Q = mL (energy for change of state; no temperature change)',
             'Conduction: energy transferred through vibrations of particles — best in metals',
             'Convection: warm fluid rises (less dense), cool fluid sinks — creates currents',
             'Radiation: infrared waves travel without medium; dark matt = best emitter & absorber',
-          ]},
+          ], workedExample:`Calculate heat energy to raise 2kg of water from 20°C to 100°C. (specific heat capacity = 4200 J/kg°C)
+Q = mcΔT = 2 × 4200 × (100 − 20) = 2 × 4200 × 80 = 672,000 J = 672 kJ`},
         ], examTips:[
             'State the equation first, then substitute values with correct units',
             'Check units are consistent throughout — convert km/h to m/s, cm to m, etc. before calculating',
@@ -5207,7 +5315,11 @@ v = fλ = 500 × 0.68 = 340 m/s (speed of sound in air ✓)`},
             'EM waves: all travel at 3×10⁸ m/s in vacuum — only wavelength and frequency differ',
             'When drawing refraction: the ray bends TOWARD normal when entering a denser medium',
             'Total internal reflection: must state two conditions — angle > critical angle AND going from dense to less dense',
-          ]},
+          ], workedExample:`A ray of light hits glass (n = 1.5) from air at 30° to the normal. Find the refraction angle.
+Snell's Law: n₁ sin θ₁ = n₂ sin θ₂
+1 × sin 30° = 1.5 × sin θ₂
+sin θ₂ = 0.5/1.5 = 0.333 → θ₂ = 19.5°
+Light bends TOWARDS the normal when entering a denser medium.`},
           { title:'Sound', points:[
             'Sound is a longitudinal wave; needs a medium (cannot travel through vacuum)',
             'Speed of sound ≈ 340 m/s in air; much faster in solids',
@@ -5340,14 +5452,19 @@ Check: 475 + 225 = 700N = total load ✓`, commonMistakes:[
           ], examTips:[
             'Oxford AQA: questions often ask for explanation of real-life scenarios — apply physics concepts clearly',
             'State which equation you are using and why — show all steps',
-          ]},
+          ], workedExample:`A car accelerates from 0 to 30 m/s in 6 seconds. Find distance travelled.
+u=0, v=30, t=6 → a = (30−0)/6 = 5 m/s²
+s = ut + ½at² = 0 + ½×5×36 = 90 m
+(Or: s = ½(u+v)t = ½×30×6 = 90 m ✓)`},
           { title:'Forces', points:[
             'Resultant force: single force equivalent to all forces combined; free body diagrams show all forces',
             'Newton\'s First Law: resultant force = 0 → constant velocity or stationary',
             'Newton\'s Second Law: F = ma (resultant force = mass × acceleration)',
             'Weight (W = mg), normal reaction, friction, tension, air resistance — identify all forces in a problem',
             'Oxford AQA: include analysis of circular motion — centripetal force directed toward centre',
-          ]},
+          ], workedExample:`A 10kg box is pushed with force 30N on a rough surface (friction 10N). Find acceleration.
+Net force = 30 − 10 = 20 N
+F = ma → a = F/m = 20/10 = 2 m/s²`},
         ], examTips:[
             'State the equation first, then substitute values with correct units',
             'Check units are consistent throughout — convert km/h to m/s, cm to m, etc. before calculating',
@@ -5362,7 +5479,10 @@ Check: 475 + 225 = 700N = total load ✓`, commonMistakes:[
             'KE = ½mv²; GPE = mgh; Elastic PE = ½ke² (spring constant × extension squared)',
             'Efficiency = (useful output ÷ total input) × 100%; always less than 100% due to thermal losses',
             'Power = energy transferred ÷ time = work done ÷ time (watts, W)',
-          ]},
+          ], workedExample:`A 2kg ball falls from 5m height. Find its speed just before hitting the ground. (g = 10 m/s²)
+Potential energy lost = Kinetic energy gained
+mgh = ½mv² → gh = ½v²
+v² = 2gh = 2 × 10 × 5 = 100 → v = 10 m/s`},
           { title:'Electricity', points:[
             'Oxford AQA emphasises energy transfer in circuits: E = QV = IVt',
             'Resistance: factors that affect resistance of a wire — length (↑→↑R), cross-section (↑→↓R), material, temperature',
@@ -5372,7 +5492,10 @@ Check: 475 + 225 = 700N = total load ✓`, commonMistakes:[
           ], examTips:[
             'Oxford AQA: Interpret I-V graphs — gradient is NOT resistance; resistance = V/I at any point',
             'Potential divider calculations: identify which resistor is R₂ (the one across which V_out is measured)',
-          ]},
+          ], workedExample:`A circuit has 12V battery and resistors 4Ω and 8Ω in series. Find total current and voltage across each.
+Total resistance = 4 + 8 = 12 Ω
+I = V/R = 12/12 = 1 A
+V₁ = 1 × 4 = 4V, V₂ = 1 × 8 = 8V (check: 4 + 8 = 12V ✓)`},
         ], examTips:[
             'State the equation first, then substitute values with correct units',
             'Check units are consistent throughout — convert km/h to m/s, cm to m, etc. before calculating',
@@ -5387,7 +5510,10 @@ Check: 475 + 225 = 700N = total load ✓`, commonMistakes:[
             'Maximum diffraction when gap width ≈ wavelength',
             'Interference: constructive (peaks align → bigger wave), destructive (peak + trough → cancel)',
             'Young\'s double slit: fringe spacing = λL/d (wavelength × distance / slit separation)',
-          ]},
+          ], workedExample:`A sound wave has speed 340 m/s and period 0.002s. Find frequency and wavelength.
+Frequency = 1/period = 1/0.002 = 500 Hz
+Wavelength = v/f = 340/500 = 0.68 m
+Ultrasound: frequency > 20 kHz (above human hearing range); used in medical imaging.`},
           { title:'Matter & Particle Physics', points:[
             'States of matter described using particle model; changes of state involve energy but no temperature change',
             'Pressure of a gas: depends on number of particles, their speed, and volume of container',
@@ -5400,7 +5526,9 @@ Check: 475 + 225 = 700N = total load ✓`, commonMistakes:[
           ], commonMistakes:[
             'Saying temperature rises during a change of state — it stays constant until change is complete',
             'Confusing quarks in protons and neutrons — learn the combinations carefully',
-          ]},
+          ], workedExample:`An atom of ⁵⁶₂₆Fe. Identify protons, neutrons, electrons.
+Proton number (Z) = 26 → 26 protons, 26 electrons (neutral atom)
+Mass number (A) = 56 → neutrons = 56 − 26 = 30 neutrons`},
         ], examTips:[
             'State the equation first, then substitute values with correct units',
             'Check units are consistent throughout — convert km/h to m/s, cm to m, etc. before calculating',
@@ -5435,7 +5563,11 @@ Vout = 9 × 12/(6+12) = 9 × 12/18 = 9 × 0.667 = 6V`},
           ], commonMistakes:[
             'Confusing alpha and beta penetration — remember alpha=paper, beta=aluminium, gamma=lead',
             'Not subtracting background radiation in half-life experiments — always correct corrected count rate first',
-          ]},
+          ], workedExample:`What happens in alpha decay of Uranium-238?
+²³⁸₉₂U → ²³⁴₉₀Th + ⁴₂He (alpha particle)
+Mass number decreases by 4, atomic number decreases by 2.
+Alpha particles: stopped by paper or few cm of air; most ionising; least penetrating.
+Half-life of U-238: 4.5 billion years → used in geological dating.`},
           { title:'Oxford AQA Physics — Exam Strategy', points:[
             'Oxford AQA Physics: two papers; Paper 1 and Paper 2 each 1 hour 15 minutes; equal weighting',
             'Required practicals: knowledge of method, variables, and analysis is assessed in written papers',
@@ -5445,7 +5577,12 @@ Vout = 9 × 12/(6+12) = 9 × 12/18 = 9 × 0.667 = 6V`},
           ], examTips:[
             'Six-mark questions: use key words — "increases", "decreases", "proportional to", "inversely proportional"',
             'Calculate questions: always show working even if calculator error — method marks are available',
-          ]},
+          ], workedExample:`12-mark question: "Describe how nuclear fission releases energy and how this is used in a power station."
+Para 1 (2 marks): Uranium-235 absorbs neutron → unstable → splits into 2 smaller nuclei + 2-3 neutrons
+Para 2 (2 marks): Mass difference → energy released (E = mc²)
+Para 3 (4 marks): Chain reaction — neutrons trigger more fissions; control rods absorb neutrons to regulate
+Para 4 (4 marks): Heat produced → steam → turbine → generator → electricity
+Key words: fission, chain reaction, critical mass, moderator, control rods, coolant`},
         ], commonMistakes:[
             'Using the wrong equation — always identify what is given and what is needed before choosing a formula',
             'Omitting units in answers — every numerical answer must have a unit unless it is a ratio',
@@ -5499,7 +5636,11 @@ Friction = Engine force − F_net = 4000 − 3000 = 1000 N`},
           ], commonMistakes:[
             'Forgetting momentum is a vector — objects moving in opposite directions have opposite signs',
             'Confusing impulse (force × time) with work done (force × distance)',
-          ]},
+          ], workedExample:`A 0.5kg ball travelling at 4 m/s hits a wall and bounces back at 3 m/s. Find impulse.
+Impulse = change in momentum = m(v − u)
+Taking initial direction as positive: u = +4, v = −3
+Δp = 0.5 × (−3 − 4) = 0.5 × (−7) = −3.5 Ns
+The wall exerts 3.5 Ns impulse in the negative direction on the ball.`},
         ]},
         { title:'Electricity & Magnetism', icon:'⚡', topics:[
           { title:'Electric Circuits', points:[
@@ -5529,7 +5670,9 @@ R = 12/4 = 3Ω`},
           ], commonMistakes:[
             'Using LHR for generators (should be RHR — Fleming\'s Right Hand Rule)',
             'Saying transformers work with DC — they require AC (changing field to induce EMF)',
-          ]},
+          ], workedExample:`A wire of length 0.5m carries current 3A in a magnetic field of 0.2T perpendicular to the wire.
+Force = BIL = 0.2 × 3 × 0.5 = 0.3 N
+Direction: Use Fleming's Left Hand Rule — thumb = force direction, index = field, middle = current.`},
         ], workedExample:`A wire of length 0.3m carries 4A in a field of 0.5T (perpendicular). Find the force.
 F = BIL = 0.5 × 4 × 0.3 = 0.6 N
 Use Fleming's Left Hand rule to find direction:
@@ -5551,7 +5694,10 @@ Step-down transformer: V decreases, I increases`},
           ], commonMistakes:[
             'Drawing normals to the surface (not the boundary) — normal must be perpendicular to the surface at point of incidence',
             'Confusing refraction (bending) with reflection (bouncing back)',
-          ]},
+          ], workedExample:`A sound wave has speed 340 m/s and period 0.002s. Find frequency and wavelength.
+Frequency = 1/period = 1/0.002 = 500 Hz
+Wavelength = v/f = 340/500 = 0.68 m
+Ultrasound: frequency > 20 kHz (above human hearing range); used in medical imaging.`},
           { title:'Electromagnetic Spectrum & Radioactivity', points:[
             'EM spectrum: gamma → X-ray → UV → visible → IR → microwave → radio (wavelength increases)',
             'All EM waves travel at 3×10⁸ m/s in vacuum; transverse waves',
@@ -5595,7 +5741,9 @@ Q = mcΔT = 2 × 4200 × (80−20) = 2 × 4200 × 60 = 504,000 J`},
           ], commonMistakes:[
             'Using Hooke\'s Law beyond the elastic limit — it only applies to the linear region',
             'Confusing upthrust (upward force from fluid) with weight (downward force)',
-          ]},
+          ], workedExample:`A block of aluminium has mass 270g and volume 100 cm³. Calculate its density.
+Density = mass/volume = 270/100 = 2.7 g/cm³
+This matches the known density of aluminium (2.7 g/cm³), confirming the calculation.`},
         ]},
       ],
     }
@@ -5617,7 +5765,10 @@ Q = mcΔT = 2 × 4200 × (80−20) = 2 × 4200 × 60 = 504,000 J`},
             'Gas: no fixed shape or volume; particles move fast, far apart, random directions',
             'Melting/boiling point: energy input breaks intermolecular forces; temperature constant during change',
             'Diffusion: random movement from high to low concentration; faster at high temperature, in gases',
-          ]},
+          ], workedExample:`Ice at 0°C is heated to steam at 100°C. Describe the changes.
+0°C: Ice melts (solid → liquid). Energy breaks intermolecular bonds — temperature stays constant.
+0–100°C: Water heats up (kinetic energy of particles increases).
+100°C: Water boils (liquid → gas). Energy breaks all remaining bonds — temperature stays constant.`},
         ], examTips:[
             'Balance the equation before attempting any calculations',
             'Include state symbols (s), (l), (g), (aq) in all equations where required',
@@ -5632,34 +5783,49 @@ Q = mcΔT = 2 × 4200 × (80−20) = 2 × 4200 × 60 = 504,000 J`},
             'Electron: charge −1, negligible mass (in shells/orbitals around nucleus)',
             'Atomic (proton) number = number of protons = number of electrons in neutral atom',
             'Isotopes: same atomic number, different mass number (different neutrons)',
-          ]},
+          ], workedExample:`Chlorine: 75% ³⁵Cl and 25% ³⁷Cl
+Ar = (35 × 75 + 37 × 25) / 100 = (2625 + 925) / 100 = 3550 / 100 = 35.5`},
           { title:'Electronic Configuration & Periodic Table', points:[
             'Electrons fill shells: shell 1 → max 2; shell 2 → max 8; shell 3 → max 8 (at IGCSE)',
             'Group number = number of outer electrons; Period = number of occupied shells',
             'Na (11): 2,8,1 → Group I → loses 1e⁻ → Na⁺; Cl (17): 2,8,7 → gains 1e⁻ → Cl⁻',
             'Noble gases (Group 0): full outer shells → very stable, unreactive',
             'Periodic table trends: metallic character decreases across period; increases down group',
-          ]},
+          ], workedExample:`Write the electronic configuration of Chlorine (Z = 17).
+Shell 1: 2 electrons, Shell 2: 8 electrons, Shell 3: 7 electrons
+Configuration: 2, 8, 7
+Group 7 (7 outer electrons), Period 3 (3 electron shells)`},
           { title:'Ionic Bonding', points:[
             'Metals lose electrons, non-metals gain electrons to achieve full outer shells',
             'Ionic bond: electrostatic attraction between oppositely charged ions',
             'Giant ionic lattice: high melting/boiling point; conducts when molten or dissolved',
             'Formulae: charges must balance — Ca²⁺ + 2Cl⁻ → CaCl₂',
             'Properties: brittle (layers shift → like charges repel), soluble in water',
-          ]},
+          ], workedExample:`Sodium (Na) and Chlorine (Cl) form NaCl. Show electron transfer.
+Na: 2,8,1 → loses 1e⁻ → Na⁺ (2,8) — noble gas config
+Cl: 2,8,7 → gains 1e⁻ → Cl⁻ (2,8,8) — noble gas config
+Electrostatic attraction between Na⁺ and Cl⁻ forms ionic bond.`},
           { title:'Covalent Bonding', points:[
             'Non-metals share pairs of electrons to achieve full outer shells',
             'Single bond = 1 shared pair; double bond = 2 shared pairs (e.g. O₂, CO₂)',
             'Simple molecular: low MP (weak intermolecular forces); do NOT conduct electricity',
             'Giant covalent (macromolecular): very high MP — diamond (4 bonds to C), SiO₂',
             'Diamond vs graphite: diamond (hard, no conduction) vs graphite (soft, conducts — delocalised e⁻)',
-          ]},
+          ], workedExample:`Draw the dot-and-cross for water (H₂O).
+Oxygen has 6 outer electrons, each H has 1.
+Oxygen shares 1 electron with each H → 2 covalent bonds.
+Each bond = 1 shared pair of electrons.
+Result: O has 2 bonding pairs + 2 lone pairs → V-shaped molecule.`},
           { title:'Metallic Bonding', points:[
             'Positive metal ions in a "sea" of delocalised electrons',
             'High melting point (strong attraction); good conductor of electricity (free electrons)',
             'Malleable and ductile (layers slide — electrons move with them)',
             'Alloys: mix of metals → different sized atoms → harder (e.g. steel = iron + carbon)',
-          ]},
+          ], workedExample:`Explain why metals conduct electricity.
+In a metal: positive metal ions (cations) arranged in a regular lattice.
+Delocalised electrons (electron sea) move freely through the lattice.
+When a voltage is applied: electrons flow from negative to positive terminal — electric current.
+Why metals are malleable: layers of ions can slide over each other while delocalised electrons maintain bonding.`},
         ], examTips:[
             'Balance the equation before attempting any calculations',
             'Include state symbols (s), (l), (g), (aq) in all equations where required',
@@ -5712,7 +5878,11 @@ NaOH + HCl → NaCl + H₂O  [1:1 ratio]
             'Molecular formula: actual number of atoms; may be multiple of empirical formula',
             'Yield: actual yield may be less than theoretical due to impurities, reversible reactions',
             'Atom economy = (Mr of desired product ÷ Mr of all products) × 100%',
-          ]},
+          ], workedExample:`A compound contains 40% C, 6.7% H, 53.3% O by mass. Find empirical and molecular formulae (Mr = 60).
+Molar ratios: C = 40/12 = 3.33, H = 6.7/1 = 6.7, O = 53.3/16 = 3.33
+Divide by smallest (3.33): C = 1, H = 2, O = 1
+Empirical formula: CH₂O (Mr = 30)
+n = 60/30 = 2 → Molecular formula: C₂H₄O₂ (ethanoic acid / acetic acid)`},
         ], examTips:[
             'Balance the equation before attempting any calculations',
             'Include state symbols (s), (l), (g), (aq) in all equations where required',
@@ -5730,7 +5900,11 @@ NaOH + HCl → NaCl + H₂O  [1:1 ratio]
             'Strong acid: fully ionises (HCl, H₂SO₄, HNO₃); weak acid: partially (ethanoic)',
             'Neutralisation: H⁺(aq) + OH⁻(aq) → H₂O(l)',
             'Indicators: litmus (red→acid, blue→alkali); universal indicator for pH scale',
-          ]},
+          ], workedExample:`pH of 0.01 mol/dm³ HCl solution?
+HCl is strong acid — fully dissociates: HCl → H⁺ + Cl⁻
+[H⁺] = 0.01 = 10⁻² mol/dm³
+pH = −log[H⁺] = −log(10⁻²) = 2
+Weak acid example: 0.01M ethanoic acid → [H⁺] < 0.01 → pH > 2`},
           { title:'Making Salts', points:[
             'Titration: soluble salt from soluble acid + soluble alkali — find exact volumes',
             'Acid + metal (reactive): acid + metal → salt + hydrogen',
@@ -5760,7 +5934,11 @@ NaOH + HCl → NaCl + H₂O  [1:1 ratio]
             'Bond breaking: requires energy (endothermic); bond forming: releases energy (exothermic)',
             'ΔH = energy needed to break bonds − energy released forming bonds',
             'Activation energy: minimum energy needed for reaction to start (shown on energy profile)',
-          ]},
+          ], workedExample:`Explain using bond energy why combustion is exothermic.
+Combustion: CH₄ + 2O₂ → CO₂ + 2H₂O
+Energy IN (breaking bonds): C-H × 4 + O=O × 2 = ~2640 kJ
+Energy OUT (forming bonds): C=O × 2 + O-H × 4 = ~3338 kJ
+ΔH = energy in − energy out = 2640 − 3338 = −698 kJ/mol (negative = exothermic)`},
           { title:'Rates of Reaction', points:[
             'Rate of reaction = amount of product formed (or reactant used) ÷ time',
             'Factors increasing rate: higher concentration, temperature, surface area, pressure (gases), catalyst',
@@ -5810,7 +5988,11 @@ Balance: 3C → 3CO₂; 8H → 4H₂O; O needed = 6+4 = 10, so 5O₂`},
             'Addition polymerisation: alkene monomers join → polymer (e.g. ethene → poly(ethene))',
             'Condensation polymerisation: two functional groups per monomer; small molecule (e.g. H₂O) eliminated',
             'Nylon (polyamide): diamine + dioic acid; Polyester: diol + dioic acid',
-          ]},
+          ], workedExample:`Fermentation to produce ethanol from glucose.
+C₆H₁₂O₆ → 2C₂H₅OH + 2CO₂ (using yeast enzymes, anaerobic conditions, ~35°C)
+Distillation: ethanol (bp 78°C) distilled from fermentation mixture.
+Ethanol as biofuel: renewable (grown); burns cleanly; carbon neutral in theory (CO₂ absorbed in growing).
+Dehydration: C₂H₅OH → C₂H₄ + H₂O (with hot conc. H₂SO₄/Al₂O₃ catalyst) → ethene`},
         ], examTips:[
             'Balance the equation before attempting any calculations',
             'Include state symbols (s), (l), (g), (aq) in all equations where required',
@@ -5847,7 +6029,12 @@ Used in copper purification — anode loses mass, cathode gains mass`},
             'Extraction of metals: reactive (Al) → electrolysis; less reactive (Fe) → blast furnace with carbon',
             'Blast furnace: iron ore + coke + limestone → molten iron + slag (calcium silicate)',
             'Rusting: iron + water + oxygen → hydrated iron(III) oxide (rust); prevented by galvanising, painting, alloying',
-          ]},
+          ], workedExample:`Predict and write equation for iron reacting with copper sulphate solution.
+Iron is above copper in reactivity series → Fe displaces Cu.
+Fe(s) + CuSO₄(aq) → FeSO₄(aq) + Cu(s)
+Observations: Blue solution turns pale green; red-brown copper deposits on iron.
+Ionic equation: Fe(s) + Cu²⁺(aq) → Fe²⁺(aq) + Cu(s)
+Fe loses electrons (oxidised), Cu²⁺ gains electrons (reduced) — redox reaction.`},
         ], examTips:[
             'Balance the equation before attempting any calculations',
             'Include state symbols (s), (l), (g), (aq) in all equations where required',
@@ -5881,7 +6068,12 @@ Lower temp: yield ↑ but rate too slow → economically unviable
             'Stage 2: 2SO₂ + O₂ ⇌ 2SO₃  (V₂O₅ catalyst, 450°C, 2 atm)',
             'Stage 3: SO₃ + H₂SO₄ → H₂S₂O₇ (oleum) → add water → H₂SO₄',
             'Uses of H₂SO₄: fertilisers, detergents, car batteries, dyes, paints',
-          ]},
+          ], workedExample:`Describe the Contact Process for manufacturing sulphuric acid.
+Step 1: S + O₂ → SO₂ (burning sulphur)
+Step 2: 2SO₂ + O₂ ⇌ 2SO₃ (catalyst V₂O₅, 450°C, 1-2 atm) — reversible, forward exothermic
+Step 3: SO₃ + H₂SO₄ → H₂S₂O₇ (oleum) — NOT directly added to water (too violent)
+Step 4: H₂S₂O₇ + H₂O → 2H₂SO₄
+Conditions: 450°C (compromise — high enough for acceptable rate, low enough for acceptable yield)`},
         ], examTips:[
             'Balance the equation before attempting any calculations',
             'Include state symbols (s), (l), (g), (aq) in all equations where required',
@@ -5899,14 +6091,21 @@ Lower temp: yield ↑ but rate too slow → economically unviable
           ], examTips:[
             'Always add dilute acid BEFORE silver nitrate/barium chloride to avoid false positives',
             'Describe ppt colour and confirm with solubility in ammonia (for halides)',
-          ]},
+          ], workedExample:`Test for ammonium ions in an unknown white solid.
+Add NaOH solution and warm → if NH₄⁺ present, ammonia gas (NH₃) produced.
+Test: hold damp red litmus paper over tube → turns blue (alkaline gas).
+Equation: NH₄⁺ + OH⁻ → NH₃ + H₂O
+Also: to confirm sulphate → add BaCl₂/HCl → white precipitate; to confirm chloride → add AgNO₃/HNO₃ → white precipitate.`},
           { title:'Gas Tests', points:[
             'Hydrogen: lit splint → squeaky pop',
             'Oxygen: glowing splint → relights',
             'Carbon dioxide: limewater (Ca(OH)₂) → turns cloudy/milky (CaCO₃ precipitate)',
             'Chlorine: damp litmus paper → bleaches white',
             'Ammonia: damp red litmus paper → turns blue (alkaline)',
-          ]},
+          ], workedExample:`Unknown gas turns damp red litmus paper blue.
+Diagnosis: Gas is alkaline → likely ammonia (NH₃).
+Confirm: Hold damp red litmus near open end of test tube — turns blue.
+Note: Hydrogen → squeaky pop with lit splint; Oxygen → relights glowing splint; CO₂ → turns lime water milky.`},
         ], examTips:[
             'Balance the equation before attempting any calculations',
             'Include state symbols (s), (l), (g), (aq) in all equations where required',
@@ -5943,7 +6142,12 @@ CH₃CH=CH₂ + HBr → CH₃CH₂CH₂Br (Markovnikov: major) or CH₃CHBrCH₃
           ], examTips:[
             'Relative atomic mass = weighted average of isotope masses — always show working',
             'Edexcel: periodic table questions link group/period to properties — know the trends',
-          ]},
+          ], workedExample:`Explain periodic trends in first ionisation energy.
+First IE = energy to remove 1 mole of electrons from 1 mole of gaseous atoms.
+Across period: IE increases — nuclear charge increases, atomic radius decreases, stronger attraction.
+Exceptions: Group 3 dips below Group 2 (outer electron in 2p, slightly further/shielded)
+Group 6 dips below Group 5 (paired electron in 2p — electron-electron repulsion reduces IE)
+Down group: IE decreases — more electron shells, greater shielding, weaker nuclear attraction.`},
           { title:'Bonding & Structure', points:[
             'Ionic: metal gives electrons to non-metal → lattice of oppositely charged ions; high melting point',
             'Covalent: non-metals share electrons; simple molecular (low mp/bp) vs giant covalent (very high mp)',
@@ -5985,7 +6189,10 @@ Salt = sodium chloride (NaCl) = table salt`},
             'Extraction: reactive metals (Na, Al) by electrolysis; less reactive (Fe) by reduction with carbon',
             'Rusting: iron + water + oxygen → hydrated iron(III) oxide; prevented by painting, galvanising, alloy',
             'Alloys: mixtures of metals; brass (Cu+Zn), steel (Fe+C), stainless steel (Fe+Cr+Ni)',
-          ]},
+          ], workedExample:`Reactivity series: K > Na > Ca > Mg > Al > Zn > Fe > Cu > Ag
+Displacement: Fe + CuSO₄ → FeSO₄ + Cu (iron displaces copper — more reactive)
+Extraction: metals above carbon extracted by electrolysis (Al, Na)
+Metals below carbon extracted by reduction with carbon (Fe in blast furnace)`},
         ], examTips:[
             'Balance the equation before attempting any calculations',
             'Include state symbols (s), (l), (g), (aq) in all equations where required',
@@ -6013,7 +6220,10 @@ Bonds formed: 2 × H−Cl (2 × 431 = 862 kJ)
             'Collision theory: reaction occurs when particles collide with sufficient energy (≥ activation energy)',
             'Catalyst: provides alternative pathway with lower activation energy; not consumed in reaction',
             'Measuring rate: gas collected in syringe; change in mass (CO₂ escaping); colour change; titration',
-          ]},
+          ], workedExample:`Marble chips + HCl: how does surface area affect rate?
+Small chips (large SA): more collisions per second → faster rate → steeper initial gradient
+Same total mass → same moles → same final volume of CO₂
+Large chips: slower rate → shallower gradient, but same final volume`},
         ], commonMistakes:[
             'Writing unbalanced equations — check atom count for every element on both sides',
             'Confusing physical change (no new substance) with chemical change (new substance formed)',
@@ -6039,7 +6249,10 @@ Conclusion: the sample that decolourises bromine water is ethene`},
             'Plastics: non-biodegradable; solutions: recycling, biodegradable plastics, reduce use',
             'Fermentation: glucose → ethanol + CO₂ (yeast, 25–35°C, anaerobic); fractional distillation to purify',
             'Esterification: alcohol + carboxylic acid → ester + water (concentrated H₂SO₄ catalyst); pleasant smell',
-          ]},
+          ], workedExample:`Addition polymerisation of ethene:
+n(CH₂=CH₂) → −(CH₂−CH₂)n− (poly(ethene))
+Condensation polymerisation: monomers lose H₂O (e.g. nylon, polyester)
+Polyester from diol + dicarboxylic acid: HO−R−OH + HOOC−R'−COOH → ester links + H₂O`},
         ], examTips:[
             'Balance the equation before attempting any calculations',
             'Include state symbols (s), (l), (g), (aq) in all equations where required',
@@ -6072,7 +6285,10 @@ Ar = (35 × 75 + 37 × 25) / 100 = (2625 + 925) / 100 = 3550 / 100 = 35.5`},
             'Metallic: positive ions in sea of delocalised electrons; conducts, malleable',
             'Oxford AQA: includes intermolecular forces (van der Waals) explaining properties of simple molecules',
             'Hydrogen bonding: between H and electronegative atom (F, O, N) — explains water\'s high boiling point',
-          ]},
+          ], workedExample:`NaCl: ionic — high mp (789°C), conducts when molten/dissolved, giant lattice
+CO₂: covalent molecular — low mp (−78°C), does not conduct, simple molecules
+SiO₂: covalent giant — very high mp, does not conduct, hard
+Graphite: covalent layers, delocalised electrons → conducts electricity (unlike diamond)`},
         ], examTips:[
             'Balance the equation before attempting any calculations',
             'Include state symbols (s), (l), (g), (aq) in all equations where required',
@@ -6100,7 +6316,10 @@ Bonds made: 2 × H-Cl (2×431) = 862 kJ
             'Combustion: complete → CO₂ + H₂O; incomplete → CO + soot (carbon) + H₂O',
             'Addition reactions of alkenes: + H₂ (hydrogenation), + Br₂ (bromination, test for C=C), + HBr',
             'Condensation polymers: nylon, polyester — require two different monomers; water produced',
-          ]},
+          ], workedExample:`Homologous series of alkanes: CₙH₂ₙ₊₂
+Ethanol → ethanoic acid: oxidation with acidified K₂Cr₂O₇ (orange → green)
+Esterification: ethanol + ethanoic acid ⇌ ethyl ethanoate + H₂O (conc. H₂SO₄ catalyst)
+Saponification: ester + NaOH → alcohol + sodium salt of acid`},
         ], commonMistakes:[
             'Writing unbalanced equations — check atom count for every element on both sides',
             'Confusing physical change (no new substance) with chemical change (new substance formed)',
@@ -6112,7 +6331,10 @@ Bonds made: 2 × H-Cl (2×431) = 862 kJ
             'Rock cycle: igneous (cooled magma) → weathering → sedimentary → pressure → metamorphic → melting → igneous',
             'Metal extraction: electrolysis for reactive (Al), reduction by carbon for medium (Fe, Cu), displacement for less reactive',
             'Finite resources: fossil fuels, many metals — must manage sustainably; recycle metals to conserve',
-          ]},
+          ], workedExample:`Calculate the concentration of a fertiliser solution: 4.0g of ammonium nitrate (Mr = 80) dissolved in 500cm³.
+Moles = mass/Mr = 4.0/80 = 0.05 mol
+Volume = 500 cm³ = 0.5 dm³
+Concentration = 0.05/0.5 = 0.1 mol/dm³`},
           { title:'Atmosphere & Climate', points:[
             'Early atmosphere: mainly CO₂, N₂, water vapour from volcanoes; little O₂',
             'O₂ produced by photosynthesis over billions of years; CO₂ absorbed by oceans and plants',
@@ -6125,7 +6347,11 @@ Bonds made: 2 × H-Cl (2×431) = 862 kJ
           ], commonMistakes:[
             'Saying humans produce all greenhouse gases — water vapour and CH₄ from natural sources too',
             'Confusing carbon monoxide (CO, toxic, from incomplete combustion) with carbon dioxide (CO₂)',
-          ]},
+          ], workedExample:`Enhanced greenhouse effect:
+CO₂ from burning fossil fuels absorbs outgoing infrared radiation → more re-radiated back to Earth
+Current CO₂: ~420 ppm (pre-industrial: 280 ppm)
+Feedback: ice melts → less albedo → more absorption → more warming (positive feedback)
+Ozone depletion: CFCs catalytically destroy O₃ → more UV-B → skin cancer, ecosystem damage`},
         ], examTips:[
             'Balance the equation before attempting any calculations',
             'Include state symbols (s), (l), (g), (aq) in all equations where required',
@@ -6159,7 +6385,10 @@ Mass CO₂ = 1 × 44 = 44g`},
           ], examTips:[
             'Titration calculation: C₁V₁ = C₂V₂ only when ratio is 1:1; for other ratios use moles method',
             'Electrolysis in industry: chlor-alkali process (brine) produces Cl₂, H₂, NaOH — learn all three products',
-          ]},
+          ], workedExample:`Titration: 25 cm³ NaOH of unknown concentration requires 20 cm³ of 0.1 mol/dm³ HCl
+Moles HCl = 0.1 × 0.02 = 0.002 mol; NaOH : HCl = 1:1
+Moles NaOH = 0.002 mol; Concentration = 0.002/0.025 = 0.08 mol/dm³
+Electrolysis of brine: cathode → H₂, anode → Cl₂, solution → NaOH`},
           { title:'Oxford AQA Chemistry Exam Technique', points:[
             'Oxford AQA Chemistry: Paper 1 (Modules 1–4) and Paper 2 (Modules 5–8); each 1hr 30min',
             'Required practicals knowledge: method, hazards, variables, data analysis — tested in written papers',
@@ -6169,7 +6398,12 @@ Mass CO₂ = 1 × 44 = 44g`},
           ], examTips:[
             'State/name/identify questions: one correct answer only — do not write multiple answers hoping one is right',
             'Required practical: know the specific method steps, including safety measures and why controls are needed',
-          ]},
+          ], workedExample:`12-mark question on industrial chemistry: "Discuss the economic and environmental considerations in choosing conditions for the Haber Process."
+Economic: High pressure (200 atm) increases yield but very expensive equipment; high T (450°C) reduces yield but increases rate — need acceptable rate.
+Catalyst (iron): reduces energy cost; not used up; allows lower T.
+Environmental: N₂ from air (free, unlimited); H₂ from natural gas (non-renewable, produces CO₂).
+Ammonia use: fertilisers feed global population; but nitrous oxide from fertilisers is a greenhouse gas.
+Conclusion: Compromise conditions balance cost, rate and yield — sustainable production requires renewable H₂ source.`},
         ], commonMistakes:[
             'Writing unbalanced equations — check atom count for every element on both sides',
             'Confusing physical change (no new substance) with chemical change (new substance formed)',
@@ -6205,14 +6439,21 @@ Moles Na₂CO₃ = 0.005/2 = 0.0025 mol
             'Plant cell (extra): cell wall (cellulose), chloroplasts, large permanent vacuole',
             'Nucleus: contains DNA; controls cell activities; has nuclear membrane',
             'Mitochondria: aerobic respiration occurs here → produces ATP energy',
-          ]},
+          ], workedExample:`Animal cell: nucleus, cytoplasm, cell membrane, mitochondria, ribosomes
+Plant cell: all of above + cell wall (cellulose), chloroplasts, large vacuole
+Scale: use eyepiece graticule — actual size = image size ÷ magnification
+μm conversion: 1 mm = 1000 μm; cell of 50 μm at ×400 = 20 mm image`},
           { title:'Movement In & Out of Cells', points:[
             'Diffusion: net movement of particles from high to low concentration — passive, no energy',
             'Osmosis: net movement of water through a semi-permeable membrane, from dilute to concentrated solution',
             'Active transport: movement against concentration gradient — requires ATP energy',
             'Turgid plant cell: full of water → stiff (provides support); plasmolysed: loses water → shrinks',
             'Factors affecting diffusion rate: concentration gradient, surface area, distance, temperature',
-          ]},
+          ], workedExample:`Osmosis experiment: potato chip in 1 mol/dm³ sucrose
+Water potential of potato > water potential of solution
+→ water moves OUT by osmosis → chip loses mass, becomes flaccid
+Active transport: Na⁺/K⁺ pump moves 3Na⁺ out, 2K⁺ in, using ATP
+Required: carrier protein + ATP (contrasts with diffusion: no energy needed)`},
         ], examTips:[
             'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
             'Learn key definitions word-for-word — examiners check for specific command words',
@@ -6233,14 +6474,23 @@ Moles Na₂CO₃ = 0.005/2 = 0.0025 mol
             'Lipids (C,H,O): fat stores energy; forms cell membranes; glycerol + 3 fatty acids',
             'Test for starch: iodine solution → blue-black; for reducing sugars: Benedict\'s → brick-red',
             'Test for protein: Biuret → purple/violet; fat: ethanol emulsion → white cloudy emulsion',
-          ]},
+          ], workedExample:`Test for protein: Biuret reagent. Positive: blue→purple
+Test for glucose: Benedict's. Positive: blue→brick-red (heat needed)
+Test for starch: iodine solution. Positive: orange→blue-black
+Test for lipids: ethanol emulsion test. Positive: milky white precipitate
+Amino acids joined by peptide bonds (condensation reaction); broken by hydrolysis`},
           { title:'Enzymes', points:[
             'Biological catalysts: speed up chemical reactions without being used up',
             'Active site: specific 3D shape — only the complementary substrate can bind (lock and key model)',
             'Optimum temperature (~37°C for human enzymes): above it → enzyme denatures (shape permanently changes)',
             'pH: each enzyme has optimal pH; extreme pH → denaturation (e.g. pepsin pH 2, salivary amylase pH 7)',
             'Substrate concentration: increases rate until all active sites occupied → plateau reached',
-          ]},
+          ], workedExample:`Enzyme kinetics:
+At low substrate: rate ∝ substrate concentration (enzyme not saturated)
+At high substrate: rate plateaus at Vmax (all active sites occupied — rate-limiting step is enzyme-substrate complex breakdown)
+Km (Michaelis constant): substrate concentration at ½Vmax
+Low Km = high affinity for substrate
+Temperature coefficient Q₁₀: for every 10°C rise, rate approximately doubles (until denaturation)`},
         ], examTips:[
             'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
             'Learn key definitions word-for-word — examiners check for specific command words',
@@ -6267,14 +6517,20 @@ Moles Na₂CO₃ = 0.005/2 = 0.0025 mol
             'Limiting factors: light intensity, CO₂ concentration, temperature',
             'Test for photosynthesis: destarch leaf first (dark 24 hrs) → expose to light → iodine test',
             'Variegated leaf experiment: only green regions (chloroplasts) test positive for starch',
-          ]},
+          ], workedExample:`A plant is placed in different light intensities. At low light, CO₂ uptake = 2 units; at high light, 8 units. Explain the difference.
+Light energy used to split water (photolysis) and drive the light-dependent reactions.
+More light → more ATP and NADPH produced → more CO₂ fixed in Calvin cycle.
+At saturation: another factor (CO₂ concentration or temperature) becomes limiting.`},
           { title:'Transpiration & Transport', points:[
             'Transpiration: loss of water vapour from leaves through stomata',
             'Increases with: higher temperature, lower humidity, wind, greater light intensity',
             'Xylem: carries water and minerals UP from roots (dead cells, no end walls)',
             'Phloem: carries sugars UP and DOWN from leaves to rest of plant (live cells)',
             'Root hair cells: increase surface area for absorption of water and minerals',
-          ]},
+          ], workedExample:`Water pathway: root hair → cortex → xylem → leaf → stomata (evaporation)
+Factors increasing transpiration rate: high temperature, low humidity, wind, light
+Potometer measures rate of water uptake (approximates transpiration)
+Phloem transports sugars (sucrose) — bidirectional, requires energy (active transport)`},
         ], examTips:[
             'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
             'Learn key definitions word-for-word — examiners check for specific command words',
@@ -6295,28 +6551,47 @@ Moles Na₂CO₃ = 0.005/2 = 0.0025 mol
             'Amylase: starch → maltose; Protease: proteins → amino acids; Lipase: fats → glycerol + fatty acids',
             'Bile (from liver): emulsifies fats (breaks into droplets) — increases surface area for lipase',
             'Villi in small intestine: large surface area, rich blood supply → efficient absorption',
-          ]},
+          ], workedExample:`Protein digestion pathway:
+Mouth: salivary amylase (starch only, no protein digestion)
+Stomach: pepsin (endopeptidase) + HCl → breaks protein → polypeptides
+Small intestine: trypsin (pancreas) + peptidases → amino acids
+Absorbed into blood via villi (large surface area, thin walls, capillaries)`},
           { title:'Respiration', points:[
             'Aerobic: C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O + ATP (38 ATP molecules)',
             'Anaerobic (muscle): glucose → lactic acid + small amount ATP → causes cramp, oxygen debt',
             'Anaerobic (yeast): glucose → ethanol + CO₂ + small amount ATP (fermentation)',
             'Gas exchange in alveoli: large SA, thin walls, moist, good blood supply → efficient diffusion',
             'Breathing in: diaphragm contracts (flattens), ribs move up/out → volume↑, pressure↓',
-          ]},
+          ], workedExample:`Calculate energy released from 1 mole of glucose in aerobic respiration.
+C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O + ~2800 kJ
+Anaerobic (in yeast): C₆H₁₂O₆ → 2C₂H₅OH + 2CO₂ + ~120 kJ (much less efficient)
+Aerobic releases ~23× more energy per mole of glucose.`},
           { title:'Circulation', points:[
             'Double circulation: pulmonary (heart ↔ lungs) + systemic (heart ↔ body)',
             'Red blood cells: haemoglobin carries O₂; biconcave disc → large SA; no nucleus',
             'White blood cells: phagocytes (engulf pathogens) + lymphocytes (produce antibodies)',
             'Arteries: thick muscular wall, no valves, high pressure; veins: valves, thin wall, low pressure',
             'Capillaries: one cell thick → exchange of materials with tissues',
-          ]},
+          ], workedExample:`Blood pressure through circulatory system:
+Aorta: 120 mmHg (systolic); arteries: ~100mmHg; arterioles: ~40mmHg
+Capillaries: ~15-25mmHg; veins: ~5-10mmHg; vena cava: ~2mmHg
+Filtration at capillary: hydrostatic pressure (pushes fluid out) > osmotic pressure (pulls in)
+at venous end: osmotic > hydrostatic → fluid reabsorbed
+Excess fluid returned by lymphatic system`},
           { title:'Coordination & Homeostasis', points:[
             'Neurone types: sensory (receptor → CNS), motor (CNS → effector), relay (within CNS)',
             'Reflex arc: receptor → sensory → relay → motor neurone → effector (no brain involved)',
             'Hormones: chemical messengers in blood; slower but longer lasting than nervous system',
             'Insulin (from pancreas): lowers blood glucose → glycogen stored in liver',
             'Glucagon: raises blood glucose → glycogen broken down; type 1 diabetes = no insulin',
-          ]},
+          ], workedExample:`Negative feedback: blood glucose
+8.0 mmol/L (above normal 4-6):
+→ pancreas β-cells release insulin
+→ liver converts glucose to glycogen (glycogenesis)
+→ cells increase glucose uptake
+→ blood glucose returns to 5 mmol/L
+If 3.0 mmol/L (below normal):
+→ glucagon from α-cells → glycogenolysis → glucose released`},
         ], examTips:[
             'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
             'Learn key definitions word-for-word — examiners check for specific command words',
@@ -6367,7 +6642,11 @@ Probability of cystic fibrosis (ff) = 1/4 = 25%`},
             'Evidence for evolution: fossils, DNA comparison, antibiotic resistance development',
             'Antibiotic resistance: bacteria with resistant allele survive → multiply → population becomes resistant',
             'Speciation: populations become so different they can no longer interbreed → new species formed',
-          ]},
+          ], workedExample:`Calculating allele frequencies (Hardy-Weinberg):
+p²+2pq+q²=1 and p+q=1
+If 16% homozygous recessive (q²=0.16): q=0.4, p=0.6
+Heterozygote frequency: 2pq=2×0.6×0.4=0.48=48%
+H-W equilibrium assumes: large population, random mating, no selection/mutation/migration`},
         ], examTips:[
             'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
             'Learn key definitions word-for-word — examiners check for specific command words',
@@ -6382,7 +6661,11 @@ Probability of cystic fibrosis (ff) = 1/4 = 25%`},
             'Advantages of sexual reproduction: variation helps population adapt to changing environments',
             'Advantages of asexual reproduction: fast, no mate needed, all offspring can reproduce',
             'Examples of asexual: binary fission (bacteria), budding (hydra), vegetative propagation (plants)',
-          ]},
+          ], workedExample:`Mitosis: DNA replicates → 2 identical daughter cells (diploid)
+Used for: growth, repair, asexual reproduction
+Meiosis: 2 divisions → 4 genetically different cells (haploid)
+Used for: gamete production
+Crossing over and independent assortment → genetic variation`},
           { title:'Human Reproductive System', points:[
             'Male: testes (produce sperm + testosterone); sperm → epididymis → vas deferens → urethra',
             'Female: ovaries (produce eggs + oestrogen); fallopian tubes carry egg → uterus',
@@ -6392,14 +6675,22 @@ Probability of cystic fibrosis (ff) = 1/4 = 25%`},
           ], examTips:[
             'Describe placenta function: say "diffusion" and name what crosses in each direction',
             'FSH stimulates follicle growth; LH triggers ovulation — know both hormones',
-          ]},
+          ], workedExample:`Describe fertilisation and early development in humans.
+1. Sperm travel through fallopian tube to meet egg after ovulation.
+2. One sperm penetrates egg → fertilisation → zygote (diploid: 46 chromosomes).
+3. Zygote divides by mitosis → embryo travels to uterus (3-4 days).
+4. Embryo implants in uterine wall (endometrium) → placenta develops.
+Placenta: exchanges O₂, glucose, nutrients and CO₂, urea between mother and foetus.`},
           { title:'Plant Reproduction', points:[
             'Flower parts: sepals, petals, stamen (anther + filament), carpel (stigma + style + ovary)',
             'Pollination: transfer of pollen from anther to stigma — wind-pollinated or insect-pollinated',
             'Insect-pollinated flowers: large colourful petals, scent, nectar, sticky pollen',
             'Wind-pollinated flowers: no petals/scent, feathery stigma, light pollen, anthers hang outside',
             'Fertilisation in plants: pollen tube grows down style → male nucleus fuses with female nucleus in ovule',
-          ]},
+          ], workedExample:`Wind pollinated: light pollen, feathery stigma, no petals, no nectaries
+Insect pollinated: bright petals, nectar, scent, sticky pollen
+Fertilisation: pollen tube grows down style → male nucleus + female nucleus → zygote
+Seed dispersal: wind (sycamore), animal (berries), water (coconut), explosion (peas)`},
         ], examTips:[
             'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
             'Learn key definitions word-for-word — examiners check for specific command words',
@@ -6420,7 +6711,12 @@ Probability of cystic fibrosis (ff) = 1/4 = 25%`},
             'Consumer: obtains energy by eating other organisms — primary (eat plants), secondary, tertiary',
             'Decomposers: bacteria and fungi break down dead matter → release minerals back to soil',
             'Food chain shows feeding relationships; food web = many interconnected food chains',
-          ]},
+          ], workedExample:`Food web energy flow:
+Grass→rabbit→fox→eagle
+Grass: 100,000 kJ/m²/year → 10% efficiency at each level
+Rabbit: 10,000 kJ; Fox: 1,000 kJ; Eagle: 100 kJ
+Only 0.1% of energy in grass reaches eagle
+Carbon cycle: photosynthesis (CO₂ fixed), respiration (CO₂ released), decomposition, combustion`},
           { title:'Energy Flow & Nutrient Cycles', points:[
             'Energy lost at each trophic level: ~90% lost as heat, excretion, movement → only ~10% transferred',
             'Pyramids of numbers/biomass: usually decrease up the food chain',
@@ -6430,14 +6726,22 @@ Probability of cystic fibrosis (ff) = 1/4 = 25%`},
           ], examTips:[
             'Pyramid of biomass is always the correct pyramid — pyramid of numbers can be inverted (e.g. one tree, many insects)',
             'Carbon cycle: identify each arrow as a process (photosynthesis, respiration, combustion, decomposition)',
-          ]},
+          ], workedExample:`Only 10% of energy transfers between trophic levels. Why?
+Energy lost as: heat (respiration); movement; undigested material (faeces); excretion.
+Example: grass stores 10,000 kJ → rabbit gets 1,000 kJ → fox gets 100 kJ.
+Implication: shorter food chains are more energy-efficient (why eating plants is more efficient than eating meat).
+Nitrogen cycle: N₂ → NH₃ (fixation by Rhizobium bacteria) → NO₃⁻ (nitrification) → absorbed by plants → decomposed by bacteria → N₂ (denitrification).`},
           { title:'Human Impact & Conservation', points:[
             'Deforestation → less photosynthesis → more CO₂; soil erosion; habitat loss; less rainfall',
             'Eutrophication: excess fertiliser runoff → algal bloom → blocks light → plants die → bacteria decompose → O₂ depleted → fish die',
             'Pollution: water (sewage, fertilisers, oil spills), air (CO₂, SO₂, NOₓ), land (pesticides, plastic)',
             'Conservation: in-situ (nature reserves, national parks) and ex-situ (zoos, seed banks, captive breeding)',
             'Sustainable use: fishing quotas, selective logging, crop rotation, recycling',
-          ]},
+          ], workedExample:`Trophic cascade: removing wolves from Yellowstone
+Wolves removed → deer population exploded → overgrazing of vegetation → river banks eroded
+Wolves reintroduced 1995: deer numbers down, grazing reduced, vegetation recovered, rivers more stable
+Biodiversity metrics: species richness (number of species) + evenness (relative abundance)
+Conservation: in-situ (national parks, corridors) vs ex-situ (zoos, seed banks)`},
         ], examTips:[
             'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
             'Learn key definitions word-for-word — examiners check for specific command words',
@@ -6458,7 +6762,12 @@ Probability of cystic fibrosis (ff) = 1/4 = 25%`},
             'Malaria: caused by Plasmodium protoctist; spread by female Anopheles mosquito (vector)',
             'HIV/AIDS: virus destroys helper T-cells → immune system weakens → death from opportunistic infections',
             'Cholera: bacteria produce toxin → chloride ions flood gut → water follows by osmosis → severe diarrhoea',
-          ]},
+          ], workedExample:`Explain how HIV causes AIDS.
+HIV = Human Immunodeficiency Virus (retrovirus — uses RNA).
+HIV attacks helper T-cells (CD4 lymphocytes) that coordinate immune responses.
+Virus inserts DNA copy into T-cell genome → T-cell produces more HIV → T-cell destroyed.
+AIDS: T-cell count drops below 200/mm³ → immune system collapses → opportunistic infections (e.g. pneumonia) become fatal.
+Treatment: Antiretroviral therapy (ART) — not a cure, but suppresses viral replication.`},
           { title:'Immunity & Defence', points:[
             'First line of defence: skin (barrier), mucus (traps pathogens), cilia (sweep mucus), stomach acid (pH 2)',
             'Phagocytes (white blood cells): engulf and digest pathogens — non-specific',
@@ -6472,7 +6781,13 @@ Probability of cystic fibrosis (ff) = 1/4 = 25%`},
           ], commonMistakes:[
             'Saying vaccines "cure" disease — vaccines prevent, not cure',
             'Confusing phagocytosis (engulf) with antibody production',
-          ]},
+          ], workedExample:`Specific immune response:
+1. Pathogen enters body; antigens on surface identified as foreign
+2. Phagocyte engulfs and presents antigen (APC)
+3. T-helper cells activated → stimulate B cells
+4. B cells differentiate → plasma cells (produce antibodies) + memory B cells
+5. Antibodies: neutralise toxins, agglutinate bacteria (clump), opsonise (mark for phagocytosis)
+Vaccination prevents step 1 becoming serious; memory cells give rapid secondary response`},
         ], examTips:[
             'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
             'Learn key definitions word-for-word — examiners check for specific command words',
@@ -6487,7 +6802,11 @@ Probability of cystic fibrosis (ff) = 1/4 = 25%`},
             'Kidney: filters blood → reabsorbs glucose, water, salts → urine = water + urea + salts',
             'Nephron: Bowman\'s capsule (ultrafiltration) → tubule (selective reabsorption) → collecting duct',
             'ADH: hormone that controls water reabsorption — more ADH → concentrated urine produced',
-          ]},
+          ], workedExample:`Kidney filtration: blood filtered under pressure at glomerulus → Bowman's capsule
+Filtrate contains: glucose, urea, water, salts, amino acids
+Selective reabsorption: glucose 100% reabsorbed, water 99% reabsorbed
+Urea not reabsorbed → concentrated in urine
+ADH increases water reabsorption in collecting duct`},
           { title:'Homeostasis', points:[
             'Homeostasis: maintaining a constant internal environment (temperature, blood glucose, water balance)',
             'Body temperature: hypothalamus detects change → shivering (heat) or sweating (cool) → negative feedback',
@@ -6520,14 +6839,25 @@ Blood glucose rises → detected by pancreas
           ], examTips:[
             'Genetic engineering questions: describe the steps — restrict, ligate (join), transform, select',
             'Always give a named example of a GM organism and what benefit it provides',
-          ]},
+          ], workedExample:`Insulin production by GM bacteria:
+1. Human insulin gene cut from DNA using restriction enzymes (EcoRI)
+2. Plasmid cut with same restriction enzyme → sticky ends
+3. Insulin gene inserted into plasmid (ligase seals)
+4. Recombinant plasmid introduced into E.coli
+5. Bacteria express human insulin → purified for diabetics
+Ethical concerns: playing God, unintended consequences, patent issues`},
           { title:'Selective Breeding', points:[
             'Selective breeding (artificial selection): humans select organisms with desired traits to breed',
             'Over generations: allele frequency changes → organisms with desired traits become more common',
             'Examples: cattle bred for high milk yield; wheat bred for disease resistance; dogs bred for temperament',
             'Disadvantage: reduces genetic variation → population more vulnerable to new diseases',
             'Compare to natural selection: selective breeding driven by human choice, not environment',
-          ]},
+          ], workedExample:`Describe how a farmer selectively breeds cattle for higher milk yield.
+1. Identify cattle with highest milk yield (desirable trait).
+2. Breed these together — select best offspring with highest milk yield.
+3. Repeat over many generations — frequency of alleles for high yield increases.
+4. After many generations, most cattle produce significantly more milk.
+Risk: reduced genetic diversity → vulnerability to new diseases (gene pool narrows).`},
         ], examTips:[
             'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
             'Learn key definitions word-for-word — examiners check for specific command words',
@@ -6587,7 +6917,10 @@ Magnification = image ÷ actual = 0.1 ÷ 0.01 = ×10`},
             'Active transport: requires ATP; moves substances against gradient (e.g. mineral ions into root hair cells)',
             'Edexcel: exchange surfaces must be large SA, thin, moist, good blood supply — apply to lungs, intestines, gills',
             'Calculating surface area to volume ratio: as cells get larger, SA:V ratio falls → less efficient exchange',
-          ]},
+          ], workedExample:`Diffusion: O₂ moves from high to low concentration across cell membrane (passive)
+Osmosis: water moves from dilute to concentrated solution through semi-permeable membrane
+Active transport: minerals absorbed by root hair cells against concentration gradient (requires ATP)
+Factors affecting diffusion rate: concentration gradient, surface area, distance, temperature`},
         ], examTips:[
             'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
             'Learn key definitions word-for-word — examiners check for specific command words',
@@ -6605,14 +6938,22 @@ Magnification = image ÷ actual = 0.1 ÷ 0.01 = ×10`},
             'Lipids: fats (long-term energy store) and oils; glycerol + 3 fatty acids; less water than carbohydrates per gram',
             'Edexcel food tests: Benedict\'s (reducing sugar → brick red), iodine (starch → blue-black), Biuret (protein → purple)',
             'Water: solvent for metabolic reactions; transport medium; involved in hydrolysis reactions',
-          ]},
+          ], workedExample:`Test for protein: Biuret reagent. Positive: blue→purple
+Test for glucose: Benedict's. Positive: blue→brick-red (heat needed)
+Test for starch: iodine solution. Positive: orange→blue-black
+Test for lipids: ethanol emulsion test. Positive: milky white precipitate
+Amino acids joined by peptide bonds (condensation reaction); broken by hydrolysis`},
           { title:'Nutrition & Health', points:[
             'Balanced diet: correct proportions of carbohydrates, proteins, fats, vitamins, minerals, water, fibre',
             'Deficiency diseases: scurvy (vitamin C), rickets (vitamin D), anaemia (iron), kwashiorkor (protein)',
             'Edexcel: includes BMI (Body Mass Index) = mass (kg) ÷ height² (m²); healthy range 18.5–24.9',
             'Coronary heart disease: linked to saturated fat, high cholesterol, smoking, high blood pressure, lack of exercise',
             'Type 2 diabetes: insulin resistance due to poor diet/obesity; managed by diet, exercise, medication',
-          ]},
+          ], workedExample:`A person needs 2000 kcal/day. Calculate energy from macronutrients: 250g carbs, 80g protein, 65g fat.
+Carbohydrate: 250 × 4 = 1000 kcal
+Protein: 80 × 4 = 320 kcal
+Fat: 65 × 9 = 585 kcal
+Total = 1905 kcal (95% of requirement — slightly deficient)`},
         ], examTips:[
             'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
             'Learn key definitions word-for-word — examiners check for specific command words',
@@ -6630,21 +6971,30 @@ Magnification = image ÷ actual = 0.1 ÷ 0.01 = ×10`},
           ], examTips:[
             'Describe the cardiac cycle: atria fill → atria contract → blood to ventricles → ventricles contract → blood to arteries',
             'Right ventricle pumps to lungs (short distance, low pressure); left ventricle pumps to body (higher pressure, thicker wall)',
-          ]},
+          ], workedExample:`Blood flow: vena cava → right atrium → right ventricle → pulmonary artery → lungs
+→ pulmonary vein → left atrium → left ventricle → aorta → body
+Left ventricle has thicker wall (pumps to whole body at higher pressure)
+Valves (bicuspid, tricuspid, semilunar) prevent backflow`},
           { title:'Respiration & Gas Exchange', points:[
             'Aerobic respiration: glucose + oxygen → carbon dioxide + water + energy (ATP)',
             'Anaerobic respiration (animals): glucose → lactic acid; (plants/yeast): glucose → ethanol + CO₂',
             'Alveoli adaptations: large SA (many alveoli), thin walls (one cell thick), moist surface, good blood supply',
             'Edexcel: tidal volume (air breathed per breath) × breathing rate = minute ventilation',
             'Effects of exercise: increased breathing rate and heart rate; lactic acid build-up → oxygen debt',
-          ]},
+          ], workedExample:`Gas exchange in alveoli: O₂ diffuses into blood, CO₂ diffuses out
+Adaptations: large surface area, thin walls (one cell thick), good blood supply, moist
+Spirometer measures tidal volume, vital capacity, breathing rate
+Exercise: increased CO₂ → detected by medulla → increases breathing rate`},
           { title:'The Nervous System', points:[
             'Central nervous system (CNS): brain + spinal cord; peripheral: nerves connecting to organs',
             'Sensory neurone: receptor → CNS; motor neurone: CNS → effector (muscle/gland)',
             'Synapse: gap between neurones; neurotransmitters released, diffuse across, bind to receptors',
             'Reflex arc: fast, automatic response — no conscious thought required; spinal cord coordinates',
             'Edexcel: includes structure and function of the brain — cerebrum (thinking), cerebellum (balance), medulla (breathing/heartbeat)',
-          ]},
+          ], workedExample:`Describe a reflex arc for pulling hand from hot object:
+Receptor (skin) → sensory neuron → relay neuron in spinal cord → motor neuron → effector (muscle)
+Signal does NOT go to brain first → faster response
+Neurotransmitters cross synapses between neurons (chemical signalling)`},
         ], examTips:[
             'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
             'Learn key definitions word-for-word — examiners check for specific command words',
@@ -6668,14 +7018,24 @@ Magnification = image ÷ actual = 0.1 ÷ 0.01 = ×10`},
             'Biotic factors: predation, competition, disease, food availability, human activity',
             'Edexcel: carrying capacity — maximum sustainable population size set by limiting factors',
             'Predator-prey cycles: hare and lynx populations oscillate — predator numbers lag behind prey',
-          ]},
+          ], workedExample:`Describe a food web and explain the effect of removing one species.
+Food web: grass → rabbit → fox; grass → rabbit → owl; grass → deer → wolf
+If rabbits are removed: grass increases (not grazed); foxes and owls decrease (no food).
+This is cascade effect — disrupts predator-prey balance throughout ecosystem.
+Keystone species: wolves in Yellowstone — removal caused deer to overgraze, destabilising rivers and vegetation.`},
           { title:'Evolution & Biodiversity', points:[
             'Darwin\'s natural selection: variation → selection pressure → differential survival and reproduction',
             'Evidence for evolution: fossil record, comparative anatomy (homologous structures), DNA comparisons',
             'Antibiotic resistance: mutations produce resistant bacteria; selection favours them → population becomes resistant',
             'Edexcel: includes classification — Kingdom, Phylum, Class, Order, Family, Genus, Species (KPCOFGS)',
             'Biodiversity: measured by number of species and individuals; high biodiversity = ecosystem stability',
-          ]},
+          ], workedExample:`Speciation by geographic isolation:
+1. Population divided by barrier (mountain range, river)
+2. Each population undergoes different mutations, natural selection
+3. Allele frequencies diverge
+4. Eventually populations are reproductively isolated
+5. Allopatric speciation complete
+Sympatric: in same location, different niches or polyploidy (in plants)`},
         ], examTips:[
             'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
             'Learn key definitions word-for-word — examiners check for specific command words',
@@ -6704,7 +7064,8 @@ Magnification = image ÷ actual = 0.1 ÷ 0.01 = ×10`},
           ], examTips:[
             'Oxford AQA: always label diagrams fully — missing label loses marks even if drawing is correct',
             'Scale bar questions: use the scale bar to calculate actual size, not ruler estimates',
-          ]},
+          ], workedExample:`A cell is 0.1 mm across in a diagram. Actual size = 0.01 mm.
+Magnification = image ÷ actual = 0.1 ÷ 0.01 = ×10`},
           { title:'Diffusion, Osmosis & Active Transport', points:[
             'Diffusion: net movement of particles from high to low concentration; no energy required',
             'Osmosis: diffusion of water through a partially permeable membrane; from dilute to concentrated solution',
@@ -6732,14 +7093,24 @@ At isotonic point: no change in mass (same concentration inside and outside)`},
           ], examTips:[
             'Food tests: starch → iodine (blue-black); glucose → Benedict\'s (brick-red precipitate); protein → Biuret (purple); fat → ethanol emulsion (milky white)',
             'Always state the positive result colour change, not just "changes colour"',
-          ]},
+          ], workedExample:`Test for protein: Biuret reagent. Positive: blue→purple
+Test for glucose: Benedict's. Positive: blue→brick-red (heat needed)
+Test for starch: iodine solution. Positive: orange→blue-black
+Test for lipids: ethanol emulsion test. Positive: milky white precipitate
+Amino acids joined by peptide bonds (condensation reaction); broken by hydrolysis`},
           { title:'Digestion & Enzymes', points:[
             'Digestion: breaking large insoluble molecules into small soluble ones for absorption',
             'Amylase (mouth/pancreas): starch → maltose; Protease (stomach/pancreas): proteins → amino acids',
             'Lipase (pancreas): lipids → glycerol + fatty acids; Bile (liver/stored in gall bladder): emulsifies fats',
             'Optimum pH: pepsin (stomach) = pH 2; amylase (mouth) = pH 7; trypsin (small intestine) = pH 8',
             'Small intestine: villi increase surface area; thin walls; good blood supply for absorption',
-          ]},
+          ], workedExample:`Protein digestion:
+Mouth: none (no protease)
+Stomach: pepsin (pH 2, optimum ~2) → polypeptides
+Small intestine: trypsin (from pancreas, pH 7-8) → dipeptides
+Dipeptidase (brush border): dipeptides → amino acids
+Absorption: amino acids by active transport into villi; lipids as micelles
+Bile: emulsifies fat (increases surface area for lipase)`},
         ], examTips:[
             'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
             'Learn key definitions word-for-word — examiners check for specific command words',
@@ -6757,7 +7128,10 @@ At isotonic point: no change in mass (same concentration inside and outside)`},
           ], examTips:[
             'Graph questions: at high light intensity, CO₂ becomes the limiting factor — look for plateau',
             'Compensation point: rate of photosynthesis = rate of respiration (no net gas exchange)',
-          ]},
+          ], workedExample:`Limiting factors for photosynthesis: light intensity, CO₂ concentration, temperature
+Rate ∝ light until another factor limits (plateau on graph)
+Compensation point: where photosynthesis rate = respiration rate (net O₂ exchange = 0)
+At night only respiration occurs; during day both occur simultaneously`},
           { title:'Ecology & Ecosystems', points:[
             'Ecosystem: all living organisms (biotic) + non-living environment (abiotic) in an area',
             'Food chain shows energy flow; food web shows more realistic feeding relationships',
@@ -6789,7 +7163,11 @@ Energy lost at each level = ~90% (heat + faeces + uneaten parts)`},
             'Arteries: thick muscular walls, carry blood away from heart, high pressure',
             'Veins: thin walls, carry blood to heart, valves to prevent backflow, low pressure',
             'Capillaries: one cell thick, exchange of gases/nutrients/waste with cells',
-          ]},
+          ], workedExample:`Trace the path of a red blood cell from the body to the lungs and back.
+Body → vena cava → right atrium → right ventricle → pulmonary artery → lungs (gas exchange)
+Lungs → pulmonary vein → left atrium → left ventricle → aorta → body
+Left ventricle has thicker wall (pumps blood further around body at higher pressure).
+Double circulation: pulmonary (heart-lungs) + systemic (heart-body) circuits.`},
           { title:'Genetics & Inheritance', points:[
             'DNA → gene (section of DNA) → allele (version of gene)',
             'Dominant allele expressed when present; recessive only expressed when homozygous recessive',
@@ -6800,7 +7178,11 @@ Energy lost at each level = ~90% (heat + faeces + uneaten parts)`},
           ], examTips:[
             'Always draw a Punnett square — even if asked to "describe" inheritance',
             'Oxford AQA: expect application questions — given unusual organisms, apply the same rules',
-          ]},
+          ], workedExample:`Tall (T) is dominant to short (t). Both parents are Tt. Find probability of short offspring.
+Cross: Tt × Tt
+Gametes: T or t from each parent
+Punnett square: TT, Tt, Tt, tt
+Short (tt) = 1 out of 4 = 25% probability`},
         ], examTips:[
             'Use precise scientific terminology — do not use everyday language (e.g. say "cell membrane" not "wall" for animal cells)',
             'Learn key definitions word-for-word — examiners check for specific command words',
@@ -6835,14 +7217,20 @@ Probability of tt = 25%`, commonMistakes:[
             'Binary → hex: split into groups of 4 from right, convert each group',
             'Binary addition: 0+0=0, 0+1=1, 1+0=1, 1+1=10 (carry 1), 1+1+1=11 (carry 1)',
             'Two\'s complement: to negate, invert all bits then add 1 (allows negative numbers)',
-          ]},
+          ], workedExample:`Convert 10110₂ to decimal:
+1×16+0×8+1×4+1×2+0×1=22
+Convert 45 to binary: 45÷2=22r1, 22÷2=11r0, 11÷2=5r1, 5÷2=2r1, 2÷2=1r0, 1÷2=0r1 → 101101₂`},
           { title:'Data Storage & Encoding', points:[
             '1 bit = 0 or 1; 8 bits = 1 byte; 1 KB = 1024 bytes; 1 MB = 1024 KB; 1 GB = 1024 MB',
             'ASCII: 7-bit character code, 128 characters; Extended ASCII: 8-bit, 256 characters',
             'Unicode: up to 32 bits → supports all world languages and symbols',
             'Image file size = image width × height × colour depth (bits)',
             'Sound file size = sample rate × bit depth × duration (seconds)',
-          ]},
+          ], workedExample:`A colour image is 640×480 pixels, with 24-bit colour. Calculate file size.
+Bits = 640 × 480 × 24 = 7,372,800 bits
+Bytes = 7,372,800/8 = 921,600 bytes = 900 KB
+24-bit colour = 2²⁴ = 16.7 million possible colours (True Colour)
+JPEG compression reduces this; PNG is lossless.`},
         ], examTips:[
             'Use correct technical vocabulary — "increment variable" not "add one to the number"',
             'Trace tables: complete each column in order; show every step, including unchanged variables',
@@ -6863,7 +7251,15 @@ Probability of tt = 25%`, commonMistakes:[
             'Flowchart symbols: oval (start/end), rectangle (process), diamond (decision), parallelogram (I/O)',
             'Trace table: track value of each variable at each step — used to test an algorithm',
             'Decomposition: break complex problem into smaller sub-problems; abstraction: ignore irrelevant detail',
-          ]},
+          ], workedExample:`Write pseudocode to find the largest number in a list of 5 numbers.
+largest ← list[0]
+FOR i ← 1 TO 4 DO
+    IF list[i] > largest THEN
+        largest ← list[i]
+    ENDIF
+ENDFOR
+OUTPUT largest
+Time complexity: O(n) — must examine every element.`},
           { title:'Sorting & Searching', points:[
             'Bubble sort: compare adjacent pairs, swap if wrong order, repeat n−1 times; simple but slow',
             'Merge sort: divide list in half repeatedly, sort halves, merge back; efficient for large lists',
@@ -6898,14 +7294,22 @@ Search right of that: [14]; mid=2 → value 14 ✓ Found!`},
             'RAM: volatile (lost when power off), random access, fast; ROM: non-volatile, stores boot program',
             'Cache: small, very fast memory between CPU and RAM; reduces time to fetch data',
             'Secondary storage: HDD (magnetic), SSD (flash/no moving parts), optical disc (CD/DVD)',
-          ]},
+          ], workedExample:`CPU performance factors:
+Clock speed: 3GHz=3×10⁹ cycles/sec
+Cores: quad-core executes 4 streams in parallel
+Cache: L1(32KB, fast) < L2(256KB) < L3(8MB, slow)
+RAM: 8GB typical; virtual memory uses HDD as overflow
+SSD vs HDD: SSD faster (no moving parts), more expensive per GB`},
           { title:'Operating Systems & Software', points:[
             'OS manages: hardware resources, processes (multitasking), user interface, file system',
             'High-level language: human-readable (Python, Java); compiled or interpreted to machine code',
             'Compiler: translates entire program at once → produces executable; fast to run',
             'Interpreter: translates line by line; slower, but easier to debug',
             'IDE (Integrated Development Environment): editor, compiler/interpreter, debugger in one',
-          ]},
+          ], workedExample:`OS functions: memory management, process management, file management, device management, user interface
+Types: single-user (Windows), multi-user (Linux server), real-time (RTOS — hospital equipment), mobile (iOS, Android)
+File management: hierarchical directory structure; file permissions (read, write, execute)
+Virtual memory: uses hard disk as extension of RAM when RAM full → slower but prevents crash`},
         ], examTips:[
             'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
             'Give specific examples for every advantage or disadvantage you state',
@@ -6932,7 +7336,10 @@ Search right of that: [14]; mid=2 → value 14 ✓ Found!`},
             'IP address: unique numerical label for each device on a network',
             'Packet switching: data split into packets, each takes best route, reassembled at destination',
             'Protocols: HTTP/HTTPS (web), FTP (file transfer), TCP/IP (data transmission), SMTP (email)',
-          ]},
+          ], workedExample:`Client sends HTTP GET request → DNS resolves domain → TCP/IP routes packets
+Router: operates at layer 3, uses IP addresses to forward packets
+Switch: layer 2, uses MAC addresses within LAN
+Packet switching: data split into packets, each routed independently, reassembled at destination`},
           { title:'Cyber Security', points:[
             'Phishing: fake emails/websites to steal login credentials',
             'Malware: viruses, worms, ransomware, spyware — spread through downloads or email attachments',
@@ -6943,7 +7350,12 @@ Search right of that: [14]; mid=2 → value 14 ✓ Found!`},
             'Distinguish between types of malware — virus (spreads by attaching to files), worm (self-replicates across network)',
             'Encryption questions: know symmetric (same key) vs asymmetric (public/private key pair)',
             'Social engineering (e.g. phishing) exploits human behaviour, not software vulnerabilities',
-          ]},
+          ], workedExample:`Caesar cipher key=13 (ROT13): "HELLO"→"URYYB"
+Vigenère cipher: polyalphabetic, harder to crack
+RSA: public key (n,e), private key (n,d)
+Encrypt: C=Mᵉ mod n; Decrypt: M=Cᵈ mod n
+MD5/SHA-256: hash functions, one-way (cannot reverse)
+DDoS: overwhelm server with requests from thousands of infected machines (botnet)`},
         ], examTips:[
             'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
             'Give specific examples for every advantage or disadvantage you state',
@@ -6970,14 +7382,24 @@ Search right of that: [14]; mid=2 → value 14 ✓ Found!`},
             'Selection: IF condition THEN ... ELSE ... ENDIF; CASE/SWITCH for multiple options',
             'Count-controlled loop: FOR i ← 1 TO n ... NEXT; condition-controlled: WHILE/REPEAT...UNTIL',
             'Procedures: named block of reusable code; functions: return a value; reduces repetition',
-          ]},
+          ], workedExample:`Pseudocode for linear search:
+FOR i ← 0 TO length(array)−1
+  IF array[i] = target THEN
+    RETURN i
+  ENDIF
+ENDFOR
+RETURN −1`},
           { title:'Arrays & File Handling', points:[
             '1D array: list of items of same type with index (e.g. names[0], names[1]...)',
             '2D array: table/grid; accessed with two indices (e.g. grid[row][col])',
             'Traverse array: use FOR loop from 0 (or 1) to length−1',
             'File operations: OPEN, READ, WRITE, CLOSE',
             'Validation: check input is of correct type, range, length, format',
-          ]},
+          ], workedExample:`Python array of 5 scores:
+scores=[85,72,91,68,79]
+Average=sum(scores)/len(scores)=79
+File: f=open("data.txt","r"); lines=f.readlines(); f.close()
+CSV: reader=csv.reader(f); for row in reader: print(row[0])`},
         ], examTips:[
             'Use correct technical vocabulary — "increment variable" not "add one to the number"',
             'Trace tables: complete each column in order; show every step, including unchanged variables',
@@ -7021,14 +7443,22 @@ Search right of that: [14]; mid=2 → value 14 ✓ Found!`},
           ], examTips:[
             'Always name all 3 stages of FDE cycle in order — missing one loses marks',
             'Distinguish between RAM (volatile, fast) and ROM (non-volatile, read-only)',
-          ]},
+          ], workedExample:`Fetch-Decode-Execute cycle:
+1. Fetch: MAR←PC; MDR←[MAR]; PC++; IR←MDR
+2. Decode: CU decodes instruction in IR
+3. Execute: ALU performs operation; result stored in accumulator
+Harvard architecture: separate memory for data and instructions (faster)
+von Neumann: shared memory bus (simpler, common)`},
           { title:'Memory & Storage', points:[
             'RAM (Random Access Memory): temporary, loses data when power off, fast',
             'ROM (Read Only Memory): permanent, holds firmware/BIOS, cannot be written to normally',
             'Secondary storage: HDD (magnetic, large), SSD (flash, fast), optical (CD/DVD/Blu-ray)',
             'Virtual memory: uses secondary storage as extension of RAM when RAM is full (slower)',
             'Cloud storage: data stored on remote servers; accessible anywhere; depends on internet',
-          ]},
+          ], workedExample:`Hierarchy (fastest→slowest): registers → cache → RAM → SSD → HDD → tape
+Registers: CPU, <1ns; Cache: ~1-10ns; RAM: ~100ns; SSD: ~50µs; HDD: ~5ms
+1TB SSD stores: 1×10¹² bytes / 5×10⁶ bytes per MP3 = 200,000 songs
+Virtual memory: page fault → swap page from RAM to disk (slow!)`},
         ], examTips:[
             'Use correct technical vocabulary — "increment variable" not "add one to the number"',
             'Trace tables: complete each column in order; show every step, including unchanged variables',
@@ -7058,7 +7488,11 @@ Check: 9×16 + 12 = 144 + 12 = 156 ✓`},
             'File size = pixels × colour depth (bits); divide by 8 for bytes',
             'Sound: sampling rate (Hz) × bit depth × channels = file size per second',
             'Data compression: lossless (exact original restored — ZIP, PNG); lossy (data discarded — MP3, JPEG)',
-          ]},
+          ], workedExample:`Floating point: 0.1101₂ × 2³ (mantissa × 2^exponent)
+Actual value: 0.1101₂=0.8125; ×8=6.5
+Character encoding: ASCII A=65=01000001₂
+Unicode: UTF-8 uses 1-4 bytes; covers all world languages
+Overflow: 8-bit max=255; 255+1=0 (wraps around)`},
         ], examTips:[
             'Use correct technical vocabulary — "increment variable" not "add one to the number"',
             'Trace tables: complete each column in order; show every step, including unchanged variables',
@@ -7076,7 +7510,12 @@ Check: 9×16 + 12 = 144 + 12 = 156 ✓`},
             'Star topology: all devices connect to central switch/hub; single device failure does not crash network',
             'Bus topology: all devices share one cable; easy to add devices but collisions occur',
             'Protocols: set of rules for communication; IP, TCP, HTTP, HTTPS, FTP, SMTP',
-          ]},
+          ], workedExample:`LAN vs WAN:
+LAN: within single building/campus; owned by organisation; fast (1Gbps)
+WAN: across cities/countries; uses ISP infrastructure; slower
+PAN: personal area (Bluetooth, <10m)
+WiFi range: 2.4GHz (~45m), 5GHz (~15m but faster)
+IPv4: 32-bit (4.3 billion addresses); IPv6: 128-bit (virtually unlimited)`},
           { title:'Cyber Security', points:[
             'Malware types: virus (attaches to files), worm (self-replicating), ransomware (encrypts files), spyware',
             'Phishing: fake emails/websites to steal credentials — awareness training is key defence',
@@ -7086,7 +7525,12 @@ Check: 9×16 + 12 = 144 + 12 = 156 ✓`},
           ], examTips:[
             'For each threat, give a specific defence — generic "use antivirus" scores less than "use a firewall to block unauthorised network access"',
             'Encryption: data scrambled with a key — only correct key can decrypt; protects data in transit',
-          ]},
+          ], workedExample:`Caesar cipher key=13 (ROT13): "HELLO"→"URYYB"
+Vigenère cipher: polyalphabetic, harder to crack
+RSA: public key (n,e), private key (n,d)
+Encrypt: C=Mᵉ mod n; Decrypt: M=Cᵈ mod n
+MD5/SHA-256: hash functions, one-way (cannot reverse)
+DDoS: overwhelm server with requests from thousands of infected machines (botnet)`},
         ], examTips:[
             'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
             'Give specific examples for every advantage or disadvantage you state',
@@ -7107,7 +7551,15 @@ Check: 9×16 + 12 = 144 + 12 = 156 ✓`},
             'Flowcharts: START/STOP (oval), process (rectangle), decision (diamond), I/O (parallelogram)',
             'Pseudocode: structured English-like code — must be unambiguous and show logic clearly',
             'Trace table: manually track variable values through each iteration of an algorithm',
-          ]},
+          ], workedExample:`Write pseudocode to find the largest number in a list of 5 numbers.
+largest ← list[0]
+FOR i ← 1 TO 4 DO
+    IF list[i] > largest THEN
+        largest ← list[i]
+    ENDIF
+ENDFOR
+OUTPUT largest
+Time complexity: O(n) — must examine every element.`},
           { title:'Searching & Sorting', points:[
             'Linear search: check each element in sequence; works on unsorted data; O(n)',
             'Binary search: repeatedly halve sorted list; requires sorted data; O(log n)',
@@ -7152,7 +7604,11 @@ Reading remainders upward: 101101 → 00101101 = 45₁₀`},
             'RAM: volatile, read/write, stores current programs and data; ROM: non-volatile, read-only, BIOS',
             'Cache: L1 (on chip, fastest), L2, L3 — stores recently used instructions to speed up fetch cycle',
             'Clock speed: measured in GHz; higher = more instructions per second; heat and power increase too',
-          ]},
+          ], workedExample:`FDE cycle trace for instruction at address 100:
+1. Fetch: PC=100 → MAR=100; memory[100] → MDR → CIR; PC increments to 101
+2. Decode: CU interprets opcode in CIR (e.g. ADD R1, R2)
+3. Execute: ALU adds R1 + R2 → stores result in accumulator
+Increasing performance: increase clock speed, add more cores, increase cache size`},
         ], examTips:[
             'Use correct technical vocabulary — "increment variable" not "add one to the number"',
             'Trace tables: complete each column in order; show every step, including unchanged variables',
@@ -7171,7 +7627,11 @@ Reading remainders upward: 101101 → 00101101 = 45₁₀`},
           ], examTips:[
             'Oxford CS: for network topology, state both strength AND weakness — not just one',
             'Packet switching: each packet may take different route; includes header (source, destination, sequence number)',
-          ]},
+          ], workedExample:`Star topology: all devices connect to central switch.
+If one cable fails: only that device affected (not whole network)
+Bus topology: one cable; if backbone fails, all fail
+Packet: header (source IP, dest IP, seq number) + data + trailer (checksum)
+TCP: reliable, confirms delivery; UDP: fast, no confirmation (streaming)`},
           { title:'Cybersecurity', points:[
             'Social engineering: manipulating people rather than systems — phishing, pretexting, baiting',
             'Malware types: virus (attaches to files), worm (self-replicating, no host file), trojan (disguised as legitimate software), ransomware (encrypts and demands payment)',
@@ -7179,7 +7639,11 @@ Reading remainders upward: 101101 → 00101101 = 45₁₀`},
             'Symmetric encryption: same key for encrypt and decrypt (AES); fast but key distribution problem',
             'Asymmetric encryption: public key encrypts, private key decrypts (RSA); solves key distribution',
             'Digital certificate: issued by Certificate Authority (CA); proves server is genuine; used in HTTPS',
-          ]},
+          ], workedExample:`Brute force: try every possible password.
+6-char password (a-z): 26⁶=308 million combinations
+Salted hash: add random string before hashing; prevents rainbow table attacks
+Two-factor authentication: password + one-time code (something you know + something you have)
+Firewall rules: ALLOW port 443 (HTTPS), DENY port 23 (Telnet)`},
         ], examTips:[
             'Use correct technical vocabulary — "increment variable" not "add one to the number"',
             'Trace tables: complete each column in order; show every step, including unchanged variables',
@@ -7214,7 +7678,11 @@ factorial(5) → 5*factorial(4) → 5*4*factorial(3) → 5*4*3*factorial(2) → 
             'Binary search: halve search space each step; MUST be sorted; O(log n)',
             'Bubble sort: compare adjacent pairs, swap; n−1 passes; slow on large data',
             'Merge sort: divide and conquer; always O(n log n); needs extra memory',
-          ]},
+          ], workedExample:`Merge sort: split [5,2,8,1,9,3] into halves.
+[5,2,8] and [1,9,3]
+Sort each: [2,5,8] and [1,3,9]
+Merge: compare heads → [1,2,3,5,8,9]
+Time complexity O(n log n) vs bubble sort O(n²)`},
         ], examTips:[
             'Use correct technical vocabulary — "increment variable" not "add one to the number"',
             'Trace tables: complete each column in order; show every step, including unchanged variables',
@@ -7233,7 +7701,11 @@ factorial(5) → 5*factorial(4) → 5*4*factorial(3) → 5*4*3*factorial(2) → 
           ], examTips:[
             'Oxford CS SQL: practice writing SELECT with WHERE, ORDER BY, and JOIN — these are commonly tested',
             'Always identify primary key and explain WHY that field is suitable (must be unique and not null)',
-          ]},
+          ], workedExample:`Normalisation to 3NF:
+1NF: atomic values, no repeating groups
+2NF: no partial dependencies (every non-key attribute depends on WHOLE key)
+3NF: no transitive dependencies (non-key attributes only depend on key)
+Example: Orders(OrderID, CustomerID, CustomerName) → CustomerName depends on CustomerID (transitive) → move to Customers table`},
           { title:'Software Development & Testing', points:[
             'Software development lifecycle (SDLC): analysis → design → coding → testing → maintenance',
             'Waterfall: sequential phases; rigid; good for well-defined requirements',
@@ -7241,7 +7713,13 @@ factorial(5) → 5*factorial(4) → 5*4*factorial(3) → 5*4*3*factorial(2) → 
             'White-box testing: tester knows the code; tests internal logic and paths',
             'Black-box testing: tester doesn\'t see code; tests inputs and expected outputs only',
             'Testing types: unit (individual function), integration (modules together), system (whole system)',
-          ]},
+          ], workedExample:`Agile vs Waterfall for a school management system:
+Waterfall: rigid phases — good if all requirements known upfront (exam timetabling module)
+Agile: iterative sprints — better if requirements may change (student portal features)
+Test plan for login function:
+- Normal: valid username + password → login success
+- Boundary: password exactly 8 chars (minimum) → should succeed
+- Erroneous: letters in phone number field → validation error shown`},
         ], examTips:[
             'Use correct technical vocabulary — "increment variable" not "add one to the number"',
             'Trace tables: complete each column in order; show every step, including unchanged variables',
@@ -7271,14 +7749,20 @@ factorial(5) → 5*factorial(4) → 5*4*factorial(3) → 5*4*3*factorial(2) → 
             'Opportunity cost: value of the next best alternative foregone when a choice is made',
             'Production Possibility Curve (PPC): shows maximum output combinations for two goods',
             'Inside PPC = inefficient; on PPC = efficient; outside = currently unachievable',
-          ]},
+          ], workedExample:`Government has £10bn budget. Options: NHS (£10bn) or Defence (£8bn) + Schools (£2bn)
+If chooses NHS: opportunity cost = the Defence+Schools option foregone
+Scarcity: unlimited wants (better healthcare, defence, education) vs limited resources (£10bn budget)
+PPC: producing more guns means fewer butter — opportunity cost increases (bowed-out curve)`},
           { title:'Economic Systems', points:[
             'Free market economy: prices determined by supply and demand; private ownership',
             'Planned (command) economy: government decides what, how and for whom to produce',
             'Mixed economy: combination of market and government intervention (most countries)',
             'Privatisation: transfer of public sector businesses to private sector',
             'Price mechanism: signals producers and consumers; rises → less demanded, more supplied',
-          ]},
+          ], workedExample:`Free market: prices allocate resources; profit motive; inequality but efficiency
+Command: government owns means of production; equality goal; inefficiency, shortages
+Mixed economy (UK): mostly market with government intervention in healthcare, education, utilities
+Profit motive: firms produce what consumers want (price signal)`},
         ], examTips:[
             'Always use a diagram to support your explanation — clearly label axes, curves, and equilibrium points',
             'Evaluate both sides before reaching a conclusion — one-sided answers cap at lower mark bands',
@@ -7299,14 +7783,21 @@ factorial(5) → 5*factorial(4) → 5*4*factorial(3) → 5*4*3*factorial(2) → 
             'Shifts in demand curve: changes in income, prices of substitutes/complements, tastes, population, advertising',
             'PED = % change in quantity demanded ÷ % change in price (always negative, ignore sign)',
             'PED > 1 elastic (luxuries); PED < 1 inelastic (necessities like petrol, salt); PED = 0 perfectly inelastic',
-          ]},
+          ], workedExample:`Demand curve: P on y-axis, Q on x-axis; downward sloping
+At P=£10: Qd=500; At P=£15: Qd=300
+PED=(−200/500)÷(5/10)=−0.4/0.5=−0.8 (inelastic)
+Shift: income rises → demand for normal goods increases (curve shifts RIGHT)
+Shift: price of substitute rises → demand for this good rises (RIGHT)`},
           { title:'Supply', points:[
             'Supply: quantity producers are willing AND able to sell at each price',
             'Law of supply: as price rises, quantity supplied rises — direct (positive) relationship',
             'Shifts in supply: costs of production, technology, subsidies/taxes, weather (agriculture)',
             'PES = % change in quantity supplied ÷ % change in price (always positive)',
             'Market equilibrium: quantity demanded = quantity supplied; no tendency to change',
-          ]},
+          ], workedExample:`Supply schedule: at £5, 100 units supplied; at £10, 200 units supplied
+Supply curve shifts right when: production costs fall, better technology, subsidies given
+Price of related goods: if wheat price rises, farmers switch from barley → barley supply falls
+Elasticity of supply: PES = %ΔQs / %ΔP; if PES>1 supply is elastic (responsive to price)`},
           { title:'Price Elasticity & Revenue', points:[
             'If demand is elastic (PED>1): price ↑ → total revenue ↓ (% drop in Q > % rise in P)',
             'If demand is inelastic (PED<1): price ↑ → total revenue ↑ (% rise in P > % drop in Q)',
@@ -7344,14 +7835,22 @@ PED = 20/20 = 1  → Unit elastic`},
             'Unemployment rate = (unemployed ÷ labour force) × 100%',
             'Inflation: sustained general rise in price level; measured by CPI (Consumer Price Index)',
             'Trade-off: e.g. reducing unemployment may increase inflation (Phillips curve)',
-          ]},
+          ], workedExample:`UK macroeconomic objectives:
+- Economic growth: real GDP growth 2-3% per year target
+- Low inflation: Bank of England 2% CPI target
+- Low unemployment: natural rate ~4-5%; cyclical unemployment tackled by demand stimulus
+- Balance of payments: sustainable current account deficit
+Conflict: reducing inflation (raise rates) may increase unemployment`},
           { title:'Economic Policies', points:[
             'Fiscal policy: government uses taxation and public spending to influence economy',
             'Expansionary fiscal policy: increase spending / cut taxes → stimulate growth',
             'Monetary policy: central bank controls interest rates and money supply',
             'Lower interest rates: encourage borrowing and spending → economic growth',
             'Supply-side policies: improve productive capacity (education, deregulation, infrastructure)',
-          ]},
+          ], workedExample:`Expansionary fiscal: cut income tax by 2p → increases disposable income → C rises → AD shifts right
+Multiplier = 1/(1-MPC); if MPC=0.8: multiplier=5
+£1bn stimulus → £5bn increase in GDP (if no leakages)
+Monetary: rate cut from 5%→3%: cheaper mortgages → more consumer spending → AD↑`},
         ], examTips:[
             'Always use a diagram to support your explanation — clearly label axes, curves, and equilibrium points',
             'Evaluate both sides before reaching a conclusion — one-sided answers cap at lower mark bands',
@@ -7372,14 +7871,22 @@ PED = 20/20 = 1  → Unit elastic`},
             'Balance of trade: exports − imports; balance of payments: all international transactions',
             'Protectionism: tariffs (import taxes), quotas (quantity limits), subsidies to domestic producers',
             'Free trade: no barriers; promotes efficiency and lower prices for consumers',
-          ]},
+          ], workedExample:`Comparative advantage: UK produces wheat at 2 hours/unit, cloth at 3 hours; Portugal: 1 hour, 1.5 hours
+Portugal has absolute advantage in both, but lower opportunity cost in cloth (1.5/1 < 2/3)
+UK has comparative advantage in wheat — both gain from specialisation and trade
+Free trade area (e.g. EU): eliminates tariffs between members, increases competition`},
           { title:'Exchange Rates', points:[
             'Exchange rate: price of one currency in terms of another',
             'Appreciation: currency becomes worth more → exports more expensive, imports cheaper',
             'Depreciation: currency worth less → exports cheaper (competitive), imports more expensive',
             'Fixed exchange rate: government/central bank maintains rate; floating: set by market forces',
             'Devaluation: deliberate reduction in fixed rate to make exports more competitive',
-          ]},
+          ], workedExample:`If £1=\$1.30 and price is £500:
+US dollar price = 500×1.30=\$650
+If pound depreciates to £1=\$1.10:
+US price = 500×1.10=\$550 (exports CHEAPER → more competitive)
+Imports more expensive → imported inflation
+J-curve effect: initially trade balance worsens after depreciation, then improves`},
         ], examTips:[
             'Always apply theory to the specific business in the question — do not write generic definitions alone',
             'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
@@ -7416,14 +7923,20 @@ PED = 20/20 = 1  → Unit elastic`},
             'Define externality clearly — "cost or benefit experienced by a third party who is not part of the transaction"',
             'Use a diagram when possible — show deadweight loss triangle to demonstrate market failure',
             'Evaluate government intervention: consider government failure as a counter-argument',
-          ]},
+          ], workedExample:`Public goods: non-excludable (cannot stop free riders) + non-rival (one person's use doesn't reduce availability)
+Examples: national defence, lighthouses, flood defences
+Free rider problem → market provides zero → government must provide
+Quasi-public: roads (excludable but rival at congestion); parks (non-excludable, non-rival until crowded)`},
           { title:'Government Intervention', points:[
             'Taxes (indirect): increase price → reduce consumption of negative externalities (e.g. carbon tax, cigarette tax)',
             'Subsidies: reduce price → increase consumption of positive externalities (e.g. healthcare, education)',
             'Price controls — maximum price (price ceiling): prevents price rising above set level → shortage',
             'Price controls — minimum price (price floor): prevents price falling below set level → surplus',
             'Regulation: rules that ban or limit harmful activities (e.g. emissions standards, minimum wage)',
-          ]},
+          ], workedExample:`Minimum wage set above equilibrium (£10.42/hr, above market rate £8):
+Labour supply > demand → unemployment = QS-QD
+Benefit: workers earn more; higher spending; reduces poverty
+Cost: employers cut jobs; especially affects small firms and youth employment`},
         ], examTips:[
             'Always use a diagram to support your explanation — clearly label axes, curves, and equilibrium points',
             'Evaluate both sides before reaching a conclusion — one-sided answers cap at lower mark bands',
@@ -7441,7 +7954,10 @@ PED = 20/20 = 1  → Unit elastic`},
             'Private limited company (Ltd): shareholders, limited liability, cannot sell shares publicly',
             'Public limited company (PLC): listed on stock exchange, large capital, but complex to manage',
             'Business objectives: profit maximisation, growth, market share, survival, social/ethical goals',
-          ]},
+          ], workedExample:`Sole trader: unlimited liability — personal assets at risk if business fails
+Limited company (Ltd): shareholders' liability limited to investment; needs 2+ directors
+PLC: can sell shares on stock exchange; greater access to capital but more regulation
+Business objectives may conflict: profit maximisation vs CSR vs employee welfare`},
           { title:'Costs, Revenue & Profit', points:[
             'Fixed costs: do not change with output (e.g. rent, insurance)',
             'Variable costs: change directly with output (e.g. raw materials, wages of casual staff)',
@@ -7488,7 +8004,10 @@ Positive externality (education): private MB < SMB → underproduction; solution
             'Supply: quantity firms willing and able to sell at each price — direct relationship with price',
             'Factors shifting supply: input costs, technology, taxes/subsidies, weather, number of producers',
             'Equilibrium: where demand = supply; excess demand → price rises; excess supply → price falls',
-          ]},
+          ], workedExample:`Equilibrium: Qd = Qs at P*
+Demand increases (shifts right) → new equilibrium: higher price AND higher quantity
+Supply decreases (shifts left) → higher price, lower quantity
+Price ceiling below equilibrium → excess demand (shortage); price floor above → excess supply`},
           { title:'Elasticity', points:[
             'PED = % ΔQd ÷ % ΔP; always negative (inverse relationship); ignore sign unless asked',
             'PED > 1: elastic demand (many substitutes, luxury goods); price rise → revenue falls',
@@ -7521,7 +8040,10 @@ Revenue unchanged: was $500, now 80×$6 = $480 → actually fell slightly — ch
             'Expansionary fiscal policy: cut taxes and/or increase spending → stimulate demand (used in recession)',
             'Contractionary: raise taxes, cut spending → reduce inflation (risk: slow growth)',
             'Monetary policy: Bank of England sets interest rates; lower rates → cheaper borrowing → more spending',
-          ]},
+          ], workedExample:`Phillips curve: inverse relationship between inflation and unemployment (short run)
+At 2% inflation: unemployment ~4-5%; At 0% inflation: unemployment ~6-7%
+Stagflation (1970s): both high inflation AND high unemployment — broke the simple Phillips curve
+Long run: vertical LRAS at natural rate of unemployment; monetary policy only causes inflation`},
           { title:'Market Failure & Intervention', points:[
             'Market failure: free market fails to allocate resources efficiently',
             'Negative externality: third-party bears cost (e.g. pollution from factory); overproduction results',
@@ -7531,7 +8053,10 @@ Revenue unchanged: was $500, now 80×$6 = $480 → actually fell slightly — ch
           ], examTips:[
             'Evaluation point: always consider government failure as a counter to any intervention policy',
             'Draw a diagram for externalities — show the divergence between private and social cost/benefit',
-          ]},
+          ], workedExample:`Negative externality: factory pollutes river (cost to society > private cost)
+Government response: tax equal to marginal external cost (Pigouvian tax) → internalise externality
+Public good: non-rival + non-excludable (e.g. national defence) → free rider problem → state provides
+Merit good: under-consumed if left to market (e.g. education) → government subsidises`},
         ], examTips:[
             'Always use a diagram to support your explanation — clearly label axes, curves, and equilibrium points',
             'Evaluate both sides before reaching a conclusion — one-sided answers cap at lower mark bands',
@@ -7546,7 +8071,10 @@ Revenue unchanged: was $500, now 80×$6 = $480 → actually fell slightly — ch
             'Free trade: no barriers; advantages: lower prices, greater choice, economies of scale',
             'Tariff: tax on imports → raises price → protects domestic producers but harms consumers',
             'Quota: limit on import quantity; subsidy to domestic producers reduces their costs vs foreign',
-          ]},
+          ], workedExample:`Tariff of 20% on imported steel: raises price from £100 to £120
+Domestic producers gain (higher price), consumers lose (pay more), government gains (tariff revenue)
+Deadweight loss: allocative inefficiency from restricting trade
+Quota: limits import quantity → same effects as tariff but no revenue for government`},
           { title:'Economic Development', points:[
             'HDI (Human Development Index): combines GDP per capita, life expectancy, education years',
             'Characteristics of developing economies: low income, high agriculture share, poor infrastructure, high inequality',
@@ -7556,7 +8084,10 @@ Revenue unchanged: was $500, now 80×$6 = $480 → actually fell slightly — ch
           ], examTips:[
             'Distinguish GDP per capita (average income) from HDI (multidimensional measure of development)',
             'Evaluate: for every benefit of free trade, consider who loses (e.g. domestic industries)',
-          ]},
+          ], workedExample:`HDI = composite of: life expectancy, education (mean/expected years of schooling), GNI per capita
+HDI >0.8 = very high (Norway 0.96); <0.55 = low (Chad 0.40)
+Lorenz curve: further from 45° line → more inequality; Gini coefficient: 0=perfect equality, 1=maximum
+Harrod-Domar: growth = savings rate / capital-output ratio; needs investment and aid`},
         ], examTips:[
             'Always use a diagram to support your explanation — clearly label axes, curves, and equilibrium points',
             'Evaluate both sides before reaching a conclusion — one-sided answers cap at lower mark bands',
@@ -7571,7 +8102,10 @@ Revenue unchanged: was $500, now 80×$6 = $480 → actually fell slightly — ch
             'Types of financial products: current accounts, savings accounts, ISAs, pension funds',
             'Interest rates on borrowing: APR (Annual Percentage Rate) — true cost of borrowing',
             'Insurance: pay premium to receive compensation if risk occurs; risk pooling',
-          ]},
+          ], workedExample:`Budget: income £2,000/month; rent £700, food £300, transport £150, leisure £200 → savings £650
+Interest calculation: 5% p.a. on £1,000 = £50 (simple); compound after 3 years: 1000×1.05³ = £1,157.63
+Mortgage: £200,000 at 3% over 25 years → monthly payment ≈ £948
+Insurance: premium vs excess trade-off; higher excess = lower premium`},
           { title:'Business Finance & Enterprise', points:[
             'Internal finance: retained profit, selling assets — no interest but limits investment',
             'External finance: bank loan (fixed repayment), overdraft (flexible), share issue, bonds',
@@ -7581,7 +8115,10 @@ Revenue unchanged: was $500, now 80×$6 = $480 → actually fell slightly — ch
           ], examTips:[
             'Cash flow vs profit — this distinction frequently appears in Edexcel exam questions',
             'For evaluate questions, weigh short-run vs long-run effects of financial decisions',
-          ]},
+          ], workedExample:`Break-even: Fixed costs = £10,000; selling price = £50; variable cost = £30
+Contribution per unit = £50−£30 = £20
+Break-even = £10,000 / £20 = 500 units
+Margin of safety = actual sales (600) − break-even (500) = 100 units`},
         ], examTips:[
             'Always use a diagram to support your explanation — clearly label axes, curves, and equilibrium points',
             'Evaluate both sides before reaching a conclusion — one-sided answers cap at lower mark bands',
@@ -7628,7 +8165,9 @@ Draw: S curve shifts left; new equilibrium at higher price, lower quantity`},
             'Revenue and PED: elastic demand → price cut raises revenue; inelastic → price rise raises revenue',
             'YED = % change in Qd ÷ % change in income; positive YED = normal good; negative = inferior good',
             'XED: positive = substitutes; negative = complements',
-          ]},
+          ], workedExample:`PED calculation: Price rises from $5 to $6 (+20%). Quantity falls from 100 to 80 (−20%)
+PED = −20 ÷ 20 = −1 (unit elastic)
+Revenue unchanged: was $500, now 80×$6 = $480 → actually fell slightly — check the math!`},
         ], commonMistakes:[
             'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
             'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
@@ -7643,14 +8182,20 @@ Draw: S curve shifts left; new equilibrium at higher price, lower quantity`},
           ], examTips:[
             'Oxford AQA evaluate questions: use "on the one hand... however... overall" structure with clear judgement',
             'Conflicts between objectives: reducing inflation may increase unemployment — policy conflict must be acknowledged',
-          ]},
+          ], workedExample:`GDP = C + I + G + (X−M) (expenditure approach)
+Real GDP adjusts for inflation: if nominal GDP = £2.1tn and price level +5%, real GDP = £2.0tn
+Economic growth: sustained rise in real GDP per capita
+Negative output gap: actual GDP < potential GDP → spare capacity, unemployment`},
           { title:'Government Policy', points:[
             'Fiscal policy: government spending and taxation; expansionary (cut taxes/raise spending), contractionary (opposite)',
             'Monetary policy: central bank controls interest rates; lower rates → cheaper borrowing → more spending',
             'Supply-side policy: improve productive capacity — deregulation, education/training, privatisation',
             'Trade-off: expansionary policy may cause inflation; contractionary may cause recession',
             'Government budget: surplus (tax > spending), deficit (spending > tax), national debt accumulates from deficits',
-          ]},
+          ], workedExample:`Expansionary fiscal policy: cut taxes + increase spending → AD shifts right → GDP rises, unemployment falls
+Risk: inflation if economy near full capacity; budget deficit increases
+Monetary policy: central bank cuts interest rates → cheaper borrowing → C and I rise → AD increases
+Supply-side: cut income tax → incentive to work; deregulation → lower business costs`},
         ], examTips:[
             'Always use a diagram to support your explanation — clearly label axes, curves, and equilibrium points',
             'Evaluate both sides before reaching a conclusion — one-sided answers cap at lower mark bands',
@@ -7668,7 +8213,10 @@ Draw: S curve shifts left; new equilibrium at higher price, lower quantity`},
             'Protectionism: tariffs, quotas, subsidies, embargoes — protect domestic jobs but raise prices',
             'Globalisation: increasing interdependence of world economies; driven by trade, FDI, migration',
             'Exchange rates: floating (determined by market), fixed (pegged to another currency)',
-          ]},
+          ], workedExample:`Comparative advantage: UK produces wheat at 2 hours/unit, cloth at 3 hours; Portugal: 1 hour, 1.5 hours
+Portugal has absolute advantage in both, but lower opportunity cost in cloth (1.5/1 < 2/3)
+UK has comparative advantage in wheat — both gain from specialisation and trade
+Free trade area (e.g. EU): eliminates tariffs between members, increases competition`},
           { title:'Development & Sustainability', points:[
             'HDI: life expectancy + education + income per capita — broader than GDP alone',
             'Sustainable development: meets present needs without compromising future generations',
@@ -7678,7 +8226,10 @@ Draw: S curve shifts left; new equilibrium at higher price, lower quantity`},
           ], examTips:[
             'Oxford AQA development questions: use specific data — country examples and statistics strengthen evaluation',
             'Evaluate aid critically: who provides it, what conditions attached, what evidence of impact?',
-          ]},
+          ], workedExample:`Brundtland definition: "development that meets the needs of the present without compromising the ability of future generations to meet their own needs"
+Sustainable Development Goals (SDGs): 17 goals by 2030; e.g. SDG 7 (clean energy), SDG 13 (climate action)
+Niger case study: HDI=0.394 (177/191); GDP per capita \$600; life expectancy 62; high birth rate
+Intervention: Oxfam water projects → reduced disease burden → children attend school more → education improves`},
         ], commonMistakes:[
             'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
             'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
@@ -7696,7 +8247,11 @@ Draw: S curve shifts left; new equilibrium at higher price, lower quantity`},
           ], commonMistakes:[
             'Saying government intervention always solves market failure — it can create inefficiencies too',
             'Confusing positive externality (benefit to third parties) with normal consumer benefit',
-          ]},
+          ], workedExample:`Carbon tax of £40/tonne CO₂:
+Raises cost of production for polluters → supply shifts left → price rises → consumption falls
+Tax = marginal external cost → internalises the externality
+Alternative: cap-and-trade → set total emissions cap, firms trade permits
+Evaluate: tax certain about price not quantity; permits certain about quantity not price`},
           { title:'International Trade & Exchange Rates', points:[
             'Comparative advantage: produce where opportunity cost is lower — basis for international trade',
             'Protectionism: tariffs, quotas, subsidies, embargoes — restrict imports to protect domestic industry',
@@ -7706,7 +8261,11 @@ Draw: S curve shifts left; new equilibrium at higher price, lower quantity`},
           ], examTips:[
             'Exchange rate effects: think of it from BOTH the exporter\'s AND importer\'s perspective',
             'Comparative advantage: even if one country is better at everything, both can gain from specialisation',
-          ]},
+          ], workedExample:`Comparative advantage: Country A makes 10 cars OR 20 tonnes wheat per worker.
+Country B makes 6 cars OR 15 tonnes wheat per worker.
+OC of car for A=2 wheat; for B=2.5 wheat → A has CA in cars
+OC of wheat for A=0.5 car; for B=0.4 car → B has CA in wheat
+Both gain from specialisation and trade`},
           { title:'Oxford AQA Economics Exam Technique', points:[
             'Oxford AQA: Paper 1 (Multiple choice + data response) and Paper 2 (extended writing)',
             'Data response: read the extract carefully — answers must use evidence from the data',
@@ -7716,7 +8275,10 @@ Draw: S curve shifts left; new equilibrium at higher price, lower quantity`},
           ], examTips:[
             'Diagrams in Oxford AQA: always show original and new equilibrium; label P₁, Q₁ and P₂, Q₂',
             'Evaluation: a conclusion that says "it depends on..." followed by conditions scores highest marks',
-          ]},
+          ], workedExample:`4-mark analysis question: define term → explain mechanism → use diagram → link to context
+8-mark evaluation: give two arguments for, two against, make a justified judgement
+Diagram tips: always label axes, show shift direction with arrows, mark new equilibrium P* and Q*
+Use chain of reasoning: if X → then Y because Z → therefore impact on economy`},
         ], commonMistakes:[
             'Drawing demand/supply shifts in the wrong direction — always ask "does this increase or decrease demand/supply?"',
             'Confusing movement along a curve (price change) with a shift of the curve (non-price factor change)',
@@ -7744,7 +8306,11 @@ Draw: S curve shifts left; new equilibrium at higher price, lower quantity`},
             'Inference: read between the lines — what is implied but not directly stated',
             'Always use PEE: Point → Evidence (quote) → Explanation of how it answers question',
             'Watch for "in your own words" — paraphrase carefully, do not copy text',
-          ]},
+          ], workedExample:`Inference question: "What does the writer imply about the character's feelings?"
+Step 1: find relevant quotation from text
+Step 2: state what is implied (not explicitly said)
+Step 3: explain the inference with evidence: "The phrase 'clenched fists' implies suppressed anger, suggesting..."
+AQA: inference = reading between the lines; always quote and explain`},
           { title:'Writer\'s Techniques & Language Analysis', points:[
             'Identify language techniques: simile, metaphor, personification, alliteration, onomatopoeia',
             'Simile: comparison using "like" or "as"; metaphor: direct comparison (says one thing IS another)',
@@ -7758,7 +8324,12 @@ Draw: S curve shifts left; new equilibrium at higher price, lower quantity`},
             'Connect points with connectives: furthermore, additionally, however, in contrast',
             'Check word limit — stay within the given range (usually 80–100 words)',
             'Start summary without restating the question — go straight into content',
-          ]},
+          ], workedExample:`Source passage describes flooding in a coastal town. Write a 100-word summary.
+Step 1: Identify 5-6 key points (cause, effects on people, damage, response, future risk)
+Step 2: Write in own words — do NOT copy phrases
+Step 3: Use linking words (Furthermore, However, As a result)
+Example opening: "Heavy rainfall and rising sea levels caused severe flooding in the coastal town, resulting in..."
+Key: One clear point per sentence; no opinions; stay within word limit.`},
         ], examTips:[
             'Embed short quotes inside your analysis sentence — do not block-quote then comment separately',
             'Use the technique → quote → effect structure: name the device, quote it, explain its impact on the reader',
@@ -7779,14 +8350,26 @@ Draw: S curve shifts left; new equilibrium at higher price, lower quantity`},
             'Match the PURPOSE: argue, persuade, inform, advise, describe — different linguistic techniques',
             'Use evidence from the Reading passage to support points in directed writing tasks',
             'Include clear structure: introduction, developed paragraphs, conclusion',
-          ]},
+          ], workedExample:`Write a letter to your school principal proposing a new recycling programme.
+Format: Date, address, Dear Mr/Ms [Name],
+Para 1: Purpose — "I am writing to propose..."
+Para 2: Problem (why recycling needed) with evidence
+Para 3: Your solution — specific, practical steps
+Para 4: Benefits and call to action
+Closing: Yours sincerely / Yours faithfully
+Register: Formal — avoid contractions and slang`},
           { title:'Narrative & Descriptive Writing', points:[
             'Narrative: include character, setting, plot arc (build tension → climax → resolution)',
             'Descriptive: focus on creating atmosphere — use ALL five senses',
             'Vary sentence structures: short for impact, long for detail and rhythm',
             'Use a range of vocabulary — avoid repetition; show don\'t tell',
             'Start with an engaging hook: in media res (action), dialogue, striking description or question',
-          ]},
+          ], workedExample:`Describe a market at dawn. Use all 5 senses.
+Sight: "Stalls draped in purple shadow slowly emerged as amber light crept between the buildings."
+Sound: "A distant cockerel crowed as metal poles clanged against cobblestones."
+Smell: "The sharp tang of fresh fish mingled with cinnamon and charcoal smoke."
+Touch: "The cold morning air bit at exposed fingers."
+Technique: Varied sentence length — short sentences for tension, long for atmosphere.`},
           { title:'Argumentative & Persuasive Writing', points:[
             'Argument: present both sides logically and reach reasoned conclusion (essay, article)',
             'Persuasion: one-sided — use rhetorical techniques to convince reader',
@@ -7836,21 +8419,32 @@ Direct address + statistic: "You may not know it, but research shows 41% of teen
           ], examTips:[
             'Vary sentence length: mix short punchy sentences with longer flowing ones for rhythm and effect',
             'Semicolons impress examiners — use to join two closely related independent clauses',
-          ]},
+          ], workedExample:`Comma splice error: "It was raining, we stayed inside."
+Fix: use semi-colon, conjunction, or two sentences: "It was raining; we stayed inside."
+Apostrophe: possession (the dog's lead = one dog; the dogs' lead = multiple dogs)
+Colon introduces: a list, an explanation, or a quotation
+Dash — used for parenthesis or emphasis — more informal than brackets`},
           { title:'Vocabulary & Style', points:[
             'Word classes: noun, verb, adjective, adverb, pronoun, preposition, conjunction, determiner',
             'Precise vocabulary: "sprinted" instead of "ran fast"; "ancient" instead of "very old"',
             'Register: formal (sophisticated vocabulary, complex syntax) vs informal (colloquial, contractions, simpler)',
             'Tone: objective (factual, impersonal), emotive (feelings-based), ironic (saying opposite of meaning)',
             'Figurative language: simile, metaphor, personification, hyperbole, oxymoron, pathetic fallacy',
-          ]},
+          ], workedExample:`Improve: "The man went quickly down the street and it was very hot."
+"Sprinted" instead of "went quickly"
+"Scorching" instead of "very hot"
+Revised: "The man sprinted down the shimmering street, the scorching midday sun driving sweat across his brow."
+Technique: Replace weak verbs/adjectives with precise, vivid alternatives. Use imagery.`},
           { title:'Spelling & Common Errors', points:[
             'Commonly confused: their/there/they\'re; your/you\'re; its/it\'s; effect/affect; practice/practise',
             'Double letters: necessary (1 c, 2 s), occurrence (2 c, 2 r), recommend (1 c, 2 m)',
             'Affect = verb (to affect); Effect = noun (the effect) — exception: "to effect change" (verb)',
             'Common mistakes: could of (should be "could have"); loose/lose; passed/past',
             'Homophones: where/wear/ware; hear/here; weather/whether; principal/principle',
-          ]},
+          ], workedExample:`Commonly misspelled: separate (not seperate), definitely (not definately), necessary (1 collar, 2 socks: neCeSSary)
+Their/there/they're: possession / place / they are
+Affect (verb) vs effect (noun): "the weather affected her mood; the effect was severe"
+Practice (noun) vs practise (verb): "I need practice; I must practise daily"`},
         ], examTips:[
             'Embed short quotes inside your analysis sentence — do not block-quote then comment separately',
             'Use the technique → quote → effect structure: name the device, quote it, explain its impact on the reader',
@@ -7878,14 +8472,20 @@ Direct address + statistic: "You may not know it, but research shows 41% of teen
             'Always refer to the text — use short direct quotes embedded into your analysis',
             '"Evaluate how effectively..." questions: judge success against stated purpose/audience',
             'Identify implicit (hidden/suggested) as well as explicit (directly stated) meanings',
-          ]},
+          ], workedExample:`Method: AQA reading question — use PETER: Point, Evidence, Technique, Effect, Reader
+Example: "The writer uses the metaphor 'life is a battlefield' to convey..."
+Effect: creates image of struggle/conflict → reader understands hardship
+Always comment on WHY the writer chose this technique (purpose)`},
           { title:'Comparing Texts', points:[
             'Compare: purpose, audience, tone, language choices, structure, viewpoint',
             'Use comparative language: "Both texts... However, while Text A uses... Text B instead..."',
             'Synthesis: find a common theme or argument that links both texts',
             'Quote from BOTH texts — don\'t focus on just one',
             'End with a clear evaluative judgement: which is more effective and why?',
-          ]},
+          ], workedExample:`Compare structure: Source A uses chronological narrative; Source B uses flashbacks for contrast
+Compare language: A uses formal register ("moreover"); B uses colloquialisms ("you know")
+Comparison connectives: similarly, in contrast, whereas, both writers, unlike A, B...
+AQA Q4: compare how writers present perspectives — always compare throughout, not A then B separately`},
         ], examTips:[
             'Embed short quotes inside your analysis sentence — do not block-quote then comment separately',
             'Use the technique → quote → effect structure: name the device, quote it, explain its impact on the reader',
@@ -7906,7 +8506,10 @@ Direct address + statistic: "You may not know it, but research shows 41% of teen
           ], examTips:[
             'Never repeat the question back as your opening sentence — start with your first point directly',
             'For longer responses, plan first: jot 4–5 points before writing',
-          ]},
+          ], workedExample:`Time management AQA Paper 1: Q1 (4 min), Q2 (8 min), Q3 (8 min), Q4 (20 min), Q5 (45 min)
+Read question before text — know what to look for
+Annotate: underline key quotations, note techniques as you read
+Never waste time re-reading whole text — find specific sections needed`},
           { title:'Writing Paper Strategy', points:[
             'Planning: spend 5 minutes planning structure — saves time and improves quality dramatically',
             'Opening paragraph: hook the reader immediately (question, bold statement, vivid image, statistic)',
@@ -7949,14 +8552,20 @@ Avoid: starting with "I am going to write about..." — too weak`, commonMistake
             'Q1 (4 marks): bullet-point style answers fine; use text\'s own words where appropriate',
             'Q2 (12 marks): analyse techniques + effect; avoid just listing techniques without explaining effect',
             'Q3 comparison (12 marks): use connectives — "Similarly...", "In contrast...", "Both writers..."',
-          ]},
+          ], workedExample:`Non-fiction features: rhetorical questions, statistics, personal anecdote, expert opinion, direct address (you)
+Analyse purpose: to persuade, to inform, to advise, to argue, to entertain
+Audience: formal language → educated adult; colloquial → younger reader
+Always identify the TEXT TYPE (article, letter, report, speech) and how it shapes language`},
           { title:'Analysing Language & Structure', points:[
             'Identify the technique → quote from text → explain its effect on the reader',
             'Vocabulary choices: connotations of specific words; formal vs informal register',
             'Rhetorical devices: direct address ("you"), rhetorical questions, rule of three (tripling)',
             'Structural features: opening and closing, paragraphing, sentence length variation',
             'Tone: authoritative, passionate, humorous, critical, nostalgic — identify and explain impact',
-          ]},
+          ], workedExample:`Language analysis: P.E.E. (Point, Evidence, Explanation)
+Structure: how does the text open and close? How are paragraphs sequenced?
+Sentence structure: short sentences = tension/urgency; long sentences = description/complexity
+Viewpoint shift: first person → third person; past tense → present tense (immediacy)`},
           { title:'Comparing Perspectives', points:[
             'Identify: what is each writer\'s perspective/attitude on the topic?',
             'Compare: where do they agree or differ? — use evidence from both texts',
@@ -7994,7 +8603,10 @@ Both writers acknowledge social media's power, but Writer A focuses on its harmf
           ], examTips:[
             'Always match register to audience: broadsheet = formal; teen magazine = conversational',
             'First 5 minutes: plan purpose, audience, form, key points — structure saves time and improves quality',
-          ]},
+          ], workedExample:`Letter: Dear Sir/Yours faithfully (unknown); Dear Mr Smith/Yours sincerely (known)
+Report: heading, subheadings, formal tone, no personal pronouns
+Speech: direct address (you), rhetorical devices, inclusive (we), signposting (firstly, finally)
+Article: headline, subheading, columns, drop capitals, quotation from expert`},
           { title:'Persuasive Writing Techniques', points:[
             'DAFOREST: Direct address, Alliteration, Facts/statistics, Opinion, Rhetorical question, Emotive language, Statistics, Tripling',
             'Counter-argument: acknowledge opposing view then refute it — shows sophistication',
@@ -8009,7 +8621,12 @@ Techniques used: direct address (you/imagine), tripling (regardless of postcode 
             'Description: atmosphere over plot; all five senses; varied sentence structures',
             '"Show don\'t tell": "His hands shook" not "He was nervous"',
             'Zoom technique: start wide (setting) → zoom in (detail) → zoom out (reflection/implication)',
-          ]},
+          ], workedExample:`Describe a market at dawn. Use all 5 senses.
+Sight: "Stalls draped in purple shadow slowly emerged as amber light crept between the buildings."
+Sound: "A distant cockerel crowed as metal poles clanged against cobblestones."
+Smell: "The sharp tang of fresh fish mingled with cinnamon and charcoal smoke."
+Touch: "The cold morning air bit at exposed fingers."
+Technique: Varied sentence length — short sentences for tension, long for atmosphere.`},
         ], examTips:[
             'Embed short quotes inside your analysis sentence — do not block-quote then comment separately',
             'Use the technique → quote → effect structure: name the device, quote it, explain its impact on the reader',
@@ -8027,7 +8644,10 @@ Techniques used: direct address (you/imagine), tripling (regardless of postcode 
             'Anthology: compare with named poem from studied list',
             'Always quote: embed short quotes within your sentences rather than block-quoting',
             'Analyse effect: "The metaphor of X suggests... creating a sense of..."',
-          ]},
+          ], workedExample:`AQA Paper 2 Q5: write from character's perspective or in response to theme
+Use evidence from text — embedded quotations (not just dropped in)
+Match register to task: if writing a diary, use first person, emotional language, informal
+Show understanding of social/historical context in extended responses`},
           { title:'Exam Technique for Edexcel English', points:[
             'Time management: Paper 1 = 1hr 30 mins total; give equal time to reading and writing sections',
             'Command words: identify (name it), explain (give reasons), analyse (technique + effect + why)',
@@ -8037,7 +8657,10 @@ Techniques used: direct address (you/imagine), tripling (regardless of postcode 
           ], examTips:[
             'Edexcel IGCSE English Language: examiners reward students who SHOW understanding through selection of precise quotes',
             'Grade 9 tip: go beyond technique-spotting to discuss how meaning is constructed and how it positions the reader',
-          ]},
+          ], workedExample:`Paper 1 (Fiction): 80 mins — 40 mins reading (Qs 1–4), 40 mins writing (Q5)
+Paper 2 (Non-fiction): 80 mins — 35 mins reading, 45 mins writing
+Key error: writing too much on Q1 (only 4 marks) — use remaining time on Q5
+Grade 9 writing: varied vocabulary, complex sentences, deliberate structural choices, consistent voice`},
         ], examTips:[
             'Embed short quotes inside your analysis sentence — do not block-quote then comment separately',
             'Use the technique → quote → effect structure: name the device, quote it, explain its impact on the reader',
@@ -8063,7 +8686,10 @@ Techniques used: direct address (you/imagine), tripling (regardless of postcode 
           ], examTips:[
             'Read questions before texts — know what you are looking for before you start reading',
             'AO2 questions: always identify technique → quote → explain effect — do not list techniques without analysis',
-          ]},
+          ], workedExample:`Paper 1: Reading (fiction, 40 marks) + Writing (40 marks) = 80 marks total
+Paper 2: Reading (non-fiction, 40 marks) + Writing (40 marks) = 80 marks total
+Timing: approximately 1 mark per minute is a useful guide
+All questions are compulsory — no choice. Read all prompts before starting.`},
           { title:'Language & Structure Analysis', points:[
             'Identify language technique (metaphor, simile, alliteration, personification, repetition)',
             'Explain the connotations of word choices — what does it suggest/imply to the reader?',
@@ -8073,7 +8699,10 @@ Techniques used: direct address (you/imagine), tripling (regardless of postcode 
           ], examTips:[
             'Do not just identify the technique — always explain the EFFECT: "This creates a sense of... for the reader"',
             'Higher marks: comment on WHY the writer might have chosen this technique given the context/purpose',
-          ]},
+          ], workedExample:`Structure zoom out → zoom in: writer opens with wide description then focuses on one detail
+Cyclical structure: ending returns to the opening image — sense of inevitability or resolution
+Contrast: light imagery in opening vs darkness in ending — shows character's decline
+Sentence variety: "She ran. And ran. And ran." Repetition + short sentences → breathless urgency`},
           { title:'Comparing Perspectives', points:[
             'Compare: purpose, audience, tone, language choices, structure, and viewpoint of two texts',
             'ABAB structure: alternate between texts rather than writing all about one then the other',
@@ -8083,7 +8712,10 @@ Techniques used: direct address (you/imagine), tripling (regardless of postcode 
           ], commonMistakes:[
             'Writing about both texts separately (AABB) instead of making direct comparisons (ABAB)',
             'Summarising what the texts say instead of analysing HOW the writers use language',
-          ]},
+          ], workedExample:`Compare question: How do both writers feel about social media?
+Writer A (article, 2020): Uses emotive language — "toxic wasteland of comparison" — suggests social media causes psychological harm. The metaphor of a "wasteland" implies barrenness and destruction.
+By contrast, Writer B (blog, 2022): Uses enthusiastic tone — "revolutionary tool for connection" — the adjective "revolutionary" presents social media as transformative and positive.
+Both writers acknowledge social media's power, but Writer A focuses on its harmful potential while Writer B emphasises its positive communal aspects.`},
         ], commonMistakes:[
             'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
             'Using vague praise: "this is effective" — always specify WHAT effect it creates and for WHOM',
@@ -8101,7 +8733,10 @@ Techniques used: direct address (you/imagine), tripling (regardless of postcode 
           ], examTips:[
             'Spend 5 minutes planning: identify 4–5 key points, order them logically before writing',
             'First and last paragraphs carry most impact — invest time in a strong opening hook and memorable ending',
-          ]},
+          ], workedExample:`Write an opening for a speech to Year 7 students about healthy eating.
+"Hands up if you had breakfast this morning. Now keep your hand up if it wasn't cereal from a box..."
+Techniques: rhetorical question (engages audience), second person "you", informal but structured.
+For formal report: No first person, evidence-based, sub-headings, passive voice.`},
           { title:'Creative & Descriptive Writing', points:[
             '"Show don\'t tell": use specific details, sensory language, and figurative devices rather than bland statements',
             'All five senses: sight, sound, smell, touch, taste — not all in every piece, but use where effective',
@@ -8121,7 +8756,10 @@ Techniques: personification (ship groaned), colour contrast (bruised, angry grey
           ], examTips:[
             'Oxford AQA: SPaG marks are separate — always proofread in the final 3 minutes',
             'Avoid starting every sentence with "I" — vary openings: "Although... Despite... This is why..."',
-          ]},
+          ], workedExample:`Rhetorical devices: Rule of three ("liberty, equality, fraternity"), anaphora ("We shall fight...")
+Counter-argument then refutation: "Some claim X; however, the evidence clearly shows Y"
+Ethos (credibility), Pathos (emotion), Logos (logic) — use all three for strongest argument
+Discourse markers signal argument structure: furthermore, nevertheless, consequently, in conclusion`},
         ], examTips:[
             'Embed short quotes inside your analysis sentence — do not block-quote then comment separately',
             'Use the technique → quote → effect structure: name the device, quote it, explain its impact on the reader',
@@ -8145,7 +8783,10 @@ Techniques: personification (ship groaned), colour contrast (bruised, angry grey
           ], commonMistakes:[
             'Spending too long on early questions and running out of time for high-mark writing tasks',
             'Offering personal opinion on topic content instead of analytical opinion on writer\'s technique',
-          ]},
+          ], workedExample:`Paper 1 Q4 (20 marks, AQA): spend 20 minutes; write 3–4 paragraphs
+Each paragraph: Point + Evidence + Analysis of language/structure + Effect on reader
+Q5 writing: plan in 5 minutes, write for 35 minutes, check for 5 minutes
+Common mistake: all narration, no technique — examiners reward deliberate craft choices`},
         ]},
       ], commonMistakes:[
             'Writing about what the text says (summary) instead of how the writer uses language (analysis)',
@@ -8176,21 +8817,31 @@ Techniques: personification (ship groaned), colour contrast (bruised, angry grey
           ], commonMistakes:[
             'Describing events without analysing cause and effect — always explain "why this mattered"',
             'Confusing the aims of the Big Three — remember Clemenceau was harshest (France suffered most)',
-          ]},
+          ], workedExample:`Big Three disagreements: Wilson (14 Points, lenient), Clemenceau (punish Germany), Lloyd George (middle ground)
+Germany's losses: 13% territory, 10% population, all colonies, Rhineland demilitarised
+War guilt clause (Article 231) → reparations £6.6 billion
+German reaction: "diktat" (dictated peace) — humiliation → resentment that Hitler exploited`},
           { title:'Rise of Hitler & the Nazi Party', points:[
             'Hitler joined DAP (later NSDAP) in 1919; became leader 1921; 25-Point programme',
             'Beer Hall Putsch 1923: failed coup → imprisoned → wrote Mein Kampf (political goals)',
             'Great Depression (1929): unemployment soared → Nazi support grew dramatically',
             'Reichstag Fire 1933 → Enabling Act → Hitler became dictator (Führer by 1934)',
             'Key appeal: scapegoating Jews/communists, promise of jobs, strong nationalist message',
-          ]},
+          ], workedExample:`1923 Munich Putsch fails → Hitler imprisoned → writes Mein Kampf
+1929 Wall Street Crash → mass unemployment → Nazi support surges
+1932: Nazis = largest party (37% of vote) but no majority
+January 1933: Hindenburg appoints Hitler Chancellor — conservatives believed they could control him`},
           { title:'Causes of World War II', points:[
             'Appeasement: Britain and France gave in to Hitler\'s demands hoping to avoid war',
             'Munich Agreement 1938: Sudetenland given to Germany — "peace for our time" (Chamberlain)',
             'Failure of collective security: League of Nations too weak (no USA, no army)',
             'Nazi-Soviet Pact 1939: Hitler and Stalin agreed non-aggression → Hitler free to invade Poland',
             'German invasion of Poland 1 Sept 1939 → Britain and France declared war 3 Sept 1939',
-          ]},
+          ], workedExample:`Long-term: Treaty of Versailles humiliated Germany (reparations £6.6bn, war guilt, loss of territory, army limited to 100,000)
+Rise of Hitler: exploited resentment; promised to reverse Versailles; 1933 Chancellor
+Appeasement: Munich Agreement 1938 — Chamberlain gave Hitler Sudetenland; hoped to avoid war
+Hitler saw appeasement as weakness; invaded Poland September 1939
+Soviet-Nazi Pact: Hitler secured eastern border before attacking west`},
         ], examTips:[
             'Use specific dates, names and statistics as evidence — vague statements lose marks',
             'Structure extended answers: argue → counter-argue → reach a supported judgement',
@@ -8211,14 +8862,22 @@ Techniques: personification (ship groaned), colour contrast (bruised, angry grey
             'Operation Barbarossa 1941: German invasion of USSR — turning point; enormous casualties',
             'Pearl Harbor Dec 1941: Japan attacked USA → America entered the war',
             'D-Day June 1944: Allied landings in Normandy → liberation of Western Europe',
-          ]},
+          ], workedExample:`Operation Barbarossa June 1941: Germany invaded USSR with 3 million troops (largest invasion in history)
+Battle of Stalingrad 1942-43: turning point — German 6th Army encircled; 330,000 Germans surrendered
+D-Day June 6 1944: Allied landings in Normandy; 156,000 troops; largest seaborne invasion ever
+Atom bombs: Hiroshima (6 Aug) and Nagasaki (9 Aug) 1945; Japan surrendered 15 Aug 1945
+Holocaust: 6 million Jews and 5-6 million others systematically murdered`},
           { title:'The Holocaust', points:[
             'Systematic murder of 6 million Jews and millions of others (Roma, disabled, political opponents)',
             'Nuremberg Laws 1935: stripped Jews of citizenship; increasing persecution throughout 1930s',
             'Kristallnacht 1938: "Night of Broken Glass" — organised attacks on Jewish businesses/synagogues',
             'Wannsee Conference 1942: "Final Solution" — planned systematic extermination in death camps',
             'Auschwitz-Birkenau: largest death camp; over 1.1 million killed, mostly Jews',
-          ]},
+          ], workedExample:`Escalation of persecution:
+1933: Jews banned from civil service jobs
+1935: Nuremberg Laws — Jews lose citizenship, marriage to non-Jews forbidden
+1938: Kristallnacht — synagogues burned, 30,000 arrested
+1941: Einsatzgruppen mass shootings begin; 1942: Wannsee Conference → "Final Solution" — systematic murder in death camps (Auschwitz)`},
         ], examTips:[
             'Use specific dates, names and statistics as evidence — vague statements lose marks',
             'Structure extended answers: argue → counter-argue → reach a supported judgement',
@@ -8239,7 +8898,10 @@ Techniques: personification (ship groaned), colour contrast (bruised, angry grey
             'Iron Curtain: Churchill\'s term for division of Europe into Western and Eastern blocs',
             'Truman Doctrine 1947: USA would support free peoples resisting communist takeover',
             'Marshall Plan 1947: $13 billion US aid to rebuild Western Europe — counter communism',
-          ]},
+          ], workedExample:`Yalta (Feb 1945): Poland to have free elections; Germany divided into 4 zones; USSR joins war against Japan
+Potsdam (July 1945): Truman replaces Roosevelt; atomic bomb tested; disagreement over Germany
+Iron Curtain speech (Churchill, 1946): warned of Soviet domination of Eastern Europe
+Truman Doctrine (1947): USA would support free peoples resisting subjugation → containment policy`},
           { title:'Key Cold War Crises', points:[
             'Berlin Blockade 1948–49: USSR blocked access → West responded with 11-month airlift',
             'Korean War 1950–53: UN (mainly US) fought North Korea (backed by China/USSR) — ended in stalemate',
@@ -8250,14 +8912,19 @@ Techniques: personification (ship groaned), colour contrast (bruised, angry grey
             'Cuban Missile Crisis: know all 13 days in sequence — reconnaissance photos → EXCOMM → blockade → resolution',
             'Compare crises: which was most dangerous? Use evidence (e.g. nuclear threat, military escalation)',
             'For "why did...end?" questions: identify multiple factors and weigh which was most significant',
-          ]},
+          ], workedExample:`Berlin Blockade (1948–49): USSR blocks all land routes to West Berlin; USA airlifts supplies for 11 months → Stalin backs down
+Korean War (1950–53): North (communist) invades South → USA/UN intervenes; armistice restores border at 38th parallel
+Cuban Missile Crisis (1962): US discovers Soviet missiles in Cuba; naval blockade; 13 days of tension; Khrushchev removes missiles, USA promises not to invade Cuba`},
           { title:'End of the Cold War', points:[
             'Gorbachev (USSR leader from 1985): glasnost (openness) and perestroika (restructuring)',
             'INF Treaty 1987: USA and USSR agreed to reduce nuclear weapons',
             'Fall of Berlin Wall November 1989 — symbol of Cold War division removed',
             'Eastern European countries broke free from Soviet control 1989–1991',
             'USSR dissolved December 1991 → Cold War ended; Russia became independent state',
-          ]},
+          ], workedExample:`"Gorbachev was the main reason the Cold War ended." How far do you agree?
+Agree: Glasnost/perestroika allowed dissent; refused to send tanks to Eastern Europe (unlike 1956/68); signed INF Treaty 1987; accepted German reunification
+Disagree: Reagan's defence spending (SDI) bankrupted USSR; Eastern European peoples demanded freedom; economic failure of Soviet system was structural not Gorbachev's fault
+Conclusion: Gorbachev was a necessary condition — without his restraint the Cold War could not have ended peacefully — but the underlying cause was the failure of the Soviet economic and political model`},
         ], examTips:[
             'Use specific dates, names and statistics as evidence — vague statements lose marks',
             'Structure extended answers: argue → counter-argue → reach a supported judgement',
@@ -8290,7 +8957,10 @@ Techniques: personification (ship groaned), colour contrast (bruised, angry grey
             'Purpose: why was it created? To inform, persuade, propaganda, personal record?',
             'Content: what does it actually say or show? Quote directly',
             'Reliability: is it trustworthy? Consider bias, one-sided views, vested interests',
-          ]},
+          ], workedExample:`Provenance = origin + purpose + author + date
+Useful because: contemporary evidence, written by eyewitness, reflects public mood
+Limitations: biased (propaganda), only one perspective, written for specific audience
+Utility question: consider both what the source SAYS and its NATURE/ORIGIN/PURPOSE`},
           { title:'Writing Historical Arguments', points:[
             'Causation: identify short-term, long-term and trigger causes; link them',
             'Significance: explain why an event matters — what changed because of it?',
@@ -8332,7 +9002,12 @@ Step 5 — Limitation: What does it not tell us? Is it biased?`},
           ], examTips:[
             'Edexcel asks "how much did medicine change?" — always compare periods explicitly',
             'Change vs continuity: Four Humours persisted from 400BC to 1800s — that\'s 2,000 years of continuity!',
-          ]},
+          ], workedExample:`Four Humours theory (Galen, 2nd century AD, still dominant in medieval period):
+Blood (air), Phlegm (water), Yellow bile (fire), Black bile (earth)
+Illness: imbalance of humours
+Treatment: bloodletting (restore balance), purging, herbal remedies
+Role of Church: God caused disease as punishment; prayer and pilgrimage as cure
+Why ideas persisted: Church controlled education and hospitals; Galen supported by Church; no scientific method`},
           { title:'Renaissance Medicine (c1500–c1700)', points:[
             'Vesalius (1543): "On the Fabric of the Human Body" — corrected 200+ of Galen\'s anatomy errors through dissection',
             'William Harvey (1628): proved blood circulates; heart is a pump — overturned Galen\'s theory',
@@ -8342,7 +9017,10 @@ Step 5 — Limitation: What does it not tell us? Is it biased?`},
           ], examTips:[
             'Individual genius (Vesalius, Harvey) vs structural factors (printing press, war) — exam loves this debate',
             'Vesalius needed princes\' help to get bodies for dissection — importance of patronage/government',
-          ]},
+          ], workedExample:`Vesalius (1543): dissected human bodies → proved Galen wrong about anatomy (e.g. jaw is one bone not two)
+Harvey (1628): proved blood circulates (heart pumps blood continuously) — disproved Galen's idea it was made in liver
+Paré: used ligatures to tie arteries instead of cauterisation — less painful, fewer deaths
+Still no understanding of germs — treatments still humoural and supernatural`},
           { title:'Industrial & Modern Medicine (c1700–present)', points:[
             'Jenner 1796: smallpox vaccine using cowpox — first vaccine; opposed by doctors and Church',
             'Germ Theory — Pasteur 1861: microbes cause fermentation → disease; Swan-neck flask experiment',
@@ -8373,7 +9051,10 @@ Conclusion: Science provides breakthroughs but government and communication fact
             'Buffalo: central to Plains Indian life — food, clothing, tools, fuel, religion; every part used',
             'Warfare: raids for horses/honour, not conquest; counted coup (touching enemy bravely = honour)',
             'Indian Territory: US government tried to confine tribes to reservations from 1830s onwards',
-          ]},
+          ], workedExample:`Nomadic lifestyle: followed buffalo herds; tipi — portable, practical
+Buffalo central to life: food, clothing, shelter, tools, fuel (dried dung)
+Tribal government: chiefs advised by warrior societies; decisions by consensus
+Land ownership: Great Plains = shared resource, not private property — clash with settlers`},
           { title:'Manifest Destiny & Migration', points:[
             'Manifest Destiny: belief that USA was destined to expand from Atlantic to Pacific',
             'Oregon Trail (1840s): 2,000 miles; pioneers faced disease, terrain, weather — thousands died',
@@ -8383,14 +9064,21 @@ Conclusion: Science provides breakthroughs but government and communication fact
           ], examTips:[
             'Explain WHY each factor caused conflict — not just what happened but why it led to clashes',
             'Cattle industry changed: open range → barbed wire (1874) → end of Long Drive — show this progression',
-          ]},
+          ], workedExample:`Manifest Destiny: belief that USA had God-given right to expand from Atlantic to Pacific coast
+"Go West, Young Man" (1865): homestead act gave 160 acres free to settlers
+Impact on Plains Indians: forced onto reservations; buffalo herds destroyed (200m → near-extinct by 1890)
+Gold Rush 1848: 300,000 migrants to California; statehood 1850
+Transcontinental Railroad 1869: connected East to West; enabled mass migration; displaced Native Americans`},
           { title:'Conflict on the Plains', points:[
             'Fort Laramie Treaties (1851, 1868): promised land to Sioux — broken by gold rush in Black Hills',
             'Battle of Little Bighorn 1876: Custer\'s 7th Cavalry wiped out by Sioux/Cheyenne under Crazy Horse',
             'Ghost Dance movement 1889: spiritual revival — US government feared uprising → Wounded Knee 1890',
             'Wounded Knee 1890: US cavalry killed ~250 Sioux including women and children — end of armed resistance',
             'Destruction of buffalo: 30 million → ~1,000 by 1890; deliberate US policy to destroy Indian way of life',
-          ]},
+          ], workedExample:`Homestead Act (1862): 160 acres free to settlers who farmed for 5 years → mass migration onto Plains
+Impact on Indians: settlers killed buffalo (for hides, railway clearance), broke up migration routes
+Fort Laramie Treaty (1851): defined tribal territories → broken when gold found in Black Hills (1874)
+Little Bighorn (1876): Sioux + Cheyenne defeat Custer → shocked US public → military retaliation → Indian resistance crushed by 1890`},
         ], examTips:[
             'Use specific dates, names and statistics as evidence — vague statements lose marks',
             'Structure extended answers: argue → counter-argue → reach a supported judgement',
@@ -8414,7 +9102,11 @@ Conclusion: Science provides breakthroughs but government and communication fact
           ], examTips:[
             'Weimar: always link problems back to the constitution — PR system made stable government almost impossible',
             'Great Depression (1929): US called in loans → German economy collapsed → mass unemployment → Nazi support soared',
-          ]},
+          ], workedExample:`1919: Spartacist uprising (communist) crushed by Freikorps
+1920: Kapp Putsch (right-wing) — workers' general strike defeats it
+1923: Ruhr crisis → hyperinflation (1 dollar = 4.2 trillion marks by Nov 1923)
+Stresemann era (1923–29): Dawes Plan, Locarno Pact, League of Nations membership → Weimar stabilises
+1929 crash → 6 million unemployed by 1932 → Weimar democracy collapses`},
           { title:'Nazi Germany 1933–1939', points:[
             'Nazi rise: 1928 = 2.6% vote; 1932 = 37.4%; Jan 1933 Hitler appointed Chancellor',
             'Consolidation: Reichstag Fire → Enabling Act → trade unions banned → Night of Long Knives 1934',
@@ -8442,7 +9134,10 @@ Conclusion: Both worked together — terror prevented open opposition; propagand
             'Marshall Plan 1947: $13bn US aid; USSR refused for Eastern Europe → divided Europe economically',
             'Berlin 1948–49: USSR blockade; West\'s 11-month airlift of 2.3 million tonnes — propaganda victory',
             'NATO 1949: Western military alliance; Warsaw Pact 1955: Soviet response',
-          ]},
+          ], workedExample:`Ideological conflict: USA (capitalism, democracy) vs USSR (communism, one-party state)
+WWII alliance of convenience — broke down over post-war Europe
+Marshall Plan (1947): $13bn US aid to rebuild Western Europe — Truman wanted stable democracies, not communist revolutions
+Cominform (1947): Stalin's response — coordinate communist parties in Eastern Europe → satellite states`},
           { title:'Escalation & Crises', points:[
             'Korean War 1950–53: UN (mainly USA) vs North Korea + China — ended in armistice at 38th parallel',
             'Hungarian Uprising 1956: Hungarians revolted → Soviet tanks crushed it; 200,000 fled; West did nothing',
@@ -8452,7 +9147,10 @@ Conclusion: Both worked together — terror prevented open opposition; propagand
           ], examTips:[
             'Edexcel Cold War: evaluate "who was most to blame" — evidence-based argument, not one-sided',
             'Détente 1970s: relaxation of tensions — SALT I (1972), Helsinki Accords (1975); then new Cold War 1979',
-          ]},
+          ], workedExample:`Berlin Wall (1961): built to stop East Germans fleeing West (2.6m fled 1949–61)
+Vietnam (1955–75): USA's containment strategy — fear of domino effect; 58,000 US deaths; ended in communist victory
+Détente (1970s): SALT I (1972), Helsinki Accords (1975) — superpower tension eased
+Afghanistan (1979): Soviet invasion → USA boycotts Moscow Olympics, funds mujahideen → "Soviet Vietnam"`},
           { title:'End of the Cold War', points:[
             'Reagan\'s "evil empire" speech 1983; SDI (Star Wars) programme — USSR couldn\'t compete economically',
             'Gorbachev (from 1985): glasnost + perestroika → unintended consequence: Eastern Europe revolted',
@@ -8488,7 +9186,10 @@ Conclusion: Gorbachev was a necessary condition — without his restraint the Co
           ], examTips:[
             'Oxford AQA History: for "How far do you agree?" questions, always reach a clear supported judgement in conclusion',
             'Describe three impacts of Versailles: territorial losses, military restrictions, economic reparations — then link each to later consequences',
-          ]},
+          ], workedExample:`Evaluate: Was the Treaty of Versailles fair to Germany?
+Evidence FOR harsh: War guilt clause (Article 231), £6.6bn reparations, loss of 13% territory.
+Evidence AGAINST (i.e., could be seen as lenient): Germany kept as one nation; no Allied occupation.
+Conclusion: The treaty was severe enough to anger Germans but not enough to prevent future war — contributing to WWII.`},
           { title:'Rise of Dictators & Appeasement', points:[
             'Hitler\'s foreign policy aims: reverse Versailles, unite all German speakers, Lebensraum (living space) in East',
             'Rearmament (1933–36): Germany secretly then openly rearmed — broke Versailles; Britain and France did not act',
@@ -8521,7 +9222,10 @@ Judgement: Appeasement was a significant cause but not the main one — the stru
           ], examTips:[
             'Oxford AQA WW2: explain why each event was significant — connect to the overall outcome of the war',
             'Turning points: Stalingrad, El Alamein, D-Day — be able to argue which was the most important',
-          ]},
+          ], workedExample:`Appeasement: Munich Agreement (1938) — Chamberlain gives Hitler Sudetenland in exchange for "peace in our time"
+Reasons for appeasement: fear of another war, sympathy for German grievances, USSR seen as greater threat
+September 1939: Germany invades Poland → Britain and France declare war
+Blitzkrieg: fast-moving combined arms (tanks + aircraft + infantry) → France falls in 6 weeks (1940)`},
           { title:'Cold War 1945–1991', points:[
             'Origins: ideological differences (capitalism vs communism); Yalta (Feb 1945) and Potsdam (July 1945) conferences revealed disagreements',
             'Iron Curtain speech (Churchill, 1946): Europe divided; Soviet satellite states in East',
@@ -8530,7 +9234,11 @@ Judgement: Appeasement was a significant cause but not the main one — the stru
             'Berlin Blockade/Airlift (1948–49): USSR blocked West Berlin; West flew in supplies; USSR backed down',
             'NATO (1949) vs Warsaw Pact (1955): military alliances cementing Cold War division',
             'Cuban Missile Crisis (1962): USSR placed missiles in Cuba; 13 days; resolved via secret deal — removal of missiles in Cuba and Turkey',
-          ]},
+          ], workedExample:`Truman Doctrine 1947: USA would support free nations against communist takeover (Greece, Turkey)
+Marshall Plan 1947: \$13bn to rebuild Western Europe; strategic — prosperous democracies less likely to turn communist
+Berlin Blockade 1948-49: USSR blocked road/rail access to West Berlin; USA/UK Berlin Airlift 322,000 flights
+Cuban Missile Crisis 1962: closest to nuclear war; resolved by USA removing missiles from Turkey + USSR from Cuba
+Detente 1970s: SALT treaties limited nuclear weapons`},
         ], commonMistakes:[
             'Describing events without analysing their significance or cause — always answer "so what?"',
             'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
@@ -8546,7 +9254,11 @@ Judgement: Appeasement was a significant cause but not the main one — the stru
             'Oxford AQA 16-mark essay: aim for intro (thesis) + 3 developed points (argument + counter) + conclusion (clear judgement)',
             'Do not just describe events — always analyse significance, cause, or consequence',
             'Provenance formula: The source is [useful/limited] because it was written by [X] in [context], which means [implication for reliability/value]',
-          ]},
+          ], workedExample:`Essay question: "How far was the Treaty of Versailles responsible for Hitler's rise to power?"
+Introduction: Briefly state your argument — "The Treaty created conditions that enabled Hitler's rise, though economic depression and weak government were equally important."
+Para structure: PEEL — Point, Evidence, Explain, Link back to question
+Conclusion: Weigh factors — use "However/Nevertheless/Ultimately"
+Avoid narrative: Analyse, don't just describe events.`},
         ], commonMistakes:[
             'Describing events without analysing their significance or cause — always answer "so what?"',
             'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
@@ -8564,7 +9276,10 @@ Judgement: Appeasement was a significant cause but not the main one — the stru
           ], commonMistakes:[
             'Saying the Cold War was a "real" war — it was ideological; no direct military conflict between superpowers',
             'Confusing Yalta and Potsdam — different leaders, different outcomes, different level of agreement',
-          ]},
+          ], workedExample:`Long Telegram (Kennan, 1946): USSR aggressive, expansionist → USA must contain it
+Novikov Telegram (Soviet, 1946): USA imperialist, seeks world domination
+Berlin Blockade (1948): USSR tests Western resolve → airlift succeeds → NATO formed (1949)
+China falls to communism (1949): Mao's revolution → US fears spreading communism`},
           { title:'Cold War Crises & Détente', points:[
             'Berlin Blockade 1948–49: USSR blockaded West Berlin; USA/UK responded with airlift for 11 months',
             'Korean War 1950–53: UN forces (mainly USA) vs North Korea (backed by China/USSR); ended in stalemate',
@@ -8574,7 +9289,12 @@ Judgement: Appeasement was a significant cause but not the main one — the stru
           ], examTips:[
             'Cuban Missile Crisis: explain WHY it was the most dangerous moment — nuclear weapons, 13-day countdown, miscommunication risk',
             'Détente causes: both sides exhausted by arms race; economic pressures; MAD doctrine made war too dangerous',
-          ]},
+          ], workedExample:`Bay of Pigs 1961: CIA-trained Cuban exiles invaded Cuba; failed embarrassingly; strengthened Castro and Soviet ties
+Cuban Missile Crisis 1962 resolution:
+- JFK: naval blockade ("quarantine"); ultimatum to Khrushchev
+- Khrushchev: agreed to remove missiles IF USA pledged not to invade Cuba
+- Secret deal: USA also removed Jupiter missiles from Turkey
+Detente: SALT I (1972) — cap on ICBMs and SLBMs; Helsinki Accords (1975) recognised European borders`},
           { title:'Oxford AQA History Paper Skills', points:[
             'Oxford AQA History: Paper 1 (breadth study) + Paper 2 (depth study); each 1 hour 30 minutes',
             'Source evaluation: consider origin, purpose, and context; evaluate usefulness for a specific enquiry',
@@ -8584,7 +9304,10 @@ Judgement: Appeasement was a significant cause but not the main one — the stru
           ], examTips:[
             'Source usefulness: do not just say "it was written at the time so it is useful" — explain what specific aspect it is useful for',
             'Significance criteria: remember GREAT — Groundbreaking, Remembered, Effect (impact), Affected (many people), Time (lasting change)',
-          ]},
+          ], workedExample:`Source analysis: OPVL (Origin, Purpose, Value, Limitation)
+Extended writing: argument → evidence → analysis → counter-argument → judgement
+Never just describe — always explain significance and make a judgement
+Causation: explain why causes are linked, not just list them; identify most important cause with justification`},
         ], commonMistakes:[
             'Describing events without analysing their significance or cause — always answer "so what?"',
             'Confusing dates or attributing actions to the wrong leader — double-check specific facts in revision',
@@ -8612,21 +9335,32 @@ Judgement: Appeasement was a significant cause but not the main one — the stru
             'Natural increase = birth rate − death rate (per 1000)',
             'Demographic Transition Model (DTM): 5 stages from high BR/DR → low BR/DR → declining population',
             'Population pyramids: wide base (high BR) = young population; narrow base = ageing population',
-          ]},
+          ], workedExample:`World population: 1800=1bn, 1927=2bn, 1999=6bn, 2023=8bn
+DTM Stage 2: birth rate high, death rate falls → rapid population growth (e.g. Ethiopia)
+Distribution: uneven — high density in river valleys (Nile, Ganges), coastal areas, temperate climates
+Sparse: deserts (Sahara), tundra, mountains — hostile physical environment`},
           { title:'Migration', points:[
             'Push factors: poverty, conflict, natural disaster, lack of jobs — reasons to leave',
             'Pull factors: better jobs, education, safety, higher standard of living — reasons to go',
             'Rural-urban migration: movement from countryside to city (urbanisation)',
             'International migration: between countries; can be economic, refugee, or family reasons',
             'Effects: brain drain from source country; remittances sent home; pressure on services in host',
-          ]},
+          ], workedExample:`Economic migration: Polish workers to UK after EU expansion 2004
+Estimated 600,000 Poles migrated to UK 2004-2008
+Benefits (host): fills labour gaps, skills, tax revenue, cultural diversity
+Costs (host): pressure on housing, schools, NHS; social tensions
+Benefits (source): remittances sent home (global remittances \$700bn/year), reduces unemployment
+Costs (source): brain drain; loss of young working population; dependency on remittances`},
           { title:'Settlement & Urbanisation', points:[
             'Site factors: why a settlement started (water supply, flat land, defence, resources)',
             'Situation: position relative to surrounding area (trade routes, other towns)',
             'Urban land use zones: CBD (centre), inner city, suburbs, rural-urban fringe',
             'Urbanisation: 55%+ of world population in cities; fastest in LICs (Low Income Countries)',
             'Problems in rapidly growing cities: squatter settlements, traffic, pollution, inadequate services',
-          ]},
+          ], workedExample:`Rural-urban migration causes: push (poverty, lack of services, natural disasters) + pull (jobs, education, hospitals)
+Urbanisation: % population living in cities increases; 2008 = first time more urban than rural globally
+Megacity: >10 million population (e.g. Tokyo 37m, Lagos 15m)
+Counterurbanisation: movement from cities to rural areas — cars, internet, lower house prices`},
         ], examTips:[
             'Name specific case study examples with dates and statistics — generic answers score lower marks',
             'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
@@ -8660,21 +9394,30 @@ Judgement: Appeasement was a significant cause but not the main one — the stru
           ], commonMistakes:[
             'Saying plates "float" on lava — they move on semi-solid mantle (asthenosphere), not liquid lava',
             'Confusing magnitude (size of earthquake) with intensity (damage caused)',
-          ]},
+          ], workedExample:`Destructive plate boundary: oceanic (dense) subducts under continental → trench + volcanoes + earthquakes
+Constructive: plates move apart → magma fills gap → new crust (mid-Atlantic Ridge)
+Conservative: plates slide past each other → no crust created/destroyed → earthquakes (San Andreas fault)
+Evidence for Plate Tectonics: matching coastlines, same fossils on different continents, seafloor spreading`},
           { title:'Rivers & Coasts', points:[
             'River processes: erosion (hydraulic action, abrasion, attrition, solution), transport, deposition',
             'Upper course: steep, V-shaped valley, rapids, waterfalls',
             'Lower course: wide floodplain, meanders, oxbow lakes, levees, deltas',
             'Coastal erosion: wave-cut platform, caves, arches, stacks, stumps',
             'Coastal deposition: beaches, spits, bars, tombolos; longshore drift moves material',
-          ]},
+          ], workedExample:`River long profile: source (steep, high energy) → middle (meanders form) → mouth (wide, depositing)
+Meander formation: fastest flow on outside (erosion → river cliff) → slowest inside (deposition → slip-off slope)
+Coastal erosion processes: hydraulic action, abrasion, attrition, solution
+Longshore drift: waves approach at angle → swash up beach at angle, backwash straight down → net movement of sediment`},
           { title:'Weather & Climate', points:[
             'Weather: short-term atmospheric conditions; climate: average weather over 30+ years',
             'Tropical rainforest climate: hot and wet all year (~27°C, 2000mm+ rainfall); equatorial belt',
             'Hot desert: very hot days, cold nights, <250mm rainfall; 15–30° north/south of equator',
             'Deforestation: reduces rainfall, increases flooding, destroys biodiversity, releases CO₂',
             'Climate change: rising CO₂ → enhanced greenhouse effect → global warming → sea level rise',
-          ]},
+          ], workedExample:`Depressions (low pressure): warm and cold fronts, cloud and rain, lower pressure, winds blow inward anticlockwise (N hemisphere)
+Anticyclones (high pressure): clear skies, light winds, dry — hot in summer, cold and foggy in winter
+Relief rainfall: moist air forced over mountains → cools → condenses → rain on windward side → rain shadow leeward
+ITCZ: belt of low pressure, heavy rainfall near equator → tropical rainforest climate`},
         ], examTips:[
             'Name specific case study examples with dates and statistics — generic answers score lower marks',
             'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
@@ -8695,14 +9438,21 @@ Judgement: Appeasement was a significant cause but not the main one — the stru
             'HDI (Human Development Index): combines income, education (literacy) and life expectancy',
             'LICs (Low Income Countries) vs HICs (High Income Countries) — development gap',
             'Causes of inequality: history (colonialism), geography (landlocked), governance, natural resources',
-          ]},
+          ], workedExample:`GNI per capita: total income of country's residents divided by population
+Limitations of GNI: ignores inequality (Gini), doesn't measure quality of life, PPP needed for comparison
+HDI: combines health (life expectancy), education, standard of living
+Rostow's model: 5 stages traditional → take-off → mass consumption (linear, controversial)`},
           { title:'Industry & Globalisation', points:[
             'Primary: extraction (farming, mining); Secondary: manufacturing; Tertiary: services; Quaternary: IT/research',
             'NICs (Newly Industrialised Countries): rapid manufacturing growth (e.g. China, India, Brazil)',
             'TNCs (Transnational Corporations): operate in many countries; exploit cheap labour in LICs',
             'Globalisation: world more interconnected through trade, technology, migration',
             'Tourism: major income source for LICs; but leakage (money leaves country), cultural damage',
-          ]},
+          ], workedExample:`Deindustrialisation in UK:
+1960s: steel, coal, shipbuilding dominant; 1980s: declined due to cheaper overseas competition
+Service sector grew: financial services (London), healthcare, education
+MNC location decisions: labour costs, skills, infrastructure, market access, tax incentives
+TNCs (transnational corporations): production in multiple countries; e.g. Apple designs in USA, manufactures in China, sells globally`},
         ], examTips:[
             'Name specific case study examples with dates and statistics — generic answers score lower marks',
             'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
@@ -8723,7 +9473,11 @@ Judgement: Appeasement was a significant cause but not the main one — the stru
             'Compass directions: N, NE, E, SE, S, SW, W, NW — 8-point compass',
             'Scale: ratio (1:25000 means 1cm = 250m) and line scale',
             'Choropleth maps: shading shows data; disproportion maps (cartograms) show variable by area size',
-          ]},
+          ], workedExample:`OS map: 1:50,000 scale. 2cm on map = 1km on ground.
+Grid reference: 6-figure. Easting first, then northing (always "along the corridor then up the stairs")
+Contour lines: closer together = steeper slope; concentric circles = hill; V-shape pointing upstream = valley
+Chloropleth map: darker shade = higher value; shows spatial distribution
+Dot distribution map: each dot = fixed number of items; shows clustering`},
           { title:'Graph Types & Statistics', points:[
             'Bar charts: discrete categories; line graphs: change over time; pie charts: proportions of whole',
             'Scatter graphs: relationship between two variables; line of best fit shows correlation',
@@ -8733,7 +9487,9 @@ Judgement: Appeasement was a significant cause but not the main one — the stru
           ], examTips:[
             '6-figure grid references: first 3 digits = easting (along bottom), last 3 = northing (up side)',
             'When describing a map pattern: name areas, give compass direction, use data if possible',
-          ]},
+          ], workedExample:`Box plot: min=12, Q1=18, median=24, Q3=32, max=45.
+IQR=32-18=14. Outlier fence: Q3+1.5×IQR=32+21=53 (none here)
+Normal distribution: 68% within 1σ, 95% within 2σ, 99.7% within 3σ`},
         ], examTips:[
             'Name specific case study examples with dates and statistics — generic answers score lower marks',
             'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
@@ -8751,21 +9507,32 @@ Judgement: Appeasement was a significant cause but not the main one — the stru
           ], examTips:[
             'Distinguish natural vs human causes — examiners want both in "discuss causes" questions',
             'Always use data/statistics when available — "temperatures have risen by 1.1°C since 1880"',
-          ]},
+          ], workedExample:`Evidence for climate change:
+Instrumental records: global average temperature +1.1°C since 1850
+Ice cores: CO₂ and temperature correlated over 800,000 years
+Sea level rise: 20cm rise since 1900 (thermal expansion + ice melt)
+Phenological changes: earlier spring flowering (3-4 weeks earlier)
+Attribution: IPCC "unequivocal" that human influence is main cause`},
           { title:'Impacts & Responses to Climate Change', points:[
             'Sea level rise: thermal expansion of water + melting ice → flooding of low-lying areas (e.g. Maldives, Bangladesh)',
             'Ecosystem disruption: coral bleaching (>1°C above normal), species migration/extinction, changed seasons',
             'Agriculture: some regions benefit (longer growing season) but drought/flooding reduces yields overall',
             'Mitigation: reduce emissions — renewable energy, electric vehicles, carbon taxes, reforestation',
             'Adaptation: deal with effects — flood defences, drought-resistant crops, managed retreat from coasts',
-          ]},
+          ], workedExample:`Evidence: rising temperatures (+1.1°C since pre-industrial), retreating glaciers, rising sea levels (+20cm since 1900)
+Mitigation: reduce emissions (renewables, efficiency, carbon capture), international agreements (Paris 2015, limit to 1.5°C)
+Adaptation: sea walls, drought-resistant crops, managed retreat, flood-resilient buildings
+Maldives: 1.2m above sea level → existential threat from sea level rise`},
           { title:'Water Resources & Management', points:[
             'Water stress: regions where demand > available supply; worsened by population growth and climate change',
             'Uneven distribution: monsoon regions flood/drought; arid regions face chronic scarcity',
             'Dams: store water, generate HEP, aid irrigation — but displace communities, alter ecosystems',
             'Groundwater depletion: over-extraction of aquifers (e.g. Ogallala aquifer, USA) — non-renewable',
             'Solutions: water recycling/grey water, desalination, drip irrigation, demand management',
-          ]},
+          ], workedExample:`Water stress: <1,700 m³ per person per year (e.g. India 1,500 m³)
+Physical scarcity: not enough water (deserts); economic scarcity: water available but can't access it (poverty)
+Water transfer: China's South-North Water Diversion (longest in world, 1,277 km)
+Sustainable management: drip irrigation, grey water recycling, desalination, demand management`},
         ], examTips:[
             'Name specific case study examples with dates and statistics — generic answers score lower marks',
             'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
@@ -8800,7 +9567,10 @@ Judgement: Appeasement was a significant cause but not the main one — the stru
           ], examTips:[
             'Exam tip: always spell out the full name of erosion processes — "hydraulic action" not just "water pressure"',
             'River cross-section: draw and label channel width + depth + bedload to show how river changes downstream',
-          ]},
+          ], workedExample:`Erosion: hydraulic action (force of water), abrasion (material scrapes bed), attrition (particles collide + round), solution (minerals dissolved)
+Transportation: traction (rolling), saltation (bouncing), suspension (carried), solution (dissolved)
+Deposition: when river loses energy — wider valley floor, shallow gradient, increased load
+Hjulstrom curve: shows velocity needed to erode, transport, deposit particles of different sizes`},
           { title:'Landforms & Flooding', points:[
             'Waterfall: hard rock over soft rock → differential erosion → plunge pool → recession upstream',
             'Meander: fastest flow on outside (erosion → river cliff) → slip-off slope on inside (deposition)',
@@ -8828,7 +9598,11 @@ Evaluation: hard engineering more effective short-term but expensive; soft engin
             'Longshore drift: waves approach at angle → swash moves sediment diagonally → backwash straight back → net movement along coast',
             'Deposition: beaches, spits, bars — sediment deposited when wave energy decreases',
             'Sea level change: eustatic (global sea level — melting ice); isostatic (land rising/sinking — UK still rising in Scotland after Ice Age)',
-          ]},
+          ], workedExample:`Erosion: hydraulic action (wave pressure in cracks), abrasion, attrition, corrosion (chemical)
+Wave-cut platform: cliff retreats, platform left behind by erosion
+Fetch: distance over which wind blows over sea → longer fetch = more powerful waves
+Constructive waves: low frequency, gentle slope, strong swash → build beaches
+Destructive waves: high frequency, steep, strong backwash → erode beaches`},
           { title:'Coastal Landforms & Management', points:[
             'Headland & bay: differential erosion — hard rock → headland; soft rock → bay',
             'Cave → arch → stack → stump: progressive erosion of headland',
@@ -8838,7 +9612,10 @@ Evaluation: hard engineering more effective short-term but expensive; soft engin
           ], examTips:[
             'Evaluate management: cost vs effectiveness vs environmental impact — examiners want balance',
             'Holderness Coast (UK): fastest eroding coast in Europe — 2m/year; case study for erosion management',
-          ]},
+          ], workedExample:`Headland and bay: hard rock resists erosion → headland; soft rock erodes faster → bay
+Cave → arch → stack → stump (progressive erosion)
+Spit: longshore drift deposits material beyond a headland → hook shape if winds change
+Hard engineering: sea walls (£6000/m), groynes; soft: beach nourishment, managed retreat`},
         ], examTips:[
             'Name specific case study examples with dates and statistics — generic answers score lower marks',
             'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
@@ -8853,7 +9630,10 @@ Evaluation: hard engineering more effective short-term but expensive; soft engin
             'Pull factors: jobs, better services, education, infrastructure → attracted to cities',
             'Megacities: cities with >10 million people — Mumbai, Lagos, Cairo, São Paulo',
             'Urban land use: CBD (central business district) → inner city → suburbs → rural-urban fringe',
-          ]},
+          ], workedExample:`Global south: rapid urbanisation — migration + natural increase
+Squatter settlements (favelas, slums): lack clean water, sanitation, tenure security
+Dharavi, Mumbai: 600,000 people in 2.1 km²; economy worth £600m/year (informal sector thriving)
+NEE urbanisation: China — 100 cities over 1 million; rural-urban migration controlled by hukou system`},
           { title:'Urban Issues & Solutions', points:[
             'HICs: counter-urbanisation (people leave cities for countryside), urban regeneration needed in declining areas',
             'LICs: rapid growth → squatter settlements (informal housing) — lack clean water, sanitation, legal tenure',
@@ -8863,7 +9643,10 @@ Evaluation: hard engineering more effective short-term but expensive; soft engin
           ], examTips:[
             'Always use named case studies — Dharavi (Mumbai) for squatter settlements, Canary Wharf for HIC regeneration',
             'Sustainability question: consider social, economic, and environmental dimensions of any urban strategy',
-          ]},
+          ], workedExample:`Traffic congestion: London congestion charge (2003) reduced traffic by 30% in zone
+Urban sprawl: loss of greenfield land — greenbelts limit sprawl
+Urban regeneration: London Docklands (LDDC) — private investment, new housing, Canary Wharf
+Sustainable cities: Curitiba, Brazil — BRT system, recycling, green spaces, social housing`},
         ], examTips:[
             'Name specific case study examples with dates and statistics — generic answers score lower marks',
             'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
@@ -8878,7 +9661,10 @@ Evaluation: hard engineering more effective short-term but expensive; soft engin
             'Causes of inequality: colonialism, trade rules, corruption, landlocked location, climate, natural hazards',
             'Aid types: bilateral (country-to-country), multilateral (IMF/World Bank), NGOs (Oxfam, CARE)',
             'Trade vs aid debate: trade allows self-sufficiency; aid can create dependency but addresses emergencies',
-          ]},
+          ], workedExample:`Core-periphery model (Wallerstein): developed core exploits developing periphery
+Dependency theory: colonialism left LICs dependent on HICs for trade and aid
+Rostow's modernisation theory: all countries follow same path to development
+Trade vs aid debate: "trade not aid" — fair trade empowers producers; aid can create dependency`},
           { title:'Tourism & Development', points:[
             'Tourism: world\'s largest industry; contributes ~10% of global GDP',
             'Ecotourism: low-impact, environmentally and culturally sensitive tourism — sustainable alternative',
@@ -8888,7 +9674,10 @@ Evaluation: hard engineering more effective short-term but expensive; soft engin
           ], examTips:[
             'Development question: always use data to support — "GNI per capita in Nigeria is $2,160 vs $47,000 in UK"',
             'Evaluate tourism: who benefits most? Local communities or multinational hotel chains? Consider leakage',
-          ]},
+          ], workedExample:`Mass tourism: economic multiplier effect — tourist spending → local jobs → wages spent locally
+Leakage: money leaves country (foreign-owned hotels, imported food) — can exceed 80% in some LICs
+Ecotourism: small-scale, sustainable, benefits local communities, conserves environment
+Butrint, Albania: UNESCO site, managed to balance conservation and tourism revenue`},
         ], examTips:[
             'Name specific case study examples with dates and statistics — generic answers score lower marks',
             'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
@@ -8935,7 +9724,10 @@ Same hazard; very different outcomes due to development level`},
             'Climate change evidence: rising sea levels, melting ice caps, more frequent extreme weather events',
             'Causes: greenhouse effect enhanced by CO₂, CH₄ — from fossil fuels, farming, deforestation',
             'Impacts: flooding in low-lying areas, drought in semi-arid regions, coral bleaching, species migration',
-          ]},
+          ], workedExample:`Tropical rainforest: near equator, 2000mm+ rain, 25–28°C all year, nutrient cycle rapid
+Nutrient cycle: decomposers break down litter rapidly → nutrients absorbed quickly by shallow roots
+Deforestation impact: disrupts water cycle (less transpiration → less rain), soil erosion, loss of biodiversity
+Hot desert: <250mm rain/year, extreme temperatures; cacti store water, camels conserve water in fat hump`},
         ], examTips:[
             'Name specific case study examples with dates and statistics — generic answers score lower marks',
             'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
@@ -8957,14 +9749,20 @@ Same hazard; very different outcomes due to development level`},
           ], examTips:[
             'Describe AND explain: not just what is happening, but WHY — get both description and cause',
             'Urban management: sustainable strategies — public transport, green spaces, waste recycling, renewable energy',
-          ]},
+          ], workedExample:`Push factors from rural: lack of jobs, poor schools/hospitals, natural disasters
+Pull to cities: employment, services, social opportunities
+Urban problems: overcrowding, pollution, traffic, lack of affordable housing, crime
+Solutions: investment in public transport, social housing programmes, creating satellite towns`},
           { title:'Population & Resources', points:[
             'Population growth: birth rate − death rate = natural increase; also affected by migration',
             'Demographic transition model: stage 1 (high BR, high DR), stage 2 (DR falls), stage 3 (BR falls), stage 4 (low BR, low DR)',
             'Ageing population: more elderly → increased healthcare/pension costs; fewer workers; some HICs',
             'Food security: enough nutritious food for all; threatened by population growth, climate change, water shortage',
             'Water cycle: evaporation → condensation → precipitation → run-off/infiltration → evaporation',
-          ]},
+          ], workedExample:`Malthus (1798): population grows geometrically, food arithmetically → inevitable famine
+Boserup: population pressure drives innovation → increased food production (refutes Malthus)
+Carrying capacity: max population environment can sustain sustainably
+Ageing population (Japan): 28% over 65 → pension costs rise, worker-to-retiree ratio falls → immigration needed`},
         ], examTips:[
             'Name specific case study examples with dates and statistics — generic answers score lower marks',
             'Use geographical terminology: relief, precipitation, urbanisation, deforestation — not everyday words',
@@ -8985,7 +9783,11 @@ Same hazard; very different outcomes due to development level`},
           ], examTips:[
             'Graph description: state the overall trend, quote specific figures, identify anomalies',
             'Map question: use compass directions and grid references to precisely locate features',
-          ]},
+          ], workedExample:`OS map: 1:50,000 scale. 2cm on map = 1km on ground.
+Grid reference: 6-figure. Easting first, then northing (always "along the corridor then up the stairs")
+Contour lines: closer together = steeper slope; concentric circles = hill; V-shape pointing upstream = valley
+Chloropleth map: darker shade = higher value; shows spatial distribution
+Dot distribution map: each dot = fixed number of items; shows clustering`},
           { title:'Fieldwork & Investigation', points:[
             'Oxford AQA: students complete fieldwork; may be assessed on methodology and analysis',
             'Primary data: collected by researcher (surveys, measurements, observations)',
@@ -8995,7 +9797,12 @@ Same hazard; very different outcomes due to development level`},
           ], examTips:[
             'Fieldwork questions: explain WHY you chose each method, not just what you did',
             'Data presentation: justify your choice — "I used a scatter graph because I was investigating correlation between X and Y"',
-          ]},
+          ], workedExample:`River fieldwork: measure discharge = width × depth × velocity
+Width: tape measure across channel
+Depth: depth gauge at regular intervals; average of readings
+Velocity: float method (time for float over 10m) or flow meter
+Hypothesis: "velocity increases downstream" — test at 3 sites
+Processing data: Spearman's rank correlation coefficient; r=+0.86 suggests strong positive correlation`},
         ], commonMistakes:[
             'Giving generic answers without case study evidence — always name a specific place with supporting data',
             'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
@@ -9007,7 +9814,11 @@ Same hazard; very different outcomes due to development level`},
             'Natural hazards: earthquakes (tectonic plate boundaries), volcanoes, tropical storms, floods',
             'Responses to climate change: mitigation (reduce emissions — renewables, efficiency, afforestation) vs adaptation (sea walls, drought-resistant crops)',
             'Sustainable development: development that meets present needs without compromising future generations (Brundtland definition)',
-          ], examTips:[
+          ], workedExample:`Tropical storm Katrina (2005) case study:
+Cause: warm Gulf of Mexico water (>26°C) → evaporation → low pressure → spiral storm system
+Effects: 1,800 deaths, $125bn damage, New Orleans flooded (levees failed)
+Responses: immediate (evacuation, emergency shelter); long-term (rebuild levees, improve early warning systems)
+Climate change link: warmer oceans → more intense storms; sea level rise increases flood risk from storm surges`, examTips:[
             'Climate change: distinguish between CAUSE (greenhouse gases), EFFECT (temperature rise, sea level rise), and RESPONSE (mitigation/adaptation)',
             'Natural hazard questions: always link type of hazard to appropriate management strategy',
           ], commonMistakes:[
@@ -9023,7 +9834,10 @@ Same hazard; very different outcomes due to development level`},
           ], examTips:[
             'Push-pull migration: always give both push AND pull factors for full marks; relate to specific example countries',
             'Development indicators: explain WHY HDI is better than GDP alone (includes health and education)',
-          ]},
+          ], workedExample:`Informal sector: unregistered, untaxed businesses (street vendors, waste pickers)
+Dharavi, Mumbai: informal leather, recycling, pottery industries → $665m economy
+As countries develop: formal sector grows, urbanisation slows, suburbanisation begins
+Gentrification: wealthier residents displace poorer in regenerated urban areas → social issues`},
           { title:'Oxford AQA Geography Exam Technique', points:[
             'Oxford AQA Geography: Paper 1 (Living with the Physical Environment) + Paper 2 (Challenges in the Human Environment)',
             'Command words: describe (what? where?), explain (why? how?), assess/evaluate (weigh up evidence for judgement)',
@@ -9033,7 +9847,10 @@ Same hazard; very different outcomes due to development level`},
           ], examTips:[
             'Named examples (case studies): use specific place names, dates, statistics — vague answers score lower marks',
             'Describe distribution on a map: reference compass directions, specific locations, patterns (clustered/dispersed)',
-          ]},
+          ], workedExample:`6-mark question: AQA command words — evaluate (weigh up), assess (consider value), explain (give reasons)
+Case study answer: name + location + specific data + evaluate effectiveness
+9-mark question: structured essay — introduction, 3 developed points, conclusion with overall judgement
+Use geographical terminology: attrition, carbonation, eutrophication, multiplier effect, leakage`},
         ], commonMistakes:[
             'Giving generic answers without case study evidence — always name a specific place with supporting data',
             'Confusing push factors (reasons to leave) and pull factors (reasons to move somewhere)',
@@ -9066,14 +9883,20 @@ UK footprint: ~4.4 global hectares/person; world average: 2.8; available: 1.7 �
             'Partnership: 2–20 partners; shared responsibility; partnership agreement important',
             'Private limited company (Ltd): shareholders; limited liability; cannot sell shares publicly',
             'Public limited company (Plc): shares on stock exchange; large capital; more regulation',
-          ]},
+          ], workedExample:`Sole trader advantages: owner keeps all profit, easy to set up, flexible decisions
+Disadvantages: unlimited liability, hard to raise capital, relies on one person
+Partnership: 2–20 partners, shared expertise and capital, but unlimited liability and disagreements
+Company (Ltd/PLC): limited liability → risk reduced; easier to raise capital through share issue`},
           { title:'Business Objectives & Stakeholders', points:[
             'Profit = total revenue − total costs; survival (new businesses), growth, market share',
             'Stakeholders: anyone affected by the business — shareholders, employees, customers, community',
             'Shareholder vs stakeholder conflict: e.g. shareholders want high profit; employees want high wages',
             'CSR (Corporate Social Responsibility): business considers impact on society and environment',
             'Social enterprise: business with mainly social/environmental objectives',
-          ]},
+          ], workedExample:`Stakeholder conflict example: shareholders want profit maximisation → cut worker wages → employees unhappy
+Short-term vs long-term objectives: cutting prices boosts sales now but harms profit margin long-term
+Objectives by stage: start-up → survival; established → profit; large → market share or growth
+Social enterprise: primary objective is social impact (e.g. environmental charity), not profit`},
         ], examTips:[
             'Always apply theory to the specific business in the question — do not write generic definitions alone',
             'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
@@ -9098,14 +9921,20 @@ UK footprint: ~4.4 global hectares/person; world average: 2.8; available: 1.7 �
             'Product life cycle: introduction → growth → maturity → decline — know which strategy suits each stage',
             'Evaluation questions: consider multiple stakeholders and reach a justified recommendation',
             'Price skimming: use for tech/luxury (e.g. iPhone launch); penetration: use to gain market share fast',
-          ]},
+          ], workedExample:`Product: USP (unique selling point) — what makes it different from competitors?
+Price: penetration pricing (low to enter market), skimming (high for new premium product)
+Place: distribution channels — manufacturer → wholesaler → retailer → consumer, or direct (e-commerce)
+Promotion: above-the-line (TV ads), below-the-line (loyalty cards, social media influencers)`},
           { title:'Market Research', points:[
             'Primary research: collected first-hand — surveys, interviews, observations, focus groups',
             'Secondary research: already exists — internet, government data, trade journals',
             'Quantitative: numerical data (statistics); qualitative: opinions and reasons',
             'Market segmentation: divide market by age, gender, income, location, lifestyle',
             'USP (Unique Selling Point): what makes the product different from competitors',
-          ]},
+          ], workedExample:`Primary research: surveys, focus groups, observations, interviews — first-hand data, expensive
+Secondary research: market reports, competitor analysis, government statistics — cheaper but may be outdated
+Quantitative: numerical data (sales figures, survey percentages) — easy to analyse statistically
+Qualitative: opinions, motivations (focus groups) — richer data but harder to analyse`},
         ], examTips:[
             'Always apply theory to the specific business in the question — do not write generic definitions alone',
             'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
@@ -9129,14 +9958,20 @@ UK footprint: ~4.4 global hectares/person; world average: 2.8; available: 1.7 �
             'Profit = revenue − total costs; loss when costs exceed revenue',
             'Break-even: output where TR = TC; Break-even output = fixed costs ÷ (price − variable cost per unit)',
             'Margin of safety = actual output − break-even output',
-          ]},
+          ], workedExample:`Fixed costs = $5000; Variable cost per unit = $3; Selling price = $8
+Contribution per unit = 8 − 3 = $5
+Break-even = 5000 ÷ 5 = 1000 units`},
           { title:'Cash Flow & Finance Sources', points:[
             'Cash flow ≠ profit: profitable business can still run out of cash',
             'Cash flow forecast: predicts monthly cash in and out; identifies potential shortfalls',
             'Improving cash flow: reduce credit given to customers, delay payments to suppliers, sell assets',
             'Internal finance: retained profit, sale of assets; External: bank loan, overdraft, share issue',
             'Overdraft: short-term borrowing; bank loan: medium/long term; cheaper to borrow long-term',
-          ]},
+          ], workedExample:`Net present value (NPV):
+Discount rate 10%. Year 1 cash flow £50,000: PV=50,000/1.1=£45,455
+Year 2: £60,000 PV=60,000/1.21=£49,587
+Year 3: £40,000 PV=40,000/1.331=£30,052
+Total PV=£125,094. Initial cost £100,000. NPV=+£25,094 → accept project`},
         ], examTips:[
             'Always apply theory to the specific business in the question — do not write generic definitions alone',
             'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
@@ -9151,14 +9986,21 @@ UK footprint: ~4.4 global hectares/person; world average: 2.8; available: 1.7 �
             'Financial motivators: wages, salaries, bonuses, profit sharing, commission',
             'Non-financial: promotion, job enrichment, recognition, flexible working, training',
             'Leadership styles: autocratic (decides alone), democratic (consults), laissez-faire (delegates)',
-          ]},
+          ], workedExample:`Taylor (Scientific Management): time and motion study → optimal method → piece-rate pay
+Maslow hierarchy: physiological→safety→social→esteem→self-actualisation
+Application: new employees need physiological (salary) and safety (job security) satisfied first
+McGregor Theory X: workers are lazy, need control. Theory Y: workers motivated, seek responsibility
+Leadership styles: autocratic (fast decisions, crisis) vs democratic (better buy-in, creative tasks)`},
           { title:'Recruitment & Training', points:[
             'Internal recruitment: promote existing staff; External: advertise outside (wider choice)',
             'Job description: duties and responsibilities; Person specification: skills and qualities needed',
             'On-the-job training: learn while working (cheaper, relevant); Off-the-job: external course (broader)',
             'Induction training: introduction for new employees; reduces mistakes, builds confidence',
             'Employment contract: legal document stating terms — hours, pay, notice period',
-          ]},
+          ], workedExample:`Internal recruitment: promote existing staff — cheaper, no induction needed, but limits new ideas
+External: wider talent pool, fresh perspectives, but costly (advertising, agency fees)
+On-the-job training: learns while working, relevant, cheaper; off-the-job: courses, wider skills
+Induction: introduces new employee to company — reduces mistakes, improves confidence`},
         ], examTips:[
             'Always apply theory to the specific business in the question — do not write generic definitions alone',
             'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
@@ -9194,14 +10036,20 @@ UK footprint: ~4.4 global hectares/person; world average: 2.8; available: 1.7 �
           ], examTips:[
             'JIT: benefits (lower stock costs, less waste) vs risks (supply disruption can halt production)',
             'Compare production methods — job vs flow: evaluate for a specific business context',
-          ]},
+          ], workedExample:`Job production: custom, one-off items (wedding dress) — high quality, high cost, slow
+Batch: groups of identical items (bakery) — moderate flexibility, some economies of scale
+Flow/mass: continuous production line (cars, bottled drinks) — very efficient, low unit cost, inflexible
+Lean production: eliminate waste (muda), Just-in-time delivery, Kaizen (continuous improvement)`},
           { title:'Location & Growth', points:[
             'Location factors: proximity to market, labour, raw materials, infrastructure, government grants',
             'Globalisation: businesses locate where costs are lowest (e.g. manufacturing in Asia)',
             'Internal growth (organic): using own resources to expand — slower but less risky',
             'External growth: mergers (two firms combine), takeovers (one buys another), franchises',
             'Economies of scale: as output increases, average cost falls (bulk buying, specialisation)',
-          ]},
+          ], workedExample:`Location factors: labour costs, skilled workers, transport links, proximity to customers/suppliers, government grants
+E-commerce shift: less need for physical location; global market access with low overheads
+Organic growth: expand from within (open new branches, launch new products) — slow but less risky
+External growth: merger, acquisition, joint venture — faster growth but integration challenges`},
         ], examTips:[
             'Always apply theory to the specific business in the question — do not write generic definitions alone',
             'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
@@ -9219,7 +10067,10 @@ UK footprint: ~4.4 global hectares/person; world average: 2.8; available: 1.7 �
             'Exchange rates: strong pound → exports more expensive; weak pound → exports more competitive',
             'Tariffs, quotas, and trade blocs (e.g. EU): affect international competitiveness',
             'Advantages of globalisation: access to larger markets, lower costs, new technologies',
-          ]},
+          ], workedExample:`Comparative advantage: UK produces wheat at 2 hours/unit, cloth at 3 hours; Portugal: 1 hour, 1.5 hours
+Portugal has absolute advantage in both, but lower opportunity cost in cloth (1.5/1 < 2/3)
+UK has comparative advantage in wheat — both gain from specialisation and trade
+Free trade area (e.g. EU): eliminates tariffs between members, increases competition`},
           { title:'Ethics & CSR in Business', points:[
             'Business ethics: principles about what is right/wrong in business behaviour',
             'CSR (Corporate Social Responsibility): voluntary actions beyond legal requirements',
@@ -9229,7 +10080,10 @@ UK footprint: ~4.4 global hectares/person; world average: 2.8; available: 1.7 �
           ], examTips:[
             'Evaluate CSR: short-run cost but can improve reputation, customer loyalty, and staff motivation long-run',
             '"Justify your recommendation" = give reasons, consider alternatives, reach a clear conclusion',
-          ]},
+          ], workedExample:`CSR activities: reduce carbon footprint, fair trade sourcing, community investment, ethical supply chains
+Business case for CSR: improves brand reputation → attracts customers + employees + investors
+Ethical dilemma: outsource production to low-wage country → lower costs but potential exploitation
+Triple bottom line: People (social) + Planet (environmental) + Profit — measure success on all three`},
         ], commonMistakes:[
             'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
             'Defining a term correctly but not applying it to the specific business in the question',
@@ -9253,7 +10107,10 @@ Sample: size matters — larger = more reliable but more expensive`, commonMista
             'Secondary sector: manufacture goods using raw materials',
             'Tertiary sector: provide services (retail, finance, education)',
             'Private sector: profit-driven; public sector: government-run, aimed at public service',
-          ]},
+          ], workedExample:`Functions of business: produce goods/services, create jobs, pay taxes, meet consumer needs
+Private sector: profit motive (Tesco, Apple); Public sector: government services (NHS, police)
+Voluntary/charity sector: social objectives (Oxfam, RSPCA), not-for-profit
+Start-up entrepreneur: takes risk, innovates, creates value — may fail (50% of UK businesses fail in first 3 years)`},
           { title:'Stakeholders', points:[
             'Stakeholders: groups with an interest in the business — owners, employees, customers, suppliers, community, government',
             'Shareholders: want high dividends and share price growth',
@@ -9263,7 +10120,10 @@ Sample: size matters — larger = more reliable but more expensive`, commonMista
           ], examTips:[
             'Identify which stakeholder is most important for the given context — justify your choice',
             'Conflict questions: state both sides and suggest how business might resolve them',
-          ]},
+          ], workedExample:`Internal: employees, managers, owners — directly involved in running the business
+External: customers, suppliers, government, local community, pressure groups
+Shareholders: want dividends + share price growth → pressure management to maximise profit
+Conflict: local community vs business — factory expansion brings jobs but increases noise/traffic`},
         ], examTips:[
             'Always apply theory to the specific business in the question — do not write generic definitions alone',
             'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
@@ -9278,7 +10138,10 @@ Sample: size matters — larger = more reliable but more expensive`, commonMista
             'Place: distribution channels — direct (online), retailer, wholesaler, agent',
             'Promotion: advertising, sales promotion, PR, direct marketing, personal selling',
             'Market research: primary (surveys, interviews, observations) and secondary (internet, reports)',
-          ]},
+          ], workedExample:`Product: USP (unique selling point) — what makes it different from competitors?
+Price: penetration pricing (low to enter market), skimming (high for new premium product)
+Place: distribution channels — manufacturer → wholesaler → retailer → consumer, or direct (e-commerce)
+Promotion: above-the-line (TV ads), below-the-line (loyalty cards, social media influencers)`},
           { title:'Market Segmentation & Targeting', points:[
             'Market segmentation: dividing market into groups with similar characteristics',
             'Bases: geographic, demographic (age, gender, income), psychographic (lifestyle, values)',
@@ -9288,7 +10151,10 @@ Sample: size matters — larger = more reliable but more expensive`, commonMista
           ], examTips:[
             'Always link marketing mix decisions to the target market — e.g. "skimming pricing suits a high-income niche"',
             'Evaluate: consider whether a strategy is appropriate given the stage of product lifecycle',
-          ]},
+          ], workedExample:`Segmentation variables: demographic (age, gender), geographic (region), psychographic (lifestyle), behavioural (usage rate)
+Example: Nike segments by age (youth sports), income (premium range), lifestyle (performance athletes)
+Targeting: mass marketing (one product for all — Coca-Cola); niche (specific segment — organic dog food)
+Positioning: create perception in consumer's mind — BMW = luxury performance, IKEA = affordable Scandinavian`},
         ], commonMistakes:[
             'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
             'Defining a term correctly but not applying it to the specific business in the question',
@@ -9300,7 +10166,11 @@ Sample: size matters — larger = more reliable but more expensive`, commonMista
             'Taylor (Scientific Management): pay-linked productivity; piece-rate; suitable for repetitive work',
             'Leadership styles: autocratic (boss decides), democratic (consults team), laissez-faire (delegates all)',
             'Appropriate style depends on: task urgency, employee experience, business culture',
-          ]},
+          ], workedExample:`Taylor (Scientific Management): time and motion study → optimal method → piece-rate pay
+Maslow hierarchy: physiological→safety→social→esteem→self-actualisation
+Application: new employees need physiological (salary) and safety (job security) satisfied first
+McGregor Theory X: workers are lazy, need control. Theory Y: workers motivated, seek responsibility
+Leadership styles: autocratic (fast decisions, crisis) vs democratic (better buy-in, creative tasks)`},
           { title:'Recruitment, Training & HR', points:[
             'Recruitment: internal (promoted from within — cheaper, knows culture) vs external (new ideas but costly)',
             'Selection: application form → shortlisting → interview → references → job offer',
@@ -9310,7 +10180,10 @@ Sample: size matters — larger = more reliable but more expensive`, commonMista
           ], examTips:[
             'Link motivation theory to business context — e.g. "Maslow suggests this worker needs social needs met, so team-working would motivate them"',
             'Evaluate: consider limitations of motivation theories — they are generalisations',
-          ]},
+          ], workedExample:`Human Resource Management: workforce planning, recruitment, training, performance management
+Retention strategies: competitive pay, career development, flexible working, good culture
+Motivation theories: Maslow (hierarchy of needs), Herzberg (hygiene + motivators), Taylor (scientific management)
+Employment law: contracts, minimum wage, anti-discrimination, health and safety — compliance is non-negotiable`},
         ], commonMistakes:[
             'Stating both sides then failing to reach a conclusion — always end with a justified judgement',
             'Defining a term correctly but not applying it to the specific business in the question',
@@ -9322,7 +10195,10 @@ Sample: size matters — larger = more reliable but more expensive`, commonMista
             'Long-term finance: mortgage, debentures, venture capital, stock market flotation',
             'Cash flow forecast: predicts monthly inflows and outflows; helps avoid insolvency',
             'Cash flow problem: profitable business can fail if cash inflows don\'t cover timing of outflows',
-          ]},
+          ], workedExample:`Sources of finance — short-term: overdraft, trade credit; long-term: mortgage, share issue, debentures
+Cash flow forecast: plan inflows and outflows — avoid running out of cash (profitable business can still fail!)
+Break-even: Total revenue = Total costs; Profit = Revenue − Total costs
+Retained profit: cheapest source of finance, no interest, but limits dividends to shareholders`},
           { title:'Operations Management', points:[
             'Production methods: job (one-off, custom), batch (groups), flow (continuous, mass)',
             'Lean production: minimise waste; just-in-time (JIT) inventory reduces holding costs',
@@ -9355,7 +10231,10 @@ Month 2: Inflows $4000, Outflows $3000 → Net = +$1000 → Closing balance = $1
             'Characteristics of entrepreneur: risk-taking, creativity, determination, leadership, communication skills',
             'Social enterprise: business with social/environmental goals alongside profit (e.g. The Big Issue)',
             'Oxford AQA focuses on UK/global context: Brexit impact, UK economy, domestic market competition',
-          ]},
+          ], workedExample:`Entrepreneur: someone who takes financial risk to start a business hoping for profit
+Key entrepreneurial skills: innovation, risk-taking, decision-making, leadership, resilience
+Business plan: executive summary, market research, financial forecasts, marketing plan, operational plan
+Risk vs reward: higher risk (new market, innovative product) → potential higher reward, but also higher failure probability`},
           { title:'Business Objectives', points:[
             'Survival: most important for new/struggling businesses — focus on covering costs',
             'Profit maximisation: traditional goal; revenue − costs; enables growth and shareholder returns',
@@ -9365,7 +10244,10 @@ Month 2: Inflows $4000, Outflows $3000 → Net = +$1000 → Closing balance = $1
           ], examTips:[
             'Oxford AQA: questions often set in UK context — refer to UK examples (e.g. NHS, Tesco, Dyson)',
             'Evaluate how business objectives change with size and stage — start-up focuses on survival, large firms on growth',
-          ]},
+          ], workedExample:`SMART objectives: Specific, Measurable, Achievable, Realistic, Time-bound
+E.g. "Increase market share from 15% to 20% within 2 years" (SMART) vs "grow the business" (not SMART)
+Objectives change with business cycle: startup (survival) → growth (market share) → maturity (profit/efficiency)
+Stakeholder objectives can conflict: shareholders (profit) vs employees (higher wages) vs customers (lower prices)`},
         ], examTips:[
             'Always apply theory to the specific business in the question — do not write generic definitions alone',
             'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
@@ -9380,7 +10262,12 @@ Month 2: Inflows $4000, Outflows $3000 → Net = +$1000 → Closing balance = $1
             'Quantitative: numerical data (statistics); qualitative: opinions and attitudes (focus groups)',
             'Market segmentation: demographics (age, gender, income), psychographics (lifestyle), geography',
             'Target market: specific group the product is designed for; influences all marketing mix decisions',
-          ]},
+          ], workedExample:`Sampling methods:
+Random: each person equal chance — most unbiased but expensive
+Stratified: proportional representation of groups (e.g. 60% female if 60% of population)
+Quota: fill preset numbers per group — quick but non-random
+Cluster: sample from selected geographic areas — cheaper but may not represent all
+Sample of 200 from population 10,000: margin of error ~±7% at 95% confidence`},
           { title:'Digital Marketing & Brand', points:[
             'Digital marketing: social media, SEO, email campaigns, pay-per-click advertising, influencers',
             'Branding: name, logo, values — creates identity and customer loyalty; premium brands command higher prices',
@@ -9390,7 +10277,11 @@ Month 2: Inflows $4000, Outflows $3000 → Net = +$1000 → Closing balance = $1
           ], examTips:[
             'For any marketing decision: consider cost, effectiveness, and whether it reaches the target market',
             'Digital vs traditional: digital (social media) cheaper and more targeted; traditional (TV) broader reach',
-          ]},
+          ], workedExample:`PPC (pay-per-click): pay £0.50/click; 1000 clicks=£500 spend
+If 50 conversions at £20 profit each: £1,000 revenue − £500 ad spend = £500 profit
+ROI=(500/500)×100=100%
+SEO: keyword optimisation, backlinks, page speed improve organic ranking
+Conversion rate optimisation: A/B test headlines, CTA buttons`},
         ], examTips:[
             'Always apply theory to the specific business in the question — do not write generic definitions alone',
             'Evaluate: for every advantage state a limitation, then conclude which outweighs the other and why',
@@ -9405,7 +10296,11 @@ Month 2: Inflows $4000, Outflows $3000 → Net = +$1000 → Closing balance = $1
             'Training: induction (new starters), on-the-job (cheaper, relevant), off-the-job (broader skills)',
             'Appraisal: regular review of employee performance against targets; linked to pay/promotion',
             'Employment law (UK): minimum wage, equal pay, health & safety, maternity/paternity rights, anti-discrimination',
-          ]},
+          ], workedExample:`Calculate labour turnover rate:
+Staff left=12; average workforce=80
+Rate=12/80×100=15%
+High rate costs: recruitment (£3,000/hire×12=£36,000) + training + lost productivity
+Motivation strategies: Herzberg — hygiene factors (salary, conditions) prevent dissatisfaction; motivators (achievement, recognition) increase motivation`},
           { title:'Production & Quality', points:[
             'Job production: one-off custom items — high cost, skilled workforce, unique (e.g. bespoke suits)',
             'Batch production: groups of identical items — flexible, some economies of scale (e.g. bread, medicines)',
@@ -9431,7 +10326,11 @@ Recommendation: Batch production allows flexibility and cost efficiency for a sm
             'Variable costs: change directly with output (raw materials, packaging, delivery)',
             'Total cost = fixed cost + variable cost; Average cost = total cost ÷ quantity',
             'Break-even analysis: output where total revenue = total cost; below = loss; above = profit',
-          ]},
+          ], workedExample:`Revenue = Price × Quantity sold
+Fixed costs: rent, salaries (don't change with output)
+Variable costs: raw materials, packaging (change with output)
+Profit = Revenue − Total costs; Gross profit = Revenue − Cost of sales; Net profit = Gross profit − expenses
+Example: sell 1000 units at £20; fixed costs £5,000; variable £10/unit → Profit = £20,000−£5,000−£10,000 = £5,000`},
           { title:'Financial Statements & Ratios', points:[
             'Income statement: revenue − cost of sales = gross profit; gross profit − expenses = net profit',
             'Balance sheet: shows assets (what business owns), liabilities (what it owes), capital (owner\'s equity)',
@@ -9481,14 +10380,19 @@ Interpretation: For every £1 of revenue, the business keeps 16.7p as net profit
             'Composite function: fg(x) = f(g(x)) — apply g first, then f',
             'Inverse function f⁻¹(x): reverses f; domain of f⁻¹ = range of f; swap x and y to find',
             'One-to-one functions only have inverses; use horizontal line test',
-          ]},
+          ], workedExample:`Exponential: y=2×3ˣ. When x=0: y=2. When x=2: y=18.
+Growth factor=3. To find x when y=54: 3ˣ=27 → x=3
+Log form: x=log₃27=3 ✓`},
           { title:'Modulus Function', points:[
             'Modulus |x|: distance from zero — always positive',
             'Graph of y = |f(x)|: reflect any part below x-axis above it',
             'Solving |x − a| = b: split into x − a = b and x − a = −b',
             'Solving |f(x)| < b: −b < f(x) < b (and/intersection)',
             'Solving |f(x)| > b: f(x) > b OR f(x) < −b (or/union)',
-          ]},
+          ], workedExample:`Solve |2x+3|=|x-1|
+Case 1: 2x+3=x-1 → x=-4
+Case 2: 2x+3=-(x-1) → 3x=-2 → x=-⅔
+Sketch both: V-shapes intersect at these x-values`},
         ], examTips:[
             'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
             'Verify answers: substitute back into the original equation to confirm correctness',
@@ -9509,14 +10413,20 @@ Interpretation: For every £1 of revenue, the business keeps 16.7p as net profit
             'Sum of roots α+β = −b/a; product αβ = c/a (Vieta\'s formulas)',
             'Finding quadratic given roots: x² − (α+β)x + αβ = 0',
             'Nature of stationary point: minimum if a>0 (happy), maximum if a<0 (sad)',
-          ]},
+          ], workedExample:`f(x) = x² − 5x + 6 = (x−2)(x−3); roots at x=2 and x=3
+Vertex: x = −b/2a = 5/2 = 2.5; f(2.5) = 6.25−12.5+6 = −0.25 → vertex (2.5, −0.25)
+Completing the square: x²−5x+6 = (x−2.5)²−0.25 → confirms vertex
+Discriminant: b²−4ac = 25−24 = 1 > 0 → two distinct real roots`},
           { title:'Indices & Surds', points:[
             'Laws of indices: same as IGCSE Maths — aᵐ×aⁿ, aᵐ÷aⁿ, (aᵐ)ⁿ, a⁰=1, a⁻ⁿ, aᵐ/ⁿ',
             'Surd: irrational number with √ (e.g. √2, √3) — leave in exact form',
             'Simplify surds: √18 = √(9×2) = 3√2',
             'Rationalising denominator: multiply top and bottom by surd (or conjugate for a+√b)',
             '(√a + √b)(√a − √b) = a − b — difference of squares eliminates surds',
-          ]},
+          ], workedExample:`Simplify √48: √(16×3) = 4√3
+Rationalise 1/√3: multiply by √3/√3 = √3/3
+(2+√3)(2−√3) = 4−3 = 1 (difference of squares)
+Solve 2^(2x) = 32: 2^(2x) = 2^5 → 2x = 5 → x = 2.5`},
           { title:'Polynomials & Factor Theorem', points:[
             'Polynomial division: long division or synthetic division',
             'Factor theorem: if f(a) = 0 then (x − a) is a factor of f(x)',
@@ -9537,7 +10447,10 @@ Factorise: x² − 5x + 6 = (x−2)(x−3)
             'Discriminant = 0: line is tangent to curve (one solution, touches)',
             'For circle problems: substitute line y = mx+c into circle equation',
             'Always check solutions by substituting back into both original equations',
-          ]},
+          ], workedExample:`Solve: y = x² and y = x + 2
+Substitute: x² = x + 2 → x²−x−2 = 0 → (x−2)(x+1) = 0
+x = 2 → y = 4; x = −1 → y = 1 → solutions: (2,4) and (−1,1)
+Check: 4 = 2+2 ✓ and 1 = −1+2 ✓`},
         ], examTips:[
             'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
             'Verify answers: substitute back into the original equation to confirm correctness',
@@ -9564,14 +10477,21 @@ Factorise: x² − 5x + 6 = (x−2)(x−3)
             'ln is log base e (natural log); log without base usually means log₁₀',
             'Change of base: logₐ b = log b / log a',
             'Solving aˣ = b: take log of both sides → x log a = log b → x = log b / log a',
-          ]},
+          ], workedExample:`Solve log₂(x)+log₂(x-2)=3
+log₂(x(x-2))=3 → x(x-2)=8
+x²-2x-8=0 → (x-4)(x+2)=0
+x=4 (reject x=-2, log undefined for negative)
+Check: log₂4+log₂2=2+1=3 ✓`},
           { title:'Exponential & Log Graphs', points:[
             'y = aˣ: passes through (0,1), always positive, increases if a>1',
             'y = ln x: passes through (1,0); undefined for x ≤ 0; inverse of y = eˣ',
             'Linearising: if y = abˣ then ln y = ln a + x ln b → straight line (ln y vs x)',
             'If y = axⁿ then log y = log a + n log x → straight line (log y vs log x)',
             'Gradient and intercept of linearised graph give n and log a (or ln a)',
-          ]},
+          ], workedExample:`Population model: P=500×1.03ᵗ
+t=0: P=500; t=10: P=500×1.34=672
+Double when 1.03ᵗ=2: t=ln2/ln1.03=23.4 years
+Graph: exponential curve, y-intercept=500, always positive, increasing`},
         ], examTips:[
             'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
             'Verify answers: substitute back into the original equation to confirm correctness',
@@ -9592,14 +10512,20 @@ Factorise: x² − 5x + 6 = (x−2)(x−3)
             'Derived: 1 + tan²θ = sec²θ; 1 + cot²θ = cosec²θ',
             'Graph of sin x: period 360°, amplitude 1; cos x: period 360°; tan x: period 180°',
             'Transformations: y = a sin(bx) + c — amplitude a, period 360/b, vertical shift c',
-          ]},
+          ], workedExample:`Solve 2sin²θ + sinθ − 1 = 0 for 0° ≤ θ ≤ 360°
+Let s = sinθ: 2s²+s−1 = (2s−1)(s+1) = 0
+s = 0.5 → θ = 30°, 150°; s = −1 → θ = 270°
+Identity check: sin²θ + cos²θ = 1 → cos²θ = 1 − sin²θ`},
           { title:'Solving Trigonometric Equations', points:[
             'Find principal value using inverse trig, then find all solutions in given range',
             'CAST diagram: All positive (1st), Sin positive (2nd), Tan positive (3rd), Cos positive (4th)',
             'sin θ = k: solutions at θ and 180° − θ (in range 0°–360°)',
             'cos θ = k: solutions at θ and 360° − θ',
             'tan θ = k: solutions at θ and θ + 180°',
-          ]},
+          ], workedExample:`Solve cosθ = −0.5 for 0 ≤ θ ≤ 2π
+Reference angle: cos⁻¹(0.5) = π/3
+cosine negative in 2nd and 3rd quadrants
+θ = π − π/3 = 2π/3 and θ = π + π/3 = 4π/3`},
         ], examTips:[
             'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
             'Verify answers: substitute back into the original equation to confirm correctness',
@@ -9634,7 +10560,9 @@ dy/dx = 4u³ × 6x = 24x(3x² + 1)³`},
             'Integration by substitution: let u = inner function, replace dx with du/dx',
             'Definite integral ∫ₐᵇ f(x) dx = F(b) − F(a) where F is the antiderivative',
             'Area under curve = definite integral; if below x-axis, result is negative → take |value|',
-          ]},
+          ], workedExample:`∫(4x³-6x+2)dx = x⁴-3x²+2x+c
+Definite: ∫₀² (3x²-4)dx=[x³-4x]₀²=(8-8)-(0)=0
+Area between curve and x-axis: if answer negative, take |result|`},
         ], examTips:[
             'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
             'Verify answers: substitute back into the original equation to confirm correctness',
@@ -9658,14 +10586,20 @@ dy/dx = 4u³ × 6x = 24x(3x² + 1)³`},
             'n! = n × (n−1) × ... × 2 × 1; 0! = 1',
             'Arrangements with restrictions: fix restricted elements first, then arrange the rest',
             'Circular arrangements: (n−1)! for n objects in a circle',
-          ]},
+          ], workedExample:`How many ways to arrange 5 people in a line? 5! = 120
+Choose 3 from 8: C(8,3) = 8!/(3!×5!) = 56
+Arrange 3 from 8: P(8,3) = 8!/(5!) = 336
+Password: 4 digits from 0–9, no repetition: P(10,4) = 10×9×8×7 = 5040`},
           { title:'Binomial Theorem', points:[
             '(a+b)ⁿ = Σ ⁿCᵣ aⁿ⁻ʳ bʳ for r = 0 to n',
             'General term (r+1)th term: Tᵣ₊₁ = ⁿCᵣ × aⁿ⁻ʳ × bʳ',
             'Coefficient of xᵏ: find r such that the power of x = k',
             '(1+x)ⁿ expansion: 1 + nx + n(n−1)/2! x² + ... (valid for |x|<1 if n not integer)',
             'Use binomial expansion for approximations: substitute small value of x',
-          ]},
+          ], workedExample:`Expand (1 + 2x)⁴ up to x² term.
+Using (1+x)ⁿ: (1+2x)⁴ = 1 + 4(2x) + 6(2x)² + ...
+= 1 + 8x + 6(4x²) + ... = 1 + 8x + 24x² + ...
+Valid for |2x| < 1, i.e. |x| < 0.5`},
         ], examTips:[
             'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
             'Verify answers: substitute back into the original equation to confirm correctness',
@@ -9715,7 +10649,10 @@ Total = 24 × 2 = 48`, commonMistakes:[
           ], examTips:[
             'Always state the range of the inverse function = domain of the original function',
             'Composite functions: read right to left — fg means apply g first, then f',
-          ]},
+          ], workedExample:`f(x) = 1/(x−2): domain x≠2; range f(x)≠0
+Inverse: y = 1/(x−2) → swap x,y: x = 1/(y−2) → y−2 = 1/x → f⁻¹(x) = 1/x + 2
+Composite: fg(x) where g(x)=x+1, f(x)=x²: fg(x) = (x+1)²
+Domain of fg: all real numbers (no restrictions)`},
           { title:'Quadratics & Inequalities', points:[
             'Completing the square: x²+bx = (x + b/2)² − (b/2)²',
             'Discriminant: b²−4ac > 0 (two real roots), = 0 (repeated root), < 0 (no real roots)',
@@ -9748,14 +10685,19 @@ Minimum value −3 at x = 2`},
           ], examTips:[
             'Radian mode essential for calculus involving trig — always check calculator is in correct mode',
             'cos2θ has three forms — choose the one that simplifies the expression most',
-          ]},
+          ], workedExample:`Convert 150° to radians: 150 × π/180 = 5π/6 rad
+Arc length: s = rθ = 5 × (π/3) = 5π/3 cm
+Area of sector: A = ½r²θ = ½×25×(π/3) = 25π/6 cm²
+sinusoidal graph: y = 3sin(2x + π/4): amplitude 3, period π, phase shift −π/8`},
           { title:'Solving Trig Equations', points:[
             'General solutions: sinθ = k has solutions in [0°, 360°] at θ and 180°−θ',
             'For cosθ = k: θ and 360°−θ; for tanθ = k: θ and θ+180°',
             'In radians: sinθ in [0, 2π] → θ and π−θ; cosθ → θ and 2π−θ',
             'Use identities to simplify before solving (replace sin²θ using 1−cos²θ etc.)',
             'CAST diagram or unit circle — always find all solutions in the given domain',
-          ]},
+          ], workedExample:`Solve 3tanx = √3 for 0° ≤ x ≤ 360°
+tanx = √3/3 = 1/√3 → reference angle = 30°
+tan positive in 1st and 3rd quadrants: x = 30° or x = 210°`},
         ], examTips:[
             'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
             'Verify answers: substitute back into the original equation to confirm correctness',
@@ -9789,7 +10731,9 @@ At x=1: u = 4; dy/dx = 24(1)(4)³ = 24×64 = 1536`},
             'Definite integral: ∫ₐᵇ f(x) dx = [F(x)]ₐᵇ = F(b) − F(a)',
             'Area under curve = ∫ₐᵇ f(x) dx; area between two curves = ∫ₐᵇ [f(x)−g(x)] dx',
             'Integration by substitution: let u = g(x); find du/dx; replace dx with du/(du/dx)',
-          ]},
+          ], workedExample:`∫(4x³-6x+2)dx = x⁴-3x²+2x+c
+Definite: ∫₀² (3x²-4)dx=[x³-4x]₀²=(8-8)-(0)=0
+Area between curve and x-axis: if answer negative, take |result|`},
         ]},
         { title:'Logarithms & Exponentials', icon:'📈', topics:[
           { title:'Logarithms', points:[
@@ -9801,7 +10745,11 @@ At x=1: u = 4; dy/dx = 24(1)(4)³ = 24×64 = 1536`},
           ], examTips:[
             'For equations like 3ˣ = 7: take ln both sides → x·ln3 = ln7 → x = ln7/ln3',
             'Linearising data: if y = axⁿ, take log both sides → log y = n log x + log a (straight line)',
-          ]},
+          ], workedExample:`Solve log₂(x)+log₂(x-2)=3
+log₂(x(x-2))=3 → x(x-2)=8
+x²-2x-8=0 → (x-4)(x+2)=0
+x=4 (reject x=-2, log undefined for negative)
+Check: log₂4+log₂2=2+1=3 ✓`},
         ]},
       ],
       oxford: [
@@ -9816,7 +10764,10 @@ At x=1: u = 4; dy/dx = 24(1)(4)³ = 24×64 = 1536`},
           ], examTips:[
             'Oxford Add Maths: always STATE the domain and range — not just graph them',
             'For ff⁻¹(x): always equals x — useful as a check that inverse is correct',
-          ]},
+          ], workedExample:`One-to-one: f(x) = 2x+3 — each input has unique output; inverse exists
+Many-to-one: f(x) = x² — two inputs (±3) give same output (9); inverse only works with restricted domain
+Composite gf(x): apply f first, then g; gf ≠ fg in general
+Example: f(x)=x+2, g(x)=3x: gf(x) = g(x+2) = 3(x+2) = 3x+6; fg(x) = f(3x) = 3x+2`},
           { title:'Quadratics & Polynomials', points:[
             'Completing the square: x²+bx+c = (x+b/2)²−(b/2)²+c — gives vertex of parabola',
             'Sum of roots α+β = −b/a; product αβ = c/a (for ax²+bx+c=0)',
@@ -9861,7 +10812,8 @@ Dimensions: 10cm × 10cm (square); maximum area = 100 cm²`},
             'Definite integral: [F(x)]ₐᵇ = F(b) − F(a); always evaluate upper limit − lower limit',
             'Integration as reverse differentiation: always add +c for indefinite integrals',
             'Trapezium rule: approximate area using trapezoids; A ≈ ½h[y₀+2(y₁+y₂+...+yₙ₋₁)+yₙ]',
-          ]},
+          ], workedExample:`Volume of revolution: y=x² from x=0 to x=3 about x-axis.
+V=π∫₀³ x⁴dx=π[x⁵/5]₀³=π×243/5=48.6π≈152.7 units³`},
         ], examTips:[
             'Show every algebraic step — examiners award marks for correct method even with arithmetic errors',
             'Verify answers: substitute back into the original equation to confirm correctness',
@@ -9883,7 +10835,10 @@ Dimensions: 10cm × 10cm (square); maximum area = 100 cm²`},
           ], examTips:[
             'Oxford Add Maths vectors: always write vectors as column vectors or in component form in workings',
             'Midpoint M of AB: OM⃗ = ½(OA⃗ + OB⃗)',
-          ]},
+          ], workedExample:`p=(5,2), q=(-1,4). Find p+2q and |p+2q|.
+p+2q=(5-2, 2+8)=(3,10)
+|p+2q|=√(9+100)=√109≈10.44
+Unit vector of p: p/|p|=(5,2)/√29`},
           { title:'Matrices', points:[
             'Matrix: rectangular array of numbers; m×n matrix has m rows and n columns',
             'Matrix addition/subtraction: same size; add/subtract corresponding elements',
@@ -9931,7 +10886,9 @@ d²y/dx² = 6x−12: at x=1: −6 < 0 → maximum; at x=3: +6 > 0 → minimum`},
           ], examTips:[
             'Always add + c for indefinite integrals — losing this mark is common and avoidable',
             'Area below x-axis: the definite integral gives a negative value — take the modulus for the actual area',
-          ]},
+          ], workedExample:`∫(4x³-6x+2)dx = x⁴-3x²+2x+c
+Definite: ∫₀² (3x²-4)dx=[x³-4x]₀²=(8-8)-(0)=0
+Area between curve and x-axis: if answer negative, take |result|`},
           { title:'Oxford AQA Additional Maths Exam Strategy', points:[
             'Oxford AQA Additional Mathematics: two papers, each 2 hours; no formula sheet — must memorise key results',
             'Show all working: method marks available at every step; final answer alone rarely earns full credit',
@@ -9941,7 +10898,11 @@ d²y/dx² = 6x−12: at x=1: −6 < 0 → maximum; at x=3: +6 > 0 → minimum`},
           ], examTips:[
             'No formula sheet: learn core derivatives (xⁿ, sinx, cosx, eˣ, lnx) and integration results',
             'Trigonometric identities to memorise: sin²x+cos²x=1; sin2x=2sinxcosx; cos2x=cos²x−sin²x',
-          ]},
+          ], workedExample:`Timing: 2 hours for 100 marks → roughly 1.2 mins per mark
+Show all working — method marks available even if final answer wrong
+Calculus: always state what you're doing (differentiating, integrating); include constant of integration (+c)
+Trig: always check all solutions in given range; use CAST diagram or unit circle
+Check answers: substitute back into original equation to verify`},
         ], commonMistakes:[
             'Forgetting +c when integrating indefinitely — this mark is often lost for no reason',
             'Applying the chain rule incorrectly — always identify the inner function and multiply by its derivative',
@@ -9969,7 +10930,10 @@ Area = ∫₋₁² (x+2-x²)dx = [x²/2+2x-x³/3]₋₁²
             'Consistency: same accounting methods used each year for comparability',
             'Prudence: record losses when likely, profits only when certain',
             'Matching (accruals): revenue and costs matched to period in which they are earned/incurred',
-          ]},
+          ], workedExample:`Accounting provides financial information to stakeholders for decision-making
+Going concern: assumes business will continue operating indefinitely
+Accruals concept: income and expenses matched to period they relate to (not when cash changes hands)
+Prudence: do not overstate assets or income; anticipate losses but not gains`},
           { title:'Double Entry Bookkeeping', points:[
             'Every transaction has two equal and opposite effects (debit and credit)',
             'Debit: left side of T-account; Credit: right side',
@@ -10007,14 +10971,22 @@ CR  Bank $500  (asset decreases → credit)`},
             'Returns day books: sales returns (inward) and purchases returns (outward)',
             'Cash book: records all cash and bank transactions; has debit (receipts) and credit (payments) columns',
             'Petty cash book: records small cash payments using imprest system (topped up to fixed amount)',
-          ]},
+          ], workedExample:`Sales day book:
+Date | Customer | Invoice No. | Amount
+01/05 | Ahmed Ltd | 101 | £2,400
+03/05 | Baker Co | 102 | £1,800
+Total £4,200 → posted to Sales account (credit) and individual debtor accounts (debit)
+Purpose: records all credit sales before posting to ledger; provides audit trail`},
           { title:'Trial Balance', points:[
             'Trial balance: list of all ledger balances (debit and credit columns must agree)',
             'Agreement does NOT mean no errors — compensating errors, complete omissions, errors of principle',
             'Six types of error not revealed: omission, commission, principle, original entry, reversal, compensating',
             'Suspense account: temporary account to make trial balance agree while errors are found',
             'Correcting journal entries: reverse the error, then record correctly',
-          ]},
+          ], workedExample:`A trial balance lists all ledger account balances: debit total must equal credit total
+Errors NOT revealed by trial balance: errors of omission, commission, principle, original entry, compensating errors
+If trial balance doesn't balance: check for arithmetic errors, missing entries, wrong side postings
+Purpose: check the accuracy of double-entry bookkeeping before preparing financial statements`},
         ], examTips:[
             'Use correct accounting layout — headings, subtotals, double-underline totals — presentation marks are real',
             'Distinguish between capital expenditure (long-term asset) and revenue expenditure (day-to-day cost)',
@@ -10035,21 +11007,34 @@ CR  Bank $500  (asset decreases → credit)`},
             'Income section: Gross Profit + Other Income − Expenses = Profit/Loss for the period',
             'Revenue expenditure: day-to-day expenses (charged to income statement)',
             'Capital expenditure: non-current assets (goes on balance sheet — not income statement)',
-          ]},
+          ], workedExample:`Opening inventory £4,000 + Purchases £22,000 − Closing inventory £3,500 = Cost of Sales £22,500
+Sales £35,000 − COS £22,500 = Gross Profit £12,500
+Less: wages £4,000, rent £2,000, electricity £500 = total expenses £6,500
+Net Profit = £12,500−£6,500 = £6,000
+Gross profit margin = 12,500/35,000×100 = 35.7%`},
           { title:'Balance Sheet (Statement of Financial Position)', points:[
             'Balance sheet: shows what business OWNS (assets) and OWES (liabilities + capital) at a point in time',
             'Non-current assets: long-term assets (property, machinery, vehicles)',
             'Current assets: short-term (inventory, trade receivables, bank, cash)',
             'Current liabilities: due within 1 year (trade payables, bank overdraft)',
             'Capital = Assets − Liabilities (accounting equation: A = C + L always balances)',
-          ]},
+          ], workedExample:`Non-current assets: equipment £15,000; premises £40,000 = £55,000
+Current assets: inventory £3,500; debtors £4,200; cash £1,300 = £9,000
+Current liabilities: creditors £2,800; overdraft £500 = £3,300
+Net current assets (working capital) = £9,000−£3,300 = £5,700
+Net assets = 55,000+5,700 = £60,700 = Capital employed`},
           { title:'Adjustments to Accounts', points:[
             'Depreciation: spreading cost of non-current asset over useful life',
             'Straight-line: (Cost − Residual value) ÷ Useful life — equal annual charge',
             'Reducing balance: % × net book value each year — higher charge early on',
             'Accruals: expenses incurred but not yet paid — add to expense, add to liabilities',
             'Prepayments: expenses paid in advance — deduct from expense, add to current assets',
-          ]},
+          ], workedExample:`Depreciation adjustment:
+Machine cost £8,000; 20% reducing balance
+Year 1: 8,000×20%=£1,600 → NBV=£6,400
+DR depreciation £1,600 / CR accumulated depreciation £1,600
+Bad debt: debtor £300 irrecoverable:
+DR bad debts £300 / CR debtors control £300`},
         ], examTips:[
             'Use correct accounting layout — headings, subtotals, double-underline totals — presentation marks are real',
             'Distinguish between capital expenditure (long-term asset) and revenue expenditure (day-to-day cost)',
@@ -10095,7 +11080,10 @@ Quick ratio = (45,000−15,000) ÷ 20,000 = 30,000 ÷ 20,000 = 1.5:1 (good liqui
             'Low current ratio → liquidity problem; high → cash tied up inefficiently',
             'Inventory turnover = COGS ÷ Average inventory (times per year); higher = faster selling',
             'Limitations: ratios are based on historical cost; do not show non-financial factors',
-          ]},
+          ], workedExample:`Gross profit margin = (Gross profit / Revenue) × 100 → higher = more profitable per sale
+Net profit margin = (Net profit / Revenue) × 100 → considers overheads
+Return on capital employed (ROCE) = (Net profit / Capital employed) × 100 → measures efficiency of investment
+Example: Revenue £500k, Gross profit £200k, Net profit £80k → GPM = 40%, NPM = 16%`},
         ], examTips:[
             'Use correct accounting layout — headings, subtotals, double-underline totals — presentation marks are real',
             'Distinguish between capital expenditure (long-term asset) and revenue expenditure (day-to-day cost)',
@@ -10141,14 +11129,23 @@ Return on Capital Employed = Net Profit / Capital Employed × 100`, commonMistak
           ], examTips:[
             'Edexcel Accounting: expect application-based questions — given a scenario, which concept applies and why?',
             'Prudence: recognise losses immediately; only recognise gains when certain — conservative approach',
-          ]},
+          ], workedExample:`Accounting provides financial information to stakeholders for decision-making
+Going concern: assumes business will continue operating indefinitely
+Accruals concept: income and expenses matched to period they relate to (not when cash changes hands)
+Prudence: do not overstate assets or income; anticipate losses but not gains`},
           { title:'Double Entry Bookkeeping', points:[
             'DEAD CLIC rule: Debit = Expenses, Assets, Drawings; Credit = Liabilities, Income, Capital',
             'T-accounts: left side (debit) and right side (credit); every transaction has two entries',
             'Assets increase with debit (DR); decrease with credit (CR)',
             'Liabilities and capital increase with credit (CR); decrease with debit (DR)',
             'Trial balance: list all ledger balances; total debits must equal total credits',
-          ]},
+          ], workedExample:`Bought goods on credit from Ali for $500:
+DR  Purchases $500  (expense increases → debit)
+CR  Ali (Trade Payable) $500  (liability increases → credit)
+
+Paid Ali $500 by bank:
+DR  Ali (Trade Payable) $500  (liability decreases → debit)
+CR  Bank $500  (asset decreases → credit)`},
         ]},
         { title:'Financial Statements', icon:'📊', topics:[
           { title:'Income Statement', points:[
@@ -10172,7 +11169,11 @@ Net Profit = $81,000 − $50,000 = $31,000`},
             'Current liabilities: owed within 1 year (trade payables, bank overdraft)',
             'Non-current liabilities: owed after 1 year (long-term loan)',
             'Capital/equity = Total assets − Total liabilities; Owner\'s capital + Retained profit',
-          ]},
+          ], workedExample:`Non-current assets: equipment £15,000; premises £40,000 = £55,000
+Current assets: inventory £3,500; debtors £4,200; cash £1,300 = £9,000
+Current liabilities: creditors £2,800; overdraft £500 = £3,300
+Net current assets (working capital) = £9,000−£3,300 = £5,700
+Net assets = 55,000+5,700 = £60,700 = Capital employed`},
         ], examTips:[
             'Use correct accounting layout — headings, subtotals, double-underline totals — presentation marks are real',
             'Distinguish between capital expenditure (long-term asset) and revenue expenditure (day-to-day cost)',
@@ -10207,7 +11208,11 @@ Year 3: 9,800 × 30% = $2,940 → NBV = $6,860`},
             'Accrued income: income earned but not yet received — add to income, show as current asset',
             'Deferred income: income received in advance — deduct from income, show as current liability',
             'Irrecoverable debts: written off as expense; Allowance for receivables: estimate of expected non-payment',
-          ]},
+          ], workedExample:`Annual insurance £2,400 paid 1 Oct. Year ends 31 Dec.
+Expense for 3 months = 2,400×3/12 = £600
+Prepayment (asset) = £1,800 (paid for future period)
+Accrued wages: staff worked last 3 days of month, £450 unpaid:
+DR wages £450 / CR accruals £450`},
         ], examTips:[
             'Use correct accounting layout — headings, subtotals, double-underline totals — presentation marks are real',
             'Distinguish between capital expenditure (long-term asset) and revenue expenditure (day-to-day cost)',
@@ -10225,7 +11230,10 @@ Year 3: 9,800 × 30% = $2,940 → NBV = $6,860`},
             'Return on Capital Employed (ROCE) = (Net Profit ÷ Capital Employed) × 100%',
             'Current Ratio = Current Assets ÷ Current Liabilities (ideal ~2:1)',
             'Quick Ratio = (Current Assets − Inventory) ÷ Current Liabilities (ideal ~1:1)',
-          ]},
+          ], workedExample:`Current ratio = Current assets / Current liabilities; ideal ≈ 1.5:1 to 2:1
+Acid test ratio = (Current assets − Inventory) / Current liabilities; ideal ≈ 1:1 (more conservative)
+Example: CA = £60,000, inventory = £20,000, CL = £30,000
+Current ratio = 2:1 ✓; Acid test = 40,000/30,000 = 1.33:1 ✓`},
           { title:'Efficiency Ratios', points:[
             'Inventory Turnover = Cost of Sales ÷ Average Inventory (times per year)',
             'Trade Receivables Days = (Trade Receivables ÷ Revenue) × 365',
@@ -10262,7 +11270,10 @@ Interpretation: 40% GPM suggests good pricing; 15% NPM means expenses are 25% of
           ], examTips:[
             'Oxford AQA: accounting concepts are tested in context — "explain why the going concern concept is relevant to the decision to depreciate assets"',
             'Always link concept to its practical effect — don\'t just define it',
-          ]},
+          ], workedExample:`Financial accounting: historical records (income statement, balance sheet) → for external stakeholders
+Management accounting: internal decision-making, budgets, forecasts → for managers
+Auditing: independent examination of accounts → increases reliability for investors
+Taxation: HMRC requires accurate records to calculate tax liability`},
           { title:'Double Entry & Trial Balance', points:[
             'DEAD CLIC: Debit = Expenses, Assets, Drawings; Credit = Liabilities, Income, Capital',
             'Every transaction: one debit entry, one credit entry of equal amount',
@@ -10292,7 +11303,12 @@ CR Bank (asset decreases) $500`},
             'COGS = Opening inventory + Purchases − Closing inventory',
             'Net profit = Gross profit − Expenses (overheads)',
             'Oxford AQA: may ask for a full income statement from trial balance — apply adjustments (accruals, prepayments, depreciation)',
-          ]},
+          ], workedExample:`Income Statement for year ended 31 Dec:
+Revenue: $180,000
+Cost of Sales: Opening inventory $12,000 + Purchases $95,000 − Closing inventory $8,000 = $99,000
+Gross Profit = $180,000 − $99,000 = $81,000
+Expenses (wages $30,000 + rent $15,000 + depreciation $5,000) = $50,000
+Net Profit = $81,000 − $50,000 = $31,000`},
           { title:'Statement of Financial Position (Balance Sheet)', points:[
             'SFP shows financial position at a point in time (a snapshot)',
             'Non-current assets: used for more than one year (premises, machinery, vehicles)',
@@ -10326,7 +11342,9 @@ NET ASSETS:                  $35,000
           ], examTips:[
             'Oxford AQA: ratio questions often ask "suggest TWO reasons for the change in..." — both reasons must be different and specific',
             'Always interpret, don\'t just calculate — what does a falling current ratio actually MEAN for the business?',
-          ]},
+          ], workedExample:`Current assets = $45,000; Inventory = $15,000; Current liabilities = $20,000
+Current ratio = 45,000 ÷ 20,000 = 2.25:1 (slightly high — cash tied up)
+Quick ratio = (45,000−15,000) ÷ 20,000 = 30,000 ÷ 20,000 = 1.5:1 (good liquidity)`},
           { title:'Cash Flow & Decision Making', points:[
             'Cash flow forecast: projected cash inflows and outflows over a period',
             'Net cash flow = Total inflows − Total outflows; opening balance + net cash flow = closing balance',
@@ -10339,7 +11357,10 @@ NET ASSETS:                  $35,000
           ], commonMistakes:[
             'Treating profit and cash as the same — a business can make profit but have negative cash flow (e.g. unpaid debtors)',
             'Forgetting that closing balance = opening balance + net cash flow (not just net cash flow alone)',
-          ]},
+          ], workedExample:`Cash flow statement shows: operating activities + investing activities + financing activities
+Positive operating cash flow but loss possible (if high depreciation)
+Example: profitable business can fail if customers don't pay on time → cash flow crisis
+Solutions: invoice factoring, extended supplier credit, overdraft, reduce stock levels`},
         ], workedExample:`Month 1: Inflows £5,000; Outflows £6,500
 Net cash flow = 5,000 − 6,500 = −£1,500
 Opening balance = £2,000
@@ -10375,7 +11396,9 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
           ], examTips:[
             'Always interpret ratios in context — a falling current ratio may be fine if the business has reliable cash inflows',
             'Acid test: removes inventory because it may be slow to convert to cash — more stringent liquidity measure',
-          ]},
+          ], workedExample:`Current assets = $45,000; Inventory = $15,000; Current liabilities = $20,000
+Current ratio = 45,000 ÷ 20,000 = 2.25:1 (slightly high — cash tied up)
+Quick ratio = (45,000−15,000) ÷ 20,000 = 30,000 ÷ 20,000 = 1.5:1 (good liquidity)`},
           { title:'Oxford AQA Accounting Exam Approach', points:[
             'Oxford AQA Accounting: Paper 1 (preparation of accounts) + Paper 2 (interpretation/decision making)',
             'Paper 1 tasks: preparing income statements, balance sheets, cash flow forecasts, ledger accounts',
@@ -10385,7 +11408,10 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
           ], examTips:[
             'Presentation matters: accountancy has strict layout conventions — marks are lost for incorrect format',
             'Discussion questions: always use data to support your argument: "The current ratio fell from 2.1 to 1.4, suggesting..."',
-          ]},
+          ], workedExample:`Prepare income statement: Gross profit = Sales − Cost of sales; Net profit = Gross profit − Expenses
+Balance sheet: Non-current assets + Current assets − Current liabilities − Non-current liabilities = Capital
+Always show workings for ratios; state formula first, then substitute, then calculate
+Analysis: don't just state the ratio — compare to previous year or industry benchmark and explain what it means`},
         ], commonMistakes:[
             'Treating cash flow and profit as the same — they are fundamentally different concepts',
             'Misplacing items in financial statements — current assets (under 1 year) vs non-current assets (over 1 year)',
@@ -10409,14 +11435,20 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Feminism: society structured around gender inequality favouring men (patriarchy)',
             'Interactionism: focuses on small-scale interactions and how people create meaning (micro approach)',
             'New Right: supports free market, traditional values, minimal state intervention',
-          ]},
+          ], workedExample:`Functionalism (Durkheim): society is a system; institutions work together to maintain order
+Marxism (conflict theory): society divided by class; ruling class exploits working class
+Feminism: society patriarchal; women face systematic disadvantage
+Interactionism (Weber, Mead): focus on small-scale interactions; how meaning is created in everyday life`},
           { title:'Research Methods', points:[
             'Quantitative methods: produce numerical data — surveys, structured interviews, official statistics',
             'Qualitative methods: produce detailed non-numerical data — unstructured interviews, observation, documents',
             'Questionnaires: large sample, cheap, but low response rate and no depth',
             'Participant observation: researcher joins group — high validity but time-consuming and risk of bias',
             'Reliability: same results if repeated; validity: truly measures what it claims to measure',
-          ]},
+          ], workedExample:`Experiment: IV manipulated, DV measured, extraneous variables controlled
+Lab experiment: high control, replicable, but artificial → low ecological validity
+Field experiment: natural setting → higher ecological validity but less control
+Correlation: relationship between variables, not cause and effect; +1 perfect positive, -1 perfect negative`},
         ], examTips:[
             'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
             'State strength AND weakness of any method — examiners look for balanced evaluation',
@@ -10449,14 +11481,20 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Marxist view: family reproduces labour power; transmits ruling class ideology to next generation',
             'Feminist view: family is patriarchal — women do unpaid domestic labour (triple shift)',
             'Changing family: rising divorce rates, cohabitation, single-parent families, same-sex families',
-          ]},
+          ], workedExample:`Nuclear family: parents + children; extended: nuclear + grandparents/relatives
+Functionalist view (Parsons): family socialises children, provides emotional stability
+Marxist view: family reproduces labour force for capitalism; ideological control
+Feminist view: family reproduces patriarchy; women do unpaid domestic labour (dual burden)`},
           { title:'Marriage, Divorce & Changing Patterns', points:[
             'Marriage rates declining in many HICs; cohabitation increasing',
             'Reasons for rising divorce: changing laws (easier/cheaper), women\'s economic independence, secularisation',
             'Secularisation: decline in religion → less stigma attached to divorce',
             'Reconstituted (blended) families: increasingly common; may cause identity issues for children',
             'Empty nest: when children leave home; beanpole family: multi-generational but few members per generation',
-          ]},
+          ], workedExample:`Divorce rate UK: increased after 1969 Divorce Reform Act (easier to divorce); 42% of marriages end in divorce
+Reasons: changing attitudes, women's economic independence, less stigma, secularisation
+Cohabitation: 1 in 5 UK families; increasing as alternative to marriage
+Lone parent families: 90% headed by women; higher poverty risk; linked to divorce and never-married mothers`},
         ], examTips:[
             'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
             'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
@@ -10477,7 +11515,10 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Hidden curriculum: unwritten lessons (punctuality, obedience, competition) that prepare pupils for work',
             'Correspondence principle (Bowles & Gintis): school mirrors workplace — prepares docile workers',
             'Feminist: historical exclusion of women; despite improvements, gender stereotyping remains',
-          ]},
+          ], workedExample:`Functionalist (Durkheim): education transmits shared values (social solidarity); allocates people to roles (meritocracy)
+Marxist (Bowles & Gintis): hidden curriculum teaches obedience/punctuality → prepares workers for capitalism
+Feminist: education still channelling girls into female-dominated subjects (science gender gap narrowing but not gone)
+Interactionist: labelling theory (Becker) — teachers label pupils → self-fulfilling prophecy`},
           { title:'Factors Affecting Achievement', points:[
             'Social class: working-class pupils underachieve — material deprivation (no books, space), cultural capital',
             'Cultural capital (Bourdieu): middle class possess attitudes/knowledge valued by schools',
@@ -10491,7 +11532,10 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
           ], commonMistakes:[
             'Writing about psychology instead of sociology — focus on social structures, not individual minds',
             'Only giving one perspective — IGCSE requires you to show different sociological views',
-          ]},
+          ], workedExample:`Social class: middle-class pupils outperform working-class; cultural capital (Bourdieu), material deprivation
+Gender: girls outperform boys at GCSE; girls more mature, work harder, read more; laddish culture harms boys
+Ethnicity: Chinese and Indian pupils achieve highest; Black Caribbean pupils underachieve → institutional racism, exclusion
+School factors: setting and streaming, teacher expectations, school ethos, resources`},
         ], examTips:[
             'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
             'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
@@ -10512,14 +11556,21 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Strain theory (Merton): crime results from gap between goals (wealth) and means to achieve them',
             'Labelling theory: crime is a social construction — who gets labelled as criminal?',
             'Marxist: law made by ruling class to protect their interests; white-collar crime ignored',
-          ]},
+          ], workedExample:`Functionalist (Durkheim): crime is normal and functional — reinforces norms, promotes social solidarity
+Strain theory (Merton): crime results from gap between success goals and legitimate means (anomie)
+Labelling theory (Becker): criminal is one who has been successfully labelled; deviance is socially constructed
+Marxist: laws protect ruling class interests; working class criminalised for petty crimes while white-collar crime ignored`},
           { title:'Social Control & Patterns of Crime', points:[
             'Formal control: police, courts, prisons; Informal control: family, peer pressure, education',
             'Gender and crime: men commit far more crimes — socialization, masculinity, opportunity',
             'Age and crime: young people (15–25) most likely to offend; youth subculture theories',
             'Class and crime: working class over-represented — but may reflect policing bias',
             'Moral panic: media exaggerates threat of a group → public fear → increased policing',
-          ]},
+          ], workedExample:`Formal control: police, courts, prison → official sanctions
+Informal control: family, peers, media, education → socialisation of norms
+Self-report studies: people admit offences → shows official stats under-record crime (dark figure)
+Victim surveys (BCS): ask people about crimes experienced → also reveals under-reporting
+Moral panic: media exaggerates crime → public fear → increased policing → more arrests → confirms panic`},
         ], examTips:[
             'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
             'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
@@ -10546,14 +11597,20 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Agenda setting: media decides which issues are important by giving them coverage',
             'Marxist view: media owned by ruling class → promotes dominant ideology (hegemony)',
             'Pluralist view: media reflects public demand; people choose what they consume',
-          ]},
+          ], workedExample:`Hypodermic syringe model: media directly injects messages into passive audience → behaviour changes
+Two-step flow (Lazarsfeld): opinion leaders filter media → pass to wider audience
+Uses and gratifications: audience actively selects media for their needs (entertainment, information, identity)
+Representation: women often sexualised; ethnic minorities stereotyped; media can reinforce or challenge inequality`},
           { title:'Representation in Media', points:[
             'Stereotyping: oversimplified, fixed image of a group (gender, ethnicity, age, class)',
             'Women: often portrayed as passive, domestic, sexual objects; improving but still unequal',
             'Ethnicity: minority groups underrepresented or shown in negative roles',
             'Positive effects of social media: campaigns, activism, diverse voices, counter-narratives',
             'Hyperreality (Baudrillard): media images become more "real" than reality itself',
-          ]},
+          ], workedExample:`Underrepresentation: women as protagonists in films improving (28% leads in 2023 Hollywood)
+Stereotypes: older people as frail/confused; working class as criminal/lazy; global majority as criminal or exotic
+Social media: allows marginalised groups to challenge mainstream representation (Black Lives Matter, #MeToo)
+Glasgow Media Group: news coverage biases towards powerful; strikes covered from management perspective`},
         ], examTips:[
             'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
             'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
@@ -10574,21 +11631,30 @@ After 3 years: Net book value = 24,000 − (3 × 4,000) = £12,000`},
             'Functionalist view: inequality is inevitable and functional — motivates talent to fill important roles',
             'Marxist view: inequality serves ruling class interests; capitalism maintains class divisions',
             'Life chances: Weber — class, status, and party all affect opportunities and outcomes',
-          ]},
+          ], workedExample:`Occupation-based class: NS-SEC categories 1–7 from higher managerial to long-term unemployed
+Underclass (Murray): welfare-dependent, deviant — controversial, blamed as victim-blaming
+Social mobility: UK has low social mobility compared to Nordic countries; private schools perpetuate privilege
+Intersectionality (Crenshaw): class + gender + ethnicity interact — compound disadvantages`},
           { title:'Gender Inequality', points:[
             'Patriarchy: system of male dominance in social, political, and economic institutions',
             'Gender pay gap: women earn less on average — occupational segregation, career breaks, discrimination',
             'Glass ceiling: invisible barrier preventing women from reaching top positions',
             'Second shift (Hochschild): women do paid work AND majority of domestic labour/childcare',
             'Progress: legal equality, more women in professions — but inequality persists in many areas',
-          ]},
+          ], workedExample:`Gender pay gap UK: women earn 14.9% less than men (full-time, 2023) — due to occupational segregation, career breaks, glass ceiling
+Domestic violence: 1 in 4 women experience DV in lifetime; gendered crime
+Feminism waves: 1st (suffrage), 2nd (equal rights, 1960s), 3rd (intersectionality), 4th (online, #MeToo)
+Hegemonic masculinity (Connell): dominant form of masculinity — tough, unemotional — harmful to men and women`},
           { title:'Ethnicity & Race', points:[
             'Ethnicity: shared cultural identity (language, religion, customs); race: biological classification (now mostly rejected)',
             'Racism: prejudice or discrimination based on race/ethnicity; institutional racism: embedded in organisations',
             'Ethnic minority groups face: higher unemployment, lower income, housing discrimination in many countries',
             'Multiculturalism: celebration of diverse cultures within one society',
             'Immigration: contributes economically and culturally; may face integration challenges',
-          ]},
+          ], workedExample:`Institutional racism (Macpherson Report 1999): Metropolitan Police institutionally racist after Stephen Lawrence murder
+Stop and search: Black people 9× more likely to be stopped (England & Wales, 2020) → disproportionality
+Achievement gap: Pakistani/Bangladeshi pupils underachieve relative to Chinese/Indian → not about race, but class, language, discrimination
+Ethnic minority poverty: more likely to live in deprived areas, face employment discrimination`},
         ], examTips:[
             'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
             'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
@@ -10643,7 +11709,10 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
             'Single-parent families: increased significantly since 1970s; majority headed by women',
             'Reconstituted (blended) family: step-parents and step-children from previous relationships',
             'Same-sex families: legal in UK since 2014; sociologists note parenting quality not affected by sexuality',
-          ]},
+          ], workedExample:`Chester (1985): nuclear family still dominant; Rapoport identified 5 types of diversity (organisational, cultural, social class, life course, cohort)
+New Right (Murray): lone parent families = social problem, lack of male role model → delinquency
+Postmodernist: diversity is positive; individuals choose family arrangements; no single ideal
+Chosen families: LGBTQ+ partnerships, friendship networks as family — challenges traditional definition`},
           { title:'Marriage, Divorce & Changing Families', points:[
             'Marriage rates declining; cohabitation (living together without marriage) increasing',
             'Divorce rate: Rose sharply after Divorce Reform Act 1969 (easier to divorce)',
@@ -10653,7 +11722,10 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
           ], examTips:[
             'Always use sociological perspectives — functionalist, Marxist, feminist — to evaluate family changes',
             'Give statistics to support trends (divorce rate, marriage rate, cohabitation statistics)',
-          ]},
+          ], workedExample:`Secularisation → less religious opposition to divorce
+Women's movement → financial independence → can leave unhappy marriages
+Empty shell marriages: couples stay together despite breakdown (social pressure, children, finances)
+Reconstituted families (step-families): increasingly common; UK 1 in 3 children experience parental separation`},
         ], examTips:[
             'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
             'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
@@ -10668,7 +11740,10 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
             'Marxist: education reproduces class inequality; hidden curriculum reinforces ruling class ideology',
             'Willis (1977): working-class boys reject school (counter-school culture) — end up in manual jobs',
             'Feminist: schooling historically reinforced gender roles; now girls outperform boys at GCSE',
-          ]},
+          ], workedExample:`Functionalist (Durkheim): education transmits shared values (social solidarity); allocates people to roles (meritocracy)
+Marxist (Bowles & Gintis): hidden curriculum teaches obedience/punctuality → prepares workers for capitalism
+Feminist: education still channelling girls into female-dominated subjects (science gender gap narrowing but not gone)
+Interactionist: labelling theory (Becker) — teachers label pupils → self-fulfilling prophecy`},
           { title:'Educational Achievement & Inequality', points:[
             'Social class: middle-class children outperform working-class — language codes (Bernstein), cultural capital (Bourdieu)',
             'Gender: girls now outperform boys across most subjects; boys more likely to be excluded',
@@ -10678,7 +11753,10 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
           ], examTips:[
             'Use specific sociologist names — Bourdieu (cultural capital), Becker (labelling), Willis (counter-school culture)',
             'Internal factors (labelling, streaming) vs external factors (material deprivation, cultural factors) is a classic exam comparison',
-          ]},
+          ], workedExample:`Pupil premium: extra funding for disadvantaged pupils (free school meals) — reduces gap but not eliminates it
+Academy schools: freed from local authority control → mixed evidence on improving outcomes
+Private schools: 7% of pupils, but 65% of senior judges and 71% of barristers privately educated → privilege perpetuates
+Ofsted: inspects schools; "outstanding" schools disproportionately in wealthier areas`},
         ], commonMistakes:[
             'Describing society in general terms without linking to a specific sociological theory or concept',
             'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
@@ -10690,7 +11768,10 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
             'Social construction of crime: what counts as crime changes (e.g. homosexuality was criminalised in UK until 1967)',
             'Official statistics: underestimate crime due to dark figure (unreported, unrecorded crime)',
             'Victim surveys (e.g. Crime Survey for England & Wales): reveal unreported crime',
-          ]},
+          ], workedExample:`Crime: behaviour that breaks laws of society and is punishable by state
+Deviance: behaviour that breaks social norms but not necessarily law (e.g. tattoos, nudism)
+Social construction of crime: what counts as crime varies across time and cultures (e.g. cannabis in different countries)
+Victimless crime: no direct victim (e.g. drug use) — debated whether state should criminalise`},
           { title:'Explanations for Crime', points:[
             'Functionalist (Durkheim): crime is normal — reinforces boundaries; some innovation is beneficial',
             'Merton\'s strain theory: crime results from gap between success goals and legitimate means to achieve them',
@@ -10700,7 +11781,10 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
           ], examTips:[
             'Always support explanations with named sociologist — un-attributed theories score less',
             'Evaluate each theory: what does it fail to explain? (e.g. strain theory ignores white-collar crime)',
-          ]},
+          ], workedExample:`Right realism (Wilson & Kelling): broken windows — disorder leads to crime; zero tolerance policing
+Left realism (Lea & Young): relative deprivation + marginalisation + subculture → crime
+Feminist: masculinity crisis explains male crime; domestic violence ignored by patriarchal police/courts
+Globalisation: transnational organised crime (trafficking, cybercrime) harder to police nationally`},
         ], examTips:[
             'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
             'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
@@ -10715,7 +11799,11 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
             'Social mobility: movement between social classes; upward (improving position), downward',
             'Open vs closed systems: caste system (closed — birth determines rank); class (open — can move)',
             'Globalisation: changing class structure — growth of service sector, decline of manufacturing',
-          ]},
+          ], workedExample:`Weber's three dimensions of stratification: Class, Status, Party (Power).
+Class: economic position — based on market relations and life chances (not just ownership).
+Status: social prestige/honour — how others view you (can differ from economic class: a teacher has high status but modest income).
+Party: organised groups seeking power (political parties, trade unions).
+Example: a lottery winner gains class (wealth) but not necessarily status; a celebrity has status without political power.`},
           { title:'Poverty & Inequality', points:[
             'Absolute poverty: unable to meet basic survival needs (food, shelter, clothing)',
             'Relative poverty: below the standard of living considered acceptable in society (below 60% median income)',
@@ -10725,7 +11813,10 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
           ], examTips:[
             'Absolute vs relative poverty — define both clearly; examiners reward precise definitions',
             'Link poverty to life chances across health, education, housing, and life expectancy',
-          ]},
+          ], workedExample:`Absolute poverty: below minimum needed to survive (World Bank: <$2.15/day)
+Relative poverty: below 60% of median income (UK measure); about 22% of UK children in relative poverty
+Cycle of deprivation: poverty → poor education → low-paid work → poverty (self-reinforcing)
+Welfare state debate: universalism (all receive, reduces stigma) vs means-testing (targets those in need, lower cost)`},
         ], examTips:[
             'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
             'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
@@ -10754,7 +11845,10 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
           ], examTips:[
             'Oxford AQA sociology: structure answers with point → sociological concept/theory → evidence → evaluation',
             '"Apply a sociological perspective" = name the perspective, state its key idea, link it to the topic',
-          ]},
+          ], workedExample:`Functionalism (Durkheim): society is a system; institutions work together to maintain order
+Marxism (conflict theory): society divided by class; ruling class exploits working class
+Feminism: society patriarchal; women face systematic disadvantage
+Interactionism (Weber, Mead): focus on small-scale interactions; how meaning is created in everyday life`},
           { title:'Research Methods', points:[
             'Quantitative: numerical data; surveys, questionnaires, official statistics — reliable, can generalise',
             'Qualitative: non-numerical; interviews, observation, case studies — valid, rich data but hard to generalise',
@@ -10762,7 +11856,10 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
             'Interpretivism: understanding meaning from subjects\' perspective; favours qualitative methods',
             'Reliability: can the study be repeated with same results? Validity: does it measure what it claims?',
             'Sampling: random, stratified, snowball, opportunity — each has strengths and weaknesses',
-          ]},
+          ], workedExample:`Experiment: IV manipulated, DV measured, extraneous variables controlled
+Lab experiment: high control, replicable, but artificial → low ecological validity
+Field experiment: natural setting → higher ecological validity but less control
+Correlation: relationship between variables, not cause and effect; +1 perfect positive, -1 perfect negative`},
         ]},
         { title:'Family & Education (Oxford AQA)', icon:'🏠', topics:[
           { title:'The Family', points:[
@@ -10771,7 +11868,10 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
             'Marxist view: family reproduces labour force and transmits ruling class ideology',
             'Feminist view: family perpetuates patriarchy; women do unpaid domestic labour (Oakley)',
             'Changing family: divorce rates, cohabitation, birth rate changes, aging population affecting family structure',
-          ]},
+          ], workedExample:`Alternatives to the family: communes, kibbutzim — challenges idea that nuclear family is universal
+Global perspectives: different family structures across cultures (polygamy, extended families)
+State intervention in family: tax credits, free childcare, parenting classes — reflects ideological views of family
+Functionalists vs Marxists: family = beneficial socialisation vs family = reproduces class inequality`},
           { title:'Education', points:[
             'Functionalist view (Durkheim): school transmits shared culture; Parsons: school prepares for meritocracy',
             'Marxist view (Bowles & Gintis): correspondence principle — school mirrors workplace hierarchy; reproduces inequality',
@@ -10781,7 +11881,10 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
           ], examTips:[
             'Evaluation: for every theory, give a criticism — Marxists ignore positive functions; functionalists ignore inequality',
             'Use named sociologists with their concepts: Bourdieu (cultural capital), Willis (lads), Becker (labelling)',
-          ]},
+          ], workedExample:`Selection: grammar schools — 11+ exam; evidence shows increases inequality (middle-class advantage in tutoring)
+Hidden curriculum: informal messages (competitive individualism, acceptance of hierarchy) reinforced daily
+Resistance: Willis's lads (Learning to Labour) reject school culture but end up in working-class jobs → reproduce inequality
+Globalisation of education: league tables, PISA rankings — international benchmarking, marketisation of education`},
         ], examTips:[
             'Reference named sociologists and specific studies — "Durkheim argued..." scores higher than "some sociologists say"',
             'Evaluate: always challenge your own argument with a counter-view before reaching a conclusion',
@@ -10796,7 +11899,10 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
             'Marxist: laws created by ruling class to protect their interests; working class criminalised',
             'Labelling theory (Becker): deviance is in the eye of the beholder; self-fulfilling prophecy',
             'Strain theory (Merton): crime results when people cannot achieve cultural goals by legitimate means',
-          ]},
+          ], workedExample:`Official crime statistics: under-record crime (reporting rates low, police discretion in recording)
+Self-report studies (e.g. Farrington): reveal most people have committed some offence → crime is widespread
+Labelling: Cicourel — police patrol working-class areas more → more arrests → confirms stereotype
+Moral panic: folk devils (hoodies, ravers) — media amplification → increased policing → more arrests → crime seems to rise`},
           { title:'Social Stratification', points:[
             'Social class: hierarchy based on occupation/income/wealth; measured by NS-SEC in UK',
             'Caste system: rigid, closed; based on birth (Hindu system); no social mobility',
@@ -10806,7 +11912,10 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
           ], examTips:[
             'Oxford AQA 12-mark questions: write a short introduction stating opposing views, then 3+ developed points with evaluation, conclude with balanced judgement',
             'Always challenge your own argument — AO2 evaluation marks require engaging with counter-views',
-          ]},
+          ], workedExample:`Caste system: birth determines status, closed, India — although constitutionally abolished, persists socially
+Class system: open (theoretically), based on economic position, social mobility possible
+Meritocracy: talent + effort = success (functionalist ideal) — Marxists argue it's a myth that legitimises inequality
+Wealth vs income: wealth (assets) more unequally distributed than income; top 1% own 23% of UK wealth`},
         ]},
         { title:'Power, Politics & Social Change (Oxford AQA)', icon:'⚖️', topics:[
           { title:'Power & Politics', points:[
@@ -10821,7 +11930,11 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
           ], commonMistakes:[
             'Treating power as purely about politics — remember economic, cultural, and social forms of power',
             'Confusing authority (legitimate power) with coercion (forced power)',
-          ]},
+          ], workedExample:`Compare pluralist and elite theories of power.
+Pluralism (Dahl): power is dispersed across many groups; competition between interest groups prevents domination; democracy works.
+Elite theory (Mills): power concentrated in "power elite" — top military, corporate, political leaders share interests and connections.
+Evidence for pluralism: different pressure groups win on different issues.
+Evidence for elite theory: revolving door between government and business; wealth concentration in politics.`},
           { title:'Social Change & Globalisation', points:[
             'Social change: transformation of social institutions, norms, and values over time',
             'Globalisation: increased interconnection of world economies, cultures, and politics',
@@ -10831,7 +11944,10 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
           ], examTips:[
             'Globalisation evaluation: consider BOTH positive (development opportunities) AND negative (exploitation, cultural homogenisation) effects',
             'Digital divide: unequal access to technology reinforces existing inequalities — use as evaluation of technology as liberating',
-          ]},
+          ], workedExample:`Globalisation: increased flows of people, goods, ideas across borders
+Cultural homogenisation: McDonaldisation (Ritzer) — global culture becoming uniform, dominated by US values
+Glocalism: global products adapted for local markets (McDonalds India has no beef burgers)
+Migration: EU freedom of movement → population diversity in UK; Brexit changed rules — net migration still high`},
           { title:'Oxford AQA Sociology Exam Skills', points:[
             'Oxford AQA: Paper 1 (Theory, Methods, Family, Education) + Paper 2 (Crime, Work, Power, Global Development)',
             'Item/source questions: refer to the item — use quotations or paraphrase; this is an AO1 skill',
@@ -10841,7 +11957,10 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
           ], examTips:[
             'AO3 evaluation: phrases like "However, Marxists would argue...", "This view is challenged by...", "A limitation of this is..." signal evaluative thinking',
             'Use evidence: named studies, statistics from the item, or sociological research — do not make unsupported assertions',
-          ]},
+          ], workedExample:`Short answer (4 marks): define + example + explain + link to context
+Extended writing (12 marks): two developed arguments + evaluation/counter-argument + overall judgement
+Use sociological terminology: anomie, social capital, hegemony, intersectionality, meritocracy
+Evaluate: strengths and limitations of each perspective — avoid one-sided answers for higher marks`},
         ], commonMistakes:[
             'Describing society in general terms without linking to a specific sociological theory or concept',
             'Forgetting to evaluate — AO2 marks require engaging with counter-arguments, not just listing points',
@@ -10868,14 +11987,22 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
             'Field experiment: natural setting, more valid, but less control',
             'Observation: naturalistic (real setting) or controlled; covert vs overt',
             'Case study: in-depth study of one individual or small group; rich detail but cannot generalise',
-          ]},
+          ], workedExample:`Experiment: IV manipulated, DV measured, extraneous variables controlled
+Lab experiment: high control, replicable, but artificial → low ecological validity
+Field experiment: natural setting → higher ecological validity but less control
+Correlation: relationship between variables, not cause and effect; +1 perfect positive, -1 perfect negative`},
           { title:'Key Research Concepts', points:[
             'Hypothesis: testable prediction about what will happen; null hypothesis: no effect',
             'Sampling: random (every member has equal chance), opportunity (whoever is available), self-selected',
             'Reliability: consistent results across measurements or between observers',
             'Validity: does the study measure what it claims? Internal and external validity',
             'Ethics: informed consent, right to withdraw, confidentiality, protection from harm (BPS guidelines)',
-          ]},
+          ], workedExample:`Reliability vs Validity:
+Reliability: consistency — test-retest (same result over time), inter-rater (observers agree)
+Validity: measures what it claims to — internal (controls confounding variables), external (generalises to real world)
+Standardisation: same procedure every time → increases reliability
+Operationalisation: define variables precisely (e.g. "stress" = cortisol level in saliva)
+Ethics: informed consent, right to withdraw, debriefing, confidentiality, protection from harm`},
         ], examTips:[
             'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
             'State strength AND weakness of any method — examiners look for balanced evaluation',
@@ -10890,14 +12017,20 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
             'LTM: unlimited capacity, long duration (potentially lifetime), semantic encoding',
             'Working memory model (Baddeley & Hitch): phonological loop, visuospatial sketchpad, central executive',
             'Episodic memory: personal events; semantic: general knowledge; procedural: how to do things',
-          ]},
+          ], workedExample:`Multi-store model (Atkinson & Shiffrin): sensory → STM (7±2 items, 15–30 sec) → LTM (unlimited capacity, permanent)
+Encoding: STM = acoustic; LTM = semantic
+Working memory model (Baddeley): central executive + phonological loop + visuospatial sketchpad + episodic buffer
+Evaluation: WMM explains why we can do two tasks (if different slave systems) — more flexible than MSM`},
           { title:'Forgetting', points:[
             'Interference: proactive (old memories interfere with new) and retroactive (new interfere with old)',
             'Retrieval failure: information in LTM but cannot be accessed — tip of tongue phenomenon',
             'Context-dependent forgetting: encoded in one context, hard to recall in different context',
             'State-dependent forgetting: emotional/physical state at encoding differs from recall',
             'Repression (Freud): motivated forgetting of traumatic or anxiety-provoking memories',
-          ]},
+          ], workedExample:`Loftus & Palmer (1974) — Experiment 1:
+Participants saw car accident video. Asked "About how fast were the cars going when they [hit/smashed/collided/bumped/contacted]?"
+"Smashed" group estimated 40.8 mph average; "Contacted" group estimated 31.8 mph
+Shows: verb in question changed memory reconstruction → eyewitness testimony unreliable`},
         ], examTips:[
             'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
             'State strength AND weakness of any method — examiners look for balanced evaluation',
@@ -10918,14 +12051,23 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
             'Concrete operational (7–11): conservation achieved; Formal operational (12+): abstract reasoning',
             'Conservation: understanding that quantity stays the same despite change in appearance',
             'Evaluation: underestimated children\'s abilities; culture and social interaction largely ignored',
-          ]},
+          ], workedExample:`Conservation of liquid task:
+Pre-operational child (age 5): pours water into taller, narrower container
+"Which has more?" → Child: "The tall one" (centration on height only)
+Concrete operational (age 7+): understands volume unchanged → conservation achieved
+McGarrigle & Donaldson (Naughty Teddy): children showed conservation earlier when task seemed accidental → Piaget underestimated children`},
           { title:'Attachment (Bowlby)', points:[
             'Attachment: strong emotional bond between infant and caregiver; critical period concept',
             'Bowlby\'s monotropy: one primary attachment (usually mother) most important',
             'Ainsworth — Strange Situation: secure (65%), anxious-avoidant (20%), anxious-resistant (15%)',
             'Secure attachment: caregiver responsive → child explores freely, upset when left, comforted on return',
             'Deprivation (separation): short/long term effects — delinquency, depression, intellectual delay',
-          ]},
+          ], workedExample:`Bowlby's Monotropy theory:
+Infants have innate drive to form attachment with ONE primary caregiver (usually mother)
+Critical period: 0-2.5 years for forming attachment
+Internal working model: template for future relationships
+MaternalDeprivation hypothesis: separation from mother → permanent emotional damage
+Counter: Rutter (1981) — multiple attachments possible; privation (never formed) more harmful than deprivation`},
         ], examTips:[
             'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
             'State strength AND weakness of any method — examiners look for balanced evaluation',
@@ -10953,14 +12095,22 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
           ], commonMistakes:[
             'Saying participants were "forced" — they were not; they could leave but chose not to (obedience)',
             'Confusing obedience (following direct orders) with conformity (following group norms)',
-          ]},
+          ], workedExample:`Milgram (1963): 65% of participants delivered maximum 450V shock to "learner"
+Situational factors: legitimate authority (lab coat), proximity of learner, presence of others who refuse (drops to 10%)
+Ethical issues: deception, psychological harm (stress), right to withdraw not clear
+Application: explains atrocities (Holocaust) — "just following orders" — situational not dispositional`},
           { title:'Conformity & Social Influence', points:[
             'Conformity: changing behaviour/beliefs to fit in with a group',
             'Informational influence: conforming because we believe group knows better (genuine attitude change)',
             'Normative influence: conforming to be liked/accepted; behaviour changes but not necessarily beliefs',
             'Asch line study: 75% conformed at least once; 5% always conformed; group size matters',
             'Minority influence: consistency over time can change majority view (Moscovici)',
-          ]},
+          ], workedExample:`Asch (1951): line length judgment task
+6 confederates gave wrong answer; 1 real participant
+75% of real participants conformed at least once; 37% of all answers wrong
+Variables increasing conformity: group size (up to 3), task difficulty, face-to-face
+Variables decreasing: presence of ally, non-unanimous majority, answer written privately
+Types: compliance (public agreement only), identification, internalisation (genuine belief change)`},
         ], examTips:[
             'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
             'State strength AND weakness of any method — examiners look for balanced evaluation',
@@ -10978,14 +12128,23 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
           ], examTips:[
             'Localisation vs holism: localisation says specific areas control functions; holism says the brain works as a whole',
             'Evaluate case studies (e.g. Phineas Gage): unique insight into brain function, but cannot generalise from one case',
-          ]},
+          ], workedExample:`Phineas Gage: iron rod through frontal lobe → personality changed (impulsive, antisocial) → evidence for localisation
+Broca's area (left frontal): speech production — damage → Broca's aphasia (understand but can't speak)
+Wernicke's area (temporal): speech comprehension — damage → Wernicke's aphasia (fluent but meaningless speech)
+Split-brain research (Sperry): corpus callosum severed → left and right hemispheres function independently`},
           { title:'Hormones & Behaviour', points:[
             'Endocrine system: glands secrete hormones into bloodstream → affect organs and behaviour',
             'Adrenaline (adrenal gland): fight-or-flight response — raised heart rate, dilated pupils, increased blood sugar',
             'Testosterone (testes/ovaries): linked to aggression; higher levels → more aggressive behaviour in some studies',
             'Cortisol: stress hormone from adrenal cortex; chronic high levels → impaired immune function, memory issues',
             'Oxytocin: "bonding hormone" — released during social contact, breastfeeding; increases trust and affiliation',
-          ]},
+          ], workedExample:`Stress response — HPA axis:
+1. Stressor perceived by amygdala → signals hypothalamus
+2. CRH released → anterior pituitary releases ACTH
+3. ACTH → adrenal cortex releases cortisol
+4. Cortisol: raises blood sugar, suppresses immune system (long-term)
+SAM axis (fight or flight): adrenaline released within seconds
+Chronic stress effects: hypertension, immunosuppression, hippocampal damage (memory problems)`},
         ], examTips:[
             'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
             'State strength AND weakness of any method — examiners look for balanced evaluation',
@@ -11003,7 +12162,10 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
             'Nature vs nurture debate: genetics (twin studies) vs environment (education, SES, nutrition)',
             'Twin studies (Bouchard): identical twins raised apart show similar IQ → genetic basis for intelligence',
             'Sternberg\'s triarchic theory: analytic, creative, and practical intelligence — IQ tests only measure analytic',
-          ]},
+          ], workedExample:`Psychometric approach (Spearman): g factor — general intelligence underlies all cognitive abilities
+Gardner's multiple intelligences: 8 types (linguistic, mathematical, musical, spatial, etc.) — more inclusive
+IQ test: standardised with mean 100, SD 15; controversial — cultural bias, only measures certain abilities
+Nature vs nurture debate: twin studies suggest ~50% heritable; environment also crucial (e.g. education)`},
           { title:'Abnormality & Mental Health', points:[
             'Definitions of abnormality: statistical infrequency, deviation from social norms, failure to function adequately',
             'DSM-5: Diagnostic and Statistical Manual — used to classify mental disorders',
@@ -11013,7 +12175,12 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
           ], examTips:[
             'Always evaluate definitions of abnormality — each has strengths and limitations',
             'Link treatment to explanation: if biological cause (low serotonin) → drug treatment; if learned (conditioning) → systematic desensitisation',
-          ]},
+          ], workedExample:`Definitions of abnormality:
+Statistical infrequency: below IQ 70 = abnormal; problem — high IQ also "abnormal"
+Deviation from social norms: context-dependent; cultural relativism problem
+Failure to function adequately: cannot maintain daily life; personal distress indicator
+Deviation from ideal mental health (Jahoda): positive criteria include self-actualisation, autonomy, resistance to stress
+Evaluation: all definitions have cultural bias; none sufficient alone`},
         ], examTips:[
             'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
             'State strength AND weakness of any method — examiners look for balanced evaluation',
@@ -11039,14 +12206,20 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
           ], examTips:[
             'Evaluate using cross-cultural studies: if perception varies across cultures → learned (empiricism); if universal → innate (nativism)',
             'Hudson\'s pictorial depth perception test: showed depth cue interpretation varies with cultural experience',
-          ]},
+          ], workedExample:`Gregory's constructivist theory: perception is active, top-down, using stored knowledge to interpret ambiguous stimuli
+Gibson's ecological theory: direct perception — information in the environment is sufficient, no inference needed
+Perceptual set: expectation influences what we see (e.g. seeing what we expect in an ambiguous figure)
+Müller-Lyer illusion: explains cultural differences in perception — people who live in carpentered environments more susceptible`},
           { title:'Dreaming', points:[
             'REM sleep: rapid eye movement; associated with vivid dreaming; brain active, body paralysed',
             'Freud\'s theory: dreams fulfil unconscious wishes; manifest content (what we remember) vs latent content (hidden meaning)',
             'Activation-synthesis theory (Hobson & McCarley): brain randomly fires during REM → cortex makes sense of signals as "dream"',
             'Dement & Kleitman (1957): EEG + eye movement monitoring; awakened in REM → 80% recalled dreams; in NREM → rarely recalled',
             'Evaluation of Freud: unfalsifiable (cannot disprove); subjective interpretation; but case studies rich in detail',
-          ]},
+          ], workedExample:`Freud: dreams are wish fulfilment — unconscious desires expressed symbolically (manifest vs latent content)
+Hobson & McCarley (activation-synthesis): dreams are random brain activity during REM; brain tries to make sense of signals
+REM sleep: 90-minute cycles; most vivid dreams occur in REM; if deprived of REM → increased anxiety, poor concentration
+Memory consolidation theory: dreams help store memories — sleep improves recall of learned material`},
         ], examTips:[
             'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
             'State strength AND weakness of any method — examiners look for balanced evaluation',
@@ -11064,7 +12237,10 @@ Positivists prefer questionnaires (quantitative); Interpretivists prefer intervi
             'LTM: unlimited capacity, potentially lifelong duration, semantic encoding',
             'Rehearsal: maintenance rehearsal keeps info in STM; elaborative rehearsal transfers to LTM',
             'Working memory model (Baddeley): replaces STM with central executive + phonological loop + visuospatial sketchpad + episodic buffer',
-          ]},
+          ], workedExample:`Encoding specificity (Tulving): recall better when context matches encoding conditions (e.g. learned underwater → recalled underwater)
+Forgetting: trace decay (STM), interference (LTM — proactive: old info interferes with new; retroactive: new interferes with old)
+Repression (Freud): motivated forgetting of traumatic/threatening memories — pushed into unconscious
+Flashbulb memories: vivid, detailed memories for emotionally significant events (e.g. 9/11) — but not always accurate`},
           { title:'Forgetting', points:[
             'Trace decay: memory fades over time if not rehearsed (Peterson & Peterson — consonant trigrams)',
             'Interference: proactive interference (old memories block new); retroactive (new memories block old)',
@@ -11092,7 +12268,10 @@ Shows: verb in question changed memory reconstruction → eyewitness testimony u
             'Extinction: conditioned response weakens if CS repeatedly presented without UCS',
             'Operant conditioning (Skinner): behaviour shaped by consequences',
             'Positive reinforcement: reward follows behaviour → behaviour increases; negative reinforcement: removal of unpleasant stimulus',
-          ]},
+          ], workedExample:`Classical (Pavlov): NS + UCS → UCR; after conditioning NS → CS → CR
+Example: bell (NS) + food (UCS) → salivation (UCR); after: bell (CS) → salivation (CR)
+Operant (Skinner): positive reinforcement (reward → repeat); negative reinforcement (remove unpleasant → repeat); punishment (reduce behaviour)
+Token economy: secondary reinforcers (tokens) exchanged for primary rewards — used in prisons, schools`},
           { title:'Social Learning Theory', points:[
             'Bandura: learning occurs by observing and imitating role models (vicarious learning)',
             'Four processes: attention → retention → reproduction → motivation/reinforcement',
@@ -11102,7 +12281,10 @@ Shows: verb in question changed memory reconstruction → eyewitness testimony u
           ], examTips:[
             'Bandura Bobo doll: strength = controlled conditions; weakness = demand characteristics (children may perform for observer)',
             'Classical vs operant: classical = involuntary/reflexive responses; operant = voluntary behaviour shaped by consequences',
-          ]},
+          ], workedExample:`Bandura: learning through observation and imitation of role models
+Conditions: attention, retention, reproduction, motivation (ARRM)
+Bobo doll study: children who observed aggressive adult → showed 3× more aggression than controls
+Vicarious reinforcement: observing model being rewarded → increases imitation; being punished → reduces imitation`},
         ], examTips:[
             'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
             'State strength AND weakness of any method — examiners look for balanced evaluation',
@@ -11117,7 +12299,10 @@ Shows: verb in question changed memory reconstruction → eyewitness testimony u
             'Dispositional factors: authoritarian personality (Adorno) — tendency to be overly obedient to authority',
             'Agentic state: person sees themselves as instrument of authority, not personally responsible',
             'Ethical issues: deception (told it was learning study), psychological harm, though debriefed afterwards',
-          ]},
+          ], workedExample:`Agentic state (Milgram): person sees themselves as agent of authority, not responsible for actions
+Authoritarian personality (Adorno): measured by F-scale; rigid thinking, submissive to authority, prejudiced
+Bystander apathy (Latané & Darley): diffusion of responsibility — more bystanders → less likely each will help
+Pluralistic ignorance: when others appear unconcerned, we assume situation isn't serious → no one helps`},
           { title:'Prosocial Behaviour & Bystander Effect', points:[
             'Bystander effect: presence of others reduces likelihood of helping in emergencies',
             'Diffusion of responsibility: each person assumes another will help',
@@ -11127,7 +12312,10 @@ Shows: verb in question changed memory reconstruction → eyewitness testimony u
           ], examTips:[
             'Edexcel Psych: always apply studies to real-world contexts — examiners reward application marks',
             'Evaluate bystander research: lacks ecological validity (staged) but replicated in field studies (subway studies)',
-          ]},
+          ], workedExample:`Kitty Genovese case (1964): 38 witnesses to murder, no one called police — sparked research into bystander effect
+Cost-benefit analysis: weigh up cost of helping (danger, time) vs benefit (moral satisfaction, avoid guilt)
+Arousal: cognitive labelling theory — physiological arousal + explanation = specific emotion (Schachter)
+Piliavin (subway experiment): help increased when victim appeared ill (not drunk), when alone, when similar to helper`},
         ], examTips:[
             'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
             'State strength AND weakness of any method — examiners look for balanced evaluation',
@@ -11153,7 +12341,10 @@ Shows: verb in question changed memory reconstruction → eyewitness testimony u
           ], examTips:[
             'Oxford AQA: describe study → state findings → evaluate (strength/weakness of method or conclusion)',
             'Ethics: informed consent, right to withdraw, no harm, confidentiality, deception — apply to each study',
-          ]},
+          ], workedExample:`Assumptions: behaviour has biological causes; genes, hormones, neurotransmitters, brain structure
+Serotonin: low levels linked to depression and aggression
+Dopamine: linked to reward, motivation; excess linked to schizophrenia; low linked to Parkinson's disease
+Twin studies: MZ twins share 100% DNA; if MZ concordance >> DZ (50% DNA) → genetic influence on trait`},
           { title:'Cognitive Approach', points:[
             'Cognitive psychology: studies mental processes (memory, attention, perception, language, thinking)',
             'Multi-store model (Atkinson & Shiffrin): sensory register → short-term memory → long-term memory',
@@ -11185,7 +12376,10 @@ Conclusion: the wording of a question can alter memory — has implications for 
           ], examTips:[
             'Evaluate Milgram: ethical issues (deception, right to withdraw); but replicated across cultures; influenced safeguarding policies',
             'Asch evaluation: artificial task (line lengths); demand characteristics likely; but variations show conformity reduces with one ally',
-          ]},
+          ], workedExample:`Conformity types: compliance (public agreement, private disagreement), internalisation (genuine belief change)
+Informational influence: conform because others have more information (e.g. fire drill)
+Normative influence: conform to fit in, avoid rejection (e.g. fashion)
+Asch (1956): 75% conformed at least once on line task; reduced when one other person dissented`},
           { title:'Development (Oxford AQA)', points:[
             'Piaget\'s stages: sensorimotor (0–2), pre-operational (2–7), concrete operational (7–11), formal operational (11+)',
             'Schemas: mental frameworks built through assimilation (fitting new info in) and accommodation (adapting schemas)',
@@ -11196,7 +12390,10 @@ Conclusion: the wording of a question can alter memory — has implications for 
           ], examTips:[
             'Oxford AQA evaluation structure: strength → specific evidence supporting strength → limitation → specific evidence → conclusion',
             'Apply to real life: Piaget\'s concrete operational stage explains why 6-year-olds struggle with abstract maths',
-          ]},
+          ], workedExample:`Piaget's stages: sensorimotor (0–2), preoperational (2–7), concrete operational (7–11), formal operational (11+)
+Conservation (Piaget): preoperational children fail conservation tasks (number, liquid volume) — centration
+Vygotsky: zone of proximal development (ZPD) — what child can do with help; scaffolding by more knowledgeable other
+Attachment (Bowlby): monotropy — primary attachment figure; critical period; maternal deprivation → long-term damage`},
         ], commonMistakes:[
             'Describing findings without naming the specific study or researcher — always include "who, what, when"',
             'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
@@ -11212,7 +12409,13 @@ Conclusion: the wording of a question can alter memory — has implications for 
             'Natural experiment: IV naturally occurring; researcher cannot manipulate it',
             'Observation: naturalistic (real environment), structured (pre-set coding scheme)',
             'Interview: structured (fixed questions), semi-structured, unstructured (open conversation)',
-          ]},
+          ], workedExample:`Experimental design comparison:
+Independent groups: different participants in each condition
++ no order effects; - participant variables (individual differences)
+Repeated measures: same participants in all conditions
++ controls individual differences; - order effects, demand characteristics
+Matched pairs: matched on key variable; middle ground
+Counterbalancing (ABBA): controls order effects in repeated measures`},
           { title:'Evaluating Research', points:[
             'Validity: does it measure what it claims? Internal (controls) and external (generalise) validity',
             'Reliability: consistency — can be replicated? Inter-rater reliability: two observers agree',
@@ -11222,7 +12425,12 @@ Conclusion: the wording of a question can alter memory — has implications for 
           ], examTips:[
             'Method question: always state strength AND weakness; link to the specific study context',
             'Oxford AQA 4-mark describe: who, what, procedure, findings — be specific about numbers and results',
-          ]},
+          ], workedExample:`Critiquing a study:
+Sample: size (n=20 limited), representativeness (all male → cannot generalise to females), self-selected (volunteer bias — often more motivated/cooperative)
+Measurement: self-report questionnaire — social desirability bias; leading questions
+Control: extraneous variables; demand characteristics (guessing aim and conforming)
+Strength of conclusion: correlation ≠ causation; confounding variables
+Ecological validity: lab experiment → artificial behaviour; field experiment → more natural but less control`},
         ], examTips:[
             'Name the specific psychologist and study — "Milgram (1963) found..." earns AO1 marks',
             'State strength AND weakness of any method — examiners look for balanced evaluation',
@@ -11243,7 +12451,10 @@ Conclusion: the wording of a question can alter memory — has implications for 
           ], commonMistakes:[
             'Describing psychology generally instead of applying a named concept to the specific context given',
             'Ignoring individual differences — not everyone responds the same way to psychological interventions',
-          ]},
+          ], workedExample:`CBT (cognitive behavioural therapy): challenge negative automatic thoughts → change behaviour; used for depression, anxiety
+Systematic desensitisation: gradual exposure to feared stimulus while relaxed → treats phobias
+Drug therapy: SSRIs (fluoxetine) increase serotonin → treat depression; evaluate: treats symptoms not cause
+Token economy: operant conditioning principles in institutional settings → modify behaviour`},
           { title:'Approaches in Psychology', points:[
             'Biological: behaviour explained by genetics, brain structure, hormones, neurotransmitters',
             'Behaviourist: all behaviour is learnt through conditioning (Pavlov, Skinner, Watson)',
@@ -11253,7 +12464,11 @@ Conclusion: the wording of a question can alter memory — has implications for 
           ], examTips:[
             'Approach comparison: for any behaviour, explain how TWO different approaches would explain it — then evaluate',
             'Nature vs nurture: embed in every approach discussion — biological = nature; behaviourist = nurture; most now say interaction',
-          ]},
+          ], workedExample:`Psychodynamic approach (Freud):
+Conscious (tip of iceberg) → small; Preconscious → larger; Unconscious (bulk) → drives, repressed memories
+Structure of personality: Id (pleasure principle, innate), Ego (reality principle, mediates), Superego (morality principle, socialised)
+Defence mechanisms: repression (pushing unconscious), projection (attributing own feelings to others), displacement, rationalisation
+Critique: unfalsifiable; overdetermines importance of sex; based on case studies of neurotic patients`},
           { title:'Oxford AQA Psychology Paper Skills', points:[
             'Oxford AQA: Paper 1 (Core studies and psychological investigations) + Paper 2 (Psychological applications)',
             'Core study evaluation: strengths (validity, reliability, ethics, application) and weaknesses',
@@ -11263,7 +12478,10 @@ Conclusion: the wording of a question can alter memory — has implications for 
           ], examTips:[
             'Core studies: know all 20 studies — who, aim, method, results, conclusion, one strength, one weakness',
             'Avoid "it was a good/bad study" — always specify WHAT makes it valid/invalid, reliable/unreliable, ethical/unethical',
-          ]},
+          ], workedExample:`Short answer (4 marks): define → apply to context → explain mechanism → conclude
+Evaluate (6 marks): strength with evidence + limitation with evidence + overall evaluation of approach
+Research design question: state IV and DV, explain controls, predict results, state ethical issues to address
+Always use psychological terminology: ecological validity, demand characteristics, confounding variable`},
         ], commonMistakes:[
             'Describing findings without naming the specific study or researcher — always include "who, what, when"',
             'Using everyday language instead of psychological terminology — "people copy others" vs "social learning through observation"',
@@ -11292,14 +12510,20 @@ Conclusion: the wording of a question can alter memory — has implications for 
             'OMR (Optical Mark Recognition): detects marks on paper (multiple choice exams, surveys)',
             'OCR (Optical Character Recognition): reads printed/handwritten text and converts to digital text',
             'RFID: radio waves identify tags (e.g. library books, stock control, passports)',
-          ]},
+          ], workedExample:`Data types: integer (whole number), real/float (decimal), char (single character), string (text), boolean (true/false)
+Input devices: keyboard (text entry), mouse (pointing), barcode scanner (retail), biometric (security: fingerprint)
+Sensor: temperature sensor → analogue signal → ADC → digital value stored
+Validation: range check (age 0–120), type check (name is text), presence check (field not empty)`},
           { title:'Storage Devices', points:[
             'Magnetic: HDD — large capacity, cheap per GB, moving parts (can break), random access',
             'Flash/Solid State: SSD, USB drives — fast, no moving parts, shock-resistant, expensive per GB',
             'Optical: CD/DVD/Blu-ray — portable, cheap, easily scratched, lower capacity',
             'Cloud storage: data stored on remote servers — access anywhere, dependent on internet',
             'Backup: copy of data in case original is lost; grandfather-father-son rotation for organisations',
-          ]},
+          ], workedExample:`Magnetic: HDD — high capacity (4TB), low cost, slow, mechanical failure risk
+Solid state: SSD — fast, reliable (no moving parts), more expensive, lower capacity
+Optical: CD/DVD/Blu-ray — portable, read-only (CD-ROM) or writable (CD-R), easily scratched
+Cloud storage: accessible anywhere, scalable, requires internet, privacy/security concerns`},
         ], examTips:[
             'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
             'Give specific examples for every advantage or disadvantage you state',
@@ -11320,14 +12544,22 @@ Conclusion: the wording of a question can alter memory — has implications for 
             'Bus topology: all share one cable; cheap but one break affects entire network',
             'Ring topology: devices connected in a circle; token passing controls data flow',
             'Wi-Fi: wireless LAN using radio waves; Bluetooth: short-range wireless (10m)',
-          ]},
+          ], workedExample:`LAN vs WAN:
+LAN: within single building/campus; owned by organisation; fast (1Gbps)
+WAN: across cities/countries; uses ISP infrastructure; slower
+PAN: personal area (Bluetooth, <10m)
+WiFi range: 2.4GHz (~45m), 5GHz (~15m but faster)
+IPv4: 32-bit (4.3 billion addresses); IPv6: 128-bit (virtually unlimited)`},
           { title:'Internet & Communication', points:[
             'Internet: global network of networks; World Wide Web: system of web pages accessed via internet',
             'Email: asynchronous communication; can send attachments; spam is unwanted bulk email',
             'VoIP (Voice over IP): voice calls over the internet (e.g. Skype, WhatsApp calls)',
             'Streaming: data delivered continuously in real-time (YouTube, Spotify)',
             'Bandwidth: amount of data transferred per second; higher bandwidth = faster speeds',
-          ]},
+          ], workedExample:`HTTP: HyperText Transfer Protocol — transfers web pages; HTTPS adds SSL/TLS encryption
+Email protocol: SMTP (send), POP3 (download and delete), IMAP (access on server, multiple devices)
+Packet switching: data split into packets with header (source, destination, sequence); routed independently; reassembled
+VoIP (Voice over IP): audio converted to digital packets → sent over internet → Skype, Zoom, Teams`},
         ], examTips:[
             'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
             'Give specific examples for every advantage or disadvantage you state',
@@ -11342,14 +12574,20 @@ Conclusion: the wording of a question can alter memory — has implications for 
             'Utility software: maintains and optimises system (antivirus, disk defragmenter, backup)',
             'Open source: source code available freely; proprietary: commercial, source code protected',
             'GUI (Graphical User Interface): icons, windows, menus; CLI (Command Line): text commands',
-          ]},
+          ], workedExample:`System software: OS (manages hardware/software), utility programs (antivirus, disk defragmenter, backup)
+Application software: word processing, spreadsheet, database, browser, media player
+Open source: source code available, free to modify (Linux, LibreOffice); proprietary: closed code, paid licence (Windows, MS Office)
+Programming languages: low-level (machine code, assembly) — fast; high-level (Python, Java) — easier to write, needs compiler/interpreter`},
           { title:'Databases & Spreadsheets', points:[
             'Database: organised collection of data; records (rows) and fields (columns)',
             'Primary key: unique identifier for each record; foreign key: links two tables',
             'Queries: extract specific data using criteria (e.g. SELECT where age > 18)',
             'Spreadsheet formulas: =SUM(), =AVERAGE(), =IF(), =VLOOKUP(), =COUNT()',
             'Relative cell reference (A1) changes when copied; absolute ($A$1) stays fixed',
-          ]},
+          ], workedExample:`VLOOKUP: =VLOOKUP(E2, A2:C10, 3, FALSE)
+Looks for E2 in first column of A2:C10, returns value from 3rd column
+Pivot table: drag fields to rows/columns/values; summarise large datasets
+SQL: SELECT AVG(salary) FROM employees WHERE dept="IT" GROUP BY grade HAVING AVG(salary)>50000`},
         ], examTips:[
             'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
             'Give specific examples for every advantage or disadvantage you state',
@@ -11370,7 +12608,12 @@ Conclusion: the wording of a question can alter memory — has implications for 
             'Social engineering: manipulating people to reveal confidential information (not technical)',
             'Firewall: monitors network traffic, blocks unauthorised access',
             'Encryption: converts data to unreadable format; only decrypted with correct key',
-          ]},
+          ], workedExample:`Caesar cipher key=13 (ROT13): "HELLO"→"URYYB"
+Vigenère cipher: polyalphabetic, harder to crack
+RSA: public key (n,e), private key (n,d)
+Encrypt: C=Mᵉ mod n; Decrypt: M=Cᵈ mod n
+MD5/SHA-256: hash functions, one-way (cannot reverse)
+DDoS: overwhelm server with requests from thousands of infected machines (botnet)`},
           { title:'Ethical & Legal Issues', points:[
             'Copyright: legal protection for original creative work — software, music, images, text',
             'Software piracy: illegal copying/distribution of software without licence',
@@ -11381,7 +12624,10 @@ Conclusion: the wording of a question can alter memory — has implications for 
             'Copyright vs patents: copyright protects expression (software code, images); patents protect inventions',
             'Data Protection principles: purpose limitation, data minimisation, accuracy, storage limitation, security',
             'Digital divide: not just rich vs poor countries — also elderly vs young, urban vs rural within same country',
-          ]},
+          ], workedExample:`Data Protection Act 2018 / GDPR: data must be accurate, secure, used fairly, not kept longer than necessary
+Computer Misuse Act 1990: unauthorised access, data modification, DDoS attacks — criminal offence
+Copyright: you cannot copy software without licence; freeware (free, no source), shareware (trial), open source (modifiable)
+AI ethics: bias in algorithms, job displacement, surveillance, autonomous weapons — ongoing societal debate`},
         ], commonMistakes:[
             'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
             'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
@@ -11393,7 +12639,10 @@ Conclusion: the wording of a question can alter memory — has implications for 
             'Data flow diagram (DFD): shows how data moves through a system',
             'Testing: white box (uses knowledge of code), black box (tests inputs/outputs only)',
             'User acceptance testing: end users test system before full implementation',
-          ]},
+          ], workedExample:`SDLC phases: Analysis → Design → Implementation → Testing → Evaluation → Maintenance
+Requirements specification: what the system must do (functional) and how well (non-functional: speed, reliability)
+Prototyping: build working model, get user feedback, refine → iterative design
+Testing: black box (test from user perspective); white box (test internal logic); alpha (internal), beta (external users)`},
           { title:'Control Systems & Automation', points:[
             'Sensor: detects physical input (temperature, light, pressure, motion)',
             'Actuator: converts signal into action (motor, heater, buzzer)',
@@ -11423,7 +12672,10 @@ Advantage: no human needed; works 24/7; consistent conditions for plants`},
             'Audio file types: MP3 (compressed, small), WAV (uncompressed, large, high quality)',
             'Video file types: MP4 (compressed, streaming), AVI (large, high quality)',
             'Resolution: pixels per inch (ppi) — higher resolution = better quality but larger file size',
-          ]},
+          ], workedExample:`Image: resolution (pixels per inch/cm), colour depth (bits per pixel), file size = width × height × colour depth
+Sound: sample rate (Hz — how often sound measured), bit depth (bits per sample); higher = better quality, larger file
+Video: frame rate (fps), resolution, compression crucial for streaming (H.264 codec)
+Compression: lossy (JPEG, MP3) — some data lost; lossless (PNG, FLAC) — no data lost, larger files`},
           { title:'File Sizes & Compression', points:[
             'Image file size = width × height × colour depth (bits) ÷ 8 (for bytes)',
             'Sound file size = sample rate (Hz) × bit depth × duration (s) × channels ÷ 8',
@@ -11444,7 +12696,10 @@ MP3 compression at 10:1 ratio → ~88 KB`},
             'Metadata: data about data — search engines use title, description, keywords tags',
             'HTML structure: DOCTYPE → html → head (title, css) → body (content)',
             'Presentation software: PowerPoint/Impress; slides, transitions, animations — use sparingly',
-          ]},
+          ], workedExample:`HTML: structure (headings h1–h6, paragraphs p, links a href, images img src)
+CSS: style (colour, font, layout: flexbox, grid)
+Responsive design: media queries → website adapts to screen size (mobile-first approach)
+Accessibility: alt text for images, high contrast, keyboard navigation — WCAG guidelines`},
         ], examTips:[
             'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
             'Give specific examples for every advantage or disadvantage you state',
@@ -11477,14 +12732,20 @@ MP3 compression at 10:1 ratio → ~88 KB`},
           ], examTips:[
             'RAM vs ROM: RAM = Read AND Write, volatile; ROM = Read Only, non-volatile — don\'t confuse them',
             'HDD vs SSD: SSD has no moving parts → faster, quieter, more durable, uses less power, but costs more per GB',
-          ]},
+          ], workedExample:`Fetch instruction at address 0x1A:
+PC=0x1A → MAR=0x1A → fetch from RAM → MDR=instruction → IR←MDR → PC=0x1B
+Transistor counts: modern CPU has 50+ billion transistors at 3-5nm
+Moore's Law: transistor count doubles ~every 2 years (slowing now)`},
           { title:'Operating Systems & Software', points:[
             'OS functions: process management (multitasking), memory management, device management (drivers), user interface, file system',
             'GUI (Graphical User Interface): icons, windows, menus — user-friendly, needs more memory',
             'CLI (Command Line Interface): text commands — faster for experts, uses less resources',
             'Application software: word processor, spreadsheet, database, graphic design, browsers',
             'Utility software: anti-virus, disk defragmenter, file compression, backup software, firewall',
-          ]},
+          ], workedExample:`OS functions: memory management, process management, file management, device management, user interface
+Types: single-user (Windows), multi-user (Linux server), real-time (RTOS — hospital equipment), mobile (iOS, Android)
+File management: hierarchical directory structure; file permissions (read, write, execute)
+Virtual memory: uses hard disk as extension of RAM when RAM full → slower but prevents crash`},
         ], commonMistakes:[
             'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
             'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
@@ -11500,7 +12761,10 @@ MP3 compression at 10:1 ratio → ~88 KB`},
           ], examTips:[
             'Packet switching: data broken into packets; each routed independently; reassembled at destination',
             'Describe advantages AND disadvantages of networking — marks for balance',
-          ]},
+          ], workedExample:`LAN (Local Area Network): within one building; WAN (Wide Area Network): across large geographic area (internet)
+Wi-Fi: wireless LAN using radio waves; Ethernet: wired LAN using twisted pair cable
+Bandwidth: maximum data transfer rate (e.g. 1 Gbps ethernet); throughput: actual data rate achieved
+Firewall: monitors and filters incoming/outgoing traffic based on rules; hardware or software`},
           { title:'Cybersecurity & Data Protection', points:[
             'Threats: malware (virus, worm, trojan, ransomware, spyware), phishing, brute force, SQL injection',
             'Virus: attaches to files, spreads when file shared; worm: self-replicating, spreads over networks',
@@ -11530,14 +12794,20 @@ Modern encryption (AES, RSA) is mathematically complex — not breakable by simp
             'Validation: checks data is acceptable type/range/format; verification: checks data matches original',
             'Relational database: multiple linked tables; linked by foreign keys; reduces data redundancy',
             'SQL: SELECT * FROM Table WHERE condition; INSERT INTO; UPDATE; DELETE',
-          ]},
+          ], workedExample:`Database: organised collection of related data; DBMS (e.g. MySQL, Access) manages access
+Table: rows = records, columns = fields; Primary key: unique identifier for each record
+SQL query: SELECT FirstName, LastName FROM Customers WHERE City = 'London' ORDER BY LastName
+Entity-relationship diagram: shows tables and relationships (one-to-many, many-to-many)`},
           { title:'Spreadsheets', points:[
             'Cell references: A1 = column A row 1; absolute $A$1 does not change when formula copied',
             'Common functions: SUM, AVERAGE, MAX, MIN, COUNT, IF, VLOOKUP',
             'IF: =IF(condition, value_if_true, value_if_false)',
             'VLOOKUP: =VLOOKUP(lookup_value, table_range, column_index, FALSE)',
             'Charts: bar (compare), line (trends), pie (proportions), scatter (correlation)',
-          ]},
+          ], workedExample:`Cell referencing: relative (A1 — changes when copied), absolute ($A$1 — stays fixed)
+Functions: =SUM(A1:A10), =AVERAGE(B1:B10), =IF(C1>50,"Pass","Fail"), =VLOOKUP(D1,A:B,2,FALSE)
+Charts: bar chart (compare categories), line graph (trend over time), pie chart (proportions — avoid if >5 slices)
+Data validation: dropdown list, restrict number range, custom formula → reduces input errors`},
         ], examTips:[
             'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
             'Give specific examples for every advantage or disadvantage you state',
@@ -11557,14 +12827,20 @@ Modern encryption (AES, RSA) is mathematically complex — not breakable by simp
             'Cloud: data stored on remote servers; accessible anywhere; risk = data breaches/dependency on internet',
             'SSL/TLS encryption: secures data in transit (HTTPS padlock in browser)',
             'Cookies: small files storing user preferences/session data — can be used to track behaviour',
-          ]},
+          ], workedExample:`Bluetooth: short-range (10m), low power, PAN (personal area network) — headphones, keyboards
+NFC (Near Field Communication): very short range (4cm) — contactless payment, access cards
+5G: fifth generation mobile network; faster (20 Gbps), lower latency (1ms), more devices simultaneously
+Satellite communication: GPS (positioning), satellite TV, weather forecasting, global internet (Starlink)`},
           { title:'Legal, Ethical & Environmental Issues', points:[
             'Copyright: protects creator\'s work; illegal to copy software without licence',
             'Software licences: proprietary (paid), open source (free to use/modify), freeware',
             'Computer Misuse Act: criminalises hacking, spreading malware, and unauthorised access',
             'Environmental impact: e-waste from old devices; data centres consume massive energy',
             'Digital divide: inequality of access to technology between and within countries',
-          ]},
+          ], workedExample:`Environmental impact of ICT: e-waste (toxic materials), data centres use enormous electricity, planned obsolescence
+Green computing: energy-efficient hardware, cloud computing, recycling, paperless office
+Cybercrime: phishing, ransomware, identity theft — cost UK economy £27bn/year
+Digital divide: gap between those with access to technology and those without — age, poverty, geography, disability`},
         ], examTips:[
             'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
             'Give specific examples for every advantage or disadvantage you state',
@@ -11607,7 +12883,10 @@ WHERE Grade = 'A'`, commonMistakes:[
           ], examTips:[
             'Oxford AQA ICT: for hardware questions, give specific examples — not just "input device" but "barcode reader in supermarket checkout"',
             'Describe function AND advantage: SSD has no moving parts → faster, quieter, more shock-resistant than HDD',
-          ]},
+          ], workedExample:`Utility software examples: disk defragmenter, antivirus, compression tool, backup software
+Operating system: manages memory allocation, process scheduling (round-robin), file system
+Device driver: translates OS commands to hardware-specific signals
+Multiprocessing: multiple CPUs; Multitasking: one CPU rapidly switches between processes`},
           { title:'Number Systems & Data', points:[
             'Binary (base 2): represents all computer data as 0s and 1s',
             'Bit: single binary digit; Byte = 8 bits; KB = 1024 bytes; MB = 1024 KB; GB = 1024 MB',
@@ -11615,7 +12894,10 @@ WHERE Grade = 'A'`, commonMistakes:[
             'Sound file size: sample rate × bit depth × duration × channels',
             'Compression: lossy (removes data permanently — JPEG, MP3) vs lossless (recoverable — PNG, FLAC)',
             'Encryption: scrambles data using a key; only authorised users with the key can decrypt',
-          ]},
+          ], workedExample:`Binary: base 2 (0s and 1s); Hexadecimal: base 16 (0–9, A–F)
+Convert 1010 1101₂ to hex: split into nibbles: 1010=A, 1101=D → AD₁₆
+ASCII: 7-bit code for characters; 'A'=65, 'a'=97, '0'=48
+Unicode: extends ASCII to cover all world languages; UTF-8 most common on web`},
         ], examTips:[
             'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
             'Give specific examples for every advantage or disadvantage you state',
@@ -11630,7 +12912,10 @@ WHERE Grade = 'A'`, commonMistakes:[
             'Network devices: router (connects networks and routes packets), switch (connects devices on LAN), modem (modulates/demodulates signal)',
             'Cloud storage: data held on remote servers; advantages: access anywhere, automatic backup, scalable storage',
             'Bandwidth: amount of data transmitted per second (Mbps); higher = faster downloads/streams',
-          ]},
+          ], workedExample:`Client sends HTTP GET request → DNS resolves domain → TCP/IP routes packets
+Router: operates at layer 3, uses IP addresses to forward packets
+Switch: layer 2, uses MAC addresses within LAN
+Packet switching: data split into packets, each routed independently, reassembled at destination`},
           { title:'Online Safety & Ethics', points:[
             'Cyberbullying: harassment via digital platforms; impacts on mental health; report and block tools',
             'Phishing: fraudulent emails/sites impersonating trusted organisations to steal credentials',
@@ -11640,7 +12925,10 @@ WHERE Grade = 'A'`, commonMistakes:[
             'Fake news: misinformation spread online; check sources, look for multiple reputable corroborations',
           ], examTips:[
             'Oxford AQA ICT online safety: give specific, practical advice — not vague ("be careful") but "don\'t share your password with anyone, including friends"',
-          ]},
+          ], workedExample:`Cyberbullying: using technology to harass — emotional harm, anonymous, 24/7 access
+Digital footprint: data trail left online — permanent, shared, used by employers, advertisers
+Fake news: misinformation spreads rapidly on social media — fact-check with multiple sources
+Safe online practices: strong unique passwords, 2FA, privacy settings, recognise phishing, don't overshare`},
         ], commonMistakes:[
             'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
             'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
@@ -11652,7 +12940,10 @@ WHERE Grade = 'A'`, commonMistakes:[
             'Sorting: ascending (A→Z, 0→9) or descending; filter: show only rows matching criteria',
             'Charts: choose type to match data — bar/column for comparison, line for trend, pie for proportion',
             'Conditional formatting: highlight cells meeting a condition (e.g. values >90 in green)',
-          ]},
+          ], workedExample:`IF function: =IF(A1>=60,"Distinction",IF(A1>=40,"Pass","Fail")) — nested IFs for multiple conditions
+COUNTIF: =COUNTIF(B2:B20,"Pass") — counts cells meeting a criterion
+SUMIF: =SUMIF(A:A,"Science",B:B) — sums column B where column A = "Science"
+Pivot table: summarise and analyse large datasets; drag fields to rows, columns, values areas`},
           { title:'Databases', points:[
             'Database: organised collection of related data; more powerful than spreadsheets for large datasets',
             'Record: one row (one entity); field: one column (one attribute); table: collection of records',
@@ -11662,7 +12953,10 @@ WHERE Grade = 'A'`, commonMistakes:[
           ], examTips:[
             'Oxford AQA practical tasks: save your work frequently; use meaningful file names; follow the exact format specified in the question',
             'Database vs spreadsheet: database better for multiple related tables and complex queries; spreadsheet better for calculations and charts',
-          ]},
+          ], workedExample:`Database: organised collection of related data; DBMS (e.g. MySQL, Access) manages access
+Table: rows = records, columns = fields; Primary key: unique identifier for each record
+SQL query: SELECT FirstName, LastName FROM Customers WHERE City = 'London' ORDER BY LastName
+Entity-relationship diagram: shows tables and relationships (one-to-many, many-to-many)`},
         ], examTips:[
             'Use precise technical terms — "data" vs "information", "bit" vs "byte", "hardware" vs "software"',
             'Give specific examples for every advantage or disadvantage you state',
@@ -11683,7 +12977,10 @@ WHERE Grade = 'A'`, commonMistakes:[
           ], commonMistakes:[
             'Confusing bandwidth (capacity) with speed — high bandwidth = can carry more data, not necessarily faster',
             'Saying WiFi is always less secure than wired — WiFi can be secured with WPA3 encryption',
-          ]},
+          ], workedExample:`Network security: firewall, encryption (HTTPS/TLS), antivirus, access control, physical security
+Encryption: Caesar cipher (simple shift); RSA (asymmetric, used in HTTPS); AES (symmetric, fast)
+Wi-Fi security: WPA2/WPA3 encryption; avoid public unsecured Wi-Fi for banking
+Social engineering: manipulating people rather than hacking systems — most common attack vector`},
           { title:'Cybersecurity & Data Protection', points:[
             'Threats: malware (virus, worm, trojan, ransomware), phishing, hacking, social engineering',
             'Protection: strong passwords, two-factor authentication, firewalls, encryption, regular updates, backups',
@@ -11693,7 +12990,11 @@ WHERE Grade = 'A'`, commonMistakes:[
           ], examTips:[
             'Phishing vs hacking: phishing tricks users into revealing credentials; hacking directly attacks systems',
             'Describe how to protect a network: always give multiple layers — not just "use a password"',
-          ]},
+          ], workedExample:`Caesar cipher (shift 3): A→D, B→E, C→F...
+Plaintext:  HELLO
+Ciphertext: KHOOR
+Decryption: shift back by 3
+Modern encryption (AES, RSA) is mathematically complex — not breakable by simple frequency analysis`},
           { title:'Oxford AQA ICT Exam Technique', points:[
             'Oxford AQA ICT: theory paper + practical tasks (word processing, spreadsheet, database, presentation)',
             'Theory paper: short answer and extended response; use correct technical terminology throughout',
@@ -11703,7 +13004,10 @@ WHERE Grade = 'A'`, commonMistakes:[
           ], examTips:[
             'Practical marks: lost for wrong font size, missing header/footer, wrong file format — check the mark scheme requirements',
             'Theory questions: if asked to "give two reasons", write exactly two — extra reasons are not marked and waste time',
-          ]},
+          ], workedExample:`Read scenario carefully — answer must relate to the given context (not generic)
+6-mark question: six distinct points; bullet points acceptable; use technical vocabulary
+Compare: always mention both options with advantage/disadvantage for each (not just one)
+Define: give the technical definition + example from the scenario to show understanding`},
         ], commonMistakes:[
             'Confusing RAM (volatile, temporary) with ROM (non-volatile, permanent) or storage (hard drive, SSD)',
             'Giving advantages without disadvantages — technology questions almost always require evaluation of both',
@@ -11728,21 +13032,30 @@ WHERE Grade = 'A'`, commonMistakes:[
             'Rhyme scheme: identify pattern (ABAB, AABB, etc.); free verse = no fixed rhyme',
             'Rhythm: stressed and unstressed syllables; iambic pentameter (da-DUM ×5)',
             'Always analyse EFFECT of technique: don\'t just name it — what does it make the reader feel?',
-          ]},
+          ], workedExample:`SLIMS framework: Subject, Language, Imagery, Movement (rhythm/rhyme), Structure
+Always ask: WHY has the poet made this choice? What effect does it create?
+Comment on sound devices: alliteration (repeated consonants), assonance (repeated vowel sounds), onomatopoeia
+Example: "The ploughman homeward plods his weary way" — alliteration + assonance → sense of slow, heavy trudging`},
           { title:'Key Poetic Techniques', points:[
             'Simile: comparison using "like" or "as"; metaphor: "is" — direct, more powerful',
             'Personification: giving human traits to non-human (e.g. "the sun smiled")',
             'Alliteration: repetition of initial consonant sounds — creates rhythm or emphasis',
             'Enjambment: sentence runs over line break without pause — creates pace or surprise',
             'Caesura: pause in middle of a line (shown by punctuation) — creates hesitation or impact',
-          ]},
+          ], workedExample:`Enjambment: sentence continues across line break → creates momentum, flow, mimics thought
+Caesura: pause mid-line (punctuation) → creates break, emphasises what follows
+Volta: turn in the poem (argument shifts) — often at line 9 of a sonnet
+Pathetic fallacy: weather/nature reflects character's emotions ("the dark, stormy night mirrored her despair")`},
           { title:'Comparing Poems', points:[
             'Compare theme: what both poems are about and different attitudes to that theme',
             'Compare tone: mood conveyed — melancholic, angry, celebratory, bitter, nostalgic',
             'Compare form: which is more structured? Why does form suit the poem\'s message?',
             'Use connectives: "Similarly...", "In contrast...", "Both poets...", "However...", "Whereas..."',
             'Avoid just describing — analyse WHY the poet made each choice and its effect on the reader',
-          ]},
+          ], workedExample:`Comparison connectives: both poets..., whereas X uses..., Y alternatively..., in contrast...
+Compare: theme, tone, structure, language, context — not just one element
+Never compare poems separately — integrate comparison throughout each paragraph
+Example: "Both Duffy and Owen use war imagery, though Duffy focuses on domestic devastation while Owen depicts battlefield trauma"`},
         ], examTips:[
             'Every paragraph needs: a point, a well-chosen embedded quote, and analysis of effect on the reader',
             'Avoid plot summary — ask yourself how the writer presents this, not what happens',
@@ -11769,14 +13082,22 @@ WHERE Grade = 'A'`, commonMistakes:[
             'Characterisation: direct (told directly) vs indirect (shown through actions/dialogue)',
             'Plot structure: exposition → rising action → climax → falling action → resolution (Freytag pyramid)',
             'Themes: abstract ideas explored — justice, identity, power, love, belonging, loss',
-          ]},
+          ], workedExample:`Narrative voice: first person (intimate, unreliable?), third person omniscient (knows all), limited (one character's perspective)
+Setting: creates atmosphere; symbolic settings reflect themes
+Characterisation: direct (narrator tells us), indirect (shown through dialogue, action, reaction of others)
+Structure: linear, non-linear, cyclical; in medias res opening creates immediate tension`},
           { title:'Writing About Characters', points:[
             'Analyse how character is presented — not just what they do but HOW the writer presents them',
             'Use quotations and analyse specific word choices (diction)',
             'Track character development: how do they change through the novel?',
             'Consider motivation: why does the character act this way?',
             'Consider relationship between characters and power dynamics',
-          ]},
+          ], workedExample:`Analyse how Priestley presents Mr Birling in Act 1 of An Inspector Calls.
+Point: Birling is presented as arrogant and self-important.
+Evidence: "I was Lord Mayor here two years ago" — he immediately asserts status.
+Analysis: The verb "was" and the specific detail suggest he measures worth by public position.
+Context: Priestley uses Birling to criticise capitalist attitudes pre-WW1.
+Link: This contrasts with the Inspector's socialist values.`},
         ], examTips:[
             'Every paragraph needs: a point, a well-chosen embedded quote, and analysis of effect on the reader',
             'Avoid plot summary — ask yourself how the writer presents this, not what happens',
@@ -11797,7 +13118,10 @@ WHERE Grade = 'A'`, commonMistakes:[
             'Soliloquy: character speaks thoughts aloud alone on stage; aside: brief comment to audience',
             'Conflict: internal (character vs self) or external (character vs character/society)',
             'Structure of drama: acts and scenes; where act/scene breaks occur and why',
-          ]},
+          ], workedExample:`Stage directions: reveal character, atmosphere, relationship dynamics — don't ignore
+Dramatic irony: audience knows something character doesn't → creates tension
+Soliloquy: character speaks thoughts aloud alone on stage → reveals true feelings, private inner world
+Subtext: what is not said — implied meaning beneath surface dialogue (particularly important in Pinter, Chekhov)`},
           { title:'Exam Technique for Literature', points:[
             'Always use PEA: Point → Evidence (quote) → Analysis of effect',
             'Quote selectively — short embedded quotes are better than long block quotes',
@@ -11826,7 +13150,10 @@ Analysis: The dynamic verbs "licking", "slung", "swung" and the onomatopoeic "jo
             'Loss & grief: how characters cope with bereavement, failure, or change',
             'Conflict: war, social inequality, inner moral struggle — what drives conflict in the text?',
             'Appearance vs reality: what is presented as true vs what is actually true (Great Expectations, Othello)',
-          ]},
+          ], workedExample:`Power: who has it, how it's used/abused, how it corrupts (Animal Farm, Macbeth)
+Identity: sense of self, belonging, outsider vs insider (To Kill a Mockingbird, A Raisin in the Sun)
+Conflict: internal (character vs self) vs external (character vs society/nature/others)
+Love and loss: romantic love, parental love, grief — how they shape characters and drive narrative`},
           { title:'Context in Literature', points:[
             'Historical context: when was the text written? What events/ideas influenced it?',
             'Social context: class, gender roles, race relations of the period',
@@ -11837,7 +13164,10 @@ Analysis: The dynamic verbs "licking", "slung", "swung" and the onomatopoeic "jo
             'CIE Literature: "How does the writer present..." questions — answer with methods + effects + context',
             'Edexcel Literature: longer essays with more focus on whole-text argument — develop a thesis statement',
             'Shakespeare questions: reference theatrical context (performances, Elizabethan/Jacobean audience expectations)',
-          ]},
+          ], workedExample:`Victorian context: class hierarchy, industrialisation, role of women, religious doubt (Great Expectations, Jane Eyre)
+Post-war: trauma, disillusionment, loss of innocence (The Kite Runner, Lord of the Flies)
+Historical context shapes: themes the author explores, constraints on characters, language choices
+Context must be linked to text: "Dickens experienced the workhouse system first-hand, which explains why he depicts it so vividly in Oliver Twist"`},
         ], examTips:[
             'Every paragraph needs: a point, a well-chosen embedded quote, and analysis of effect on the reader',
             'Avoid plot summary — ask yourself how the writer presents this, not what happens',
@@ -11864,7 +13194,10 @@ Analysis: The dynamic verbs "licking", "slung", "swung" and the onomatopoeic "jo
             'Edexcel poetry: always write about BOTH poems equally — marks are split evenly',
             'Don\'t just list techniques — analyse why the poet made that choice and what effect it creates',
             'Structure: a strong thesis in intro ("Both poems explore loss, but through contrasting tones") — sets up whole essay',
-          ]},
+          ], workedExample:`Analysing anthology poem: read twice → annotate techniques → identify theme → structure paragraph with PEE
+Linking to unseen poem: find thematic or structural connection → compare how each poet conveys the idea
+Avoid retelling: don't summarise the poem — analyse HOW it creates meaning
+Contextual knowledge: knowing poet's biography and historical context enriches analysis but must be relevant`},
           { title:'Analysing Poetic Techniques', points:[
             'Imagery: simile, metaphor, personification — what does it make the reader picture/feel?',
             'Sound: alliteration (same consonant sounds), assonance (same vowel sounds), onomatopoeia',
@@ -11895,7 +13228,10 @@ Effect: Philip Larkin compares spring growth to speech not quite spoken — crea
             'Of Mice and Men: themes = friendship, dreams vs reality, loneliness, power/powerlessness',
             'Lord of the Flies: themes = civilization vs savagery, power, loss of innocence, nature of evil',
             'Always link to the writer\'s purpose: "Steinbeck uses Candy to show the vulnerability of the powerless..."',
-          ]},
+          ], workedExample:`Quotation integration: embed short quotes rather than dropping in long blocks
+Example: The writer creates tension through "the silence pressed down like a weight", suggesting an oppressive atmosphere
+Lexical choice: comment on individual word choices (connotations, register, tone)
+Narrative time: summary (covers long period quickly) vs scene (moment-by-moment) — why this choice?`},
           { title:'Drama — Shakespeare', points:[
             'Edexcel requires study of one Shakespeare play',
             'Common choices: Macbeth, Romeo and Juliet, The Merchant of Venice, A Midsummer Night\'s Dream',
@@ -11926,7 +13262,11 @@ This thesis establishes a comparison (Macbeth vs Lady Macbeth) and makes an argu
             'Edexcel Literature grade boundary tip: the difference between grade 7 and grade 9 is sustained critical argument vs list of techniques',
             'Time plan: read question (2 min) → plan (5 min) → write (40 min) → check (3 min)',
             'Never write "I liked this poem because..." — write analytically, not personally',
-          ]},
+          ], workedExample:`Structure for a 20-mark English Literature essay:
+Introduction (4 lines): State your argument + reference to context
+Para 1-3 (8 lines each): PEEL — Point → Quotation → Language analysis → Context → Link
+Conclusion (4 lines): Synthesise — "Dickens ultimately suggests..."
+Key: Embed quotes (not block quotes under 3 lines), use literary terminology (metaphor, juxtaposition, semantic field), always link to writer's intent.`},
           { title:'Contextual Analysis', points:[
             'Context: historical, social, and biographical factors that influenced the writer\'s choices',
             'Contextual reference must be relevant: link to a specific language or structural choice',
@@ -11939,7 +13279,10 @@ This thesis establishes a comparison (Macbeth vs Lady Macbeth) and makes an argu
           ], commonMistakes:[
             'Dropping context in without linking it to the text: "Dickens lived in Victorian times" scores nothing unless connected to language choices',
             'Using context as a substitute for textual analysis — AO2 language analysis must dominate',
-          ]},
+          ], workedExample:`New Historicism: literature reflects power structures of its time; read texts as cultural documents
+Feminist reading: how are women represented? Whose perspective dominates? What is absent?
+Post-colonial reading: how does text reflect or challenge colonial ideology? Who is othered?
+Always ground contextual readings in textual evidence — context enriches, not replaces, close analysis`},
           { title:'Unseen Text & Comparing Texts', points:[
             'Unseen text: read twice — first for general meaning, second for specific techniques and effects',
             'Annotation strategy: circle language techniques, underline key words, note tone changes in margins',
@@ -11949,7 +13292,10 @@ This thesis establishes a comparison (Macbeth vs Lady Macbeth) and makes an argu
           ], examTips:[
             'Unseen: the first thing to do is identify TONE — this guides your entire analysis',
             'Comparison questions: make 3–4 direct comparisons; avoid "Text A does this. Text B does that." — interweave them',
-          ]},
+          ], workedExample:`Step 1: read the unseen text — annotate for technique, tone, theme, structure
+Step 2: identify the key idea/theme — what is the text REALLY about?
+Step 3: find comparison point with studied text — same theme, contrasting approach
+Step 4: write integrated comparison — don't do all of text A then all of text B`},
         ], commonMistakes:[
             'Retelling plot instead of analysing the writer craft — always answer how the writer presents the theme',
             'Using long block quotes without analysis — short embedded quotes with detailed analysis score more marks',
@@ -11972,7 +13318,10 @@ This thesis establishes a comparison (Macbeth vs Lady Macbeth) and makes an argu
           ], commonMistakes:[
             'Listing techniques without explaining their effect on the reader',
             'Writing about one poem fully then the other — always interweave the comparison',
-          ]},
+          ], workedExample:`AOs: AO1 (argument/ideas), AO2 (language/structure/form), AO3 (context), AO4 (comparison)
+Structure answer: opening statement → close analysis of language → form/structure → context → comparison
+Mark scheme values: sustained, convincing argument over long description; specific quotation over vague reference
+Time: 45 mins for comparison question → roughly 10 mins planning, 30 mins writing, 5 mins checking`},
           { title:'Poetic Techniques & Form', points:[
             'Imagery: simile ("like"), metaphor ("is"), personification (human traits to non-human)',
             'Sound: alliteration (consonants), assonance (vowels), onomatopoeia — always explain effect on mood/tone',
@@ -11994,7 +13343,10 @@ Effect: The comparison of the speaker to a cloud suggests aimlessness and detach
           ], commonMistakes:[
             'Paraphrasing the poem instead of analysing the language choices',
             'Forgetting to comment on the effect of sound techniques (alliteration, assonance) on the reader',
-          ]},
+          ], workedExample:`First read: get overall sense of subject and tone (sad? celebratory? ironic?)
+Second read: annotate techniques, key images, structural choices
+Question usually asks HOW poet conveys emotion/idea → methods, not just what
+Typical techniques to find: imagery, form (sonnet = 14 lines, volta at line 9), voice, tense, sound devices`},
         ], commonMistakes:[
             'Retelling plot instead of analysing the writer craft — always answer how the writer presents the theme',
             'Using long block quotes without analysis — short embedded quotes with detailed analysis score more marks',
@@ -12025,7 +13377,10 @@ Analysis: The violent verb "exploded" and the finality of "ceased to exist" sugg
           ], examTips:[
             'Oxford AQA: essays must argue a position — state it clearly in the introduction and return to it in the conclusion',
             'Use vocabulary of literary analysis: "Golding presents...", "this implies...", "the reader is invited to consider..."',
-          ]},
+          ], workedExample:`Death and mortality: how characters face death — reveals their values and fears
+Social class: characters defined by, and struggling against, class boundaries
+Coming of age: protagonist learns about the world — loss of innocence, assumption of responsibility
+Power dynamics: between parent/child, employer/employee, oppressor/oppressed — often central to plot`},
         ], commonMistakes:[
             'Retelling plot instead of analysing the writer craft — always answer how the writer presents the theme',
             'Using long block quotes without analysis — short embedded quotes with detailed analysis score more marks',
@@ -12043,7 +13398,10 @@ Analysis: The violent verb "exploded" and the finality of "ceased to exist" sugg
           ], commonMistakes:[
             'Saying "Shakespeare writes..." — should be "Shakespeare presents..." or "in this scene, Shakespeare conveys..."',
             'Ignoring stage directions — they are as important as dialogue for revealing character and meaning',
-          ]},
+          ], workedExample:`Genre conventions: tragedy (hero's fatal flaw → downfall), comedy (errors/misunderstandings → resolution), problem play (social issues)
+Scene openings: how does the playwright establish atmosphere and conflict from the first lines?
+Status: who holds power in each scene? How does this change? (track through dialogue and stage position)
+Greek theatre influence: chorus, catharsis (emotional release), hamartia (fatal flaw), hubris (excessive pride)`},
           { title:'Oxford AQA Exam Technique', points:[
             'Time management: read the paper first (5 min); plan each answer briefly; write; review',
             'Command words: analyse (language + effect), compare (two texts side by side), evaluate (judge with evidence), explore (multiple angles)',
@@ -12065,7 +13423,10 @@ This intro: states a clear argument, references context (Jacobean audience), and
           ], commonMistakes:[
             'Learning quotes without knowing their context — examiners can tell when quotes are dropped in without understanding',
             'Spending revision time re-reading texts rather than practising timed essay writing',
-          ]},
+          ], workedExample:`Prioritise key scenes/chapters — exam often focuses on specific extract plus broader discussion
+Know key quotations: 2–3 per major theme and character; short, precise quotes most effective
+Understand author's context and purpose — what is Steinbeck DOING in Of Mice and Men?
+Practise extract questions: read, annotate, plan, write one timed response per studied text`},
         ], commonMistakes:[
             'Retelling plot instead of analysing the writer craft — always answer how the writer presents the theme',
             'Using long block quotes without analysis — short embedded quotes with detailed analysis score more marks',
@@ -12095,21 +13456,33 @@ This intro: states a clear argument, references context (Jacobean audience), and
             'être verbs (DR & MRS VANDERTRAMP): aller, venir, naître, mourir, rester, partir, arriver, etc.',
             'Imperfect (imparfait): was doing / used to do — j\'étais, je mangeais, il faisait',
             'Future: infinitive + ai/as/a/ons/ez/ont endings; irregular: aller→ir-, avoir→aur-, être→ser-',
-          ]},
+          ], workedExample:`French: Conjugate "aller" (to go) in present, past (passé composé) and future.
+Present: je vais, tu vas, il/elle va, nous allons, vous allez, ils/elles vont
+Passé composé: je suis allé(e), tu es allé(e), il est allé, elle est allée
+Future: j'irai, tu iras, il/elle ira, nous irons, vous irez, ils/elles iront
+Note: "aller" takes être as auxiliary in passé composé (DR MRS VANDERTRAMP verbs)`},
           { title:'Adjectives & Agreement', points:[
             'Adjectives agree with noun: masculine singular (grand), feminine (grande), plural (grands/grandes)',
             'BAGS adjectives come BEFORE noun: Beauty (beau/belle), Age (jeune/vieux), Goodness (bon/mauvais), Size (grand/petit)',
             'Most adjectives go AFTER noun: une voiture rouge, un livre intéressant',
             'Comparative: plus/moins/aussi + adjective + que; superlative: le/la/les plus + adjective',
             'Possessive adjectives: mon/ma/mes, ton/ta/tes, son/sa/ses, notre/nos, votre/vos, leur/leurs',
-          ]},
+          ], workedExample:`French adjective agreement with être:
+Il est grand → Elle est grande → Ils sont grands → Elles sont grandes
+BEAPS adjectives before noun:
+un beau garçon → une belle fille → de beaux enfants
+Comparative: plus grand(e) que (taller than)
+Superlative: le/la/les plus grand(e)(s) (the tallest)`},
           { title:'Negatives & Questions', points:[
             'Negation: wrap around verb — ne...pas (not), ne...jamais (never), ne...plus (no longer), ne...rien (nothing)',
             'Question forms: inversion (Parles-tu?), est-ce que (Est-ce que tu parles?), rising intonation',
             'Question words: qui (who), quoi/que (what), où (where), quand (when), pourquoi (why), comment (how)',
             'Object pronouns: le/la/les (direct), lui/leur (indirect) — placed before verb',
             'Relative pronouns: qui (subject), que (object), où (place/time)',
-          ]},
+          ], workedExample:`Negation: ne...pas (not), ne...jamais (never), ne...rien (nothing), ne...personne (nobody), ne...plus (no longer)
+Example: Je ne mange jamais de viande. (I never eat meat.)
+Questions: inversion (Parlez-vous français?), est-ce que (Est-ce que vous parlez français?), intonation (Vous parlez français?)
+Indirect questions: Je ne sais pas ce qu'il fait. (word order: subject + verb, not inverted)`},
         ], examTips:[
             'Use at least three tenses in writing tasks — past, present, future — to access higher mark bands',
             'Check adjective agreement before submitting: gender and number must match the noun',
@@ -12136,21 +13509,33 @@ This intro: states a clear argument, references context (Jacobean audience), and
             'Physical description: grand(e), petit(e), mince, gros(se), les cheveux blonds/bruns/noirs',
             'Daily routine: se lever, se laver, s\'habiller, prendre le petit déjeuner, aller à l\'école',
             'Free time: les loisirs — jouer au foot, écouter de la musique, regarder la télé, lire',
-          ]},
+          ], workedExample:`Key vocabulary: la famille (family), les amis (friends), les loisirs (hobbies), les valeurs (values)
+Talking about relationships: Je m'entends bien avec mon frère (I get on well with my brother)
+Identity phrases: Je suis... (I am), J'ai... ans (I am ... years old), Je viens de... (I come from)
+Opinion phrases: À mon avis, (in my opinion), Je pense que, (I think that), Il me semble que (It seems to me that)`},
           { title:'School & Future Plans', points:[
             'School subjects: les maths, les sciences, l\'histoire-géo, l\'informatique, le dessin',
             'School opinions: ma matière préférée est..., je trouve les maths utiles/difficiles',
             'Future: je voudrais être (I would like to be), j\'espère (I hope), je vais (I\'m going to)',
             'Jobs: médecin, infirmier/ière, prof, ingénieur, homme/femme d\'affaires, acteur/actrice',
             'Higher education: l\'université, les études, le diplôme, la formation professionnelle',
-          ]},
+          ], workedExample:`School: le collège (11–15), le lycée (15–18), les matières (subjects), les devoirs (homework), les examens
+Future tense regular: infinitive + -ai, -as, -a, -ons, -ez, -ont (e.g. je travaillerai = I will work)
+Irregular futures: être → ser-, avoir → aur-, aller → ir-, faire → fer-
+Career phrases: Je voudrais devenir... (I would like to become...), À l'avenir, j'espère... (In the future, I hope...)`},
           { title:'Environment & Global Issues', points:[
             'L\'environnement: la pollution, le réchauffement climatique, les énergies renouvelables',
             'Problems: la déforestation, les déchets (waste), la couche d\'ozone, les gaz à effet de serre',
             'Solutions: recycler, économiser l\'eau/l\'énergie, utiliser les transports en commun',
             'Healthy living: manger équilibré, faire du sport, éviter le tabac et l\'alcool',
             'Travel: les vacances, l\'hôtel, le camping, prendre l\'avion/le train, les pays francophones',
-          ]},
+          ], workedExample:`Writing task: "What can young people do for the environment?"
+À mon avis, les jeunes doivent prendre des responsabilités pour l'environnement.
+D'abord, on peut recycler les déchets et économiser l'énergie à la maison.
+De plus, il faut que nous utilisions les transports en commun plutôt que la voiture.
+Cependant, le gouvernement doit aussi agir — par exemple, investir dans les énergies renouvelables.
+Si tout le monde faisait un effort, on pourrait réduire la pollution considérablement.
+[Uses: opinion, present, subjunctive, conditional, connectives — target: A/A* equivalent]`},
         ], examTips:[
             'Use at least three tenses in writing tasks — past, present, future — to access higher mark bands',
             'Check adjective agreement before submitting: gender and number must match the noun',
@@ -12177,7 +13562,10 @@ This intro: states a clear argument, references context (Jacobean audience), and
             'Beware of false friends: actuel ≠ actual (means "current"), sensible ≠ sensible (means "sensitive")',
             'In listening: read questions before the recording; use the pause to check answers',
             'True/False/Not Given: "not given" means the text is silent on that point — don\'t infer',
-          ]},
+          ], workedExample:`Listening: read questions before the audio; focus on key words; listen for negatives (ne...pas)
+Don't panic at unknown words — use context to infer meaning
+Reading: cognates help (most -tion words are the same in French); prefixes and suffixes give clues
+In exam: answer in the language asked; match level of detail to marks available`},
           { title:'Writing & Speaking Techniques', points:[
             'Use a variety of tenses: past, present, future + conditional shows sophistication',
             'Give and justify opinions: à mon avis..., je pense que..., parce que..., car...',
@@ -12207,7 +13595,10 @@ Better: Ce weekend, je vais aller au cinéma avec mes amis. Hier, j'ai regardé 
             'ALLER (to go): je vais, tu vas, il va, nous allons, vous allez, ils vont',
             'FAIRE (to do/make): je fais, tu fais, il fait, nous faisons, vous faites, ils font',
             'POUVOIR (can): je peux, tu peux, il peut, nous pouvons, vous pouvez, ils peuvent',
-          ]},
+          ], workedExample:`Present: être (suis, es, est, sommes, êtes, sont); avoir (ai, as, a, avons, avez, ont)
+Perfect: avoir/être + past participle; movement/reflexive verbs use être (je suis allé/allée)
+Imperfect: stem from nous present + -ais, -ais, -ait, -ions, -iez, -aient
+Conditional: infinitive + -ais, -ais, -ait, -ions, -iez, -aient (e.g. je voudrais = I would like)`},
           { title:'Common Irregular Past Participles', points:[
             'avoir → eu | être → été | faire → fait | aller → allé | venir → venu',
             'voir → vu | prendre → pris | mettre → mis | dire → dit | écrire → écrit',
@@ -12217,7 +13608,12 @@ Better: Ce weekend, je vais aller au cinéma avec mes amis. Hier, j'ai regardé 
           ], examTips:[
             'Past participle agreement with être verbs is a common mark-losing error — always check gender/number',
             'ne...pas wraps around auxiliary in compound tenses: je n\'ai PAS mangé; elle n\'est PAS allée',
-          ]},
+          ], workedExample:`Key irregular past participles:
+faire → fait, être → été, avoir → eu, aller → allé, prendre → pris
+venir → venu, voir → vu, savoir → su, pouvoir → pu, vouloir → voulu
+With avoir: J'ai fait / il a pris
+With être (MRS VANDERTRAMPP): Elle est venue / ils sont allés
+Agreement with avoir + preceding direct object: Les lettres qu'il a écrites (f.pl. → écrites)`},
         ], examTips:[
             'Use at least three tenses in writing tasks — past, present, future — to access higher mark bands',
             'Check adjective agreement before submitting: gender and number must match the noun',
@@ -12249,21 +13645,32 @@ Better: Ce weekend, je vais aller au cinéma avec mes amis. Hier, j'ai regardé 
           ], examTips:[
             'Edexcel writing tasks: examiners reward use of THREE tenses — past, present, future — for higher marks',
             'Irregular future stems: aller → ir-, avoir → aur-, être → ser-, faire → fer-, vouloir → voudr-',
-          ]},
+          ], workedExample:`German: Write 3 sentences about a past holiday using perfect tense (Perfekt).
+Letzten Sommer bin ich nach Spanien gefahren. (Last summer I went to Spain.)
+Ich habe am Strand gelegen und Eis gegessen. (I lay on the beach and ate ice cream.)
+Das Wetter war fantastisch und sehr heiß. (The weather was fantastic and very hot.)
+Key: sein verbs (motion/change): bin gefahren, bin gegangen. Haben verbs: habe gespielt, habe gegessen.`},
           { title:'Edexcel Key Themes & Vocabulary', points:[
             'Edexcel IGCSE French themes: Identity & Culture, Local Area & Global Dimension, Current & Future Study/Employment',
             'My life, family, friendships: ma famille, mes amis, mes passe-temps, les relations',
             'Technology & social media: les réseaux sociaux, Internet, les portables, les avantages/inconvénients',
             'Environment: l\'environnement, le réchauffement climatique, le recyclage, protéger la planète',
             'Travel & tourism: les vacances, les transports, l\'hôtel, les attractions touristiques',
-          ]},
+          ], workedExample:`Spanish: Describe an environmental problem and suggest a solution (exam register).
+El problema principal es la contaminación del aire. (The main problem is air pollution.)
+Se debe a los coches y las fábricas. (It is caused by cars and factories.)
+Para solucionarlo, el gobierno debería invertir en energías renovables. (To solve it, the government should invest in renewable energies.)
+Si no actuamos, el cambio climático empeorará. (If we don't act, climate change will worsen.)`},
           { title:'Expressing Opinions', points:[
             'Je pense que... / Je crois que... / À mon avis... / Selon moi... (In my opinion)',
             'C\'est + adjective: c\'est génial (it\'s great), c\'est nul (it\'s rubbish), c\'est important',
             'Je préfère... parce que / J\'aime mieux... / Je trouve que... (I find that...)',
             'Intensifiers: très (very), assez (quite), trop (too), vraiment (really), plutôt (rather)',
             'Connectives for writing: cependant (however), de plus (furthermore), néanmoins (nevertheless), pourtant (yet)',
-          ]},
+          ], workedExample:`Agreement: Je suis d'accord (I agree), Tout à fait (Absolutely), C'est vrai (That's true)
+Disagreement: Je ne suis pas d'accord (I disagree), Au contraire (On the contrary), Ce n'est pas vrai (That's not true)
+Justifying: parce que (because), car (for/because), puisque (since), donc (therefore), c'est pourquoi (that's why)
+Range: use different opinion phrases and justify with reasons for higher marks`},
         ], examTips:[
             'Use at least three tenses in writing tasks — past, present, future — to access higher mark bands',
             'Check adjective agreement before submitting: gender and number must match the noun',
@@ -12290,7 +13697,12 @@ Better: Ce weekend, je vais aller au cinéma avec mes amis. Hier, j'ai regardé 
           ], examTips:[
             'Edexcel reading: be careful with negatives in answers — "Il ne mange jamais de viande" means he NEVER eats meat',
             'Listening: numbers, times, and dates are frequently tested — practise these specifically',
-          ]},
+          ], workedExample:`Listening strategies for Spanish/French:
+1. Read questions BEFORE listening to know what to focus on
+2. Note key words: numbers, times, names, opinions
+3. Distinguish similar sounds: pero/perro in Spanish; son/sont in French
+4. Negative expressions: ne...pas, no, jamais, nunca — change meaning completely
+5. Cognates help but beware false friends: "sensible" in French means "sensitive" not "sensible"`},
           { title:'Writing & Speaking', points:[
             'Edexcel writing tasks: photo card (describe, answer questions), role play, translation',
             'Photo card strategy: describe what you see → extend with opinion → link to theme',
@@ -12323,7 +13735,10 @@ Il y a beaucoup de choses à faire — par exemple, on peut visiter des musées,
             'Edexcel speaking role play: you get a task card with 5 prompts — one will be a "!" (unexpected question) — prepare to improvise',
             'General conversation in speaking: give extended answers — aim for 3–4 sentences per answer',
             'Photo card: describe what you see, say what might happen next, give your opinion with reason',
-          ]},
+          ], workedExample:`AQA French GCSE: Paper 1 Listening (35 mins, 50 marks), Paper 3 Reading (45 mins, 60 marks)
+Paper 2 Speaking (teacher-assessed): role play + photo card + general conversation
+Paper 4 Writing: 1hr 20min — translation, structured question, essay/letter
+Higher tier: more complex language expected; Foundation: more support provided`},
         ], commonMistakes:[
             'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
             'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
@@ -12341,7 +13756,10 @@ Il y a beaucoup de choses à faire — par exemple, on peut visiter des musées,
           ], commonMistakes:[
             'Using indicative after subjunctive triggers — check the conjunction and use the correct mood',
             'Passive voice agreement: past participle must agree with the subject in gender and number',
-          ]},
+          ], workedExample:`Rewrite using passive: "The teacher corrected all the essays carefully."
+Passive: "All the essays were carefully corrected by the teacher."
+Subjunctive example: "If I were the president, I would change the law." (Note: 'were' not 'was')
+Complex structure: "Having studied for three hours, she felt confident about the exam." (participle phrase)`},
           { title:'Advanced Vocabulary & Idioms', points:[
             'Idiomatic expressions: avoir envie de (to want to), avoir du mal à (to have difficulty), il s\'agit de (it\'s about)',
             'Connectives for sophistication: par conséquent (consequently), en revanche (on the other hand), c\'est pourquoi (that\'s why)',
@@ -12351,7 +13769,12 @@ Il y a beaucoup de choses à faire — par exemple, on peut visiter des musées,
           ], examTips:[
             'Grade 9 tip: use idiomatic expressions rather than literal translations — "avoir du mal à comprendre" not "avoir difficulté à comprendre"',
             'Advanced connectives: replace "mais" with "cependant" or "néanmoins"; replace "et" with "de plus" or "par ailleurs"',
-          ]},
+          ], workedExample:`Replace these basic phrases with C1/C2 level vocabulary:
+"very important" → crucial, paramount, indispensable, of utmost significance
+"many" → a plethora of, a multitude of, copious, numerous
+"said" → asserted, contended, remarked, proclaimed, conceded
+"shows" → demonstrates, illustrates, reveals, highlights, underscores
+"because" → owing to, as a consequence of, in light of, given that`},
           { title:'Translation Masterclass', points:[
             'English → French translation: most marks available; most difficult — requires precise grammar',
             'Approach: read the whole sentence → identify verb tense → translate → check agreement → check accents',
@@ -12390,7 +13813,9 @@ Structure: si + imparfait (était) + conditionnel (irions) — classic "si claus
           ], commonMistakes:[
             'Using passé composé for descriptions/habitual past — use imparfait instead (e.g. "Quand j\'étais petit, je jouais...")',
             'Forgetting être verb past participle agreement: "elle est allée" not "elle est allé"',
-          ]},
+          ], workedExample:`Photo card — describe then extend:
+"En la foto, veo a un grupo de jóvenes que están comiendo en un restaurante. Parecen contentos. En mi opinión, es importante comer con la familia porque fortalece los lazos familiares. Cuando era pequeño, siempre comíamos juntos. En el futuro, espero seguir esta tradición."
+→ Uses: present (veo, están, es), imperfect (comíamos, era), future (espero), opinion, connectives`},
           { title:'Adjectives, Pronouns & Negatives', points:[
             'Adjective agreement: add -e for feminine, -s for plural, -es for feminine plural (grand → grande → grands → grandes)',
             'BAGS adjectives come BEFORE the noun: Beau, Age, Good/bad, Size (beau, vieux, bon/mauvais, grand/petit)',
@@ -12403,7 +13828,10 @@ Structure: si + imparfait (était) + conditionnel (irions) — classic "si claus
           ], commonMistakes:[
             'Putting BAGS adjectives after the noun — they must come before: "une grande maison" not "une maison grande"',
             'Forgetting ne in negatives — "je mange pas" is informal/spoken only, not acceptable in writing exam',
-          ]},
+          ], workedExample:`Agreement: adjectives agree in gender and number (petit/petite/petits/petites)
+Position: most adjectives FOLLOW noun (une voiture rouge); BAGS adjectives precede (beau, ancien, grand, bon, etc.)
+Direct object pronouns: le/la/les replace the direct object; come BEFORE the verb (Je le mange)
+Indirect: lui/leur (to him/her/them): Je lui parle (I speak to him/her)`},
           { title:'Subjunctive & Advanced Structures', points:[
             'Subjunctive (le subjonctif): used after certain expressions — il faut que, bien que, pour que, vouloir que',
             'Present subjunctive formation: ils-form of present tense, remove -ent, add: -e/-es/-e/-ions/-iez/-ent',
@@ -12413,7 +13841,10 @@ Structure: si + imparfait (était) + conditionnel (irions) — classic "si claus
           ], examTips:[
             'Subjunctive instantly boosts writing grade — use: "Il faut que tu fasses tes devoirs" or "bien que ce soit difficile"',
             'Oxford AQA Higher: including one subjunctive or passive construction signals advanced grammar competence',
-          ]},
+          ], workedExample:`Subjunctive triggered by: il faut que, vouloir que, bien que (although), pour que (so that), avant que (before)
+Formation: ils form of present → drop -ent → add subjunctive endings
+Example: Il faut que tu fasses tes devoirs. (You must do your homework.)
+Relative pronouns: qui (subject), que (object), dont (of which/whose), où (where/when)`},
         ], commonMistakes:[
             'Confusing ser (permanent/identity) and estar (temporary state/location) — these are tested heavily',
             'Using masculine adjective forms for feminine nouns — check the gender of the noun first',
@@ -12431,7 +13862,10 @@ Structure: si + imparfait (était) + conditionnel (irions) — classic "si claus
           ], examTips:[
             'Photo card: describe the people shown → their relationship → their emotions → what might happen next',
             'Use reflexive verbs for daily routine — they signal grammatical sophistication to examiners',
-          ]},
+          ], workedExample:`Describing appearance: grand(e), petit(e), les cheveux (hair), les yeux (eyes), mince (slim), âgé(e) (elderly)
+Personality: sympa (nice), paresseux/paresseuse (lazy), travailleur/travailleuse (hardworking)
+Family: les parents (parents), le beau-père (stepfather), la demi-sœur (half-sister)
+Relationships: se disputer avec (to argue with), se réconcilier (to make up), avoir confiance en (to trust)`},
           { title:'Environment & Global Issues', points:[
             'Environmental problems: le réchauffement climatique (global warming), la pollution, la déforestation, les espèces menacées',
             'Solutions: recycler, économiser l\'eau/l\'énergie, utiliser les transports en commun, les énergies renouvelables',
@@ -12457,7 +13891,10 @@ Si tout le monde faisait un effort, on pourrait réduire la pollution considéra
           ], commonMistakes:[
             'Using masculine job titles for female subjects — "elle est médecin" (no article; no feminine for many professions)',
             'Forgetting that school subjects in French are often plural: "les mathématiques", "les sciences"',
-          ]},
+          ], workedExample:`GCSE to A-level: Je passe mes examens en juin. Après le lycée, j'espère aller à l'université.
+Professions: médecin, ingénieur (no agreement needed after être), infirmier/infirmière
+Conditional for dreams: Je voyagerais partout dans le monde. (I would travel everywhere in the world.)
+Conditional for politeness: Je voudrais un café, s'il vous plaît. (I would like a coffee, please.)`},
         ], commonMistakes:[
             'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
             'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
@@ -12475,7 +13912,10 @@ Si tout le monde faisait un effort, on pourrait réduire la pollution considéra
           ], commonMistakes:[
             'Writing what you expect to hear rather than what is actually said — stay alert and objective',
             'Missing negatives — "il ne va jamais à la piscine" means he NEVER goes, not that he goes',
-          ]},
+          ], workedExample:`Before listening: read all questions and underline key words
+During: listen for answer immediately; note-take; don't leave gaps — eliminate wrong answers
+Numbers/dates: practise listening for key numbers; année (year) vs an (year after number)
+Accents change meaning: ou (or) vs où (where); a (has) vs à (at/to); la (the) vs là (there)`},
           { title:'Reading Strategies', points:[
             'Oxford AQA Reading: comprehension (French text, English answers), gap-fill, translation into English',
             'Skim for gist: read once quickly to understand the overall topic and tone',
@@ -12485,7 +13925,10 @@ Si tout le monde faisait un effort, on pourrait réduire la pollution considéra
           ], examTips:[
             'Translation task: work word by word first, then re-read for natural English flow; check tenses are correctly translated',
             'Inference questions: use evidence from the text to justify your answer — do not guess from general knowledge',
-          ]},
+          ], workedExample:`Skimming: read quickly for general gist; scanning: search for specific information
+False friends: actuellement (currently, NOT actually), rester (to stay, NOT to rest), sensible (sensitive, NOT sensible)
+Cognates: téléphone, musique, université, important — use these as anchors
+For translation: read full sentence before translating; maintain natural English in your answer`},
         ], commonMistakes:[
             'Confusing passé composé (single completed event) and imparfait (habitual/continuous past)',
             'Forgetting être verbs in passé composé: all agree in gender/number with the subject (elle est allée, not allé)',
@@ -12519,7 +13962,10 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
           ], commonMistakes:[
             'Giving one-word answers in speaking — always extend: not just "oui" but "Oui, parce que..."',
             'Stopping and saying "I don\'t know" — paraphrase instead: "je ne connais pas le mot exact, mais..."',
-          ]},
+          ], workedExample:`Photo card: describe what you see → what is happening, where, who, what → give opinion
+Role play: learn key functional language (asking for information, making purchases, solving problems)
+General conversation: prepare 10–15 sentences per theme; practise with timer (give full answers, not one word)
+Improve grade: use complex structures (subjunctive, conditional, relative clauses), expand answers with reasons and opinions`},
         ]},
       ], examTips:[
             'Use at least three tenses in writing tasks — past, present, future — to access higher mark bands',
@@ -12542,14 +13988,20 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
             'Literal comprehension: find and quote from text (use correct text language)',
             'Inferential: read beyond what is stated — what is implied by word choice or context?',
             'Summary: paraphrase relevant points — do not copy chunks; identify ONLY what is asked',
-          ]},
+          ], workedExample:`Active reading: highlight key words; identify topic sentence of each paragraph
+Inference: "What does the text suggest?" — read between the lines, use evidence from text
+Paraphrase: restate in your own words — shows understanding not just copying
+Summary skills: identify main points, not supporting details; use own words; stay within word limit`},
           { title:'Text Types & Features', points:[
             'Newspaper article: headline, byline, inverted pyramid structure (most important first)',
             'Descriptive text: rich adjectives, imagery, sensory details, present or past tense',
             'Argumentative text: thesis, evidence, counterargument, conclusion',
             'Narrative text: characters, setting, plot, dialogue',
             'Formal vs informal register: formal uses correct grammar and no slang; identify appropriately',
-          ]},
+          ], workedExample:`Formal letter: address, date, salutation (Dear Mr/Ms), formal language, sign-off (Yours faithfully/sincerely)
+Report: title, subheadings, objective tone, no personal pronouns, bullet points for recommendations
+Narrative: setting, character development, conflict, climax, resolution; use varied sentence structure and descriptive language
+Argumentative essay: introduction with thesis, body paragraphs (point + evidence + explanation), counter-argument, conclusion`},
         ], examTips:[
             'Use a range of tenses in all writing tasks — include at least preterite, present, and future',
             'Check gender agreement for all adjectives — masculine and feminine forms differ for most adjectives',
@@ -12576,7 +14028,10 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
             'Linking phrases: أولاً / ثانياً / وأخيراً، علاوة على ذلك، ومع ذلك، بالإضافة إلى ذلك',
             'Give and justify opinions: أرى أن / أعتقد أن / في رأيي / لأن / بسبب',
             'Avoid spelling errors in hamza (أ، إ، آ، ء)، taa marbuta (ة)، and alif maqsura (ى)',
-          ]},
+          ], workedExample:`Paragraph structure: TEEL (Topic sentence, Explanation, Evidence, Link back)
+Vocabulary range: avoid repetition — use synonyms; vary sentence openers (Having considered... / Despite this... / Consequently...)
+Formal register: avoid contractions (don't → do not), slang, first person unless required
+Proofreading: check subject-verb agreement, tense consistency, punctuation (especially commas and apostrophes)`},
           { title:'Grammar Essentials', points:[
             'Verb-Subject agreement: الفعل يتوافق مع الفاعل في الجنس والعدد',
             'Cases: المرفوع (subject), المنصوب (object), المجرور (after preposition)',
@@ -12608,7 +14063,12 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
           ], examTips:[
             'First listening: focus on gist (main topic, general idea); second listening: answer specific questions',
             'Match the register of the answer to the question — if formal text, write formal Arabic',
-          ]},
+          ], workedExample:`Strategies for listening comprehension in language exams:
+1. Pre-read questions BEFORE the audio starts — identify key words to listen for.
+2. First listen: get gist; second listen: specific details.
+3. Write brief notes in English/your language while listening.
+4. Don't panic if you miss something — keep listening; the answer may be repeated.
+5. Beware distractors — the recording often gives a wrong answer first, then corrects it.`},
           { title:'Speaking & Role-Play', points:[
             'Prepare vocabulary for common topics: family, school, hobbies, health, environment, work',
             'Practice giving extended answers — not just one word',
@@ -12618,14 +14078,23 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
           ], examTips:[
             'Role-play: practise opening phrases (كيف يمكنني مساعدتك؟ / أودّ أن أستفسر عن...) for each scenario type',
             'Presentation: structure as مقدمة → نقاط رئيسية (×3) → خاتمة — examiners reward clear organisation',
-          ]},
+          ], workedExample:`French role-play: buying train tickets.
+Scenario: You want 2 adult returns to Paris leaving Saturday morning.
+"Je voudrais deux billets aller-retour pour Paris, s'il vous plaît."
+"Pour samedi matin — est-ce qu'il y a un train avant dix heures?"
+"Combien coûte le voyage?" / "C'est quel quai?"
+Key: Be polite (vous form), ask for clarification if needed: "Pouvez-vous répéter, s'il vous plaît?"`},
           { title:'Exam Vocabulary Banks', points:[
             'Connecting ideas: أولاً / ثانياً / أخيراً | علاوةً على ذلك | بالإضافة إلى | في المقابل',
             'Giving opinions: في رأيي | أعتقد أن | من وجهة نظري | يبدو لي | أرى أن',
             'Contrasting: ومع ذلك | بينما | على النقيض | من ناحية أخرى | إلا أن',
             'Emphasis: لا شك أن | من الواضح أن | الجدير بالذكر أن | من المهم أن نُشير إلى',
             'Conclusion: وختاماً | وفي الخلاصة | ومما سبق يتضح | لذلك يمكن القول',
-          ]},
+          ], workedExample:`Spanish writing task — family and relationships:
+mis padres / my parents — me llevo bien con / I get on well with — sin embargo / however
+tener en común / have in common — me parece que / it seems to me that — aunque / although
+a veces discutimos porque / sometimes we argue because — en mi opinión / in my opinion
+lo más importante es / the most important thing is — actualmente / nowadays`},
         ], examTips:[
             'Read the questions before the passage to know what to look for',
             'Quote directly from the text to support comprehension answers — do not paraphrase without evidence',
@@ -12662,14 +14131,20 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
             'Know all Five Pillars and Six Articles — often asked to "name and explain" each one',
             'Distinguish Sunni and Shia Islam where relevant: different views on leadership after the Prophet',
             'Use religious terminology precisely: ummah, tawhid, shirk, khalifah — define terms you use',
-          ]},
+          ], workedExample:`Tawhid (Islamic monotheism): Allah is one, indivisible, has no partners
+Five Pillars: Shahada (declaration of faith), Salah (prayer 5x daily), Zakah (charity 2.5%), Sawm (Ramadan fasting), Hajj (pilgrimage)
+Sunni vs Shia: succession after Muhammad (Sunni: Abu Bakr; Shia: Ali); 85% Sunni globally
+Prayer (Salah): face Mecca, wudu (ritual cleansing) beforehand, specific rak'ahs for each prayer`},
           { title:'Ethics & Application', points:[
             'Sanctity of life: life is sacred (khalifah — humans are stewards of creation)',
             'Ummah: global community of Muslims; importance of brotherhood and justice (adl)',
             'War: conditions for just war in Islam (last resort, declared by authority, civilians protected)',
             'Status of women: equal spiritual status; specific roles in family; scholars debate modernity and tradition',
             'Environmental responsibility: humans are khalifah — must protect earth, avoid israf (waste)',
-          ]},
+          ], workedExample:`Sanctity of life: life is sacred, God-given → basis for opposition to abortion, euthanasia, capital punishment
+Just War Theory (Aquinas): just cause, last resort, right intention, proportionality, probability of success, declared by authority
+Stewardship: humans are caretakers of creation → duty to protect environment (religious motivation for environmentalism)
+Utilitarianism (Mill): greatest happiness for greatest number → consequentialist → may justify controversial actions`},
         ], examTips:[
             'Present at least two different religious perspectives on every ethical issue',
             'Structure evaluate questions: agree (3 reasons) → disagree (3 reasons) → balanced conclusion with your judgement',
@@ -12693,14 +14168,21 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
             'Crucifixion: Jesus died on the cross as atonement for humanity\'s sins',
             'Resurrection: Jesus rose from the dead on the third day — central to Christian faith',
             'Baptism: initiation into the church; Eucharist (Holy Communion): remembering the Last Supper',
-          ]},
+          ], workedExample:`Tawhid (Islamic monotheism): Allah is one, indivisible, has no partners
+Five Pillars: Shahada (declaration of faith), Salah (prayer 5x daily), Zakah (charity 2.5%), Sawm (Ramadan fasting), Hajj (pilgrimage)
+Sunni vs Shia: succession after Muhammad (Sunni: Abu Bakr; Shia: Ali); 85% Sunni globally
+Prayer (Salah): face Mecca, wudu (ritual cleansing) beforehand, specific rak'ahs for each prayer`},
           { title:'Christian Ethics', points:[
             'Golden Rule: "Do to others as you would have them do to you" (Matthew 7:12)',
             'Agape: unconditional, selfless love — central Christian virtue',
             'Stewardship: humans called to care for God\'s creation (environment)',
             'Social justice: many Christians support action against poverty, inequality, discrimination',
             'Conscience: inner moral guide; some say it reflects divine guidance',
-          ]},
+          ], workedExample:`Natural Law (Aquinas): God-given purpose for human actions; moral = fulfils natural purpose
+Absolute: always apply regardless of consequences
+Primary precepts: preserve life, reproduce, educate, worship God, live in society
+Application: contraception wrong (blocks reproduction); euthanasia wrong (against preserving life)
+Contrast with Utilitarian: Natural Law → absolute rules; Utilitarianism → best consequences determine rightness`},
         ], examTips:[
             'Present at least two different religious perspectives on every ethical issue',
             'Structure evaluate questions: agree (3 reasons) → disagree (3 reasons) → balanced conclusion with your judgement',
@@ -12726,7 +14208,10 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
             'For "do you agree?" questions: always argue BOTH sides before reaching a justified conclusion',
             'Reference specific thinkers/scholars: Bentham, Mill, Kant, Aquinas strengthen evaluation',
             'Ethical questions in RS: apply a named ethical theory, then apply a religious perspective (e.g. Islamic view on euthanasia)',
-          ]},
+          ], workedExample:`Kantian ethics (Categorical Imperative): act only according to maxim you could universalise; treat people as ends, not means
+Virtue ethics (Aristotle): focus on character — what kind of person should I be? Develop virtues (courage, justice, honesty)
+Divine command theory: morality based on God's commands — what God says is good is good because God said it
+Natural moral law (Aquinas): reason reveals God's moral law through nature; primary precepts include life, reproduction, knowledge`},
         ], commonMistakes:[
             'Presenting only one religious viewpoint — always show diversity within and between traditions',
             'Writing "religious people think..." without naming the specific religion or denomination',
@@ -12742,21 +14227,30 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
             'Always present at least two different religious or ethical views on each issue',
             'Use religious quotes where possible: "Do not take a life which Allah has made sacred" (Qur\'an 6:151)',
             'Life and death questions: distinguish between religious teaching and the actual practice of believers',
-          ]},
+          ], workedExample:`Sanctity of life vs quality of life — central tension in medical ethics
+Abortion: Humanist (woman's rights, quality of life); Catholic (life begins at conception, always wrong); CoE (sometimes permissible)
+Euthanasia: voluntary assisted dying legal in some countries; religious opposition based on sanctity of life; "playing God"
+Capital punishment: retribution vs rehabilitation; Catholics oppose; some Christian denominations accept in extreme cases`},
           { title:'War & Peace', points:[
             'Just War theory (Aquinas): war must have just cause, right intention, last resort, declared by authority, proportionate means',
             'Pacifism: all war is wrong; Christian pacifists cite "love your enemy" (Matthew 5:44)',
             'Holy War: war commanded by God or religious authority; concept in Islam (jihad — greater jihad = spiritual struggle)',
             'Nuclear weapons: disproportionate destruction → most religious traditions oppose; deterrence debate',
             'Peacemaking: religious traditions value peace (Islam = "salaam"; Christianity = "blessed are the peacemakers")',
-          ]},
+          ], workedExample:`Pacifism: all violence is wrong; Quakers are pacifists; Jesus "blessed are the peacemakers"
+Holy war: fought for religious reasons; jihad (greater = spiritual struggle; lesser = physical defence)
+Just War criteria: must meet all criteria to be morally justified — proportionality, last resort, right intention, etc.
+Nuclear weapons: mass destruction means no war can be truly "just" (proportionality violated) → Church of England`},
           { title:'Poverty & Wealth', points:[
             'Absolute poverty: lack of basic necessities for survival; relative poverty: below average standard of living',
             'Islamic view: wealth is a trust from Allah; Zakah (2.5% of savings) is mandatory; interest (riba) is forbidden',
             'Christian view: wealth itself not wrong, but love of money is "root of all evil" (1 Timothy 6:10); help the poor',
             'Causes of global poverty: historical exploitation, debt, poor governance, natural disasters, inequality',
             'Faith responses: Christian Aid, Islamic Relief, Oxfam — religious organisations provide development aid',
-          ]},
+          ], workedExample:`Christian view: money not evil but love of money is (1 Timothy 6:10); wealth is stewardship responsibility
+Parable of the Talents: use gifts responsibly; Good Samaritan: help those in need regardless of background
+Zakat (Islam): 2.5% of savings given to eight specified categories of recipient (poor, debtors, travellers, etc.)
+Liberation theology: God has preferential option for the poor; Christians must work for social justice, not just charity`},
         ], examTips:[
             'Present at least two different religious perspectives on every ethical issue',
             'Structure evaluate questions: agree (3 reasons) → disagree (3 reasons) → balanced conclusion with your judgement',
@@ -12780,7 +14274,10 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
             'Dharma (dhamma): the teaching of the Buddha; the truth about how life works',
             'Three Marks of Existence: impermanence (anicca), suffering (dukkha), no-self (anatta)',
             'Karma: law of cause and effect — intentional actions affect future rebirths; nirvana = escape from cycle',
-          ]},
+          ], workedExample:`Four Noble Truths: Dukkha (suffering exists), Samudaya (caused by craving/tanha), Nirodha (cessation possible), Magga (Eightfold Path)
+Eightfold Path: right understanding, intention, speech, action, livelihood, effort, mindfulness, concentration
+Three Marks of Existence: impermanence (anicca), suffering (dukkha), no-self (anatta)
+Karma: intentional actions create consequences; Nirvana: liberation from cycle of rebirth (samsara)`},
           { title:'Buddhist Ethics', points:[
             'Five Precepts: do not harm living things; do not steal; avoid sexual misconduct; avoid false speech; avoid intoxicants',
             'Ahimsa (non-violence): not harming any sentient being; influence on diet (vegetarianism), pacifism',
@@ -12790,7 +14287,11 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
           ], examTips:[
             'Buddhism exam questions: link practices back to core beliefs — show how the belief motivates the action',
             'Distinguish Theravada (individual liberation, meditation) from Mahayana (bodhisattva path, helping all beings)',
-          ]},
+          ], workedExample:`Five Precepts: no killing, no stealing, no sexual misconduct, no lying, no intoxicants
+Applied to environment: First Precept → protect all sentient beings → environmental responsibility
+Middle Way: avoid extremes of indulgence and asceticism
+Karma: intention behind action determines karmic consequence
+Engaged Buddhism (Thich Nhat Hanh): apply Buddhist ethics to social/political issues (peace activism)`},
         ], examTips:[
             'Present at least two different religious perspectives on every ethical issue',
             'Structure evaluate questions: agree (3 reasons) → disagree (3 reasons) → balanced conclusion with your judgement',
@@ -12805,14 +14306,21 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
             'Covenant with Abraham: circumcision as sign; later covenant at Sinai (Ten Commandments)',
             'Shabbat: weekly day of rest (Friday sunset–Saturday sunset); no work; synagogue, family, prayer',
             'Jewish festivals: Rosh Hashanah (New Year), Yom Kippur (Day of Atonement), Passover (Exodus)',
-          ]},
+          ], workedExample:`Covenant with Abraham: circumcision as sign; God's promise of land and descendants
+Torah (613 mitzvot): 248 positive, 365 negative commandments
+Shabbat: sunset Friday to Saturday night; no work; candles lit, kiddush wine, synagogue attendance
+Kosher laws: no pork or shellfish; meat and dairy not mixed; animals must be humanely slaughtered
+Yom Kippur (Day of Atonement): 25-hour fast; seek forgiveness from God and from those wronged`},
           { title:'Jewish Ethics & Modern Issues', points:[
             'Pikuach nefesh: saving a life overrides almost all other commandments — life is of supreme value',
             'Tikkun olam: "repair of the world" — Jews have responsibility to make the world better',
             'Justice (tzedakah): giving to poor is obligation, not charity; righteousness and justice central to Judaism',
             'Medical ethics: most Jews support medical research and treatment; organ donation generally permitted',
             'Holocaust (Shoah): destruction of 6 million Jews; raises profound questions about God and suffering (theodicy)',
-          ]},
+          ], workedExample:`Tikkun Olam: repairing the world — Jewish obligation to pursue social justice
+Pikuach nefesh: preservation of life overrides almost all other commandments (e.g. breaking Sabbath to save life)
+Environmental ethics: Bal tashchit — do not destroy (unnecessarily); Jews have duty to protect creation
+Euthanasia: most Orthodox oppose (life belongs to God); some Progressive Jews accept in extreme cases`},
         ], examTips:[
             'Present at least two different religious perspectives on every ethical issue',
             'Structure evaluate questions: agree (3 reasons) → disagree (3 reasons) → balanced conclusion with your judgement',
@@ -12838,7 +14346,10 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
             'Atonement: Jesus\' death on the cross makes reconciliation between humans and God possible',
             'Resurrection: Jesus physically rose from the dead on Easter Sunday — cornerstone of Christian faith',
             'Eschatology: beliefs about life after death — resurrection of the body, heaven, hell, purgatory (Catholic)',
-          ]},
+          ], workedExample:`Trinity: Father, Son, Holy Spirit — three persons, one God (not three gods)
+Incarnation: God became human in Jesus (John 1:14) — "the Word became flesh"
+Atonement: Jesus's death repairs relationship between humanity and God (substitutionary, moral influence, Christus Victor theories)
+Resurrection: bodily resurrection of Jesus on third day — central to Christian faith (1 Corinthians 15:14: "if Christ has not been raised, your faith is futile")`},
           { title:'Christian Practices', points:[
             'Worship: liturgical (structured — Church of England, Catholic) vs non-liturgical (informal — Pentecostal)',
             'Prayer: communicating with God; private prayer and communal worship; Lord\'s Prayer as model',
@@ -12848,7 +14359,10 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
           ], examTips:[
             'Edexcel RS: know specific differences between denominations (Catholic vs Protestant vs Pentecostal) — they appear in questions',
             '"How important is..." questions: give a balanced view, then justify your conclusion based on evidence',
-          ]},
+          ], workedExample:`Baptism: initiation into Church; infant (Catholic, Anglican) or believer's (Baptist, Evangelical)
+Eucharist/Communion: remembering Last Supper; Catholic = transubstantiation; Protestant = symbolic
+Prayer: ACTS (Adoration, Confession, Thanksgiving, Supplication) — private and communal
+Pilgrimage: Lourdes (healing), Jerusalem, Santiago de Compostela — spiritual journey`},
         ], examTips:[
             'Present at least two different religious perspectives on every ethical issue',
             'Structure evaluate questions: agree (3 reasons) → disagree (3 reasons) → balanced conclusion with your judgement',
@@ -12866,14 +14380,20 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
           ], examTips:[
             'Present Christian views with precision — not all Christians agree; show denominational differences',
             '"Do you agree?" (AO3): state own view with reasons, then consider alternative, then conclude',
-          ]},
+          ], workedExample:`Soul: non-physical aspect of person; survives death; basis for belief in afterlife
+Heaven: eternal life with God for those who accept salvation; Hell: separation from God
+Purgatory (Catholic): cleansing after death before Heaven; Protestants reject purgatory
+Near-death experiences: evidence cited for afterlife; alternative = physiological explanation (brain oxygen deprivation)`},
           { title:'Christian Views on Peace & Justice', points:[
             'Just War (Aquinas): just cause, right intention, proportionality, last resort, declared by authority, civilian protection',
             'Pacifism: all war is wrong; Quakers are absolute pacifists; "blessed are the peacemakers" (Matthew 5:9)',
             'Social justice: Christians called to fight poverty, inequality, discrimination — e.g. Martin Luther King Jr.',
             'Forgiveness: central to Christian ethics — "forgive us our trespasses as we forgive those who trespass against us"',
             'Aid and development: Christian Aid, CAFOD, Tearfund — practical expression of Christian love (agape)',
-          ]},
+          ], workedExample:`Forgiveness: central — "Forgive us our trespasses as we forgive those who trespass against us" (Lord's Prayer)
+Reconciliation: working to restore broken relationships — Desmond Tutu, Truth and Reconciliation Commission
+Justice: restorative vs retributive — many Christians prefer rehabilitation over punishment
+Martin Luther King: non-violent civil disobedience rooted in Christian love (agape) and justice`},
         ], examTips:[
             'Present at least two different religious perspectives on every ethical issue',
             'Structure evaluate questions: agree (3 reasons) → disagree (3 reasons) → balanced conclusion with your judgement',
@@ -12891,7 +14411,10 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
             'Kutub: Holy Books — Torah (Musa/Moses), Zabur (Dawud/David), Injil (Isa/Jesus), Quran (Muhammad ﷺ)',
             'Malaikah (Angels): created from light; carry out Allah\'s commands (Jibril brought revelation; Mikail controls rain)',
             'Akhirah: life after death — accountability, Day of Judgement, Paradise (Jannah), Hellfire (Jahannam)',
-          ]},
+          ], workedExample:`Allah (God): Tawhid — absolute monotheism; 99 names of Allah describe his attributes
+Angels: created from light, have no free will, carry out Allah's commands (Jibril brought Quran to Muhammad)
+Prophethood: 25 prophets named in Quran; Muhammad is Seal of Prophets (final messenger)
+Predestination (Al-Qadr): Allah has knowledge of all things; debate about free will vs determinism in Islam`},
           { title:'Islamic Practices', points:[
             'Salah: 5 daily prayers (Fajr, Dhuhr, Asr, Maghrib, Isha); direction of Mecca (Qibla); preceded by Wudu',
             'Zakah: 2.5% of savings given to specified categories of recipients; purifies wealth; builds ummah solidarity',
@@ -12901,7 +14424,11 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
           ], examTips:[
             'Edexcel Islam: know Sunni AND Shia differences — e.g. Shia observe additional pillars (Khums, Imamate)',
             'Hajj question: list rituals in ORDER — Ihram → Mecca → tawaf → sa\'i → Mina → Arafah → Muzdalifah → Eid ul-Adha',
-          ]},
+          ], workedExample:`Five Pillars application:
+Salah: 5 prayers at fixed times (Fajr, Dhuhr, Asr, Maghrib, Isha); face Mecca; spiritual discipline
+Zakat: 2.5% of savings held for one year above nisab threshold (≈85g gold equivalent)
+Sawm: Ramadan fasting sunrise to sunset; promotes self-discipline and empathy for the poor
+Hajj: required once if physically/financially able; Tawaf (7 circles of Kaaba); Sa'i (walking between Safa and Marwa)`},
         ], examTips:[
             'Present at least two different religious perspectives on every ethical issue',
             'Structure evaluate questions: agree (3 reasons) → disagree (3 reasons) → balanced conclusion with your judgement',
@@ -12916,7 +14443,10 @@ Key checks: passé composé (être verb "allé" must agree with subject), "vraim
             'Euthanasia: generally forbidden — only Allah gives and takes life; palliative care encouraged',
             'Capital punishment: permitted in Islamic law for hudud offences (murder, apostasy) under strict conditions',
             'Khalifah: humans are stewards of Allah\'s creation — implications for environmental ethics',
-          ]},
+          ], workedExample:`Akhirah (afterlife): resurrection on Day of Judgement; deeds weighed; Jannah (paradise) or Jahannam (hell)
+Barzakh: intermediate state between death and resurrection; soul waits for judgement
+Sanctity of life: life is gift from Allah; suicide is haram; euthanasia generally forbidden
+Qur'an 5:32: "whoever saves one life, it is as if he has saved all of mankind"`},
           { title:'Islamic Views on Peace & Justice', points:[
             'Adl (justice): central Islamic value — social justice, economic justice, treatment of others',
             'Lesser jihad conditions (Islamic law): just cause, last resort, no harming civilians, proportionate response',
@@ -12961,14 +14491,20 @@ Conclusion: While most religious traditions oppose euthanasia on sanctity of lif
           ], examTips:[
             'Oxford AQA RS: 12-mark "evaluate" questions require two sides + conclusion; always use religious language and specific teachings',
             '"Christians believe..." — use correct theological vocabulary: atonement, incarnation, resurrection, grace, salvation',
-          ]},
+          ], workedExample:`Liturgical worship: follows set order (Catholic Mass, Anglican Communion) — structure, tradition, sacraments central
+Non-liturgical: spontaneous, spirit-led worship (Pentecostal, Baptist) — more informal, emphasis on personal response
+World Church (ecumenism): different denominations working together; World Council of Churches (1948)
+Mission and evangelism: sharing the gospel; Great Commission (Matthew 28:19) — "Go and make disciples of all nations"`},
           { title:'Christian Ethics & Social Issues', points:[
             'Sanctity of life: all human life is sacred and God-given; basis for opposition to abortion, euthanasia',
             'Golden Rule: "Do unto others as you would have them do unto you" (Matthew 7:12)',
             'Situation Ethics (Fletcher): the most loving action is morally right — sometimes exceptions permitted',
             'Natural Law (Aquinas): moral principles discoverable through reason; used in Catholic moral theology',
             'Justice and peace: Christian duty to work for social justice; Quakers = pacifist; just war theory criteria',
-          ]},
+          ], workedExample:`Racism and equality: "There is neither Jew nor Gentile...for you are all one in Christ Jesus" (Galatians 3:28)
+Gender equality: complementarian (different but equal roles) vs egalitarian (same roles); ordination of women debated
+LGBTQ+ issues: spectrum from full inclusion (liberal denominations) to celibacy requirement (traditional view)
+Environment: stewardship — humans are caretakers of God's creation; ecological sin concept emerging in Catholic teaching`},
         ], examTips:[
             'Present at least two different religious perspectives on every ethical issue',
             'Structure evaluate questions: agree (3 reasons) → disagree (3 reasons) → balanced conclusion with your judgement',
@@ -12990,7 +14526,10 @@ Conclusion: While most religious traditions oppose euthanasia on sanctity of lif
           ], examTips:[
             'Oxford AQA Islam: be specific — name which pillar, which article, which surah (chapter of Quran)',
             'Sunni vs Shia: key difference is authority after Prophet\'s death — Sunni = elected caliph; Shia = Ali and his descendants',
-          ]},
+          ], workedExample:`Mosque: place of worship and community; minaret (call to prayer), mihrab (direction of Mecca), wudu area
+Friday Jumu'ah prayer: obligatory for men; imam leads prayer, delivers khutbah (sermon)
+Quran: revealed to Muhammad over 23 years; memorised (hafiz); Arabic is sacred language; no translation = Quran
+Hadith: recorded sayings and actions of Muhammad; second source of Islamic law (Shari'ah) after Quran`},
           { title:'Islamic Ethics & Contemporary Issues', points:[
             'Stewardship (Khalifah): humans are trustees of Allah\'s creation — environmental responsibility',
             'Marriage: sacred contract (Nikah); monogamy default; polygyny permitted with conditions (Quran 4:3)',
@@ -13021,7 +14560,10 @@ Conclusion: While Salah is central to daily Muslim life, the Shahada underpins a
           ], examTips:[
             'Philosophy questions: state the argument clearly → explain its strength → give a counter-argument → evaluate overall',
             'Evil and suffering: distinguish moral evil (human actions) from natural evil (earthquakes, disease)',
-          ]},
+          ], workedExample:`Cosmological argument (Aquinas): everything has a cause → chain cannot be infinite → must be a first uncaused cause = God
+Teleological argument (Paley): watch analogy → complexity of universe implies designer = God
+Ontological argument (Anselm): God = greatest conceivable being → must exist in reality as well as concept
+Criticisms: Hume — universe could be uncaused; Dawkins — complexity explained by evolution; Kant — existence is not a predicate`},
           { title:'Religious & Ethical Themes', points:[
             'Capital punishment: retribution vs rehabilitation; some religious traditions support (justice), others oppose (sanctity of life)',
             'Abortion: personhood debate — when does life begin? Christian/Muslim/Jewish perspectives on timing and conditions',
@@ -13034,7 +14576,10 @@ Conclusion: While Salah is central to daily Muslim life, the Shahada underpins a
           ], commonMistakes:[
             'Presenting only one religious perspective — always show diversity within and between traditions',
             'Confusing stewardship (caring for creation on behalf of God) with environmentalism (secular motivation)',
-          ]},
+          ], workedExample:`Conscience: voice of God (Newman)? or socialised moral sense (Freud)? Central to Catholic moral teaching
+Free will: necessary for moral responsibility; if God determines everything → no real moral choice
+Evil and suffering: theodicy problem — if God is omnipotent and omnibenevolent, why does evil exist?
+Irenaeus: soul-making theodicy — suffering is necessary for spiritual growth and development`},
         ], commonMistakes:[
             'Presenting only one religious viewpoint — always show diversity within and between traditions',
             'Writing "religious people think..." without naming the specific religion or denomination',
@@ -13052,7 +14597,10 @@ Conclusion: While Salah is central to daily Muslim life, the Shahada underpins a
           ], commonMistakes:[
             'Saying all religious people reject evolution — many accept theistic evolution (God working through evolution)',
             'Presenting the problem of evil as unanswerable — always include at least one theodicy response',
-          ]},
+          ], workedExample:`Conflict model: science and religion at war (Draper, White) — Darwin vs Church narrative (oversimplified)
+Independence model: different domains — science = how, religion = why (NOMA, Gould)
+Integration model: science and religion complement each other; many scientists are religious
+Big Bang and Genesis 1: not necessarily incompatible — "days" may be epochs; God could use evolution as mechanism`},
           { title:'Peace, Conflict & Social Justice', points:[
             'Just War Theory (Aquinas): war justified if: right intention, last resort, declared by authority, proportionate',
             'Pacifism: all violence morally wrong; absolute (e.g. Quakers) vs conditional (e.g. self-defence)',
@@ -13062,7 +14610,10 @@ Conclusion: While Salah is central to daily Muslim life, the Shahada underpins a
           ], examTips:[
             'Just War criteria: learn all conditions — one missing condition can invalidate a war as "just"',
             'Pacifism evaluation: distinguish between absolute (no violence ever) and relative (sometimes justified) pacifism',
-          ]},
+          ], workedExample:`Ahimsa: non-violence in Buddhism and Hinduism; Gandhi's use in Indian independence movement
+Reconciliation: Northern Ireland peace process involved religious leaders (churches, mixed-faith groups)
+Forgiveness vs justice: can one forgive without justice? (e.g. restorative justice programmes in prisons)
+Poverty: religious organisations provide aid (Christian Aid, Islamic Relief) and challenge structural causes`},
           { title:'Oxford AQA Religious Studies Exam Technique', points:[
             'Oxford AQA RS: Paper 1 (Religious beliefs, teachings and practices) + Paper 2 (Thematic studies)',
             'Command words: state (1–2 words), outline (key features, no evaluation), explain (reasons/meaning), evaluate (argue both sides)',
@@ -13072,7 +14623,10 @@ Conclusion: While Salah is central to daily Muslim life, the Shahada underpins a
           ], examTips:[
             'Evaluation conclusion: do not sit on the fence — take a position and justify it with the strongest evidence',
             'Paper 2 themes: link BOTH religions studied to each theme — examiners want comparative analysis, not just description',
-          ]},
+          ], workedExample:`4-mark question: state two beliefs with brief explanation each; use religious vocabulary
+12-mark question: examine both sides thoroughly; use religious teachings and scholarly/philosophical views
+Evaluation (final 3 marks): state your view clearly and justify with reasons; acknowledge strongest counter-argument
+Common mistake: describing without evaluating — examiners want you to assess, judge, and justify`},
         ], commonMistakes:[
             'Presenting only one religious viewpoint — always show diversity within and between traditions',
             'Writing "religious people think..." without naming the specific religion or denomination',
@@ -13098,7 +14652,10 @@ Conclusion: While Salah is central to daily Muslim life, the Shahada underpins a
             'Main greenhouse gases: CO₂ (burning fossil fuels), CH₄ (agriculture/landfill), N₂O (fertilisers)',
             'Effects of climate change: rising sea levels, more extreme weather, coral bleaching, species loss',
             'Responses: mitigation (reducing emissions) vs adaptation (adjusting to changes)',
-          ]},
+          ], workedExample:`Greenhouse gases: CO₂ (fossil fuels), CH₄ (livestock, landfill), N₂O (fertilisers), water vapour (natural)
+Enhanced greenhouse effect: human emissions → more heat trapped → global warming
+Evidence: rising CO₂ (280ppm pre-industrial → 420ppm 2023), temperature anomalies, ice cores, glacier retreat
+Feedback loops: Arctic ice melts → less albedo (reflection) → more warming → more melt (positive feedback)`},
           { title:'Air Pollution', points:[
             'Primary pollutants: emitted directly — SO₂ (acid rain), CO (incomplete combustion), NOₓ',
             'Secondary pollutants: formed in atmosphere — ozone (O₃) at ground level, photochemical smog',
@@ -13109,7 +14666,12 @@ Conclusion: While Salah is central to daily Muslim life, the Shahada underpins a
             'Distinguish between enhanced greenhouse effect (human-caused) and natural greenhouse effect (essential for life)',
             'Kyoto Protocol (1997) vs Paris Agreement (2015): Paris is more inclusive with national targets (NDCs)',
             'For "evaluate" questions: always consider economic costs of solutions vs environmental benefits',
-          ]},
+          ], workedExample:`Photochemical smog formation:
+1. Sunlight + NO₂ → NO + O (atomic oxygen)
+2. O + O₂ → O₃ (ground-level ozone)
+3. O₃ + unburned hydrocarbons → peroxyacetyl nitrates (PANs) and aldehydes
+Health effects: respiratory disease, eye irritation, reduced lung function
+Solutions: catalytic converters (convert NOₓ, CO, HC to N₂, CO₂, H₂O), low emission zones, electric vehicles`},
         ], examTips:[
             'Link every environmental problem to a specific human activity as its cause',
             'Suggest realistic, specific solutions — not just "reduce pollution" but "switch to renewable energy sources"',
@@ -13124,7 +14686,10 @@ Conclusion: While Salah is central to daily Muslim life, the Shahada underpins a
             'Water pollution sources: agricultural runoff (fertilisers, pesticides), sewage, industrial effluent',
             'Eutrophication: excess nutrients → algal bloom → oxygen depletion → aquatic organisms die',
             'Water management: dams (HEP, irrigation), desalination, water recycling, water harvesting',
-          ]},
+          ], workedExample:`Water pollution sources: agricultural runoff (nitrates, pesticides), industrial effluent, sewage, oil spills
+Eutrophication: excess nitrates/phosphates → algal bloom → decomposition uses up O₂ → fish die
+Sewage treatment: primary (sedimentation), secondary (biological — bacteria break down organics), tertiary (chemical)
+Water treatment: screening, sedimentation, filtration, chlorination → safe drinking water`},
           { title:'Ecosystems & Biodiversity', points:[
             'Ecosystem: community of organisms interacting with their physical environment',
             'Food chain: producers → primary consumers → secondary → tertiary; energy lost at each level',
@@ -13153,7 +14718,10 @@ Management: buffer strips along waterways, reduced fertiliser application, phosp
             'Solar: clean, increasingly cheap, intermittent (no sun at night)',
             'Wind: clean, no fuel cost, intermittent, visual impact, affects birds',
             'HEP: reliable, clean operation, but dam building → flooding, habitat loss, displaced communities',
-          ]},
+          ], workedExample:`Non-renewable: coal, oil, natural gas (fossil fuels) — high energy density, reliable, but finite and polluting
+Renewable: solar (PV panels), wind turbines, hydroelectric, geothermal, tidal, biomass
+Nuclear: low carbon but radioactive waste, high cost, accident risk (Chernobyl, Fukushima)
+Energy mix: most countries use combination; transition to renewables needed to meet climate targets`},
           { title:'Resource Management & Sustainability', points:[
             'Sustainable development: "meets needs of present without compromising ability of future generations"',
             'Reduce-Reuse-Recycle hierarchy: reduce consumption first, then reuse, then recycle as last resort',
@@ -13181,14 +14749,23 @@ Suitability: HEP best for countries with large rivers (e.g. Brazil); solar best 
             'Urbanisation: more than half world now in cities; creates pressure on resources and services',
             'Ecological footprint: measure of human demand on natural resources',
             'HDI and development: higher development generally means higher resource consumption',
-          ]},
+          ], workedExample:`Demographic dividend: working-age population grows faster than dependants → economic growth opportunity (e.g. India)
+Ageing population: more elderly dependants → healthcare costs, pension burden, labour shortages
+Urbanisation pressure: cities grow faster than infrastructure → slums, pollution, congestion
+Sustainable development (Brundtland): "meets needs of present without compromising ability of future generations to meet their needs"`},
           { title:'Managing Human Impact', points:[
             'Environmental impact assessment (EIA): evaluate effects of proposed development before it starts',
             'International agreements: Paris Agreement (climate), CBD (biodiversity), CITES (wildlife trade)',
             'Carbon footprint: total greenhouse gas emissions caused by an individual, event, or organisation',
             'Carbon offsetting: compensating for emissions by funding equivalent CO₂ reductions elsewhere',
             'Green technology: electric vehicles, LED lighting, smart grids, carbon capture and storage',
-          ]},
+          ], workedExample:`Eutrophication process:
+1. Fertiliser runoff → nitrates/phosphates in river
+2. Algal bloom (algae grow rapidly)
+3. Algae block sunlight → aquatic plants die
+4. Bacteria decompose dead plants → use up dissolved oxygen
+5. Fish and invertebrates die (hypoxic zone)
+Solutions: reduce fertiliser use, buffer strips, wetland filtration`},
         ], examTips:[
             'Link every environmental problem to a specific human activity as its cause',
             'Suggest realistic, specific solutions — not just "reduce pollution" but "switch to renewable energy sources"',
@@ -13235,14 +14812,20 @@ Suitability: HEP best for countries with large rivers (e.g. Brazil); solar best 
             'Read the question before listening — know what to listen for',
             'In multiple choice, eliminate obviously wrong options first',
             'For gap-fill, check if answer should be a noun, verb, or adjective',
-          ]},
+          ], workedExample:`Listen for gist first; then specific information (numbers, names, time, place)
+False cognates: embarazada (pregnant, not embarrassed), éxito (success, not exit), librería (bookshop, not library)
+Numbers: cien (100), mil (1000); dates: el tres de mayo de 2024
+Register: formal (usted) vs informal (tú) — listen for this clue about the relationship between speakers`},
           { title:'Reading Comprehension', points:[
             'Scan for specific information: names, numbers, dates, and opinions',
             'Understand tense changes — present vs. past vs. future changes the meaning',
             'Negatives: no (not), nunca (never), nada (nothing), nadie (nobody), ningún (none)',
             'Adjective agreement: adjective must match gender and number (e.g. casas bonitas)',
             'Common false friends: embarazada (pregnant, not embarrassed); realizar (to achieve, not to realise)',
-          ]},
+          ], workedExample:`Scan for cognates first: interesante, importante, natural, popular, comunicación
+Look for negatives (no, nunca, jamás, ni...ni) — change meaning completely
+Time markers: ayer (yesterday), mañana (tomorrow), el año pasado (last year), dentro de poco (soon)
+Inference: what does the text imply? Use context clues for unknown vocabulary`},
         ], commonMistakes:[
             'Confusing ser (permanent/identity) and estar (temporary state/location) — these are tested heavily',
             'Using masculine adjective forms for feminine nouns — check the gender of the noun first',
@@ -13262,14 +14845,21 @@ Suitability: HEP best for countries with large rivers (e.g. Brazil); solar best 
             'Forgetting ser vs estar: ser = permanent characteristics; estar = temporary states/location',
             'Using present tense for past events — learn preterite endings (hablé, comí, viví)',
             'Gender errors: el agua is feminine but uses "el" for phonetic reasons',
-          ]},
+          ], workedExample:`German speaking exam — discussing advantages and disadvantages of social media.
+Vorteil: Man kann mit Freunden in Kontakt bleiben. (Advantage: You can stay in contact with friends.)
+Nachteil: Es gibt viel Cybermobbing. (Disadvantage: There is a lot of cyberbullying.)
+Meiner Meinung nach ist soziale Medien sowohl nützlich als auch gefährlich. (In my opinion, social media is both useful and dangerous.)
+Add opinion + justification for top marks; avoid monosyllabic answers.`},
           { title:'Writing Skills', points:[
             'Structure: introduction → main points with examples → conclusion',
             'Tenses to include: present (hablo), preterite (hablé), imperfect (hablaba), future (hablaré), conditional (hablaría)',
             'Agreement: adjectives and articles agree with noun gender and number',
             'Subjunctive (higher): espero que + subjunctive, quiero que + subjunctive',
             'Check: subject-verb agreement, accents (á, é, í, ó, ú), question marks ¿?, exclamation ¡!',
-          ]},
+          ], workedExample:`Essay structure: introducción → desarrollo (3 puntos) → conclusión
+Connectives: además (furthermore), sin embargo (however), por otro lado (on the other hand), por eso (therefore)
+Opinion phrases: En mi opinión, Creo que, Pienso que, Desde mi punto de vista (from my point of view)
+Justify opinions: porque, ya que (since/because), dado que (given that), a causa de (because of)`},
         ]},
         { title:'Grammar Essentials', icon:'📚', topics:[
           { title:'Verb Tenses', points:[
@@ -13290,7 +14880,12 @@ fui, fuiste, fue, fuimos, fuisteis, fueron
             'Adjectives after noun (usually): la casa roja, los libros interesantes',
             'Comparatives: más...que (more than), menos...que (less than), tan...como (as...as)',
             'Superlatives: el/la más + adjective + de (the most...in/of)',
-          ]},
+          ], workedExample:`Spanish gender rules:
+Most -o words → masculine (el libro), most -a words → feminine (la casa)
+Exceptions: el día, el mapa, el problema (masculine despite -a)
+Definite article: el/la/los/las
+Indefinite: un/una/unos/unas
+Agreement: el libro rojo / la casa roja / los libros rojos / las casas rojas`},
         ], examTips:[
             'Use a range of tenses in all writing tasks — include at least preterite, present, and future',
             'Check gender agreement for all adjectives — masculine and feminine forms differ for most adjectives',
@@ -13308,7 +14903,10 @@ fui, fuiste, fue, fuimos, fuisteis, fueron
             'Current & future study: school life, subjects, future plans, employment',
             'Lifestyle: health, diet, sport, leisure activities, technology',
             'Expressing preferences: prefiero (I prefer), me encanta (I love), no me gusta (I don\'t like)',
-          ]},
+          ], workedExample:`Environment: el calentamiento global, la contaminación, las energías renovables, el reciclaje
+Technology: las redes sociales, el móvil, Internet, los beneficios y desventajas
+Health: llevar una vida sana, hacer ejercicio, comer bien, evitar el estrés, el tabaco
+Travel: el transporte público, viajar al extranjero, las vacaciones, el turismo`},
         ], examTips:[
             'Use a range of tenses in all writing tasks — include at least preterite, present, and future',
             'Check gender agreement for all adjectives — masculine and feminine forms differ for most adjectives',
@@ -13329,7 +14927,10 @@ fui, fuiste, fue, fuimos, fuisteis, fueron
           ], examTips:[
             'Irregular preterites: ser/ir → fui; tener → tuve; hacer → hice; estar → estuve; poder → pude',
             'Irregular futures: tener → tendr-, hacer → har-, poder → podr-, venir → vendr-, ir → ir-',
-          ]},
+          ], workedExample:`Present: regular -ar/-er/-ir endings; irregular: ser/estar/tener/ir/hacer/venir/poder/querer
+Preterite: -é,-aste,-ó,-amos,-asteis,-aron (-ar); -í,-iste,-ió,-imos,-isteis,-ieron (-er/-ir)
+Imperfect: -aba endings (-ar); -ía endings (-er/-ir); used for description/habitual past
+Future: infinitive + -é,-ás,-á,-emos,-éis,-án; irregulars: tener→tendr-, hacer→har-, ir→ir-`},
           { title:'Key Grammar Points', points:[
             'Ser vs Estar: SER for permanent (nationality, profession, origin); ESTAR for temporary (location, emotion, state)',
             'Reflexive verbs: levantarse → me levanto, te levantas, se levanta... (morning routine verbs)',
@@ -13356,20 +14957,32 @@ Uses: imperfect (era, gustaba), present (prefiero, es), conditional (gustaría),
             'Free time & leisure: el deporte, la música, el cine, los pasatiempos, salir con amigos',
             'Customs & traditions: las fiestas, la gastronomía, las tradiciones regionales',
             'Key vocab: la convivencia (living together), el/la amigo/a, compartir (to share)',
-          ]},
+          ], workedExample:`Me, my family and friends (key vocabulary):
+Je m'entends bien avec ma famille. (I get on well with my family.)
+Nous nous disputons parfois. (We argue sometimes.)
+Mon meilleur ami est généreux et compréhensif. (My best friend is generous and understanding.)
+Valeurs familiales: important de se respecter et de se soutenir mutuellement.`},
           { title:'Edexcel Theme 2: Local & Global', points:[
             'Environment: el medio ambiente, el cambio climático, la contaminación, reciclar, proteger',
             'Poverty & equality: la pobreza, la desigualdad, los derechos humanos, el voluntariado',
             'Travel & tourism: las vacaciones, el alojamiento (accommodation), el transporte, las atracciones',
             'Global issues: la guerra, los refugiados, el hambre, las organizaciones benéficas',
             'Key phrases: hay que + inf (we must), es necesario (it is necessary), deberíamos (we should)',
-          ]},
+          ], workedExample:`Technology and social media:
+Les réseaux sociaux ont un impact positif et négatif sur notre vie.
+D'un côté, ils nous permettent de rester en contact... D'un autre côté, ils peuvent être dangereux.
+Environment: Le réchauffement climatique est un problème mondial grave.
+Il faut réduire les émissions de CO₂ en utilisant les énergies renouvelables.`},
           { title:'Edexcel Theme 3: Study & Employment', points:[
             'School life: las asignaturas (subjects), los deberes (homework), el uniforme, las notas (grades)',
             'Future plans: voy a estudiar, quisiera ser, espero trabajar en...',
             'Work & careers: el trabajo, el salario, la empresa (company), el jefe (boss), las prácticas (work experience)',
             'Higher education: la universidad, la carrera, la beca (scholarship)',
-          ]},
+          ], workedExample:`Future jobs (French):
+Je voudrais devenir médecin parce que je veux aider les autres.
+Après mes études, j'espère travailler dans un domaine créatif.
+Il est important de continuer ses études pour avoir de meilleures perspectives.
+Mon stage en entreprise m'a aidé à découvrir le monde du travail.`},
         ], examTips:[
             'Use a range of tenses in all writing tasks — include at least preterite, present, and future',
             'Check gender agreement for all adjectives — masculine and feminine forms differ for most adjectives',
@@ -13396,7 +15009,10 @@ Uses: imperfect (era, gustaba), present (prefiero, es), conditional (gustaría),
             'Watch for negatives that reverse meaning: nunca, jamás, nada, nadie, ninguno',
             'Cognates help: similar to English (la información, el hospital, el restaurante, importante)',
             'False friends: embarazada (pregnant ≠ embarrassed); realizar (to achieve ≠ to realise)',
-          ]},
+          ], workedExample:`Paper 1 (Listening): 45 minutes; range of Spanish accents; Part A (Foundation tasks) + Part B (Higher extension)
+Paper 3 (Reading): 60 minutes; texts in Spanish; answer in English or Spanish depending on question
+Key skill: identifying specific information quickly; don't panic at unfamiliar vocabulary — use context
+Check answers: does your answer actually answer the question asked? Match length to marks available`},
           { title:'Writing & Speaking', points:[
             'Edexcel writing tasks: structured tasks (form filling), short essay, translation into Spanish',
             'Speaking: role-play (from task card), photo description, general conversation',
@@ -13406,7 +15022,11 @@ Uses: imperfect (era, gustaba), present (prefiero, es), conditional (gustaría),
           ], examTips:[
             'Translation task: most demanding part — learn key vocabulary, verb conjugations, and avoid word-for-word translation',
             'General conversation: give extended answers with reasons — "porque", "ya que", "debido a"',
-          ]},
+          ], workedExample:`Edexcel writing task prompt: "Write about your town for a visitor. Include what there is to do and what you think of it."
+Mon quartier s'appelle Nottingham. C'est une grande ville dans le centre de l'Angleterre.
+Il y a beaucoup de choses à faire — par exemple, on peut visiter des musées, faire du shopping et aller au cinéma.
+À mon avis, ma ville est assez animée mais il y a trop de circulation. Cependant, les transports en commun sont excellents.
+[Uses: present tense, opinion phrases, intensifiers, connective, adjective agreement]`},
         ], examTips:[
             'Use a range of tenses in all writing tasks — include at least preterite, present, and future',
             'Check gender agreement for all adjectives — masculine and feminine forms differ for most adjectives',
@@ -13436,7 +15056,10 @@ Uses: imperfect (era, gustaba), present (prefiero, es), conditional (gustaría),
             'Subjunctive mood: after espero que, quiero que, ojalá, cuando (future reference) — espero que vengas',
             'Relative pronouns: que (that/which/who); donde (where); lo que (what/that which)',
             'Negatives: no...nunca, no...nada, no...nadie, no...ningún — double negative is correct in Spanish',
-          ]},
+          ], workedExample:`Ser vs estar: ser = permanent characteristics (nationality, profession, physical); estar = temporary state, location
+Para vs por: para = purpose/recipient ("for someone"); por = reason/exchange/duration ("because of/in exchange for")
+Reflexive verbs: me llamo, se llama; levantarse → me levanto (I get up)
+Subjunctive: quiero que vengas (I want you to come); ojalá (hopefully) + subjunctive`},
         ], examTips:[
             'Use a range of tenses in all writing tasks — include at least preterite, present, and future',
             'Check gender agreement for all adjectives — masculine and feminine forms differ for most adjectives',
@@ -13451,7 +15074,10 @@ Uses: imperfect (era, gustaba), present (prefiero, es), conditional (gustaría),
             'Theme 3: Current and future study and employment — school, subjects, ambitions, work',
             'Lifestyle and health: diet, sport, healthy living, mental health, peer pressure',
             'Expressing views: creo que, pienso que, me parece que, estoy de acuerdo/en desacuerdo con',
-          ]},
+          ], workedExample:`Theme 1: Identity and culture (family, technology, music, cinema, traditions)
+Theme 2: Local, national, international and global areas of interest (travel, environment, social issues, global problems)
+Theme 3: Current and future study and employment (school, future plans, careers)
+Vocabulary range: aim for 2000+ words at Higher tier; learn topic-specific vocabulary in context, not lists`},
           { title:'Exam Structure (Oxford AQA)', points:[
             'Paper 1: Listening — questions in English; answers in English; multiple choice & short answer',
             'Paper 2: Reading — comprehension in English; translation passage into English',
@@ -13461,7 +15087,10 @@ Uses: imperfect (era, gustaba), present (prefiero, es), conditional (gustaría),
           ], examTips:[
             'Oxford AQA speaking: general conversation questions are open-ended — prepare 4–5 sentences per topic area',
             'Writing essay: plan before writing — 5-point plan (intro, point1, point2, counterpoint, conclusion) takes 2 mins and saves marks',
-          ]},
+          ], workedExample:`4 papers: Listening (35%), Speaking (25%), Reading (25%), Writing (15%)
+Speaking: role play (5 min prep, 2 min performance), photo card (12 min), general conversation
+Writing: 60 mins — Form completion + short message + structured question + essay (minimum 130 words)
+Grading: 9–1 scale; Higher tier: grades 4–9 targeted; Foundation: 1–5 targeted`},
         ], examTips:[
             'Use a range of tenses in all writing tasks — include at least preterite, present, and future',
             'Check gender agreement for all adjectives — masculine and feminine forms differ for most adjectives',
@@ -13482,7 +15111,12 @@ Uses: imperfect (era, gustaba), present (prefiero, es), conditional (gustaría),
           ], commonMistakes:[
             'Missing negatives like "no...nunca" (never) — reversing meaning loses the mark entirely',
             'Over-relying on cognates — Spanish words that look like English may have different meanings (false friends)',
-          ]},
+          ], workedExample:`Listening strategies for Spanish/French:
+1. Read questions BEFORE listening to know what to focus on
+2. Note key words: numbers, times, names, opinions
+3. Distinguish similar sounds: pero/perro in Spanish; son/sont in French
+4. Negative expressions: ne...pas, no, jamais, nunca — change meaning completely
+5. Cognates help but beware false friends: "sensible" in French means "sensitive" not "sensible"`},
           { title:'Writing Tasks & Translation', points:[
             'Structured writing: answer all bullet points — missing one loses significant marks',
             'Extended writing (90 words): include opinion, past experience, future plan; use connectives',
@@ -13507,7 +15141,10 @@ Key: "llevo + time + gerund" for "have been doing"; "creo que" for "I think"; ad
           ], commonMistakes:[
             'Giving one-word answers in speaking — always extend: not "sí" but "Sí, porque..."',
             'Incorrect gender agreement in speaking ("el problema" is masculine, "la mano" is feminine despite -a ending)',
-          ]},
+          ], workedExample:`Role play: practise unexpected question (one question always unprepared); use set phrases
+Photo card: describe → explain → speculate → give opinion; use all tenses
+General conversation: practise spontaneous answers; extend every answer with opinions and reasons
+Pronunciation: practise difficult sounds (rr, j, ñ, ll); stress patterns — penultimate syllable usually stressed`},
         ], commonMistakes:[
             'Confusing ser (permanent/identity) and estar (temporary state/location) — these are tested heavily',
             'Using masculine adjective forms for feminine nouns — check the gender of the noun first',
