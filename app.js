@@ -3299,6 +3299,15 @@ function tplShell(content) {
   <aside class="sidebar">
     <div class="sidebar-logo">🎓 أستاذ AI</div>
     <div class="sidebar-cur">${curData.label} · ${gradeData.label}</div>
+    <button onclick="S.screen='chat';S.messages=[];render()"
+      style="display:flex;align-items:center;gap:8px;width:calc(100% - 16px);margin:8px 8px 4px;padding:10px 14px;
+             border-radius:14px;border:none;background:linear-gradient(135deg,#3B82F6,#2563EB);
+             color:#fff;cursor:pointer;font-family:Cairo,sans-serif;font-size:13px;font-weight:800;
+             box-shadow:0 3px 12px #3B82F655;transition:.2s"
+      onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 5px 16px #3B82F677'"
+      onmouseout="this.style.transform='';this.style.boxShadow='0 3px 12px #3B82F655'">
+      🏠 <span>${S.lang==='en'?'Home':'الرئيسية'}</span>
+    </button>
     <nav class="sidebar-nav">${navItems}</nav>
     <div style="display:flex;gap:6px;margin:10px 8px">
       <button onclick="toggleDark()" style="flex:1;background:none;border:1px solid var(--border);border-radius:14px;padding:6px 8px;color:var(--text-muted);cursor:pointer;font-size:12px;font-family:Cairo,sans-serif">
