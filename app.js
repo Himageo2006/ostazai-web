@@ -3418,28 +3418,69 @@ function tplChat() {
       </div>` : ''}
       <div style="font-size:40px;margin-bottom:8px">🎓</div>
       <div style="font-size:16px;font-weight:800;margin-bottom:4px">${S.lang==='en'?'Hi! I\'m OstazAI':'أهلاً! أنا أستاذ AI'}</div>
-      <div style="font-size:13px;color:var(--text-muted);margin-bottom:20px">${S.lang==='en'?'Ask me anything about':'اسألني أي شيء عن'} <b>${esc(S.subject)}</b> ${S.lang==='en'?'or pick a suggestion:':'أو اختر اقتراحاً:'}</div>
-      <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:400px">
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:20px">${S.lang==='en'?'Ask me anything about':'اسألني أي شيء عن'} <b>${esc(S.subject)}</b></div>
+
+      <!-- Big Feature Cards -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;width:100%;max-width:560px;margin-bottom:16px;text-align:left">
+
+        <button onclick="S.screen='igcse';render()"
+          style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px 14px;border-radius:16px;border:2px solid #6366F144;background:linear-gradient(135deg,#6366F115,#6366F108);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+          onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#6366F1'" onmouseout="this.style.transform='';this.style.borderColor='#6366F144'">
+          <div style="font-size:26px">🎓</div>
+          <div style="font-size:13px;font-weight:900;color:#6366F1">${S.lang==='en'?'IGCSE Hub':'منصة IGCSE'}</div>
+          <div style="font-size:10px;color:var(--text-muted);line-height:1.4">${S.lang==='en'?'Notes, topics & revision':'مواد ومراجعة'}</div>
+        </button>
+
+        <button data-screen="lessons"
+          style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px 14px;border-radius:16px;border:2px solid #3B82F644;background:linear-gradient(135deg,#3B82F615,#3B82F608);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+          onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#3B82F6'" onmouseout="this.style.transform='';this.style.borderColor='#3B82F644'">
+          <div style="font-size:26px">📖</div>
+          <div style="font-size:13px;font-weight:900;color:#3B82F6">${S.lang==='en'?'Lessons':'الدروس'}</div>
+          <div style="font-size:10px;color:var(--text-muted);line-height:1.4">${S.lang==='en'?'Structured lessons':'دروس منظمة'}</div>
+        </button>
+
+        <button data-screen="flashcards"
+          style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px 14px;border-radius:16px;border:2px solid #F59E0B44;background:linear-gradient(135deg,#F59E0B15,#F59E0B08);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+          onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#F59E0B'" onmouseout="this.style.transform='';this.style.borderColor='#F59E0B44'">
+          <div style="font-size:26px">🗂️</div>
+          <div style="font-size:13px;font-weight:900;color:#F59E0B">${S.lang==='en'?'Flashcards':'بطاقات'}</div>
+          <div style="font-size:10px;color:var(--text-muted);line-height:1.4">${S.lang==='en'?'Quick revision cards':'مراجعة سريعة'}</div>
+        </button>
+
+        <button data-screen="quiz"
+          style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px 14px;border-radius:16px;border:2px solid #10B98144;background:linear-gradient(135deg,#10B98115,#10B98108);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+          onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#10B981'" onmouseout="this.style.transform='';this.style.borderColor='#10B98144'">
+          <div style="font-size:26px">📝</div>
+          <div style="font-size:13px;font-weight:900;color:#10B981">${S.lang==='en'?'Quiz':'اختبار'}</div>
+          <div style="font-size:10px;color:var(--text-muted);line-height:1.4">${S.lang==='en'?'Test yourself':'تحقق من نفسك'}</div>
+        </button>
+
+        <button data-screen="summary"
+          style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px 14px;border-radius:16px;border:2px solid #8B5CF644;background:linear-gradient(135deg,#8B5CF615,#8B5CF608);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+          onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#8B5CF6'" onmouseout="this.style.transform='';this.style.borderColor='#8B5CF644'">
+          <div style="font-size:26px">📋</div>
+          <div style="font-size:13px;font-weight:900;color:#8B5CF6">${S.lang==='en'?'Summary':'ملخص'}</div>
+          <div style="font-size:10px;color:var(--text-muted);line-height:1.4">${S.lang==='en'?'Key points summary':'نقاط رئيسية'}</div>
+        </button>
+
+        <button onclick="document.getElementById('b-camera')&&document.getElementById('b-camera').click()"
+          style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px 14px;border-radius:16px;border:2px solid #EC489944;background:linear-gradient(135deg,#EC489915,#EC489908);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+          onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#EC4899'" onmouseout="this.style.transform='';this.style.borderColor='#EC489944'">
+          <div style="font-size:26px">📸</div>
+          <div style="font-size:13px;font-weight:900;color:#EC4899">${S.lang==='en'?'Solve Photo':'حل بالصورة'}</div>
+          <div style="font-size:10px;color:var(--text-muted);line-height:1.4">${S.lang==='en'?'Snap a question':'التقط مسألة'}</div>
+        </button>
+
+      </div>
+
+      <!-- Quick AI suggestions -->
+      <div style="font-size:10px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:8px">${S.lang==='en'?'OR ASK AI DIRECTLY:':'أو اسأل الذكاء الاصطناعي مباشرة:'}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:7px;justify-content:center;max-width:460px">
         ${S.lang==='en'?
         '<button class="quick-chip" data-q="Explain the key concepts of '+esc(S.subject)+' in simple terms">💡 Key Concepts</button><button class="quick-chip" data-q="Give me 5 practice questions on '+esc(S.subject)+'">📝 Practice Questions</button><button class="quick-chip" data-q="What are the hardest topics in '+esc(S.subject)+' and how to solve them?">🧩 Hard Topics</button><button class="quick-chip" data-q="Summarize the main topics of '+esc(S.subject)+' in bullet points">📋 Quick Summary</button><button class="quick-chip" data-q="Create a study plan for '+esc(S.subject)+'">📅 Study Plan</button><button class="quick-chip" data-q="What are the top tips to excel in '+esc(S.subject)+'?">🏆 Top Tips</button>'
         :
         '<button class="quick-chip" data-q="اشرح لي أهم مفاهيم '+esc(S.subject)+' بطريقة مبسّطة">💡 اشرح المفاهيم</button><button class="quick-chip" data-q="أعطني 5 أسئلة اختبار في '+esc(S.subject)+'">📝 أسئلة اختبار</button><button class="quick-chip" data-q="ما هي أصعب المسائل في '+esc(S.subject)+' وكيف أحلها؟">🧩 مسائل صعبة</button><button class="quick-chip" data-q="لخّص لي أهم دروس '+esc(S.subject)+' في نقاط">📋 ملخص سريع</button><button class="quick-chip" data-q="أنشئ لي خطة مذاكرة لمادة '+esc(S.subject)+'">📅 خطة مذاكرة</button><button class="quick-chip" data-q="ما هي أهم النصائح للتفوق في '+esc(S.subject)+'؟">🏆 نصائح التفوق</button>'
         }
-      </div>
-      <div style="font-size:11px;color:var(--text-muted);margin-top:12px">أو التقط صورة لمسألة 📸</div>
-      <div style="margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-        <button data-screen="lessons" style="display:flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;border:1.5px solid #3B82F644;background:#3B82F611;cursor:pointer;font-family:Cairo,sans-serif;font-size:12px;font-weight:700;color:#3B82F6">
-          📖 الدروس
-        </button>
-        <button data-screen="flashcards" style="display:flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;border:1.5px solid #F59E0B44;background:#F59E0B11;cursor:pointer;font-family:Cairo,sans-serif;font-size:12px;font-weight:700;color:#F59E0B">
-          🗂️ بطاقات
-        </button>
-        <button data-screen="quiz" style="display:flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;border:1.5px solid #10B98144;background:#10B98111;cursor:pointer;font-family:Cairo,sans-serif;font-size:12px;font-weight:700;color:#10B981">
-          📝 اختبار
-        </button>
-        <button data-screen="summary" style="display:flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;border:1.5px solid #8B5CF644;background:#8B5CF611;cursor:pointer;font-family:Cairo,sans-serif;font-size:12px;font-weight:700;color:#8B5CF6">
-          📋 ملخص
-        </button>
       </div>
     </div>`}
     ${S.thinking ? '<div class="msg msg-ai"><div class="msg-avatar">🎓</div><div class="msg-bubble thinking"><span></span><span></span><span></span></div></div>' : ''}
