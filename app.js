@@ -256,7 +256,7 @@ function render() {
 }
 function screenContent() {
   const map = {
-    chat: tplChat, flashcards: tplFlashcards, quiz: tplQuiz,
+    home: tplHome, chat: tplChat, flashcards: tplFlashcards, quiz: tplQuiz,
     stats: tplStats, profile: tplProfile, notes: tplNotes,
     bookmarks: tplBookmarks, wrong: tplWrong, pomodoro: tplPomodoro,
     schedule: tplSchedule, history: tplHistory, leaderboard: tplLeaderboard,
@@ -3299,7 +3299,7 @@ function tplShell(content) {
   <aside class="sidebar">
     <div class="sidebar-logo">🎓 أستاذ AI</div>
     <div class="sidebar-cur">${curData.label} · ${gradeData.label}</div>
-    <button onclick="S.screen='chat';S.messages=[];render()"
+    <button onclick="S.screen='home';render()"
       style="display:flex;align-items:center;gap:8px;width:calc(100% - 16px);margin:8px 8px 4px;padding:10px 14px;
              border-radius:14px;border:none;background:linear-gradient(135deg,#3B82F6,#2563EB);
              color:#fff;cursor:pointer;font-family:Cairo,sans-serif;font-size:13px;font-weight:800;
@@ -3369,6 +3369,79 @@ function tplShell(content) {
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    CHAT
    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ── Home screen ─────────────────────────────────────────────────────────── */
+function tplHome() {
+  const curData   = CURRICULA[S.curriculum] || CURRICULA.egypt;
+  const gradeData = curData.grades[S.grade] || Object.values(curData.grades)[0];
+  return `
+<div style="display:flex;flex-direction:column;align-items:center;padding:32px 16px 80px;min-height:60vh">
+  <div style="font-size:48px;margin-bottom:10px">🎓</div>
+  <div style="font-size:22px;font-weight:900;color:var(--text);margin-bottom:4px">
+    ${S.lang==='en'?'Welcome to OstazAI':'أهلاً بك في أستاذ AI'}
+  </div>
+  <div style="font-size:13px;color:var(--text-muted);margin-bottom:24px">
+    ${curData.label} · ${gradeData.label}
+  </div>
+
+  <div style="font-size:11px;color:#3B82F6;font-weight:800;letter-spacing:1px;margin-bottom:12px">⚡ الأدوات الرئيسية</div>
+  <div style="display:flex;flex-wrap:wrap;gap:12px;width:100%;max-width:600px;margin-bottom:24px;justify-content:center">
+
+    <button onclick="S.screen='igcse';render()"
+      style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:16px;border-radius:16px;width:170px;min-height:110px;border:2px solid #6366F144;background:linear-gradient(135deg,#6366F115,#6366F108);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+      onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#6366F1'" onmouseout="this.style.transform='';this.style.borderColor='#6366F144'">
+      <div style="font-size:28px">🎓</div>
+      <div style="font-size:14px;font-weight:900;color:#6366F1">${S.lang==='en'?'IGCSE Hub':'منصة IGCSE'}</div>
+      <div style="font-size:11px;color:var(--text-muted);line-height:1.4">${S.lang==='en'?'Notes, topics & revision':'مواد ومراجعة'}</div>
+    </button>
+
+    <button onclick="S.screen='chat';render()"
+      style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:16px;border-radius:16px;width:170px;min-height:110px;border:2px solid #3B82F644;background:linear-gradient(135deg,#3B82F615,#3B82F608);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+      onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#3B82F6'" onmouseout="this.style.transform='';this.style.borderColor='#3B82F644'">
+      <div style="font-size:28px">💬</div>
+      <div style="font-size:14px;font-weight:900;color:#3B82F6">${S.lang==='en'?'AI Chat':'المحادثة'}</div>
+      <div style="font-size:11px;color:var(--text-muted);line-height:1.4">${S.lang==='en'?'Ask anything':'اسأل أي سؤال'}</div>
+    </button>
+
+    <button onclick="S.screen='lessons';render()"
+      style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:16px;border-radius:16px;width:170px;min-height:110px;border:2px solid #10B98144;background:linear-gradient(135deg,#10B98115,#10B98108);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+      onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#10B981'" onmouseout="this.style.transform='';this.style.borderColor='#10B98144'">
+      <div style="font-size:28px">📖</div>
+      <div style="font-size:14px;font-weight:900;color:#10B981">${S.lang==='en'?'Lessons':'الدروس'}</div>
+      <div style="font-size:11px;color:var(--text-muted);line-height:1.4">${S.lang==='en'?'Structured lessons':'دروس منظمة'}</div>
+    </button>
+
+    <button onclick="S.screen='flashcards';render()"
+      style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:16px;border-radius:16px;width:170px;min-height:110px;border:2px solid #F59E0B44;background:linear-gradient(135deg,#F59E0B15,#F59E0B08);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+      onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#F59E0B'" onmouseout="this.style.transform='';this.style.borderColor='#F59E0B44'">
+      <div style="font-size:28px">🗂️</div>
+      <div style="font-size:14px;font-weight:900;color:#F59E0B">${S.lang==='en'?'Flashcards':'بطاقات'}</div>
+      <div style="font-size:11px;color:var(--text-muted);line-height:1.4">${S.lang==='en'?'Quick revision':'مراجعة سريعة'}</div>
+    </button>
+
+    <button onclick="S.screen='quiz';render()"
+      style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:16px;border-radius:16px;width:170px;min-height:110px;border:2px solid #EF444444;background:linear-gradient(135deg,#EF444415,#EF444408);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+      onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#EF4444'" onmouseout="this.style.transform='';this.style.borderColor='#EF444444'">
+      <div style="font-size:28px">📝</div>
+      <div style="font-size:14px;font-weight:900;color:#EF4444">${S.lang==='en'?'Quiz':'اختبار'}</div>
+      <div style="font-size:11px;color:var(--text-muted);line-height:1.4">${S.lang==='en'?'Test yourself':'تحقق من نفسك'}</div>
+    </button>
+
+    <button onclick="S.screen='summary';render()"
+      style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:16px;border-radius:16px;width:170px;min-height:110px;border:2px solid #8B5CF644;background:linear-gradient(135deg,#8B5CF615,#8B5CF608);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+      onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#8B5CF6'" onmouseout="this.style.transform='';this.style.borderColor='#8B5CF644'">
+      <div style="font-size:28px">📋</div>
+      <div style="font-size:14px;font-weight:900;color:#8B5CF6">${S.lang==='en'?'Summary':'ملخص'}</div>
+      <div style="font-size:11px;color:var(--text-muted);line-height:1.4">${S.lang==='en'?'Key points':'نقاط رئيسية'}</div>
+    </button>
+
+  </div>
+
+  <div style="font-size:11px;color:var(--text-muted);text-align:center">
+    ${S.lang==='en'?'Choose a tool to get started':'اختر أداة للبدء'}
+  </div>
+</div>`;
+}
+
 function tplChat() {
   const curData = CURRICULA[S.curriculum] || CURRICULA.egypt;
   const gradeData = curData.grades[S.grade] || Object.values(curData.grades)[0];
@@ -16190,7 +16263,7 @@ function igcseGoBack() {
   if (S.igcseTopic !== null)      { S.igcseTopic=null; S.igcseChapter=null; render(); return; }
   if (S.igcseView !== 'list')     { S.igcseView='list'; render(); return; }
   if (S.igcseSubject)             { S.igcseSubject=null; S.igcseChapter=null; render(); return; }
-  S.screen='chat'; render();
+  S.screen='home'; render();
 }
 
 function tplIGCSENavBar() {
