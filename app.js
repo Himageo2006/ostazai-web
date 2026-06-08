@@ -3427,13 +3427,14 @@ function tplChat() {
       </div>` : ''}
       <div style="font-size:40px;margin-bottom:8px">🎓</div>
       <div style="font-size:16px;font-weight:800;margin-bottom:4px">${S.lang==='en'?'Hi! I\'m OstazAI':'أهلاً! أنا أستاذ AI'}</div>
-      <div style="font-size:13px;color:var(--text-muted);margin-bottom:20px">${S.lang==='en'?'Ask me anything about':'اسألني أي شيء عن'} <b>${esc(S.subject)}</b></div>
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:16px">${S.lang==='en'?'Ask me anything about':'اسألني أي شيء عن'} <b>${esc(S.subject)}</b></div>
 
-      <!-- Big Feature Cards -->
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;width:100%;max-width:560px;margin-bottom:16px;text-align:start">
+      <!-- Big Feature Cards (v82) -->
+      <div style="font-size:10px;color:#3B82F6;font-weight:800;letter-spacing:1px;margin-bottom:10px">⚡ QUICK ACCESS</div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;width:100%;max-width:580px;margin-bottom:16px;justify-content:center">
 
         <button onclick="S.screen='igcse';render()"
-          style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px 14px;border-radius:16px;border:2px solid #6366F144;background:linear-gradient(135deg,#6366F115,#6366F108);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+          style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px;border-radius:16px;width:160px;min-height:100px;border:2px solid #6366F144;background:linear-gradient(135deg,#6366F115,#6366F108);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
           onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#6366F1'" onmouseout="this.style.transform='';this.style.borderColor='#6366F144'">
           <div style="font-size:26px">🎓</div>
           <div style="font-size:13px;font-weight:900;color:#6366F1">${S.lang==='en'?'IGCSE Hub':'منصة IGCSE'}</div>
@@ -3441,7 +3442,7 @@ function tplChat() {
         </button>
 
         <button data-screen="lessons"
-          style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px 14px;border-radius:16px;border:2px solid #3B82F644;background:linear-gradient(135deg,#3B82F615,#3B82F608);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+          style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px;border-radius:16px;width:160px;min-height:100px;border:2px solid #3B82F644;background:linear-gradient(135deg,#3B82F615,#3B82F608);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
           onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#3B82F6'" onmouseout="this.style.transform='';this.style.borderColor='#3B82F644'">
           <div style="font-size:26px">📖</div>
           <div style="font-size:13px;font-weight:900;color:#3B82F6">${S.lang==='en'?'Lessons':'الدروس'}</div>
@@ -3449,7 +3450,7 @@ function tplChat() {
         </button>
 
         <button data-screen="flashcards"
-          style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px 14px;border-radius:16px;border:2px solid #F59E0B44;background:linear-gradient(135deg,#F59E0B15,#F59E0B08);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+          style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px;border-radius:16px;width:160px;min-height:100px;border:2px solid #F59E0B44;background:linear-gradient(135deg,#F59E0B15,#F59E0B08);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
           onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#F59E0B'" onmouseout="this.style.transform='';this.style.borderColor='#F59E0B44'">
           <div style="font-size:26px">🗂️</div>
           <div style="font-size:13px;font-weight:900;color:#F59E0B">${S.lang==='en'?'Flashcards':'بطاقات'}</div>
@@ -3457,7 +3458,7 @@ function tplChat() {
         </button>
 
         <button data-screen="quiz"
-          style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px 14px;border-radius:16px;border:2px solid #10B98144;background:linear-gradient(135deg,#10B98115,#10B98108);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+          style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px;border-radius:16px;width:160px;min-height:100px;border:2px solid #10B98144;background:linear-gradient(135deg,#10B98115,#10B98108);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
           onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#10B981'" onmouseout="this.style.transform='';this.style.borderColor='#10B98144'">
           <div style="font-size:26px">📝</div>
           <div style="font-size:13px;font-weight:900;color:#10B981">${S.lang==='en'?'Quiz':'اختبار'}</div>
@@ -3465,7 +3466,7 @@ function tplChat() {
         </button>
 
         <button data-screen="summary"
-          style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px 14px;border-radius:16px;border:2px solid #8B5CF644;background:linear-gradient(135deg,#8B5CF615,#8B5CF608);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+          style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px;border-radius:16px;width:160px;min-height:100px;border:2px solid #8B5CF644;background:linear-gradient(135deg,#8B5CF615,#8B5CF608);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
           onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#8B5CF6'" onmouseout="this.style.transform='';this.style.borderColor='#8B5CF644'">
           <div style="font-size:26px">📋</div>
           <div style="font-size:13px;font-weight:900;color:#8B5CF6">${S.lang==='en'?'Summary':'ملخص'}</div>
@@ -3473,7 +3474,7 @@ function tplChat() {
         </button>
 
         <button onclick="document.getElementById('b-camera')&&document.getElementById('b-camera').click()"
-          style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px 14px;border-radius:16px;border:2px solid #EC489944;background:linear-gradient(135deg,#EC489915,#EC489908);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+          style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px;border-radius:16px;width:160px;min-height:100px;border:2px solid #EC489944;background:linear-gradient(135deg,#EC489915,#EC489908);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
           onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#EC4899'" onmouseout="this.style.transform='';this.style.borderColor='#EC489944'">
           <div style="font-size:26px">📸</div>
           <div style="font-size:13px;font-weight:900;color:#EC4899">${S.lang==='en'?'Solve Photo':'حل بالصورة'}</div>
