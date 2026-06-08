@@ -3430,7 +3430,7 @@ function tplChat() {
       <div style="font-size:13px;color:var(--text-muted);margin-bottom:20px">${S.lang==='en'?'Ask me anything about':'اسألني أي شيء عن'} <b>${esc(S.subject)}</b></div>
 
       <!-- Big Feature Cards -->
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;width:100%;max-width:560px;margin-bottom:16px;text-align:left">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;width:100%;max-width:560px;margin-bottom:16px;text-align:start">
 
         <button onclick="S.screen='igcse';render()"
           style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px 14px;border-radius:16px;border:2px solid #6366F144;background:linear-gradient(135deg,#6366F115,#6366F108);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
@@ -20093,7 +20093,7 @@ function bind() {
     .tool-strip{display:flex;gap:6px;flex-wrap:wrap}
     .tool-btn{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-family:Cairo,sans-serif;font-size:12px;font-weight:700;color:var(--text);cursor:pointer;transition:.15s}.tool-btn:hover{border-color:var(--primary);color:var(--primary)}
     .chat-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
-    .chat-empty{text-align:center;color:var(--text-muted);padding:32px 16px;font-size:15px;display:flex;flex-direction:column;align-items:center}
+    .chat-empty{text-align:center;color:var(--text-muted);padding:32px 16px;font-size:15px;display:flex;flex-direction:column;align-items:center;width:100%;max-width:600px;margin:0 auto}
     .chat-context-bar{flex-shrink:0;overflow-x:auto;white-space:nowrap}
     .msg{display:flex;gap:10px;align-items:flex-end}
     .msg-user{flex-direction:row-reverse}
