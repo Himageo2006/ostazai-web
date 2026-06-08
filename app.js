@@ -16228,7 +16228,7 @@ function tplIGCSENavBar() {
         ${subj.icon} ${subj.label}</div>` : '';
     })() : ''}
     <!-- Logout -->
-    <button onclick="document.getElementById('b-logout')&&document.getElementById('b-logout').click()"
+    <button onclick="doLogout()"
       title="${L('Sign Out','تسجيل الخروج')}"
       style="display:flex;align-items:center;gap:5px;padding:7px 12px;border-radius:10px;border:1px solid #EF444430;
              background:#EF444408;color:#EF4444;cursor:pointer;font-size:12px;font-weight:700;font-family:Cairo,sans-serif;transition:.15s;white-space:nowrap"
