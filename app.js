@@ -3405,7 +3405,7 @@ function tplShell(content) {
 </div>
 <nav class="bottom-nav">${botNav}</nav>
 <!-- More Drawer (mobile) -->
-<div id="more-drawer-overlay" style="display:none;position:fixed;inset:0;z-index:200;background:#00000060" onclick='ge('more-drawer').style.transform='translateY(100%)';setTimeout(()=>{ge('more-drawer-overlay').style.display='none'},250)"></div>
+<div id="more-drawer-overlay" style="display:none;position:fixed;inset:0;z-index:200;background:#00000060" onclick="ge('more-drawer').style.transform='translateY(100%)';setTimeout(()=>{ge('more-drawer-overlay').style.display='none'},250)"></div>
 <div id="more-drawer" style="position:fixed;bottom:0;left:0;right:0;z-index:201;background:var(--bg-card);border-radius:20px 20px 0 0;padding:20px;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1)">
   <div style="width:40px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 20px"></div>
   <div style="font-size:14px;font-weight:900;color:var(--text-muted);margin-bottom:14px">الأدوات الأخرى</div>
