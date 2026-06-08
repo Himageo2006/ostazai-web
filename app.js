@@ -3299,6 +3299,17 @@ function tplShell(content) {
   <aside class="sidebar">
     <div class="sidebar-logo">🎓 أستاذ AI</div>
     <div class="sidebar-cur">${curData.label} · ${gradeData.label}</div>
+    <!-- Streak + stats mini bar -->
+    <div style="display:flex;gap:6px;margin:6px 8px 2px;flex-wrap:wrap">
+      <div style="flex:1;background:#F59E0B18;border:1px solid #F59E0B30;border-radius:10px;padding:5px 8px;text-align:center">
+        <div style="font-size:13px;font-weight:900;color:#F59E0B">🔥 ${(S.igcseStreak||{count:0}).count}</div>
+        <div style="font-size:9px;color:var(--text-muted)">Streak</div>
+      </div>
+      <div style="flex:1;background:#10B98118;border:1px solid #10B98130;border-radius:10px;padding:5px 8px;text-align:center">
+        <div style="font-size:13px;font-weight:900;color:#10B981">✅ ${Object.keys(S.igcseDone||{}).length}</div>
+        <div style="font-size:9px;color:var(--text-muted)">Done</div>
+      </div>
+    </div>
     <button onclick="S.screen='home';render()"
       style="display:flex;align-items:center;gap:8px;width:calc(100% - 16px);margin:8px 8px 4px;padding:10px 14px;
              border-radius:14px;border:none;background:linear-gradient(135deg,#3B82F6,#2563EB);
@@ -3370,129 +3381,205 @@ function tplShell(content) {
    CHAT
    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 /* ── Home screen ─────────────────────────────────────────────────────────── */
+const MOTIVATIONAL_QUOTES = [
+  { text: 'النجاح ليس نهاية الطريق، والفشل ليس نهاية المطاف، الشجاعة هي الاستمرار.', author: 'ونستون تشرشل' },
+  { text: 'التعليم هو أقوى سلاح يمكنك استخدامه لتغيير العالم.', author: 'نيلسون مانديلا' },
+  { text: 'لا تقل لا أستطيع، بل قل لم أتعلم بعد.', author: 'حكمة عالمية' },
+  { text: 'كل خبير كان في البداية مبتدئاً.', author: 'هيلين هايز' },
+  { text: 'الاستثمار في المعرفة يدفع أفضل الفوائد.', author: 'بنيامين فرانكلين' },
+  { text: 'النجاح يأتي لمن يتعلم من أخطائه ويستمر.', author: 'حكمة عالمية' },
+];
+
 function tplHome() {
   const curData   = CURRICULA[S.curriculum] || CURRICULA.egypt;
   const gradeData = curData.grades[S.grade] || Object.values(curData.grades)[0];
   const userName  = (S.user && S.user.name) ? S.user.name.split(' ')[0] : '';
 
+  // Stats
+  const streak    = (S.igcseStreak||{count:0}).count;
+  const doneCnt   = Object.keys(S.igcseDone||{}).length;
+  const mastered  = Object.values(S.igcseProgress||{}).filter(v=>v==='mastered').length;
+  const chatCnt   = (S.stats||{}).totalChats || 0;
+  const quote     = MOTIVATIONAL_QUOTES[new Date().getDay() % MOTIVATIONAL_QUOTES.length];
+
   // Build country options
   const countryOpts = Object.entries(CURRICULA).map(([k,v]) =>
     `<option value="${k}" ${S.curriculum===k?'selected':''}>${v.label}</option>`
   ).join('');
-  // Build grade options for current curriculum
   const gradeOpts = Object.entries(curData.grades).map(([k,v]) =>
     `<option value="${k}" ${S.grade===k?'selected':''}>${v.label}</option>`
   ).join('');
 
+  // Hour-based greeting
+  const hr = new Date().getHours();
+  const greeting = hr<12 ? 'صباح الخير' : hr<17 ? 'مساء الخير' : 'مساء النور';
+
   return `
 <div style="display:flex;flex-direction:column;align-items:center;padding:0 0 80px;min-height:60vh">
 
-  <!-- Big colored header -->
-  <div style="width:100%;background:linear-gradient(135deg,#2563EB,#7C3AED);padding:32px 20px 28px;display:flex;flex-direction:column;align-items:center;margin-bottom:24px">
-    <div style="font-size:48px;margin-bottom:10px">🏠</div>
-    <div style="font-size:24px;font-weight:900;color:#fff;margin-bottom:4px">
-      ${userName ? 'أهلاً ' + userName + '! 👋' : 'الصفحة الرئيسية 🏠'}
-    </div>
-    <div style="font-size:13px;color:#ffffffbb">اختر بلدك ومرحلتك ثم ابدأ المذاكرة</div>
-  </div>
+  <!-- ═══ HERO HEADER ═══ -->
+  <div style="width:100%;background:linear-gradient(135deg,#1e3a8a 0%,#4c1d95 50%,#1e3a8a 100%);background-size:200% 200%;padding:28px 20px 32px;position:relative;overflow:hidden;margin-bottom:0">
+    <!-- Decorative circles -->
+    <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:#ffffff08"></div>
+    <div style="position:absolute;bottom:-50px;left:-30px;width:150px;height:150px;border-radius:50%;background:#ffffff06"></div>
+    <div style="position:absolute;top:20px;left:30%;width:60px;height:60px;border-radius:50%;background:#ffffff05"></div>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center">
+      <div style="font-size:13px;color:#93c5fd;font-weight:700;margin-bottom:8px;letter-spacing:1px">${greeting} ☀️</div>
+      <div style="font-size:26px;font-weight:900;color:#fff;margin-bottom:4px">
+        ${userName ? userName + ' 👋' : 'أستاذ AI 🎓'}
+      </div>
+      <div style="font-size:12px;color:#c4b5fd;margin-bottom:20px">${curData.label} · ${gradeData.label}</div>
 
-  <!-- Country & Grade selector card -->
-  <div style="width:calc(100% - 32px);max-width:420px;background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:20px 20px 16px;margin-bottom:24px;box-shadow:0 4px 20px #0002">
-
-    <div style="font-size:12px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:12px">🌍 بلدك ومنهجك</div>
-
-    <div style="margin-bottom:12px">
-      <label style="font-size:12px;font-weight:700;color:var(--text-muted);display:block;margin-bottom:5px">الدولة / المنهج</label>
-      <select id="home-country" onchange="homeUpdateCountry(this.value)"
-        style="width:100%;padding:11px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;font-family:Cairo,sans-serif;font-weight:700;cursor:pointer">
-        ${countryOpts}
-      </select>
-    </div>
-
-    <div style="margin-bottom:16px">
-      <label style="font-size:12px;font-weight:700;color:var(--text-muted);display:block;margin-bottom:5px">المرحلة الدراسية</label>
-      <select id="home-grade" onchange="homeUpdateGrade(this.value)"
-        style="width:100%;padding:11px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;font-family:Cairo,sans-serif;font-weight:700;cursor:pointer">
-        ${gradeOpts}
-      </select>
-    </div>
-
-    <!-- Current selection badge -->
-    <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--primary)12;border-radius:12px;border:1px solid var(--primary)30;margin-bottom:14px">
-      <span style="font-size:18px">✅</span>
-      <div>
-        <div style="font-size:13px;font-weight:900;color:var(--primary)">${curData.label}</div>
-        <div style="font-size:12px;color:var(--text-muted)">${gradeData.label}</div>
+      <!-- Stats Strip -->
+      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+        <div style="background:#ffffff15;border:1px solid #ffffff20;border-radius:14px;padding:10px 16px;text-align:center;min-width:70px">
+          <div style="font-size:20px;font-weight:900;color:#FCD34D">${streak>0?'🔥':'💤'} ${streak}</div>
+          <div style="font-size:10px;color:#c4b5fd;margin-top:2px">يوم streak</div>
+        </div>
+        <div style="background:#ffffff15;border:1px solid #ffffff20;border-radius:14px;padding:10px 16px;text-align:center;min-width:70px">
+          <div style="font-size:20px;font-weight:900;color:#6EE7B7">✅ ${doneCnt}</div>
+          <div style="font-size:10px;color:#c4b5fd;margin-top:2px">موضوع مكتمل</div>
+        </div>
+        <div style="background:#ffffff15;border:1px solid #ffffff20;border-radius:14px;padding:10px 16px;text-align:center;min-width:70px">
+          <div style="font-size:20px;font-weight:900;color:#FCA5A5">🏆 ${mastered}</div>
+          <div style="font-size:10px;color:#c4b5fd;margin-top:2px">محترف</div>
+        </div>
+        <div style="background:#ffffff15;border:1px solid #ffffff20;border-radius:14px;padding:10px 16px;text-align:center;min-width:70px">
+          <div style="font-size:20px;font-weight:900;color:#93C5FD">💬 ${chatCnt}</div>
+          <div style="font-size:10px;color:#c4b5fd;margin-top:2px">محادثة</div>
+        </div>
       </div>
     </div>
+  </div>
 
-    <!-- Continue button -->
+  <!-- ═══ MOTIVATIONAL QUOTE ═══ -->
+  <div style="width:calc(100% - 32px);max-width:520px;margin:16px auto 0;background:linear-gradient(135deg,#F59E0B18,#F59E0B08);border:1px solid #F59E0B30;border-radius:16px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start">
+    <div style="font-size:24px;flex-shrink:0">💡</div>
+    <div>
+      <div style="font-size:13px;font-weight:700;color:var(--text);line-height:1.6">"${quote.text}"</div>
+      <div style="font-size:11px;color:#F59E0B;font-weight:800;margin-top:4px">— ${quote.author}</div>
+    </div>
+  </div>
+
+  <!-- ═══ CURRICULUM SELECTOR ═══ -->
+  <div style="width:calc(100% - 32px);max-width:520px;background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:18px 18px 14px;margin:16px auto 0;box-shadow:0 4px 24px #0003">
+    <div style="font-size:12px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:14px">🌍 بلدك ومرحلتك الدراسية</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text-muted);display:block;margin-bottom:5px">الدولة / المنهج</label>
+        <select id="home-country" onchange="homeUpdateCountry(this.value)"
+          style="width:100%;padding:10px 12px;border-radius:12px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:13px;font-family:Cairo,sans-serif;font-weight:700;cursor:pointer">
+          ${countryOpts}
+        </select>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text-muted);display:block;margin-bottom:5px">المرحلة الدراسية</label>
+        <select id="home-grade" onchange="homeUpdateGrade(this.value)"
+          style="width:100%;padding:10px 12px;border-radius:12px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:13px;font-family:Cairo,sans-serif;font-weight:700;cursor:pointer">
+          ${gradeOpts}
+        </select>
+      </div>
+    </div>
     <button onclick="S.screen='chat';render()"
-      style="width:100%;padding:14px;border-radius:14px;border:none;
-             background:linear-gradient(135deg,#2563EB,#7C3AED);
-             color:#fff;font-size:16px;font-weight:900;font-family:Cairo,sans-serif;
-             cursor:pointer;box-shadow:0 4px 16px #2563EB44;transition:.2s;letter-spacing:.5px"
-      onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px #2563EB66'"
+      style="width:100%;padding:13px;border-radius:14px;border:none;background:linear-gradient(135deg,#2563EB,#7C3AED);
+             color:#fff;font-size:15px;font-weight:900;font-family:Cairo,sans-serif;
+             cursor:pointer;box-shadow:0 4px 16px #2563EB44;transition:.2s"
+      onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 22px #2563EB66'"
       onmouseout="this.style.transform='';this.style.boxShadow='0 4px 16px #2563EB44'">
-      🚀 ابدأ المذاكرة
+      🚀 ابدأ المذاكرة الآن
     </button>
   </div>
 
-  <!-- Quick access label -->
-  <div style="font-size:11px;color:#3B82F6;font-weight:800;letter-spacing:1px;margin-bottom:12px">⚡ الأدوات الرئيسية</div>
+  <!-- ═══ TOOLS GRID ═══ -->
+  <div style="width:calc(100% - 32px);max-width:520px;margin:16px auto 0">
+    <div style="font-size:11px;color:#3B82F6;font-weight:800;letter-spacing:1.5px;margin-bottom:12px;text-align:center">⚡ الأدوات الرئيسية</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
 
-  <!-- Feature cards -->
-  <div style="display:flex;flex-wrap:wrap;gap:12px;width:100%;max-width:560px;margin-bottom:16px;justify-content:center">
+      <button onclick="S.screen='igcse';render()"
+        style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px;border-radius:18px;border:none;
+               background:linear-gradient(135deg,#4F46E5,#7C3AED);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #4F46E530"
+        onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px #4F46E555'"
+        onmouseout="this.style.transform='';this.style.boxShadow='0 4px 14px #4F46E530'">
+        <div style="font-size:28px">🎓</div>
+        <div style="font-size:12px;font-weight:900;color:#fff">IGCSE</div>
+        <div style="font-size:10px;color:#c4b5fd">مراجعة شاملة</div>
+      </button>
 
-    <button onclick="S.screen='igcse';render()"
-      style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px;border-radius:16px;width:155px;min-height:100px;border:2px solid #6366F144;background:linear-gradient(135deg,#6366F115,#6366F108);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
-      onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#6366F1'" onmouseout="this.style.transform='';this.style.borderColor='#6366F144'">
-      <div style="font-size:26px">🎓</div>
-      <div style="font-size:13px;font-weight:900;color:#6366F1">منصة IGCSE</div>
-      <div style="font-size:11px;color:var(--text-muted);line-height:1.4">مواد ومراجعة</div>
-    </button>
+      <button onclick="S.screen='chat';render()"
+        style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px;border-radius:18px;border:none;
+               background:linear-gradient(135deg,#2563EB,#0EA5E9);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #2563EB30"
+        onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px #2563EB55'"
+        onmouseout="this.style.transform='';this.style.boxShadow='0 4px 14px #2563EB30'">
+        <div style="font-size:28px">💬</div>
+        <div style="font-size:12px;font-weight:900;color:#fff">المحادثة</div>
+        <div style="font-size:10px;color:#bae6fd">اسأل أي سؤال</div>
+      </button>
 
-    <button onclick="S.screen='chat';render()"
-      style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px;border-radius:16px;width:155px;min-height:100px;border:2px solid #3B82F644;background:linear-gradient(135deg,#3B82F615,#3B82F608);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
-      onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#3B82F6'" onmouseout="this.style.transform='';this.style.borderColor='#3B82F644'">
-      <div style="font-size:26px">💬</div>
-      <div style="font-size:13px;font-weight:900;color:#3B82F6">المحادثة</div>
-      <div style="font-size:11px;color:var(--text-muted);line-height:1.4">اسأل أي سؤال</div>
-    </button>
+      <button onclick="S.screen='lessons';render()"
+        style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px;border-radius:18px;border:none;
+               background:linear-gradient(135deg,#059669,#10B981);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #05966930"
+        onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px #05966955'"
+        onmouseout="this.style.transform='';this.style.boxShadow='0 4px 14px #05966930'">
+        <div style="font-size:28px">📖</div>
+        <div style="font-size:12px;font-weight:900;color:#fff">الدروس</div>
+        <div style="font-size:10px;color:#a7f3d0">دروس منظمة</div>
+      </button>
 
-    <button onclick="S.screen='lessons';render()"
-      style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px;border-radius:16px;width:155px;min-height:100px;border:2px solid #10B98144;background:linear-gradient(135deg,#10B98115,#10B98108);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
-      onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#10B981'" onmouseout="this.style.transform='';this.style.borderColor='#10B98144'">
-      <div style="font-size:26px">📖</div>
-      <div style="font-size:13px;font-weight:900;color:#10B981">الدروس</div>
-      <div style="font-size:11px;color:var(--text-muted);line-height:1.4">دروس منظمة</div>
-    </button>
+      <button onclick="S.screen='flashcards';render()"
+        style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px;border-radius:18px;border:none;
+               background:linear-gradient(135deg,#D97706,#F59E0B);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #D9770630"
+        onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px #D9770655'"
+        onmouseout="this.style.transform='';this.style.boxShadow='0 4px 14px #D9770630'">
+        <div style="font-size:28px">🗂️</div>
+        <div style="font-size:12px;font-weight:900;color:#fff">بطاقات</div>
+        <div style="font-size:10px;color:#fef3c7">مراجعة سريعة</div>
+      </button>
 
-    <button onclick="S.screen='flashcards';render()"
-      style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px;border-radius:16px;width:155px;min-height:100px;border:2px solid #F59E0B44;background:linear-gradient(135deg,#F59E0B15,#F59E0B08);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
-      onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#F59E0B'" onmouseout="this.style.transform='';this.style.borderColor='#F59E0B44'">
-      <div style="font-size:26px">🗂️</div>
-      <div style="font-size:13px;font-weight:900;color:#F59E0B">بطاقات</div>
-      <div style="font-size:11px;color:var(--text-muted);line-height:1.4">مراجعة سريعة</div>
-    </button>
+      <button onclick="S.screen='quiz';render()"
+        style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px;border-radius:18px;border:none;
+               background:linear-gradient(135deg,#DC2626,#EF4444);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #DC262630"
+        onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px #DC262655'"
+        onmouseout="this.style.transform='';this.style.boxShadow='0 4px 14px #DC262630'">
+        <div style="font-size:28px">📝</div>
+        <div style="font-size:12px;font-weight:900;color:#fff">اختبار</div>
+        <div style="font-size:10px;color:#fecaca">تحقق من نفسك</div>
+      </button>
 
-    <button onclick="S.screen='quiz';render()"
-      style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px;border-radius:16px;width:155px;min-height:100px;border:2px solid #EF444444;background:linear-gradient(135deg,#EF444415,#EF444408);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
-      onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#EF4444'" onmouseout="this.style.transform='';this.style.borderColor='#EF444444'">
-      <div style="font-size:26px">📝</div>
-      <div style="font-size:13px;font-weight:900;color:#EF4444">اختبار</div>
-      <div style="font-size:11px;color:var(--text-muted);line-height:1.4">تحقق من نفسك</div>
-    </button>
+      <button onclick="S.screen='summary';render()"
+        style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px;border-radius:18px;border:none;
+               background:linear-gradient(135deg,#7C3AED,#8B5CF6);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #7C3AED30"
+        onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px #7C3AED55'"
+        onmouseout="this.style.transform='';this.style.boxShadow='0 4px 14px #7C3AED30'">
+        <div style="font-size:28px">📋</div>
+        <div style="font-size:12px;font-weight:900;color:#fff">ملخص</div>
+        <div style="font-size:10px;color:#ddd6fe">نقاط رئيسية</div>
+      </button>
 
-    <button onclick="S.screen='summary';render()"
-      style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px;border-radius:16px;width:155px;min-height:100px;border:2px solid #8B5CF644;background:linear-gradient(135deg,#8B5CF615,#8B5CF608);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
-      onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='#8B5CF6'" onmouseout="this.style.transform='';this.style.borderColor='#8B5CF644'">
-      <div style="font-size:26px">📋</div>
-      <div style="font-size:13px;font-weight:900;color:#8B5CF6">ملخص</div>
-      <div style="font-size:11px;color:var(--text-muted);line-height:1.4">نقاط رئيسية</div>
-    </button>
-
+    </div>
   </div>
+
+  <!-- ═══ EXTRA TOOLS ROW ═══ -->
+  <div style="width:calc(100% - 32px);max-width:520px;margin:12px auto 0;display:flex;gap:10px">
+    <button onclick="S.screen='stats';render()"
+      style="flex:1;display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:16px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+      onmouseover="this.style.borderColor='#3B82F6';this.style.background='#3B82F608'" onmouseout="this.style.borderColor='';this.style.background='var(--bg-card)'">
+      <span style="font-size:22px">📊</span>
+      <div style="text-align:right">
+        <div style="font-size:12px;font-weight:900;color:var(--text)">الإحصائيات</div>
+        <div style="font-size:10px;color:var(--text-muted)">تقدمك ونشاطك</div>
+      </div>
+    </button>
+    <button onclick="S.screen='pomodoro';render()"
+      style="flex:1;display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:16px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
+      onmouseover="this.style.borderColor='#EF4444';this.style.background='#EF444408'" onmouseout="this.style.borderColor='';this.style.background='var(--bg-card)'">
+      <span style="font-size:22px">⏱️</span>
+      <div style="text-align:right">
+        <div style="font-size:12px;font-weight:900;color:var(--text)">مؤقت بومودورو</div>
+        <div style="font-size:10px;color:var(--text-muted)">تنظيم وقت المذاكرة</div>
+      </div>
+    </button>
+  </div>
+
 </div>`;
 }
 
@@ -17260,22 +17347,35 @@ function tplIGCSEHub() {
     const topicCount = chapters.reduce((a,c)=>a+c.topics.length,0);
     const doneCount = chapters.reduce((a,c,ci)=>a+c.topics.filter((_,ti)=>S.igcseDone[`${k}-${ci}-${ti}`]).length,0);
     const pct = topicCount ? Math.round(doneCount/topicCount*100) : 0;
+    const statusIcon = pct===100?'✅':pct>60?'🔥':pct>0?'📖':'🆕';
+    const statusLabel = pct===100?'مكتمل':pct>0?pct+'%':'ابدأ الآن';
+    // SVG ring
+    const r=16,circ=2*Math.PI*r,dash=circ*pct/100,gap=circ-dash;
+    const ringColor = pct===100?'#10B981':pct>0?subj.color:'#334155';
     return `
     <div onclick="S.igcseSubject='${k}';S.igcseChapter=null;S.igcseTopic=null;S.igcseSearch='';render()"
-      style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:18px 14px 14px;cursor:pointer;
-             transition:.2s;position:relative;overflow:hidden;"
-      onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px ${subj.color}30';this.style.borderColor='${subj.color}'"
-      onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor=''">
-      <!-- top color bar -->
-      <div style="position:absolute;top:0;left:0;right:0;height:4px;background:${subj.color}"></div>
-      <div style="font-size:32px;margin-bottom:8px">${subj.icon}</div>
-      <div style="font-size:13px;font-weight:900;color:var(--text);line-height:1.3">${subj.label}</div>
-      <div style="font-size:10px;color:var(--text-muted);margin-top:2px">${subj.arabic}</div>
-      <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center">
-        <span style="font-size:10px;background:${subj.color}18;color:${subj.color};padding:2px 8px;border-radius:20px;font-weight:700">${topicCount} topics</span>
-        <span style="font-size:10px;color:${pct===100?'#10B981':pct>0?'var(--text-muted)':'var(--border)'};font-weight:700">${pct===100?'✅ Done':pct>0?`${pct}%`:'Not started'}</span>
+      style="background:linear-gradient(145deg,${subj.color}22,${subj.color}08);border:1.5px solid ${subj.color}33;
+             border-radius:20px;padding:16px 14px;cursor:pointer;transition:.25s;position:relative;overflow:hidden;"
+      onmouseover="this.style.transform='translateY(-4px) scale(1.02)';this.style.boxShadow='0 10px 30px ${subj.color}40';this.style.borderColor='${subj.color}'"
+      onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='${subj.color}33'">
+      <!-- Decorative circle bg -->
+      <div style="position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;background:${subj.color}12;pointer-events:none"></div>
+      <!-- Header row -->
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px">
+        <div style="font-size:34px;line-height:1">${subj.icon}</div>
+        <!-- Progress ring -->
+        <svg width="40" height="40" style="transform:rotate(-90deg);flex-shrink:0">
+          <circle cx="20" cy="20" r="${r}" fill="none" stroke="#1e293b" stroke-width="3"/>
+          <circle cx="20" cy="20" r="${r}" fill="none" stroke="${ringColor}" stroke-width="3"
+            stroke-dasharray="${dash.toFixed(1)} ${gap.toFixed(1)}" stroke-linecap="round"/>
+        </svg>
       </div>
-      <div style="margin-top:8px;height:3px;background:var(--border);border-radius:2px"><div style="height:100%;width:${pct}%;background:${pct===100?'#10B981':subj.color};border-radius:2px;transition:.4s"></div></div>
+      <div style="font-size:14px;font-weight:900;color:var(--text);line-height:1.3;margin-bottom:2px">${subj.label}</div>
+      <div style="font-size:11px;color:${subj.color};font-weight:700;margin-bottom:8px">${subj.arabic}</div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:11px;background:${subj.color}20;color:${subj.color};padding:3px 9px;border-radius:20px;font-weight:800">${topicCount} مواضيع</span>
+        <span style="font-size:11px;color:${pct===100?'#10B981':pct>0?subj.color:'var(--text-muted)'};font-weight:800">${statusIcon} ${statusLabel}</span>
+      </div>
     </div>`;
   }).join('');
 
