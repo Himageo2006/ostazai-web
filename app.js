@@ -19678,6 +19678,11 @@ function navTo(s) {
   render();
 }
 
+// ── Function aliases (fix undefined calls) ───────────────────────────────
+function doGenerateFlashcards() { genFlashcards(); }
+function doGenerateQuiz()       { genQuiz(); }
+function doSend()               { sendMsg(); }
+
 function bind() {
 
   /* ── auth ── */
@@ -19819,6 +19824,14 @@ function bind() {
       const inp = ge('f-msg');
       if (inp) { inp.value = q; inp.focus(); }
       sendMsg();
+    });
+  });
+
+  // data-screen navigation links (e.g. upgrade links)
+  document.querySelectorAll('[data-screen]').forEach(el => {
+    el.addEventListener('click', () => {
+      const sc = el.dataset.screen;
+      if (sc) { S.screen = sc; render(); }
     });
   });
 
