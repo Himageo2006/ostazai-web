@@ -19396,7 +19396,7 @@ async function genAILesson() {
     const isEn = ['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian'].includes(S.curriculum);
     const prompt = isEn
       ? `Create a comprehensive lesson on "${S.lessonChapter}" in ${S.lessonSubject.name} for ${curData.label} ${gradeData.label}. Include: 1) Learning objectives 2) Key concepts clearly explained 3) Worked examples 4) Practice questions with answers 5) Exam tips. Use clear headings and formatting.`
-      : `اشرح درس "${S.lessonChapter}" في مادة ${S.lessonSubject.name} — ${curData.label} ${gradeData.label} شرحاً شاملاً يتضمن:\n1️⃣ أهداف الدرس\n2️⃣ المفاهيم الأساسية مع شرح مبسط\n3️⃣ أمثلة محلولة خطوة بخطوة\n4️⃣ تمارين مع الحلول\n5️⃣ نصائح للامتحان\nاستخدم العناوين والتنسيق الواضح.`;
+      : `اشرح درس "${S.lessonChapter}" في مادة ${S.lessonSubject.name} — ${curData.label} ${gradeData.label} شرحاً شاملاً يتضمن:\n## أهداف الدرس\n## المفاهيم الأساسية\n## أمثلة محلولة خطوة بخطوة\n## تمارين مع الحلول\n## نصائح للامتحان\nمهم جداً: لا تضع رموز تعبيرية (emoji) داخل الكلمات أو وسط الجمل. ضعها فقط في بداية العناوين إذا أردت. اكتب النص العربي بشكل سليم وواضح.`;
     const { stage, grade, curriculum } = gradeToAPI();
     const d = await req('/chat', 'POST', {
       messages:   [{ role: 'user', content: prompt }],
