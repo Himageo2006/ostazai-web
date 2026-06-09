@@ -3739,6 +3739,43 @@ function tplHome() {
     </button>
   </div>
 
+  <!-- ═══ TODAY'S PROGRESS ═══ -->
+  ${(S.studyMinutesToday > 0 || (S.stats && S.stats.totalChats > 0)) ? `
+  <div style="width:calc(100% - 32px);max-width:520px;margin:14px auto 0;background:var(--bg-card);border:1px solid var(--border);border-radius:18px;padding:14px 16px">
+    <div style="font-size:11px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:12px">📅 نشاط اليوم</div>
+    <div style="display:flex;gap:12px;justify-content:space-around">
+      <div style="text-align:center">
+        <div style="font-size:22px;font-weight:900;color:#8B5CF6">${Math.round(S.studyMinutesToday||0)}</div>
+        <div style="font-size:10px;color:var(--text-muted)">دقيقة مذاكرة</div>
+      </div>
+      <div style="width:1px;background:var(--border)"></div>
+      <div style="text-align:center">
+        <div style="font-size:22px;font-weight:900;color:#3B82F6">${(S.stats&&S.stats.weeklyActivity) ? (S.stats.weeklyActivity[new Date().getDay()]||0) : 0}</div>
+        <div style="font-size:10px;color:var(--text-muted)">سؤال اليوم</div>
+      </div>
+      <div style="width:1px;background:var(--border)"></div>
+      <div style="text-align:center">
+        <div style="font-size:22px;font-weight:900;color:#F59E0B">${(S.stats&&S.stats.xp)||0}</div>
+        <div style="font-size:10px;color:var(--text-muted)">نقطة XP</div>
+      </div>
+    </div>
+  </div>` : ''}
+
+  <!-- ═══ RECENT SUBJECTS ═══ -->
+  ${S.history && S.history.length > 0 ? `
+  <div style="width:calc(100% - 32px);max-width:520px;margin:14px auto 0">
+    <div style="font-size:11px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:10px">🕒 آخر ما ذاكرته</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px">
+      ${[...new Map(S.history.slice(0,10).map(h=>[h.subject,h])).values()].slice(0,4).map(h=>`
+      <button onclick="S.subject='${esc(h.subject)}';S.screen='chat';render()"
+        style="display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:20px;border:1px solid var(--border);background:var(--bg-card);font-family:Cairo,sans-serif;font-size:12px;font-weight:700;cursor:pointer;color:var(--text);transition:.15s"
+        onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'"
+        onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)'">
+        📚 ${esc(h.subject)}
+      </button>`).join('')}
+    </div>
+  </div>` : ''}
+
 </div>`;
 }
 
@@ -19129,7 +19166,7 @@ async function doLogin() {
   try {
     const d = await req('/auth/login', 'POST', { email, password: pass });
     S.token = d.token; S.user = d.user; saveLocal();
-    S.screen = 'chat'; render(); showToast(S.lang==='en'?'Welcome back 👋':'أهلاً بعودتك 👋', 'success');
+    S.screen = 'home'; render(); showToast(S.lang==='en'?'Welcome back 👋':'أهلاً بعودتك 👋', 'success');
   } catch(e) { showAuthErr(e.message); }
   finally { setBtnLoading('b-login', 'دخول'); }
 }
@@ -19160,7 +19197,7 @@ async function doRegister() {
     } else {
       msg = 'تم إنشاء الحساب + 7 أيام Pro مجاناً! 🎉';
     }
-    S.screen = 'chat'; render(); showToast(msg, d.trialBlocked ? 'info' : 'success');
+    S.screen = 'home'; render(); showToast(msg, d.trialBlocked ? 'info' : 'success');
   } catch(e) { showAuthErr(e.message); }
   finally { setBtnLoading('b-register', 'إنشاء حساب 🚀'); }
 }
@@ -19168,7 +19205,7 @@ async function doRegister() {
 function doGuest() {
   S.token = null;
   S.user  = { name: 'ضيف', plan: 'free' };
-  saveLocal(); S.screen = 'chat'; render();
+  saveLocal(); S.screen = 'home'; render();
 }
 
 const GOOGLE_CLIENT_ID = '708530797825-u7evp0gcjcald9j8k7j7gsshj55m23p8.apps.googleusercontent.com';
@@ -19206,7 +19243,7 @@ async function handleGoogleCredential(response) {
     S.token = d.token; S.user = d.user;
     if (d.user && d.user.country && d.user.country in CURRICULA) S.curriculum = d.user.country;
     saveLocal();
-    S.screen = 'chat'; render();
+    S.screen = 'home'; render();
     showToast('أهلاً ' + (d.user?.name || '') + ' 👋', 'success');
   } catch(e) {
     console.error('[Google Auth Error]', e);
