@@ -20063,6 +20063,79 @@ function bind() {
   ge('tb-share') && ge('tb-share').addEventListener('click', shareConversation);
   ge('b-admin-reload') && ge('b-admin-reload').addEventListener('click', () => { adminData=null; loadAdminData(); });
 
+  // ── Books upload ──────────────────────────────────────────────────────────
+  if (ge('b-book-upload')) {
+    loadBooksList();
+    ge('b-book-upload').addEventListener('click', async () => {
+      const title      = ge('book-title')?.value?.trim();
+      const country    = ge('book-country')?.value?.trim();
+      const curriculum = ge('book-curriculum')?.value?.trim();
+      const grade      = ge('book-grade')?.value?.trim() || '';
+      const subject    = ge('book-subject')?.value?.trim();
+      const fileInput  = ge('book-file');
+      const msgEl      = ge('book-upload-msg');
+      if (!title || !country || !curriculum || !subject || !fileInput?.files?.length) {
+        showMsg(msgEl, 'يرجى ملء جميع الحقول واختيار ملف PDF', 'error'); return;
+      }
+      const btn = ge('b-book-upload');
+      btn.disabled = true; btn.textContent = '⏳ جاري الرفع...';
+      try {
+        const fd = new FormData();
+        fd.append('pdf',        fileInput.files[0]);
+        fd.append('title',      title);
+        fd.append('country',    country);
+        fd.append('curriculum', curriculum);
+        fd.append('grade',      grade);
+        fd.append('subject',    subject);
+        const token = localStorage.getItem('oa_token') || '';
+        const r = await fetch(API + '/books/upload', {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${token}` },
+          body: fd,
+        });
+        const d = await r.json();
+        if (!r.ok) throw new Error(d.error || 'Upload failed');
+        showMsg(msgEl, `✅ تم رفع "${title}" — ${d.chunks} قطعة نصية`, 'success');
+        loadBooksList();
+      } catch(e) {
+        showMsg(msgEl, '❌ ' + e.message, 'error');
+      } finally {
+        btn.disabled = false; btn.textContent = '⬆️ رفع الكتاب';
+      }
+    });
+  }
+
+  function showMsg(el, text, type) {
+    if (!el) return;
+    el.style.display = 'block';
+    el.textContent = text;
+    el.style.background = type === 'success' ? '#10B98122' : '#EF444422';
+    el.style.color = type === 'success' ? '#10B981' : '#EF4444';
+  }
+
+  async function loadBooksList() {
+    const wrap = ge('books-list-wrap');
+    if (!wrap) return;
+    try {
+      const token = localStorage.getItem('oa_token') || '';
+      const r = await fetch(API + '/books', { headers: { Authorization: `Bearer ${token}` } });
+      const books = await r.json();
+      if (!Array.isArray(books) || !books.length) {
+        wrap.innerHTML = '<div style="font-size:12px;color:var(--text-muted)">لا توجد كتب مرفوعة بعد</div>'; return;
+      }
+      wrap.innerHTML = books.map(b => `
+        <div style="display:flex;align-items:center;gap:8px;padding:8px;background:var(--bg);border-radius:8px;margin-bottom:6px">
+          <div style="flex:1;min-width:0">
+            <div style="font-size:13px;font-weight:700">${esc(b.title)}</div>
+            <div style="font-size:11px;color:var(--text-muted)">${esc(b.country)} / ${esc(b.curriculum)} / ${esc(b.grade||'كل الصفوف')} / ${esc(b.subject)} — ${b.totalChunks} قطعة</div>
+          </div>
+          <button onclick="deleteBook('${b._id}')" style="background:#EF444422;border:none;color:#EF4444;border-radius:6px;padding:4px 8px;cursor:pointer;font-size:12px">🗑</button>
+        </div>`).join('');
+    } catch(e) {
+      wrap.innerHTML = '<div style="font-size:12px;color:#EF4444">خطأ في تحميل الكتب</div>';
+    }
+  }
+
   // Quick chat chips
   document.querySelectorAll('.quick-chip').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -20613,6 +20686,33 @@ function tplAdmin() {
     </div>
   </div>
 
+  <!-- PDF Books Manager -->
+  <div class="info-card" style="margin-bottom:16px">
+    <div style="font-weight:800;margin-bottom:12px">📚 إدارة الكتب المدرسية (PDF)</div>
+
+    <!-- Upload form -->
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;padding:12px;background:var(--bg);border-radius:10px">
+      <div style="font-size:12px;font-weight:700;color:var(--text-muted)">رفع كتاب جديد</div>
+      <input id="book-title"      class="form-input" placeholder="اسم الكتاب (مثال: رياضيات الصف الثامن)" />
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <input id="book-country"    class="form-input" placeholder="الدولة (مثال: egypt)" />
+        <input id="book-curriculum" class="form-input" placeholder="المنهج (مثال: gov)" />
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <input id="book-grade"    class="form-input" placeholder="الصف (مثال: g8)" />
+        <input id="book-subject"  class="form-input" placeholder="المادة (مثال: رياضيات)" />
+      </div>
+      <input id="book-file" type="file" accept=".pdf" class="form-input" style="padding:8px" />
+      <button class="btn btn-primary" id="b-book-upload">⬆️ رفع الكتاب</button>
+      <div id="book-upload-msg" style="display:none;font-size:13px;padding:8px;border-radius:8px;font-weight:700"></div>
+    </div>
+
+    <!-- Books list -->
+    <div id="books-list-wrap">
+      <div style="font-size:12px;color:var(--text-muted)">جاري تحميل الكتب...</div>
+    </div>
+  </div>
+
   <!-- Recent Users -->
   <div class="info-card">
     <div style="font-weight:800;margin-bottom:10px">👥 آخر المستخدمين</div>
@@ -20645,6 +20745,15 @@ function tplAdmin() {
   </div>
   `}
 </div>`;
+}
+
+async function deleteBook(id) {
+  if (!confirm('حذف هذا الكتاب؟')) return;
+  const token = localStorage.getItem('oa_token') || '';
+  await fetch(API + '/books/' + id, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } });
+  const wrap = ge('books-list-wrap');
+  if (wrap) wrap.innerHTML = '<div style="font-size:12px;color:var(--text-muted)">جاري إعادة التحميل...</div>';
+  setTimeout(() => { if (S.screen === 'admin') render(); }, 500);
 }
 
 async function loadAdminData() {
