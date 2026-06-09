@@ -20083,31 +20083,48 @@ function bind() {
       const numQ       = parseInt(ge('pp-num')?.value || '10');
       if (!subject) { showToast('أدخل اسم المادة', 'error'); return; }
 
-      const btn = ge('b-gen-paper');
-      btn.disabled = true; btn.textContent = '⏳ جاري توليد الامتحان...';
-      const outEl = ge('paper-output');
+      const btn     = ge('b-gen-paper');
+      const outEl   = ge('paper-output');
       const contentEl = ge('paper-content');
+      const errEl   = ge('paper-error');
+      btn.disabled  = true;
+      btn.textContent = '⏳ جاري توليد الامتحان... (قد يأخذ دقيقة)';
       outEl.style.display = 'none';
+      if (errEl) errEl.style.display = 'none';
 
       try {
-        const r = await req('/papers/generate', 'POST', {
-          country:      S.country || 'egypt',
-          curriculum:   S.curriculum || 'gov',
-          grade:        S.grade || '',
-          subject, topic, difficulty,
-          numQuestions: numQ,
-          lang:         S.lang || 'ar',
+        // Use direct fetch with 120s timeout (longer than default 30s)
+        const ctrl    = new AbortController();
+        const timeout = setTimeout(() => ctrl.abort(), 120000);
+        const token   = S.token || '';
+        const resp = await fetch(API + '/papers/generate', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+          body:    JSON.stringify({
+            country:      S.country    || 'egypt',
+            curriculum:   S.curriculum || 'gov',
+            grade:        S.grade      || '',
+            subject, topic, difficulty,
+            numQuestions: numQ,
+            lang:         S.lang       || 'ar',
+          }),
+          signal: ctrl.signal,
         });
-        contentEl.textContent = r.paper || '';
-        outEl.style.display = 'block';
+        clearTimeout(timeout);
+        const data = await resp.json();
+        if (!resp.ok || !data.paper) throw new Error(data.error || 'لم يتم توليد الامتحان');
+
+        contentEl.textContent = data.paper;
+        outEl.style.display   = 'block';
         outEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-        // Copy button
         ge('b-copy-paper')?.addEventListener('click', () => {
-          navigator.clipboard?.writeText(r.paper || '').then(() => showToast('تم النسخ ✅', 'success'));
+          navigator.clipboard?.writeText(data.paper).then(() => showToast('تم النسخ ✅', 'success'));
         });
       } catch(e) {
-        showToast('خطأ: ' + e.message, 'error');
+        const msg = e.name === 'AbortError' ? 'انتهى الوقت — حاول بعدد أسئلة أقل' : e.message;
+        if (errEl) { errEl.textContent = '❌ ' + msg; errEl.style.display = 'block'; }
+        else showToast('خطأ: ' + msg, 'error');
       } finally {
         btn.disabled = false; btn.textContent = '✨ ولّد ورقة الامتحان';
       }
@@ -20723,6 +20740,7 @@ function tplPapers() {
       <button class="btn btn-primary" id="b-gen-paper" style="background:linear-gradient(135deg,#059669,#10B981)">
         ✨ ${isEn ? 'Generate Exam Paper' : 'ولّد ورقة الامتحان'}
       </button>
+      <div id="paper-error" style="display:none;background:#EF444422;color:#EF4444;padding:10px;border-radius:8px;font-size:13px;font-weight:700"></div>
     </div>
   </div>
 
