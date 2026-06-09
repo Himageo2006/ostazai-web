@@ -20112,7 +20112,7 @@ function bind() {
         });
         clearTimeout(timeout);
         const data = await resp.json();
-        if (!resp.ok || !data.paper) throw new Error(data.error || 'لم يتم توليد الامتحان');
+        if (!resp.ok || !data.paper) throw new Error((data.error || '') + (data.details ? ' | ' + JSON.stringify(data.details) : '') || 'لم يتم توليد الامتحان');
 
         contentEl.textContent = data.paper;
         outEl.style.display   = 'block';
