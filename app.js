@@ -19389,22 +19389,25 @@ async function downloadBook(url, title) {
 async function genAILesson() {
   if (!S.lessonSubject || !S.lessonChapter) return;
   if (S.lessonLoading) return;
-  const curData = CURRICULA[S.curriculum] || CURRICULA.egypt;
+  const curData   = CURRICULA[S.curriculum] || CURRICULA.egypt;
   const gradeData = (curData.grades && (curData.grades[S.grade] || Object.values(curData.grades)[0])) || { label:'' };
   S.lessonLoading = true; S.lessonContent = ''; render();
   try {
     const isEn = ['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian'].includes(S.curriculum);
     const prompt = isEn
-      ? `You are a ${curData.label} ${gradeData.label} teacher. Create a comprehensive lesson on "${S.lessonChapter}" in ${S.lessonSubject.name}. Include: 1) Learning objectives 2) Key concepts explained clearly 3) Worked examples 4) Practice questions with answers 5) Exam tips. Format with clear headings.`
-      : `أنت مدرس محترف في ${curData.label} — ${gradeData.label}. اشرح درس "${S.lessonChapter}" في مادة ${S.lessonSubject.name} شرحاً وافياً وشاملاً يشمل: 1) أهداف الدرس 2) المفاهيم الأساسية مع شرح مبسط 3) أمثلة محلولة خطوة بخطوة 4) تمارين مع الحلول 5) نصائح للامتحان. استخدم العناوين والتنسيق.`;
+      ? `Create a comprehensive lesson on "${S.lessonChapter}" in ${S.lessonSubject.name} for ${curData.label} ${gradeData.label}. Include: 1) Learning objectives 2) Key concepts clearly explained 3) Worked examples 4) Practice questions with answers 5) Exam tips. Use clear headings and formatting.`
+      : `اشرح درس "${S.lessonChapter}" في مادة ${S.lessonSubject.name} — ${curData.label} ${gradeData.label} شرحاً شاملاً يتضمن:\n1️⃣ أهداف الدرس\n2️⃣ المفاهيم الأساسية مع شرح مبسط\n3️⃣ أمثلة محلولة خطوة بخطوة\n4️⃣ تمارين مع الحلول\n5️⃣ نصائح للامتحان\nاستخدم العناوين والتنسيق الواضح.`;
+    const { stage, grade, curriculum } = gradeToAPI();
     const d = await req('/chat', 'POST', {
-      message: prompt,
-      subject: S.lessonSubject.name,
-      curriculum: S.curriculum,
-      grade: S.grade,
-      history: [],
+      messages:   [{ role: 'user', content: prompt }],
+      subject:    S.lessonSubject.name,
+      country:    S.curriculum,
+      curriculum,
+      stage,
+      grade,
     });
-    S.lessonContent = d.response || d.message || d.content || '';
+    S.lessonContent = d.content || d.reply || d.message || d.response || '';
+    if (!S.lessonContent) S.lessonContent = '❌ لم يصل رد من الذكاء الاصطناعي — حاول مجدداً';
   } catch(e) {
     S.lessonContent = `❌ ${e.message}`;
   } finally {
