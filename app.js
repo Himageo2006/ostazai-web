@@ -91,6 +91,8 @@ let S = {
   darkMode: false,
   onboardStep: 0,
   historySearch: '',
+  reminderTime: '19:00',
+  pushEndpoint: null,
   // Lesson browser
   lessonView: 'subjects',   // 'subjects' | 'chapters' | 'lesson'
   lessonSubject: null,      // { name, icon, color, topics[] }
@@ -159,6 +161,8 @@ function saveLocal() {
     localStorage.setItem('oa_igcse_last_studied',  JSON.stringify(S.igcseLastStudied || {}));
     localStorage.setItem('oa_igcse_daily_log',     JSON.stringify(S.igcseDailyLog || {}));
     localStorage.setItem('oa_igcse_achievements',  JSON.stringify(S.igcseAchievements || []));
+    if (S.reminderTime)  localStorage.setItem('oa_reminder_time', S.reminderTime);
+    if (S.pushEndpoint)  localStorage.setItem('oa_push_endpoint', S.pushEndpoint);
   } catch {}
 }
 function loadLocal() {
@@ -196,6 +200,8 @@ function loadLocal() {
     S.igcseDailyLog     = igDL ? JSON.parse(igDL) : {};
     const igAch         = localStorage.getItem('oa_igcse_achievements');
     S.igcseAchievements = igAch ? JSON.parse(igAch) : [];
+    S.reminderTime = localStorage.getItem('oa_reminder_time') || '19:00';
+    S.pushEndpoint = localStorage.getItem('oa_push_endpoint') || null;
   } catch {}
 }
 
@@ -4125,13 +4131,35 @@ function tplProfile() {
 
   <!-- Notifications -->
   <div class="info-card" style="margin-bottom:16px">
-    <div style="font-weight:800;margin-bottom:10px">🔔 الإشعارات</div>
-    <div style="font-size:13px;color:var(--text-muted);margin-bottom:10px">
-      ${S.lang==='en'?'Enable daily study reminders':'فعّل إشعارات التذكير اليومي بالمذاكرة'}
+    <div style="font-weight:800;margin-bottom:10px">🔔 ${S.lang==='en'?'Study Reminders':'تذكيرات المذاكرة'}</div>
+    <div style="font-size:13px;color:var(--text-muted);margin-bottom:12px">
+      ${S.lang==='en'?'Get a daily reminder even when the app is closed':'احصل على تذكير يومي حتى لو أغلقت التطبيق'}
     </div>
-    <button class="btn btn-secondary btn-sm" id="b-push" style="width:100%">
-      ${('Notification' in window && Notification.permission === 'granted') ? '✅ الإشعارات مفعّلة' : '🔔 تفعيل الإشعارات'}
+    ${('Notification' in window && Notification.permission === 'granted') ? `
+    <div style="background:#22C55E18;border:1px solid #22C55E44;border-radius:12px;padding:12px;margin-bottom:12px;display:flex;align-items:center;gap:10px">
+      <div style="font-size:22px">✅</div>
+      <div>
+        <div style="font-weight:800;color:#22C55E;font-size:13px">${S.lang==='en'?'Notifications Active':'الإشعارات مفعّلة'}</div>
+        <div style="font-size:11px;color:var(--text-muted)">${S.lang==='en'?'Daily reminder enabled':'تذكير يومي مفعّل'}</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+      <label style="font-size:13px;font-weight:700;white-space:nowrap">${S.lang==='en'?'⏰ Reminder time:':'⏰ وقت التذكير:'}</label>
+      <input type="time" id="reminder-time" value="${S.reminderTime||'19:00'}"
+        style="flex:1;padding:8px 12px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;font-family:Cairo,sans-serif"
+        onchange="saveReminderTime(this.value)"/>
+    </div>
+    <button class="btn btn-secondary btn-sm" id="b-push-off" style="width:100%;color:#EF4444;border-color:#EF444444">
+      🔕 ${S.lang==='en'?'Disable notifications':'إيقاف الإشعارات'}
     </button>
+    ` : `
+    <button class="btn btn-primary" id="b-push" style="width:100%;font-size:14px;padding:12px">
+      🔔 ${S.lang==='en'?'Enable Daily Reminders':'تفعيل التذكير اليومي'}
+    </button>
+    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;text-align:center">
+      ${S.lang==='en'?'Works even when the app is closed':'يعمل حتى بعد إغلاق التطبيق'}
+    </div>
+    `}
   </div>
 
   ${!isPro ? `
@@ -20069,7 +20097,8 @@ function bind() {
       if (btn) { btn.disabled=false; btn.textContent='✅ إنشاء الكود'; }
     }
   });
-  ge('b-push') && ge('b-push').addEventListener('click', requestPushPermission);
+  ge('b-push')     && ge('b-push').addEventListener('click', requestPushPermission);
+  ge('b-push-off') && ge('b-push-off').addEventListener('click', disablePushNotifications);
   ge('tb-share') && ge('tb-share').addEventListener('click', shareConversation);
   ge('b-admin-reload') && ge('b-admin-reload').addEventListener('click', () => { adminData=null; loadAdminData(); });
 
@@ -20959,74 +20988,136 @@ async function loadAdminData() {
 }
 
 /* ════════════════════════════════════════════════════════════
-   PUSH NOTIFICATIONS
+   PUSH NOTIFICATIONS — Web Push (works when app is closed)
    ════════════════════════════════════════════════════════════ */
+
+// Convert base64url VAPID key to Uint8Array
+function urlBase64ToUint8Array(base64String) {
+  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+  const rawData = window.atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+  for (let i = 0; i < rawData.length; ++i) outputArray[i] = rawData.charCodeAt(i);
+  return outputArray;
+}
+
 async function requestPushPermission() {
-  if (!('Notification' in window)) {
-    showToast('متصفحك لا يدعم الإشعارات', 'error'); return;
+  if (!('Notification' in window) || !('serviceWorker' in navigator)) {
+    showToast(S.lang==='en'?'Your browser does not support notifications':'متصفحك لا يدعم الإشعارات', 'error');
+    return;
   }
-  const perm = await Notification.requestPermission();
-  if (perm === 'granted') {
-    showToast('✅ تم تفعيل الإشعارات!', 'success');
+  const btn = ge('b-push');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ جارٍ التفعيل...'; }
+
+  try {
+    // Request browser permission
+    const perm = await Notification.requestPermission();
+    if (perm !== 'granted') {
+      showToast(S.lang==='en'?'Notifications blocked':'تم رفض الإشعارات — غيّر الإعدادات من المتصفح', 'error');
+      if (btn) { btn.disabled = false; btn.textContent = '🔔 ' + (S.lang==='en'?'Enable Daily Reminders':'تفعيل التذكير اليومي'); }
+      return;
+    }
+
+    // Get VAPID public key from server
+    const keyRes = await fetch(API + '/push/vapid-key');
+    if (!keyRes.ok) throw new Error('Push server not configured');
+    const { publicKey } = await keyRes.json();
+
+    // Register / get service worker
+    const reg = await navigator.serviceWorker.register('/sw.js');
+    await navigator.serviceWorker.ready;
+
+    // Subscribe to push
+    const subscription = await reg.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: urlBase64ToUint8Array(publicKey),
+    });
+
+    // Save subscription to server
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Africa/Cairo';
+    await fetch(API + '/push/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        subscription,
+        reminderTime: S.reminderTime || '19:00',
+        timezone: tz,
+        lang: S.lang || 'ar',
+      }),
+    });
+
+    // Save endpoint locally
+    S.pushEndpoint = subscription.endpoint;
     saveLocal();
-    scheduleDailyReminder();
-  } else {
-    showToast('تم رفض الإشعارات', 'error');
+
+    showToast(S.lang==='en'?'✅ Daily reminders enabled!':'✅ تم تفعيل التذكير اليومي!', 'success');
+    render(); // Refresh profile to show active state + time picker
+  } catch(e) {
+    console.error('[Push]', e);
+    showToast(S.lang==='en'?'Failed: '+e.message:'فشل التفعيل: '+e.message, 'error');
+    if (btn) { btn.disabled = false; btn.textContent = '🔔 ' + (S.lang==='en'?'Enable Daily Reminders':'تفعيل التذكير اليومي'); }
   }
 }
 
-function scheduleDailyReminder() {
-  const messages = [
-    'حان وقت المذاكرة! 📚 استمر في تقدمك اليوم',
-    '🔥 سلسلة يومية! لا تكسرها — ذاكر الآن',
-    '🧠 عقلك ينتظرك! سؤال واحد يكفي للبداية',
-    '⭐ الطلاب المتفوقون يذاكرون كل يوم — أنت منهم!',
-    '📝 خمس دقائق من المراجعة تعادل ساعة من الاستذكار',
-    '🏆 تقدّم خطوة للأمام اليوم في ' + S.subject,
-  ];
-  const msg = messages[new Date().getDay() % messages.length];
-  // Schedule for 8 PM local time today
-  const now  = new Date();
-  const target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20, 0, 0);
-  if (target <= now) target.setDate(target.getDate() + 1); // Tomorrow if already past 8PM
-  const delay = target.getTime() - now.getTime();
-  // Also check if we already sent today
-  const lastNotif = localStorage.getItem('oa_last_notif');
-  const todayStr  = new Date().toDateString();
-  if (lastNotif === todayStr) return; // Already sent today
-  setTimeout(() => {
-    sendPushNotification('أستاذ AI 🎓', msg);
-    localStorage.setItem('oa_last_notif', new Date().toDateString());
-    scheduleDailyReminder(); // Reschedule for next day
-  }, Math.min(delay, 2147483647)); // clamp to max setTimeout
+async function saveReminderTime(time) {
+  S.reminderTime = time;
+  saveLocal();
+  if (!S.pushEndpoint) return;
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Africa/Cairo';
+    await fetch(API + '/push/update-time', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ endpoint: S.pushEndpoint, reminderTime: time, timezone: tz }),
+    });
+    showToast(S.lang==='en'?'⏰ Reminder time saved!':'⏰ تم حفظ وقت التذكير!', 'success');
+  } catch(e) { console.warn('[Push] update-time failed:', e); }
 }
 
-function sendPushNotification(title, body, icon = '🎓') {
+async function disablePushNotifications() {
+  try {
+    if (S.pushEndpoint) {
+      await fetch(API + '/push/unsubscribe', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ endpoint: S.pushEndpoint }),
+      });
+    }
+    // Unsubscribe from service worker too
+    if ('serviceWorker' in navigator) {
+      const reg = await navigator.serviceWorker.ready;
+      const sub = await reg.pushManager.getSubscription();
+      if (sub) await sub.unsubscribe();
+    }
+    S.pushEndpoint = null;
+    localStorage.removeItem('oa_push_endpoint');
+    saveLocal();
+    showToast(S.lang==='en'?'🔕 Notifications disabled':'🔕 تم إيقاف الإشعارات', 'success');
+    render();
+  } catch(e) { showToast(e.message, 'error'); }
+}
+
+function sendPushNotification(title, body) {
+  // Fallback: local notification (when app is open)
   if (Notification.permission !== 'granted') return;
   try {
     const n = new Notification(title, {
-      body,
-      icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="%230F172A"/><text x="32" y="44" text-anchor="middle" font-size="36">🎓</text></svg>',
-      badge: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="%23F59E0B"/></svg>',
-      dir: 'rtl',
-      lang: 'ar',
-      tag: 'ostazai-reminder',
+      body, icon: '/icon-192.png', badge: '/icon-192.png',
+      dir: 'rtl', lang: 'ar', tag: 'ostazai-reminder',
     });
-    localStorage.setItem('oa_last_notif', String(Date.now()));
     n.onclick = () => { window.focus(); n.close(); };
-  } catch(e) { console.warn('Push failed:', e); }
+  } catch(e) { console.warn('Notification failed:', e); }
 }
 
-// Auto-schedule when app loads (if permission already granted)
 function initPushNotifications() {
-  if (Notification.permission === 'granted') {
-    scheduleDailyReminder();
-    scheduleStudyReminders();
+  // Re-register service worker on load to ensure push stays active
+  if ('serviceWorker' in navigator && Notification.permission === 'granted') {
+    navigator.serviceWorker.register('/sw.js').catch(()=>{});
   }
 }
 
 function scheduleStudyReminders() {
-  // Check study schedule and send reminders
+  // Schedule reminders and send local notifications for today's schedule
   if (!S.schedule || !S.schedule.length) return;
   const now = new Date();
   const today = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'][now.getDay()];
@@ -21036,12 +21127,10 @@ function scheduleStudyReminders() {
     const target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, mins, 0);
     const delay = target.getTime() - now.getTime();
     if (delay > 0 && delay < 24*60*60*1000) {
-      setTimeout(() => {
-        sendPushNotification(
-          'أستاذ AI 📅 — تذكير الجدول',
-          'حان وقت مذاكرة ' + (item.subject || '') + '! 📚 ابدأ الآن'
-        );
-      }, delay);
+      setTimeout(() => sendPushNotification(
+        'أستاذ AI 📅 — تذكير الجدول',
+        'حان وقت مذاكرة ' + (item.subject || '') + '! 📚 ابدأ الآن'
+      ), delay);
     }
   });
 }
