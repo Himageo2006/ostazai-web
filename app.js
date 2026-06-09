@@ -21232,13 +21232,13 @@ async function init() {
       S.user = d.user || d;
       setLoadingMsg('مرحباً بك! 👋');
       await new Promise(r => setTimeout(r, 300));
-      S.screen = localStorage.getItem('oa_onboarded') ? 'chat' : 'onboarding';
+      S.screen = localStorage.getItem('oa_onboarded') ? 'home' : 'onboarding';
     } catch {
       S.token = null; S.user = null;
       S.screen = 'login';
     }
   } else if (S.user) {
-    S.screen = 'chat';
+    S.screen = 'home';
   } else {
     S.screen = 'login';
   }
