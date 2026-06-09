@@ -375,7 +375,7 @@ function screenContent() {
     schedule: tplSchedule, history: tplHistory, leaderboard: tplLeaderboard,
     summary: tplSummary, mindmap: tplMindMap, textbook: tplTextbook,
     upgrade: tplUpgrade, lessons: tplLessons, admin: tplAdmin, onboarding: tplOnboarding,
-    igcse: tplIGCSE,
+    igcse: tplIGCSE, papers: tplPapers,
   };
   return (map[S.screen] || tplChat)();
 }
@@ -3633,6 +3633,16 @@ function tplHome() {
         <div style="font-size:28px">🎓</div>
         <div style="font-size:12px;font-weight:900;color:#fff">IGCSE</div>
         <div style="font-size:10px;color:#c4b5fd">مراجعة شاملة</div>
+      </button>
+
+      <button onclick="S.screen='papers';render()"
+        style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px;border-radius:18px;border:none;
+               background:linear-gradient(135deg,#059669,#10B981);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #05966930"
+        onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px #05966955'"
+        onmouseout="this.style.transform='';this.style.boxShadow='0 4px 14px #05966930'">
+        <div style="font-size:28px">📝</div>
+        <div style="font-size:12px;font-weight:900;color:#fff">امتحانات</div>
+        <div style="font-size:10px;color:#a7f3d0">Past Papers</div>
       </button>
 
       <button onclick="S.screen='chat';render()"
@@ -20063,6 +20073,80 @@ function bind() {
   ge('tb-share') && ge('tb-share').addEventListener('click', shareConversation);
   ge('b-admin-reload') && ge('b-admin-reload').addEventListener('click', () => { adminData=null; loadAdminData(); });
 
+  // ── Papers screen ─────────────────────────────────────────────────────────
+  if (ge('b-gen-paper')) {
+    loadUploadedPapers();
+    ge('b-gen-paper').addEventListener('click', async () => {
+      const subject    = ge('pp-subject')?.value?.trim();
+      const topic      = ge('pp-topic')?.value?.trim() || '';
+      const difficulty = ge('pp-difficulty')?.value || 'mixed';
+      const numQ       = parseInt(ge('pp-num')?.value || '10');
+      if (!subject) { showToast('أدخل اسم المادة', 'error'); return; }
+
+      const btn = ge('b-gen-paper');
+      btn.disabled = true; btn.textContent = '⏳ جاري توليد الامتحان...';
+      const outEl = ge('paper-output');
+      const contentEl = ge('paper-content');
+      outEl.style.display = 'none';
+
+      try {
+        const r = await req('/papers/generate', 'POST', {
+          country:      S.country || 'egypt',
+          curriculum:   S.curriculum || 'gov',
+          grade:        S.grade || '',
+          subject, topic, difficulty,
+          numQuestions: numQ,
+          lang:         S.lang || 'ar',
+        });
+        contentEl.textContent = r.paper || '';
+        outEl.style.display = 'block';
+        outEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Copy button
+        ge('b-copy-paper')?.addEventListener('click', () => {
+          navigator.clipboard?.writeText(r.paper || '').then(() => showToast('تم النسخ ✅', 'success'));
+        });
+      } catch(e) {
+        showToast('خطأ: ' + e.message, 'error');
+      } finally {
+        btn.disabled = false; btn.textContent = '✨ ولّد ورقة الامتحان';
+      }
+    });
+  }
+
+  async function loadUploadedPapers() {
+    const wrap = ge('pp-uploaded-list');
+    if (!wrap) return;
+    try {
+      const params = new URLSearchParams({
+        country:    S.country    || '',
+        curriculum: S.curriculum || '',
+        subject:    S.subject    || '',
+      });
+      const r = await fetch(`${API}/papers/list?${params}`);
+      const papers = await r.json();
+      if (!Array.isArray(papers) || !papers.length) {
+        wrap.innerHTML = `<div style="font-size:12px;color:var(--text-muted);text-align:center;padding:16px">
+          لا توجد امتحانات رسمية مرفوعة بعد<br><span style="font-size:11px">يمكن للأدمين رفع PDFs من لوحة التحكم</span>
+        </div>`; return;
+      }
+      wrap.innerHTML = papers.map(p => `
+        <div style="padding:10px;background:var(--bg);border-radius:8px;margin-bottom:8px;display:flex;align-items:center;gap:10px">
+          <div style="font-size:24px">📄</div>
+          <div style="flex:1">
+            <div style="font-weight:700;font-size:13px">${esc(p.title)}</div>
+            <div style="font-size:11px;color:var(--text-muted)">${esc(p.subject)} — ${p.year || 'بدون سنة'} — ${esc(p.curriculum)}</div>
+          </div>
+          <button onclick="usePaperInChat('${esc(p._id)}','${esc(p.title)}')"
+            style="background:var(--primary);border:none;color:#fff;border-radius:8px;padding:6px 10px;cursor:pointer;font-size:11px;font-family:Cairo,sans-serif">
+            💬 حلّ معي
+          </button>
+        </div>`).join('');
+    } catch(e) {
+      wrap.innerHTML = '<div style="font-size:12px;color:#EF4444">خطأ في التحميل</div>';
+    }
+  }
+
   // ── Books upload ──────────────────────────────────────────────────────────
   if (ge('b-book-upload')) {
     loadBooksList();
@@ -20080,6 +20164,8 @@ function bind() {
       const btn = ge('b-book-upload');
       btn.disabled = true; btn.textContent = '⏳ جاري الرفع...';
       try {
+        const bookType = ge('book-type')?.value || 'textbook';
+        const bookYear = ge('book-year')?.value?.trim() || '';
         const fd = new FormData();
         fd.append('pdf',        fileInput.files[0]);
         fd.append('title',      title);
@@ -20087,6 +20173,8 @@ function bind() {
         fd.append('curriculum', curriculum);
         fd.append('grade',      grade);
         fd.append('subject',    subject);
+        fd.append('type',       bookType);
+        fd.append('year',       bookYear);
         const token = localStorage.getItem('oa_token') || '';
         const r = await fetch(API + '/books/upload', {
           method: 'POST',
@@ -20589,6 +20677,82 @@ function bind() {
 let adminData = null;
 let adminKey = '';
 
+// ── Past Papers Screen ────────────────────────────────────────────────────────
+function tplPapers() {
+  const isEn = S.lang === 'en';
+  return `
+<div class="screen-header">
+  <button class="back-btn" onclick="S.screen='home';render()">→</button>
+  <div class="screen-title">${isEn ? '📝 Past Papers & Practice Exams' : '📝 الامتحانات السابقة'}</div>
+</div>
+<div class="screen-body">
+
+  <!-- AI Exam Generator -->
+  <div class="info-card" style="margin-bottom:16px;border-color:#10B98144">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+      <div style="font-size:24px">🤖</div>
+      <div>
+        <div style="font-weight:900;font-size:15px">${isEn ? 'AI Exam Generator' : 'مولّد الامتحانات بالذكاء الاصطناعي'}</div>
+        <div style="font-size:11px;color:var(--text-muted)">${isEn ? 'Generate a full exam paper instantly for any subject' : 'ولّد ورقة امتحان كاملة فوراً لأي مادة'}</div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <input id="pp-subject" class="form-input"
+        placeholder="${isEn ? 'Subject (e.g. Mathematics, Physics)' : 'المادة (مثال: رياضيات، فيزياء)'}"
+        value="${esc(S.subject||'')}" />
+
+      <input id="pp-topic" class="form-input"
+        placeholder="${isEn ? 'Topic (optional, e.g. Quadratic Equations)' : 'الموضوع (اختياري، مثال: المعادلات التربيعية)'}" />
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <select id="pp-difficulty" class="form-input">
+          <option value="mixed">${isEn ? 'Mixed (Recommended)' : 'مختلط (موصى به)'}</option>
+          <option value="easy">${isEn ? 'Easy' : 'سهل'}</option>
+          <option value="medium">${isEn ? 'Medium' : 'متوسط'}</option>
+          <option value="hard">${isEn ? 'Hard' : 'صعب'}</option>
+        </select>
+        <select id="pp-num" class="form-input">
+          <option value="5">5 ${isEn ? 'questions' : 'أسئلة'}</option>
+          <option value="10" selected>10 ${isEn ? 'questions' : 'أسئلة'}</option>
+          <option value="15">15 ${isEn ? 'questions' : 'أسئلة'}</option>
+          <option value="20">20 ${isEn ? 'questions' : 'أسئلة'}</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary" id="b-gen-paper" style="background:linear-gradient(135deg,#059669,#10B981)">
+        ✨ ${isEn ? 'Generate Exam Paper' : 'ولّد ورقة الامتحان'}
+      </button>
+    </div>
+  </div>
+
+  <!-- Generated paper output -->
+  <div id="paper-output" style="display:none">
+    <div class="info-card" style="margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <span style="font-weight:900;font-size:14px">📄 ${isEn ? 'Your Exam Paper' : 'ورقة الامتحان'}</span>
+        <div style="display:flex;gap:8px">
+          <button onclick="window.print()" style="background:none;border:1px solid var(--border);border-radius:8px;padding:4px 10px;cursor:pointer;font-size:12px;color:var(--text);font-family:Cairo,sans-serif">🖨️ ${isEn ? 'Print' : 'طباعة'}</button>
+          <button id="b-copy-paper" style="background:none;border:1px solid var(--border);border-radius:8px;padding:4px 10px;cursor:pointer;font-size:12px;color:var(--text);font-family:Cairo,sans-serif">📋 ${isEn ? 'Copy' : 'نسخ'}</button>
+        </div>
+      </div>
+      <div id="paper-content" style="font-size:13px;line-height:1.9;white-space:pre-wrap;font-family:Cairo,monospace"></div>
+    </div>
+  </div>
+
+  <!-- Uploaded Past Papers -->
+  <div class="info-card">
+    <div style="font-weight:800;margin-bottom:12px">📂 ${isEn ? 'Official Past Papers' : 'الامتحانات الرسمية المرفوعة'}</div>
+    <div id="pp-uploaded-list">
+      <div style="font-size:12px;color:var(--text-muted);text-align:center;padding:16px">
+        ${isEn ? 'Loading...' : 'جاري التحميل...'}
+      </div>
+    </div>
+  </div>
+
+</div>`;
+}
+
 function tplAdmin() {
   const d = adminData;
   return `
@@ -20702,8 +20866,15 @@ function tplAdmin() {
         <input id="book-grade"    class="form-input" placeholder="الصف (مثال: g8)" />
         <input id="book-subject"  class="form-input" placeholder="المادة (مثال: رياضيات)" />
       </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <select id="book-type" class="form-input">
+          <option value="textbook">📚 كتاب مدرسي</option>
+          <option value="past_paper">📝 امتحان سابق</option>
+        </select>
+        <input id="book-year" class="form-input" placeholder="السنة (للامتحانات مثال: 2023)" />
+      </div>
       <input id="book-file" type="file" accept=".pdf" class="form-input" style="padding:8px" />
-      <button class="btn btn-primary" id="b-book-upload">⬆️ رفع الكتاب</button>
+      <button class="btn btn-primary" id="b-book-upload">⬆️ رفع الملف</button>
       <div id="book-upload-msg" style="display:none;font-size:13px;padding:8px;border-radius:8px;font-weight:700"></div>
     </div>
 
@@ -20745,6 +20916,15 @@ function tplAdmin() {
   </div>
   `}
 </div>`;
+}
+
+function usePaperInChat(id, title) {
+  // Switch to chat with a prompt about the paper
+  S.screen = 'chat';
+  S.messages = S.messages || [];
+  S.messages.push({ role: 'user', content: `أريد أن أحل أسئلة من امتحان: "${title}" — ساعدني في الحل خطوة بخطوة`, time: new Date().toLocaleTimeString('ar', { hour: '2-digit', minute: '2-digit' }) });
+  render();
+  setTimeout(() => sendMessage(), 200);
 }
 
 async function deleteBook(id) {
