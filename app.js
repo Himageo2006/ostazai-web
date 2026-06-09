@@ -250,7 +250,23 @@ function md(t) {
 
 // Called after any innerHTML update that may contain math
 function renderMath(el) {
-  if (!el || typeof renderMathInElement === 'undefined') return;
+  if (!el) return;
+  if (typeof renderMathInElement === 'undefined') {
+    // KaTeX not loaded yet — retry up to 20 times (4 sec total)
+    const elId = el.id || null;
+    let tries = 0;
+    const t = setInterval(() => {
+      tries++;
+      const target = elId ? document.getElementById(elId) : el;
+      if (typeof renderMathInElement !== 'undefined' && target) {
+        clearInterval(t);
+        renderMath(target);
+      } else if (tries > 20) {
+        clearInterval(t);
+      }
+    }, 200);
+    return;
+  }
   try {
     renderMathInElement(el, {
       delimiters: [
