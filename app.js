@@ -3648,14 +3648,22 @@ function tplHome() {
         </select>
       </div>
     </div>
-    <button onclick="S.screen='chat';render()"
-      style="width:100%;padding:13px;border-radius:14px;border:none;background:linear-gradient(135deg,#2563EB,#7C3AED);
-             color:#fff;font-size:15px;font-weight:900;font-family:Cairo,sans-serif;
-             cursor:pointer;box-shadow:0 4px 16px #2563EB44;transition:.2s"
-      onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 22px #2563EB66'"
-      onmouseout="this.style.transform='';this.style.boxShadow='0 4px 16px #2563EB44'">
-      🚀 ابدأ المذاكرة الآن
-    </button>
+    <div style="display:grid;grid-template-columns:1fr auto;gap:10px">
+      <button onclick="S.screen='lessons';S.lessonView='subjects';S.lessonSubject=null;render()"
+        style="padding:13px;border-radius:14px;border:none;background:linear-gradient(135deg,#2563EB,#7C3AED);
+               color:#fff;font-size:15px;font-weight:900;font-family:Cairo,sans-serif;
+               cursor:pointer;box-shadow:0 4px 16px #2563EB44;transition:.2s"
+        onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 22px #2563EB66'"
+        onmouseout="this.style.transform='';this.style.boxShadow='0 4px 16px #2563EB44'">
+        📚 ابدأ المذاكرة الآن
+      </button>
+      <button onclick="S.screen='chat';render()"
+        style="padding:13px 14px;border-radius:14px;border:1.5px solid var(--border);background:var(--bg-card);
+               color:var(--text);font-size:15px;font-weight:900;font-family:Cairo,sans-serif;cursor:pointer;transition:.2s"
+        title="محادثة مباشرة مع AI">
+        💬
+      </button>
+    </div>
   </div>
 
   <!-- ═══ TOOLS GRID ═══ -->
@@ -18958,116 +18966,115 @@ function tplLessons() {
     const chap = S.lessonChapter;
     const chapIdx = subj.topics.indexOf(chap);
     const chapNum = chapIdx + 1;
-    const isEn = ['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian'].includes(S.curriculum);
-    return `
-<div class="screen-header">
-  <button onclick="S.lessonView='chapters';render()" style="background:none;border:none;cursor:pointer;font-size:18px;color:var(--primary);padding:0 8px 0 0">←</button>
-  <div class="screen-title" style="font-size:15px">${esc(subj.name)} › الفصل ${chapNum}</div>
-</div>
-<div class="screen-body">
+    const prevChap = chapIdx > 0 ? subj.topics[chapIdx - 1] : null;
+    const nextChap = chapIdx < subj.topics.length - 1 ? subj.topics[chapIdx + 1] : null;
+    const subjectEnc = encodeURIComponent(subj.name);
+    const chapEnc    = encodeURIComponent(chap);
 
-  <!-- Chapter Header -->
-  <div style="background:linear-gradient(135deg,${subj.color}22,${subj.color}11);border:1px solid ${subj.color}44;border-radius:16px;padding:20px;margin-bottom:16px">
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:8px">
-      <div style="width:52px;height:52px;border-radius:14px;background:${subj.color}33;display:flex;align-items:center;justify-content:center;font-size:26px">${subj.icon}</div>
-      <div>
-        <div style="font-size:11px;color:var(--text-muted);font-weight:700">الفصل ${chapNum} من ${subj.topics.length}</div>
-        <div style="font-size:18px;font-weight:900;color:var(--text)">${esc(chap)}</div>
+    const studyTools = [
+      { id:'b-lesson-summary', icon:'📋', label:'ملخص ذكي',        desc:'شرح مختصر + النقاط الأساسية',   color:'#3B82F6', action:`openLessonTool('summary','${esc(subj.name)}','${esc(chap)}')` },
+      { id:'b-lesson-quiz2',   icon:'📝', label:'اختبار قصير',     desc:'أسئلة اختيار وإجابات فورية',    color:'#8B5CF6', action:`openLessonTool('quiz','${esc(subj.name)}','${esc(chap)}')` },
+      { id:'b-lesson-fc2',     icon:'🗂️', label:'بطاقات تعليمية', desc:'مراجعة بطريقة السؤال والجواب',  color:'#F59E0B', action:`openLessonTool('flashcards','${esc(subj.name)}','${esc(chap)}')` },
+      { id:'b-lesson-ai2',     icon:'🤖', label:'اسأل AI',         desc:'أسئلة مفتوحة والشرح التفصيلي', color:'#10B981', action:`openLessonTool('chat','${esc(subj.name)}','${esc(chap)}')` },
+      { id:'b-lesson-mm2',     icon:'🧠', label:'خريطة ذهنية',     desc:'تنظيم المعلومات بصرياً',        color:'#EC4899', action:`openLessonTool('mindmap','${esc(subj.name)}','${esc(chap)}')` },
+      { id:'b-lesson-pdf2',    icon:'📥', label:'PDF / طباعة',     desc:'تصدير الملخص للطباعة',          color:'#EF4444', action:`openLessonTool('pdf','${esc(subj.name)}','${esc(chap)}')` },
+    ];
+
+    return `
+<div style="position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--border);padding:10px 14px;display:flex;align-items:center;gap:10px">
+  <button onclick="S.lessonView='chapters';render()"
+    style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:7px 12px;cursor:pointer;font-size:18px;color:var(--primary);line-height:1">&#x2190;</button>
+  <div style="flex:1;min-width:0">
+    <div style="font-size:11px;color:var(--text-muted);font-weight:700">${esc(subj.icon)} ${esc(subj.name)}</div>
+    <div style="font-size:14px;font-weight:900;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(chap)}</div>
+  </div>
+  <div style="font-size:11px;color:var(--text-muted);font-weight:700;white-space:nowrap">${chapNum}/${subj.topics.length}</div>
+</div>
+<div class="screen-body" style="padding-top:12px">
+
+  <!-- ═══ STUDY TOOLS GRID ═══ -->
+  <div style="font-size:11px;color:var(--text-muted);font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px">⚡ أدوات المذاكرة</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px">
+    ${studyTools.map(tool => `
+    <button id="${tool.id}" onclick="${tool.action}"
+      style="display:flex;flex-direction:column;align-items:center;gap:7px;padding:16px 8px 14px;
+             background:${tool.color}14;border:1.5px solid ${tool.color}40;border-radius:16px;
+             cursor:pointer;font-family:Cairo,sans-serif;transition:.18s;position:relative;overflow:hidden"
+      onmouseover="this.style.background='${tool.color}25';this.style.borderColor='${tool.color}88';this.style.transform='translateY(-2px)'"
+      onmouseout="this.style.background='${tool.color}14';this.style.borderColor='${tool.color}40';this.style.transform=''">
+      <div style="font-size:28px;line-height:1">${tool.icon}</div>
+      <div style="font-size:13px;font-weight:900;color:${tool.color}">${tool.label}</div>
+      <div style="font-size:10px;color:var(--text-muted);text-align:center;line-height:1.4">${tool.desc}</div>
+    </button>`).join('')}
+  </div>
+
+  <!-- ═══ CHAPTER INFO ═══ -->
+  <div style="background:linear-gradient(135deg,${subj.color}18,${subj.color}08);border:1px solid ${subj.color}33;border-radius:16px;padding:16px;margin-bottom:16px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:48px;height:48px;border-radius:13px;background:${subj.color}30;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">${subj.icon}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:11px;color:${subj.color};font-weight:800;margin-bottom:3px">الفصل ${chapNum} من ${subj.topics.length}</div>
+        <div style="font-size:16px;font-weight:900;color:var(--text)">${esc(chap)}</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:2px">${curData.label} · ${gradeData.label}</div>
       </div>
-    </div>
-    <!-- Resource Toggle -->
-    <div style="display:flex;gap:6px;margin-top:12px">
-      <button onclick="S.lessonResource='ministry';render()" style="flex:1;padding:8px;border-radius:10px;border:1.5px solid ${S.lessonResource==='ministry'?subj.color:'var(--border)'};background:${S.lessonResource==='ministry'?subj.color+'22':'transparent'};color:${S.lessonResource==='ministry'?subj.color:'var(--text-muted)'};font-family:Cairo,sans-serif;font-size:12px;font-weight:700;cursor:pointer">
-        📚 كتب الوزارة
-      </button>
-      <button onclick="S.lessonResource='external';render()" style="flex:1;padding:8px;border-radius:10px;border:1.5px solid ${S.lessonResource==='external'?'#8B5CF6':'var(--border)'};background:${S.lessonResource==='external'?'#8B5CF622':'transparent'};color:${S.lessonResource==='external'?'#8B5CF6':'var(--text-muted)'};font-family:Cairo,sans-serif;font-size:12px;font-weight:700;cursor:pointer">
-        🌐 مصادر خارجية
-      </button>
-      <button onclick="S.lessonResource='ai';render()" style="flex:1;padding:8px;border-radius:10px;border:1.5px solid ${S.lessonResource==='ai'?'#F59E0B':'var(--border)'};background:${S.lessonResource==='ai'?'#F59E0B22':'transparent'};color:${S.lessonResource==='ai'?'#F59E0B':'var(--text-muted)'};font-family:Cairo,sans-serif;font-size:12px;font-weight:700;cursor:pointer">
-        🤖 AI
-      </button>
     </div>
   </div>
 
-  <!-- Ministry Books -->
-  ${S.lessonResource === 'ministry' ? `
-  <div style="margin-bottom:16px">
-    <div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:10px">📚 كتب الوزارة الرسمية</div>
-    <div style="display:flex;flex-direction:column;gap:8px">
-      <button onclick="S.screen='textbook';S.textbookUrl='home';render()"
-        style="display:flex;align-items:center;gap:12px;padding:14px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;cursor:pointer;text-align:right;width:100%;font-family:Cairo,sans-serif">
-        <span style="font-size:24px">📖</span>
-        <div style="text-align:right">
-          <div style="font-size:14px;font-weight:800;color:var(--text)">${esc(chap)} — كتاب الطالب</div>
-          <div style="font-size:11px;color:var(--text-muted);margin-top:2px">${curData.label} · ${gradeData.label}</div>
-        </div>
-        <span style="margin-right:auto;color:var(--primary);font-size:12px;font-weight:700">فتح ←</span>
-      </button>
-      <button onclick="window.open('https://www.google.com/search?q=${encodeURIComponent(chap+' '+subj.name+' شرح المنهج المصري PDF')}','_blank')"
-        style="display:flex;align-items:center;gap:12px;padding:14px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;cursor:pointer;text-align:right;width:100%;font-family:Cairo,sans-serif">
-        <span style="font-size:24px">📝</span>
-        <div style="text-align:right">
-          <div style="font-size:14px;font-weight:800;color:var(--text)">مذكرات وملخصات الفصل</div>
-          <div style="font-size:11px;color:var(--text-muted);margin-top:2px">ملخصات مدرسين موثوقة</div>
-        </div>
-        <span style="margin-right:auto;color:var(--primary);font-size:12px;font-weight:700">بحث ←</span>
-      </button>
-    </div>
-  </div>` : ''}
-
-  <!-- External Resources -->
-  ${S.lessonResource === 'external' ? `
-  <div style="margin-bottom:16px">
-    <div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:10px">🌐 مصادر تعليمية خارجية</div>
-    <div style="display:flex;flex-direction:column;gap:8px">
-      ${[
-        { icon:'▶️', name:'YouTube', color:'#FF0000', url:`https://www.youtube.com/results?search_query=${encodeURIComponent(chap+' '+subj.name+' شرح')}`, desc:'فيديوهات شرح' },
-        { icon:'📐', name:'Khan Academy', color:'#14BF96', url:`https://ar.khanacademy.org/search?page_search_query=${encodeURIComponent(chap)}`, desc:'دروس تفاعلية مجانية' },
-        { icon:'📑', name:'Geogebra', color:'#9B4DCA', url:`https://www.geogebra.org/search/${encodeURIComponent(chap)}`, desc:'أدوات رياضية تفاعلية' },
-        { icon:'🌍', name:'Wikipedia', color:'#3366CC', url:`https://ar.wikipedia.org/wiki/${encodeURIComponent(chap)}`, desc:'شرح موسوعي' },
-      ].map(r=>`
-      <button onclick="window.open('${r.url}','_blank')"
-        style="display:flex;align-items:center;gap:12px;padding:14px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;cursor:pointer;text-align:right;width:100%;font-family:Cairo,sans-serif">
-        <div style="width:40px;height:40px;border-radius:10px;background:${r.color}22;display:flex;align-items:center;justify-content:center;font-size:20px">${r.icon}</div>
-        <div style="text-align:right">
-          <div style="font-size:14px;font-weight:800;color:var(--text)">${r.name}</div>
-          <div style="font-size:11px;color:var(--text-muted);margin-top:2px">${r.desc}</div>
-        </div>
-        <span style="margin-right:auto;color:${r.color};font-size:12px;font-weight:700">فتح ←</span>
-      </button>`).join('')}
-    </div>
-  </div>` : ''}
-
-  <!-- AI Lesson -->
-  ${S.lessonResource === 'ai' ? `
-  <div>
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-      <div style="font-size:13px;font-weight:800;color:var(--text)">🤖 درس بالذكاء الاصطناعي</div>
-      <button class="btn btn-primary btn-sm" id="b-gen-lesson">
-        ${S.lessonLoading?'⏳ جارٍ التوليد...':'✨ توليد الدرس'}
+  <!-- ═══ AI QUICK LESSON ═══ -->
+  <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:16px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div style="font-size:13px;font-weight:900;color:var(--text)">🤖 الشرح بالذكاء الاصطناعي</div>
+      <button class="btn btn-primary btn-sm" id="b-gen-lesson" style="font-size:12px">
+        ${S.lessonLoading ? '⏳ جارٍ...' : S.lessonContent ? '🔄 تجديد' : '✨ اشرح لي هذا الفصل'}
       </button>
     </div>
     ${S.lessonContent ? `
-    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px;line-height:2;font-size:14px">
-      ${md(S.lessonContent)}
-    </div>
-    <div style="display:flex;gap:8px;margin-top:12px">
-      <button class="btn btn-secondary btn-sm" id="b-lesson-chat">💬 مناقشة في المحادثة</button>
-      <button class="btn btn-secondary btn-sm" id="b-lesson-fc">🗂️ بطاقات تعليمية</button>
+    <div style="line-height:2;font-size:14px;max-height:320px;overflow-y:auto;padding-left:4px">${md(S.lessonContent)}</div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+      <button class="btn btn-secondary btn-sm" id="b-lesson-chat">💬 ناقش في المحادثة</button>
+      <button class="btn btn-secondary btn-sm" id="b-lesson-fc">🗂️ بطاقات</button>
       <button class="btn btn-secondary btn-sm" id="b-lesson-quiz">📝 اختبار</button>
     </div>` : `
-    <div style="background:var(--bg-card);border:1px dashed var(--border);border-radius:14px;padding:32px;text-align:center;color:var(--text-muted)">
-      <div style="font-size:36px;margin-bottom:8px">🤖</div>
-      <div style="font-size:14px;font-weight:700;margin-bottom:4px">اضغط "توليد الدرس"</div>
-      <div style="font-size:12px">سيشرح AI الفصل كاملاً مع أمثلة وتمارين</div>
+    <div style="text-align:center;padding:20px 0;color:var(--text-muted)">
+      <div style="font-size:32px;margin-bottom:6px">🤖</div>
+      <div style="font-size:13px;font-weight:700">اضغط "اشرح لي هذا الفصل" للحصول على شرح كامل</div>
+      <div style="font-size:11px;margin-top:4px">مع أمثلة وأسئلة تطبيقية</div>
     </div>`}
-  </div>` : ''}
+  </div>
 
-  <!-- Quick AI Chat Button -->
-  <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
-    <button class="btn btn-primary" style="width:100%" id="b-lesson-ask-ai">
-      💬 اسأل AI عن هذا الفصل
-    </button>
+  <!-- ═══ EXTERNAL RESOURCES ═══ -->
+  <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:16px">
+    <div style="font-size:13px;font-weight:900;color:var(--text);margin-bottom:10px">🌐 مصادر خارجية</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      ${[
+        { icon:'▶️', name:'YouTube', color:'#FF0000', url:`https://www.youtube.com/results?search_query=${chapEnc}+${subjectEnc}+شرح` },
+        { icon:'📐', name:'Khan Academy', color:'#14BF96', url:`https://ar.khanacademy.org/search?page_search_query=${chapEnc}` },
+        { icon:'📖', name:'كتاب الطالب', color:'#3B82F6', url:'javascript:void(0)', onclick:`S.screen='textbook';S.textbookUrl='home';render()` },
+        { icon:'🌍', name:'Wikipedia', color:'#3366CC', url:`https://ar.wikipedia.org/wiki/${chapEnc}` },
+      ].map(r=>`
+      <button onclick="${r.onclick || `window.open('${r.url}','_blank')`}"
+        style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:${r.color}10;border:1px solid ${r.color}30;border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;text-align:right;width:100%">
+        <span style="font-size:18px">${r.icon}</span>
+        <span style="font-size:12px;font-weight:800;color:var(--text)">${r.name}</span>
+        <span style="margin-right:auto;color:${r.color};font-size:11px">←</span>
+      </button>`).join('')}
+    </div>
+  </div>
+
+  <!-- ═══ NAVIGATION ═══ -->
+  <div style="display:flex;gap:8px">
+    ${prevChap ? `
+    <button onclick="S.lessonChapter='${esc(prevChap)}';S.lessonContent='';S.lessonLoading=false;render()"
+      style="flex:1;padding:11px;border-radius:12px;border:1px solid var(--border);background:var(--bg-card);
+             color:var(--text);font-family:Cairo,sans-serif;font-size:12px;font-weight:800;cursor:pointer;text-align:right">
+      &#x2190; ${esc(prevChap).slice(0,20)}${esc(prevChap).length>20?'...':''}
+    </button>` : '<div style="flex:1"></div>'}
+    ${nextChap ? `
+    <button onclick="S.lessonChapter='${esc(nextChap)}';S.lessonContent='';S.lessonLoading=false;render()"
+      style="flex:1;padding:11px;border-radius:12px;border:none;background:linear-gradient(135deg,${subj.color},${subj.color}cc);
+             color:#fff;font-family:Cairo,sans-serif;font-size:12px;font-weight:800;cursor:pointer;text-align:left">
+      ${esc(nextChap).slice(0,20)}${esc(nextChap).length>20?'...':''} &#x2192;
+    </button>` : ''}
   </div>
 
 </div>`;
@@ -19076,49 +19083,85 @@ function tplLessons() {
   // ── VIEW: CHAPTERS ───────────────────────────────────────────────────
   if (S.lessonView === 'chapters' && S.lessonSubject) {
     const subj = S.lessonSubject;
+    // Track which chapters the user visited
+    const doneKey = `oa_chap_done_${S.curriculum}_${subj.name}`;
+    let doneChs = {};
+    try { doneChs = JSON.parse(localStorage.getItem(doneKey)||'{}'); } catch {}
+    const doneCnt = Object.keys(doneChs).length;
+    const pct = Math.round((doneCnt / subj.topics.length) * 100);
     return `
-<div class="screen-header">
-  <button onclick="S.lessonView='subjects';S.lessonSubject=null;render()" style="background:none;border:none;cursor:pointer;font-size:18px;color:var(--primary);padding:0 8px 0 0">←</button>
-  <div class="screen-title" style="font-size:15px">${subj.icon} ${esc(subj.name)}</div>
+<div style="position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--border);padding:10px 14px;display:flex;align-items:center;gap:10px">
+  <button onclick="S.lessonView='subjects';S.lessonSubject=null;render()"
+    style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:7px 12px;cursor:pointer;font-size:18px;color:var(--primary);line-height:1">&#x2190;</button>
+  <div style="flex:1">
+    <div style="font-size:15px;font-weight:900;color:var(--text)">${subj.icon} ${esc(subj.name)}</div>
+    <div style="font-size:10px;color:var(--text-muted)">${curData.label} · ${gradeData.label}</div>
+  </div>
+  <div style="text-align:center;min-width:42px">
+    <div style="font-size:14px;font-weight:900;color:${subj.color}">${pct}%</div>
+    <div style="font-size:9px;color:var(--text-muted)">مكتمل</div>
+  </div>
 </div>
-<div class="screen-body">
+<div class="screen-body" style="padding-top:12px">
 
-  <!-- Subject Banner -->
-  <div style="background:linear-gradient(135deg,${subj.color}22,${subj.color}11);border:1px solid ${subj.color}44;border-radius:16px;padding:16px;margin-bottom:20px;display:flex;align-items:center;gap:14px">
-    <div style="width:52px;height:52px;border-radius:14px;background:${subj.color}33;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">${subj.icon}</div>
-    <div>
-      <div style="font-size:18px;font-weight:900">${esc(subj.name)}</div>
-      <div style="font-size:12px;color:var(--text-muted);margin-top:2px">${curData.label} · ${gradeData.label} · ${subj.topics.length} فصل</div>
-    </div>
+  <!-- Progress bar -->
+  <div style="background:var(--border);border-radius:999px;height:8px;margin-bottom:16px;overflow:hidden">
+    <div style="width:${pct}%;height:100%;background:linear-gradient(90deg,${subj.color},${subj.color}99);border-radius:999px;transition:.6s"></div>
   </div>
 
-  <!-- Chapters List -->
-  <div style="font-size:13px;font-weight:800;color:var(--text-muted);margin-bottom:10px">📋 فصول المنهج</div>
-  <div style="display:flex;flex-direction:column;gap:8px">
-    ${subj.topics.map((topic, idx) => `
-    <button class="lesson-chapter-btn" data-topic-idx="${idx}"
-      style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;cursor:pointer;text-align:right;width:100%;font-family:Cairo,sans-serif;transition:.2s"
-      onmouseover="this.style.borderColor='${subj.color}'" onmouseout="this.style.borderColor='var(--border)'">
-      <div style="width:36px;height:36px;border-radius:10px;background:${subj.color}22;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:${subj.color};flex-shrink:0">${idx+1}</div>
-      <div style="flex:1;text-align:right">
-        <div style="font-size:14px;font-weight:800;color:var(--text)">${esc(topic)}</div>
-        <div style="font-size:11px;color:var(--text-muted);margin-top:2px">الفصل ${idx+1}</div>
-      </div>
-      <span style="color:var(--primary);font-size:18px">←</span>
+  <!-- Quick subject tools -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px">
+    ${[
+      { icon:'💬', label:'اسأل AI', color:'#10B981', action:`openLessonTool('chat','${esc(subj.name)}','')` },
+      { icon:'📋', label:'ملخص', color:'#3B82F6', action:`openLessonTool('summary','${esc(subj.name)}','')` },
+      { icon:'📝', label:'اختبار', color:'#8B5CF6', action:`openLessonTool('quiz','${esc(subj.name)}','')` },
+      { icon:'🗂️', label:'بطاقات', color:'#F59E0B', action:`openLessonTool('flashcards','${esc(subj.name)}','')` },
+    ].map(t=>`
+    <button onclick="${t.action}"
+      style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 4px;background:${t.color}14;
+             border:1.5px solid ${t.color}33;border-radius:14px;cursor:pointer;font-family:Cairo,sans-serif;transition:.15s"
+      onmouseover="this.style.background='${t.color}25'" onmouseout="this.style.background='${t.color}14'">
+      <span style="font-size:22px">${t.icon}</span>
+      <span style="font-size:11px;font-weight:800;color:${t.color}">${t.label}</span>
     </button>`).join('')}
   </div>
 
-  <!-- Quick Actions -->
-  <div style="margin-top:20px;display:flex;gap:8px">
-    <button class="btn btn-secondary btn-sm" onclick="S.screen='chat';S.subject='${esc(subj.name)}';render()" style="flex:1">💬 محادثة في ${esc(subj.name)}</button>
-    <button class="btn btn-secondary btn-sm" onclick="S.screen='flashcards';S.subject='${esc(subj.name)}';doGenerateFlashcards()" style="flex:1">🗂️ بطاقات تعليمية</button>
+  <!-- Chapters List -->
+  <div style="font-size:11px;font-weight:800;color:var(--text-muted);letter-spacing:1px;margin-bottom:10px">📋 فصول المنهج — ${subj.topics.length} فصل</div>
+  <div style="display:flex;flex-direction:column;gap:8px">
+    ${subj.topics.map((topic, idx) => {
+      const done = doneChs[idx] ? true : false;
+      return `
+    <button class="lesson-chapter-btn" data-topic-idx="${idx}"
+      style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--bg-card);
+             border:1.5px solid ${done ? subj.color+'55' : 'var(--border)'};
+             border-radius:14px;cursor:pointer;text-align:right;width:100%;font-family:Cairo,sans-serif;transition:.2s"
+      onmouseover="this.style.borderColor='${subj.color}';this.style.background='${subj.color}08'"
+      onmouseout="this.style.borderColor='${done ? subj.color+'55' : 'var(--border)'}';this.style.background='var(--bg-card)'">
+      <div style="width:38px;height:38px;border-radius:11px;background:${done ? subj.color : subj.color+'22'};
+                  display:flex;align-items:center;justify-content:center;
+                  font-size:${done?'18':'13'}px;font-weight:900;color:${done?'#fff':subj.color};flex-shrink:0">
+        ${done ? '✓' : idx+1}
+      </div>
+      <div style="flex:1;text-align:right;min-width:0">
+        <div style="font-size:14px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(topic)}</div>
+        <div style="font-size:10px;color:var(--text-muted);margin-top:2px">الفصل ${idx+1}${done?' · ✅ تمت المراجعة':''}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0">
+        <span style="color:${subj.color};font-size:16px">&#x2190;</span>
+      </div>
+    </button>`}).join('')}
   </div>
+
 </div>`;
   }
 
   // ── VIEW: SUBJECTS (default) ─────────────────────────────────────────
   return `
-<div class="screen-header"><div class="screen-title">📖 ${S.lang==='en'?'Lessons':'الدروس'}</div></div>
+<div class="screen-header">
+  <div class="screen-title">📚 ${S.lang==='en'?'Study Hub':'المذاكرة'}</div>
+  <div style="font-size:11px;color:var(--text-muted)">${curData.label} · ${gradeData.label}</div>
+</div>
 <div class="screen-body">
 
   ${['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian'].includes(S.curriculum) ? `
@@ -20058,6 +20101,116 @@ function loadStats() {
   render();
 }
 
+/* ════════════════════════════════════════════════════════════
+   STUDY HUB — open a study tool for a subject+chapter
+   ════════════════════════════════════════════════════════════ */
+function openLessonTool(tool, subject, chapter) {
+  // Mark chapter as visited
+  if (chapter && S.lessonSubject) {
+    const doneKey = `oa_chap_done_${S.curriculum}_${subject}`;
+    let done = {};
+    try { done = JSON.parse(localStorage.getItem(doneKey)||'{}'); } catch {}
+    const idx = S.lessonSubject.topics.indexOf(chapter);
+    if (idx >= 0) { done[idx] = 1; localStorage.setItem(doneKey, JSON.stringify(done)); }
+  }
+
+  // Set subject context
+  if (subject) S.subject = subject;
+  const context = chapter ? `${subject} — ${chapter}` : subject;
+
+  switch (tool) {
+    case 'chat':
+      S.screen = 'chat';
+      // Pre-fill with chapter context
+      if (chapter) {
+        S.messages = [];
+        setTimeout(() => {
+          const inp = document.getElementById('f-msg');
+          if (inp) {
+            inp.value = `اشرح لي درس "${chapter}" في مادة ${subject}`;
+            inp.focus();
+          }
+        }, 200);
+      }
+      render();
+      break;
+    case 'summary':
+      S.screen = 'summary';
+      S.summaryText = '';
+      render();
+      setTimeout(() => {
+        const topicInp = document.getElementById('sum-topic');
+        if (topicInp && chapter) {
+          topicInp.value = chapter || subject;
+          // Auto-generate
+          document.getElementById('b-gen-sum')?.click();
+        }
+      }, 200);
+      break;
+    case 'quiz':
+      S.screen = 'quiz';
+      S.quiz = [];
+      S.quizIndex = 0;
+      S.quizScore = 0;
+      S.quizAnswer = null;
+      render();
+      // Auto-generate quiz
+      setTimeout(async () => {
+        try {
+          showToast('⏳ جارٍ توليد الاختبار...', 'info');
+          const { stage, grade, curriculum } = gradeToAPI();
+          const d = await req('/chat', 'POST', {
+            message: `اولد 10 اسئله اختيار من متعدد عن "${chapter||subject}" في مادة ${subject}. الإجابة بصيغة JSON: [{question,options:["أ","ب","ج","د"],correct:0,explanation}]`,
+            subject, stage, grade, curriculum,
+          });
+          const txt = d.reply || d.message || '';
+          const m = txt.match(/\[[\s\S]*\]/);
+          if (m) {
+            const qs = JSON.parse(m[0]);
+            S.quiz = qs.map(q => ({
+              question: q.question,
+              options: q.options,
+              correct: q.correct,
+              explanation: q.explanation || '',
+            }));
+            S.quizIndex = 0; S.quizScore = 0; S.quizAnswer = null;
+            render();
+            showToast('✅ تم توليد الاختبار!', 'success');
+          } else {
+            showToast('لم يتم توليد الاختبار — حاول مجدداً', 'error');
+          }
+        } catch(e) { showToast('❌ ' + e.message, 'error'); }
+      }, 300);
+      break;
+    case 'flashcards':
+      S.screen = 'flashcards';
+      S.flashcards = [];
+      S.fcIndex = 0;
+      S.fcFlipped = false;
+      render();
+      setTimeout(() => doGenerateFlashcards(chapter ? `${subject}: ${chapter}` : subject), 300);
+      break;
+    case 'mindmap':
+      S.screen = 'mindmap';
+      S.mindMapData = null;
+      S.mindMapTopic = chapter || subject;
+      render();
+      setTimeout(() => { document.getElementById('b-gen-mm')?.click(); }, 300);
+      break;
+    case 'pdf':
+      S.screen = 'summary';
+      render();
+      setTimeout(() => {
+        const ti = document.getElementById('sum-topic');
+        if (ti) ti.value = chapter || subject;
+        const pt = document.getElementById('pdf-type');
+        if (pt) pt.value = 'summary';
+        exportPDF();
+      }, 300);
+      break;
+  }
+}
+
 async function loadLeaderboard() {
   const period = S.leaderboardTab || 'global';
   try {
@@ -20143,7 +20296,18 @@ function navTo(s) {
 }
 
 // ── Function aliases (fix undefined calls) ───────────────────────────────
-function doGenerateFlashcards() { genFlashcards(); }
+function doGenerateFlashcards(customTopic) {
+  if (customTopic) {
+    // Temporarily set subject to the custom topic then generate
+    const prevSubj = S.subject;
+    S.subject = customTopic;
+    genFlashcards().then ? genFlashcards() : genFlashcards();
+    // restore after a tick (genFlashcards reads S.subject synchronously at start)
+    setTimeout(() => { /* subject was already read, no need to restore */ }, 50);
+  } else {
+    genFlashcards();
+  }
+}
 function doGenerateQuiz()       { genQuiz(); }
 function doSend()               { sendMsg(); }
 
@@ -20184,7 +20348,14 @@ function bind() {
         S.lessonChapter = S.lessonSubject.topics[idx];
         S.lessonView = 'lesson';
         S.lessonContent = '';
-        S.lessonResource = 'ministry';
+        S.lessonLoading = false;
+        S.lessonResource = 'tools'; // show tools by default
+        // Mark chapter as visited
+        const doneKey = `oa_chap_done_${S.curriculum}_${S.lessonSubject.name}`;
+        let done = {};
+        try { done = JSON.parse(localStorage.getItem(doneKey)||'{}'); } catch {}
+        done[idx] = 1;
+        localStorage.setItem(doneKey, JSON.stringify(done));
         render();
       }
     });
