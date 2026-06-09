@@ -78,6 +78,37 @@ body.light .btn-secondary { background: #F1F5F9; color: #0F172A; border-color: #
 body.light pre { background: #F1F5F9 !important; border: 1px solid #E2E8F0; }
 body.light .toast { background: #1E293B; color: #F1F5F9; }
 
+/* Chat elements */
+body.light .chat-wrap { background: #F8FAFC; }
+body.light .chat-context-bar { background: #FFFFFF; border-color: #E2E8F0; }
+body.light .chat-toolbar { background: #FFFFFF; border-color: #E2E8F0; }
+body.light .subj-sel { background: #F1F5F9; border-color: #CBD5E1; color: #0F172A; }
+body.light .tool-btn { background: #F1F5F9; border-color: #CBD5E1; color: #475569; }
+body.light .tool-btn:hover { background: #E2E8F0; border-color: var(--primary); color: var(--primary); }
+body.light .chat-msgs { background: #F8FAFC; }
+body.light .chat-empty { color: #0F172A; }
+body.light .chat-input-row { background: #FFFFFF; border-color: #E2E8F0; }
+body.light .send-btn { box-shadow: 0 4px 12px rgba(59,130,246,0.25); }
+body.light .btn-icon { background: #F1F5F9; color: #475569; }
+body.light .btn-icon:hover { background: #E2E8F0; }
+body.light .quick-chip { background: #FFFFFF; border-color: #CBD5E1; color: #0F172A; }
+body.light .quick-chip:hover { border-color: var(--primary); color: var(--primary); background: var(--primary)0F; }
+body.light .msg-bubble { background: #FFFFFF; border-color: #E2E8F0; color: #0F172A; }
+body.light .msg-bubble code { background: #F1F5F9; color: #1E40AF; }
+body.light .thinking span { background: #94A3B8; }
+
+/* Cards & misc */
+body.light .stat-card { background: #FFFFFF; border-color: #E2E8F0; }
+body.light .fc-card { background: #FFFFFF; border-color: #E2E8F0; }
+body.light .fc-front, body.light .fc-back { color: #0F172A; }
+body.light select { background: #F1F5F9; border-color: #CBD5E1; color: #0F172A; }
+body.light .screen-body { background: #F8FAFC; }
+body.light .content-area { background: #F8FAFC; }
+body.light .more-drawer { background: #FFFFFF; border-color: #E2E8F0; }
+body.light .more-drawer-item { color: #0F172A; }
+body.light .more-drawer-item:hover { background: #F1F5F9; }
+body.light .skeleton { background: linear-gradient(90deg,#E2E8F0 25%,#CBD5E1 50%,#E2E8F0 75%); }
+
 /* smooth transition */
 body, .sidebar, .chat-header, .info-card, .form-input, .msg-bubble,
 .chat-input, .screen-header, .bottom-nav, .tool-chip {

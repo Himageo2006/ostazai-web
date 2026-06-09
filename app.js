@@ -93,6 +93,9 @@ let S = {
   historySearch: '',
   reminderTime: '19:00',
   pushEndpoint: null,
+  studyMinutesToday: 0,
+  studyMinutesTotal: 0,
+  studyDateToday: '',
   // Lesson browser
   lessonView: 'subjects',   // 'subjects' | 'chapters' | 'lesson'
   lessonSubject: null,      // { name, icon, color, topics[] }
@@ -163,6 +166,9 @@ function saveLocal() {
     localStorage.setItem('oa_igcse_achievements',  JSON.stringify(S.igcseAchievements || []));
     if (S.reminderTime)  localStorage.setItem('oa_reminder_time', S.reminderTime);
     if (S.pushEndpoint)  localStorage.setItem('oa_push_endpoint', S.pushEndpoint);
+    localStorage.setItem('oa_study_min_today', S.studyMinutesToday || 0);
+    localStorage.setItem('oa_study_min_total', S.studyMinutesTotal || 0);
+    localStorage.setItem('oa_study_date',      S.studyDateToday   || '');
   } catch {}
 }
 function loadLocal() {
@@ -202,6 +208,13 @@ function loadLocal() {
     S.igcseAchievements = igAch ? JSON.parse(igAch) : [];
     S.reminderTime = localStorage.getItem('oa_reminder_time') || '19:00';
     S.pushEndpoint = localStorage.getItem('oa_push_endpoint') || null;
+    const todayStr  = new Date().toDateString();
+    S.studyDateToday   = localStorage.getItem('oa_study_date') || '';
+    S.studyMinutesTotal= parseInt(localStorage.getItem('oa_study_min_total') || '0');
+    // Reset daily counter if it's a new day
+    S.studyMinutesToday = S.studyDateToday === todayStr
+      ? parseInt(localStorage.getItem('oa_study_min_today') || '0') : 0;
+    S.studyDateToday = todayStr;
   } catch {}
 }
 
@@ -3930,6 +3943,11 @@ function tplStats() {
   const week = (st.weeklyActivity||[0,0,0,0,0,0,0]);
   const maxW = Math.max(...week,1);
   const totalWeek = week.reduce((a,b)=>a+b,0);
+  // Study time
+  const todayMins  = Math.round(S.studyMinutesToday || 0);
+  const totalMins  = Math.round(S.studyMinutesTotal || 0);
+  const todayHrs   = todayMins >= 60 ? `${Math.floor(todayMins/60)}س ${todayMins%60}د` : `${todayMins}د`;
+  const totalHrs   = totalMins >= 60 ? `${Math.floor(totalMins/60)}س ${totalMins%60}د` : `${totalMins}د`;
   // Subject breakdown from history
   const subjCount = {};
   S.history.forEach(h => { if(h.subject) subjCount[h.subject] = (subjCount[h.subject]||0)+1; });
@@ -3954,7 +3972,7 @@ function tplStats() {
 <div class="screen-body">
 
   <!-- Top KPIs -->
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px">
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px">
     <div class="stat-card" style="border-color:#F59E0B44">
       <div class="stat-val" style="color:#F59E0B">${st.xp||0}</div>
       <div class="stat-lbl">${S.lang==='en'?'XP Points':'نقطة XP'}</div>
@@ -3978,6 +3996,14 @@ function tplStats() {
     <div class="stat-card" style="border-color:#22C55E44">
       <div class="stat-val" style="color:#22C55E">${st.bestScore||0}%</div>
       <div class="stat-lbl">${S.lang==='en'?'Best Score':'أعلى نتيجة'}</div>
+    </div>
+    <div class="stat-card" style="border-color:#8B5CF644">
+      <div class="stat-val" style="color:#8B5CF6;font-size:18px">${todayHrs||'0د'}</div>
+      <div class="stat-lbl">${S.lang==='en'?'Study today':'مذاكرة اليوم'}</div>
+    </div>
+    <div class="stat-card" style="border-color:#EC489944">
+      <div class="stat-val" style="color:#EC4899;font-size:18px">${totalHrs||'0د'}</div>
+      <div class="stat-lbl">${S.lang==='en'?'Total study':'إجمالي المذاكرة'}</div>
     </div>
   </div>
 
@@ -19350,11 +19376,18 @@ async function sendMsg() {
     const replyTime = new Date().toLocaleTimeString('ar-EG', { hour:'2-digit', minute:'2-digit' });
     S.messages.push({ role: 'assistant', content: reply, time: replyTime });
 
-    // XP + history
+    // XP + history + streak
     S.stats = S.stats || { xp:0, streak:1, totalChats:0, weeklyActivity:[0,0,0,0,0,0,0] };
     S.stats.xp += 10; S.stats.totalChats++;
     const day = new Date().getDay();
     S.stats.weeklyActivity[day] = (S.stats.weeklyActivity[day]||0)+1;
+    // Update chat streak
+    const todayDate = new Date().toDateString();
+    const yesterdayDate = new Date(Date.now()-86400000).toDateString();
+    if (S.stats.lastChatDate !== todayDate) {
+      S.stats.streak = S.stats.lastChatDate === yesterdayDate ? (S.stats.streak||1)+1 : 1;
+      S.stats.lastChatDate = todayDate;
+    }
 
     S.history.unshift({ date: new Date().toLocaleDateString('ar'), subject: S.subject, preview: txt.slice(0,60) });
     if (S.history.length > 50) S.history.pop();
@@ -21116,6 +21149,33 @@ function initPushNotifications() {
   }
 }
 
+/* ════════════════════════════════════════════════════════════
+   STUDY TIMER — tracks active study minutes per day
+   ════════════════════════════════════════════════════════════ */
+let _studyTimerInterval = null;
+let _studyScreenStart   = null;
+const STUDY_SCREENS = new Set(['chat','flashcards','quiz','summary','mindmap','igcse','lessons','papers']);
+
+function initStudyTimer() {
+  // Track time every 30s while on a study screen
+  _studyTimerInterval = setInterval(() => {
+    if (STUDY_SCREENS.has(S.screen)) {
+      S.studyMinutesToday = (S.studyMinutesToday || 0) + 0.5;
+      S.studyMinutesTotal = (S.studyMinutesTotal || 0) + 0.5;
+      // Update streak date
+      const today = new Date().toDateString();
+      S.studyDateToday = today;
+      saveLocal();
+    }
+  }, 30 * 1000);
+
+  // Pause timer when tab is hidden
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) saveLocal();
+  });
+  window.addEventListener('beforeunload', () => saveLocal());
+}
+
 function scheduleStudyReminders() {
   // Schedule reminders and send local notifications for today's schedule
   if (!S.schedule || !S.schedule.length) return;
@@ -21401,6 +21461,7 @@ async function init() {
   // Sync XP every 5 minutes
   setInterval(syncXP, 5 * 60 * 1000);
   initPushNotifications();
+  initStudyTimer();
 
   // Network status monitoring
   function updateNetworkBanner() {
