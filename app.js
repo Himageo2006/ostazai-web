@@ -17460,7 +17460,7 @@ function tplIGCSEFormulas() {
   </div>
   <div style="padding:0 12px">
     <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
-      <button onclick="S.screen='chat';S.subject='${subj.label} IGCSE';S.messages=[{role:'user',content:'Explain how to use the key formulas for IGCSE ${subj.label} with worked examples for each'}];render();setTimeout(()=>doSend&&doSend(),100)"
+      <button onclick="chatWith('${subj.label} IGCSE','Explain how to use the key formulas for IGCSE ${subj.label} with worked examples for each')"
         style="padding:8px 14px;border-radius:10px;border:none;background:var(--primary);color:#fff;cursor:pointer;font-size:12px;font-weight:700;font-family:Cairo,sans-serif">
         🤖 AI: Walk me through these formulas
       </button>
@@ -17891,11 +17891,11 @@ function tplIGCSEHub() {
           style="padding:7px 10px;border-radius:8px;border:1.5px solid #8B5CF6;background:#8B5CF618;color:#8B5CF6;cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif;text-align:left">
           🎓 Mock Exam
         </button>
-        <button onclick="S.screen='chat';S.subject='IGCSE Study Plan';S.messages=[{role:'user',content:'Create a 4-week IGCSE revision plan for: Maths, Physics, Chemistry, Biology, and English. I have 2 hours per day. Include what to revise each week and past paper practice schedule.'}];render();setTimeout(()=>doSend&&doSend(),100)"
+        <button onclick="chatWith('IGCSE Study Plan','Create a 4-week IGCSE revision plan for: Maths, Physics, Chemistry, Biology, and English. I have 2 hours per day. Include what to revise each week and past paper practice schedule.')"
           style="padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif;text-align:left">
           📅 AI Study Plan
         </button>
-        <button onclick="S.screen='chat';S.subject='IGCSE Examiner Tips';S.messages=[{role:'user',content:'Give me the top 10 examiner tips that apply to ALL IGCSE subjects — what do Cambridge examiners look for?'}];render();setTimeout(()=>doSend&&doSend(),100)"
+        <button onclick="chatWith('IGCSE Examiner Tips','Give me the top 10 examiner tips that apply to ALL IGCSE subjects — what do Cambridge examiners look for?')"
           style="padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif;text-align:left">
           💡 Examiner Tips
         </button>
@@ -18365,7 +18365,7 @@ function tplIGCSETopic() {
         </div>`;
       })()}
       <div style="display:flex;gap:8px;margin-top:14px">
-        <button onclick="S.screen='chat';S.subject='${subj.label} IGCSE — ${tp.title}';S.messages=[{role:'user',content:'Explain ${tp.title.replace(/'/g,"\\'")} for IGCSE ${subj.label} in detail with worked examples and exam tips'}];render();setTimeout(()=>doSend&&doSend(),100)"
+        <button onclick="chatWith('${subj.label} IGCSE — ${tp.title}','Explain ${tp.title.replace(/'/g,"\\'")} for IGCSE ${subj.label} in detail with worked examples and exam tips')"
           style="flex:1;padding:11px;background:var(--primary);color:#fff;border:none;border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:12px">
           🤖 Explain with AI
         </button>
@@ -18477,7 +18477,7 @@ function tplIGCSETopic() {
         </button>`:''}
       </div>` : ''}
       <div style="margin-top:10px;text-align:center">
-        <button onclick="S.screen='chat';S.subject='${subj.label} Flashcards';S.messages=[{role:'user',content:'Create 10 Q&A flashcards for IGCSE ${subj.label} topic: ${tp.title.replace(/'/g,"\\'")}. Format each as Q: ... / A: ...'}];render();setTimeout(()=>doSend&&doSend(),100)"
+        <button onclick="chatWith('${subj.label} Flashcards','Create 10 Q&A flashcards for IGCSE ${subj.label} topic: ${tp.title.replace(/'/g,"\\'")}. Format each as Q: ... / A: ...')"
           style="padding:8px 16px;border-radius:10px;border:1px solid ${subj.color}44;background:${subj.color}10;color:${subj.color};cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif">
           🤖 AI Flashcards (×10)
         </button>
@@ -18573,7 +18573,7 @@ function tplIGCSETopic() {
         <div style="font-size:36px;margin-bottom:10px">❓</div>
         <div style="font-size:15px;font-weight:900;color:var(--text);margin-bottom:6px">AI Practice Questions</div>
         <div style="font-size:12px;color:var(--text-muted);margin-bottom:18px;line-height:1.6">Get 5 IGCSE-style exam questions on <strong>${tp.title}</strong> with full mark schemes</div>
-        <button onclick="S.screen='chat';S.subject='IGCSE ${subj.label}';S.messages=[{role:'user',content:'Generate 5 IGCSE-style exam questions on the topic: ${tp.title.replace(/'/g,"\\'")} (${subj.label}). Include: 2 short answer (2-4 marks), 2 structured (4-6 marks), 1 extended response (6-8 marks). Provide full mark schemes for each.'}];render();setTimeout(()=>doSend&&doSend(),100)"
+        <button onclick="chatWith('IGCSE ${subj.label}','Generate 5 IGCSE-style exam questions on the topic: ${tp.title.replace(/\'/g,\"\'\")} (${subj.label}). Include: 2 short answer (2-4 marks), 2 structured (4-6 marks), 1 extended response (6-8 marks). Provide full mark schemes for each.')"
           style="width:100%;padding:12px;background:${subj.color};color:#fff;border:none;border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:13px;margin-bottom:10px">
           🤖 Generate 5 Exam Questions
         </button>
@@ -18596,7 +18596,7 @@ function tplIGCSETopic() {
           style="display:block;padding:12px;background:${board.color};color:#fff;border-radius:12px;text-decoration:none;font-family:Cairo,sans-serif;font-weight:700;font-size:13px;margin-bottom:8px">
           📥 Open Official Past Papers
         </a>
-        <button onclick="S.screen='chat';S.subject='IGCSE ${subj.label}';S.messages=[{role:'user',content:'Give me 3 typical past paper questions about ${tp.title.replace(/'/g,"\\'")} from ${board.label} IGCSE exams, with example answers and examiner tips'}];render();setTimeout(()=>doSend&&doSend(),100)"
+        <button onclick="chatWith('IGCSE ${subj.label}','Give me 3 typical past paper questions about ${tp.title.replace(/\'/g,\"\'\")} from ${board.label} IGCSE exams, with example answers and examiner tips')"
           style="width:100%;padding:12px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:13px">
           💬 Ask AI for Past Paper Questions
         </button>
@@ -20288,6 +20288,11 @@ function doGenerateFlashcards(customTopic) {
 }
 function doGenerateQuiz()       { genQuiz(); }
 function doSend()               { sendMsg(); }
+/* Helper: navigate to chat and immediately send a message (no empty-input issue) */
+function chatWith(subject, msg) {
+  S.screen = 'chat'; S.subject = subject; S.messages = []; render();
+  setTimeout(() => { const i = ge('f-msg'); if (i) { i.value = msg; sendMsg(); } }, 150);
+}
 
 function bind() {
 
