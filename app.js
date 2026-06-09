@@ -321,7 +321,7 @@ async function req(path, method='GET', body=null, retries=1) {
   let r;
   try {
     const ctrl = new AbortController();
-    const timeout = setTimeout(() => ctrl.abort(), 30000); // 30s timeout
+    const timeout = setTimeout(() => ctrl.abort(), 8000); // 8s timeout
     r = await fetch(API + path, {
       method, headers: h,
       body: body ? JSON.stringify(body) : undefined,
@@ -21680,7 +21680,10 @@ async function init() {
   if (S.token) {
     try {
       setLoadingMsg('جارٍ تحميل بياناتك...');
-      const d = await req('/auth/me');
+      const d = await Promise.race([
+        req('/auth/me'),
+        new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 6000))
+      ]);
       S.user = d.user || d;
       setLoadingMsg('مرحباً بك! 👋');
       await new Promise(r => setTimeout(r, 300));
