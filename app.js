@@ -20074,95 +20074,7 @@ function bind() {
   ge('b-admin-reload') && ge('b-admin-reload').addEventListener('click', () => { adminData=null; loadAdminData(); });
 
   // ── Papers screen ─────────────────────────────────────────────────────────
-  if (ge('b-gen-paper')) {
-    loadUploadedPapers();
-    ge('b-gen-paper').addEventListener('click', async () => {
-      const subject    = ge('pp-subject')?.value?.trim();
-      const topic      = ge('pp-topic')?.value?.trim() || '';
-      const difficulty = ge('pp-difficulty')?.value || 'mixed';
-      const numQ       = parseInt(ge('pp-num')?.value || '10');
-      if (!subject) { showToast('أدخل اسم المادة', 'error'); return; }
-
-      const btn     = ge('b-gen-paper');
-      const outEl   = ge('paper-output');
-      const contentEl = ge('paper-content');
-      const errEl   = ge('paper-error');
-      btn.disabled  = true;
-      btn.textContent = '⏳ جاري توليد الامتحان... (قد يأخذ دقيقة)';
-      outEl.style.display = 'none';
-      if (errEl) errEl.style.display = 'none';
-
-      try {
-        // Use direct fetch with 120s timeout (longer than default 30s)
-        const ctrl    = new AbortController();
-        const timeout = setTimeout(() => ctrl.abort(), 120000);
-        const token   = S.token || '';
-        const resp = await fetch(API + '/papers/generate', {
-          method:  'POST',
-          headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
-          body:    JSON.stringify({
-            country:      S.country    || 'egypt',
-            curriculum:   S.curriculum || 'gov',
-            grade:        S.grade      || '',
-            subject, topic, difficulty,
-            numQuestions: numQ,
-            lang:         S.lang       || 'ar',
-          }),
-          signal: ctrl.signal,
-        });
-        clearTimeout(timeout);
-        const data = await resp.json();
-        if (!resp.ok || !data.paper) throw new Error((data.error || '') + (data.details ? ' | ' + JSON.stringify(data.details) : '') || 'لم يتم توليد الامتحان');
-
-        contentEl.textContent = data.paper;
-        outEl.style.display   = 'block';
-        outEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-        ge('b-copy-paper')?.addEventListener('click', () => {
-          navigator.clipboard?.writeText(data.paper).then(() => showToast('تم النسخ ✅', 'success'));
-        });
-      } catch(e) {
-        const msg = e.name === 'AbortError' ? 'انتهى الوقت — حاول بعدد أسئلة أقل' : e.message;
-        if (errEl) { errEl.textContent = '❌ ' + msg; errEl.style.display = 'block'; }
-        else showToast('خطأ: ' + msg, 'error');
-      } finally {
-        btn.disabled = false; btn.textContent = '✨ ولّد ورقة الامتحان';
-      }
-    });
-  }
-
-  async function loadUploadedPapers() {
-    const wrap = ge('pp-uploaded-list');
-    if (!wrap) return;
-    try {
-      const params = new URLSearchParams({
-        country:    S.country    || '',
-        curriculum: S.curriculum || '',
-        subject:    S.subject    || '',
-      });
-      const r = await fetch(`${API}/papers/list?${params}`);
-      const papers = await r.json();
-      if (!Array.isArray(papers) || !papers.length) {
-        wrap.innerHTML = `<div style="font-size:12px;color:var(--text-muted);text-align:center;padding:16px">
-          لا توجد امتحانات رسمية مرفوعة بعد<br><span style="font-size:11px">يمكن للأدمين رفع PDFs من لوحة التحكم</span>
-        </div>`; return;
-      }
-      wrap.innerHTML = papers.map(p => `
-        <div style="padding:10px;background:var(--bg);border-radius:8px;margin-bottom:8px;display:flex;align-items:center;gap:10px">
-          <div style="font-size:24px">📄</div>
-          <div style="flex:1">
-            <div style="font-weight:700;font-size:13px">${esc(p.title)}</div>
-            <div style="font-size:11px;color:var(--text-muted)">${esc(p.subject)} — ${p.year || 'بدون سنة'} — ${esc(p.curriculum)}</div>
-          </div>
-          <button onclick="usePaperInChat('${esc(p._id)}','${esc(p.title)}')"
-            style="background:var(--primary);border:none;color:#fff;border-radius:8px;padding:6px 10px;cursor:pointer;font-size:11px;font-family:Cairo,sans-serif">
-            💬 حلّ معي
-          </button>
-        </div>`).join('');
-    } catch(e) {
-      wrap.innerHTML = '<div style="font-size:12px;color:#EF4444">خطأ في التحميل</div>';
-    }
-  }
+  if (ge('b-gen-paper')) loadUploadedPapers();
 
   // ── Books upload ──────────────────────────────────────────────────────────
   if (ge('b-book-upload')) {
@@ -20737,7 +20649,7 @@ function tplPapers() {
         </select>
       </div>
 
-      <button class="btn btn-primary" id="b-gen-paper" style="background:linear-gradient(135deg,#059669,#10B981)">
+      <button class="btn btn-primary" id="b-gen-paper" onclick="genPaper()" style="background:linear-gradient(135deg,#059669,#10B981)">
         ✨ ${isEn ? 'Generate Exam Paper' : 'ولّد ورقة الامتحان'}
       </button>
       <div id="paper-error" style="display:none;background:#EF444422;color:#EF4444;padding:10px;border-radius:8px;font-size:13px;font-weight:700"></div>
@@ -20751,7 +20663,7 @@ function tplPapers() {
         <span style="font-weight:900;font-size:14px">📄 ${isEn ? 'Your Exam Paper' : 'ورقة الامتحان'}</span>
         <div style="display:flex;gap:8px">
           <button onclick="window.print()" style="background:none;border:1px solid var(--border);border-radius:8px;padding:4px 10px;cursor:pointer;font-size:12px;color:var(--text);font-family:Cairo,sans-serif">🖨️ ${isEn ? 'Print' : 'طباعة'}</button>
-          <button id="b-copy-paper" style="background:none;border:1px solid var(--border);border-radius:8px;padding:4px 10px;cursor:pointer;font-size:12px;color:var(--text);font-family:Cairo,sans-serif">📋 ${isEn ? 'Copy' : 'نسخ'}</button>
+          <button onclick="navigator.clipboard?.writeText(ge('paper-content')?.textContent||'').then(()=>showToast('تم النسخ ✅','success'))" style="background:none;border:1px solid var(--border);border-radius:8px;padding:4px 10px;cursor:pointer;font-size:12px;color:var(--text);font-family:Cairo,sans-serif">📋 ${isEn ? 'Copy' : 'نسخ'}</button>
         </div>
       </div>
       <div id="paper-content" style="font-size:13px;line-height:1.9;white-space:pre-wrap;font-family:Cairo,monospace"></div>
@@ -20934,6 +20846,78 @@ function tplAdmin() {
   </div>
   `}
 </div>`;
+}
+
+async function genPaper() {
+  const subject    = ge('pp-subject')?.value?.trim();
+  const topic      = ge('pp-topic')?.value?.trim() || '';
+  const difficulty = ge('pp-difficulty')?.value || 'mixed';
+  const numQ       = parseInt(ge('pp-num')?.value || '10');
+  const btn        = ge('b-gen-paper');
+  const outEl      = ge('paper-output');
+  const contentEl  = ge('paper-content');
+  const errEl      = ge('paper-error');
+
+  if (!subject) { showToast('أدخل اسم المادة', 'error'); return; }
+  if (errEl) errEl.style.display = 'none';
+  outEl.style.display = 'none';
+  btn.disabled = true;
+  btn.textContent = '⏳ جاري التوليد... قد يأخذ دقيقة';
+
+  try {
+    const ctrl    = new AbortController();
+    const tmr     = setTimeout(() => ctrl.abort(), 120000);
+    const token   = S.token || localStorage.getItem('oa_token') || '';
+    const resp = await fetch(API + '/papers/generate', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: 'Bearer ' + token } : {}) },
+      body: JSON.stringify({
+        country: S.country || 'egypt', curriculum: S.curriculum || 'gov',
+        grade: S.grade || '', subject, topic, difficulty, numQuestions: numQ, lang: S.lang || 'ar',
+      }),
+      signal: ctrl.signal,
+    });
+    clearTimeout(tmr);
+    const data = await resp.json();
+    if (!resp.ok || !data.paper) throw new Error(data.error || 'لم يتم توليد الامتحان');
+    contentEl.textContent = data.paper;
+    outEl.style.display = 'block';
+    outEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch(e) {
+    const msg = e.name === 'AbortError' ? 'انتهى الوقت — جرّب عدد أسئلة أقل' : e.message;
+    if (errEl) { errEl.textContent = '❌ ' + msg; errEl.style.display = 'block'; }
+    else showToast('❌ ' + msg, 'error');
+  } finally {
+    btn.disabled = false; btn.textContent = '✨ ولّد ورقة الامتحان';
+  }
+}
+
+async function loadUploadedPapers() {
+  const wrap = ge('pp-uploaded-list');
+  if (!wrap) return;
+  try {
+    const params = new URLSearchParams({ country: S.country||'', curriculum: S.curriculum||'', subject: S.subject||'' });
+    const r = await fetch(API + '/papers/list?' + params);
+    const papers = await r.json();
+    if (!Array.isArray(papers) || !papers.length) {
+      wrap.innerHTML = '<div style="font-size:12px;color:var(--text-muted);text-align:center;padding:16px">لا توجد امتحانات رسمية مرفوعة بعد</div>';
+      return;
+    }
+    wrap.innerHTML = papers.map(p => `
+      <div style="padding:10px;background:var(--bg);border-radius:8px;margin-bottom:8px;display:flex;align-items:center;gap:10px">
+        <div style="font-size:24px">📄</div>
+        <div style="flex:1">
+          <div style="font-weight:700;font-size:13px">${esc(p.title)}</div>
+          <div style="font-size:11px;color:var(--text-muted)">${esc(p.subject)} — ${p.year||'بدون سنة'} — ${esc(p.curriculum)}</div>
+        </div>
+        <button onclick="usePaperInChat('${p._id}','${esc(p.title)}')"
+          style="background:var(--primary);border:none;color:#fff;border-radius:8px;padding:6px 10px;cursor:pointer;font-size:11px;font-family:Cairo,sans-serif">
+          💬 حلّ معي
+        </button>
+      </div>`).join('');
+  } catch(e) {
+    if (wrap) wrap.innerHTML = '<div style="font-size:12px;color:#EF4444">خطأ في التحميل: ' + esc(e.message) + '</div>';
+  }
 }
 
 function usePaperInChat(id, title) {
