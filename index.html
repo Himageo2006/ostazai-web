@@ -135,7 +135,7 @@
   </div>
   <div id="app" style="display:none"></div>
 
-  <script src="app.js?v=115"></script>
+  <script src="app.js?v=116"></script>
   <script>
     // Hide loading screen — set up observer AND check immediately (app.js may have already rendered)
     (function() {
@@ -157,11 +157,9 @@
     })();
   </script>
   <script>
-    // Unregister any old service workers so they never block updates
+    // Register service worker (for push notifications + offline caching)
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistrations().then(regs => {
-        regs.forEach(r => r.unregister());
-      });
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
     }
   </script>
 </body>

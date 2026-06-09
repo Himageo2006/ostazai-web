@@ -3601,6 +3601,25 @@ function tplHome() {
     </div>
   </div>
 
+  <!-- ═══ PWA Install Banner (shown only when browser prompts available) ═══ -->
+  <div id="pwa-banner" style="display:none;width:calc(100% - 32px);max-width:520px;margin:16px auto 0;background:linear-gradient(135deg,#3B82F622,#3B82F610);border:1px solid #3B82F640;border-radius:16px;padding:12px 16px">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="font-size:24px">📲</div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:800;color:var(--text)">${S.lang==='en'?'Install App':'تثبيت التطبيق'}</div>
+        <div style="font-size:11px;color:var(--text-muted)">${S.lang==='en'?'Faster & works offline':'أسرع ويعمل بدون إنترنت'}</div>
+      </div>
+      <button id="b-pwa-install" class="btn btn-primary btn-sm">${S.lang==='en'?'Install':'تثبيت'}</button>
+    </div>
+  </div>
+  <script>
+    (function() {
+      const b = document.getElementById('pwa-banner');
+      if (b && window._pwaPrompt) b.style.display = 'block';
+      window.addEventListener('_pwaready', () => { const bb = document.getElementById('pwa-banner'); if(bb) bb.style.display='block'; });
+    })();
+  </script>
+
   <!-- ═══ MOTIVATIONAL QUOTE ═══ -->
   <div style="width:calc(100% - 32px);max-width:520px;margin:16px auto 0;background:linear-gradient(135deg,#F59E0B18,#F59E0B08);border:1px solid #F59E0B30;border-radius:16px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start">
     <div style="font-size:24px;flex-shrink:0">💡</div>
@@ -3912,9 +3931,16 @@ function tplFlashcards() {
     <div class="fc-back">${md(fc.back || fc.answer || '')}</div>
   </div>
   <div style="text-align:center;font-size:12px;color:var(--text-muted);margin:12px 0">${t('انقر على البطاقة لقلبها',S.lang==='en'?'Tap the card to flip it':'انقر على البطاقة لقلبها')}</div>
-  <div style="display:flex;gap:12px;justify-content:center;margin-top:8px">
-    <button class="btn btn-secondary" id="fc-prev" ${S.fcIndex===0?'disabled':''}>�' السابق</button>
-    <button class="btn btn-primary"   id="fc-next" ${S.fcIndex===S.flashcards.length-1?'disabled':''}>التالي â†</button>
+  <div style="display:flex;gap:12px;justify-content:center;margin-top:8px;flex-wrap:wrap">
+    <button class="btn btn-secondary" id="fc-prev" ${S.fcIndex===0?'disabled':''}>&#x2190; ${S.lang==='en'?'Prev':'السابق'}</button>
+    <button class="btn btn-primary"   id="fc-next" ${S.fcIndex===S.flashcards.length-1?'disabled':''}>
+      ${S.lang==='en'?'Next':'التالي'} &#x2192;
+    </button>
+    ${S.fcIndex===S.flashcards.length-1?`
+    <button class="btn" style="background:#25D366;color:#fff;border:none;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;padding:10px 16px;border-radius:12px"
+      onclick="shareFlashcardSession('${esc(S.subject)}',${S.flashcards.length})">
+      📤 ${S.lang==='en'?'Share':'مشاركة'}
+    </button>`:''}
   </div>
 </div>`;
 }
@@ -3932,13 +3958,21 @@ function tplQuiz() {
 </div>`;
   if (S.quizIndex >= S.quiz.length) {
     const pct = Math.round((S.quizScore/S.quiz.length)*100);
+    const grade = pct>=80?{msg:S.lang==='en'?'Excellent! 🏆':'ممتاز! 🏆',c:'#10B981'}:pct>=60?{msg:S.lang==='en'?'Good work 👍':'أحسنت 👍',c:'#3B82F6'}:{msg:S.lang==='en'?'Keep studying 📚':'واصل المذاكرة 📚',c:'#F59E0B'};
     return `
-<div class="screen-header"><div class="screen-title">📝 نتيجة الاختبار</div></div>
+<div class="screen-header"><div class="screen-title">📝 ${S.lang==='en'?'Quiz Result':'نتيجة الاختبار'}</div></div>
 <div class="screen-body" style="text-align:center">
   <div style="font-size:64px;margin:24px 0">${pct>=80?'🏆':pct>=60?'&#x1F44D;':'📚'}</div>
-  <div style="font-size:28px;font-weight:900;color:var(--primary)">${pct}%</div>
-  <div style="font-size:16px;margin:8px 0;color:var(--text-muted)">${S.quizScore} / ${S.quiz.length} إجابة صحيحة</div>
-  <button class="btn btn-primary" id="gen-qz" style="margin-top:20px">اختبار جديد</button>
+  <div style="font-size:36px;font-weight:900;color:var(--primary)">${pct}%</div>
+  <div style="font-size:14px;font-weight:700;color:${grade.c};margin:6px 0">${grade.msg}</div>
+  <div style="font-size:16px;margin:8px 0;color:var(--text-muted)">${S.quizScore} / ${S.quiz.length} ${S.lang==='en'?'correct':'إجابة صحيحة'}</div>
+  <div style="display:flex;gap:10px;margin-top:20px;justify-content:center;flex-wrap:wrap">
+    <button class="btn btn-primary" id="gen-qz">${S.lang==='en'?'🔄 New Quiz':'🔄 اختبار جديد'}</button>
+    <button class="btn" style="background:#25D366;color:#fff;border:none;padding:10px 18px;border-radius:12px;font-family:Cairo,sans-serif;font-weight:700;cursor:pointer"
+      onclick="shareQuizResult(${S.quizScore},${S.quiz.length},'${esc(S.subject)}')">
+      📤 ${S.lang==='en'?'Share':'مشاركة'}
+    </button>
+  </div>
 </div>`;
   }
   const q = S.quiz[S.quizIndex];
@@ -4502,9 +4536,30 @@ function tplHistory() {
    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 function tplLeaderboard() {
   const medals = ['🥇','🥈','🥉'];
+  const tab = S.leaderboardTab || 'global';
+  const myRank = S.leaderboard.findIndex(u => u.isMe) + 1;
+  const myEntry = S.leaderboard.find(u => u.isMe);
   return `
-<div class="screen-header"><div class="screen-title">🏆 ${S.lang==='en'?'Leaderboard':'المتصدرون'}</div></div>
+<div class="screen-header">
+  <div class="screen-title">🏆 ${S.lang==='en'?'Leaderboard':'المتصدرون'}</div>
+  <button class="btn btn-secondary btn-sm" id="b-lb-refresh" style="min-width:auto;padding:6px 10px">🔄</button>
+</div>
 <div class="screen-body">
+  <!-- Tabs -->
+  <div style="display:flex;gap:8px;margin-bottom:16px">
+    <button onclick="switchLbTab('global')" class="btn ${tab==='global'?'btn-primary':'btn-secondary'} btn-sm" style="flex:1">${S.lang==='en'?'🌍 All Time':'🌍 الكل'}</button>
+    <button onclick="switchLbTab('weekly')" class="btn ${tab==='weekly'?'btn-primary':'btn-secondary'} btn-sm" style="flex:1">${S.lang==='en'?'📅 This Week':'📅 هذا الأسبوع'}</button>
+  </div>
+  ${myEntry?`
+  <!-- My rank -->
+  <div style="background:linear-gradient(135deg,var(--primary)22,var(--primary)11);border:2px solid var(--primary)55;border-radius:14px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px">
+    <div style="font-size:26px;min-width:36px;text-align:center">${medals[myRank-1]||(myRank?'#'+myRank:'🏅')}</div>
+    <div style="flex:1">
+      <div style="font-weight:900;color:var(--primary)">${esc(myEntry.name)} ${S.lang==='en'?'(You)':'(أنت)'}</div>
+      <div style="font-size:12px;color:var(--text-muted)">${myEntry.xp||0} XP</div>
+    </div>
+    <button class="btn btn-secondary btn-sm" onclick="shareMyRank(${myRank},${myEntry.xp||0})" style="min-width:auto">📤</button>
+  </div>`:''}
   ${S.leaderboard.length===0?`<div style="display:flex;flex-direction:column;gap:10px">${Array(6).fill(0).map(()=>`
     <div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius)">
       <div class="skeleton" style="width:32px;height:32px;border-radius:50%"></div>
@@ -4516,15 +4571,30 @@ function tplLeaderboard() {
   <div style="display:flex;flex-direction:column;gap:8px">
     ${S.leaderboard.map((u,i)=>`
     <div class="info-card" style="display:flex;align-items:center;gap:12px;${u.isMe?'border-color:var(--primary);background:var(--primary)11':''}">
-      <div style="font-size:22px;min-width:32px;text-align:center">${medals[i]||('#'+(i+1))}</div>
+      <div style="font-size:22px;min-width:36px;text-align:center">${medals[i]||('<span style="font-size:14px;font-weight:800;color:var(--text-muted)">#'+(i+1)+'</span>')}</div>
       <div style="flex:1">
         <div style="font-weight:800">${esc(u.name)}</div>
-        <div style="font-size:12px;color:var(--text-muted)">${u.xp||0} XP</div>
+        <div style="font-size:12px;color:var(--text-muted)">${u.xp||0} XP${u.weekXp?` · +${u.weekXp} ${S.lang==='en'?'this week':'هذا الأسبوع'}`:''}${u.streak?` · 🔥${u.streak}`:''}</div>
       </div>
-      ${u.isMe?(S.lang==='en'?'<span style="font-size:11px;color:var(--primary);font-weight:800">You</span>':'<span style="font-size:11px;color:var(--primary);font-weight:800">أنت</span>'):''}
+      ${u.isMe?(S.lang==='en'?'<span style="font-size:11px;color:var(--primary);font-weight:800">You ⭐</span>':'<span style="font-size:11px;color:var(--primary);font-weight:800">أنت ⭐</span>'):''}
     </div>`).join('')}
   </div>
+  <div style="text-align:center;color:var(--text-muted);font-size:11px;margin-top:16px">
+    ${S.lang==='en'?'Earn XP by chatting, quizzes & flashcards':'اكسب XP عبر المحادثات والاختبارات والبطاقات'}
+  </div>
 </div>`;
+}
+
+function switchLbTab(tab) {
+  S.leaderboardTab = tab;
+  render();
+  loadLeaderboard();
+}
+
+function shareMyRank(rank, xp) {
+  const text = `🏆 أنا في المرتبة #${rank} على أستاذ AI بـ ${xp} XP!\n🎓 تعلّم معي على ostazzai.com`;
+  const waUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+  window.open(waUrl, '_blank');
 }
 
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -19607,21 +19677,58 @@ async function toggleRecording() {
 }
 
 async function startRecording() {
+  // Try Web Speech API first (instant, no upload) — iOS/Safari support it
+  const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (SpeechRec && !navigator.mediaDevices) {
+    startSpeechRecognition();
+    return;
+  }
   try {
+    const mimeType = MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm'
+                   : MediaRecorder.isTypeSupported('audio/mp4')  ? 'audio/mp4'
+                   : '';
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     _audioChunks = [];
-    _mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+    _mediaRecorder = new MediaRecorder(stream, mimeType ? { mimeType } : {});
     _mediaRecorder.ondataavailable = e => { if (e.data.size > 0) _audioChunks.push(e.data); };
     _mediaRecorder.onstop = transcribeAudio;
     _mediaRecorder.start();
     S.recording = true;
     render();
-    showToast('🎤 جارٍ التسجيل... اضغط مرة ثانية للإيقاف', 'info');
+    showToast(S.lang==='en'?'🎤 Recording... tap again to stop':'🎤 جارٍ التسجيل... اضغط مرة ثانية للإيقاف', 'info');
     // Auto-stop after 30s
     setTimeout(() => { if (S.recording) stopRecording(); }, 30000);
   } catch(e) {
-    showToast('تعذّر الوصول للميكروفون: ' + e.message, 'error');
+    // MediaRecorder failed — try Web Speech API as fallback
+    const SpeechRecFallback = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecFallback) {
+      startSpeechRecognition();
+    } else {
+      showToast(S.lang==='en'?'Microphone access denied: '+e.message:'تعذّر الوصول للميكروفون: ' + e.message, 'error');
+    }
   }
+}
+
+let _speechRec = null;
+function startSpeechRecognition() {
+  const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRec) { showToast('الميكروفون غير مدعوم في هذا المتصفح', 'error'); return; }
+  _speechRec = new SpeechRec();
+  _speechRec.lang = S.lang === 'en' ? 'en-US' : 'ar-EG';
+  _speechRec.continuous = false;
+  _speechRec.interimResults = false;
+  _speechRec.onresult = e => {
+    const text = e.results[0][0].transcript;
+    const inp = document.getElementById('f-msg');
+    if (inp && text) { inp.value = text; inp.focus(); }
+    showToast('✅ ' + (S.lang==='en'?'Done!':'تم!'), 'success');
+  };
+  _speechRec.onerror = e => showToast('⚠️ ' + (e.error||'error'), 'error');
+  _speechRec.onend = () => { S.recording = false; render(); };
+  _speechRec.start();
+  S.recording = true;
+  render();
+  showToast(S.lang==='en'?'🎤 Listening...':'🎤 جارٍ الاستماع...', 'info');
 }
 
 function stopRecording() {
@@ -19629,6 +19736,7 @@ function stopRecording() {
     _mediaRecorder.stop();
     _mediaRecorder.stream.getTracks().forEach(t => t.stop());
   }
+  if (_speechRec) { try { _speechRec.stop(); } catch {} _speechRec = null; }
   S.recording = false;
   render();
 }
@@ -19951,10 +20059,11 @@ function loadStats() {
 }
 
 async function loadLeaderboard() {
+  const period = S.leaderboardTab || 'global';
   try {
-    const d = await req('/leaderboard?period=global');
+    const d = await req(`/leaderboard?period=${period}`);
     S.leaderboard = (d.leaders || []).map(u => ({
-      name: u.name, xp: u.xp, isMe: u.isMe || false,
+      name: u.name, xp: u.xp, weekXp: u.weekXp||0, streak: u.streak||0, isMe: u.isMe || false,
     }));
     render();
   } catch { render(); }
@@ -20167,10 +20276,13 @@ function bind() {
       if (btn) { btn.disabled=false; btn.textContent='✅ إنشاء الكود'; }
     }
   });
-  ge('b-push')     && ge('b-push').addEventListener('click', requestPushPermission);
-  ge('b-push-off') && ge('b-push-off').addEventListener('click', disablePushNotifications);
-  ge('tb-share') && ge('tb-share').addEventListener('click', shareConversation);
+  ge('b-push')       && ge('b-push').addEventListener('click', requestPushPermission);
+  ge('b-push-off')   && ge('b-push-off').addEventListener('click', disablePushNotifications);
+  ge('b-lb-refresh') && ge('b-lb-refresh').addEventListener('click', () => { S.leaderboard=[]; render(); loadLeaderboard(); });
+  ge('tb-share')     && ge('tb-share').addEventListener('click', shareConversation);
   ge('b-admin-reload') && ge('b-admin-reload').addEventListener('click', () => { adminData=null; loadAdminData(); });
+  ge('b-share-stats') && ge('b-share-stats').addEventListener('click', shareStats);
+  ge('b-pwa-install') && ge('b-pwa-install').addEventListener('click', () => { if(window._pwaPrompt){window._pwaPrompt.prompt();window._pwaPrompt=null;} });
 
   // ── Papers screen ─────────────────────────────────────────────────────────
   if (ge('b-gen-paper')) loadUploadedPapers();
@@ -21359,7 +21471,7 @@ function tplOnboarding() {
 
 function finishOnboarding() {
   localStorage.setItem('oa_onboarded', '1');
-  S.screen = 'chat';
+  S.screen = 'home';
   render();
 }
 
@@ -21497,6 +21609,8 @@ async function init() {
 
   // Sync XP every 5 minutes
   setInterval(syncXP, 5 * 60 * 1000);
+  // Auto-refresh leaderboard every 2 minutes (only if on that screen)
+  setInterval(() => { if (S.screen === 'leaderboard') loadLeaderboard(); }, 2 * 60 * 1000);
   initPushNotifications();
   initStudyTimer();
 
@@ -21523,13 +21637,48 @@ async function init() {
   window.addEventListener('beforeinstallprompt', e => {
     e.preventDefault();
     window._pwaPrompt = e;
-    // Show install button if on profile screen
-    const btn = ge('b-pwa-install');
-    if (btn) { btn.style.display = 'block'; }
+    // Show banner if currently on home screen, or fire event for next render
+    const banner = ge('pwa-banner');
+    if (banner) banner.style.display = 'block';
+    window.dispatchEvent(new Event('_pwaready'));
   });
 }
 
 init();
+
+/* ════════════════════════════════════════════════════════════
+   SHARE & WHATSAPP
+   ════════════════════════════════════════════════════════════ */
+function shareStats() {
+  const st = S.stats || {};
+  const name = S.user?.name?.split(' ')[0] || 'طالب';
+  const text = `📊 تقدّمي على أستاذ AI\n` +
+    `👤 ${name}\n` +
+    `⭐ ${st.xp||0} XP · المستوى ${Math.floor((st.xp||0)/500)+1}\n` +
+    `🔥 ${st.streak||0} يوم streak\n` +
+    `💬 ${st.totalChats||0} محادثة · 📝 ${st.quizzesDone||0} اختبار\n\n` +
+    `🎓 تعلّم معي مجاناً → ostazzai.com`;
+  if (navigator.share) {
+    navigator.share({ title: 'تقدّمي على أستاذ AI', text });
+  } else {
+    const waUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+    window.open(waUrl, '_blank');
+  }
+}
+
+function shareQuizResult(score, total, subject) {
+  const pct = Math.round((score/total)*100);
+  const emoji = pct>=90?'🏆':pct>=70?'🎯':pct>=50?'👍':'💪';
+  const text = `${emoji} نتيجتي في اختبار ${subject||'أستاذ AI'}: ${score}/${total} (${pct}%)\n🎓 حلّ الاختبارات مجاناً → ostazzai.com`;
+  const waUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+  window.open(waUrl, '_blank');
+}
+
+function shareFlashcardSession(subject, count) {
+  const text = `🗂️ راجعت ${count} بطاقة في ${subject||'أستاذ AI'} اليوم!\n🎓 ابدأ المذاكرة مجاناً → ostazzai.com`;
+  const waUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+  window.open(waUrl, '_blank');
+}
 
 /* ================================================================
    IGCSE — Share Topic
@@ -21793,13 +21942,17 @@ function tplIGCSEMockExam() {
         <div style="font-size:11px;color:#10B981;margin-top:2px">✓ Correct: ${q.opts[q.correct]}</div>
       </div>`).join('')}
     </div>`:''}
-    <div style="display:flex;gap:10px">
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
       <button onclick="S.igcseMockExam=null;render()"
-        style="flex:1;padding:13px;background:linear-gradient(135deg,#7C3AED,#5B21B6);color:#fff;border:none;border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:13px">
+        style="flex:1;min-width:120px;padding:13px;background:linear-gradient(135deg,#7C3AED,#5B21B6);color:#fff;border:none;border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:13px">
         🔁 New Mock Exam
       </button>
+      <button onclick="shareQuizResult(${score},${total},'IGCSE Mock')"
+        style="flex:1;min-width:100px;padding:13px;background:#25D366;color:#fff;border:none;border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:13px">
+        📤 Share
+      </button>
       <button onclick="S.igcseView='list';S.igcseMockExam=null;render()"
-        style="flex:1;padding:13px;background:var(--bg-card);border:1px solid var(--border);color:var(--text);border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:13px">
+        style="flex:1;min-width:120px;padding:13px;background:var(--bg-card);border:1px solid var(--border);color:var(--text);border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:13px">
         📚 Back to Study
       </button>
     </div>
