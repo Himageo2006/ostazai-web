@@ -20105,108 +20105,91 @@ function loadStats() {
    STUDY HUB — open a study tool for a subject+chapter
    ════════════════════════════════════════════════════════════ */
 function openLessonTool(tool, subject, chapter) {
-  // Mark chapter as visited
-  if (chapter && S.lessonSubject) {
-    const doneKey = `oa_chap_done_${S.curriculum}_${subject}`;
-    let done = {};
-    try { done = JSON.parse(localStorage.getItem(doneKey)||'{}'); } catch {}
-    const idx = S.lessonSubject.topics.indexOf(chapter);
-    if (idx >= 0) { done[idx] = 1; localStorage.setItem(doneKey, JSON.stringify(done)); }
-  }
-
-  // Set subject context
-  if (subject) S.subject = subject;
-  const context = chapter ? `${subject} — ${chapter}` : subject;
+  // Set subject context — use chapter as topic if provided
+  const topic = chapter || subject;
+  S.subject = subject || S.subject;
 
   switch (tool) {
     case 'chat':
       S.screen = 'chat';
-      // Pre-fill with chapter context
-      if (chapter) {
-        S.messages = [];
-        setTimeout(() => {
-          const inp = document.getElementById('f-msg');
-          if (inp) {
-            inp.value = `اشرح لي درس "${chapter}" في مادة ${subject}`;
-            inp.focus();
-          }
-        }, 200);
-      }
+      S.messages = [];
       render();
+      setTimeout(() => {
+        const inp = document.getElementById('f-msg');
+        if (inp) {
+          inp.value = chapter
+            ? `اشرح لي درس "${chapter}" في مادة ${subject} بالتفصيل مع أمثلة`
+            : `اشرح لي مادة ${subject}`;
+          inp.focus();
+        }
+      }, 150);
       break;
+
     case 'summary':
       S.screen = 'summary';
       S.summaryText = '';
+      S.summaryLoading = false;
       render();
-      setTimeout(() => {
-        const topicInp = document.getElementById('sum-topic');
-        if (topicInp && chapter) {
-          topicInp.value = chapter || subject;
-          // Auto-generate
-          document.getElementById('b-gen-sum')?.click();
-        }
-      }, 200);
-      break;
-    case 'quiz':
-      S.screen = 'quiz';
-      S.quiz = [];
-      S.quizIndex = 0;
-      S.quizScore = 0;
-      S.quizAnswer = null;
-      render();
-      // Auto-generate quiz
+      // Auto-generate after render
       setTimeout(async () => {
+        const topicInp = document.getElementById('sum-topic');
+        if (topicInp) topicInp.value = topic;
         try {
-          showToast('⏳ جارٍ توليد الاختبار...', 'info');
+          S.summaryLoading = true; render();
           const { stage, grade, curriculum } = gradeToAPI();
-          const d = await req('/chat', 'POST', {
-            message: `اولد 10 اسئله اختيار من متعدد عن "${chapter||subject}" في مادة ${subject}. الإجابة بصيغة JSON: [{question,options:["أ","ب","ج","د"],correct:0,explanation}]`,
-            subject, stage, grade, curriculum,
+          const d = await req('/pdf/summary', 'POST', {
+            subject, topic, grade, stage, curriculum, country: S.curriculum, type: 'summary',
           });
-          const txt = d.reply || d.message || '';
-          const m = txt.match(/\[[\s\S]*\]/);
-          if (m) {
-            const qs = JSON.parse(m[0]);
-            S.quiz = qs.map(q => ({
-              question: q.question,
-              options: q.options,
-              correct: q.correct,
-              explanation: q.explanation || '',
-            }));
-            S.quizIndex = 0; S.quizScore = 0; S.quizAnswer = null;
-            render();
-            showToast('✅ تم توليد الاختبار!', 'success');
-          } else {
-            showToast('لم يتم توليد الاختبار — حاول مجدداً', 'error');
-          }
-        } catch(e) { showToast('❌ ' + e.message, 'error'); }
-      }, 300);
+          S.summaryText = d.html || d.content || d.text || '';
+          S.summaryLoading = false;
+          render();
+          showToast('✅ تم توليد الملخص!', 'success');
+        } catch(e) {
+          S.summaryLoading = false; render();
+          showToast('❌ ' + e.message, 'error');
+        }
+      }, 150);
       break;
-    case 'flashcards':
-      S.screen = 'flashcards';
-      S.flashcards = [];
-      S.fcIndex = 0;
-      S.fcFlipped = false;
+
+    case 'quiz':
+      S.subject = topic; // quiz uses S.subject as topic
+      S.screen = 'quiz';
+      S.quiz = []; S.quizIndex = 0; S.quizScore = 0; S.quizAnswer = null;
       render();
-      setTimeout(() => doGenerateFlashcards(chapter ? `${subject}: ${chapter}` : subject), 300);
+      setTimeout(() => genQuiz(), 150);
       break;
+
+    case 'flashcards':
+      S.subject = topic; // flashcards uses S.subject as topic
+      S.screen = 'flashcards';
+      S.flashcards = []; S.fcIndex = 0; S.fcFlipped = false;
+      render();
+      setTimeout(() => genFlashcards(), 150);
+      break;
+
     case 'mindmap':
       S.screen = 'mindmap';
       S.mindMapData = null;
-      S.mindMapTopic = chapter || subject;
+      S.mindMapTopic = topic;
       render();
-      setTimeout(() => { document.getElementById('b-gen-mm')?.click(); }, 300);
+      setTimeout(async () => {
+        const mmInp = document.getElementById('mm-topic');
+        if (mmInp) mmInp.value = topic;
+        document.getElementById('b-gen-mm')?.click();
+      }, 150);
       break;
+
     case 'pdf':
       S.screen = 'summary';
+      S.summaryText = ''; S.summaryLoading = false;
       render();
-      setTimeout(() => {
+      setTimeout(async () => {
         const ti = document.getElementById('sum-topic');
-        if (ti) ti.value = chapter || subject;
+        if (ti) ti.value = topic;
         const pt = document.getElementById('pdf-type');
         if (pt) pt.value = 'summary';
         exportPDF();
-      }, 300);
+      }, 150);
       break;
   }
 }
@@ -20297,16 +20280,8 @@ function navTo(s) {
 
 // ── Function aliases (fix undefined calls) ───────────────────────────────
 function doGenerateFlashcards(customTopic) {
-  if (customTopic) {
-    // Temporarily set subject to the custom topic then generate
-    const prevSubj = S.subject;
-    S.subject = customTopic;
-    genFlashcards().then ? genFlashcards() : genFlashcards();
-    // restore after a tick (genFlashcards reads S.subject synchronously at start)
-    setTimeout(() => { /* subject was already read, no need to restore */ }, 50);
-  } else {
-    genFlashcards();
-  }
+  if (customTopic) S.subject = customTopic;
+  genFlashcards();
 }
 function doGenerateQuiz()       { genQuiz(); }
 function doSend()               { sendMsg(); }
@@ -20349,7 +20324,7 @@ function bind() {
         S.lessonView = 'lesson';
         S.lessonContent = '';
         S.lessonLoading = false;
-        S.lessonResource = 'tools'; // show tools by default
+        S.lessonResource = 'ministry';
         // Mark chapter as visited
         const doneKey = `oa_chap_done_${S.curriculum}_${S.lessonSubject.name}`;
         let done = {};
