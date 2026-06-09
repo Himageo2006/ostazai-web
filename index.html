@@ -108,6 +108,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
+  <!-- KaTeX — math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 
   <!-- Inline critical CSS for loading screen -->
   <style>
@@ -131,7 +135,7 @@
   </div>
   <div id="app" style="display:none"></div>
 
-  <script src="app.js?v=103"></script>
+  <script src="app.js?v=104"></script>
   <script>
     // Hide loading screen — set up observer AND check immediately (app.js may have already rendered)
     (function() {

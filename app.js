@@ -205,8 +205,19 @@ const esc = s  => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/
 
 function md(t) {
   if (!t) return '';
-  // Escape HTML first, then apply markdown
-  let s = t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  // ── 1. Save LaTeX blocks before HTML escaping ──────────────────
+  const saved = [];
+  let s = t;
+  // Block math: $$...$$
+  s = s.replace(/\$\$([\s\S]+?)\$\$/g, (_, math) => {
+    saved.push(`$$${math}$$`); return `\x00LATEX${saved.length-1}\x00`;
+  });
+  // Inline math: $...$  (not empty, no newline inside)
+  s = s.replace(/\$([^\$\n]{1,200}?)\$/g, (_, math) => {
+    saved.push(`$${math}$`); return `\x00LATEX${saved.length-1}\x00`;
+  });
+  // ── 2. Escape HTML ─────────────────────────────────────────────
+  s = s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   // Code blocks
   s = s.replace(/```[\w]*\n?([\s\S]*?)```/g,
     '<pre style="background:#0F172A;padding:12px;border-radius:8px;overflow-x:auto;margin:8px 0;direction:ltr;font-size:13px"><code>$1</code></pre>');
@@ -232,7 +243,23 @@ function md(t) {
   // Paragraphs
   s = s.replace(/\n\n/g, '</p><p style="margin:6px 0">');
   s = s.replace(/\n/g, '<br>');
+  // ── 3. Restore LaTeX expressions (KaTeX auto-render will handle them) ──
+  s = s.replace(/\x00LATEX(\d+)\x00/g, (_, i) => saved[+i]);
   return s;
+}
+
+// Called after any innerHTML update that may contain math
+function renderMath(el) {
+  if (!el || typeof renderMathInElement === 'undefined') return;
+  try {
+    renderMathInElement(el, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true  },
+        { left: '$',  right: '$',  display: false },
+      ],
+      throwOnError: false,
+    });
+  } catch(e) {}
 }
 
 function showToast(msg, type='info') {
@@ -319,6 +346,10 @@ function render() {
   }
   saveLocal();
   bind();
+  // Render math in chat after DOM is ready
+  if (S.screen === 'chat') {
+    requestAnimationFrame(() => renderMath(ge('chat-msgs')));
+  }
 }
 function screenContent() {
   const map = {
