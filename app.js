@@ -20663,7 +20663,7 @@ function tplPapers() {
         <span style="font-weight:900;font-size:14px">📄 ${isEn ? 'Your Exam Paper' : 'ورقة الامتحان'}</span>
         <div style="display:flex;gap:8px">
           <button onclick="window.print()" style="background:none;border:1px solid var(--border);border-radius:8px;padding:4px 10px;cursor:pointer;font-size:12px;color:var(--text);font-family:Cairo,sans-serif">🖨️ ${isEn ? 'Print' : 'طباعة'}</button>
-          <button onclick="navigator.clipboard?.writeText(ge('paper-content')?.textContent||'').then(()=>showToast('تم النسخ ✅','success'))" style="background:none;border:1px solid var(--border);border-radius:8px;padding:4px 10px;cursor:pointer;font-size:12px;color:var(--text);font-family:Cairo,sans-serif">📋 ${isEn ? 'Copy' : 'نسخ'}</button>
+          <button onclick="navigator.clipboard?.writeText(ge('paper-content')?.innerText||'').then(()=>showToast('تم النسخ ✅','success'))" style="background:none;border:1px solid var(--border);border-radius:8px;padding:4px 10px;cursor:pointer;font-size:12px;color:var(--text);font-family:Cairo,sans-serif">📋 ${isEn ? 'Copy' : 'نسخ'}</button>
         </div>
       </div>
       <div id="paper-content" style="font-size:13px;line-height:1.9;white-space:pre-wrap;font-family:Cairo,monospace"></div>
@@ -20880,7 +20880,8 @@ async function genPaper() {
     clearTimeout(tmr);
     const data = await resp.json();
     if (!resp.ok || !data.paper) throw new Error(data.error || 'لم يتم توليد الامتحان');
-    contentEl.textContent = data.paper;
+    contentEl.innerHTML = md(data.paper);
+    renderMath(contentEl);
     outEl.style.display = 'block';
     outEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch(e) {
