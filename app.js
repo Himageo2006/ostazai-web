@@ -3564,7 +3564,7 @@ function tplHome() {
   const greeting = hr<12 ? 'صباح الخير' : hr<17 ? 'مساء الخير' : 'مساء النور';
 
   return `
-<div style="display:flex;flex-direction:column;align-items:center;padding:0 0 80px;min-height:60vh">
+<div style="display:flex;flex-direction:column;align-items:center;padding:0 0 20px;min-height:60vh">
 
   <!-- ═══ HERO HEADER ═══ -->
   <div style="width:100%;background:linear-gradient(135deg,#1e3a8a 0%,#4c1d95 50%,#1e3a8a 100%);padding:16px 20px 18px;position:relative;overflow:hidden;margin-bottom:0">
@@ -3616,13 +3616,7 @@ function tplHome() {
     })();
   </script>
 
-  <!-- ═══ MOTIVATIONAL QUOTE ═══ -->
-  <div style="width:calc(100% - 32px);max-width:520px;margin:8px auto 0;background:linear-gradient(135deg,#F59E0B18,#F59E0B08);border:1px solid #F59E0B30;border-radius:12px;padding:8px 12px;display:flex;gap:8px;align-items:flex-start">
-    <div style="font-size:18px;flex-shrink:0">💡</div>
-    <div>
-      <div style="font-size:11px;font-weight:700;color:var(--text);line-height:1.5">"${quote.text}" — <span style="color:#F59E0B;font-weight:800">${quote.author}</span></div>
-    </div>
-  </div>
+  <!-- quote hidden on mobile -->
 
   <!-- ═══ CURRICULUM SELECTOR ═══ -->
   <div style="width:calc(100% - 24px);max-width:520px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:10px 12px 8px;margin:6px auto 0;box-shadow:0 4px 24px #0003">
@@ -3722,39 +3716,10 @@ function tplHome() {
         <div style="font-size:9px;color:#fecaca">تحقق من نفسك</div>
       </button>
 
-      <button onclick="S.screen='summary';render()"
-        style="display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 6px;border-radius:14px;border:none;
-               background:linear-gradient(135deg,#7C3AED,#8B5CF6);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #7C3AED30"
-        onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
-        <div style="font-size:22px">📋</div>
-        <div style="font-size:11px;font-weight:900;color:#fff">ملخص</div>
-        <div style="font-size:9px;color:#ddd6fe">نقاط رئيسية</div>
-      </button>
-
     </div>
   </div>
 
-  <!-- ═══ EXTRA TOOLS ROW ═══ -->
-  <div style="width:calc(100% - 32px);max-width:520px;margin:8px auto 0;display:flex;gap:8px">
-    <button onclick="S.screen='stats';render()"
-      style="flex:1;display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:16px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
-      onmouseover="this.style.borderColor='#3B82F6';this.style.background='#3B82F608'" onmouseout="this.style.borderColor='';this.style.background='var(--bg-card)'">
-      <span style="font-size:22px">📊</span>
-      <div style="text-align:right">
-        <div style="font-size:12px;font-weight:900;color:var(--text)">الإحصائيات</div>
-        <div style="font-size:10px;color:var(--text-muted)">تقدمك ونشاطك</div>
-      </div>
-    </button>
-    <button onclick="S.screen='pomodoro';render()"
-      style="flex:1;display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:16px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
-      onmouseover="this.style.borderColor='#EF4444';this.style.background='#EF444408'" onmouseout="this.style.borderColor='';this.style.background='var(--bg-card)'">
-      <span style="font-size:22px">⏱️</span>
-      <div style="text-align:right">
-        <div style="font-size:12px;font-weight:900;color:var(--text)">مؤقت بومودورو</div>
-        <div style="font-size:10px;color:var(--text-muted)">تنظيم وقت المذاكرة</div>
-      </div>
-    </button>
-  </div>
+  <!-- extra tools moved to المزيد tab -->
 
   <!-- ═══ TODAY'S PROGRESS ═══ -->
   ${(S.studyMinutesToday > 0 || (S.stats && S.stats.totalChats > 0)) ? `
