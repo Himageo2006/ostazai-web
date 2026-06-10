@@ -3567,35 +3567,31 @@ function tplHome() {
 <div style="display:flex;flex-direction:column;align-items:center;padding:0 0 80px;min-height:60vh">
 
   <!-- ═══ HERO HEADER ═══ -->
-  <div style="width:100%;background:linear-gradient(135deg,#1e3a8a 0%,#4c1d95 50%,#1e3a8a 100%);background-size:200% 200%;padding:28px 20px 32px;position:relative;overflow:hidden;margin-bottom:0">
-    <!-- Decorative circles -->
+  <div style="width:100%;background:linear-gradient(135deg,#1e3a8a 0%,#4c1d95 50%,#1e3a8a 100%);padding:16px 20px 18px;position:relative;overflow:hidden;margin-bottom:0">
     <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:#ffffff08"></div>
-    <div style="position:absolute;bottom:-50px;left:-30px;width:150px;height:150px;border-radius:50%;background:#ffffff06"></div>
-    <div style="position:absolute;top:20px;left:30%;width:60px;height:60px;border-radius:50%;background:#ffffff05"></div>
     <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center">
-      <div style="font-size:13px;color:#93c5fd;font-weight:700;margin-bottom:8px;letter-spacing:1px">${greeting} ☀️</div>
-      <div style="font-size:26px;font-weight:900;color:#fff;margin-bottom:4px">
+      <div style="font-size:11px;color:#93c5fd;font-weight:700;margin-bottom:2px;letter-spacing:1px">${greeting} ☀️</div>
+      <div style="font-size:20px;font-weight:900;color:#fff;margin-bottom:2px">
         ${userName ? userName + ' 👋' : 'أستاذ AI 🎓'}
       </div>
-      <div style="font-size:12px;color:#c4b5fd;margin-bottom:20px">${curData.label} · ${gradeData.label}</div>
-
+      <div style="font-size:10px;color:#c4b5fd;margin-bottom:10px">${curData.label} · ${gradeData.label}</div>
       <!-- Stats Strip -->
-      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
-        <div style="background:#ffffff15;border:1px solid #ffffff20;border-radius:14px;padding:10px 16px;text-align:center;min-width:70px">
-          <div style="font-size:20px;font-weight:900;color:#FCD34D">${streak>0?'🔥':'💤'} ${streak}</div>
-          <div style="font-size:10px;color:#c4b5fd;margin-top:2px">يوم streak</div>
+      <div style="display:flex;gap:8px;justify-content:center">
+        <div style="background:#ffffff15;border:1px solid #ffffff20;border-radius:12px;padding:6px 12px;text-align:center">
+          <div style="font-size:14px;font-weight:900;color:#FCD34D">${streak>0?'🔥':'💤'} ${streak}</div>
+          <div style="font-size:9px;color:#c4b5fd">streak</div>
         </div>
-        <div style="background:#ffffff15;border:1px solid #ffffff20;border-radius:14px;padding:10px 16px;text-align:center;min-width:70px">
-          <div style="font-size:20px;font-weight:900;color:#6EE7B7">✅ ${doneCnt}</div>
-          <div style="font-size:10px;color:#c4b5fd;margin-top:2px">موضوع مكتمل</div>
+        <div style="background:#ffffff15;border:1px solid #ffffff20;border-radius:12px;padding:6px 12px;text-align:center">
+          <div style="font-size:14px;font-weight:900;color:#6EE7B7">✅ ${doneCnt}</div>
+          <div style="font-size:9px;color:#c4b5fd">مكتمل</div>
         </div>
-        <div style="background:#ffffff15;border:1px solid #ffffff20;border-radius:14px;padding:10px 16px;text-align:center;min-width:70px">
-          <div style="font-size:20px;font-weight:900;color:#FCA5A5">🏆 ${mastered}</div>
-          <div style="font-size:10px;color:#c4b5fd;margin-top:2px">محترف</div>
+        <div style="background:#ffffff15;border:1px solid #ffffff20;border-radius:12px;padding:6px 12px;text-align:center">
+          <div style="font-size:14px;font-weight:900;color:#FCA5A5">🏆 ${mastered}</div>
+          <div style="font-size:9px;color:#c4b5fd">محترف</div>
         </div>
-        <div style="background:#ffffff15;border:1px solid #ffffff20;border-radius:14px;padding:10px 16px;text-align:center;min-width:70px">
-          <div style="font-size:20px;font-weight:900;color:#93C5FD">💬 ${chatCnt}</div>
-          <div style="font-size:10px;color:#c4b5fd;margin-top:2px">محادثة</div>
+        <div style="background:#ffffff15;border:1px solid #ffffff20;border-radius:12px;padding:6px 12px;text-align:center">
+          <div style="font-size:14px;font-weight:900;color:#93C5FD">💬 ${chatCnt}</div>
+          <div style="font-size:9px;color:#c4b5fd">محادثة</div>
         </div>
       </div>
     </div>
@@ -3629,36 +3625,36 @@ function tplHome() {
   </div>
 
   <!-- ═══ CURRICULUM SELECTOR ═══ -->
-  <div style="width:calc(100% - 32px);max-width:520px;background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:12px 14px 10px;margin:8px auto 0;box-shadow:0 4px 24px #0003">
-    <div style="font-size:12px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:14px">🌍 بلدك ومرحلتك الدراسية</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+  <div style="width:calc(100% - 24px);max-width:520px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:10px 12px 8px;margin:6px auto 0;box-shadow:0 4px 24px #0003">
+    <div style="font-size:10px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:8px">🌍 بلدك ومرحلتك الدراسية</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
       <div>
         <label style="font-size:11px;font-weight:700;color:var(--text-muted);display:block;margin-bottom:5px">الدولة / المنهج</label>
         <select id="home-country" onchange="homeUpdateCountry(this.value)"
-          style="width:100%;padding:10px 12px;border-radius:12px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:13px;font-family:Cairo,sans-serif;font-weight:700;cursor:pointer">
+          style="width:100%;padding:7px 10px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:12px;font-family:Cairo,sans-serif;font-weight:700;cursor:pointer">
           ${countryOpts}
         </select>
       </div>
       <div>
-        <label style="font-size:11px;font-weight:700;color:var(--text-muted);display:block;margin-bottom:5px">المرحلة الدراسية</label>
+        <label style="font-size:10px;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px">المرحلة الدراسية</label>
         <select id="home-grade" onchange="homeUpdateGrade(this.value)"
-          style="width:100%;padding:10px 12px;border-radius:12px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:13px;font-family:Cairo,sans-serif;font-weight:700;cursor:pointer">
+          style="width:100%;padding:7px 10px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:12px;font-family:Cairo,sans-serif;font-weight:700;cursor:pointer">
           ${gradeOpts}
         </select>
       </div>
     </div>
     <div style="display:grid;grid-template-columns:1fr auto;gap:10px">
       <button onclick="S.screen='lessons';S.lessonView='subjects';S.lessonSubject=null;render()"
-        style="padding:13px;border-radius:14px;border:none;background:linear-gradient(135deg,#2563EB,#7C3AED);
-               color:#fff;font-size:15px;font-weight:900;font-family:Cairo,sans-serif;
+        style="padding:10px;border-radius:12px;border:none;background:linear-gradient(135deg,#2563EB,#7C3AED);
+               color:#fff;font-size:13px;font-weight:900;font-family:Cairo,sans-serif;
                cursor:pointer;box-shadow:0 4px 16px #2563EB44;transition:.2s"
-        onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 22px #2563EB66'"
-        onmouseout="this.style.transform='';this.style.boxShadow='0 4px 16px #2563EB44'">
+        onmouseover="this.style.transform='translateY(-2px)'"
+        onmouseout="this.style.transform=''">
         📚 ابدأ المذاكرة الآن
       </button>
       <button onclick="S.screen='chat';render()"
-        style="padding:13px 14px;border-radius:14px;border:1.5px solid var(--border);background:var(--bg-card);
-               color:var(--text);font-size:15px;font-weight:900;font-family:Cairo,sans-serif;cursor:pointer;transition:.2s"
+        style="padding:10px 12px;border-radius:12px;border:1.5px solid var(--border);background:var(--bg-card);
+               color:var(--text);font-size:13px;font-weight:900;font-family:Cairo,sans-serif;cursor:pointer;transition:.2s"
         title="محادثة مباشرة مع AI">
         💬
       </button>
