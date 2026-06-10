@@ -21670,35 +21670,52 @@ function setLoadingMsg(msg) {
 }
 
 async function init() {
-  loadLocal();
-  document.body.classList.toggle('light', S.darkMode);
-  S.screen = 'loading'; render();
-
-  setLoadingMsg('جارٍ التحقق من حسابك...');
-  await new Promise(r => setTimeout(r, 400));
-
-  if (S.token) {
-    try {
-      setLoadingMsg('جارٍ تحميل بياناتك...');
-      const d = await Promise.race([
-        req('/auth/me'),
-        new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 6000))
-      ]);
-      S.user = d.user || d;
-      setLoadingMsg('مرحباً بك! 👋');
-      await new Promise(r => setTimeout(r, 300));
-      S.screen = localStorage.getItem('oa_onboarded') ? 'home' : 'onboarding';
-    } catch {
+  // Safety: force login screen after 8 seconds no matter what
+  const safetyTimer = setTimeout(() => {
+    if (S.screen === 'loading') {
       S.token = null; S.user = null;
       S.screen = 'login';
+      render();
     }
-  } else if (S.user) {
-    S.screen = 'home';
-  } else {
-    S.screen = 'login';
-  }
+  }, 8000);
 
-  render();
+  try {
+    loadLocal();
+    document.body.classList.toggle('light', S.darkMode);
+    S.screen = 'loading'; render();
+
+    setLoadingMsg('جارٍ التحقق من حسابك...');
+    await new Promise(r => setTimeout(r, 400));
+
+    if (S.token) {
+      try {
+        setLoadingMsg('جارٍ تحميل بياناتك...');
+        const d = await Promise.race([
+          req('/auth/me'),
+          new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 5000))
+        ]);
+        S.user = d.user || d;
+        setLoadingMsg('مرحباً بك! 👋');
+        await new Promise(r => setTimeout(r, 300));
+        S.screen = localStorage.getItem('oa_onboarded') ? 'home' : 'onboarding';
+      } catch {
+        S.token = null; S.user = null;
+        S.screen = 'login';
+      }
+    } else if (S.user) {
+      S.screen = 'home';
+    } else {
+      S.screen = 'login';
+    }
+
+    render();
+  } catch(e) {
+    console.error('Init error:', e);
+    S.screen = 'login';
+    render();
+  } finally {
+    clearTimeout(safetyTimer);
+  }
 
   const urlParams = new URLSearchParams(window.location.search);
 
