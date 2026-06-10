@@ -20300,6 +20300,17 @@ function bind() {
   });
   // Render Google Sign-In button
   if (ge('g-btn')) {
+    // Patch window.chrome so Google GIS doesn't block rendering in WebView
+    if (!window.chrome) {
+      try { window.chrome = { runtime:{}, app:{isInstalled:false}, loadTimes:function(){}, csi:function(){} }; } catch(e){}
+    }
+    function _showGoogleFallback() {
+      const c = ge('g-btn');
+      if (!c) return;
+      const nonce = Math.random().toString(36).slice(2,12);
+      const oauthUrl = 'https://accounts.google.com/o/oauth2/v2/auth?response_type=id_token&client_id=' + GOOGLE_CLIENT_ID + '&redirect_uri=https%3A%2F%2Fostazzai.com&scope=openid%20email%20profile&nonce=' + nonce + '&prompt=select_account';
+      c.innerHTML = '<button onclick="window.open(\'' + oauthUrl + '\',\'_blank\')" style="display:flex;align-items:center;justify-content:center;gap:10px;width:280px;height:44px;border:1px solid #dadce0;border-radius:4px;background:#fff;cursor:pointer;font-size:14px;font-weight:600;font-family:Arial,sans-serif;color:#3c4043"><svg width="20" height="20" viewBox="0 0 48 48"><path fill="#4285F4" d="M47.53 24.56c0-1.68-.15-3.3-.43-4.86H24.5v9.19h12.93a11.06 11.06 0 01-4.8 7.26v6.03h7.77c4.55-4.19 7.13-10.36 7.13-17.62z"/><path fill="#34A853" d="M24.5 48c6.49 0 11.93-2.15 15.9-5.82l-7.77-6.03c-2.15 1.44-4.9 2.29-8.13 2.29-6.25 0-11.54-4.22-13.43-9.89H3.08v6.23A24 24 0 0024.5 48z"/><path fill="#FBBC05" d="M11.07 28.55A14.37 14.37 0 0110.3 24c0-1.58.27-3.12.77-4.55v-6.23H3.08A24 24 0 000 24c0 3.87.93 7.54 2.57 10.78l8.5-6.23z"/><path fill="#EA4335" d="M24.5 9.57c3.52 0 6.68 1.21 9.16 3.58l6.87-6.87C36.42 2.39 30.99 0 24.5 0A24 24 0 003.08 13.22l8.5 6.23C13.46 13.78 18.75 9.57 24.5 9.57z"/></svg>' + (S.lang==='ar'?'تسجيل الدخول بـ Google':'Sign in with Google') + '</button>';
+    }
     function _renderGBtn() {
       const c = ge('g-btn');
       if (!c) return;
@@ -20307,6 +20318,8 @@ function bind() {
         google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, callback: window.handleGoogleCredential });
         c.innerHTML = '';
         google.accounts.id.renderButton(c, { theme:'outline', size:'large', width:280, locale: S.lang==='ar'?'ar':'en' });
+        // If GIS blocked rendering in WebView, show our custom button instead
+        setTimeout(function(){ if(ge('g-btn') && !ge('g-btn').querySelector('iframe,div')) _showGoogleFallback(); }, 2500);
       } else {
         setTimeout(_renderGBtn, 800);
       }
