@@ -3621,16 +3621,15 @@ function tplHome() {
   </script>
 
   <!-- ═══ MOTIVATIONAL QUOTE ═══ -->
-  <div style="width:calc(100% - 32px);max-width:520px;margin:16px auto 0;background:linear-gradient(135deg,#F59E0B18,#F59E0B08);border:1px solid #F59E0B30;border-radius:16px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start">
-    <div style="font-size:24px;flex-shrink:0">💡</div>
+  <div style="width:calc(100% - 32px);max-width:520px;margin:8px auto 0;background:linear-gradient(135deg,#F59E0B18,#F59E0B08);border:1px solid #F59E0B30;border-radius:12px;padding:8px 12px;display:flex;gap:8px;align-items:flex-start">
+    <div style="font-size:18px;flex-shrink:0">💡</div>
     <div>
-      <div style="font-size:13px;font-weight:700;color:var(--text);line-height:1.6">"${quote.text}"</div>
-      <div style="font-size:11px;color:#F59E0B;font-weight:800;margin-top:4px">— ${quote.author}</div>
+      <div style="font-size:11px;font-weight:700;color:var(--text);line-height:1.5">"${quote.text}" — <span style="color:#F59E0B;font-weight:800">${quote.author}</span></div>
     </div>
   </div>
 
   <!-- ═══ CURRICULUM SELECTOR ═══ -->
-  <div style="width:calc(100% - 32px);max-width:520px;background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:18px 18px 14px;margin:16px auto 0;box-shadow:0 4px 24px #0003">
+  <div style="width:calc(100% - 32px);max-width:520px;background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:12px 14px 10px;margin:8px auto 0;box-shadow:0 4px 24px #0003">
     <div style="font-size:12px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:14px">🌍 بلدك ومرحلتك الدراسية</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
       <div>
@@ -3667,85 +3666,80 @@ function tplHome() {
   </div>
 
   <!-- ═══ TOOLS GRID ═══ -->
-  <div style="width:calc(100% - 32px);max-width:520px;margin:16px auto 0">
-    <div style="font-size:11px;color:#3B82F6;font-weight:800;letter-spacing:1.5px;margin-bottom:12px;text-align:center">⚡ الأدوات الرئيسية</div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+  <div style="width:calc(100% - 32px);max-width:520px;margin:8px auto 0">
+    <div style="font-size:11px;color:#3B82F6;font-weight:800;letter-spacing:1.5px;margin-bottom:8px;text-align:center">⚡ الأدوات الرئيسية</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
 
       <button onclick="S.screen='igcse';render()"
-        style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px;border-radius:18px;border:none;
+        style="display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 6px;border-radius:14px;border:none;
                background:linear-gradient(135deg,#4F46E5,#7C3AED);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #4F46E530"
         onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px #4F46E555'"
         onmouseout="this.style.transform='';this.style.boxShadow='0 4px 14px #4F46E530'">
-        <div style="font-size:28px">🎓</div>
-        <div style="font-size:12px;font-weight:900;color:#fff">IGCSE</div>
-        <div style="font-size:10px;color:#c4b5fd">مراجعة شاملة</div>
+        <div style="font-size:22px">🎓</div>
+        <div style="font-size:11px;font-weight:900;color:#fff">IGCSE</div>
+        <div style="font-size:9px;color:#c4b5fd">مراجعة شاملة</div>
       </button>
 
       <button onclick="S.screen='papers';render()"
-        style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px;border-radius:18px;border:none;
+        style="display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 6px;border-radius:14px;border:none;
                background:linear-gradient(135deg,#059669,#10B981);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #05966930"
         onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px #05966955'"
         onmouseout="this.style.transform='';this.style.boxShadow='0 4px 14px #05966930'">
-        <div style="font-size:28px">📝</div>
-        <div style="font-size:12px;font-weight:900;color:#fff">امتحانات</div>
-        <div style="font-size:10px;color:#a7f3d0">Past Papers</div>
+        <div style="font-size:22px">📝</div>
+        <div style="font-size:11px;font-weight:900;color:#fff">امتحانات</div>
+        <div style="font-size:9px;color:#a7f3d0">Past Papers</div>
       </button>
 
       <button onclick="S.screen='chat';render()"
-        style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px;border-radius:18px;border:none;
+        style="display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 6px;border-radius:14px;border:none;
                background:linear-gradient(135deg,#2563EB,#0EA5E9);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #2563EB30"
-        onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px #2563EB55'"
-        onmouseout="this.style.transform='';this.style.boxShadow='0 4px 14px #2563EB30'">
-        <div style="font-size:28px">💬</div>
-        <div style="font-size:12px;font-weight:900;color:#fff">المحادثة</div>
-        <div style="font-size:10px;color:#bae6fd">اسأل أي سؤال</div>
+        onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+        <div style="font-size:22px">💬</div>
+        <div style="font-size:11px;font-weight:900;color:#fff">المحادثة</div>
+        <div style="font-size:9px;color:#bae6fd">اسأل أي سؤال</div>
       </button>
 
       <button onclick="S.screen='lessons';render()"
-        style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px;border-radius:18px;border:none;
+        style="display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 6px;border-radius:14px;border:none;
                background:linear-gradient(135deg,#059669,#10B981);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #05966930"
-        onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px #05966955'"
-        onmouseout="this.style.transform='';this.style.boxShadow='0 4px 14px #05966930'">
-        <div style="font-size:28px">📖</div>
-        <div style="font-size:12px;font-weight:900;color:#fff">الدروس</div>
-        <div style="font-size:10px;color:#a7f3d0">دروس منظمة</div>
+        onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+        <div style="font-size:22px">📖</div>
+        <div style="font-size:11px;font-weight:900;color:#fff">الدروس</div>
+        <div style="font-size:9px;color:#a7f3d0">دروس منظمة</div>
       </button>
 
       <button onclick="S.screen='flashcards';render()"
-        style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px;border-radius:18px;border:none;
+        style="display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 6px;border-radius:14px;border:none;
                background:linear-gradient(135deg,#D97706,#F59E0B);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #D9770630"
-        onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px #D9770655'"
-        onmouseout="this.style.transform='';this.style.boxShadow='0 4px 14px #D9770630'">
-        <div style="font-size:28px">🗂️</div>
-        <div style="font-size:12px;font-weight:900;color:#fff">بطاقات</div>
-        <div style="font-size:10px;color:#fef3c7">مراجعة سريعة</div>
+        onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+        <div style="font-size:22px">🗂️</div>
+        <div style="font-size:11px;font-weight:900;color:#fff">بطاقات</div>
+        <div style="font-size:9px;color:#fef3c7">مراجعة سريعة</div>
       </button>
 
       <button onclick="S.screen='quiz';render()"
-        style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px;border-radius:18px;border:none;
+        style="display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 6px;border-radius:14px;border:none;
                background:linear-gradient(135deg,#DC2626,#EF4444);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #DC262630"
-        onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px #DC262655'"
-        onmouseout="this.style.transform='';this.style.boxShadow='0 4px 14px #DC262630'">
-        <div style="font-size:28px">📝</div>
-        <div style="font-size:12px;font-weight:900;color:#fff">اختبار</div>
-        <div style="font-size:10px;color:#fecaca">تحقق من نفسك</div>
+        onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+        <div style="font-size:22px">📝</div>
+        <div style="font-size:11px;font-weight:900;color:#fff">اختبار</div>
+        <div style="font-size:9px;color:#fecaca">تحقق من نفسك</div>
       </button>
 
       <button onclick="S.screen='summary';render()"
-        style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px;border-radius:18px;border:none;
+        style="display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 6px;border-radius:14px;border:none;
                background:linear-gradient(135deg,#7C3AED,#8B5CF6);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #7C3AED30"
-        onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px #7C3AED55'"
-        onmouseout="this.style.transform='';this.style.boxShadow='0 4px 14px #7C3AED30'">
-        <div style="font-size:28px">📋</div>
-        <div style="font-size:12px;font-weight:900;color:#fff">ملخص</div>
-        <div style="font-size:10px;color:#ddd6fe">نقاط رئيسية</div>
+        onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+        <div style="font-size:22px">📋</div>
+        <div style="font-size:11px;font-weight:900;color:#fff">ملخص</div>
+        <div style="font-size:9px;color:#ddd6fe">نقاط رئيسية</div>
       </button>
 
     </div>
   </div>
 
   <!-- ═══ EXTRA TOOLS ROW ═══ -->
-  <div style="width:calc(100% - 32px);max-width:520px;margin:12px auto 0;display:flex;gap:10px">
+  <div style="width:calc(100% - 32px);max-width:520px;margin:8px auto 0;display:flex;gap:8px">
     <button onclick="S.screen='stats';render()"
       style="flex:1;display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:16px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s"
       onmouseover="this.style.borderColor='#3B82F6';this.style.background='#3B82F608'" onmouseout="this.style.borderColor='';this.style.background='var(--bg-card)'">
