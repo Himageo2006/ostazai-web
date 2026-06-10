@@ -18573,11 +18573,11 @@ function tplIGCSETopic() {
         <div style="font-size:36px;margin-bottom:10px">❓</div>
         <div style="font-size:15px;font-weight:900;color:var(--text);margin-bottom:6px">AI Practice Questions</div>
         <div style="font-size:12px;color:var(--text-muted);margin-bottom:18px;line-height:1.6">Get 5 IGCSE-style exam questions on <strong>${tp.title}</strong> with full mark schemes</div>
-        <button onclick="chatWith('IGCSE ${subj.label}','Generate 5 IGCSE-style exam questions on the topic: ${tp.title.replace(/\'/g,\"\'\")} (${subj.label}). Include: 2 short answer (2-4 marks), 2 structured (4-6 marks), 1 extended response (6-8 marks). Provide full mark schemes for each.')"
+        <button onclick="chatWith('IGCSE '+${JSON.stringify(subj.label)},'Generate 5 IGCSE-style exam questions on the topic: '+${JSON.stringify(tp.title)}+' ('+${JSON.stringify(subj.label)}+'). Include: 2 short answer (2-4 marks), 2 structured (4-6 marks), 1 extended response (6-8 marks). Provide full mark schemes for each.')"
           style="width:100%;padding:12px;background:${subj.color};color:#fff;border:none;border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:13px;margin-bottom:10px">
           🤖 Generate 5 Exam Questions
         </button>
-        <button onclick="S.screen='quiz';S.subject='IGCSE ${subj.label} — ${tp.title.replace(/'/g,"\\'")}';doGenerateQuiz()"
+        <button onclick="S.screen='quiz';S.subject='IGCSE '+${JSON.stringify(subj.label+' — '+tp.title)};doGenerateQuiz()"
           style="width:100%;padding:12px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:13px">
           📝 Quick MCQ Quiz
         </button>
@@ -18596,7 +18596,7 @@ function tplIGCSETopic() {
           style="display:block;padding:12px;background:${board.color};color:#fff;border-radius:12px;text-decoration:none;font-family:Cairo,sans-serif;font-weight:700;font-size:13px;margin-bottom:8px">
           📥 Open Official Past Papers
         </a>
-        <button onclick="chatWith('IGCSE ${subj.label}','Give me 3 typical past paper questions about ${tp.title.replace(/\'/g,\"\'\")} from ${board.label} IGCSE exams, with example answers and examiner tips')"
+        <button onclick="chatWith('IGCSE '+${JSON.stringify(subj.label)},'Give me 3 typical past paper questions about '+${JSON.stringify(tp.title)}+' from '+${JSON.stringify(board.label)}+' IGCSE exams, with example answers and examiner tips')"
           style="width:100%;padding:12px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:13px">
           💬 Ask AI for Past Paper Questions
         </button>
