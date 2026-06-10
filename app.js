@@ -20298,30 +20298,20 @@ function bind() {
       }
     });
   });
-  // Render Google Sign-In button (or app notice)
+  // Render Google Sign-In button
   if (ge('g-btn')) {
-    const c = ge('g-btn');
-    if (window.__OSTAZAI_APP) {
-      // Running inside the mobile app — Google popup can't work here
-      c.innerHTML = `
-        <div style="width:100%;background:#1e3a5f;border:1px solid #2563EB44;border-radius:12px;padding:10px 14px;text-align:center">
-          <div style="font-size:12px;color:#93c5fd;font-weight:700;margin-bottom:4px">🔵 تسجيل الدخول بـ Google</div>
-          <div style="font-size:11px;color:#94a3b8;line-height:1.5">متاح على <strong style="color:#60a5fa">ostazzai.com</strong> في المتصفح<br>أو سجّل بالإيميل وكلمة المرور أعلاه 👆</div>
-        </div>`;
-    } else {
-      function _renderGBtn() {
-        const cc = ge('g-btn');
-        if (!cc) return;
-        if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
-          google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, callback: window.handleGoogleCredential });
-          cc.innerHTML = '';
-          google.accounts.id.renderButton(cc, { theme:'outline', size:'large', width:280, locale: S.lang==='ar'?'ar':'en' });
-        } else {
-          setTimeout(_renderGBtn, 800);
-        }
+    function _renderGBtn() {
+      const c = ge('g-btn');
+      if (!c) return;
+      if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+        google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, callback: window.handleGoogleCredential });
+        c.innerHTML = '';
+        google.accounts.id.renderButton(c, { theme:'outline', size:'large', width:280, locale: S.lang==='ar'?'ar':'en' });
+      } else {
+        setTimeout(_renderGBtn, 800);
       }
-      _renderGBtn();
     }
+    _renderGBtn();
   }
   ge('b-guest')     && ge('b-guest').addEventListener('click', doGuest);
   ge('b-register')  && ge('b-register').addEventListener('click', doRegister);
