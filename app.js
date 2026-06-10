@@ -18875,16 +18875,18 @@ function tplUpgrade() {
   <div class="info-card" style="max-width:560px;margin:0 auto 16px">
     <div style="font-weight:800;margin-bottom:14px">💵 الدفع المحلي (مصر)</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
-      <button class="btn btn-secondary" id="b-fawry" style="padding:14px;font-size:14px">
+      <button class="btn btn-secondary" disabled style="padding:14px;font-size:14px;opacity:0.7;cursor:not-allowed;position:relative">
         <div style="font-size:24px;margin-bottom:4px">&#x1F9FE;</div>
         فوري
+        <span style="position:absolute;top:6px;right:6px;background:linear-gradient(135deg,#F59E0B,#D97706);color:#fff;font-size:9px;font-weight:900;padding:2px 7px;border-radius:20px;letter-spacing:0.5px">قريباً</span>
       </button>
-      <button class="btn btn-secondary" id="b-vf" style="padding:14px;font-size:14px">
+      <button class="btn btn-secondary" disabled style="padding:14px;font-size:14px;opacity:0.7;cursor:not-allowed;position:relative">
         <div style="font-size:24px;margin-bottom:4px">&#x1F4F1;</div>
         فودافون كاش
+        <span style="position:absolute;top:6px;right:6px;background:linear-gradient(135deg,#EF4444,#DC2626);color:#fff;font-size:9px;font-weight:900;padding:2px 7px;border-radius:20px;letter-spacing:0.5px">قريباً</span>
       </button>
     </div>
-    <div id="local-pay-info" style="display:none;background:var(--bg-card2);border-radius:10px;padding:14px;font-size:13px;line-height:1.8"></div>
+    <div style="text-align:center;font-size:12px;color:var(--text-muted);padding:6px 0">⏳ سيتوفر الدفع المحلي قريباً — ترقّبوا!</div>
   </div>
 
   <!-- Promo Code -->
