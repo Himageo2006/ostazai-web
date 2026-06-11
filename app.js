@@ -4640,221 +4640,220 @@ const TEXTBOOK_DB = {
     // ── الصف الأول الثانوي ─────────────────────────────────────────
     high1: [
       { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
-        { title:'الرياضيات (عربي) ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BOOKS}/math_ar_1sec_t1.pdf` },
-        { title:'الرياضيات (إنجليزي) ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BOOKS}/math_en_1sec_t1.pdf` },
+        { title:'الرياضيات (عربي) ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`https://nccd.gov.jo/EBV4.0/Root_Storage/AR/Math/2025/G10/Math%2010%20Book_WEB.pdf` },
+        { title:'الرياضيات (إنجليزي) ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/sec/semester1/Grade1/pdf/math_1sec_t1_sb_E.pdf` },
       ]},
       { subj:'العلوم المتكاملة', icon:'🔬', color:'#10B981', books:[
-        { title:'العلوم المتكاملة (عربي) ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BOOKS}/science_1sec_t1.pdf` },
-        { title:'Integrated Science (English) T1 2025-2026', term:'أول ثانوي — ترم أول', url:`${BOOKS}/science_en_1sec_t1.pdf` },
+        { title:'العلوم المتكاملة (عربي) ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/integratedscience_ARABIC_1_Secondary_TR1.pdf` },
+        { title:'Integrated Science (English) T1 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/integratedscience_EN_1_Secondary_TR1.pdf` },
       ]},
       { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
-        { title:'اللغة العربية ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BOOKS}/arabic_1sec_t1.pdf` },
+        { title:'اللغة العربية ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/sec/semester1/Grade1/pdf/arabic_1sec_t1.pdf` },
       ]},
       { subj:'اللغة الإنجليزية', icon:'🗣️', color:'#F97316', books:[
-        { title:'New Hello — Student Book ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BOOKS}/english_1sec_t1.pdf` },
+        { title:'New Hello — Student Book ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/English_1sec_t1.pdf` },
       ]},
       { subj:'الفلسفة والمنطق', icon:'🧠', color:'#6366F1', books:[
-        { title:'الفلسفة والمنطق ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BOOKS}/philosophy_1sec_t1.pdf` },
+        { title:'الفلسفة والمنطق ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/Philosophy_and_Logic_Tr1_1sec.pdf` },
       ]},
       { subj:'التاريخ', icon:'🏛️', color:'#D97706', books:[
-        { title:'التاريخ ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BOOKS}/history_1sec_t1.pdf` },
+        { title:'التاريخ ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/sec/semester1/Grade1/pdf/history_1sec_sb_wb.pdf` },
       ]},
       { subj:'التربية الإسلامية', icon:'☪️', color:'#059669', books:[
-        { title:'التربية الإسلامية 2025-2026', term:'أول ثانوي', url:`${BOOKS}/islam_1sec.pdf` },
+        { title:'التربية الإسلامية 2025-2026', term:'أول ثانوي', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/sec/semester1/Grade1/pdf/deen_islamy_1sec_t1_t2.pdf` },
       ]},
       { subj:'تكنولوجيا المعلومات', icon:'💻', color:'#0EA5E9', books:[
-        { title:'تكنولوجيا المعلومات والاتصالات ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BOOKS}/ict_1sec_t1.pdf` },
+        { title:'تكنولوجيا المعلومات والاتصالات ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/ICT_Ar_Sec1_T1.pdf` },
       ]},
       { subj:'العلوم المتكاملة ت٢', icon:'🔬', color:'#10B981', books:[
-        { title:'العلوم المتكاملة ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BOOKS}/science_1sec_t2.pdf` },
+        { title:'العلوم المتكاملة ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BLOB26}/Secondry/Secondry1/Term2/StudentBook/integratedscience_ARABIC_1_Secondary_TR2.pdf` },
       ]},
       { subj:'اللغة العربية ت٢', icon:'📜', color:'#7C3AED', books:[
-        { title:'اللغة العربية ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BOOKS}/arabic_1sec_t2.pdf` },
-        { title:'قراءات أدبية ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BOOKS}/arabic_story_1sec_t2.pdf` },
+        { title:'اللغة العربية ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BLOB26}/Secondry/Secondry1/Term2/StudentBook/Arabic_sec1_TR2.pdf` },
+        { title:'أبو الفوارث — قراءات أدبية ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BLOB26}/Secondry/Secondry1/Term2/StudentBook/Abo_Elfwarth_sec1_TR2.pdf` },
       ]},
       { subj:'الرياضيات ت٢', icon:'🔢', color:'#1D4ED8', books:[
-        { title:'الرياضيات (عربي) ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BOOKS}/math_ar_1sec_t2.pdf` },
-        { title:'الرياضيات (فرنساوي) ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BOOKS}/math_fr_1sec_t2.pdf` },
+        { title:'الرياضيات (عربي) ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BLOB26}/Secondry/Secondry1/Term2/StudentBook/Math_AR_Sec1_Tr2.pdf` },
+        { title:'الرياضيات (فرنساوي) ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BLOB26}/Secondry/Secondry1/Term2/StudentBook/Math_FR_Sec1_Tr2.pdf` },
       ]},
       { subj:'اللغة الإنجليزية ت٢', icon:'🗣️', color:'#EA580C', books:[
-        { title:'New Hello — Student Book ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BOOKS}/english_1sec_t2.pdf` },
+        { title:'New Hello — Student Book ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BLOB26}/Secondry/Secondry1/Term2/StudentBook/English_Sec1_Tr2.pdf` },
       ]},
     ],
     // ── الصف الثاني الثانوي ────────────────────────────────────────
     high2: [
       { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
         { title:'اللغة العربية ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Arabic_language_Sec2_Tr1.pdf` /* 130MB – served from Azure */ },
-        { title:'قراءات أدبية ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BOOKS}/arabic_story_2sec_t1.pdf` },
+        { title:'قراءات أدبية ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Arabic_language_Story_Sec2_Tr1.pdf` },
       ]},
       { subj:'اللغة الإنجليزية', icon:'🗣️', color:'#F97316', books:[
-        { title:'English Language ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BOOKS}/english_2sec_t1.pdf` },
+        { title:'English Language ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/English_language_2sec_t1.pdf` },
       ]},
       { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
-        { title:'الرياضيات التطبيقية (عربي) ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BOOKS}/math_ar_2sec_t1.pdf` },
-        { title:'الرياضيات التطبيقية (إنجليزي) ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BOOKS}/math_en_2sec_t1.pdf` },
-        { title:'تطبيقات الرياضيات (إنجليزي) ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BOOKS}/application_math_2sec_t1.pdf` },
+        { title:'الرياضيات التطبيقية (عربي) ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Application_Mathematics_AR_Sec2_Tr1.pdf` },
+        { title:'الرياضيات التطبيقية (إنجليزي) ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Application_Mathematics_EN_Sec2_Tr1.pdf` },
+        { title:'تطبيقات الرياضيات (إنجليزي) ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Application_Mathematics_EN_Sec2_Tr1.pdf` },
       ]},
       { subj:'الفيزياء', icon:'⚡', color:'#F59E0B', books:[
-        { title:'الفيزياء 2025-2026', term:'ثاني ثانوي', url:`${BOOKS}/physics_2sec.pdf` },
+        { title:'الفيزياء 2025-2026', term:'ثاني ثانوي', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Physics_Arabic_2_Secondary_TR1.pdf` },
       ]},
       { subj:'التاريخ', icon:'🏛️', color:'#D97706', books:[
-        { title:'التاريخ ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BOOKS}/history_2sec_t1.pdf` },
+        { title:'التاريخ ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/sec/semester1/Grade2/pdf/history_2sec_sb_wb.pdf` },
       ]},
       { subj:'الجغرافيا', icon:'🗺️', color:'#0EA5E9', books:[
-        { title:'الجغرافيا ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BOOKS}/geography_2sec_t1.pdf` },
+        { title:'الجغرافيا ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Geography_Sec2_Tr1.pdf` },
       ]},
       { subj:'علم النفس والاجتماع', icon:'🧠', color:'#6366F1', books:[
-        { title:'علم النفس والاجتماع ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BOOKS}/psychology_2sec_t1.pdf` },
+        { title:'علم النفس والاجتماع ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Psychologyand%20_sociology_Sec2_Tr1.pdf` },
       ]},
       { subj:'التربية الإسلامية', icon:'☪️', color:'#059669', books:[
-        { title:'التربية الإسلامية ت١ 2025-2026', term:'ثاني ثانوي', url:`${BOOKS}/islam_2sec.pdf` },
-        { title:'التربية الإسلامية ت٢ 2025-2026', term:'ثاني ثانوي — ترم ثاني', url:`${BOOKS}/islam_2sec_t2.pdf` },
+        { title:'التربية الإسلامية ت١ 2025-2026', term:'ثاني ثانوي', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/sec/semester1/Grade2/pdf/deen_islamy_2sec_t1_t2.pdf` },
+        { title:'التربية الإسلامية ت٢ 2025-2026', term:'ثاني ثانوي — ترم ثاني', url:`${BLOB26}/Secondry/Secondry2/Term2/StudentBook/w_islama_2sec.pdf` },
       ]},
     ],
     // ── الصف الثالث الثانوي ────────────────────────────────────────
     high: [
       { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
-        { title:'الرياضيات البحتة 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/math_pure_3sec.pdf` },
-        { title:'الرياضيات التطبيقية 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/math_applied_3sec.pdf` },
-        { title:'الجبر والهندسة الفراغية 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/algebra_3sec.pdf` },
-        { title:'التفاضل والتكامل 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/calculus_3sec.pdf` },
-        { title:'الميكانيكا 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/mechanics_3sec.pdf` },
-        { title:'الإحصاء والاحتمالات 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/statistics_3sec.pdf` },
+        { title:'الرياضيات البحتة (إنجليزي) 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/pure_Mathematics_ENGLISH_Sec3.pdf` },
+        { title:'الرياضيات التطبيقية 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/applied_Mathematics_ARABIC_Sec3.pdf` },
+        { title:'الجبر والهندسة الفراغية 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/pure_Mathematics_ARABIC_Sec3.pdf` },
+        { title:'التفاضل والتكامل 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/pure_Mathematics_ARABIC_Sec3.pdf` },
+        { title:'الميكانيكا 2025-2026', term:'ثالث ثانوي', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/sec/semester1/Grade3/pdf/mechanics_3sec.pdf` },
+        { title:'الإحصاء والاحتمالات 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Statistics_Arabic_Sec3.pdf` },
       ]},
       { subj:'الفيزياء', icon:'⚡', color:'#F59E0B', books:[
-        { title:'الفيزياء 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/physics_3sec.pdf` },
+        { title:'الفيزياء 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Physics_Arabic_Sec3.pdf` },
       ]},
       { subj:'الكيمياء', icon:'🧪', color:'#10B981', books:[
-        { title:'الكيمياء 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/chemistry_3sec.pdf` },
+        { title:'الكيمياء 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Chemistry_Arabic_Sec3.pdf` },
       ]},
       { subj:'الأحياء', icon:'🦠', color:'#EC4899', books:[
-        { title:'علم الأحياء 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/biology_3sec.pdf` },
+        { title:'علم الأحياء 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Biology_ARABIC_Sec3.pdf` },
       ]},
       { subj:'الجيولوجيا', icon:'🪨', color:'#84CC16', books:[
-        { title:'الجيولوجيا وعلم البيئة 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/geology_3sec.pdf` },
+        { title:'الجيولوجيا وعلم البيئة 2025-2026', term:'ثالث ثانوي', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/sec/semester1/Grade3/pdf/Geology_environment_3sec.pdf` },
       ]},
       { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
-        { title:'اللغة العربية 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/arabic_3sec.pdf` },
+        { title:'اللغة العربية 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Arabic_language_Sec3.pdf` },
       ]},
       { subj:'الفلسفة والمنطق', icon:'🧠', color:'#6366F1', books:[
-        { title:'الفلسفة والمنطق 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/philosophy_3sec.pdf` },
-        { title:'علم النفس والاجتماع 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/psychology_3sec.pdf` },
+        { title:'الفلسفة والمنطق 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/Philosophy_and_Logic_Tr1_1sec.pdf` },
+        { title:'علم النفس والاجتماع 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Psychologyand%20_sociology_Sec2_Tr1.pdf` },
       ]},
       { subj:'التاريخ', icon:'🏛️', color:'#D97706', books:[
-        { title:'التاريخ 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/history_3sec.pdf` },
+        { title:'التاريخ 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/History_Sec3.pdf` },
       ]},
       { subj:'الجغرافيا', icon:'🗺️', color:'#0EA5E9', books:[
-        { title:'الجغرافيا 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/geography_3sec.pdf` },
+        { title:'الجغرافيا 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Geography_Sec3.pdf` },
       ]},
       { subj:'اللغة الإنجليزية', icon:'🗣️', color:'#F97316', books:[
-        { title:'English Language 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/english_3sec.pdf` },
+        { title:'English Language 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/English_language_Sec3.pdf` },
       ]},
       { subj:'التربية الإسلامية', icon:'☪️', color:'#059669', books:[
-        { title:'التربية الإسلامية 2025-2026', term:'ثالث ثانوي', url:`${BOOKS}/islam_3sec.pdf` },
+        { title:'التربية الإسلامية 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Islamic_religion_Sec3.pdf` },
       ]},
     ],
     // ── الصف الابتدائي ────────────────────────────────────────────
     primary: [
       { subj:'اللغة الإنجليزية', icon:'🗣️', color:'#F97316', books:[
-        { title:'English — Primary 1 Term 1 2025-2026', term:'ابتدائي أول — ترم أول', url:`${BOOKS}/english_prim1_t1.pdf` },
-        { title:'English — Primary 2 Term 1 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BOOKS}/english_prim2_t1.pdf` },
-        { title:'English — Primary 3 Term 1 2025-2026', term:'ابتدائي ثالث — ترم أول', url:`${BOOKS}/english_prim3_t1.pdf` },
-        { title:'English — Primary 4 Term 1 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BOOKS}/english_prim4_t1.pdf` },
-        { title:'English — Primary 5 Term 1 2025-2026', term:'ابتدائي خامس — ترم أول', url:`${BOOKS}/english_prim5_t1.pdf` },
-        { title:'English — Primary 6 Term 1 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BOOKS}/english_prim6_t1.pdf` },
+        { title:'English — Primary 1 Term 1 2025-2026', term:'ابتدائي أول — ترم أول', url:`${BLOB26}/Primary/Primary1/Term1/StudentBook/English_Prim1_Tr1.pdf` },
+        { title:'English — Primary 2 Term 1 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BLOB26}/Primary/Primary2/Term1/StudentBook/English_Prim2_Tr1.pdf` },
+        { title:'English — Primary 3 Term 1 2025-2026', term:'ابتدائي ثالث — ترم أول', url:`${BLOB26}/Primary/Primary3/Term1/StudentBook/English_Prim3_Tr1.pdf` },
+        { title:'English — Primary 4 Term 1 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BLOB26}/Primary/Primary4/Term1/StudentBook/English_Prim4_Tr1.pdf` },
+        { title:'English — Primary 5 Term 1 2025-2026', term:'ابتدائي خامس — ترم أول', url:`${BLOB26}/Primary/Primary5/Term1/StudentBook/English_Prim5_Tr1.pdf` },
+        { title:'English — Primary 6 Term 1 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BLOB26}/Primary/Primary6/Term1/StudentBook/English_Prim6_Tr1.pdf` },
       ]},
       { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
-        { title:'الرياضيات (عربي) — ابتدائي أول ت١ 2025-2026', term:'ابتدائي أول — ترم أول', url:`${BOOKS}/math_ar_prim1_t1.pdf` },
-        { title:'الرياضيات (عربي) — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BOOKS}/math_ar_prim2_t1.pdf` },
-        { title:'الرياضيات (إنجليزي) — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BOOKS}/math_en_prim2_t1.pdf` },
-        { title:'الرياضيات (عربي) — ابتدائي ثالث ت١ 2025-2026', term:'ابتدائي ثالث — ترم أول', url:`${BOOKS}/math_ar_prim3_t1.pdf` },
-        { title:'الرياضيات (إنجليزي) — ابتدائي ثالث ت١ 2025-2026', term:'ابتدائي ثالث — ترم أول', url:`${BOOKS}/math_en_prim3_t1.pdf` },
-        { title:'الرياضيات (فرنساوي) — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BOOKS}/math_fr_prim2_t1.pdf` },
-        { title:'الرياضيات (عربي) — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BOOKS}/math_ar_prim4_t1.pdf` },
-        { title:'الرياضيات (إنجليزي) — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BOOKS}/math_en_prim4_t1.pdf` },
-        { title:'الرياضيات (فرنساوي) — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BOOKS}/math_fr_prim4_t1.pdf` },
-        { title:'الرياضيات (عربي) — ابتدائي خامس ت١ 2025-2026', term:'ابتدائي خامس — ترم أول', url:`${BOOKS}/math_ar_prim5_t1.pdf` },
-        { title:'الرياضيات (إنجليزي) — ابتدائي خامس ت١ 2025-2026', term:'ابتدائي خامس — ترم أول', url:`${BOOKS}/math_en_prim5_t1.pdf` },
-        { title:'الرياضيات (عربي) — ابتدائي سادس ت١ 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BOOKS}/math_ar_prim6_t1.pdf` },
-        { title:'الرياضيات (إنجليزي) — ابتدائي سادس ت١ 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BOOKS}/math_en_prim6_t1.pdf` },
+        { title:'الرياضيات (عربي) — ابتدائي أول ت١ 2025-2026', term:'ابتدائي أول — ترم أول', url:`https://nccd.gov.jo/EBV4.0/Root_Storage/AR/Math/2025/G01/MA.01.ST.BOOK_WEB.pdf` },
+        { title:'الرياضيات (عربي) — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BLOB26}/Primary/Primary2/Term1/StudentBook/Math_AR_Prim2_TR1.pdf` },
+        { title:'الرياضيات (إنجليزي) — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BLOB26}/Primary/Primary2/Term1/StudentBook/Math_E_Prim2_TR1_2.pdf` },
+        { title:'الرياضيات (عربي) — ابتدائي ثالث ت١ 2025-2026', term:'ابتدائي ثالث — ترم أول', url:`${BLOB26}/Primary/Primary3/Term1/StudentBook/Math_AR_prim3_TR1.pdf` },
+        { title:'الرياضيات (إنجليزي) — ابتدائي ثالث ت١ 2025-2026', term:'ابتدائي ثالث — ترم أول', url:`${BLOB26}/Primary/Primary3/Term1/StudentBook/Math_EN_prim3_TR1.pdf` },
+        { title:'الرياضيات (فرنساوي) — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BLOB26}/Primary/Primary2/Term1/StudentBook/Math_F_Prim2_TR1_2.pdf` },
+        { title:'الرياضيات (عربي) — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`https://nccd.gov.jo/EBV4.0/Root_Storage/AR/Math/2025/G04/MA.04.ST.BOOK_WEB.pdf` },
+        { title:'الرياضيات (إنجليزي) — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BLOB26}/Primary/Primary4/Term1/StudentBook/Math_EN_prim4_TR1.pdf` },
+        { title:'الرياضيات (فرنساوي) — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BLOB26}/Primary/Primary4/Term1/StudentBook/Math_FR_prim4_TR1.pdf` },
+        { title:'الرياضيات (عربي) — ابتدائي خامس ت١ 2025-2026', term:'ابتدائي خامس — ترم أول', url:`${BLOB26}/Primary/Primary5/Term1/StudentBook/Math_AR_prim5_TR1.pdf` },
+        { title:'الرياضيات (إنجليزي) — ابتدائي خامس ت١ 2025-2026', term:'ابتدائي خامس — ترم أول', url:`${BLOB26}/Primary/Primary5/Term1/StudentBook/Math_E_5prim_TR1.pdf` },
+        { title:'الرياضيات (عربي) — ابتدائي سادس ت١ 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BLOB26}/Primary/Primary6/Term1/StudentBook/Math_AR_Prim6_TR1.pdf` },
+        { title:'الرياضيات (إنجليزي) — ابتدائي سادس ت١ 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BLOB26}/Primary/Primary6/Term1/StudentBook/Math_EN_Prim6_TR1.pdf` },
       ]},
       { subj:'العلوم', icon:'🔬', color:'#10B981', books:[
-        { title:'العلوم — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BOOKS}/science_prim2_t1.pdf` },
-        { title:'العلوم — ابتدائي ثالث ت١ 2025-2026', term:'ابتدائي ثالث — ترم أول', url:`${BOOKS}/science_prim3_t1.pdf` },
-        { title:'العلوم — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BOOKS}/science_prim4_t1.pdf` },
-        { title:'العلوم — ابتدائي خامس ت١ 2025-2026', term:'ابتدائي خامس — ترم أول', url:`${BOOKS}/science_prim5_t1.pdf` },
-        { title:'العلوم — ابتدائي سادس ت١ 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BOOKS}/science_prim6_t1.pdf` },
+        { title:'العلوم — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BLOB26}/Primary/Primary2/Term1/StudentBook/Discovery_AR_prim2_TR1_2.pdf` },
+        { title:'العلوم — ابتدائي ثالث ت١ 2025-2026', term:'ابتدائي ثالث — ترم أول', url:`${BLOB26}/Primary/Primary3/Term1/StudentBook/Discovery_AR_prim3_TR1_2.pdf` },
+        { title:'العلوم — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BLOB26}/Primary/Primary4/Term1/StudentBook/Science_prim4_TR1.pdf` },
+        { title:'العلوم — ابتدائي خامس ت١ 2025-2026', term:'ابتدائي خامس — ترم أول', url:`${BLOB26}/Primary/Primary5/Term1/StudentBook/Science_AR_prim5_TR1.pdf` },
+        { title:'العلوم — ابتدائي سادس ت١ 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BLOB26}/Primary/Primary6/Term1/StudentBook/Science_AR_prim6_TR1.pdf` },
       ]},
       { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
-        { title:'اللغة العربية — ابتدائي أول ت١ 2025-2026', term:'ابتدائي أول — ترم أول', url:`${BOOKS}/arabic_prim1_t1.pdf` },
-        { title:'اللغة العربية — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BOOKS}/arabic_prim2_t1.pdf` },
-        { title:'اللغة العربية — ابتدائي ثالث ت١ 2025-2026', term:'ابتدائي ثالث — ترم أول', url:`${BOOKS}/arabic_prim3_t1.pdf` },
-        { title:'اللغة العربية — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BOOKS}/arabic_prim4_t1.pdf` },
-        { title:'اللغة العربية — ابتدائي خامس ت١ 2025-2026', term:'ابتدائي خامس — ترم أول', url:`${BOOKS}/arabic_prim5_t1.pdf` },
-        { title:'اللغة العربية — ابتدائي سادس ت١ 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BOOKS}/arabic_prim6_t1.pdf` },
+        { title:'اللغة العربية — ابتدائي أول ت١ 2025-2026', term:'ابتدائي أول — ترم أول', url:`${BLOB26}/Primary/Primary1/Term1/StudentBook/Arabic_prim1_T1.pdf` },
+        { title:'اللغة العربية — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BLOB26}/Primary/Primary2/Term1/StudentBook/Arabic_Prim2_T1.pdf` },
+        { title:'اللغة العربية — ابتدائي ثالث ت١ 2025-2026', term:'ابتدائي ثالث — ترم أول', url:`${BLOB26}/Primary/Primary3/Term1/StudentBook/Arabic_Prim3_TR1.pdf` },
+        { title:'اللغة العربية — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BLOB26}/Primary/Primary4/Term1/StudentBook/Arabic_prim4_T1.pdf` },
+        { title:'اللغة العربية — ابتدائي خامس ت١ 2025-2026', term:'ابتدائي خامس — ترم أول', url:`${BLOB26}/Primary/Primary5/Term1/StudentBook/Arabic_prim5_T1.pdf` },
+        { title:'اللغة العربية — ابتدائي سادس ت١ 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BLOB26}/Primary/Primary6/Term1/StudentBook/Arabic_prim6_T1.pdf` },
       ]},
       { subj:'التربية الإسلامية', icon:'☪️', color:'#059669', books:[
-        { title:'التربية الإسلامية — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BOOKS}/islam_prim2_t1.pdf` },
-        { title:'التربية الإسلامية — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BOOKS}/islam_prim4_t1.pdf` },
-        { title:'التربية الإسلامية — ابتدائي خامس ت١ 2025-2026', term:'ابتدائي خامس — ترم أول', url:`${BOOKS}/islam_prim5_t1.pdf` },
-        { title:'التربية الإسلامية — ابتدائي سادس ت١ 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BOOKS}/islam_prim6_t1.pdf` },
+        { title:'التربية الإسلامية — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BLOB26}/Primary/Primary2/Term1/StudentBook/islamic_prim2_tr1.pdf` },
+        { title:'التربية الإسلامية — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BLOB26}/Primary/Primary4/Term1/StudentBook/islamic_prim4_tr1.pdf` },
+        { title:'التربية الإسلامية — ابتدائي خامس ت١ 2025-2026', term:'ابتدائي خامس — ترم أول', url:`${BLOB26}/Primary/Primary5/Term1/StudentBook/islamic_prim5_tr1.pdf` },
+        { title:'التربية الإسلامية — ابتدائي سادس ت١ 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BLOB26}/Primary/Primary6/Term1/StudentBook/islamic_prim6_tr1.pdf` },
       ]},
       { subj:'Discover / اكتشف', icon:'🌍', color:'#EC4899', books:[
-        { title:'Discover — Primary 1 Term 1 2025-2026', term:'ابتدائي أول — ترم أول', url:`${BOOKS}/discovery_prim1_t1.pdf` },
-        { title:'Discover — Primary 2 Term 1 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BOOKS}/discovery_prim2_t1.pdf` },
+        { title:'Discover — Primary 1 Term 1 2025-2026', term:'ابتدائي أول — ترم أول', url:`${BLOB26}/Primary/Primary1/Term1/StudentBook/Discovery_E_prim1_TR1.pdf` },
+        { title:'Discover — Primary 2 Term 1 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BLOB26}/Primary/Primary2/Term1/StudentBook/Discovery_E_prim2_TR1_2.pdf` },
       ]},
       { subj:'تكنولوجيا المعلومات', icon:'💻', color:'#0EA5E9', books:[
-        { title:'تكنولوجيا المعلومات — ابتدائي خامس ت٢ 2025-2026', term:'ابتدائي خامس — ترم ثاني', url:`${BOOKS}/ict_prim5_t2.pdf` },
+        { title:'تكنولوجيا المعلومات — ابتدائي خامس ت٢ 2025-2026', term:'ابتدائي خامس — ترم ثاني', url:`${BLOB26}/Primary/Primary5/Term2/StudentBook/ICT_Ar_5prim_T2.pdf` },
       ]},
     ],
     // ── الصف الإعدادي ─────────────────────────────────────────────
     middle: [
       { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
-        { title:'اللغة العربية — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BOOKS}/arabic_prep1_t1.pdf` },
-        { title:'اللغة العربية — إعدادي أول ت٢ 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BOOKS}/arabic_prep1_t2.pdf` },
-        { title:'اللغة العربية — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BOOKS}/arabic_prep2_t1.pdf` },
-        { title:'اللغة العربية — إعدادي ثالث ت١ 2025-2026', term:'إعدادي ثالث — ترم أول', url:`${BOOKS}/arabic_prep3_t1.pdf` },
+        { title:'اللغة العربية — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BLOB26}/Prepratory/Prepratory1/Term1/StudentBook/Arabic_Prp1_Tr1.pdf` },
+        { title:'اللغة العربية — إعدادي أول ت٢ 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BLOB26}/Prepratory/Prepratory1/Term2/StudentBook/Arabic_Prep1_SB_T2.pdf` },
+        { title:'اللغة العربية — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BLOB26}/Prepratory/Prepratory2/Term1/StudentBook/Arabic_Prep2_SB_T1.pdf` },
+        { title:'اللغة العربية — إعدادي ثالث ت١ 2025-2026', term:'إعدادي ثالث — ترم أول', url:`${BLOB26}/Prepratory/Prepratory3/Term1/StudentBook/ArabicNotebook_Prp3_Tr1.pdf` },
       ]},
       { subj:'اللغة الإنجليزية', icon:'🗣️', color:'#F97316', books:[
-        { title:'English — Prep 1 Term 1 2025-2026', term:'إعدادي أول — ترم أول', url:`${BOOKS}/english_prep1_t1.pdf` },
-        { title:'English — Prep 1 Term 2 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BOOKS}/english_prep1_t2.pdf` },
-        { title:'English — Prep 2 Term 1 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BOOKS}/english_prep2_t1.pdf` },
-        { title:'English — Prep 3 Term 1 2025-2026', term:'إعدادي ثالث — ترم أول', url:`${BOOKS}/english_prep3_t1.pdf` },
+        { title:'English — Prep 1 Term 1 2025-2026', term:'إعدادي أول — ترم أول', url:`${BLOB26}/Prepratory/Prepratory1/Term1/StudentBook/English_Prp1_Tr1.pdf` },
+        { title:'English — Prep 1 Term 2 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BLOB26}/Prepratory/Prepratory1/Term2/StudentBook/English_Prep1_Tr2.pdf` },
+        { title:'English — Prep 2 Term 1 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BLOB26}/Prepratory/Prepratory2/Term1/StudentBook/English_Prp2_Tr1.pdf` },
+        { title:'English — Prep 3 Term 1 2025-2026', term:'إعدادي ثالث — ترم أول', url:`${BLOB26}/Prepratory/Prepratory3/Term1/StudentBook/English_Prp3_Tr1.pdf` },
       ]},
       { subj:'اللغة الفرنسية', icon:'🇫🇷', color:'#6366F1', books:[
-        { title:'الفرنسية — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BOOKS}/french_prep1_t1.pdf` },
-        { title:'الفرنسية — إعدادي أول ت٢ 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BOOKS}/math_fr_prep1_t2.pdf` },
-        { title:'الفرنسية — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BOOKS}/french_prep2_t1.pdf` },
-        { title:'الفرنسية — إعدادي ثالث ت١ 2025-2026', term:'إعدادي ثالث — ترم أول', url:`${BOOKS}/french_prep3_t1.pdf` },
+        { title:'الفرنسية — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BLOB26}/Prepratory/Prepratory1/Term1/StudentBook/French_Prp1_TR1.pdf` },
+        { title:'الفرنسية — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BLOB26}/Prepratory/Prepratory2/Term1/StudentBook/French_Prp2_TR1.pdf` },
+        { title:'الفرنسية — إعدادي ثالث ت١ 2025-2026', term:'إعدادي ثالث — ترم أول', url:`${BLOB26}/Prepratory/Prepratory3/Term1/StudentBook/French_Prp3_TR1.pdf` },
       ]},
       { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
-        { title:'الرياضيات (عربي) — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BOOKS}/math_ar_prep1_t1.pdf` },
-        { title:'الرياضيات (عربي) — إعدادي أول ت٢ 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BOOKS}/math_ar_prep1_t2.pdf` },
-        { title:'الرياضيات (عربي) — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BOOKS}/math_ar_prep2_t1.pdf` },
-        { title:'الرياضيات (إنجليزي) — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BOOKS}/math_en_prep2_t1.pdf` },
-        { title:'الرياضيات (عربي) — إعدادي ثالث ت١ 2025-2026', term:'إعدادي ثالث — ترم أول', url:`${BOOKS}/math_ar_prep3_t1.pdf` },
+        { title:'الرياضيات (عربي) — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BLOB26}/Prepratory/Prepratory1/Term1/StudentBook/Math_AR_prp1_TR1.pdf` },
+        { title:'الرياضيات (عربي) — إعدادي أول ت٢ 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BLOB26}/Prepratory/Prepratory1/Term2/StudentBook/Math_AR_prp1_TR2.pdf` },
+        { title:'الرياضيات (عربي) — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BLOB26}/Prepratory/Prepratory2/Term1/StudentBook/Math_AR_Prp2_Tr1.pdf` },
+        { title:'الرياضيات (إنجليزي) — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BLOB26}/Prepratory/Prepratory2/Term1/StudentBook/Math_En_PE2_SB_T1.pdf` },
+        { title:'الرياضيات (عربي) — إعدادي ثالث ت١ 2025-2026', term:'إعدادي ثالث — ترم أول', url:`https://nccd.gov.jo/EBV4.0/Root_Storage/AR/Math/2025/G09/MT09_SE1_Book_WEB.pdf` },
       ]},
       { subj:'العلوم', icon:'🔬', color:'#10B981', books:[
-        { title:'العلوم (عربي) — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BOOKS}/science_ar_prep1_t1.pdf` },
-        { title:'العلوم (عربي) — إعدادي أول ت٢ 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BOOKS}/science_ar_prep1_t2.pdf` },
-        { title:'العلوم (عربي) — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BOOKS}/science_ar_prep2_t1.pdf` },
-        { title:'العلوم (عربي) — إعدادي ثاني ت٢ 2025-2026', term:'إعدادي ثاني — ترم ثاني', url:`${BOOKS}/science_ar_prep2_t2.pdf` },
-        { title:'العلوم — إعدادي ثالث ت١ 2025-2026', term:'إعدادي ثالث — ترم أول', url:`${BOOKS}/science_prep3_t1.pdf` },
+        { title:'العلوم (عربي) — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BLOB26}/Prepratory/Prepratory1/Term1/StudentBook/Science_AR_Prp1_Tr1.pdf` },
+        { title:'العلوم (عربي) — إعدادي أول ت٢ 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BLOB26}/Prepratory/Prepratory1/Term2/StudentBook/Science_AR_Prp1_TR2.pdf` },
+        { title:'العلوم (عربي) — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BLOB26}/Prepratory/Prepratory2/Term1/StudentBook/Science_AR)Prp2_Tr1.pdf` },
+        { title:'العلوم (عربي) — إعدادي ثاني ت٢ 2025-2026', term:'إعدادي ثاني — ترم ثاني', url:`${BLOB26}/Prepratory/Prepratory2/Term2/StudentBook/Science_AR_Prp2_Tr2.pdf` },
+        { title:'العلوم — إعدادي ثالث ت١ 2025-2026', term:'إعدادي ثالث — ترم أول', url:`${BLOB26}/Prepratory/Prepratory3/Term1/StudentBook/Science_AR_Prp3_Tr1_2.pdf` },
       ]},
       { subj:'الدراسات الاجتماعية', icon:'🏛️', color:'#D97706', books:[
-        { title:'الدراسات الاجتماعية — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BOOKS}/social_prep1_t1.pdf` },
-        { title:'الدراسات الاجتماعية — إعدادي أول ت٢ 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BOOKS}/social_prep1_t2.pdf` },
-        { title:'الدراسات الاجتماعية — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BOOKS}/history_prep2_t1.pdf` },
-        { title:'الدراسات الاجتماعية — إعدادي ثاني ت١ (ب) 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BOOKS}/social_prep2_t1.pdf` },
+        { title:'الدراسات الاجتماعية — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BLOB26}/Prepratory/Prepratory1/Term1/StudentBook/Social_prp1_Tr1.pdf` },
+        { title:'الدراسات الاجتماعية — إعدادي أول ت٢ 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BLOB26}/Prepratory/Prepratory1/Term2/StudentBook/Social_prp1_Tr2.pdf` },
+        { title:'الدراسات الاجتماعية — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BLOB26}/Prepratory/Prepratory2/Term1/StudentBook/Social_prp2_T1.pdf` },
+        { title:'الدراسات الاجتماعية — إعدادي ثالث ت١ 2025-2026', term:'إعدادي ثالث — ترم أول', url:`${BLOB26}/Prepratory/Prepratory3/Term1/StudentBook/Social_prp3_T1_2.pdf` },
       ]},
       { subj:'التربية الإسلامية', icon:'☪️', color:'#059669', books:[
-        { title:'التربية الإسلامية — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BOOKS}/islam_prep1_t1.pdf` },
-        { title:'التربية الإسلامية — إعدادي أول ت٢ 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BOOKS}/islam_prep1_t2.pdf` },
-        { title:'التربية الإسلامية — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BOOKS}/islam_prep2_t1.pdf` },
-        { title:'التربية الإسلامية — إعدادي ثاني ت٢ 2025-2026', term:'إعدادي ثاني — ترم ثاني', url:`${BOOKS}/islam_prep2_t2.pdf` },
+        { title:'التربية الإسلامية — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BLOB26}/Prepratory/Prepratory1/Term1/StudentBook/Islamic_Tr1_Pr1.pdf` },
+        { title:'التربية الإسلامية — إعدادي أول ت٢ 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BLOB26}/Prepratory/Prepratory1/Term2/StudentBook/Islamic_prp1_Tr2.pdf` },
+        { title:'التربية الإسلامية — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BLOB26}/Prepratory/Prepratory2/Term1/StudentBook/Islamic_Tr1_Pr2.pdf` },
+        { title:'التربية الإسلامية — إعدادي ثاني ت٢ 2025-2026', term:'إعدادي ثاني — ترم ثاني', url:`${BLOB26}/Prepratory/Prepratory2/Term2/StudentBook/Islamic_prp2_Tr2.pdf` },
       ]},
       { subj:'تكنولوجيا المعلومات', icon:'💻', color:'#0EA5E9', books:[
-        { title:'تكنولوجيا المعلومات — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BOOKS}/ict_prep1_t1.pdf` },
+        { title:'تكنولوجيا المعلومات — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BLOB26}/Prepratory/Prepratory1/Term1/StudentBook/ICT_AR_1_Preparatory_Tr1.pdf` },
       ]},
     ],
   },
@@ -4946,30 +4945,68 @@ const TEXTBOOK_DB = {
   igcse: {
     high: [
       { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
-        { title:'IGCSE Mathematics 0580 Syllabus 2025–2027', term:'Cambridge IGCSE', url:`${BOOKS}/igcse/math_0580_syllabus.pdf` },
-        { title:'IGCSE Additional Mathematics 0606 Syllabus 2025–2027', term:'Cambridge IGCSE', url:`${BOOKS}/igcse/addmath_0606_syllabus.pdf` },
+        { title:'IGCSE Mathematics 0580 Syllabus 2025–2027', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/662466-2025-2027-syllabus.pdf` },
+        { title:'IGCSE Mathematics (9–1) 0980 Syllabus 2025–2027', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/663105-2025-2027-syllabus.pdf` },
+        { title:'IGCSE Additional Mathematics 0606 Syllabus 2025–2027', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/662470-2025-2027-syllabus.pdf` },
       ]},
       { subj:'Physics', icon:'⚡', color:'#F59E0B', books:[
-        { title:'IGCSE Physics 0625 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`${BOOKS}/igcse/physics_0625_syllabus.pdf` },
+        { title:'IGCSE Physics 0625 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/images/595430-2023-2025-syllabus.pdf` },
+        { title:'IGCSE Physics (9–1) 0972 Syllabus 2023–2025', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/595436-2023-2025-syllabus.pdf` },
       ]},
       { subj:'Chemistry', icon:'🧪', color:'#10B981', books:[
-        { title:'IGCSE Chemistry 0620 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`${BOOKS}/igcse/chemistry_0620_syllabus.pdf` },
+        { title:'IGCSE Chemistry 0620 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/595428-2023-2025-syllabus.pdf` },
+        { title:'IGCSE Chemistry (9–1) 0971 Syllabus 2026–2028', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/697236-2026-2028-syllabus.pdf` },
       ]},
       { subj:'Biology', icon:'🦠', color:'#EC4899', books:[
-        { title:'IGCSE Biology 0610 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`${BOOKS}/igcse/biology_0610_syllabus.pdf` },
+        { title:'IGCSE Biology 0610 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/595426-2023-2025-syllabus.pdf` },
+        { title:'IGCSE Biology (9–1) 0970 Syllabus 2023–2025', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/595432-2023-2025-syllabus-.pdf` },
       ]},
       { subj:'Combined Science', icon:'🔬', color:'#8B5CF6', books:[
-        { title:'IGCSE Combined Science 0653 Syllabus 2025–2027', term:'Cambridge IGCSE', url:`${BOOKS}/igcse/combined_sci_0653.pdf` },
+        { title:'IGCSE Combined Science 0653 Syllabus 2025–2027', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/662474-2025-2027-syllabus.pdf` },
       ]},
       { subj:'English Language', icon:'🗣️', color:'#F97316', books:[
-        { title:'IGCSE English First Language 0500 Syllabus 2024–2026', term:'Cambridge IGCSE', url:`${BOOKS}/igcse/english_0500_syllabus.pdf` },
-        { title:'IGCSE Literature in English 0475 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`${BOOKS}/igcse/literature_0475_syllabus.pdf` },
+        { title:'IGCSE English First Language 0500 Syllabus 2024–2026', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/635230-2024-2026-syllabus.pdf` },
+        { title:'IGCSE English First Language (9–1) 0990 Syllabus 2023', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/597137-2023-syllabus.pdf` },
+        { title:'IGCSE English Second Language 0510 Syllabus 2024–2026', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/637160-2024-2026-syllabus.pdf` },
+        { title:'IGCSE English Second Language (Count-in) 0511 Syllabus 2024–2026', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/637163-2024-2026-syllabus.pdf` },
+        { title:'IGCSE Literature in English 0475 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/596436-2023-2025-syllabus.pdf` },
+        { title:'IGCSE Literature in English (9–1) 0992 Syllabus 2023–2025', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/596445-2023-2025-syllabus.pdf` },
       ]},
       { subj:'Computer Science', icon:'💻', color:'#0EA5E9', books:[
-        { title:'IGCSE Computer Science 0478 Syllabus 2025–2027', term:'Cambridge IGCSE', url:`${BOOKS}/igcse/cs_0478_syllabus.pdf` },
+        { title:'IGCSE Computer Science 0478 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/595424-2023-2025-syllabus.pdf` },
+        { title:'IGCSE Computer Science (9–1) 0984 Syllabus 2023–2025', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/595440-2023-2025-syllabus.pdf` },
+        { title:'IGCSE ICT 0417 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/images/595352-2023-2025-syllabus.pdf` },
+        { title:'IGCSE ICT (9–1) 0983 Syllabus 2023–2025', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/595438-2023-2025-syllabus.pdf` },
       ]},
       { subj:'Economics', icon:'📊', color:'#D97706', books:[
-        { title:'IGCSE Economics 0455 Syllabus 2025–2027', term:'Cambridge IGCSE', url:`${BOOKS}/igcse/economics_0455.pdf` },
+        { title:'IGCSE Economics 0455 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/596945-2023-2025-syllabus.pdf` },
+        { title:'IGCSE Economics (9–1) 0987 Syllabus 2023–2025', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/597118-2023-2025-syllabus.pdf` },
+      ]},
+      { subj:'Business Studies', icon:'💼', color:'#059669', books:[
+        { title:'IGCSE Business Studies 0450 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/596930-2023-2025-syllabus.pdf` },
+        { title:'IGCSE Business Studies (9–1) 0986 Syllabus 2023–2025', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/597113-2023-2025-syllabus.pdf` },
+      ]},
+      { subj:'Accounting', icon:'🧾', color:'#7C3AED', books:[
+        { title:'IGCSE Accounting 0452 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/596935-2023-2025-syllabus.pdf` },
+        { title:'IGCSE Accounting (9–1) 0985 Syllabus 2023–2025', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/597108-2023-2025-syllabus.pdf` },
+      ]},
+      { subj:'History', icon:'📜', color:'#92400E', books:[
+        { title:'IGCSE History 0470 Syllabus 2024–2026', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/649636-2024-2026-syllabus.pdf` },
+        { title:'IGCSE History (9–1) 0977 Syllabus 2027–2028', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/721357-2027-2028-syllabus.pdf` },
+      ]},
+      { subj:'Geography', icon:'🌍', color:'#065F46', books:[
+        { title:'IGCSE Geography 0460 Syllabus 2025–2026', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/664610-2025-2026-syllabus.pdf` },
+        { title:'IGCSE Geography (9–1) 0976 Syllabus 2025–2026', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/664647-2025-2026-syllabus.pdf` },
+      ]},
+      { subj:'Sociology', icon:'👥', color:'#BE185D', books:[
+        { title:'IGCSE Sociology 0495 Syllabus 2025–2027', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/662464-2025-2027-syllabus.pdf` },
+      ]},
+      { subj:'Global Perspectives', icon:'🌐', color:'#1D4ED8', books:[
+        { title:'IGCSE Global Perspectives 0457 Syllabus 2025–2027', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/662457-2025-2027-syllabus.pdf` },
+      ]},
+      { subj:'Arabic', icon:'📖', color:'#DC2626', books:[
+        { title:'IGCSE Arabic First Language 0508 Syllabus 2026', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/697182-2026-syllabus.pdf` },
+        { title:'IGCSE Arabic Foreign Language 0544 Syllabus 2025–2027', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/664635-2025-2027-syllabus.pdf` },
       ]},
     ],
   },
@@ -4980,20 +5017,253 @@ const TEXTBOOK_DB = {
   american: {
     high: [
       { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
-        { title:'Elementary Algebra 2e — OpenStax', term:'American Curriculum', url:`${BOOKS}/american/algebra_elementary.pdf` },
-        { title:'College Algebra — OpenStax', term:'American Curriculum', url:`${BOOKS}/american/algebra_college.pdf` },
-        { title:'Calculus Volume 1 — OpenStax', term:'American Curriculum', url:`${BOOKS}/american/calculus_vol1.pdf` },
-        { title:'Introductory Statistics — OpenStax', term:'American Curriculum', url:`${BOOKS}/american/statistics.pdf` },
+        { title:'Elementary Algebra 2e — OpenStax', term:'American Curriculum', url:`https://assets.openstax.org/oscms-prodcms/media/documents/ElementaryAlgebra2e-WEB_3zxfu3Z.pdf` },
+        { title:'College Algebra — OpenStax', term:'American Curriculum', url:`https://assets.openstax.org/oscms-prodcms/media/documents/CollegeAlgebra-OP.pdf` },
+        { title:'Calculus Volume 1 — OpenStax', term:'American Curriculum', url:`https://assets.openstax.org/oscms-prodcms/media/documents/Calculus_Volume_1_-_WEB.pdf` },
+        { title:'Introductory Statistics 2e — OpenStax', term:'American Curriculum', url:`https://assets.openstax.org/oscms-prodcms/media/documents/Introductory_Statistics_2e_-_WEB.pdf` },
       ]},
       { subj:'Physics', icon:'⚡', color:'#F59E0B', books:[
-        { title:'Physics — OpenStax (High School)', term:'American Curriculum', url:`${BOOKS}/american/physics_hs.pdf` },
-        { title:'University Physics Volume 2 — OpenStax', term:'American Curriculum', url:`${BOOKS}/american/physics_university_vol2.pdf` },
+        { title:'Physics — OpenStax (High School)', term:'American Curriculum', url:`https://assets.openstax.org/oscms-prodcms/media/documents/Physics-WEB_Sab7RrQ.pdf` },
+        { title:'University Physics Volume 2 — OpenStax', term:'American Curriculum', url:`https://assets.openstax.org/oscms-prodcms/media/documents/University_Physics_Volume_2_-_WEB.pdf` },
       ]},
       { subj:'Computer Science', icon:'💻', color:'#0EA5E9', books:[
-        { title:'Introduction to Computer Science — OpenStax', term:'American Curriculum', url:`${BOOKS}/american/computer_science.pdf` },
+        { title:'Introduction to Computer Science — OpenStax', term:'American Curriculum', url:`https://assets.openstax.org/oscms-prodcms/media/documents/Introduction_To_Computer_Science_-_WEB.pdf` },
       ]},
       { subj:'Social Sciences', icon:'🧠', color:'#8B5CF6', books:[
-        { title:'Introduction to Sociology 3e — OpenStax', term:'American Curriculum', url:`${BOOKS}/american/sociology.pdf` },
+        { title:'Introduction to Sociology 3e — OpenStax', term:'American Curriculum', url:`https://assets.openstax.org/oscms-prodcms/media/documents/IntroductiontoSociology3e-WEB_9QTqRGQ.pdf` },
+      ]},
+    ],
+  },
+
+  // ══════════════════════════════════════════════════════════════
+  //  IB Diploma Programme — Official Subject Briefs (Free)
+  // ══════════════════════════════════════════════════════════════
+  ib: {
+    high: [
+      { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
+        { title:'IB DP Mathematics: Analysis & Approaches (AA) SL/HL', term:'IB Diploma Programme', url:`https://ibo.org/contentassets/5895a05412144fe890312bad52b17044/subject-brief-dp-math-analysis-and-approaches-en.pdf` },
+        { title:'IB DP Mathematics: Applications & Interpretation (AI) SL/HL', term:'IB Diploma Programme', url:`https://ibo.org/contentassets/5895a05412144fe890312bad52b17044/subject-brief-dp-math-applications-and-interpretations-en.pdf` },
+      ]},
+      { subj:'Physics', icon:'⚡', color:'#F59E0B', books:[
+        { title:'IB DP Physics SL/HL Subject Brief', term:'IB Diploma Programme', url:`https://ibo.org/globalassets/new-structure/recognition/pdfs/dp_sciences_physics_subject-brief_jan_2022_e.pdf` },
+      ]},
+      { subj:'Chemistry', icon:'🧪', color:'#10B981', books:[
+        { title:'IB DP Chemistry SL/HL Subject Brief', term:'IB Diploma Programme', url:`https://www.ibo.org/globalassets/new-structure/recognition/pdfs/dp_sciences_chemistry_subject-brief_jan_2022_e.pdf` },
+      ]},
+      { subj:'Biology', icon:'🦠', color:'#EC4899', books:[
+        { title:'IB DP Biology SL/HL Subject Brief', term:'IB Diploma Programme', url:`https://www.ibo.org/globalassets/new-structure/recognition/pdfs/dp_sciences_biology_subject-brief_jan_2022_e.pdf` },
+      ]},
+      { subj:'English Language', icon:'🗣️', color:'#F97316', books:[
+        { title:'IB DP Language A: Literature SL/HL Subject Brief', term:'IB Diploma Programme', url:`https://ibo.org/contentassets/5895a05412144fe890312bad52b17044/curriculum.brief-languagea.literature-eng.pdf` },
+        { title:'IB DP Language A: Language & Literature SL/HL Subject Brief', term:'IB Diploma Programme', url:`https://www.ibo.org/contentassets/5895a05412144fe890312bad52b17044/curriculum.brief-languagea.language.and.literature-eng.pdf` },
+        { title:'IB DP Language B SL/HL Subject Brief', term:'IB Diploma Programme', url:`https://ibo.org/contentassets/5895a05412144fe890312bad52b17044/lang-b-2018-en.pdf` },
+      ]},
+      { subj:'Computer Science', icon:'💻', color:'#0EA5E9', books:[
+        { title:'IB DP Computer Science SL/HL Subject Brief', term:'IB Diploma Programme', url:`https://ibo.org/globalassets/new-structure/university-admission/pdfs/dp_comps_subject-brief_may_2022_e.pdf` },
+      ]},
+      { subj:'Economics', icon:'📊', color:'#D97706', books:[
+        { title:'IB DP Economics SL Subject Brief', term:'IB Diploma Programme', url:`https://ibo.org/globalassets/new-structure/programmes/dp/pdfs/sl-economics-en.pdf` },
+      ]},
+      { subj:'Business Studies', icon:'💼', color:'#059669', books:[
+        { title:'IB DP Business Management HL Subject Brief', term:'IB Diploma Programme', url:`https://www.ibo.org/globalassets/new-structure/programmes/dp/pdfs/business-management-hl-subject-brief-en.pdf` },
+      ]},
+      { subj:'History', icon:'📜', color:'#92400E', books:[
+        { title:'IB DP History SL/HL Subject Brief', term:'IB Diploma Programme', url:`https://ibo.org/globalassets/new-structure/programmes/dp/pdfs/dp-history-sb-en.pdf` },
+      ]},
+      { subj:'Geography', icon:'🌍', color:'#065F46', books:[
+        { title:'IB DP Geography SL/HL Subject Brief', term:'IB Diploma Programme', url:`https://ibo.org/contentassets/5895a05412144fe890312bad52b17044/geography-sl-hl-2017-en.pdf` },
+      ]},
+    ],
+  },
+
+  // ══════════════════════════════════════════════════════════════
+  //  Edexcel (Pearson) International GCSE — Free Specifications
+  // ══════════════════════════════════════════════════════════════
+  edexcel: {
+    high: [
+      { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
+        { title:'Edexcel IGCSE Mathematics A (4MA1) Specification', term:'Edexcel International GCSE', url:`https://qualifications.pearson.com/content/dam/pdf/International%20GCSE/Mathematics%20A/2016/Specification%20and%20sample%20assessments/international-gcse-in-mathematics-spec-a.pdf` },
+        { title:'Edexcel IGCSE Mathematics B (4MB1) Specification', term:'Edexcel International GCSE', url:`https://qualifications.pearson.com/content/dam/pdf/International%20GCSE/Mathematics%20B/2016/Specification%20and%20sample%20assessments/international-gcse-in-mathematics-spec-b.pdf` },
+      ]},
+      { subj:'Physics', icon:'⚡', color:'#F59E0B', books:[
+        { title:'Edexcel IGCSE Physics (4PH1) Specification', term:'Edexcel International GCSE', url:`https://qualifications.pearson.com/content/dam/pdf/International%20GCSE/Physics/2017/specification-and-sample-assessments/international-gcse-physics-2017-specification.pdf` },
+      ]},
+      { subj:'Chemistry', icon:'🧪', color:'#10B981', books:[
+        { title:'Edexcel IGCSE Chemistry (4CH1) Specification', term:'Edexcel International GCSE', url:`https://qualifications.pearson.com/content/dam/pdf/International%20GCSE/Chemistry/2017/specification-and-sample-assessments/international-gcse-chemistry-2017-specification.pdf` },
+      ]},
+      { subj:'Biology', icon:'🦠', color:'#EC4899', books:[
+        { title:'Edexcel IGCSE Biology (4BI1) Specification', term:'Edexcel International GCSE', url:`https://qualifications.pearson.com/content/dam/pdf/International%20GCSE/Biology/2017/specification-and-sample-assessments/international-gcse-biology-2017-specification1.pdf` },
+        { title:'Edexcel IGCSE Science Double Award (4SD0) Specification', term:'Edexcel International GCSE', url:`https://qualifications.pearson.com/content/dam/pdf/International%20GCSE/Science%20(Double%20Award)/2017/specification-and-sample-assessments/international-gcse-science-double-award-2017-specification1.pdf` },
+      ]},
+      { subj:'English Language', icon:'🗣️', color:'#F97316', books:[
+        { title:'Edexcel IGCSE English Language A (4EA1) Specification', term:'Edexcel International GCSE', url:`https://qualifications.pearson.com/content/dam/pdf/International%20GCSE/English%20Language%20A/2016/Specification%20and%20sample%20assessments/9781446954379-int-gcse-englang-a-iss6-02-02-2023.pdf` },
+        { title:'Edexcel IGCSE English Language B (4EB1) Specification', term:'Edexcel International GCSE', url:`https://qualifications.pearson.com/content/dam/pdf/International%20GCSE/English%20Language%20B/2016/Specification%20and%20sample%20assessments/international-gcse-english-lang-b-specification.pdf` },
+      ]},
+      { subj:'Computer Science', icon:'💻', color:'#0EA5E9', books:[
+        { title:'Edexcel IGCSE Computer Science (4CP1) Specification', term:'Edexcel International GCSE', url:`https://qualifications.pearson.com/content/dam/pdf/International%20GCSE/computer-science/2017/specification-and-sample-assessments/international-gcse-in-Computer-Science-Specification.pdf` },
+      ]},
+      { subj:'Economics', icon:'📊', color:'#D97706', books:[
+        { title:'Edexcel IGCSE Economics (4EC1 Modular) Specification', term:'Edexcel International GCSE', url:`https://qualifications.pearson.com/content/dam/pdf/International%20GCSE/Economics/2023/specification-and-sample-assessments/international-gcse-in-economics-modular-specification.pdf` },
+      ]},
+      { subj:'Business Studies', icon:'💼', color:'#059669', books:[
+        { title:'Edexcel IGCSE Business Studies (4BS1) Specification', term:'Edexcel International GCSE', url:`https://qualifications.pearson.com/content/dam/pdf/International%20GCSE/Business%20Studies/2017/specification-and-sample-assessment/9781446942765-international-gcse-business-specification.pdf` },
+      ]},
+      { subj:'Accounting', icon:'🧾', color:'#7C3AED', books:[
+        { title:'Edexcel IGCSE Accounting (4AC1) Specification', term:'Edexcel International GCSE', url:`https://qualifications.pearson.com/content/dam/pdf/International%20GCSE/Accounting/2017/Specification-and-sample-assessments/ig-accountancy-spec.pdf` },
+      ]},
+      { subj:'Geography', icon:'🌍', color:'#065F46', books:[
+        { title:'Edexcel IGCSE Geography (4GE1) Specification', term:'Edexcel International GCSE', url:`https://qualifications.pearson.com/content/dam/pdf/International%20GCSE/Geography/2017/specification-and-sample-assessments/9781446958360-int-gcse-geog-issue-3.pdf` },
+      ]},
+    ],
+  },
+
+  // ══════════════════════════════════════════════════════════════
+  //  AQA GCSE — Free Official Specifications
+  // ══════════════════════════════════════════════════════════════
+  aqa: {
+    high: [
+      { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
+        { title:'AQA GCSE Mathematics (8300) Specification', term:'AQA GCSE', url:`https://filestore.aqa.org.uk/resources/mathematics/specifications/AQA-8300-SP-2016.PDF` },
+      ]},
+      { subj:'Physics', icon:'⚡', color:'#F59E0B', books:[
+        { title:'AQA GCSE Physics (8463) Specification', term:'AQA GCSE', url:`https://filestore.aqa.org.uk/resources/physics/specifications/AQA-8463-SP-2016.PDF` },
+        { title:'AQA GCSE Combined Science: Trilogy (8464) Specification', term:'AQA GCSE', url:`https://filestore.aqa.org.uk/resources/science/specifications/AQA-8464-SP-2016.PDF` },
+      ]},
+      { subj:'Chemistry', icon:'🧪', color:'#10B981', books:[
+        { title:'AQA GCSE Chemistry (8462) Specification', term:'AQA GCSE', url:`https://filestore.aqa.org.uk/resources/chemistry/specifications/AQA-8462-SP-2016.PDF` },
+      ]},
+      { subj:'Biology', icon:'🦠', color:'#EC4899', books:[
+        { title:'AQA GCSE Biology (8461) Specification', term:'AQA GCSE', url:`https://filestore.aqa.org.uk/resources/biology/specifications/AQA-8461-SP-2016.PDF` },
+      ]},
+      { subj:'English Language', icon:'🗣️', color:'#F97316', books:[
+        { title:'AQA GCSE English Language (8700) Specification', term:'AQA GCSE', url:`https://filestore.aqa.org.uk/resources/english/specifications/AQA-8700-SP-2015.PDF` },
+        { title:'AQA GCSE English Literature (8702) Specification', term:'AQA GCSE', url:`https://filestore.aqa.org.uk/resources/english/specifications/AQA-8702-SP-2015.PDF` },
+      ]},
+      { subj:'Computer Science', icon:'💻', color:'#0EA5E9', books:[
+        { title:'AQA GCSE Computer Science (8520) Specification', term:'AQA GCSE', url:`https://filestore.aqa.org.uk/resources/computing/specifications/AQA-8520-SP-2016.PDF` },
+      ]},
+      { subj:'Geography', icon:'🌍', color:'#065F46', books:[
+        { title:'AQA GCSE Geography (8035) Specification', term:'AQA GCSE', url:`https://filestore.aqa.org.uk/resources/geography/specifications/AQA-8035-SP-2016.PDF` },
+      ]},
+      { subj:'History', icon:'📜', color:'#92400E', books:[
+        { title:'AQA GCSE History (8145) Specification', term:'AQA GCSE', url:`https://filestore.aqa.org.uk/resources/history/specifications/AQA-8145-SP-2016.PDF` },
+      ]},
+      { subj:'Business', icon:'💼', color:'#6366F1', books:[
+        { title:'AQA GCSE Business (8132) Specification', term:'AQA GCSE', url:`https://filestore.aqa.org.uk/resources/business/specifications/AQA-8132-SP-2017.PDF` },
+      ]},
+      { subj:'Economics', icon:'📊', color:'#14B8A6', books:[
+        { title:'AQA GCSE Economics (8136) Specification', term:'AQA GCSE', url:`https://filestore.aqa.org.uk/resources/economics/specifications/AQA-8136-SP-2017.PDF` },
+      ]},
+      { subj:'Sociology', icon:'👥', color:'#A855F7', books:[
+        { title:'AQA GCSE Sociology (8192) Specification', term:'AQA GCSE', url:`https://filestore.aqa.org.uk/resources/sociology/specifications/AQA-8192-SP-2017.PDF` },
+      ]},
+      { subj:'Psychology', icon:'🧠', color:'#EC4899', books:[
+        { title:'AQA GCSE Psychology (8182) Specification', term:'AQA GCSE', url:`https://filestore.aqa.org.uk/resources/psychology/specifications/AQA-8182-SP-2017.PDF` },
+      ]},
+    ],
+  },
+
+  // ══════════════════════════════════════════════════════════════
+  //  OCR GCSE — Free Official Specifications
+  // ══════════════════════════════════════════════════════════════
+  ocr: {
+    high: [
+      { subj:'Physics', icon:'⚡', color:'#F59E0B', books:[
+        { title:'OCR GCSE Physics A — Gateway Science (J249) Specification', term:'OCR GCSE', url:`https://www.ocr.org.uk/Images/234600-specification-accredited-gcse-gateway-science-suite-physics-a-j249.pdf` },
+        { title:'OCR GCSE Physics B — 21st Century Science (J259) Specification', term:'OCR GCSE', url:`https://www.ocr.org.uk/Images/234601-specification-accredited-gcse-twenty-first-century-science-suite-physics-b-j259.pdf` },
+      ]},
+      { subj:'Chemistry', icon:'🧪', color:'#10B981', books:[
+        { title:'OCR GCSE Chemistry A — 21st Century Science Specification', term:'OCR GCSE', url:`https://www.ocr.org.uk/images/82527-specification.pdf` },
+        { title:'OCR GCSE Chemistry B — Gateway Science (J264) Specification', term:'OCR GCSE', url:`https://www.ocr.org.uk/images/82565-specification.pdf` },
+      ]},
+      { subj:'Biology', icon:'🦠', color:'#EC4899', books:[
+        { title:'OCR GCSE Biology A — Gateway Science (J247) Specification', term:'OCR GCSE', url:`https://www.ocr.org.uk/images/234594-specification-accredited-gcse-gateway-science-suite-biology-a-j247.pdf` },
+      ]},
+      { subj:'Computer Science', icon:'💻', color:'#0EA5E9', books:[
+        { title:'OCR GCSE Computer Science (J276) Specification', term:'OCR GCSE', url:`https://www.ocr.org.uk/images/225975-specification-accredited-gcse-computer-science-j276.pdf` },
+      ]},
+      { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
+        { title:'OCR GCSE Mathematics (J560) Specification', term:'OCR GCSE', url:`https://www.ocr.org.uk/Images/168982-specification-gcse-mathematics-j560.pdf` },
+      ]},
+      { subj:'Geography', icon:'🌍', color:'#065F46', books:[
+        { title:'OCR GCSE Geography A (J383) Specification', term:'OCR GCSE', url:`https://www.ocr.org.uk/Images/207306-specification-accredited-gcse-geography-a-j383.pdf` },
+      ]},
+      { subj:'English Language', icon:'🗣️', color:'#F97316', books:[
+        { title:'OCR GCSE English Language (J351) Specification', term:'OCR GCSE', url:`https://www.ocr.org.uk/Images/168996-specification-accredited-gcse-english-language-j351.pdf` },
+      ]},
+    ],
+  },
+
+  // ══════════════════════════════════════════════════════════════
+  //  CBSE (India) — NCERT Free Official Textbooks
+  // ══════════════════════════════════════════════════════════════
+  cbse: {
+    middle: [
+      { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
+        { title:'NCERT Mathematics — Class 9', term:'CBSE Class 9', url:`https://ncert.nic.in/textbook/pdf/iemh1ps.pdf` },
+        { title:'NCERT Mathematics — Class 10', term:'CBSE Class 10', url:`https://ncert.nic.in/textbook/pdf/jemh1ps.pdf` },
+      ]},
+      { subj:'Science', icon:'🔬', color:'#8B5CF6', books:[
+        { title:'NCERT Science — Class 9', term:'CBSE Class 9', url:`https://ncert.nic.in/textbook/pdf/iesc1ps.pdf` },
+        { title:'NCERT Science — Class 10', term:'CBSE Class 10', url:`https://ncert.nic.in/textbook/pdf/jesc1ps.pdf` },
+      ]},
+    ],
+    high: [
+      { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
+        { title:'NCERT Mathematics — Class 11', term:'CBSE Class 11', url:`https://ncert.nic.in/textbook/pdf/kemh1ps.pdf` },
+        { title:'NCERT Mathematics Part I — Class 12', term:'CBSE Class 12', url:`https://ncert.nic.in/textbook/pdf/lemh1ps.pdf` },
+        { title:'NCERT Mathematics Part II — Class 12', term:'CBSE Class 12', url:`https://ncert.nic.in/textbook/pdf/lemh2ps.pdf` },
+      ]},
+      { subj:'Physics', icon:'⚡', color:'#F59E0B', books:[
+        { title:'NCERT Physics Part I — Class 11', term:'CBSE Class 11', url:`https://ncert.nic.in/textbook/pdf/keph1ps.pdf` },
+        { title:'NCERT Physics Part II — Class 11', term:'CBSE Class 11', url:`https://ncert.nic.in/textbook/pdf/keph2ps.pdf` },
+        { title:'NCERT Physics Part I — Class 12', term:'CBSE Class 12', url:`https://ncert.nic.in/textbook/pdf/leph1ps.pdf` },
+        { title:'NCERT Physics Part II — Class 12', term:'CBSE Class 12', url:`https://ncert.nic.in/textbook/pdf/leph2ps.pdf` },
+      ]},
+      { subj:'Chemistry', icon:'🧪', color:'#10B981', books:[
+        { title:'NCERT Chemistry Part I — Class 11', term:'CBSE Class 11', url:`https://ncert.nic.in/textbook/pdf/kech1ps.pdf` },
+        { title:'NCERT Chemistry Part II — Class 11', term:'CBSE Class 11', url:`https://ncert.nic.in/textbook/pdf/kech2ps.pdf` },
+        { title:'NCERT Chemistry Part I — Class 12', term:'CBSE Class 12', url:`https://ncert.nic.in/textbook/pdf/lech1ps.pdf` },
+        { title:'NCERT Chemistry Part II — Class 12', term:'CBSE Class 12', url:`https://ncert.nic.in/textbook/pdf/lech2ps.pdf` },
+      ]},
+      { subj:'Biology', icon:'🦠', color:'#EC4899', books:[
+        { title:'NCERT Biology — Class 11', term:'CBSE Class 11', url:`https://ncert.nic.in/textbook/pdf/kebo1ps.pdf` },
+        { title:'NCERT Biology — Class 12', term:'CBSE Class 12', url:`https://ncert.nic.in/textbook/pdf/lebo1ps.pdf` },
+      ]},
+      { subj:'English', icon:'📖', color:'#F97316', books:[
+        { title:'NCERT Beehive — Class 9 English', term:'CBSE Class 9', url:`https://ncert.nic.in/textbook/pdf/iebe1ps.pdf` },
+        { title:'NCERT First Flight — Class 10 English', term:'CBSE Class 10', url:`https://ncert.nic.in/textbook/pdf/jebe1ps.pdf` },
+        { title:'NCERT Hornbill — Class 11 English', term:'CBSE Class 11', url:`https://ncert.nic.in/textbook/pdf/kehb1ps.pdf` },
+        { title:'NCERT Flamingo — Class 12 English', term:'CBSE Class 12', url:`https://ncert.nic.in/textbook/pdf/lefl1ps.pdf` },
+      ]},
+    ],
+  },
+
+  // ══════════════════════════════════════════════════════════════
+  //  South Africa CAPS — Official Curriculum Statements + Siyavula Open Textbooks
+  // ══════════════════════════════════════════════════════════════
+  south_africa: {
+    high: [
+      { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
+        { title:'CAPS Mathematics Grades 10–12 Curriculum Statement', term:'South Africa CAPS', url:`https://www.education.gov.za/portals/0/documents/policies/caps/final%20maths%2010%2011%2012%20%20september%202010.pdf` },
+        { title:'Siyavula Mathematics — Grade 10 (Open Textbook)', term:'South Africa CAPS', url:`https://www.siyavula.com/downloads/books/maths/Gr10_Mathematics_Learner_Eng_v11.pdf` },
+        { title:'Siyavula Mathematics — Grade 11 (Open Textbook)', term:'South Africa CAPS', url:`https://www.siyavula.com/downloads/books/maths/Gr11_Mathematics_Learner_Eng.pdf` },
+        { title:'Siyavula Mathematics — Grade 12 (Open Textbook)', term:'South Africa CAPS', url:`https://www.siyavula.com/downloads/books/maths/Gr12_Mathematics_Learner_Eng.pdf` },
+      ]},
+      { subj:'Physical Sciences', icon:'⚡', color:'#F59E0B', books:[
+        { title:'CAPS Physical Sciences FET Curriculum Statement', term:'South Africa CAPS', url:`https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20FET%20%20PHYSICAL%20SCIENCE%20WEB.pdf` },
+        { title:'Siyavula Physical Sciences — Grade 10 (Open Textbook)', term:'South Africa CAPS', url:`https://www.siyavula.com/downloads/books/science/Gr10_PhysicalSciences_Learner_Eng.pdf` },
+        { title:'Siyavula Physical Sciences — Grade 11 (Open Textbook)', term:'South Africa CAPS', url:`https://www.siyavula.com/downloads/books/science/Gr11_PhysicalSciences_Learner_Eng.pdf` },
+        { title:'Siyavula Physical Sciences — Grade 12 (Open Textbook)', term:'South Africa CAPS', url:`https://www.siyavula.com/downloads/books/science/Gr12_PhysicalSciences_Learner_Eng.pdf` },
+      ]},
+      { subj:'Life Sciences', icon:'🦠', color:'#EC4899', books:[
+        { title:'CAPS Life Sciences Grades 10–12 Curriculum Statement', term:'South Africa CAPS', url:`https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20FET%20_%20LIFE%20SCIENCES%20_%20GR%2010-12%20Web_2636.pdf` },
+      ]},
+      { subj:'Geography', icon:'🌍', color:'#065F46', books:[
+        { title:'CAPS Geography Grades 10–12 Curriculum Statement', term:'South Africa CAPS', url:`https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20FET%20_%20GEOGRAPHY%20_%20GR%2010-12%20_%20WEB_C9A9.pdf` },
+      ]},
+      { subj:'Accounting', icon:'📊', color:'#14B8A6', books:[
+        { title:'CAPS Accounting Grades 10–12 Curriculum Statement', term:'South Africa CAPS', url:`https://www.education.gov.za/Portals/0/CD/National%20Curriculum%20Statements%20and%20Vocational/CAPS%20FET%20_%20%20ACCOUNTING%20GR%2010-12%20_%20Web_CAB3.pdf` },
       ]},
     ],
   },
@@ -18649,7 +18919,7 @@ ${viewer}`;
   const dbEntry  = TEXTBOOK_DB[S.curriculum] || TEXTBOOK_DB.egypt || {};
   const gradeBooks = dbEntry[gradeKey] || dbEntry.high || [];
 
-  const isAr = !['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian'].includes(S.curriculum);
+  const isAr = !['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian','south_africa'].includes(S.curriculum);
 
   const q = encodeURIComponent(gradeData.label + ' ' + curData.label);
 
@@ -19121,7 +19391,7 @@ function tplLessons() {
 </div>
 <div class="screen-body">
 
-  ${['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian'].includes(S.curriculum) ? `
+  ${['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian','south_africa'].includes(S.curriculum) ? `
   <div style="background:#3B82F611;border:1px solid #3B82F633;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:12px;display:flex;gap:8px;align-items:flex-start">
     <span style="font-size:16px">ℹ️</span>
     <span style="color:var(--text-muted);line-height:1.7">المحتوى مبني على أحدث إصدار متاح من المنهج الرسمي. <b style="color:var(--primary)">أكواد المواد والموضوعات مُدققة ✅</b></span>
@@ -19166,7 +19436,7 @@ function tplLessons() {
 <div class="screen-header"><div class="screen-title">\u{1F4D6} الدروس</div></div>
 <div class="screen-body">
 
-  ${['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian'].includes(S.curriculum) ? `
+  ${['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian','south_africa'].includes(S.curriculum) ? `
   <div style="background:#3B82F611;border:1px solid #3B82F633;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:12px;display:flex;gap:8px;align-items:flex-start">
     <span style="font-size:16px">ℹ️</span>
     <span style="color:var(--text-muted);line-height:1.7">
@@ -19350,7 +19620,7 @@ async function genAILesson() {
   const gradeData = (curData.grades && (curData.grades[S.grade] || Object.values(curData.grades)[0])) || { label:'' };
   S.lessonLoading = true; S.lessonContent = ''; render();
   try {
-    const isEn = ['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian'].includes(S.curriculum);
+    const isEn = ['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian','south_africa'].includes(S.curriculum);
     const prompt = isEn
       ? `Create a comprehensive lesson on "${S.lessonChapter}" in ${S.lessonSubject.name} for ${curData.label} ${gradeData.label}. Include: 1) Learning objectives 2) Key concepts clearly explained 3) Worked examples 4) Practice questions with answers 5) Exam tips. Use clear headings and formatting.`
       : `اشرح درس "${S.lessonChapter}" في مادة ${S.lessonSubject.name} — ${curData.label} ${gradeData.label} شرحاً شاملاً يتضمن:\n## أهداف الدرس\n## المفاهيم الأساسية\n## أمثلة محلولة خطوة بخطوة\n## تمارين مع الحلول\n## نصائح للامتحان\nمهم جداً: لا تضع رموز تعبيرية (emoji) داخل الكلمات أو وسط الجمل. ضعها فقط في بداية العناوين إذا أردت. اكتب النص العربي بشكل سليم وواضح.`;
