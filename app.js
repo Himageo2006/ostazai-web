@@ -18942,7 +18942,13 @@ ${viewer}`;
     <div style="font-size:32px;margin-bottom:12px">⏳</div>
     <div style="font-size:14px;font-weight:700;color:var(--text-muted)">${isEn?'Loading lessons...':'جاري تحميل الدروس...'}</div>
   </div>` : S.textbookExplainError ? `
-  <div style="text-align:center;padding:30px;color:#EF4444">${esc(S.textbookExplainError)}</div>` : `
+  <div style="text-align:center;padding:30px">
+    <div style="color:#EF4444;font-size:14px;font-weight:700;margin-bottom:16px">${esc(S.textbookExplainError)}</div>
+    <button onclick="openTextbookExplain(S.textbookExplainSubj,S.textbookExplainCurric,S.textbookExplainMode)"
+      style="background:var(--primary);color:#fff;border:none;border-radius:12px;padding:12px 28px;font-size:14px;font-weight:800;cursor:pointer;font-family:Cairo,sans-serif">
+      🔄 ${isEn?'Retry':'إعادة المحاولة'}
+    </button>
+  </div>` : `
   <div style="font-size:11px;font-weight:800;color:var(--text-muted);letter-spacing:1px;margin-bottom:12px">${isEn?'📋 LESSONS & CHAPTERS':'📋 الدروس والفصول'}</div>
   <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px">
     ${chapters.map((ch,i) => `
@@ -19791,26 +19797,53 @@ function openTextbookExplain(subj, curricLabel, mode) {
 }
 
 async function loadTextbookChapters(subj, curricLabel) {
+  const bookTitle0 = (subj.books && subj.books[0] && subj.books[0].title) || subj.subj;
+  const cacheKey = 'tbch_' + S.curriculum + '_' + bookTitle0;
+  // Cached chapter list — avoid re-asking the server for the same book
   try {
-    const bookTitle = (subj.books && subj.books[0] && subj.books[0].title) || subj.subj;
+    const cached = localStorage.getItem(cacheKey);
+    if (cached) {
+      S.textbookExplainChapters = JSON.parse(cached);
+      S.textbookExplainLoading = false;
+      render();
+      return;
+    }
+  } catch(_) {}
+  try {
+    const bookTitle = bookTitle0;
     const isEn = ['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian','south_africa'].includes(S.curriculum);
     const prompt = isEn
       ? `List the main chapters or units of "${bookTitle}" (${subj.subj}, ${curricLabel} curriculum). Return ONLY a valid JSON array of chapter/unit names as strings, nothing else. Maximum 15 items. Keep names concise. Example: ["Chapter 1: Forces and Motion","Chapter 2: Energy","Chapter 3: Waves"]`
       : `اذكر الفصول والدروس الرئيسية في كتاب "${bookTitle}" (مادة ${subj.subj}، منهج ${curricLabel}). أرجع فقط مصفوفة JSON صالحة من أسماء الدروس كنصوص، بدون أي شيء آخر. الحد الأقصى 15 درساً. مثال: ["الفصل الأول: القوى والحركة","الفصل الثاني: الطاقة"]`;
     const { stage, grade, curriculum } = gradeToAPI();
-    const d = await req('/chat', 'POST', {
+    const body = {
       messages:   [{ role: 'user', content: prompt }],
       subject:    subj.subj,
       country:    S.curriculum,
       curriculum,
       stage,
       grade,
-    });
+    };
+    // Retry up to 3 times on rate-limit, waiting between attempts
+    let d, lastErr;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try { d = await req('/chat', 'POST', body); lastErr = null; break; }
+      catch(e) {
+        lastErr = e;
+        const isRate = /الحد الأقصى|rate|429|كثرة/i.test(e.message || '');
+        if (!isRate || attempt === 2) throw e;
+        await new Promise(r => setTimeout(r, 6000 * (attempt + 1)));
+        if (S.textbookUrl !== 'explain') return; // user left the screen
+      }
+    }
     const raw = (d.content || d.reply || d.message || d.response || '').trim();
     const match = raw.match(/\[[\s\S]*\]/);
     S.textbookExplainChapters = match ? JSON.parse(match[0]) : [raw];
+    if (match) { try { localStorage.setItem(cacheKey, match[0]); } catch(_) {} }
   } catch(e) {
-    S.textbookExplainError = e.message;
+    S.textbookExplainError = (e.message && /الحد الأقصى|rate|429/i.test(e.message))
+      ? (S.lang==='en' ? '⏳ Server is busy — wait a few seconds then tap "Retry"' : '⏳ الخادم مشغول — انتظر ثوانٍ ثم اضغط "إعادة المحاولة"')
+      : e.message;
   } finally {
     S.textbookExplainLoading = false;
     render();
