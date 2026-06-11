@@ -20674,13 +20674,6 @@ function chatWith(subject, msg) {
 
 function bind() {
 
-  /* ── textbook explain/summary buttons ── */
-  document.querySelectorAll('.tb-explain-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      openTextbookExplainByName(btn.dataset.subj, btn.dataset.curric, btn.dataset.mode);
-    });
-  });
-
   /* ── auth ── */
   ge('b-login')     && ge('b-login').addEventListener('click', doLogin);
 
@@ -22884,3 +22877,13 @@ function toggleIGCSELang() {
   saveLocal();
   render();
 }
+
+// Global capture-phase handler for textbook explain/summary buttons.
+// Runs once at startup so it survives every render() call.
+document.addEventListener('click', function(e) {
+  const btn = e.target.closest('.tb-explain-btn');
+  if (btn) {
+    e.stopPropagation();
+    openTextbookExplainByName(btn.dataset.subj, btn.dataset.curric, btn.dataset.mode);
+  }
+}, true);
