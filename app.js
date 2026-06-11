@@ -18921,9 +18921,19 @@ function tplTextbook() {
     const viewUrl = S.textbookViewUrl || S.textbookUrl;
     const dlUrl   = S.textbookUrl;
     const isGdrive = viewUrl.includes('drive.google.com');
-    const viewer = isGdrive
-      ? `<iframe src="${viewUrl}" allowfullscreen style="width:100%;height:calc(100vh - 110px);border:none;display:block"></iframe>`
-      : `<embed src="${viewUrl}" type="application/pdf" style="width:100%;height:calc(100vh - 110px);display:block">`;
+    // Mobile browsers can't render PDFs inline via <embed> — use Google's PDF viewer there
+    const isMobile = /Android|iPhone|iPad|Mobile/i.test(navigator.userAgent) || window.innerWidth < 769;
+    const isPdf    = /\.pdf(\?|$)/i.test(viewUrl);
+    let viewer;
+    if (isGdrive) {
+      viewer = `<iframe src="${viewUrl}" allowfullscreen style="width:100%;height:calc(100vh - 110px);border:none;display:block"></iframe>`;
+    } else if (isPdf && isMobile) {
+      viewer = `<iframe src="https://docs.google.com/gview?embedded=1&url=${encodeURIComponent(viewUrl)}" allowfullscreen style="width:100%;height:calc(100vh - 110px);border:none;display:block"></iframe>`;
+    } else if (isPdf) {
+      viewer = `<embed src="${viewUrl}" type="application/pdf" style="width:100%;height:calc(100vh - 110px);display:block">`;
+    } else {
+      viewer = `<iframe src="${viewUrl}" allowfullscreen style="width:100%;height:calc(100vh - 110px);border:none;display:block"></iframe>`;
+    }
     return `
 <div class="screen-header" style="gap:8px">
   <button id="tb-home" style="background:none;border:1px solid var(--border);border-radius:8px;padding:6px 12px;cursor:pointer;font-family:Cairo,sans-serif;font-size:12px;color:var(--text)">← رجوع</button>
