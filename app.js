@@ -18974,8 +18974,9 @@ ${viewer}`;
 
   return `
 <div class="screen-header" style="gap:8px">
-  <div class="screen-title">📚 مكتبة الكتب</div>
-  ${subjFilter ? `<button onclick="S.textbookSubjFilter='';render()" style="margin-right:auto;background:#6366F120;border:1px solid #6366F155;border-radius:8px;padding:4px 10px;font-size:11px;font-weight:700;color:#818CF8;cursor:pointer;font-family:Cairo,sans-serif">✕ كل الكتب</button>` : ''}
+  <button onclick="S.screen='home';render()" style="background:none;border:1px solid var(--border);border-radius:8px;padding:6px 12px;cursor:pointer;font-family:Cairo,sans-serif;font-size:12px;color:var(--text)">🏠 ${S.lang==='en'?'Home':'الرئيسية'}</button>
+  <div class="screen-title">📚 ${S.lang==='en'?'Books':'مكتبة الكتب'}</div>
+  ${subjFilter ? `<button onclick="S.textbookSubjFilter='';render()" style="margin-right:auto;background:#6366F120;border:1px solid #6366F155;border-radius:8px;padding:4px 10px;font-size:11px;font-weight:700;color:#818CF8;cursor:pointer;font-family:Cairo,sans-serif">✕ ${S.lang==='en'?'All Books':'كل الكتب'}</button>` : ''}
 </div>
 <div class="screen-body">
 
