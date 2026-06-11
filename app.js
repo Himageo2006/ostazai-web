@@ -18448,6 +18448,10 @@ function tplIGCSESubject() {
         style="background:#ffffff20;border:1px solid #ffffff35;border-radius:10px;padding:7px 14px;color:#fff;cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif">
         🗺️ Mind Map
       </button>
+      <button onclick="S.screen='textbook';S.textbookUrl='home';S.textbookSubjFilter='${esc(subj.label)}';S.textbookViewUrl=null;render()"
+        style="background:#ffffff20;border:1px solid #ffffff35;border-radius:10px;padding:7px 14px;color:#fff;cursor:pointer;font-size:11px;font-weight:700;font-family:Cairo,sans-serif">
+        📚 Textbook
+      </button>
     </div>
   </div>
 
@@ -18917,7 +18921,11 @@ ${viewer}`;
     high1:'high1', high2:'high2' };
   const gradeKey = gradeMap[S.grade] || 'high';
   const dbEntry  = TEXTBOOK_DB[S.curriculum] || TEXTBOOK_DB.egypt || {};
-  const gradeBooks = dbEntry[gradeKey] || dbEntry.high || [];
+  const allGradeBooks = dbEntry[gradeKey] || dbEntry.high || [];
+  const subjFilter = (S.textbookSubjFilter||'').toLowerCase().trim();
+  const gradeBooks = subjFilter
+    ? allGradeBooks.filter(s => s.subj.toLowerCase().includes(subjFilter) || subjFilter.includes(s.subj.toLowerCase()))
+    : allGradeBooks;
 
   const isAr = !['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian','south_africa'].includes(S.curriculum);
 
@@ -18965,7 +18973,10 @@ ${viewer}`;
   ];
 
   return `
-<div class="screen-header"><div class="screen-title">📚 مكتبة الكتب</div></div>
+<div class="screen-header" style="gap:8px">
+  <div class="screen-title">📚 مكتبة الكتب</div>
+  ${subjFilter ? `<button onclick="S.textbookSubjFilter='';render()" style="margin-right:auto;background:#6366F120;border:1px solid #6366F155;border-radius:8px;padding:4px 10px;font-size:11px;font-weight:700;color:#818CF8;cursor:pointer;font-family:Cairo,sans-serif">✕ كل الكتب</button>` : ''}
+</div>
 <div class="screen-body">
 
   <!-- Header -->
@@ -19343,6 +19354,7 @@ function tplLessons() {
       { icon:'📋', label:'ملخص', color:'#3B82F6', action:`openLessonTool('summary','${esc(subj.name)}','')` },
       { icon:'📝', label:'اختبار', color:'#8B5CF6', action:`openLessonTool('quiz','${esc(subj.name)}','')` },
       { icon:'🗂️', label:'بطاقات', color:'#F59E0B', action:`openLessonTool('flashcards','${esc(subj.name)}','')` },
+      { icon:'📚', label:'كتاب', color:'#6366F1', action:`S.screen='textbook';S.textbookUrl='home';S.textbookSubjFilter='${esc(subj.name)}';S.textbookViewUrl=null;render()` },
     ].map(t=>`
     <button onclick="${t.action}"
       style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 4px;background:${t.color}14;
@@ -20503,7 +20515,7 @@ function navTo(s) {
   S.screen = s;
   if (s === 'stats')       loadStats();
   if (s === 'leaderboard') loadLeaderboard();
-  if (s === 'textbook')    { S.textbookUrl = 'home'; S.textbookViewUrl = null; S._pdfBlobUrl = null; S._pdfLoading = false; S._pdfError = null; }
+  if (s === 'textbook')    { S.textbookUrl = 'home'; S.textbookViewUrl = null; S._pdfBlobUrl = null; S._pdfLoading = false; S._pdfError = null; S.textbookSubjFilter = ''; }
   if (s === 'lessons')     { S.lessonView='subjects'; S.lessonSubject=null; S.lessonChapter=null; }
   render();
 }
