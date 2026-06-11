@@ -19047,17 +19047,17 @@ ${viewer}`;
   <div style="margin-bottom:24px">
     <div style="font-size:13px;font-weight:800;color:var(--text-muted);margin-bottom:12px">📖 كتب ${gradeData.label}</div>
     <div style="display:flex;flex-direction:column;gap:10px">
-      ${gradeBooks.map(subj => `
+      ${(window._tbSubjs = gradeBooks, gradeBooks).map((subj,si) => `
       <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden">
         <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border);background:${subj.color}11">
           <span style="font-size:22px">${subj.icon}</span>
           <span style="flex:1;font-size:14px;font-weight:900;color:var(--text)">${esc(subj.subj)}</span>
           <div style="display:flex;gap:5px;flex-shrink:0">
-            <button onclick="openTextbookExplain(${JSON.stringify(subj).replace(/`/g,'\\`')}, '${esc(curData.label)}','explain')"
+            <button onclick="openTextbookExplainByIdx(${si},'${esc(curData.label)}','explain')"
               style="background:${subj.color};color:#fff;border:none;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:800;cursor:pointer;font-family:Cairo,sans-serif;white-space:nowrap">
               🤖 ${S.lang==='en'?'Explain':'اشرح'}
             </button>
-            <button onclick="openTextbookExplain(${JSON.stringify(subj).replace(/`/g,'\\`')}, '${esc(curData.label)}','summary')"
+            <button onclick="openTextbookExplainByIdx(${si},'${esc(curData.label)}','summary')"
               style="background:#10B981;color:#fff;border:none;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:800;cursor:pointer;font-family:Cairo,sans-serif;white-space:nowrap">
               📋 ${S.lang==='en'?'Summary':'ملخص'}
             </button>
@@ -19766,6 +19766,12 @@ const CURRICULUM_LABELS = {
 };
 
 // ── Textbook Explain: chapter picker ─────────────────────────────
+function openTextbookExplainByIdx(idx, curricLabel, mode) {
+  const subj = (window._tbSubjs || [])[idx];
+  if (!subj) return;
+  openTextbookExplain(subj, curricLabel, mode);
+}
+
 function openTextbookExplain(subj, curricLabel, mode) {
   S.textbookUrl             = 'explain';
   S.textbookExplainSubj     = subj;
