@@ -3505,15 +3505,23 @@ function tplShell(content) {
 </div>
 <!-- Floating Logout Button (mobile only) -->
 <button onclick="doLogout()" id="float-logout"
-  style="position:fixed;top:14px;left:14px;z-index:999;background:#EF444420;border:1px solid #EF444450;
-         color:#EF4444;border-radius:12px;padding:7px 13px;font-family:Cairo,sans-serif;font-size:12px;
-         font-weight:800;cursor:pointer;display:none;align-items:center;gap:5px">
+  style="position:fixed;top:calc(10px + env(safe-area-inset-top,0px));left:12px;z-index:999;background:#EF444420;border:1px solid #EF444450;
+         color:#EF4444;border-radius:12px;padding:6px 11px;font-family:Cairo,sans-serif;font-size:11px;
+         font-weight:800;cursor:pointer;display:none;align-items:center;gap:4px">
   🚪 ${S.lang==='en'?'Logout':'خروج'}
 </button>
+<!-- Floating Home Button (mobile, all screens except home) -->
+${S.screen!=='home' ? `
+<button onclick="navTo('home')" id="float-home" title="${S.lang==='en'?'Home':'الرئيسية'}"
+  style="position:fixed;bottom:calc(92px + env(safe-area-inset-bottom,0px));right:14px;z-index:999;width:46px;height:46px;border-radius:50%;
+         background:var(--bg-card);border:1.5px solid var(--primary);font-size:20px;cursor:pointer;
+         box-shadow:0 4px 14px rgba(0,0,0,.35);display:none;align-items:center;justify-content:center">
+  🏠
+</button>` : ''}
 <!-- Floating Feedback Button -->
 <button id="b-feedback-float" title="ملاحظات أو مشكلة؟"
-  style="position:fixed;bottom:72px;left:16px;z-index:999;width:44px;height:44px;border-radius:50%;
-         background:var(--primary);border:none;font-size:20px;cursor:pointer;
+  style="position:fixed;bottom:calc(92px + env(safe-area-inset-bottom,0px));left:14px;z-index:999;width:42px;height:42px;border-radius:50%;
+         background:var(--primary);border:none;font-size:19px;cursor:pointer;
          box-shadow:0 4px 14px #3B82F655;display:flex;align-items:center;justify-content:center;
          opacity:.85;transition:.2s" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=.85">
   💬
@@ -21305,7 +21313,11 @@ function bind() {
     .bot-nav-item.active{color:var(--primary)}
     .bot-nav-item.active span:first-child{transform:scale(1.15);display:inline-block}
     .drawer-btn:hover{border-color:var(--primary)!important;color:var(--primary)!important}
-    @media(max-width:768px){.sidebar{display:none}.bottom-nav{display:flex}.content{padding-bottom:75px}#float-logout{display:flex!important}
+    @media(max-width:768px){.sidebar{display:none}.bottom-nav{display:flex}.content{padding-bottom:75px}
+      #float-logout{display:flex!important}
+      #float-home{display:flex!important}
+      .screen-header{padding-top:calc(14px + env(safe-area-inset-top,0px))!important;padding-left:96px!important}
+      .chat-header{padding-top:calc(10px + env(safe-area-inset-top,0px))!important}
       }
     .auth-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
     .auth-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;width:100%;max-width:420px;display:flex;flex-direction:column;gap:16px}
