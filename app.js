@@ -18934,7 +18934,7 @@ ${viewer}`;
   <div style="background:linear-gradient(135deg,${es.color}22,${es.color}08);border:1px solid ${es.color}44;border-radius:16px;padding:16px;margin-bottom:20px;text-align:center">
     <div style="font-size:36px;margin-bottom:6px">${es.icon}</div>
     <div style="font-size:16px;font-weight:900;color:var(--text)">${esc(es.subj)}</div>
-    <div style="font-size:12px;color:var(--text-muted);margin-top:4px">${esc(S.textbookExplainCurric||'')} · ${isEn?'Choose a lesson to explain':'اختر درساً للشرح'}</div>
+    <div style="font-size:12px;color:var(--text-muted);margin-top:4px">${esc(S.textbookExplainCurric||'')} · ${S.textbookExplainMode==='summary'?(isEn?'Choose a lesson to summarise':'اختر درساً للتلخيص'):(isEn?'Choose a lesson to explain':'اختر درساً للشرح')}</div>
   </div>
 
   ${S.textbookExplainLoading ? `
@@ -18946,7 +18946,7 @@ ${viewer}`;
   <div style="font-size:11px;font-weight:800;color:var(--text-muted);letter-spacing:1px;margin-bottom:12px">${isEn?'📋 LESSONS & CHAPTERS':'📋 الدروس والفصول'}</div>
   <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px">
     ${chapters.map((ch,i) => `
-    <button onclick="explainTextbookChapter('${esc(es.subj)}','${esc(S.textbookExplainCurric||'')}',${JSON.stringify(ch)})"
+    <button onclick="explainTextbookChapter('${esc(es.subj)}','${esc(S.textbookExplainCurric||'')}',${JSON.stringify(ch)},'${S.textbookExplainMode||'explain'}')"
       style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--bg-card);
              border:1.5px solid var(--border);border-radius:14px;cursor:pointer;text-align:right;
              width:100%;font-family:Cairo,sans-serif;transition:.15s"
@@ -18959,7 +18959,7 @@ ${viewer}`;
       <span style="color:${es.color};font-size:16px">&#x2190;</span>
     </button>`).join('')}
   </div>
-  <button onclick="explainTextbookChapter('${esc(es.subj)}','${esc(S.textbookExplainCurric||'')}','')"
+  <button onclick="explainTextbookChapter('${esc(es.subj)}','${esc(S.textbookExplainCurric||'')}','','${S.textbookExplainMode||'explain'}')"
     style="width:100%;padding:12px;background:${es.color}18;border:1.5px dashed ${es.color}55;border-radius:12px;
            cursor:pointer;font-family:Cairo,sans-serif;font-size:13px;font-weight:700;color:${es.color}">
     ✏️ ${isEn?'Ask about any other topic':'اسأل عن موضوع آخر'}
@@ -19052,10 +19052,16 @@ ${viewer}`;
         <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border);background:${subj.color}11">
           <span style="font-size:22px">${subj.icon}</span>
           <span style="flex:1;font-size:14px;font-weight:900;color:var(--text)">${esc(subj.subj)}</span>
-          <button onclick="openTextbookExplain(${JSON.stringify(subj).replace(/`/g,'\\`')}, '${esc(curData.label)}')"
-            style="background:${subj.color};color:#fff;border:none;border-radius:8px;padding:6px 12px;font-size:11px;font-weight:800;cursor:pointer;font-family:Cairo,sans-serif;white-space:nowrap;flex-shrink:0">
-            🤖 ${S.lang==='en'?'Explain':'اشرح'}
-          </button>
+          <div style="display:flex;gap:5px;flex-shrink:0">
+            <button onclick="openTextbookExplain(${JSON.stringify(subj).replace(/`/g,'\\`')}, '${esc(curData.label)}','explain')"
+              style="background:${subj.color};color:#fff;border:none;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:800;cursor:pointer;font-family:Cairo,sans-serif;white-space:nowrap">
+              🤖 ${S.lang==='en'?'Explain':'اشرح'}
+            </button>
+            <button onclick="openTextbookExplain(${JSON.stringify(subj).replace(/`/g,'\\`')}, '${esc(curData.label)}','summary')"
+              style="background:#10B981;color:#fff;border:none;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:800;cursor:pointer;font-family:Cairo,sans-serif;white-space:nowrap">
+              📋 ${S.lang==='en'?'Summary':'ملخص'}
+            </button>
+          </div>
         </div>
         <div style="display:flex;flex-direction:column;gap:0">
           ${subj.books.map((book,bi) => `
@@ -19760,10 +19766,11 @@ const CURRICULUM_LABELS = {
 };
 
 // ── Textbook Explain: chapter picker ─────────────────────────────
-function openTextbookExplain(subj, curricLabel) {
+function openTextbookExplain(subj, curricLabel, mode) {
   S.textbookUrl             = 'explain';
   S.textbookExplainSubj     = subj;
   S.textbookExplainCurric   = curricLabel;
+  S.textbookExplainMode     = mode || 'explain';
   S.textbookExplainChapters = null;
   S.textbookExplainLoading  = true;
   S.textbookExplainError    = null;
@@ -19798,18 +19805,25 @@ async function loadTextbookChapters(subj, curricLabel) {
   }
 }
 
-function explainTextbookChapter(subj, curricLabel, chapter) {
+function explainTextbookChapter(subj, curricLabel, chapter, mode) {
   const isEn = ['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian','south_africa'].includes(S.curriculum);
+  const isSummary = mode === 'summary';
   if (!chapter) {
-    // Free input — open chat and let user ask
     chatWith(`${subj} — ${curricLabel}`, isEn
-      ? `You are an expert teacher for ${subj} (${curricLabel} curriculum). The student is using the official textbook. Ask them: "Which chapter or topic would you like me to explain in detail?"`
-      : `أنت أستاذ متخصص في مادة ${subj} وفق منهج ${curricLabel}. الطالب يدرس من الكتاب المدرسي الرسمي. اسأله: "ما الدرس أو الموضوع الذي تريد أن أشرحه لك بالتفصيل؟"`);
+      ? `You are an expert teacher for ${subj} (${curricLabel} curriculum). The student is using the official textbook. Ask them: "Which chapter or topic would you like me to ${isSummary?'summarise':'explain in detail'}?"`
+      : `أنت أستاذ متخصص في مادة ${subj} وفق منهج ${curricLabel}. الطالب يدرس من الكتاب المدرسي الرسمي. اسأله: "ما الدرس أو الموضوع الذي تريد ${isSummary?'تلخيصه':'أن أشرحه لك بالتفصيل'}؟"`);
     return;
   }
-  const prompt = isEn
-    ? `You are an expert ${subj} teacher using the ${curricLabel} official textbook.\n\nExplain "${chapter}" in full detail:\n\n## Learning Objectives\n## Key Concepts & Theory\n## Worked Examples (step by step)\n## Common Mistakes to Avoid\n## Practice Questions with Answers\n## Exam Tips\n\nBe thorough, clear, and curriculum-aligned.`
-    : `أنت أستاذ متخصص في مادة ${subj} وفق منهج ${curricLabel}، تشرح من الكتاب المدرسي الرسمي.\n\nاشرح "${chapter}" شرحاً مفصلاً شاملاً يتضمن:\n\n## أهداف الدرس\n## المفاهيم والنظرية الأساسية\n## أمثلة محلولة خطوة بخطوة\n## الأخطاء الشائعة وكيف تتجنبها\n## تمارين مع الحلول\n## نصائح للامتحان\n\nاكتب بأسلوب واضح ومناسب للكتاب المدرسي.`;
+  let prompt;
+  if (isSummary) {
+    prompt = isEn
+      ? `You are an expert ${subj} teacher using the ${curricLabel} official textbook.\n\nWrite a comprehensive smart summary for "${chapter}":\n\n## Key Points\n## Important Definitions\n## Core Formulas / Rules (if applicable)\n## Quick Examples\n## What to Remember for the Exam\n\nMake it concise, well-structured, and easy to revise from.`
+      : `أنت أستاذ متخصص في مادة ${subj} وفق منهج ${curricLabel}، تلخص من الكتاب المدرسي الرسمي.\n\nاكتب ملخصاً ذكياً شاملاً لـ "${chapter}" يتضمن:\n\n## النقاط الأساسية\n## التعريفات المهمة\n## القوانين والقواعد الأساسية (إن وجدت)\n## أمثلة سريعة\n## ما يجب حفظه للامتحان\n\nاجعله مختصراً ومنظماً وسهل المراجعة.`;
+  } else {
+    prompt = isEn
+      ? `You are an expert ${subj} teacher using the ${curricLabel} official textbook.\n\nExplain "${chapter}" in full detail:\n\n## Learning Objectives\n## Key Concepts & Theory\n## Worked Examples (step by step)\n## Common Mistakes to Avoid\n## Practice Questions with Answers\n## Exam Tips\n\nBe thorough, clear, and curriculum-aligned.`
+      : `أنت أستاذ متخصص في مادة ${subj} وفق منهج ${curricLabel}، تشرح من الكتاب المدرسي الرسمي.\n\nاشرح "${chapter}" شرحاً مفصلاً شاملاً يتضمن:\n\n## أهداف الدرس\n## المفاهيم والنظرية الأساسية\n## أمثلة محلولة خطوة بخطوة\n## الأخطاء الشائعة وكيف تتجنبها\n## تمارين مع الحلول\n## نصائح للامتحان\n\nاكتب بأسلوب واضح ومناسب للكتاب المدرسي.`;
+  }
   chatWith(`${subj} — ${chapter}`, prompt);
 }
 
