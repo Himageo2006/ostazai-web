@@ -5,6 +5,14 @@
 
 const API = 'https://ostazai-server-production.up.railway.app/api';
 
+// Visit tracking — once per browser session
+try {
+  if (!sessionStorage.getItem('_v')) {
+    sessionStorage.setItem('_v', '1');
+    fetch(API + '/visits', { method: 'POST' }).catch(() => {});
+  }
+} catch (_) {}
+
 /* ══════════════════════════════════════════════════════════════
    DEVICE FINGERPRINTING — prevents multi-account trial abuse
    Never throws — always returns a string (null-safe)
