@@ -5123,7 +5123,7 @@ const TEXTBOOK_DB = {
   aqa: {
     high: [
       { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
-        { title:'AQA GCSE Mathematics (8300) Specification', term:'AQA GCSE', url:`https://filestore.aqa.org.uk/resources/mathematics/specifications/AQA-8300-SP-2016.PDF` },
+        { title:'AQA GCSE Mathematics (8300) Specification', term:'AQA GCSE', url:`https://filestore.aqa.org.uk/resources/mathematics/specifications/AQA-8300-SP-2015.PDF` },
       ]},
       { subj:'Physics', icon:'⚡', color:'#F59E0B', books:[
         { title:'AQA GCSE Physics (8463) Specification', term:'AQA GCSE', url:`https://filestore.aqa.org.uk/resources/physics/specifications/AQA-8463-SP-2016.PDF` },
@@ -5140,7 +5140,7 @@ const TEXTBOOK_DB = {
         { title:'AQA GCSE English Literature (8702) Specification', term:'AQA GCSE', url:`https://filestore.aqa.org.uk/resources/english/specifications/AQA-8702-SP-2015.PDF` },
       ]},
       { subj:'Computer Science', icon:'💻', color:'#0EA5E9', books:[
-        { title:'AQA GCSE Computer Science (8520) Specification', term:'AQA GCSE', url:`https://filestore.aqa.org.uk/resources/computing/specifications/AQA-8520-SP-2016.PDF` },
+        { title:'AQA GCSE Computer Science (8525) Specification', term:'AQA GCSE', url:`https://filestore.aqa.org.uk/resources/computing/specifications/AQA-8525-SP-2020.PDF` },
       ]},
       { subj:'Geography', icon:'🌍', color:'#065F46', books:[
         { title:'AQA GCSE Geography (8035) Specification', term:'AQA GCSE', url:`https://filestore.aqa.org.uk/resources/geography/specifications/AQA-8035-SP-2016.PDF` },
@@ -5183,7 +5183,7 @@ const TEXTBOOK_DB = {
         { title:'OCR GCSE Computer Science (J276) Specification', term:'OCR GCSE', url:`https://www.ocr.org.uk/images/225975-specification-accredited-gcse-computer-science-j276.pdf` },
       ]},
       { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
-        { title:'OCR GCSE Mathematics (J560) Specification', term:'OCR GCSE', url:`https://www.ocr.org.uk/Images/168982-specification-gcse-mathematics-j560.pdf` },
+        { title:'OCR GCSE Mathematics (J560) Sample Assessment (Higher)', term:'OCR GCSE', url:`https://www.ocr.org.uk/Images/169001-higher-tier-sample-assessment-materials.pdf` },
       ]},
       { subj:'Geography', icon:'🌍', color:'#065F46', books:[
         { title:'OCR GCSE Geography A (J383) Specification', term:'OCR GCSE', url:`https://www.ocr.org.uk/Images/207306-specification-accredited-gcse-geography-a-j383.pdf` },
@@ -5232,7 +5232,7 @@ const TEXTBOOK_DB = {
       ]},
       { subj:'English', icon:'📖', color:'#F97316', books:[
         { title:'NCERT Beehive — Class 9 English', term:'CBSE Class 9', url:`https://ncert.nic.in/textbook/pdf/iebe1ps.pdf` },
-        { title:'NCERT First Flight — Class 10 English', term:'CBSE Class 10', url:`https://ncert.nic.in/textbook/pdf/jebe1ps.pdf` },
+        { title:'NCERT First Flight — Class 10 English (ZIP)', term:'CBSE Class 10', url:`https://ncert.nic.in/textbook/pdf/jeff1dd.zip` },
         { title:'NCERT Hornbill — Class 11 English', term:'CBSE Class 11', url:`https://ncert.nic.in/textbook/pdf/kehb1ps.pdf` },
         { title:'NCERT Flamingo — Class 12 English', term:'CBSE Class 12', url:`https://ncert.nic.in/textbook/pdf/lefl1ps.pdf` },
       ]},
