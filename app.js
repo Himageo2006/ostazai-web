@@ -220,7 +220,7 @@ function loadLocal() {
 
 /* ── tiny utils ── */
 const ge  = id => document.getElementById(id);
-const esc = s  => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&quot;');
+const esc = s  => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 
 function md(t) {
   if (!t) return '';
@@ -18952,7 +18952,7 @@ ${viewer}`;
   <div style="font-size:11px;font-weight:800;color:var(--text-muted);letter-spacing:1px;margin-bottom:12px">${isEn?'📋 LESSONS & CHAPTERS':'📋 الدروس والفصول'}</div>
   <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px">
     ${chapters.map((ch,i) => `
-    <button onclick="explainTextbookChapter('${esc(es.subj)}','${esc(S.textbookExplainCurric||'')}',${JSON.stringify(ch)},'${S.textbookExplainMode||'explain'}')"
+    <button class="tb-chapter-btn" data-ch="${esc(ch)}"
       style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--bg-card);
              border:1.5px solid var(--border);border-radius:14px;cursor:pointer;text-align:right;
              width:100%;font-family:Cairo,sans-serif;transition:.15s"
@@ -18965,8 +18965,8 @@ ${viewer}`;
       <span style="color:${es.color};font-size:16px">&#x2190;</span>
     </button>`).join('')}
   </div>
-  <button onclick="explainTextbookChapter('${esc(es.subj)}','${esc(S.textbookExplainCurric||'')}','','${S.textbookExplainMode||'explain'}')"
-    style="width:100%;padding:12px;background:${es.color}18;border:1.5px dashed ${es.color}55;border-radius:12px;
+  <button class="tb-chapter-btn" data-ch=""
+    style="width:100%;padding:12px;margin-bottom:90px;background:${es.color}18;border:1.5px dashed ${es.color}55;border-radius:12px;
            cursor:pointer;font-family:Cairo,sans-serif;font-size:13px;font-weight:700;color:${es.color}">
     ✏️ ${isEn?'Ask about any other topic':'اسأل عن موضوع آخر'}
   </button>`}
@@ -22918,5 +22918,11 @@ document.addEventListener('click', function(e) {
   if (btn) {
     e.stopPropagation();
     openTextbookExplainByName(btn.dataset.subj, btn.dataset.curric, btn.dataset.mode);
+    return;
+  }
+  const chBtn = e.target.closest('.tb-chapter-btn');
+  if (chBtn && S.textbookExplainSubj) {
+    e.stopPropagation();
+    explainTextbookChapter(S.textbookExplainSubj.subj, S.textbookExplainCurric || '', chBtn.dataset.ch || '', S.textbookExplainMode || 'explain');
   }
 }, true);
