@@ -18928,7 +18928,22 @@ function tplTextbook() {
     if (isGdrive) {
       viewer = `<iframe src="${viewUrl}" allowfullscreen style="width:100%;height:calc(100vh - 110px);border:none;display:block"></iframe>`;
     } else if (isPdf && isMobile) {
-      viewer = `<iframe src="https://docs.google.com/gview?embedded=1&url=${encodeURIComponent(viewUrl)}" allowfullscreen style="width:100%;height:calc(100vh - 110px);border:none;display:block"></iframe>`;
+      // Mobile browsers can't embed PDFs and Google's gview blocks iframes —
+      // open the book in the browser tab (Chrome Android has a built-in PDF viewer)
+      viewer = `
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:40px 24px;text-align:center">
+        <div style="font-size:64px">📖</div>
+        <div style="font-size:16px;font-weight:900;color:var(--text)">${S.textbookActiveTitle ? esc(S.textbookActiveTitle) : 'الكتاب جاهز'}</div>
+        <div style="font-size:13px;color:var(--text-muted);line-height:1.8">اضغط الزر لفتح الكتاب في المتصفح<br/>يمكنك القراءة والتكبير والتنقل بين الصفحات</div>
+        <a href="${viewUrl}" target="_blank" rel="noopener"
+          style="background:var(--primary);color:#fff;border-radius:14px;padding:14px 36px;font-size:16px;font-weight:900;text-decoration:none;font-family:Cairo,sans-serif;box-shadow:0 4px 14px #3B82F655">
+          📖 ${S.lang==='en'?'Open the book':'فتح الكتاب'}
+        </a>
+        <a href="${dlUrl}" target="_blank" rel="noopener"
+          style="background:var(--bg-card);border:1.5px solid var(--border);color:var(--text);border-radius:12px;padding:10px 26px;font-size:13px;font-weight:700;text-decoration:none;font-family:Cairo,sans-serif">
+          ⬇️ ${S.lang==='en'?'Download':'تحميل الكتاب'}
+        </a>
+      </div>`;
     } else if (isPdf) {
       viewer = `<embed src="${viewUrl}" type="application/pdf" style="width:100%;height:calc(100vh - 110px);display:block">`;
     } else {
