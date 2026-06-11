@@ -4592,7 +4592,10 @@ function tplSummary() {
   </div>
   ${S.summaryLoading?'<div class="empty-state"><div class="spinner"></div><div>جارٍ التوليد...</div></div>':''}
   ${S.summaryText?`
-  <div class="info-card" style="line-height:1.9;font-size:14px">${md(S.summaryText)}</div>
+  <div class="info-card" style="line-height:1.9;font-size:14px">${(() => {
+    const t = S.summaryText.replace(/^```html?\s*/i,'').replace(/```\s*$/,'').trim();
+    return /<(div|h[1-6]|p|ul|ol|table)[\s>]/i.test(t) ? t : md(S.summaryText);
+  })()}</div>
   <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
     <button class="btn btn-primary" onclick="exportPDF()">📥 تصدير PDF / طباعة</button>
     <button class="btn btn-secondary" onclick="S.summaryText='';render()">🔄 ملخص جديد</button>
