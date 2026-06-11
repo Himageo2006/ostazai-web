@@ -18935,6 +18935,7 @@ function tplTextbook() {
         <div style="font-size:64px">📖</div>
         <div style="font-size:16px;font-weight:900;color:var(--text)">${S.textbookActiveTitle ? esc(S.textbookActiveTitle) : 'الكتاب جاهز'}</div>
         <div style="font-size:13px;color:var(--text-muted);line-height:1.8">اضغط الزر لفتح الكتاب في المتصفح<br/>يمكنك القراءة والتكبير والتنقل بين الصفحات</div>
+        <div style="font-size:12px;color:#F59E0B;background:#F59E0B18;border:1px solid #F59E0B44;border-radius:10px;padding:10px 16px;line-height:1.7">⏳ بعض الكتب حجمها كبير (60+ ميجا)<br/>قد تظهر صفحة بيضاء لدقيقة أثناء التحميل — انتظر قليلاً</div>
         <a href="${viewUrl}" target="_blank" rel="noopener"
           style="background:var(--primary);color:#fff;border-radius:14px;padding:14px 36px;font-size:16px;font-weight:900;text-decoration:none;font-family:Cairo,sans-serif;box-shadow:0 4px 14px #3B82F655">
           📖 ${S.lang==='en'?'Open the book':'فتح الكتاب'}
