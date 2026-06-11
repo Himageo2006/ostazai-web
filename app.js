@@ -18919,6 +18919,54 @@ function tplTextbook() {
 ${viewer}`;
   }
 
+  // ── Chapter Picker (Explain Mode) ────────────────────────────────
+  if (S.textbookUrl === 'explain' && S.textbookExplainSubj) {
+    const es = S.textbookExplainSubj;
+    const chapters = S.textbookExplainChapters || [];
+    const isEn = ['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian','south_africa'].includes(S.curriculum);
+    return `
+<div class="screen-header" style="gap:8px">
+  <button onclick="S.textbookUrl='home';S.textbookExplainSubj=null;S.textbookExplainChapters=null;render()"
+    style="background:none;border:1px solid var(--border);border-radius:8px;padding:6px 12px;cursor:pointer;font-family:Cairo,sans-serif;font-size:12px;color:var(--text)">← ${isEn?'Back':'رجوع'}</button>
+  <div class="screen-title" style="font-size:14px">${es.icon} ${esc(es.subj)}</div>
+</div>
+<div class="screen-body">
+  <div style="background:linear-gradient(135deg,${es.color}22,${es.color}08);border:1px solid ${es.color}44;border-radius:16px;padding:16px;margin-bottom:20px;text-align:center">
+    <div style="font-size:36px;margin-bottom:6px">${es.icon}</div>
+    <div style="font-size:16px;font-weight:900;color:var(--text)">${esc(es.subj)}</div>
+    <div style="font-size:12px;color:var(--text-muted);margin-top:4px">${esc(S.textbookExplainCurric||'')} · ${isEn?'Choose a lesson to explain':'اختر درساً للشرح'}</div>
+  </div>
+
+  ${S.textbookExplainLoading ? `
+  <div style="text-align:center;padding:40px 20px">
+    <div style="font-size:32px;margin-bottom:12px">⏳</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-muted)">${isEn?'Loading lessons...':'جاري تحميل الدروس...'}</div>
+  </div>` : S.textbookExplainError ? `
+  <div style="text-align:center;padding:30px;color:#EF4444">${esc(S.textbookExplainError)}</div>` : `
+  <div style="font-size:11px;font-weight:800;color:var(--text-muted);letter-spacing:1px;margin-bottom:12px">${isEn?'📋 LESSONS & CHAPTERS':'📋 الدروس والفصول'}</div>
+  <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px">
+    ${chapters.map((ch,i) => `
+    <button onclick="explainTextbookChapter('${esc(es.subj)}','${esc(S.textbookExplainCurric||'')}',${JSON.stringify(ch)})"
+      style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--bg-card);
+             border:1.5px solid var(--border);border-radius:14px;cursor:pointer;text-align:right;
+             width:100%;font-family:Cairo,sans-serif;transition:.15s"
+      onmouseover="this.style.borderColor='${es.color}';this.style.background='${es.color}08'"
+      onmouseout="this.style.borderColor='var(--border)';this.style.background='var(--bg-card)'">
+      <div style="width:34px;height:34px;border-radius:10px;background:${es.color}22;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:${es.color};flex-shrink:0">${i+1}</div>
+      <div style="flex:1;text-align:right">
+        <div style="font-size:13px;font-weight:800;color:var(--text)">${esc(ch)}</div>
+      </div>
+      <span style="color:${es.color};font-size:16px">&#x2190;</span>
+    </button>`).join('')}
+  </div>
+  <button onclick="explainTextbookChapter('${esc(es.subj)}','${esc(S.textbookExplainCurric||'')}','')"
+    style="width:100%;padding:12px;background:${es.color}18;border:1.5px dashed ${es.color}55;border-radius:12px;
+           cursor:pointer;font-family:Cairo,sans-serif;font-size:13px;font-weight:700;color:${es.color}">
+    ✏️ ${isEn?'Ask about any other topic':'اسأل عن موضوع آخر'}
+  </button>`}
+</div>`;
+  }
+
   // ── Book Library ─────────────────────────────────────────────────
   // Map S.grade to TEXTBOOK_DB key
   const gradeMap = { high:'high', middle:'middle', primary:'primary',
@@ -19004,7 +19052,7 @@ ${viewer}`;
         <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border);background:${subj.color}11">
           <span style="font-size:22px">${subj.icon}</span>
           <span style="flex:1;font-size:14px;font-weight:900;color:var(--text)">${esc(subj.subj)}</span>
-          <button onclick="chatWith('${esc(subj.subj)} — ${esc(curData.label)}','أنت أستاذ متخصص في مادة ${esc(subj.subj)} وفق منهج ${esc(curData.label)}. الطالب يدرس من الكتاب المدرسي الرسمي. ابدأ بسؤاله: أي فصل أو موضوع تريد أن أشرح لك اليوم؟')"
+          <button onclick="openTextbookExplain(${JSON.stringify(subj).replace(/`/g,'\\`')}, '${esc(curData.label)}')"
             style="background:${subj.color};color:#fff;border:none;border-radius:8px;padding:6px 12px;font-size:11px;font-weight:800;cursor:pointer;font-family:Cairo,sans-serif;white-space:nowrap;flex-shrink:0">
             🤖 ${S.lang==='en'?'Explain':'اشرح'}
           </button>
@@ -19710,6 +19758,60 @@ const CURRICULUM_LABELS = {
   australian:'Australian Curriculum (VCE/HSC/QCE)',
   canadian:'Canadian Curriculum (Ontario)',
 };
+
+// ── Textbook Explain: chapter picker ─────────────────────────────
+function openTextbookExplain(subj, curricLabel) {
+  S.textbookUrl             = 'explain';
+  S.textbookExplainSubj     = subj;
+  S.textbookExplainCurric   = curricLabel;
+  S.textbookExplainChapters = null;
+  S.textbookExplainLoading  = true;
+  S.textbookExplainError    = null;
+  render();
+  loadTextbookChapters(subj, curricLabel);
+}
+
+async function loadTextbookChapters(subj, curricLabel) {
+  try {
+    const bookTitle = (subj.books && subj.books[0] && subj.books[0].title) || subj.subj;
+    const isEn = ['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian','south_africa'].includes(S.curriculum);
+    const prompt = isEn
+      ? `List the main chapters or units of "${bookTitle}" (${subj.subj}, ${curricLabel} curriculum). Return ONLY a valid JSON array of chapter/unit names as strings, nothing else. Maximum 15 items. Keep names concise. Example: ["Chapter 1: Forces and Motion","Chapter 2: Energy","Chapter 3: Waves"]`
+      : `اذكر الفصول والدروس الرئيسية في كتاب "${bookTitle}" (مادة ${subj.subj}، منهج ${curricLabel}). أرجع فقط مصفوفة JSON صالحة من أسماء الدروس كنصوص، بدون أي شيء آخر. الحد الأقصى 15 درساً. مثال: ["الفصل الأول: القوى والحركة","الفصل الثاني: الطاقة"]`;
+    const { stage, grade, curriculum } = gradeToAPI();
+    const d = await req('/chat', 'POST', {
+      messages:   [{ role: 'user', content: prompt }],
+      subject:    subj.subj,
+      country:    S.curriculum,
+      curriculum,
+      stage,
+      grade,
+    });
+    const raw = (d.content || d.reply || d.message || d.response || '').trim();
+    const match = raw.match(/\[[\s\S]*\]/);
+    S.textbookExplainChapters = match ? JSON.parse(match[0]) : [raw];
+  } catch(e) {
+    S.textbookExplainError = e.message;
+  } finally {
+    S.textbookExplainLoading = false;
+    render();
+  }
+}
+
+function explainTextbookChapter(subj, curricLabel, chapter) {
+  const isEn = ['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian','south_africa'].includes(S.curriculum);
+  if (!chapter) {
+    // Free input — open chat and let user ask
+    chatWith(`${subj} — ${curricLabel}`, isEn
+      ? `You are an expert teacher for ${subj} (${curricLabel} curriculum). The student is using the official textbook. Ask them: "Which chapter or topic would you like me to explain in detail?"`
+      : `أنت أستاذ متخصص في مادة ${subj} وفق منهج ${curricLabel}. الطالب يدرس من الكتاب المدرسي الرسمي. اسأله: "ما الدرس أو الموضوع الذي تريد أن أشرحه لك بالتفصيل؟"`);
+    return;
+  }
+  const prompt = isEn
+    ? `You are an expert ${subj} teacher using the ${curricLabel} official textbook.\n\nExplain "${chapter}" in full detail:\n\n## Learning Objectives\n## Key Concepts & Theory\n## Worked Examples (step by step)\n## Common Mistakes to Avoid\n## Practice Questions with Answers\n## Exam Tips\n\nBe thorough, clear, and curriculum-aligned.`
+    : `أنت أستاذ متخصص في مادة ${subj} وفق منهج ${curricLabel}، تشرح من الكتاب المدرسي الرسمي.\n\nاشرح "${chapter}" شرحاً مفصلاً شاملاً يتضمن:\n\n## أهداف الدرس\n## المفاهيم والنظرية الأساسية\n## أمثلة محلولة خطوة بخطوة\n## الأخطاء الشائعة وكيف تتجنبها\n## تمارين مع الحلول\n## نصائح للامتحان\n\nاكتب بأسلوب واضح ومناسب للكتاب المدرسي.`;
+  chatWith(`${subj} — ${chapter}`, prompt);
+}
 
 function gradeToAPI() {
   const map = {
@@ -20526,7 +20628,7 @@ function navTo(s) {
   S.screen = s;
   if (s === 'stats')       loadStats();
   if (s === 'leaderboard') loadLeaderboard();
-  if (s === 'textbook')    { S.textbookUrl = 'home'; S.textbookViewUrl = null; S._pdfBlobUrl = null; S._pdfLoading = false; S._pdfError = null; S.textbookSubjFilter = ''; }
+  if (s === 'textbook')    { S.textbookUrl = 'home'; S.textbookViewUrl = null; S._pdfBlobUrl = null; S._pdfLoading = false; S._pdfError = null; S.textbookSubjFilter = ''; S.textbookExplainSubj = null; S.textbookExplainChapters = null; S.textbookExplainLoading = false; }
   if (s === 'lessons')     { S.lessonView='subjects'; S.lessonSubject=null; S.lessonChapter=null; }
   render();
 }
