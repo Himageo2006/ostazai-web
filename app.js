@@ -18898,7 +18898,7 @@ function tplTextbook() {
   const gradeData = (curData.grades && (curData.grades[S.grade] || Object.values(curData.grades)[0])) || { label:'' };
 
   // ── If viewing a PDF ─────────────────────────────────────────────
-  if (S.textbookUrl && S.textbookUrl !== 'home') {
+  if (S.textbookUrl && S.textbookUrl !== 'home' && S.textbookUrl !== 'explain') {
     const viewUrl = S.textbookViewUrl || S.textbookUrl;
     const dlUrl   = S.textbookUrl;
     const isGdrive = viewUrl.includes('drive.google.com');
