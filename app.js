@@ -5269,10 +5269,11 @@ const TEXTBOOK_DB = {
   },
 };
 
-function viewPDF(url, viewUrl) {
-  S.textbookUrl     = url;
-  // viewUrl is only set for Google Drive /preview; all other books use their direct url
-  S.textbookViewUrl = (viewUrl && viewUrl !== 'undefined' && viewUrl !== '') ? viewUrl : url;
+function viewPDF(url, viewUrl, subj, title) {
+  S.textbookUrl        = url;
+  S.textbookViewUrl    = (viewUrl && viewUrl !== 'undefined' && viewUrl !== '') ? viewUrl : url;
+  S.textbookActiveSubj = subj  || '';
+  S.textbookActiveTitle= title || '';
   render();
 }
 
@@ -18907,9 +18908,13 @@ function tplTextbook() {
     return `
 <div class="screen-header" style="gap:8px">
   <button id="tb-home" style="background:none;border:1px solid var(--border);border-radius:8px;padding:6px 12px;cursor:pointer;font-family:Cairo,sans-serif;font-size:12px;color:var(--text)">← رجوع</button>
-  <div class="screen-title" style="font-size:14px">📖 عارض الكتاب</div>
+  <div class="screen-title" style="font-size:13px">📖 ${S.textbookActiveTitle ? esc(S.textbookActiveTitle) : (S.lang==='en'?'Book Viewer':'عارض الكتاب')}</div>
+  <button onclick="chatWith('${esc(curData.label)} — ${esc(S.textbookActiveSubj||'الكتاب المدرسي')}','أنت أستاذ متخصص في مادة ${esc(S.textbookActiveSubj||'هذه المادة')} وفق منهج ${esc(curData.label)}. الطالب يقرأ الكتاب المدرسي الرسمي الآن. اسأله: ما الموضوع أو الفصل الذي تريد شرحه أو تفسيره؟')"
+    style="background:#10B981;color:#fff;border:none;border-radius:8px;padding:6px 12px;font-size:11px;font-weight:800;cursor:pointer;font-family:Cairo,sans-serif;white-space:nowrap">
+    🤖 ${S.lang==='en'?'Ask AI':'اسأل AI'}
+  </button>
   <a href="${dlUrl}" target="_blank"
-    style="margin-right:auto;background:var(--primary);color:#fff;border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;text-decoration:none;font-family:Cairo,sans-serif">⬇️ تحميل</a>
+    style="background:var(--primary);color:#fff;border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;text-decoration:none;font-family:Cairo,sans-serif">⬇️</a>
 </div>
 ${viewer}`;
   }
@@ -18998,7 +19003,11 @@ ${viewer}`;
       <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden">
         <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border);background:${subj.color}11">
           <span style="font-size:22px">${subj.icon}</span>
-          <span style="font-size:14px;font-weight:900;color:var(--text)">${esc(subj.subj)}</span>
+          <span style="flex:1;font-size:14px;font-weight:900;color:var(--text)">${esc(subj.subj)}</span>
+          <button onclick="chatWith('${esc(subj.subj)} — ${esc(curData.label)}','أنت أستاذ متخصص في مادة ${esc(subj.subj)} وفق منهج ${esc(curData.label)}. الطالب يدرس من الكتاب المدرسي الرسمي. ابدأ بسؤاله: أي فصل أو موضوع تريد أن أشرح لك اليوم؟')"
+            style="background:${subj.color};color:#fff;border:none;border-radius:8px;padding:6px 12px;font-size:11px;font-weight:800;cursor:pointer;font-family:Cairo,sans-serif;white-space:nowrap;flex-shrink:0">
+            🤖 ${S.lang==='en'?'Explain':'اشرح'}
+          </button>
         </div>
         <div style="display:flex;flex-direction:column;gap:0">
           ${subj.books.map((book,bi) => `
@@ -19011,6 +19020,7 @@ ${viewer}`;
             </div>
             <div style="display:flex;flex-direction:column;gap:5px;flex-shrink:0">
               <a href="${book.viewUrl || book.url}" target="_blank" rel="noopener"
+                onclick="event.preventDefault();viewPDF('${book.url}','${book.viewUrl||book.url}','${esc(subj.subj)}','${esc(book.title)}')"
                 style="background:${subj.color};color:#fff;font-size:11px;font-weight:700;padding:6px 12px;border-radius:8px;border:none;cursor:pointer;font-family:Cairo,sans-serif;display:block;text-decoration:none;text-align:center">
                 📖 ${book.external?'افتح':'قراءة'}
               </a>
