@@ -19053,11 +19053,11 @@ ${viewer}`;
           <span style="font-size:22px">${subj.icon}</span>
           <span style="flex:1;font-size:14px;font-weight:900;color:var(--text)">${esc(subj.subj)}</span>
           <div style="display:flex;gap:5px;flex-shrink:0">
-            <button onclick="openTextbookExplainByName('${subj.subj.replace(/'/g,'\\\'').replace(/"/g,'&quot;')}','${esc(curData.label)}','explain')"
+            <button class="tb-explain-btn" data-subj="${esc(subj.subj)}" data-curric="${esc(curData.label)}" data-mode="explain"
               style="background:${subj.color};color:#fff;border:none;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:800;cursor:pointer;font-family:Cairo,sans-serif;white-space:nowrap">
               🤖 ${S.lang==='en'?'Explain':'اشرح'}
             </button>
-            <button onclick="openTextbookExplainByName('${subj.subj.replace(/'/g,'\\\'').replace(/"/g,'&quot;')}','${esc(curData.label)}','summary')"
+            <button class="tb-explain-btn" data-subj="${esc(subj.subj)}" data-curric="${esc(curData.label)}" data-mode="summary"
               style="background:#10B981;color:#fff;border:none;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:800;cursor:pointer;font-family:Cairo,sans-serif;white-space:nowrap">
               📋 ${S.lang==='en'?'Summary':'ملخص'}
             </button>
@@ -20673,6 +20673,13 @@ function chatWith(subject, msg) {
 }
 
 function bind() {
+
+  /* ── textbook explain/summary buttons ── */
+  document.querySelectorAll('.tb-explain-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      openTextbookExplainByName(btn.dataset.subj, btn.dataset.curric, btn.dataset.mode);
+    });
+  });
 
   /* ── auth ── */
   ge('b-login')     && ge('b-login').addEventListener('click', doLogin);
