@@ -381,6 +381,155 @@ async function req(path, method='GET', body=null, retries=1) {
   return d;
 }
 
+/* ── Animated Teacher Avatar: "أستاذ أمين" explains lessons with voice ── */
+function cleanForSpeech(text) {
+  return String(text)
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/[#*_`>|]+/g, ' ')
+    .replace(/\$\$?[^$]*\$\$?/g, ' ')
+    .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu, ' ')
+    .replace(/\s+/g, ' ').trim();
+}
+
+const TEACHER_SVG = `
+<svg viewBox="0 0 200 200" width="130" height="130" xmlns="http://www.w3.org/2000/svg">
+  <!-- body -->
+  <ellipse cx="100" cy="185" rx="55" ry="28" fill="#1E3A8A"/>
+  <!-- head -->
+  <circle cx="100" cy="105" r="52" fill="#F5C99B"/>
+  <!-- ears -->
+  <circle cx="48" cy="105" r="9" fill="#F5C99B"/><circle cx="152" cy="105" r="9" fill="#F5C99B"/>
+  <!-- graduation cap -->
+  <rect x="55" y="48" width="90" height="14" rx="4" fill="#0F172A"/>
+  <polygon points="100,18 170,50 100,66 30,50" fill="#0F172A"/>
+  <line x1="160" y1="52" x2="160" y2="78" stroke="#F59E0B" stroke-width="4"/>
+  <circle cx="160" cy="82" r="6" fill="#F59E0B"/>
+  <!-- glasses -->
+  <circle cx="78" cy="100" r="16" fill="none" stroke="#0F172A" stroke-width="4"/>
+  <circle cx="122" cy="100" r="16" fill="none" stroke="#0F172A" stroke-width="4"/>
+  <line x1="94" y1="100" x2="106" y2="100" stroke="#0F172A" stroke-width="4"/>
+  <!-- eyes (blink via CSS) -->
+  <circle class="tch-eye" cx="78" cy="100" r="5" fill="#0F172A"/>
+  <circle class="tch-eye" cx="122" cy="100" r="5" fill="#0F172A"/>
+  <!-- eyebrows -->
+  <path d="M66 78 Q78 72 90 78" stroke="#7C4A1E" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M110 78 Q122 72 134 78" stroke="#7C4A1E" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <!-- mustache -->
+  <path d="M80 128 Q100 138 120 128 Q110 130 100 129 Q90 130 80 128" fill="#7C4A1E"/>
+  <!-- mouth (animates while talking) -->
+  <ellipse class="tch-mouth" cx="100" cy="142" rx="13" ry="4" fill="#8B3A2E"/>
+  <!-- collar + tie -->
+  <polygon points="100,158 88,172 100,196 112,172" fill="#F59E0B"/>
+</svg>`;
+
+let _teacherState = { sentences: [], idx: 0, playing: false };
+
+function showTeacher(text) {
+  if (!('speechSynthesis' in window)) { showToast(S.lang==='en'?'Voice not supported on this device':'القراءة الصوتية غير مدعومة على هذا الجهاز', 'error'); return; }
+  const clean = cleanForSpeech(text);
+  if (!clean) return;
+  // split into readable chunks (sentences, merged to ~180 chars)
+  const parts = clean.split(/(?<=[.!?؟…:])\s+/).filter(s => s.trim());
+  const sentences = [];
+  let buf = '';
+  for (const p of parts) {
+    if ((buf + ' ' + p).length > 180 && buf) { sentences.push(buf.trim()); buf = p; }
+    else buf = buf ? buf + ' ' + p : p;
+  }
+  if (buf.trim()) sentences.push(buf.trim());
+  _teacherState = { sentences, idx: 0, playing: false };
+
+  let ov = document.getElementById('teacher-overlay');
+  if (!ov) {
+    ov = document.createElement('div');
+    ov.id = 'teacher-overlay';
+    document.body.appendChild(ov);
+  }
+  ov.innerHTML = `
+    <div class="tch-card">
+      <button class="tch-close" onclick="closeTeacher()">✕</button>
+      <div class="tch-avatar" id="tch-avatar">${TEACHER_SVG}</div>
+      <div class="tch-name">🎓 ${S.lang==='en'?'Mr. Amin explains':'الأستاذ أمين يشرح'}</div>
+      <div class="tch-text" id="tch-text"></div>
+      <div class="tch-controls">
+        <button class="tch-btn" id="tch-prev" onclick="teacherJump(-1)">⏮</button>
+        <button class="tch-btn tch-play" id="tch-play" onclick="teacherToggle()">▶️ ${S.lang==='en'?'Start':'ابدأ الشرح'}</button>
+        <button class="tch-btn" id="tch-next" onclick="teacherJump(1)">⏭</button>
+      </div>
+      <div class="tch-progress" id="tch-progress"></div>
+    </div>`;
+  ov.style.display = 'flex';
+  renderTeacherText();
+}
+
+function renderTeacherText() {
+  const t = _teacherState;
+  const el = document.getElementById('tch-text');
+  const pg = document.getElementById('tch-progress');
+  if (el) el.textContent = t.sentences[t.idx] || '';
+  if (pg) pg.textContent = `${t.idx + 1} / ${t.sentences.length}`;
+}
+
+function teacherSpeakCurrent() {
+  const t = _teacherState;
+  if (t.idx >= t.sentences.length) { teacherStop(); return; }
+  renderTeacherText();
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(t.sentences[t.idx]);
+  const isArabic = /[؀-ۿ]/.test(t.sentences[t.idx]);
+  u.lang = isArabic ? 'ar-SA' : 'en-US';
+  const v = speechSynthesis.getVoices().find(v => v.lang.startsWith(isArabic ? 'ar' : 'en'));
+  if (v) u.voice = v;
+  u.rate = 0.95;
+  u.onend = () => {
+    if (!_teacherState.playing) return;
+    _teacherState.idx++;
+    if (_teacherState.idx < _teacherState.sentences.length) teacherSpeakCurrent();
+    else teacherStop(true);
+  };
+  u.onerror = () => teacherStop();
+  speechSynthesis.speak(u);
+  const av = document.getElementById('tch-avatar');
+  if (av) av.classList.add('talking');
+}
+
+function teacherToggle() {
+  const t = _teacherState;
+  const btn = document.getElementById('tch-play');
+  if (t.playing) {
+    t.playing = false;
+    speechSynthesis.cancel();
+    document.getElementById('tch-avatar')?.classList.remove('talking');
+    if (btn) btn.innerHTML = '▶️ ' + (S.lang==='en'?'Continue':'أكمل');
+  } else {
+    t.playing = true;
+    if (btn) btn.innerHTML = '⏸️ ' + (S.lang==='en'?'Pause':'إيقاف مؤقت');
+    teacherSpeakCurrent();
+  }
+}
+
+function teacherJump(dir) {
+  const t = _teacherState;
+  t.idx = Math.max(0, Math.min(t.sentences.length - 1, t.idx + dir));
+  if (t.playing) teacherSpeakCurrent(); else renderTeacherText();
+}
+
+function teacherStop(finished) {
+  _teacherState.playing = false;
+  speechSynthesis.cancel();
+  document.getElementById('tch-avatar')?.classList.remove('talking');
+  const btn = document.getElementById('tch-play');
+  if (btn) btn.innerHTML = (finished ? '🔁 ' : '▶️ ') + (finished ? (S.lang==='en'?'Replay':'أعد الشرح') : (S.lang==='en'?'Continue':'أكمل'));
+  if (finished) _teacherState.idx = 0;
+}
+
+function closeTeacher() {
+  teacherStop();
+  const ov = document.getElementById('teacher-overlay');
+  if (ov) ov.style.display = 'none';
+}
+
 /* ── Text-to-Speech: read AI explanations aloud ── */
 let _speakingBtn = null;
 function speakText(text, btn) {
@@ -3868,6 +4017,7 @@ function tplChat() {
       <div style="flex:1;min-width:0">
         <div class="msg-bubble">${md(m.content)}
           <div class="msg-actions">
+            <button class="teach-btn" data-idx="${i}" title="${S.lang==='en'?'Teacher explains':'الأستاذ يشرح'}">🎬</button>
             <button class="speak-btn" data-idx="${i}" title="${S.lang==='en'?'Read aloud':'استمع للشرح'}">🔊</button>
             <button class="bm-btn" data-idx="${i}" title="حفظ">🔖</button>
             <button class="copy-msg-btn" data-idx="${i}" title="نسخ">📋</button>
@@ -21160,6 +21310,11 @@ function bind() {
     const msg = S.messages[idx];
     if (msg) speakText(msg.content, el);
   }));
+  document.querySelectorAll('.teach-btn').forEach(el => el.addEventListener('click', () => {
+    const idx = parseInt(el.dataset.idx);
+    const msg = S.messages[idx];
+    if (msg) showTeacher(msg.content);
+  }));
   document.querySelectorAll('.copy-msg-btn').forEach(el => el.addEventListener('click', () => {
     const idx = parseInt(el.dataset.idx);
     const msg = S.messages[idx];
@@ -21459,7 +21614,26 @@ function bind() {
     .msg-bubble{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:12px 16px;max-width:75%;font-size:14px;line-height:1.8;position:relative}
     .msg-user .msg-bubble{background:var(--primary)22;border-color:var(--primary)44}
     .msg-actions{display:flex;gap:4px;margin-top:6px;justify-content:flex-end}
-    .bm-btn,.copy-msg-btn,.speak-btn{background:none;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:12px;opacity:.6;transition:.15s;padding:3px 7px}.bm-btn:hover,.copy-msg-btn:hover,.speak-btn:hover{opacity:1;border-color:var(--primary)}
+    .bm-btn,.copy-msg-btn,.speak-btn,.teach-btn{background:none;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:12px;opacity:.6;transition:.15s;padding:3px 7px}.bm-btn:hover,.copy-msg-btn:hover,.speak-btn:hover,.teach-btn:hover{opacity:1;border-color:var(--primary)}
+    /* ── Teacher avatar overlay ── */
+    #teacher-overlay{position:fixed;inset:0;background:rgba(8,12,24,.88);z-index:2000;display:none;align-items:center;justify-content:center;padding:18px}
+    .tch-card{background:var(--bg-card);border:1px solid var(--border);border-radius:22px;padding:22px;max-width:430px;width:100%;text-align:center;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+    .tch-close{position:absolute;top:12px;left:12px;background:var(--bg-card2);border:1px solid var(--border);border-radius:50%;width:32px;height:32px;cursor:pointer;color:var(--text);font-size:14px}
+    .tch-avatar{display:inline-block;animation:tch-bob 3s ease-in-out infinite}
+    @keyframes tch-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    .tch-avatar .tch-eye{animation:tch-blink 4s infinite}
+    @keyframes tch-blink{0%,94%,100%{transform:scaleY(1)}96%,98%{transform:scaleY(.1)}}
+    .tch-avatar .tch-eye{transform-origin:center;transform-box:fill-box}
+    .tch-avatar .tch-mouth{transform-origin:center;transform-box:fill-box}
+    .tch-avatar.talking .tch-mouth{animation:tch-talk .28s ease-in-out infinite alternate}
+    @keyframes tch-talk{from{transform:scaleY(1)}to{transform:scaleY(2.6)}}
+    .tch-avatar.talking{animation:tch-bob 1.4s ease-in-out infinite}
+    .tch-name{font-size:16px;font-weight:900;color:#F59E0B;margin:6px 0 12px}
+    .tch-text{background:var(--bg-card2);border:1px solid var(--border);border-radius:14px;padding:16px;min-height:88px;font-size:15px;line-height:2;color:var(--text);display:flex;align-items:center;justify-content:center}
+    .tch-controls{display:flex;gap:10px;justify-content:center;margin-top:14px}
+    .tch-btn{background:var(--bg-card2);border:1px solid var(--border);border-radius:12px;padding:10px 14px;cursor:pointer;font-family:Cairo,sans-serif;font-size:14px;color:var(--text)}
+    .tch-play{background:var(--primary);color:#fff;border:none;font-weight:800;padding:10px 22px}
+    .tch-progress{margin-top:10px;font-size:12px;color:var(--text-muted)}
     .msg-time{font-size:10px;color:var(--text-muted);margin-top:3px;padding:0 4px}
     .thinking{display:flex;gap:6px;align-items:center;padding:14px}
     .thinking span{width:8px;height:8px;border-radius:50%;background:var(--primary);animation:bounce .8s infinite;display:inline-block}
