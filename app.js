@@ -367,8 +367,44 @@ async function req(path, method='GET', body=null, retries=1) {
   return d;
 }
 
+/* ── Text-to-Speech: read AI explanations aloud ── */
+let _speakingBtn = null;
+function speakText(text, btn) {
+  if (!('speechSynthesis' in window)) { showToast(S.lang==='en'?'Voice not supported on this device':'القراءة الصوتية غير مدعومة على هذا الجهاز', 'error'); return; }
+  // Toggle: if already speaking, stop
+  if (speechSynthesis.speaking) {
+    speechSynthesis.cancel();
+    if (_speakingBtn) _speakingBtn.textContent = '🔊';
+    if (_speakingBtn === btn) { _speakingBtn = null; return; }
+  }
+  // Strip markdown/HTML/emojis so it reads clean text
+  const clean = String(text)
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/[#*_`>|-]+/g, ' ')
+    .replace(/\$\$?[^$]*\$\$?/g, ' ')
+    .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu, ' ')
+    .replace(/\s+/g, ' ').trim();
+  if (!clean) return;
+  const u = new SpeechSynthesisUtterance(clean);
+  // Pick language by content: Arabic letters → Arabic voice, else English
+  const isArabic = /[؀-ۿ]/.test(clean);
+  u.lang = isArabic ? 'ar-SA' : 'en-US';
+  const voices = speechSynthesis.getVoices();
+  const v = voices.find(v => v.lang.startsWith(isArabic ? 'ar' : 'en'));
+  if (v) u.voice = v;
+  u.rate = 0.95;
+  u.onend = u.onerror = () => { if (btn) btn.textContent = '🔊'; _speakingBtn = null; };
+  if (btn) { btn.textContent = '⏸️'; _speakingBtn = btn; }
+  speechSynthesis.speak(u);
+}
+// Some browsers load voices asynchronously
+if ('speechSynthesis' in window) speechSynthesis.getVoices();
+
 /* ── render ── */
 function render() {
+  // Stop any ongoing speech when the screen re-renders away
+  try { if (window.speechSynthesis && speechSynthesis.speaking && !document.querySelector('.speak-btn')) speechSynthesis.cancel(); } catch(_) {}
   const el = ge('app');
   if      (S.screen === 'loading')       { el.innerHTML = tplLoading(); }
   else if (S.screen === 'login')         { el.innerHTML = tplLogin(); }
@@ -3815,6 +3851,7 @@ function tplChat() {
       <div style="flex:1;min-width:0">
         <div class="msg-bubble">${md(m.content)}
           <div class="msg-actions">
+            <button class="speak-btn" data-idx="${i}" title="${S.lang==='en'?'Read aloud':'استمع للشرح'}">🔊</button>
             <button class="bm-btn" data-idx="${i}" title="حفظ">🔖</button>
             <button class="copy-msg-btn" data-idx="${i}" title="نسخ">📋</button>
           </div>
@@ -21085,6 +21122,11 @@ function bind() {
       saveLocal(); showToast(S.lang==='en'?'Saved 🔖':'تم الحفظ 🔖', 'success');
     }
   }));
+  document.querySelectorAll('.speak-btn').forEach(el => el.addEventListener('click', () => {
+    const idx = parseInt(el.dataset.idx);
+    const msg = S.messages[idx];
+    if (msg) speakText(msg.content, el);
+  }));
   document.querySelectorAll('.copy-msg-btn').forEach(el => el.addEventListener('click', () => {
     const idx = parseInt(el.dataset.idx);
     const msg = S.messages[idx];
@@ -21384,7 +21426,7 @@ function bind() {
     .msg-bubble{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:12px 16px;max-width:75%;font-size:14px;line-height:1.8;position:relative}
     .msg-user .msg-bubble{background:var(--primary)22;border-color:var(--primary)44}
     .msg-actions{display:flex;gap:4px;margin-top:6px;justify-content:flex-end}
-    .bm-btn,.copy-msg-btn{background:none;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:12px;opacity:.6;transition:.15s;padding:3px 7px}.bm-btn:hover,.copy-msg-btn:hover{opacity:1;border-color:var(--primary)}
+    .bm-btn,.copy-msg-btn,.speak-btn{background:none;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:12px;opacity:.6;transition:.15s;padding:3px 7px}.bm-btn:hover,.copy-msg-btn:hover,.speak-btn:hover{opacity:1;border-color:var(--primary)}
     .msg-time{font-size:10px;color:var(--text-muted);margin-top:3px;padding:0 4px}
     .thinking{display:flex;gap:6px;align-items:center;padding:14px}
     .thinking span{width:8px;height:8px;border-radius:50%;background:var(--primary);animation:bounce .8s infinite;display:inline-block}
