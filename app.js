@@ -339,7 +339,11 @@ async function req(path, method='GET', body=null, retries=1) {
   let r;
   try {
     const ctrl = new AbortController();
-    const timeout = setTimeout(() => ctrl.abort(), 8000); // 8s timeout
+    // AI generation endpoints need a long window (full lessons take 20-60s);
+    // everything else stays snappy.
+    const AI_PATHS = ['/chat', '/study', '/pdf', '/lessons'];
+    const ms = AI_PATHS.some(p => path.startsWith(p)) ? 120000 : 15000;
+    const timeout = setTimeout(() => ctrl.abort(), ms);
     r = await fetch(API + path, {
       method, headers: h,
       body: body ? JSON.stringify(body) : undefined,
