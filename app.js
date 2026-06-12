@@ -322,10 +322,20 @@ function setBtnLoading(id, label) {
 }
 
 /* ── API ── */
+// Detect if running inside the native mobile app (WebView injects __OSTAZAI_APP / ?app=1)
+const IS_APP = (() => {
+  try {
+    if (window.__OSTAZAI_APP === true) { localStorage.setItem('_isapp','1'); return true; }
+    if (new URLSearchParams(location.search).get('app') === '1') { localStorage.setItem('_isapp','1'); return true; }
+    return localStorage.getItem('_isapp') === '1';
+  } catch(_) { return false; }
+})();
+
 async function req(path, method='GET', body=null, retries=1) {
   if (!navigator.onLine) throw new Error('لا يوجد اتصال بالإنترنت \u{1F4F6}');
   const h = { 'Content-Type': 'application/json' };
   if (S.token) h['Authorization'] = `Bearer ${S.token}`;
+  if (body && typeof body === 'object' && IS_APP) body.client = 'app';
   let r;
   try {
     const ctrl = new AbortController();
