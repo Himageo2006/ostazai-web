@@ -3846,6 +3846,8 @@ function tplChat() {
         </div>
       </div>`;
     }
+    const isLastAi = i === S.messages.length - 1;
+    const showContinue = m.truncated && isLastAi && !S.thinking;
     return `<div class="msg msg-ai">
       <div class="msg-avatar">🎓</div>
       <div style="flex:1;min-width:0">
@@ -3856,6 +3858,11 @@ function tplChat() {
             <button class="copy-msg-btn" data-idx="${i}" title="نسخ">📋</button>
           </div>
         </div>
+        ${showContinue ? `
+        <button id="b-continue-msg" style="margin-top:8px;background:var(--primary)18;border:1.5px dashed var(--primary)66;color:var(--primary);
+                border-radius:12px;padding:10px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Cairo,sans-serif">
+          ⬇️ ${S.lang==='en'?'Continue explanation':'أكمل الشرح'}
+        </button>` : ''}
         ${ts}
       </div>
     </div>`;
@@ -19984,6 +19991,16 @@ function gradeToAPI() {
   return { stage, grade, curriculum };
 }
 
+function continueExplanation() {
+  const inp = ge('f-msg');
+  if (!inp || S.thinking) return;
+  const isEn = ['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian','south_africa'].includes(S.curriculum);
+  inp.value = isEn
+    ? 'Continue the explanation exactly from where you stopped. Do not repeat anything you already said.'
+    : 'أكمل الشرح من النقطة التي توقفت عندها بالضبط، ولا تعد أي شيء قلته سابقاً.';
+  sendMsg();
+}
+
 async function sendMsg() {
   const inp = ge('f-msg');
   const txt = inp ? inp.value.trim() : '';
@@ -20020,7 +20037,7 @@ async function sendMsg() {
 
     const reply = d.content || d.message || d.reply || '';
     const replyTime = new Date().toLocaleTimeString('ar-EG', { hour:'2-digit', minute:'2-digit' });
-    S.messages.push({ role: 'assistant', content: reply, time: replyTime });
+    S.messages.push({ role: 'assistant', content: reply, time: replyTime, truncated: !!d.truncated });
 
     // XP + history + streak
     S.stats = S.stats || { xp:0, streak:1, totalChats:0, weeklyActivity:[0,0,0,0,0,0,0] };
@@ -21122,6 +21139,7 @@ function bind() {
       saveLocal(); showToast(S.lang==='en'?'Saved 🔖':'تم الحفظ 🔖', 'success');
     }
   }));
+  ge('b-continue-msg') && ge('b-continue-msg').addEventListener('click', continueExplanation);
   document.querySelectorAll('.speak-btn').forEach(el => el.addEventListener('click', () => {
     const idx = parseInt(el.dataset.idx);
     const msg = S.messages[idx];
