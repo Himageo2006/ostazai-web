@@ -3547,7 +3547,7 @@ function tplShell(content) {
   🚪 ${S.lang==='en'?'Logout':'خروج'}
 </button>
 <!-- Floating Home Button (mobile, all screens except home) -->
-${S.screen!=='home' ? `
+${S.screen!=='home' && S.screen!=='chat' ? `
 <button onclick="navTo('home')" id="float-home" title="${S.lang==='en'?'Home':'الرئيسية'}"
   style="position:fixed;bottom:calc(92px + env(safe-area-inset-bottom,0px));right:14px;z-index:999;width:46px;height:46px;border-radius:50%;
          background:var(--bg-card);border:1.5px solid var(--primary);font-size:20px;cursor:pointer;
@@ -3557,6 +3557,7 @@ ${S.screen!=='home' ? `
 <!-- Floating Feedback Button -->
 <button id="b-feedback-float" title="ملاحظات أو مشكلة؟"
   style="position:fixed;bottom:calc(92px + env(safe-area-inset-bottom,0px));left:14px;z-index:999;width:42px;height:42px;border-radius:50%;
+         ${S.screen==='chat' ? 'display:none!important;' : ''}
          background:var(--primary);border:none;font-size:19px;cursor:pointer;
          box-shadow:0 4px 14px #3B82F655;display:flex;align-items:center;justify-content:center;
          opacity:.85;transition:.2s" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=.85">
