@@ -331,6 +331,11 @@ const IS_APP = (() => {
   } catch(_) { return false; }
 })();
 
+// iOS App Store compliance: inside the iOS app, external payments, promo codes,
+// and third-party login must be hidden (guidelines 3.1.1 / 4.8).
+const IS_IOS_APP = (IS_APP && /iPhone|iPad|iPod/i.test(navigator.userAgent))
+  || (() => { try { return localStorage.getItem('_iosqa') === '1'; } catch(_) { return false; } })();
+
 async function req(path, method='GET', body=null, retries=1) {
   if (!navigator.onLine) throw new Error('لا يوجد اتصال بالإنترنت \u{1F4F6}');
   const h = { 'Content-Type': 'application/json' };
@@ -3495,7 +3500,7 @@ const tplLogin = () => `
       <span style="font-size:12px;color:var(--text-muted)">أو</span>
       <div style="flex:1;height:1px;background:var(--border)"></div>
     </div>
-    <div id="g-btn" style="display:flex;justify-content:center;margin-bottom:8px;min-height:44px"></div>
+    ${IS_IOS_APP ? '' : `<div id="g-btn" style="display:flex;justify-content:center;margin-bottom:8px;min-height:44px"></div>`}
     <button class="btn btn-secondary" id="b-guest" style="width:100%;margin-top:4px">${t('دخول كضيف','guestBtn')}</button>
     <div style="text-align:center;margin-top:8px">
       <span id="go-forgot" style="font-size:13px;color:var(--primary);cursor:pointer;text-decoration:underline">${t('نسيت كلمة المرور؟','forgotPassword')}</span>
@@ -3583,7 +3588,7 @@ const tplRegister = () => `
       <span style="font-size:12px;color:var(--text-muted)">أو</span>
       <div style="flex:1;height:1px;background:var(--border)"></div>
     </div>
-    <div id="g-btn" style="display:flex;justify-content:center;margin-bottom:4px;min-height:44px"></div>
+    ${IS_IOS_APP ? '' : `<div id="g-btn" style="display:flex;justify-content:center;margin-bottom:4px;min-height:44px"></div>`}
     <div style="text-align:center;margin-top:8px">
       <span id="go-ref-toggle" style="font-size:12px;color:var(--primary);cursor:pointer;text-decoration:underline">عندك كود إحالة؟</span>
     </div>
@@ -19383,6 +19388,22 @@ ${viewer}`;
 function tplUpgrade() {
   const u = S.user || {};
   const isPro = u.plan === 'pro';
+  // App Store guideline 3.1.1: no external purchase options inside the iOS app
+  if (IS_IOS_APP && !isPro) {
+    return `
+<div class="screen-header"><div class="screen-title">⭐ Pro</div></div>
+<div class="screen-body" style="display:flex;align-items:center;justify-content:center;min-height:60vh">
+  <div class="info-card" style="max-width:420px;text-align:center;padding:32px">
+    <div style="font-size:48px;margin-bottom:12px">⭐</div>
+    <div style="font-size:18px;font-weight:900;margin-bottom:10px">${S.lang==='en'?'OstazAI Pro':'أستاذ AI برو'}</div>
+    <div style="font-size:14px;color:var(--text-muted);line-height:2">
+      ${S.lang==='en'
+        ? 'Pro subscriptions are not available in this version of the app.'
+        : 'اشتراكات Pro غير متاحة في هذه النسخة من التطبيق.'}
+    </div>
+  </div>
+</div>`;
+  }
   const expiryDate = u.planExpiry ? new Date(u.planExpiry) : null;
   const expiry = expiryDate ? expiryDate.toLocaleDateString('ar-EG') : null;
   if (isPro) {
@@ -19415,7 +19436,7 @@ function tplUpgrade() {
     </div>` : ''}
     <div style="margin-top:16px;font-size:13px;color:var(--text-muted)">✅ أسئلة غير محدودة &nbsp;|&nbsp; 🧠 خرائط ذهنية &nbsp;|&nbsp; 📸 حل بالصورة</div>
   </div>
-  ${(isExpiringSoon || isExpired) ? `
+  ${(isExpiringSoon || isExpired) && !IS_IOS_APP ? `
   <button class="btn btn-primary" style="width:100%;max-width:400px;display:block;margin:0 auto 16px;font-size:16px;padding:14px" onclick="S.user.plan='free';render()">
     🔄 تجديد الاشتراك
   </button>` : ''}
