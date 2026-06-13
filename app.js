@@ -18883,6 +18883,10 @@ function tplLessons() {
         <div style="font-size:14px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(topic)}</div>
         <div style="font-size:10px;color:var(--text-muted);margin-top:2px">الفصل ${idx+1}${done?' · ✅ تمت المراجعة':''}</div>
       </div>
+      <span class="lesson-board-btn" data-topic-idx="${idx}" title="${S.lang==='en'?'Mr. Amin on the board':'الأستاذ أمين على السبورة'}"
+        style="flex-shrink:0;background:#8B5CF6;color:#fff;font-size:12px;font-weight:800;border-radius:10px;padding:7px 11px;font-family:Cairo,sans-serif;white-space:nowrap;cursor:pointer">
+        🎬 ${S.lang==='en'?'Explain':'اشرح'}
+      </span>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0">
         <span style="color:${subj.color};font-size:16px">&#x2190;</span>
       </div>
@@ -19148,6 +19152,41 @@ async function genAILesson() {
     S.lessonContent = `❌ ${e.message}`;
   } finally {
     S.lessonLoading = false; render();
+  }
+}
+
+// Generate the lesson for the current chapter, then open Mr. Amin on the board
+async function teachChapterOnBoard() {
+  if (!S.lessonSubject || !S.lessonChapter) return;
+  // Show a loading board immediately
+  showTeacher(S.lang==='en' ? 'Preparing the lesson, one moment please...' : 'جارٍ تحضير الدرس، لحظة من فضلك...');
+  const playBtn = document.getElementById('tch-play');
+  if (playBtn) { playBtn.disabled = true; playBtn.innerHTML = '⏳ ' + (S.lang==='en'?'Preparing...':'يحضّر الدرس...'); }
+  try {
+    const curData = CURRICULA[S.curriculum] || CURRICULA.egypt;
+    const gradeData = (curData.grades && (curData.grades[S.grade] || Object.values(curData.grades)[0])) || { label:'' };
+    const isEn = ['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian','south_africa'].includes(S.curriculum);
+    const prompt = isEn
+      ? `Explain the lesson "${S.lessonChapter}" in ${S.lessonSubject.name} for ${curData.label} ${gradeData.label} clearly and simply for a student, as a teacher speaking aloud. Use short clear sentences. Cover the key concepts, give 2-3 worked examples, and end with a quick summary. No headings symbols, just clear spoken explanation.`
+      : `اشرح درس "${S.lessonChapter}" في مادة ${S.lessonSubject.name} — ${curData.label} ${gradeData.label} بأسلوب معلّم يتحدث للطلاب على السبورة. استخدم جملاً قصيرة وواضحة. اشرح المفاهيم الأساسية، أعطِ مثالين أو ثلاثة محلولة خطوة بخطوة، واختم بملخص سريع. ابدأ فوراً دون أسئلة. لا تستخدم رموز عناوين، فقط شرح واضح مسموع.`;
+    const { stage, grade, curriculum } = gradeToAPI();
+    const d = await req('/chat', 'POST', {
+      messages: [{ role: 'user', content: prompt }],
+      subject: S.lessonSubject.name, country: S.curriculum, curriculum, stage, grade,
+    });
+    const content = d.content || d.reply || d.message || '';
+    if (content) {
+      S.lessonContent = content;
+      showTeacher(content);            // reopen board with the real lesson
+      setTimeout(() => { if (document.getElementById('tch-play')) teacherToggle(); }, 300); // auto-start speaking
+    } else {
+      const pb = document.getElementById('tch-play');
+      if (pb) { pb.disabled = false; pb.innerHTML = '🔁 ' + (S.lang==='en'?'Retry':'حاول مجدداً'); }
+    }
+  } catch(e) {
+    const pb = document.getElementById('tch-play');
+    if (pb) { pb.disabled = false; pb.innerHTML = '🔁 ' + (S.lang==='en'?'Retry':'حاول مجدداً'); }
+    showToast(e.message, 'error');
   }
 }
 
@@ -20199,6 +20238,17 @@ function bind() {
         done[idx] = 1;
         localStorage.setItem(doneKey, JSON.stringify(done));
         render();
+      }
+    });
+  });
+  // 🎬 Mr. Amin board button on each chapter card — generate lesson then teach on board
+  document.querySelectorAll('.lesson-board-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const idx = parseInt(btn.dataset.topicIdx);
+      if (S.lessonSubject && S.lessonSubject.topics) {
+        S.lessonChapter = S.lessonSubject.topics[idx];
+        teachChapterOnBoard();
       }
     });
   });
