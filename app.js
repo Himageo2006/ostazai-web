@@ -18765,6 +18765,7 @@ function tplLessons() {
     ${S.lessonContent ? `
     <div style="line-height:2;font-size:14px;max-height:320px;overflow-y:auto;padding-left:4px">${md(S.lessonContent)}</div>
     <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+      <button class="btn btn-primary btn-sm" id="b-lesson-teacher" style="background:#8B5CF6;border-color:#8B5CF6">🎬 ${S.lang==='en'?'Mr. Amin on the board':'الأستاذ أمين على السبورة'}</button>
       <button class="btn btn-secondary btn-sm" id="b-lesson-chat">💬 ناقش في المحادثة</button>
       <button class="btn btn-secondary btn-sm" id="b-lesson-fc">🗂️ بطاقات</button>
       <button class="btn btn-secondary btn-sm" id="b-lesson-quiz">📝 اختبار</button>
@@ -20169,6 +20170,7 @@ function bind() {
     });
   });
   ge('b-gen-lesson')  && ge('b-gen-lesson').addEventListener('click', genAILesson);
+  ge('b-lesson-teacher') && ge('b-lesson-teacher').addEventListener('click', () => { if (S.lessonContent) showTeacher(S.lessonContent); });
   ge('b-lesson-ask-ai') && ge('b-lesson-ask-ai').addEventListener('click', () => {
     if (!S.lessonSubject || !S.lessonChapter) return;
     S.screen = 'chat'; S.subject = S.lessonSubject.name; S.messages = [];
