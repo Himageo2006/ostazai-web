@@ -434,15 +434,18 @@ function showTeacher(text) {
   if (!('speechSynthesis' in window)) { showToast(S.lang==='en'?'Voice not supported on this device':'القراءة الصوتية غير مدعومة على هذا الجهاز', 'error'); return; }
   const clean = cleanForSpeech(text);
   if (!clean) return;
-  // split into readable chunks (sentences, merged to ~180 chars)
-  const parts = clean.split(/(?<=[.!?؟…:])\s+/).filter(s => s.trim());
+  // split into board lines — one sentence per line (merge only very short fragments)
+  const parts = clean.split(/(?<=[.!?؟…:])\s+/).map(s => s.trim()).filter(Boolean);
   const sentences = [];
   let buf = '';
   for (const p of parts) {
-    if ((buf + ' ' + p).length > 180 && buf) { sentences.push(buf.trim()); buf = p; }
-    else buf = buf ? buf + ' ' + p : p;
+    const joined = buf ? buf + ' ' + p : p;
+    // keep a line until it's a reasonable length, then break (so the board fills point-by-point)
+    if (buf && joined.length > 95) { sentences.push(buf); buf = p; }
+    else if (joined.length >= 35 || /[.!?؟…]$/.test(p)) { sentences.push(joined); buf = ''; }
+    else buf = joined;
   }
-  if (buf.trim()) sentences.push(buf.trim());
+  if (buf) sentences.push(buf);
   _teacherState = { sentences, idx: 0, playing: false };
 
   let ov = document.getElementById('teacher-overlay');
@@ -454,9 +457,20 @@ function showTeacher(text) {
   ov.innerHTML = `
     <div class="tch-card">
       <button class="tch-close" onclick="closeTeacher()">✕</button>
-      <div class="tch-avatar" id="tch-avatar">${TEACHER_SVG}</div>
+      <div class="tch-classroom">
+        <!-- Blackboard -->
+        <div class="tch-board">
+          <div class="tch-board-title">📘 ${S.lang==='en'?"Today's Lesson":'درس اليوم'}</div>
+          <div class="tch-board-lines" id="tch-board-lines"></div>
+          <div class="tch-chalk-tray"></div>
+        </div>
+        <!-- Teacher beside the board, with pointer -->
+        <div class="tch-teacher-wrap">
+          <div class="tch-avatar" id="tch-avatar">${TEACHER_SVG}</div>
+          <div class="tch-pointer"></div>
+        </div>
+      </div>
       <div class="tch-name">🎓 ${S.lang==='en'?'Mr. Amin explains':'الأستاذ أمين يشرح'}</div>
-      <div class="tch-text" id="tch-text"></div>
       <div class="tch-controls">
         <button class="tch-btn" id="tch-prev" onclick="teacherJump(-1)">⏮</button>
         <button class="tch-btn tch-play" id="tch-play" onclick="teacherToggle()">▶️ ${S.lang==='en'?'Start':'ابدأ الشرح'}</button>
@@ -470,9 +484,15 @@ function showTeacher(text) {
 
 function renderTeacherText() {
   const t = _teacherState;
-  const el = document.getElementById('tch-text');
+  const board = document.getElementById('tch-board-lines');
   const pg = document.getElementById('tch-progress');
-  if (el) el.textContent = t.sentences[t.idx] || '';
+  if (board) {
+    // Show all sentences up to current as written board lines; current one highlighted + "being written"
+    board.innerHTML = t.sentences.slice(0, t.idx + 1).map((s, i) =>
+      `<div class="tch-line ${i === t.idx ? 'writing' : ''}">• ${s}</div>`
+    ).join('');
+    board.scrollTop = board.scrollHeight;
+  }
   if (pg) pg.textContent = `${t.idx + 1} / ${t.sentences.length}`;
 }
 
@@ -20779,8 +20799,24 @@ function bind() {
     .bm-btn,.copy-msg-btn,.speak-btn,.teach-btn{background:none;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:12px;opacity:.6;transition:.15s;padding:3px 7px}.bm-btn:hover,.copy-msg-btn:hover,.speak-btn:hover,.teach-btn:hover{opacity:1;border-color:var(--primary)}
     /* ── Teacher avatar overlay ── */
     #teacher-overlay{position:fixed;inset:0;background:rgba(8,12,24,.88);z-index:2000;display:none;align-items:center;justify-content:center;padding:18px}
-    .tch-card{background:var(--bg-card);border:1px solid var(--border);border-radius:22px;padding:22px;max-width:430px;width:100%;text-align:center;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.5)}
-    .tch-close{position:absolute;top:12px;left:12px;background:var(--bg-card2);border:1px solid var(--border);border-radius:50%;width:32px;height:32px;cursor:pointer;color:var(--text);font-size:14px}
+    .tch-card{background:var(--bg-card);border:1px solid var(--border);border-radius:22px;padding:18px;max-width:520px;width:100%;text-align:center;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+    .tch-close{position:absolute;top:12px;left:12px;background:var(--bg-card2);border:1px solid var(--border);border-radius:50%;width:32px;height:32px;cursor:pointer;color:var(--text);font-size:14px;z-index:5}
+    /* ── Classroom ── */
+    .tch-classroom{position:relative;margin-bottom:8px}
+    .tch-board{background:linear-gradient(160deg,#1f3d2f,#16302480);border:10px solid #6b4423;border-radius:10px;box-shadow:inset 0 0 40px rgba(0,0,0,.45),0 6px 18px rgba(0,0,0,.4);padding:16px 18px 26px;min-height:230px;text-align:right;position:relative;overflow:hidden}
+    .tch-board-title{color:#fdf6b2;font-weight:900;font-size:15px;border-bottom:2px dashed #ffffff40;padding-bottom:6px;margin-bottom:10px;text-shadow:0 1px 2px rgba(0,0,0,.4)}
+    .tch-board-lines{max-height:170px;overflow-y:auto;display:flex;flex-direction:column;gap:9px;padding-left:90px}
+    .tch-line{color:#eafff2;font-size:14px;line-height:1.8;font-family:'Cairo',cursive;text-shadow:0 1px 1px rgba(0,0,0,.35);opacity:.92;animation:tch-fadein .4s ease}
+    .tch-line.writing{color:#fff39a;font-weight:700;border-right:3px solid #fff39a;padding-right:8px;animation:tch-fadein .4s ease, tch-blinkcursor 1s step-end infinite}
+    @keyframes tch-fadein{from{opacity:0;transform:translateY(6px)}to{opacity:.92;transform:none}}
+    @keyframes tch-blinkcursor{50%{border-color:transparent}}
+    .tch-chalk-tray{position:absolute;bottom:0;left:0;right:0;height:10px;background:#5a3a1e}
+    .tch-teacher-wrap{position:absolute;bottom:-6px;left:6px;width:84px}
+    .tch-pointer{position:absolute;top:14px;right:-30px;width:46px;height:3px;background:#d9a441;border-radius:2px;transform-origin:right center;transform:rotate(-18deg)}
+    .tch-avatar.talking ~ .tch-pointer,.tch-teacher-wrap .tch-avatar.talking + .tch-pointer{animation:tch-point 1.6s ease-in-out infinite}
+    @keyframes tch-point{0%,100%{transform:rotate(-18deg)}50%{transform:rotate(-30deg) translateY(-6px)}}
+    .tch-teacher-wrap .tch-avatar{width:84px;height:84px}
+    .tch-teacher-wrap .tch-avatar svg{width:84px;height:84px}
     .tch-avatar{display:inline-block;animation:tch-bob 3s ease-in-out infinite}
     @keyframes tch-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
     .tch-avatar .tch-eye{animation:tch-blink 4s infinite}
