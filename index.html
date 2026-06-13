@@ -100,8 +100,23 @@
   }
   </script>
 
-  <!-- Google Identity Services -->
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <!-- Google Identity Services — NOT loaded inside the native app (App Store guideline 4.8) -->
+  <script>
+    (function(){
+      var isApp = false;
+      try {
+        isApp = window.__OSTAZAI_APP === true
+          || new URLSearchParams(location.search).get('app') === '1'
+          || localStorage.getItem('_isapp') === '1';
+      } catch(e){}
+      if (!isApp) {
+        var s = document.createElement('script');
+        s.src = 'https://accounts.google.com/gsi/client';
+        s.async = true; s.defer = true;
+        document.head.appendChild(s);
+      }
+    })();
+  </script>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -135,7 +150,7 @@
   </div>
   <div id="app" style="display:none"></div>
 
-  <script src="app.js?v=169"></script>
+  <script src="app.js?v=170"></script>
   <script>
     // Hide loading screen — set up observer AND check immediately (app.js may have already rendered)
     (function() {

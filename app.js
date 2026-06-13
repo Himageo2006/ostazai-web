@@ -21040,7 +21040,7 @@ function bind() {
     });
   });
   // Render Google Sign-In button
-  if (ge('g-btn')) {
+  if (ge('g-btn') && !IS_IOS_APP) {
     var _isAppMode = typeof window.ReactNativeWebView !== 'undefined' || window.location.search.indexOf('app=1') !== -1 || window.__OSTAZAI_APP;
     if (_isAppMode) {
       // In the mobile app: show custom Google OAuth button immediately (GIS popup blocked by Google in WebView)
