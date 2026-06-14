@@ -483,10 +483,10 @@ function showTeacher(text) {
           <div class="tch-board-lines" id="tch-board-lines"></div>
           <div class="tch-chalk-tray"></div>
         </div>
-        <!-- 3D teacher beside the board (falls back to SVG if WebGL/model unavailable) -->
+        <!-- 3D teacher beside the board — SVG shows by default, 3D replaces it only after it successfully renders -->
         <div class="tch-teacher-wrap" id="tch-teacher-wrap">
-          <canvas id="tch-3d-canvas"></canvas>
-          <div class="tch-avatar" id="tch-avatar" style="display:none">${TEACHER_SVG}</div>
+          <canvas id="tch-3d-canvas" style="display:none"></canvas>
+          <div class="tch-avatar" id="tch-avatar">${TEACHER_SVG}</div>
           <div class="tch-pointer"></div>
         </div>
       </div>
@@ -516,10 +516,16 @@ async function init3DTeacher() {
   const canvas = document.getElementById('tch-3d-canvas');
   const svg = document.getElementById('tch-avatar');
   if (!canvas) return;
+  // Safety: if the 3D model isn't rendering within 7s, keep the 2D SVG visible
+  let _shown3D = false;
+  const fallbackTimer = setTimeout(() => {
+    if (!_shown3D) { if (svg) svg.style.display = 'block'; canvas.style.display = 'none'; }
+  }, 7000);
+  const showSVG = () => { clearTimeout(fallbackTimer); if (svg) svg.style.display = 'block'; canvas.style.display = 'none'; };
   // WebGL support check
   try {
     if (!window.WebGLRenderingContext || !canvas.getContext('webgl')) throw new Error('no webgl');
-  } catch (_) { if (svg) svg.style.display = 'block'; canvas.style.display = 'none'; return; }
+  } catch (_) { showSVG(); return; }
   try {
     if (!window.THREE) {
       await _loadScript('https://cdn.jsdelivr.net/npm/three@0.137.0/build/three.min.js');
@@ -564,15 +570,17 @@ async function init3DTeacher() {
       gltf.animations.forEach(clip => { _t3d.actions[clip.name] = mixer.clipAction(clip); });
       const idle = _t3d.actions['Idle'] || _t3d.actions['Dance'] || Object.values(_t3d.actions)[0];
       if (idle) { idle.play(); _t3d.current = idle; }
+      _shown3D = true;
+      clearTimeout(fallbackTimer);
       if (svg) svg.style.display = 'none';
       canvas.style.display = 'block';
       _animate3D();
     }, undefined, () => {
       // model failed — fall back to SVG
-      if (svg) svg.style.display = 'block'; canvas.style.display = 'none'; _dispose3D();
+      showSVG(); _dispose3D();
     });
   } catch (e) {
-    if (svg) svg.style.display = 'block'; if (canvas) canvas.style.display = 'none';
+    showSVG();
   }
 }
 function _animate3D() {
