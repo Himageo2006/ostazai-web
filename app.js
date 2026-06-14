@@ -500,8 +500,107 @@ function showTeacher(text) {
     </div>`;
   ov.style.display = 'flex';
   renderTeacherText();
-  // 3D human avatar disabled for now (no suitable teacher model) — using the friendly 2D Mr. Amin.
-  // init3DTeacher();
+  initBuiltTeacher3D();
+}
+
+/* ── Built-in 3D teacher (procedural, no external model) — "Mr. Amin" ── */
+async function initBuiltTeacher3D() {
+  const canvas = document.getElementById('tch-3d-canvas');
+  const svg = document.getElementById('tch-avatar');
+  if (!canvas) return;
+  let shown = false;
+  const fallback = setTimeout(() => { if (!shown) { if (svg) svg.style.display='block'; canvas.style.display='none'; } }, 6000);
+  const showSVG = () => { clearTimeout(fallback); if (svg) svg.style.display='block'; canvas.style.display='none'; };
+  try { if (!window.WebGLRenderingContext || !canvas.getContext('webgl')) throw 0; } catch(_) { showSVG(); return; }
+  try {
+    if (!window.THREE) await _loadScript('https://cdn.jsdelivr.net/npm/three@0.137.0/build/three.min.js');
+    const THREE = window.THREE;
+    if (_t3d && _t3d.canvas === canvas) return;
+    if (_t3d) _dispose3D();
+    const W = canvas.clientWidth || 130, H = canvas.clientHeight || 185;
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(W, H, false);
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(30, W / H, 0.1, 100);
+    camera.position.set(0, 1.05, 6.2);
+    camera.lookAt(0, 0.55, 0);
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x556, 2.1));
+    const key = new THREE.DirectionalLight(0xffffff, 1.8); key.position.set(2, 4, 4); scene.add(key);
+    const rim = new THREE.DirectionalLight(0x88aaff, 0.6); rim.position.set(-3, 2, -2); scene.add(rim);
+
+    const SKIN = 0xf3c9a0, SUIT = 0x33373e, SHIRT = 0xf4f6fb, TIE = 0xf5a623, HAIR = 0x5a3a22, BROWN = 0x6b4423, GLASS = 0x1a1d22;
+    const mat = (c, rough=0.8) => new THREE.MeshStandardMaterial({ color: c, roughness: rough, metalness: 0.05 });
+    const G = new THREE.Group();
+    const head = new THREE.Group(); head.position.y = 1.55;
+    // head
+    const face = new THREE.Mesh(new THREE.SphereGeometry(0.34, 32, 32), mat(SKIN, 0.6));
+    face.scale.set(1, 1.12, 0.95); head.add(face);
+    // hair
+    const hair = new THREE.Mesh(new THREE.SphereGeometry(0.355, 32, 24, 0, Math.PI*2, 0, Math.PI*0.55), mat(HAIR, 0.9));
+    hair.position.y = 0.07; hair.scale.set(1.02, 1.0, 1.0); head.add(hair);
+    // ears
+    [-0.34, 0.34].forEach(x => { const e = new THREE.Mesh(new THREE.SphereGeometry(0.07, 16, 16), mat(SKIN, 0.6)); e.position.set(x, 0, 0); head.add(e); });
+    // eyes (white + pupil)
+    [-0.13, 0.13].forEach(x => {
+      const w = new THREE.Mesh(new THREE.SphereGeometry(0.055, 16, 16), mat(0xffffff, 0.3)); w.position.set(x, 0.03, 0.3); head.add(w);
+      const p = new THREE.Mesh(new THREE.SphereGeometry(0.028, 12, 12), mat(0x2a1a10, 0.3)); p.position.set(x, 0.03, 0.345); head.add(p);
+    });
+    // glasses (two rings + bridge)
+    [-0.13, 0.13].forEach(x => { const r = new THREE.Mesh(new THREE.TorusGeometry(0.085, 0.018, 12, 24), mat(GLASS, 0.4)); r.position.set(x, 0.03, 0.31); head.add(r); });
+    const bridge = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.1, 8), mat(GLASS, 0.4)); bridge.rotation.z = Math.PI/2; bridge.position.set(0, 0.03, 0.32); head.add(bridge);
+    // eyebrows
+    [-0.13, 0.13].forEach(x => { const b = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.022, 0.04), mat(HAIR, 0.9)); b.position.set(x, 0.15, 0.31); head.add(b); });
+    // nose
+    const nose = new THREE.Mesh(new THREE.SphereGeometry(0.045, 12, 12), mat(SKIN, 0.6)); nose.position.set(0, -0.04, 0.35); head.add(nose);
+    // mouth (scales on Y while talking)
+    const mouth = new THREE.Mesh(new THREE.SphereGeometry(0.07, 16, 12), mat(0x8b3a2e, 0.5));
+    mouth.scale.set(1, 0.35, 0.5); mouth.position.set(0, -0.17, 0.31); head.add(mouth);
+    G.add(head);
+    // neck
+    const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.12, 0.18, 16), mat(SKIN, 0.6)); neck.position.y = 1.32; G.add(neck);
+    // torso (suit jacket)
+    const torso = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.4, 0.95, 24), mat(SUIT)); torso.position.y = 0.78; G.add(torso);
+    // shirt V + collar
+    const shirt = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.2, 0.6, 16), mat(SHIRT)); shirt.position.set(0, 0.95, 0.16); shirt.scale.z = 0.5; G.add(shirt);
+    // tie
+    const tie = new THREE.Mesh(new THREE.BoxGeometry(0.09, 0.5, 0.05), mat(TIE)); tie.position.set(0, 0.82, 0.27); G.add(tie);
+    const knot = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.08, 0.06), mat(0xd98e0f)); knot.position.set(0, 1.08, 0.28); G.add(knot);
+    // arms (crossed-ish, slightly forward)
+    const armL = new THREE.Group(); armL.position.set(-0.36, 1.02, 0.05);
+    const upperL = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.09, 0.55, 16), mat(SUIT)); upperL.position.y = -0.22; armL.add(upperL);
+    armL.rotation.z = 0.35; armL.rotation.x = -0.25; G.add(armL);
+    const armR = new THREE.Group(); armR.position.set(0.36, 1.02, 0.05);
+    const upperR = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.09, 0.55, 16), mat(SUIT)); upperR.position.y = -0.22; armR.add(upperR);
+    armR.rotation.z = -0.35; armR.rotation.x = -0.25; G.add(armR);
+    // hands
+    [[-0.52,0.7],[0.52,0.7]].forEach(([x,y]) => { const h = new THREE.Mesh(new THREE.SphereGeometry(0.085,16,16), mat(SKIN,0.6)); h.position.set(x*0.85,y,0.18); G.add(h); });
+    // legs
+    [-0.16, 0.16].forEach(x => { const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.1, 0.7, 16), mat(0x2b2f35)); leg.position.set(x, 0.0, 0); G.add(leg); });
+    // shoes
+    [-0.16, 0.16].forEach(x => { const sh = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.1, 0.32), mat(BROWN, 0.5)); sh.position.set(x, -0.38, 0.06); G.add(sh); });
+
+    G.position.y = -0.55; G.rotation.y = 0.15; scene.add(G);
+    _t3d = { THREE, renderer, scene, camera, canvas, group: G, head, mouth, armR, raf: 0, clock: new THREE.Clock(), built: true };
+    shown = true; clearTimeout(fallback);
+    if (svg) svg.style.display = 'none'; canvas.style.display = 'block';
+    _animateBuilt();
+  } catch (e) { showSVG(); }
+}
+function _animateBuilt() {
+  if (!_t3d || !_t3d.built) return;
+  const { renderer, scene, camera, head, mouth, group, armR } = _t3d;
+  const t = performance.now();
+  const speaking = _teacherState.playing && (window.speechSynthesis ? speechSynthesis.speaking : false) || (_teacherState.playing && _teacherState._silentTimer);
+  // idle sway
+  group.rotation.y = 0.15 + Math.sin(t/1400) * 0.06;
+  group.position.y = -0.55 + Math.sin(t/900) * 0.012;
+  // talking: mouth opens, head nods, right arm gestures
+  if (mouth) { const o = speaking ? (0.35 + 0.6*Math.abs(Math.sin(t/110))) : 0.35; mouth.scale.y += (o - mouth.scale.y)*0.4; }
+  if (head) head.rotation.x = speaking ? Math.sin(t/350)*0.05 : 0;
+  if (armR) armR.rotation.x = speaking ? -0.25 + Math.sin(t/300)*0.18 : -0.25;
+  renderer.render(scene, camera);
+  _t3d.raf = requestAnimationFrame(_animateBuilt);
 }
 
 /* ── 3D teacher (Three.js) — loaded lazily, falls back to SVG ── */
