@@ -451,6 +451,9 @@ let _teacherState = { sentences: [], idx: 0, playing: false };
 
 function showTeacher(text) {
   if (!('speechSynthesis' in window)) { showToast(S.lang==='en'?'Voice not supported on this device':'القراءة الصوتية غير مدعومة على هذا الجهاز', 'error'); return; }
+  // stop any previous playback/timers so a fresh open never inherits a stale counter
+  try { speechSynthesis.cancel(); } catch(_) {}
+  if (_teacherState && _teacherState._silentTimer) clearTimeout(_teacherState._silentTimer);
   const clean = cleanForSpeech(text);
   if (!clean) return;
   // split into board lines — one sentence per line (merge only very short fragments)
@@ -500,10 +503,29 @@ function showTeacher(text) {
     </div>`;
   ov.style.display = 'flex';
   renderTeacherText();
-  initBuiltTeacher3D();
+  initTeacherImage();
 }
 
-/* ── Built-in 3D teacher (procedural, no external model) — "Mr. Amin" ── */
+/* ── Image-based teacher: uses a real PNG of Mr. Amin, animated (sway + talk bob) ── */
+function initTeacherImage() {
+  const wrap = document.getElementById('tch-teacher-wrap');
+  const svg = document.getElementById('tch-avatar');
+  const canvas = document.getElementById('tch-3d-canvas');
+  if (!wrap) return;
+  if (canvas) canvas.style.display = 'none';
+  let img = document.getElementById('tch-img');
+  if (!img) {
+    img = document.createElement('img');
+    img.id = 'tch-img';
+    img.alt = 'الأستاذ أمين';
+    img.onload = () => { if (svg) svg.style.display = 'none'; img.style.display = 'block'; };
+    img.onerror = () => { img.style.display = 'none'; if (svg) svg.style.display = 'block'; }; // fall back to cartoon
+    wrap.insertBefore(img, wrap.firstChild);
+  }
+  img.src = 'assets3d/teacher.png?v=1';
+}
+
+/* ── Built-in 3D teacher (procedural) — kept but unused ── */
 async function initBuiltTeacher3D() {
   const canvas = document.getElementById('tch-3d-canvas');
   const svg = document.getElementById('tch-avatar');
@@ -733,7 +755,7 @@ function renderTeacherText() {
     ).join('');
     board.scrollTop = board.scrollHeight;
   }
-  if (pg) pg.textContent = `${t.idx + 1} / ${t.sentences.length}`;
+  if (pg) pg.textContent = `${Math.min(t.idx + 1, t.sentences.length)} / ${t.sentences.length}`;
 }
 
 function teacherSpeakCurrent() {
@@ -21136,6 +21158,10 @@ function bind() {
     .tch-chalk-tray{position:absolute;bottom:0;left:0;right:0;height:10px;background:#5a3a1e}
     .tch-teacher-wrap{position:absolute;bottom:-10px;left:0;width:130px;height:185px}
     #tch-3d-canvas{width:130px;height:185px;display:block}
+    #tch-img{display:none;position:absolute;bottom:0;left:-6px;height:185px;width:auto;max-width:150px;object-fit:contain;transform-origin:bottom center;animation:tch-sway 3.2s ease-in-out infinite;filter:drop-shadow(0 6px 10px rgba(0,0,0,.4))}
+    #teacher-overlay .tch-avatar.talking ~ #tch-img,#tch-img.talking{animation:tch-talkbob .5s ease-in-out infinite}
+    @keyframes tch-sway{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-4px) rotate(1deg)}}
+    @keyframes tch-talkbob{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-5px) scale(1.015)}}
     .tch-pointer{position:absolute;top:14px;right:-30px;width:46px;height:3px;background:#d9a441;border-radius:2px;transform-origin:right center;transform:rotate(-18deg);display:none}
     .tch-avatar.talking ~ .tch-pointer,.tch-teacher-wrap .tch-avatar.talking + .tch-pointer{animation:tch-point 1.6s ease-in-out infinite}
     @keyframes tch-point{0%,100%{transform:rotate(-18deg)}50%{transform:rotate(-30deg) translateY(-6px)}}
