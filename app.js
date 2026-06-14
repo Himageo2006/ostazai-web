@@ -394,7 +394,26 @@ function cleanForSpeech(text) {
     .replace(/[#*_`>|]+/g, ' ')
     .replace(/\$\$?[^$]*\$\$?/g, ' ')
     .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu, ' ')
+    .replace(/[×÷=]/g, m => ({'×':' في ','÷':' على ','=':' يساوي '}[m]))
     .replace(/\s+/g, ' ').trim();
+}
+
+// Robustly pick the best voice for a language; returns null if none exists for Arabic
+function pickVoice(isArabic) {
+  const voices = speechSynthesis.getVoices() || [];
+  if (isArabic) {
+    return voices.find(v => /^ar/i.test(v.lang)) ||
+           voices.find(v => /arabic|عرب/i.test(v.name)) || null;
+  }
+  return voices.find(v => /^en/i.test(v.lang)) || voices[0] || null;
+}
+let _voicesReady = false;
+function ensureVoices(cb) {
+  if (_voicesReady || (speechSynthesis.getVoices() || []).length) { _voicesReady = true; return cb(); }
+  const handler = () => { _voicesReady = true; speechSynthesis.onvoiceschanged = null; cb(); };
+  speechSynthesis.onvoiceschanged = handler;
+  // safety: fire after 1s even if event never comes
+  setTimeout(() => { if (!_voicesReady) { _voicesReady = true; cb(); } }, 1000);
 }
 
 const TEACHER_SVG = `
@@ -500,13 +519,25 @@ function teacherSpeakCurrent() {
   const t = _teacherState;
   if (t.idx >= t.sentences.length) { teacherStop(); return; }
   renderTeacherText();
+  ensureVoices(() => _teacherSpeakNow());
+}
+function _teacherSpeakNow() {
+  const t = _teacherState;
+  if (!t.playing || t.idx >= t.sentences.length) return;
   speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(t.sentences[t.idx]);
-  const isArabic = /[؀-ۿ]/.test(t.sentences[t.idx]);
-  u.lang = isArabic ? 'ar-SA' : 'en-US';
-  const v = speechSynthesis.getVoices().find(v => v.lang.startsWith(isArabic ? 'ar' : 'en'));
+  const sentence = t.sentences[t.idx];
+  const u = new SpeechSynthesisUtterance(sentence);
+  const isArabic = /[؀-ۿ]/.test(sentence);
+  const v = pickVoice(isArabic);
+  if (isArabic && !v) {
+    // No Arabic TTS voice on this device — warn once instead of reading Arabic with an English voice
+    showToast(S.lang==='en'?'No Arabic voice installed on this device. Add one in Settings › Accessibility › Spoken Content.':'لا يوجد صوت عربي مثبّت على الجهاز. أضِفه من الإعدادات ← إمكانية الوصول ← المحتوى المنطوق.', 'error');
+    teacherStop();
+    return;
+  }
   if (v) u.voice = v;
-  u.rate = 0.95;
+  u.lang = v ? v.lang : (isArabic ? 'ar-SA' : 'en-US');
+  u.rate = 0.92;
   u.onend = () => {
     if (!_teacherState.playing) return;
     _teacherState.idx++;
@@ -574,17 +605,21 @@ function speakText(text, btn) {
     .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu, ' ')
     .replace(/\s+/g, ' ').trim();
   if (!clean) return;
-  const u = new SpeechSynthesisUtterance(clean);
-  // Pick language by content: Arabic letters → Arabic voice, else English
   const isArabic = /[؀-ۿ]/.test(clean);
-  u.lang = isArabic ? 'ar-SA' : 'en-US';
-  const voices = speechSynthesis.getVoices();
-  const v = voices.find(v => v.lang.startsWith(isArabic ? 'ar' : 'en'));
-  if (v) u.voice = v;
-  u.rate = 0.95;
-  u.onend = u.onerror = () => { if (btn) btn.textContent = '🔊'; _speakingBtn = null; };
-  if (btn) { btn.textContent = '⏸️'; _speakingBtn = btn; }
-  speechSynthesis.speak(u);
+  ensureVoices(() => {
+    const v = pickVoice(isArabic);
+    if (isArabic && !v) {
+      showToast(S.lang==='en'?'No Arabic voice installed on this device.':'لا يوجد صوت عربي مثبّت على الجهاز. أضِفه من إعدادات الجهاز.', 'error');
+      if (btn) btn.textContent = '🔊'; _speakingBtn = null; return;
+    }
+    const u = new SpeechSynthesisUtterance(clean);
+    if (v) u.voice = v;
+    u.lang = v ? v.lang : (isArabic ? 'ar-SA' : 'en-US');
+    u.rate = 0.92;
+    u.onend = u.onerror = () => { if (btn) btn.textContent = '🔊'; _speakingBtn = null; };
+    if (btn) { btn.textContent = '⏸️'; _speakingBtn = btn; }
+    speechSynthesis.speak(u);
+  });
 }
 // Some browsers load voices asynchronously
 if ('speechSynthesis' in window) speechSynthesis.getVoices();
