@@ -536,18 +536,18 @@ async function init3DTeacher() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(W, H, false);
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(34, W / H, 0.1, 100);
-    camera.position.set(0, 1.0, 9.0);
-    camera.lookAt(0, 1.0, 0);
-    scene.add(new THREE.HemisphereLight(0xffffff, 0x444466, 2.2));
-    const dir = new THREE.DirectionalLight(0xffffff, 2); dir.position.set(2, 4, 3); scene.add(dir);
+    const camera = new THREE.PerspectiveCamera(32, W / H, 0.1, 100);
+    camera.position.set(0, 1.35, 4.0);
+    camera.lookAt(0, 1.15, 0);
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x444466, 2.4));
+    const dir = new THREE.DirectionalLight(0xffffff, 2.2); dir.position.set(2, 4, 3); scene.add(dir);
     _t3d = { THREE, renderer, scene, camera, canvas, mixer: null, actions: {}, current: null, head: null, talkMorph: null, raf: 0, clock: new THREE.Clock() };
     const loader = new THREE.GLTFLoader();
-    loader.load('assets3d/teacher.glb?v=1', (gltf) => {
+    loader.load('assets3d/teacher-human.glb?v=1', (gltf) => {
       const model = gltf.scene;
-      model.scale.set(1.0, 1.0, 1.0);
-      model.position.set(0, -0.15, 0);
-      model.rotation.y = 0.25;
+      model.scale.set(0.92, 0.92, 0.92);
+      model.position.set(0, 0, 0);
+      model.rotation.y = 0.3;
       scene.add(model);
       // find head + mouth morph for lip-sync / nodding
       model.traverse(o => {
