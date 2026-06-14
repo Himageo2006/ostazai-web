@@ -483,9 +483,10 @@ function showTeacher(text) {
           <div class="tch-board-lines" id="tch-board-lines"></div>
           <div class="tch-chalk-tray"></div>
         </div>
-        <!-- Teacher beside the board, with pointer -->
-        <div class="tch-teacher-wrap">
-          <div class="tch-avatar" id="tch-avatar">${TEACHER_SVG}</div>
+        <!-- 3D teacher beside the board (falls back to SVG if WebGL/model unavailable) -->
+        <div class="tch-teacher-wrap" id="tch-teacher-wrap">
+          <canvas id="tch-3d-canvas"></canvas>
+          <div class="tch-avatar" id="tch-avatar" style="display:none">${TEACHER_SVG}</div>
           <div class="tch-pointer"></div>
         </div>
       </div>
@@ -499,6 +500,118 @@ function showTeacher(text) {
     </div>`;
   ov.style.display = 'flex';
   renderTeacherText();
+  init3DTeacher();
+}
+
+/* ── 3D teacher (Three.js) — loaded lazily, falls back to SVG ── */
+let _t3d = null; // { renderer, scene, camera, mixer, actions, current, head, raf }
+function _loadScript(src) {
+  return new Promise((res, rej) => {
+    const s = document.createElement('script');
+    s.src = src; s.onload = res; s.onerror = rej;
+    document.head.appendChild(s);
+  });
+}
+async function init3DTeacher() {
+  const canvas = document.getElementById('tch-3d-canvas');
+  const svg = document.getElementById('tch-avatar');
+  if (!canvas) return;
+  // WebGL support check
+  try {
+    if (!window.WebGLRenderingContext || !canvas.getContext('webgl')) throw new Error('no webgl');
+  } catch (_) { if (svg) svg.style.display = 'block'; canvas.style.display = 'none'; return; }
+  try {
+    if (!window.THREE) {
+      await _loadScript('https://cdn.jsdelivr.net/npm/three@0.137.0/build/three.min.js');
+    }
+    if (!window.THREE.GLTFLoader) {
+      await _loadScript('https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/loaders/GLTFLoader.js');
+    }
+    const THREE = window.THREE;
+    // reuse if already built
+    if (_t3d && _t3d.canvas === canvas) return;
+    if (_t3d) _dispose3D();
+    const W = canvas.clientWidth || 110, H = canvas.clientHeight || 150;
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(W, H, false);
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(34, W / H, 0.1, 100);
+    camera.position.set(0, 1.0, 9.0);
+    camera.lookAt(0, 1.0, 0);
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x444466, 2.2));
+    const dir = new THREE.DirectionalLight(0xffffff, 2); dir.position.set(2, 4, 3); scene.add(dir);
+    _t3d = { THREE, renderer, scene, camera, canvas, mixer: null, actions: {}, current: null, head: null, talkMorph: null, raf: 0, clock: new THREE.Clock() };
+    const loader = new THREE.GLTFLoader();
+    loader.load('assets3d/teacher.glb?v=1', (gltf) => {
+      const model = gltf.scene;
+      model.scale.set(1.0, 1.0, 1.0);
+      model.position.set(0, -0.15, 0);
+      model.rotation.y = 0.25;
+      scene.add(model);
+      // find head + mouth morph for lip-sync / nodding
+      model.traverse(o => {
+        if (o.isMesh && o.morphTargetDictionary) {
+          const dict = o.morphTargetDictionary;
+          const key = Object.keys(dict).find(k => /mouth|jaw|aa|open/i.test(k)) || Object.keys(dict).find(k => /surprised/i.test(k));
+          if (key != null) _t3d.talkMorph = { mesh: o, index: dict[key] };
+        }
+        if (/head/i.test(o.name)) _t3d.head = o;
+      });
+      // animations: pick an idle + a talking gesture
+      const mixer = new THREE.AnimationMixer(model);
+      _t3d.mixer = mixer;
+      gltf.animations.forEach(clip => { _t3d.actions[clip.name] = mixer.clipAction(clip); });
+      const idle = _t3d.actions['Idle'] || _t3d.actions['Dance'] || Object.values(_t3d.actions)[0];
+      if (idle) { idle.play(); _t3d.current = idle; }
+      if (svg) svg.style.display = 'none';
+      canvas.style.display = 'block';
+      _animate3D();
+    }, undefined, () => {
+      // model failed — fall back to SVG
+      if (svg) svg.style.display = 'block'; canvas.style.display = 'none'; _dispose3D();
+    });
+  } catch (e) {
+    if (svg) svg.style.display = 'block'; if (canvas) canvas.style.display = 'none';
+  }
+}
+function _animate3D() {
+  if (!_t3d) return;
+  const { renderer, scene, camera, mixer, clock } = _t3d;
+  const dt = clock.getDelta();
+  if (mixer) mixer.update(dt);
+  // lip-sync: oscillate mouth morph while speaking
+  if (_t3d.talkMorph) {
+    const speaking = _teacherState.playing && (window.speechSynthesis ? speechSynthesis.speaking : false);
+    const target = speaking ? (0.35 + 0.35 * Math.sin(performance.now() / 90)) : 0;
+    const inf = _t3d.talkMorph.mesh.morphTargetInfluences;
+    inf[_t3d.talkMorph.index] += (target - inf[_t3d.talkMorph.index]) * 0.4;
+  }
+  // gentle head nod while speaking
+  if (_t3d.head) {
+    const sp = _teacherState.playing && speechSynthesis.speaking;
+    _t3d.head.rotation.x = sp ? Math.sin(performance.now() / 400) * 0.06 : 0;
+  }
+  renderer.render(scene, camera);
+  _t3d.raf = requestAnimationFrame(_animate3D);
+}
+function _teacher3DGesture(on) {
+  if (!_t3d || !_t3d.mixer) return;
+  const A = _t3d.actions;
+  const talk = A['Yes'] || A['Wave'] || A['ThumbsUp'] || null;
+  const idle = A['Idle'] || Object.values(A)[0];
+  const next = on ? (talk || idle) : idle;
+  if (!next || next === _t3d.current) return;
+  if (_t3d.current) _t3d.current.fadeOut(0.3);
+  next.reset().fadeIn(0.3).play();
+  if (on && talk) { next.setLoop(_t3d.THREE.LoopRepeat); }
+  _t3d.current = next;
+}
+function _dispose3D() {
+  if (!_t3d) return;
+  cancelAnimationFrame(_t3d.raf);
+  try { _t3d.renderer.dispose(); } catch (_) {}
+  _t3d = null;
 }
 
 function renderTeacherText() {
@@ -548,6 +661,7 @@ function _teacherSpeakNow() {
   speechSynthesis.speak(u);
   const av = document.getElementById('tch-avatar');
   if (av) av.classList.add('talking');
+  _teacher3DGesture(true);
 }
 
 function teacherToggle() {
@@ -557,6 +671,7 @@ function teacherToggle() {
     t.playing = false;
     speechSynthesis.cancel();
     document.getElementById('tch-avatar')?.classList.remove('talking');
+    _teacher3DGesture(false);
     if (btn) btn.innerHTML = '▶️ ' + (S.lang==='en'?'Continue':'أكمل');
   } else {
     t.playing = true;
@@ -575,6 +690,7 @@ function teacherStop(finished) {
   _teacherState.playing = false;
   speechSynthesis.cancel();
   document.getElementById('tch-avatar')?.classList.remove('talking');
+  _teacher3DGesture(false);
   const btn = document.getElementById('tch-play');
   if (btn) btn.innerHTML = (finished ? '🔁 ' : '▶️ ') + (finished ? (S.lang==='en'?'Replay':'أعد الشرح') : (S.lang==='en'?'Continue':'أكمل'));
   if (finished) _teacherState.idx = 0;
@@ -582,6 +698,7 @@ function teacherStop(finished) {
 
 function closeTeacher() {
   teacherStop();
+  _dispose3D();
   const ov = document.getElementById('teacher-overlay');
   if (ov) ov.style.display = 'none';
 }
@@ -20892,14 +21009,15 @@ function bind() {
     .tch-classroom{position:relative;margin-bottom:8px}
     .tch-board{background:linear-gradient(160deg,#1f3d2f,#16302480);border:10px solid #6b4423;border-radius:10px;box-shadow:inset 0 0 40px rgba(0,0,0,.45),0 6px 18px rgba(0,0,0,.4);padding:16px 18px 26px;min-height:230px;text-align:right;position:relative;overflow:hidden}
     .tch-board-title{color:#fdf6b2;font-weight:900;font-size:15px;border-bottom:2px dashed #ffffff40;padding-bottom:6px;margin-bottom:10px;text-shadow:0 1px 2px rgba(0,0,0,.4)}
-    .tch-board-lines{max-height:170px;overflow-y:auto;display:flex;flex-direction:column;gap:9px;padding-left:90px}
+    .tch-board-lines{max-height:170px;overflow-y:auto;display:flex;flex-direction:column;gap:9px;padding-left:120px}
     .tch-line{color:#eafff2;font-size:14px;line-height:1.8;font-family:'Cairo',cursive;text-shadow:0 1px 1px rgba(0,0,0,.35);opacity:.92;animation:tch-fadein .4s ease}
     .tch-line.writing{color:#fff39a;font-weight:700;border-right:3px solid #fff39a;padding-right:8px;animation:tch-fadein .4s ease, tch-blinkcursor 1s step-end infinite}
     @keyframes tch-fadein{from{opacity:0;transform:translateY(6px)}to{opacity:.92;transform:none}}
     @keyframes tch-blinkcursor{50%{border-color:transparent}}
     .tch-chalk-tray{position:absolute;bottom:0;left:0;right:0;height:10px;background:#5a3a1e}
-    .tch-teacher-wrap{position:absolute;bottom:-6px;left:6px;width:84px}
-    .tch-pointer{position:absolute;top:14px;right:-30px;width:46px;height:3px;background:#d9a441;border-radius:2px;transform-origin:right center;transform:rotate(-18deg)}
+    .tch-teacher-wrap{position:absolute;bottom:-10px;left:0;width:130px;height:185px}
+    #tch-3d-canvas{width:130px;height:185px;display:block}
+    .tch-pointer{position:absolute;top:14px;right:-30px;width:46px;height:3px;background:#d9a441;border-radius:2px;transform-origin:right center;transform:rotate(-18deg);display:none}
     .tch-avatar.talking ~ .tch-pointer,.tch-teacher-wrap .tch-avatar.talking + .tch-pointer{animation:tch-point 1.6s ease-in-out infinite}
     @keyframes tch-point{0%,100%{transform:rotate(-18deg)}50%{transform:rotate(-30deg) translateY(-6px)}}
     .tch-teacher-wrap .tch-avatar{width:84px;height:84px}
