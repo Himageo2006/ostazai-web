@@ -500,7 +500,8 @@ function showTeacher(text) {
     </div>`;
   ov.style.display = 'flex';
   renderTeacherText();
-  init3DTeacher();
+  // 3D human avatar disabled for now (no suitable teacher model) — using the friendly 2D Mr. Amin.
+  // init3DTeacher();
 }
 
 /* ── 3D teacher (Three.js) — loaded lazily, falls back to SVG ── */
@@ -650,24 +651,33 @@ function _teacherSpeakNow() {
   const u = new SpeechSynthesisUtterance(sentence);
   const isArabic = /[؀-ۿ]/.test(sentence);
   const v = pickVoice(isArabic);
-  if (isArabic && !v) {
-    // No Arabic TTS voice on this device — warn once instead of reading Arabic with an English voice
-    showToast(S.lang==='en'?'No Arabic voice installed on this device. Add one in Settings › Accessibility › Spoken Content.':'لا يوجد صوت عربي مثبّت على الجهاز. أضِفه من الإعدادات ← إمكانية الوصول ← المحتوى المنطوق.', 'error');
-    teacherStop();
-    return;
-  }
-  if (v) u.voice = v;
-  u.lang = v ? v.lang : (isArabic ? 'ar-SA' : 'en-US');
-  u.rate = 0.92;
-  u.onend = () => {
+  const av = document.getElementById('tch-avatar');
+  const advance = () => {
     if (!_teacherState.playing) return;
     _teacherState.idx++;
     if (_teacherState.idx < _teacherState.sentences.length) teacherSpeakCurrent();
     else teacherStop(true);
   };
+  if (isArabic && !v) {
+    // No Arabic TTS voice on this device — don't read Arabic with an English voice (gibberish).
+    // Instead, advance the board visually like silent subtitles so the lesson still plays.
+    if (!_teacherState._warnedNoVoice) {
+      _teacherState._warnedNoVoice = true;
+      showToast(S.lang==='en'?'No Arabic voice on this device — showing the lesson on the board. Add an Arabic voice in your device settings to hear it.':'لا يوجد صوت عربي على هذا الجهاز — يُعرض الدرس على السبورة. أضِف صوتاً عربياً من إعدادات جهازك لسماعه.', 'info');
+    }
+    if (av) av.classList.add('talking');
+    _teacher3DGesture(true);
+    // read time ~ proportional to sentence length (min 2.2s)
+    const ms = Math.max(2200, sentence.length * 75);
+    _teacherState._silentTimer = setTimeout(advance, ms);
+    return;
+  }
+  if (v) u.voice = v;
+  u.lang = v ? v.lang : (isArabic ? 'ar-SA' : 'en-US');
+  u.rate = 0.92;
+  u.onend = advance;
   u.onerror = () => teacherStop();
   speechSynthesis.speak(u);
-  const av = document.getElementById('tch-avatar');
   if (av) av.classList.add('talking');
   _teacher3DGesture(true);
 }
@@ -678,6 +688,7 @@ function teacherToggle() {
   if (t.playing) {
     t.playing = false;
     speechSynthesis.cancel();
+    clearTimeout(t._silentTimer);
     document.getElementById('tch-avatar')?.classList.remove('talking');
     _teacher3DGesture(false);
     if (btn) btn.innerHTML = '▶️ ' + (S.lang==='en'?'Continue':'أكمل');
@@ -697,6 +708,7 @@ function teacherJump(dir) {
 function teacherStop(finished) {
   _teacherState.playing = false;
   speechSynthesis.cancel();
+  clearTimeout(_teacherState._silentTimer);
   document.getElementById('tch-avatar')?.classList.remove('talking');
   _teacher3DGesture(false);
   const btn = document.getElementById('tch-play');
