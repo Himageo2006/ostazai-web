@@ -22168,6 +22168,7 @@ async function init() {
   if (urlParams.get('payment') === 'success') {
     const gateway = urlParams.get('gateway') || '';
     const token   = urlParams.get('token') || '';  // PayPal order token
+    const checkoutId = urlParams.get('checkout_id') || '';  // Polar checkout id
     history.replaceState({}, '', window.location.pathname);
 
     setTimeout(async () => {
@@ -22178,6 +22179,13 @@ async function init() {
         try {
           await req('/billing/capture-paypal-order', 'POST', { orderId: token });
         } catch(e) { console.warn('PayPal capture:', e.message); }
+      }
+
+      // Polar: verify the checkout directly (webhook-independent activation)
+      if (gateway === 'polar' && checkoutId && S.token) {
+        try {
+          await req('/billing/polar-verify', 'POST', { checkoutId });
+        } catch(e) { console.warn('Polar verify:', e.message); }
       }
 
       // Refresh user after 3s (allow webhook to process)
