@@ -417,34 +417,67 @@ function ensureVoices(cb) {
 }
 
 const TEACHER_SVG = `
-<svg viewBox="0 0 200 200" width="130" height="130" xmlns="http://www.w3.org/2000/svg">
-  <!-- body -->
-  <ellipse cx="100" cy="185" rx="55" ry="28" fill="#1E3A8A"/>
+<svg viewBox="0 0 200 380" width="150" height="285" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="suitG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a3f47"/><stop offset="1" stop-color="#23272d"/>
+    </linearGradient>
+    <linearGradient id="tieG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f7a824"/><stop offset="1" stop-color="#e8920a"/>
+    </linearGradient>
+    <radialGradient id="skinG" cx="0.5" cy="0.4" r="0.7">
+      <stop offset="0" stop-color="#fcd9b0"/><stop offset="1" stop-color="#f3c197"/>
+    </radialGradient>
+  </defs>
+  <!-- ground shadow -->
+  <ellipse cx="100" cy="372" rx="58" ry="9" fill="#000" opacity="0.28"/>
+  <!-- legs -->
+  <rect x="78" y="250" width="20" height="110" rx="9" fill="#2b2f35"/>
+  <rect x="102" y="250" width="20" height="110" rx="9" fill="#272b30"/>
+  <!-- shoes -->
+  <path d="M74 360 q-6 8 4 10 h24 v-12 z" fill="#5a3a1e"/>
+  <path d="M122 360 q6 8 -4 10 h-24 v-12 z" fill="#5a3a1e"/>
+  <!-- suit jacket body -->
+  <path d="M58 168 q-6 70 4 92 h76 q10 -22 4 -92 q-4 -22 -22 -30 h-40 q-18 8 -22 30Z" fill="url(#suitG)"/>
+  <!-- jacket lapels -->
+  <path d="M82 165 L100 210 L80 205 q-6 -24 2 -40Z" fill="#2c3036"/>
+  <path d="M118 165 L100 210 L120 205 q6 -24 -2 -40Z" fill="#2c3036"/>
+  <!-- white shirt V -->
+  <path d="M88 165 L100 250 L112 165 q-12 -6 -24 0Z" fill="#f4f6fb"/>
+  <!-- tie -->
+  <path d="M100 168 l-7 10 l7 8 l7 -8Z" fill="#d98e0f"/>
+  <path d="M96 188 l8 0 l5 56 l-9 12 l-9 -12Z" fill="url(#tieG)"/>
+  <!-- arms (crossed) -->
+  <path d="M60 178 q-14 26 -6 50 q34 10 64 4 q-10 -16 -40 -20 q-14 -16 -18 -34Z" fill="#33373e"/>
+  <path d="M140 178 q14 26 6 50 q-30 8 -56 2 q12 -16 38 -18 q10 -16 12 -34Z" fill="#3a3f47"/>
+  <!-- hands -->
+  <ellipse cx="118" cy="226" rx="11" ry="9" fill="url(#skinG)"/>
+  <ellipse cx="84" cy="230" rx="11" ry="9" fill="url(#skinG)"/>
+  <!-- neck -->
+  <rect x="90" y="138" width="20" height="22" rx="8" fill="#eebd92"/>
   <!-- head -->
-  <circle cx="100" cy="105" r="52" fill="#F5C99B"/>
+  <ellipse cx="100" cy="104" rx="42" ry="46" fill="url(#skinG)"/>
   <!-- ears -->
-  <circle cx="48" cy="105" r="9" fill="#F5C99B"/><circle cx="152" cy="105" r="9" fill="#F5C99B"/>
-  <!-- graduation cap -->
-  <rect x="55" y="48" width="90" height="14" rx="4" fill="#0F172A"/>
-  <polygon points="100,18 170,50 100,66 30,50" fill="#0F172A"/>
-  <line x1="160" y1="52" x2="160" y2="78" stroke="#F59E0B" stroke-width="4"/>
-  <circle cx="160" cy="82" r="6" fill="#F59E0B"/>
-  <!-- glasses -->
-  <circle cx="78" cy="100" r="16" fill="none" stroke="#0F172A" stroke-width="4"/>
-  <circle cx="122" cy="100" r="16" fill="none" stroke="#0F172A" stroke-width="4"/>
-  <line x1="94" y1="100" x2="106" y2="100" stroke="#0F172A" stroke-width="4"/>
-  <!-- eyes (blink via CSS) -->
-  <circle class="tch-eye" cx="78" cy="100" r="5" fill="#0F172A"/>
-  <circle class="tch-eye" cx="122" cy="100" r="5" fill="#0F172A"/>
+  <circle cx="59" cy="106" r="8" fill="#f3c197"/><circle cx="141" cy="106" r="8" fill="#f3c197"/>
+  <!-- hair -->
+  <path d="M58 96 q-2 -56 44 -54 q44 0 40 52 q-6 -22 -22 -26 q4 12 -2 18 q-10 -18 -28 -16 q-20 2 -24 24 q-6 -2 -8 2Z" fill="#5a3a22"/>
   <!-- eyebrows -->
-  <path d="M66 78 Q78 72 90 78" stroke="#7C4A1E" stroke-width="4" fill="none" stroke-linecap="round"/>
-  <path d="M110 78 Q122 72 134 78" stroke="#7C4A1E" stroke-width="4" fill="none" stroke-linecap="round"/>
-  <!-- mustache -->
-  <path d="M80 128 Q100 138 120 128 Q110 130 100 129 Q90 130 80 128" fill="#7C4A1E"/>
+  <path d="M70 88 q12 -7 24 -2" stroke="#4a2f1a" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M106 86 q12 -5 24 2" stroke="#4a2f1a" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <!-- glasses -->
+  <circle cx="82" cy="104" r="15" fill="#ffffff" opacity="0.18" stroke="#1a1d22" stroke-width="3.5"/>
+  <circle cx="118" cy="104" r="15" fill="#ffffff" opacity="0.18" stroke="#1a1d22" stroke-width="3.5"/>
+  <line x1="97" y1="104" x2="103" y2="104" stroke="#1a1d22" stroke-width="3.5"/>
+  <!-- eyes -->
+  <circle class="tch-eye" cx="82" cy="105" r="4.5" fill="#2a1a10"/>
+  <circle class="tch-eye" cx="118" cy="105" r="4.5" fill="#2a1a10"/>
+  <!-- nose -->
+  <path d="M100 108 q4 8 -2 12" stroke="#d9a574" stroke-width="3" fill="none" stroke-linecap="round"/>
   <!-- mouth (animates while talking) -->
-  <ellipse class="tch-mouth" cx="100" cy="142" rx="13" ry="4" fill="#8B3A2E"/>
-  <!-- collar + tie -->
-  <polygon points="100,158 88,172 100,196 112,172" fill="#F59E0B"/>
+  <ellipse class="tch-mouth" cx="100" cy="130" rx="11" ry="3.5" fill="#9c4a3a"/>
+  <!-- friendly cheeks -->
+  <circle cx="70" cy="120" r="6" fill="#f6a98a" opacity="0.4"/>
+  <circle cx="130" cy="120" r="6" fill="#f6a98a" opacity="0.4"/>
 </svg>`;
 
 let _teacherState = { sentences: [], idx: 0, playing: false };
@@ -21156,7 +21189,8 @@ function bind() {
     @keyframes tch-fadein{from{opacity:0;transform:translateY(6px)}to{opacity:.92;transform:none}}
     @keyframes tch-blinkcursor{50%{border-color:transparent}}
     .tch-chalk-tray{position:absolute;bottom:0;left:0;right:0;height:10px;background:#5a3a1e}
-    .tch-teacher-wrap{position:absolute;bottom:-10px;left:0;width:130px;height:185px}
+    .tch-teacher-wrap{position:absolute;bottom:-14px;left:-8px;width:150px;height:230px}
+    .tch-teacher-wrap .tch-avatar svg{width:150px;height:230px}
     #tch-3d-canvas{width:130px;height:185px;display:block}
     #tch-img{display:none;position:absolute;bottom:0;left:-6px;height:185px;width:auto;max-width:150px;object-fit:contain;transform-origin:bottom center;animation:tch-sway 3.2s ease-in-out infinite;filter:drop-shadow(0 6px 10px rgba(0,0,0,.4))}
     #teacher-overlay .tch-avatar.talking ~ #tch-img,#tch-img.talking{animation:tch-talkbob .5s ease-in-out infinite}
@@ -21166,7 +21200,7 @@ function bind() {
     .tch-avatar.talking ~ .tch-pointer,.tch-teacher-wrap .tch-avatar.talking + .tch-pointer{animation:tch-point 1.6s ease-in-out infinite}
     @keyframes tch-point{0%,100%{transform:rotate(-18deg)}50%{transform:rotate(-30deg) translateY(-6px)}}
     .tch-teacher-wrap .tch-avatar{width:84px;height:84px}
-    .tch-teacher-wrap .tch-avatar svg{width:84px;height:84px}
+    .tch-teacher-wrap .tch-avatar svg{width:150px;height:230px}
     .tch-avatar{display:inline-block;animation:tch-bob 3s ease-in-out infinite}
     @keyframes tch-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
     .tch-avatar .tch-eye{animation:tch-blink 4s infinite}
