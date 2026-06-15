@@ -19052,6 +19052,9 @@ function tplUpgrade() {
         <button class="btn btn-primary" id="b-myfatoorah" style="width:100%;font-size:15px;padding:13px;background:#1a8754;border-color:#1a8754">
           <span style="font-size:20px">🇰🇼</span> MyFatoorah — <span style="font-size:12px;opacity:.85">KNET + بطاقات خليجية</span>
         </button>
+        <button class="btn btn-primary" id="b-polar" style="width:100%;font-size:15px;padding:13px;background:#0062FF;border-color:#0062FF">
+          <span style="font-size:20px">🌐</span> ${S.lang==='en'?'Card — Worldwide':'بطاقة — عالمي'} <span style="font-size:12px;opacity:.85">(Visa/Mastercard)</span>
+        </button>
         <button class="btn btn-secondary" id="b-stripe" style="width:100%;font-size:13px;padding:11px;opacity:.7">
           Tap Payments *(قريباً)*
         </button>
@@ -20309,6 +20312,25 @@ async function doMyFatoorahCheckout() {
   }
 }
 
+/* ════════════════════════════════════════════════════════════
+   POLAR CHECKOUT  (Merchant of Record — worldwide cards)
+   ════════════════════════════════════════════════════════════ */
+async function doPolarCheckout() {
+  if (!S.token) { showToast('سجّل الدخول أولاً', 'error'); S.screen='login'; render(); return; }
+  const plan = ge('pay-plan-sel')?.value || 'monthly';
+  const btn  = ge('b-polar');
+  const orig = btn ? btn.innerHTML : '';
+  if (btn) { btn.disabled=true; btn.textContent='جارٍ التوجيه...'; }
+  try {
+    const d = await req('/billing/create-polar-checkout', 'POST', { plan });
+    if (d.url) { window.location.href = d.url; }
+    else { showToast('تعذّر فتح صفحة الدفع', 'error'); if (btn) { btn.disabled=false; btn.innerHTML=orig; } }
+  } catch(e) {
+    showToast('⚠️ ' + e.message, 'error');
+    if (btn) { btn.disabled=false; btn.innerHTML=orig; }
+  }
+}
+
 async function doRedeemPromo() {
   if (!S.token) { showToast('سجّل الدخول أولاً لاستخدام الكود', 'error'); return; }
   const code = ge('promo-inp')?.value?.trim().toUpperCase();
@@ -20732,6 +20754,7 @@ function bind() {
   ge('b-stripe')      && ge('b-stripe').addEventListener('click', () => doTapCheckout(ge('pay-plan-sel')?.value||'monthly'));
   ge('b-paypal')      && ge('b-paypal').addEventListener('click', doPayPalCheckout);
   ge('b-myfatoorah')  && ge('b-myfatoorah').addEventListener('click', doMyFatoorahCheckout);
+  ge('b-polar')       && ge('b-polar').addEventListener('click', doPolarCheckout);
   ge('go-forgot')     && ge('go-forgot').addEventListener('click', () => { S.screen='forgot'; render(); });
   ge('go-login-back') && ge('go-login-back').addEventListener('click', () => { S.screen='login'; render(); });
   ge('b-forgot-send') && ge('b-forgot-send').addEventListener('click', doForgotPassword);
