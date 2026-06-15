@@ -812,9 +812,9 @@ function _teacherSpeakNow() {
     if (_teacherState.idx < _teacherState.sentences.length) teacherSpeakCurrent();
     else teacherStop(true);
   };
-  if (isArabic && !v) {
-    // No Arabic voice on this device — don't read Arabic with an English voice (gibberish).
-    // Use the server TTS endpoint so the lesson is still heard everywhere.
+  if (isArabic) {
+    // Always use the server TTS for Arabic — a single consistent voice on every
+    // device (instead of whatever robotic voice each device happens to have).
     if (av) av.classList.add('talking');
     _teacher3DGesture(true);
     const silentFallback = () => {
