@@ -593,7 +593,7 @@ function showTeacher(text) {
     </div>`;
   ov.style.display = 'flex';
   renderTeacherText();
-  initTeacherImage();
+  init3DTeacher();   // load the rigged 3D human avatar (falls back to SVG if it fails)
 }
 
 /* ── Image-based teacher: uses a real PNG of Mr. Amin, animated (sway + talk bob) ── */
@@ -745,6 +745,9 @@ async function init3DTeacher() {
     if (!window.THREE.GLTFLoader) {
       await _loadScript('https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/loaders/GLTFLoader.js');
     }
+    if (!window.THREE.DRACOLoader) {
+      await _loadScript('https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/loaders/DRACOLoader.js');
+    }
     const THREE = window.THREE;
     // reuse if already built
     if (_t3d && _t3d.canvas === canvas) return;
@@ -754,24 +757,28 @@ async function init3DTeacher() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(W, H, false);
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(32, W / H, 0.1, 100);
-    camera.position.set(0, 1.35, 4.0);
-    camera.lookAt(0, 1.15, 0);
+    const camera = new THREE.PerspectiveCamera(28, W / H, 0.1, 100);
+    camera.position.set(0, 1.48, 1.45);   // framed on the teacher's head & shoulders
+    camera.lookAt(0, 1.42, 0);
     scene.add(new THREE.HemisphereLight(0xffffff, 0x444466, 2.4));
     const dir = new THREE.DirectionalLight(0xffffff, 2.2); dir.position.set(2, 4, 3); scene.add(dir);
     _t3d = { THREE, renderer, scene, camera, canvas, mixer: null, actions: {}, current: null, head: null, talkMorph: null, raf: 0, clock: new THREE.Clock() };
     const loader = new THREE.GLTFLoader();
-    loader.load('assets3d/teacher-human.glb?v=1', (gltf) => {
+    const draco = new THREE.DRACOLoader();
+    draco.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.137.0/examples/js/libs/draco/');
+    loader.setDRACOLoader(draco);
+    loader.load('assets3d/teacher-human.glb?v=2', (gltf) => {
       const model = gltf.scene;
-      model.scale.set(0.92, 0.92, 0.92);
+      model.scale.set(1, 1, 1);
       model.position.set(0, 0, 0);
-      model.rotation.y = 0.3;
+      model.rotation.y = 0.12;
       scene.add(model);
-      // find head + mouth morph for lip-sync / nodding
+      // find head + mouth morph for lip-sync / nodding (prefer an "open" mouth/jaw)
       model.traverse(o => {
         if (o.isMesh && o.morphTargetDictionary) {
           const dict = o.morphTargetDictionary;
-          const key = Object.keys(dict).find(k => /mouth|jaw|aa|open/i.test(k)) || Object.keys(dict).find(k => /surprised/i.test(k));
+          const key = Object.keys(dict).find(k => /jawOpen|mouthOpen|viseme_aa|^aa$/i.test(k))
+            || Object.keys(dict).find(k => /mouth|jaw|open/i.test(k));
           if (key != null) _t3d.talkMorph = { mesh: o, index: dict[key] };
         }
         if (/head/i.test(o.name)) _t3d.head = o;
@@ -780,7 +787,7 @@ async function init3DTeacher() {
       const mixer = new THREE.AnimationMixer(model);
       _t3d.mixer = mixer;
       gltf.animations.forEach(clip => { _t3d.actions[clip.name] = mixer.clipAction(clip); });
-      const idle = _t3d.actions['Idle'] || _t3d.actions['Dance'] || Object.values(_t3d.actions)[0];
+      const idle = _t3d.actions['idle_eyes'] || _t3d.actions['idle_eyes_2'] || _t3d.actions['Idle'] || Object.values(_t3d.actions)[0];
       if (idle) { idle.play(); _t3d.current = idle; }
       _shown3D = true;
       clearTimeout(fallbackTimer);
