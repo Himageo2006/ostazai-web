@@ -813,17 +813,26 @@ function _teacherSpeakNow() {
     else teacherStop(true);
   };
   if (isArabic && !v) {
-    // No Arabic TTS voice on this device — don't read Arabic with an English voice (gibberish).
-    // Instead, advance the board visually like silent subtitles so the lesson still plays.
-    if (!_teacherState._warnedNoVoice) {
-      _teacherState._warnedNoVoice = true;
-      showToast(S.lang==='en'?'No Arabic voice on this device — showing the lesson on the board. Add an Arabic voice in your device settings to hear it.':'لا يوجد صوت عربي على هذا الجهاز — يُعرض الدرس على السبورة. أضِف صوتاً عربياً من إعدادات جهازك لسماعه.', 'info');
-    }
+    // No Arabic voice on this device — don't read Arabic with an English voice (gibberish).
+    // Use the server TTS endpoint so the lesson is still heard everywhere.
     if (av) av.classList.add('talking');
     _teacher3DGesture(true);
-    // read time ~ proportional to sentence length (min 2.2s)
-    const ms = Math.max(2200, sentence.length * 75);
-    _teacherState._silentTimer = setTimeout(advance, ms);
+    const silentFallback = () => {
+      // Server TTS unavailable too → advance the board visually like silent subtitles.
+      if (!_teacherState._warnedNoVoice) {
+        _teacherState._warnedNoVoice = true;
+        showToast(S.lang==='en'?'Showing the lesson on the board (audio unavailable on this device).':'يُعرض الدرس على السبورة (الصوت غير متاح على هذا الجهاز).', 'info');
+      }
+      const ms = Math.max(2200, sentence.length * 75);
+      _teacherState._silentTimer = setTimeout(advance, ms);
+    };
+    try {
+      const audio = new Audio(`${API}/tts?lang=ar&text=${encodeURIComponent(sentence)}`);
+      _teacherState._audio = audio;
+      audio.onended = advance;
+      audio.onerror = silentFallback;
+      audio.play().catch(silentFallback);
+    } catch (_) { silentFallback(); }
     return;
   }
   if (v) u.voice = v;
@@ -836,12 +845,18 @@ function _teacherSpeakNow() {
   _teacher3DGesture(true);
 }
 
+function _stopTeacherAudio() {
+  const a = _teacherState._audio;
+  if (a) { try { a.pause(); a.onended = a.onerror = null; a.src = ''; } catch(_) {} _teacherState._audio = null; }
+}
+
 function teacherToggle() {
   const t = _teacherState;
   const btn = document.getElementById('tch-play');
   if (t.playing) {
     t.playing = false;
     speechSynthesis.cancel();
+    _stopTeacherAudio();
     clearTimeout(t._silentTimer);
     document.getElementById('tch-avatar')?.classList.remove('talking');
     _teacher3DGesture(false);
@@ -862,6 +877,7 @@ function teacherJump(dir) {
 function teacherStop(finished) {
   _teacherState.playing = false;
   speechSynthesis.cancel();
+  _stopTeacherAudio();
   clearTimeout(_teacherState._silentTimer);
   document.getElementById('tch-avatar')?.classList.remove('talking');
   _teacher3DGesture(false);
