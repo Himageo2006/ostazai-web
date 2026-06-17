@@ -19041,8 +19041,8 @@ function tplUpgrade() {
       </ul>
       <!-- Plan selector -->
       <select id="pay-plan-sel" style="width:100%;margin-bottom:14px;padding:11px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-family:inherit;cursor:pointer">
-        <option value="monthly">📅 شهري — 1.85 د.ك / $6</option>
-        <option value="yearly">🔥 سنوي — 14.9 د.ك / $49 (توفير 37%)</option>
+        <option value="monthly">📅 شهري — $6</option>
+        <option value="yearly">🔥 سنوي — $49 (وفّر 32%)</option>
       </select>
       <!-- Payment gateway buttons -->
       <div style="display:grid;gap:10px">
@@ -20360,6 +20360,52 @@ async function doGumroadCheckout() {
   }
 }
 
+/* ════════════════════════════════════════════════════════════
+   LOCAL CURRENCY DISPLAY  (based on user's IP) — display only;
+   actual charge stays USD via Gumroad/PayPal.
+   ════════════════════════════════════════════════════════════ */
+let _localCur = null; // { code, symbol, rate }
+async function applyLocalCurrency() {
+  const sel = ge('pay-plan-sel');
+  if (!sel) return;
+  const M_USD = 6, Y_USD = 49;
+  const ar = S.lang !== 'en';
+  const setLabels = (cur) => {
+    const code = cur && cur.code;
+    const rate = cur && cur.rate;
+    const fmt = (usd) => {
+      if (rate && code && code !== 'USD') {
+        const loc = rate < 5 ? (usd * rate).toFixed(2) : Math.round(usd * rate);
+        return `${code} ${loc} / $${usd}`;
+      }
+      return `$${usd}`;
+    };
+    if (sel.options[0]) sel.options[0].text = (ar ? '📅 شهري — ' : '📅 Monthly — ') + fmt(M_USD);
+    if (sel.options[1]) sel.options[1].text = (ar ? '🔥 سنوي — ' : '🔥 Yearly — ') + fmt(Y_USD) + (ar ? ' (وفّر 32%)' : ' (save 32%)');
+  };
+  // show USD immediately, then upgrade to local currency
+  if (_localCur) { setLabels(_localCur); return; }
+  setLabels(null);
+  try {
+    const cached = JSON.parse(localStorage.getItem('_localcur') || 'null');
+    if (cached && cached.t > Date.now() - 86400000 && cached.v) { _localCur = cached.v; setLabels(_localCur); return; }
+  } catch (_) {}
+  try {
+    const g = await fetch('https://ipwho.is/').then(r => r.json());
+    const code = g && g.currency && g.currency.code;
+    let rate = null;
+    if (code && code !== 'USD') {
+      const fx = await fetch('https://open.er-api.com/v6/latest/USD').then(r => r.json());
+      rate = fx && fx.rates && fx.rates[code];
+    }
+    if (code) {
+      _localCur = { code, rate };
+      localStorage.setItem('_localcur', JSON.stringify({ t: Date.now(), v: _localCur }));
+      setLabels(_localCur);
+    }
+  } catch (_) { /* keep USD fallback */ }
+}
+
 async function doRedeemPromo() {
   if (!S.token) { showToast('سجّل الدخول أولاً لاستخدام الكود', 'error'); return; }
   const code = ge('promo-inp')?.value?.trim().toUpperCase();
@@ -20784,6 +20830,7 @@ function bind() {
   ge('b-paypal')      && ge('b-paypal').addEventListener('click', doPayPalCheckout);
   ge('b-myfatoorah')  && ge('b-myfatoorah').addEventListener('click', doMyFatoorahCheckout);
   ge('b-gumroad')     && ge('b-gumroad').addEventListener('click', doGumroadCheckout);
+  if (ge('pay-plan-sel')) applyLocalCurrency();
   ge('go-forgot')     && ge('go-forgot').addEventListener('click', () => { S.screen='forgot'; render(); });
   ge('go-login-back') && ge('go-login-back').addEventListener('click', () => { S.screen='login'; render(); });
   ge('b-forgot-send') && ge('b-forgot-send').addEventListener('click', doForgotPassword);
