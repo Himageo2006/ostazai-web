@@ -19049,9 +19049,6 @@ function tplUpgrade() {
         <button class="btn btn-primary" id="b-paypal" style="width:100%;font-size:15px;padding:13px;background:#003087;border-color:#003087">
           <span style="font-size:20px">💳</span> PayPal — <span style="font-size:12px;opacity:.85">عالمي (Visa/Master/PayPal)</span>
         </button>
-        <button class="btn btn-secondary" id="b-myfatoorah" disabled style="width:100%;font-size:13px;padding:11px;opacity:.6;cursor:not-allowed">
-          🇰🇼 MyFatoorah — KNET <span style="font-size:12px;opacity:.85">${S.lang==='en'?'(coming soon)':'(قريباً)'}</span>
-        </button>
         <button class="btn btn-primary" id="b-gumroad" style="width:100%;font-size:15px;padding:13px;background:#FF90E8;border-color:#FF90E8;color:#000">
           <span style="font-size:20px">💳</span> ${S.lang==='en'?'Pay by Card':'الدفع بالبطاقة'} <span style="font-size:12px;opacity:.85">(Visa/Mastercard)</span>
         </button>
@@ -19065,6 +19062,9 @@ function tplUpgrade() {
             ? '🔒 Secure checkout powered by <b>Gumroad</b> — a trusted global payment provider. You\'ll be redirected to Gumroad\'s official page to enter your card.'
             : '🔒 الدفع يتم بأمان عبر <b>Gumroad</b> — مزوّد دفع عالمي موثوق. سيتم تحويلك إلى صفحة Gumroad الرسمية لإدخال بيانات بطاقتك.'}
         </div>
+        <button class="btn btn-secondary" id="b-myfatoorah" disabled style="width:100%;font-size:13px;padding:11px;opacity:.6;cursor:not-allowed">
+          🇰🇼 MyFatoorah — KNET <span style="font-size:12px;opacity:.85">${S.lang==='en'?'(coming soon)':'(قريباً)'}</span>
+        </button>
         <button class="btn btn-secondary" id="b-stripe" style="width:100%;font-size:13px;padding:11px;opacity:.7">
           Tap Payments *(قريباً)*
         </button>
