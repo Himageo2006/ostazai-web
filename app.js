@@ -19055,6 +19055,11 @@ function tplUpgrade() {
         <button class="btn btn-primary" id="b-gumroad" style="width:100%;font-size:15px;padding:13px;background:#FF90E8;border-color:#FF90E8;color:#000">
           <span style="font-size:20px">💳</span> ${S.lang==='en'?'Pay by Card':'الدفع بالبطاقة'} <span style="font-size:12px;opacity:.85">(Visa/Mastercard)</span>
         </button>
+        <div style="display:flex;align-items:center;justify-content:center;gap:7px;margin-top:-2px">
+          <svg width="34" height="22" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg" aria-label="Visa"><rect width="48" height="32" rx="4" fill="#fff"/><text x="24" y="22" font-family="Arial,sans-serif" font-weight="bold" font-style="italic" font-size="15" fill="#1A1F71" text-anchor="middle">VISA</text></svg>
+          <svg width="34" height="22" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg" aria-label="Mastercard"><rect width="48" height="32" rx="4" fill="#fff"/><circle cx="20" cy="16" r="9" fill="#EB001B"/><circle cx="28" cy="16" r="9" fill="#F79E1B" fill-opacity="0.85"/></svg>
+          <svg width="34" height="22" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg" aria-label="Amex"><rect width="48" height="32" rx="4" fill="#1F72CD"/><text x="24" y="20" font-family="Arial,sans-serif" font-weight="bold" font-size="8" fill="#fff" text-anchor="middle">AMEX</text></svg>
+        </div>
         <div style="font-size:11px;color:var(--text-muted);text-align:center;margin-top:-2px;line-height:1.5">
           ${S.lang==='en'
             ? '🔒 Secure checkout powered by <b>Gumroad</b> — a trusted global payment provider. You\'ll be redirected to Gumroad\'s official page to enter your card.'
