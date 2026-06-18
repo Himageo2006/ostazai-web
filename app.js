@@ -3367,6 +3367,7 @@ const tplSignin = () => `
       <div style="flex:1;height:1px;background:var(--border)"></div>
     </div>
     ${IS_IOS_APP ? '' : `<div id="g-btn" style="display:flex;justify-content:center;margin-bottom:8px;min-height:44px"></div>`}
+    ${IS_IOS_APP ? `<button id="b-apple-signin" onclick="requestAppleSignIn()" style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:44px;border:1px solid #000;border-radius:4px;background:#000;cursor:pointer;font-size:14px;font-weight:600;font-family:Arial,sans-serif;color:#fff;margin-bottom:8px"><svg width="18" height="18" viewBox="0 0 814 1000" fill="white"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 389.4 45.8 264.3 85.8 162.9c35.4-91.2 118.8-148.4 209.5-148.4 79.5 0 135.9 52.5 180.7 52.5 43 0 110.9-54.5 200.7-54.5zm-183.1-181c28.7-35.3 49.9-85 49.9-134.7 0-6.9-.6-13.9-1.9-19.5-47.6 1.9-104.8 31.9-139.2 71.3-26.2 30.2-50.5 80.9-50.5 131.9 0 7.6 1.3 15.2 1.9 17.5 3.2.6 8.4 1.3 13.6 1.3 43 0 97.7-28.7 126.2-67.8z"/></svg>${S.lang==='ar'?'تسجيل الدخول بـ Apple':'Sign in with Apple'}</button>` : ''}
     <button class="btn btn-secondary" id="b-guest" style="width:100%;margin-top:4px">${t('دخول كضيف','guestBtn')}</button>
     <div style="text-align:center;margin-top:8px">
       <span id="go-forgot" style="font-size:13px;color:var(--primary);cursor:pointer;text-decoration:underline">${t('نسيت كلمة المرور؟','forgotPassword')}</span>
@@ -3455,6 +3456,7 @@ const tplRegister = () => `
       <div style="flex:1;height:1px;background:var(--border)"></div>
     </div>
     ${IS_IOS_APP ? '' : `<div id="g-btn" style="display:flex;justify-content:center;margin-bottom:4px;min-height:44px"></div>`}
+    ${IS_IOS_APP ? `<button id="b-apple-register" onclick="requestAppleSignIn()" style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:44px;border:1px solid #000;border-radius:4px;background:#000;cursor:pointer;font-size:14px;font-weight:600;font-family:Arial,sans-serif;color:#fff;margin-bottom:8px"><svg width="18" height="18" viewBox="0 0 814 1000" fill="white"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 389.4 45.8 264.3 85.8 162.9c35.4-91.2 118.8-148.4 209.5-148.4 79.5 0 135.9 52.5 180.7 52.5 43 0 110.9-54.5 200.7-54.5zm-183.1-181c28.7-35.3 49.9-85 49.9-134.7 0-6.9-.6-13.9-1.9-19.5-47.6 1.9-104.8 31.9-139.2 71.3-26.2 30.2-50.5 80.9-50.5 131.9 0 7.6 1.3 15.2 1.9 17.5 3.2.6 8.4 1.3 13.6 1.3 43 0 97.7-28.7 126.2-67.8z"/></svg>${S.lang==='ar'?'التسجيل بـ Apple':'Sign up with Apple'}</button>` : ''}
     <div style="text-align:center;margin-top:8px">
       <span id="go-ref-toggle" style="font-size:12px;color:var(--primary);cursor:pointer;text-decoration:underline">عندك كود إحالة؟</span>
     </div>
@@ -4328,6 +4330,10 @@ function tplProfile() {
   </button>
 
   <button class="btn btn-secondary" id="b-logout" onclick="doLogout()" style="width:100%">${t('🚪 تسجيل الخروج','logout')}</button>
+
+  ${S.token ? `<button onclick="doDeleteAccount()" style="width:100%;margin-top:10px;padding:12px;background:none;border:1px solid #EF444440;border-radius:12px;color:#EF4444;cursor:pointer;font-family:Cairo,sans-serif;font-size:13px;font-weight:600">
+    🗑️ ${S.lang==='en'?'Delete My Account':'حذف حسابي نهائياً'}
+  </button>` : ''}
 </div>`;
 }
 function tplNotes() {
@@ -19761,8 +19767,8 @@ async function doRegister() {
   const pass    = ge('f-pass')?.value;
   const country = ge('f-country')?.value;
   const refCode = ge('f-ref')?.value?.trim().toUpperCase() || '';
-  if (!name || !email || !pass || !country) {
-    showAuthErr('يرجى ملء جميع الحقول واختيار الدولة'); return;
+  if (!name || !email || !pass) {
+    showAuthErr('يرجى ملء جميع الحقول المطلوبة'); return;
   }
   setBtnLoading('b-register', 'جارٍ الإنشاء...');
   try {
@@ -19813,6 +19819,47 @@ function initGoogleBtn() {
     text:   'signin_with',
     locale: S.lang === 'ar' ? 'ar' : 'en',
   });
+}
+
+// ── Sign in with Apple (iOS native bridge) ──────────────────────────────────
+function requestAppleSignIn() {
+  if (window.ReactNativeWebView) {
+    window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'requestAppleSignIn' }));
+  }
+}
+
+async function handleAppleCredential(response) {
+  if (!response || !response.identityToken) {
+    showToast('فشل تسجيل الدخول بـ Apple', 'error'); return;
+  }
+  try {
+    const body = { identityToken: response.identityToken };
+    if (response.name) body.name = response.name;
+    if (response.email) body.email = response.email;
+    const d = await req('/auth/apple', 'POST', body);
+    S.token = d.token; S.user = d.user;
+    saveLocal(); S.screen = 'home'; render();
+    showToast('تم تسجيل الدخول بنجاح ✅', 'success');
+  } catch(e) {
+    showToast(e.message || 'فشل تسجيل الدخول بـ Apple', 'error');
+  }
+}
+
+// ── Delete Account ───────────────────────────────────────────────────────────
+async function doDeleteAccount() {
+  if (!S.token) return;
+  const confirmed = confirm(S.lang === 'en'
+    ? 'Are you sure you want to permanently delete your account? This cannot be undone.'
+    : 'هل أنت متأكد من حذف حسابك نهائياً؟ لا يمكن التراجع عن هذا الإجراء.');
+  if (!confirmed) return;
+  try {
+    await req('/auth/delete-account', 'DELETE');
+    S.token = null; S.user = null; saveLocal();
+    S.screen = 'login'; render();
+    showToast(S.lang === 'en' ? 'Account deleted.' : 'تم حذف الحساب.', 'info');
+  } catch(e) {
+    showToast(e.message || 'حصل خطأ أثناء حذف الحساب', 'error');
+  }
 }
 
 async function handleGoogleCredential(response) {
