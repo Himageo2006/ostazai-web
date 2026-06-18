@@ -20167,21 +20167,35 @@ window.handleGoogleCredential = handleGoogleCredential;
 
 async function downloadBook(url, title) {
   showToast(S.lang==='en'?'⏳ Downloading the book...':'⏳ جارٍ تحميل الكتاب...', 'info');
-  // Our own server proxy streams the PDF with Content-Disposition: attachment,
-  // so the browser saves it directly (proper filename) instead of slowly rendering inline.
+  // Server proxy streams the PDF (Content-Disposition: attachment, CORS-enabled).
   const proxied = `${API}/books/download?url=${encodeURIComponent(url)}&name=${encodeURIComponent(title || 'كتاب')}`;
+  // Preferred path: fetch as a blob and save client-side — no tab navigation, works inside iframes,
+  // shows a clear success/fail toast. Falls back to opening the proxy/source if blob fetch is blocked.
   try {
+    const r = await fetch(proxied);
+    if (!r.ok) throw new Error('http ' + r.status);
+    const blob = await r.blob();
+    const objUrl = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = proxied;
-    a.download = (title || 'book') + '.pdf';
-    a.rel = 'noopener';
+    a.href = objUrl;
+    a.download = (title || 'book').replace(/[\/\\:*?"<>|]+/g, ' ').trim() + '.pdf';
     document.body.appendChild(a);
     a.click();
-    setTimeout(() => { try { document.body.removeChild(a); } catch(_) {} }, 1000);
-    showToast(S.lang==='en'?'✅ Download started':'✅ بدأ تنزيل الكتاب', 'success');
+    setTimeout(() => { try { document.body.removeChild(a); } catch(_) {} URL.revokeObjectURL(objUrl); }, 1500);
+    showToast(S.lang==='en'?'✅ Book downloaded':'✅ تم تحميل الكتاب', 'success');
   } catch(e) {
-    showToast(S.lang==='en'?'Opening in a new tab instead':'فشل التحميل — جارٍ فتح في تبويب جديد', 'error');
-    setTimeout(() => window.open(url, '_blank'), 500);
+    // Fallback 1: let the browser handle the proxy URL directly (attachment header still forces a save).
+    try {
+      const a = document.createElement('a');
+      a.href = proxied; a.download = (title || 'book') + '.pdf'; a.rel = 'noopener';
+      document.body.appendChild(a); a.click();
+      setTimeout(() => { try { document.body.removeChild(a); } catch(_) {} }, 1000);
+      showToast(S.lang==='en'?'✅ Download started':'✅ بدأ تنزيل الكتاب', 'success');
+    } catch(_) {
+      // Fallback 2: open the original source in a new tab.
+      showToast(S.lang==='en'?'Opening in a new tab instead':'جارٍ الفتح في تبويب جديد', 'info');
+      setTimeout(() => window.open(url, '_blank'), 400);
+    }
   }
 }
 
