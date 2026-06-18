@@ -4986,7 +4986,7 @@ const TEXTBOOK_DB = {
     // ── الصف الأول الثانوي ─────────────────────────────────────────
     high1: [
       { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
-        { title:'الرياضيات (عربي) ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/Math_AR_Sec1_Tr1.pdf` },
+        { title:'الرياضيات (عربي) ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/sec/semester1/Grade1/pdf/math_1sec_t1.pdf` },
         { title:'الرياضيات (إنجليزي) ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/sec/semester1/Grade1/pdf/math_1sec_t1_sb_E.pdf` },
       ]},
       { subj:'العلوم المتكاملة', icon:'🔬', color:'#10B981', books:[
@@ -5110,13 +5110,13 @@ const TEXTBOOK_DB = {
         { title:'English — Primary 6 Term 1 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BLOB26}/Primary/Primary6/Term1/StudentBook/English_Prim6_Tr1.pdf` },
       ]},
       { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
-        { title:'الرياضيات (عربي) — ابتدائي أول ت١ 2025-2026', term:'ابتدائي أول — ترم أول', url:`${BLOB26}/Primary/Primary1/Term1/StudentBook/Math_AR_Prim1_TR1.pdf` },
+        { title:'الرياضيات (عربي) — ابتدائي أول ت١ 2025-2026', term:'ابتدائي أول — ترم أول', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/prim/semester1/Grade1/pdf/math_1prim_t1.pdf` },
         { title:'الرياضيات (عربي) — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BLOB26}/Primary/Primary2/Term1/StudentBook/Math_AR_Prim2_TR1.pdf` },
         { title:'الرياضيات (إنجليزي) — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BLOB26}/Primary/Primary2/Term1/StudentBook/Math_E_Prim2_TR1_2.pdf` },
         { title:'الرياضيات (عربي) — ابتدائي ثالث ت١ 2025-2026', term:'ابتدائي ثالث — ترم أول', url:`${BLOB26}/Primary/Primary3/Term1/StudentBook/Math_AR_prim3_TR1.pdf` },
         { title:'الرياضيات (إنجليزي) — ابتدائي ثالث ت١ 2025-2026', term:'ابتدائي ثالث — ترم أول', url:`${BLOB26}/Primary/Primary3/Term1/StudentBook/Math_EN_prim3_TR1.pdf` },
         { title:'الرياضيات (فرنساوي) — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BLOB26}/Primary/Primary2/Term1/StudentBook/Math_F_Prim2_TR1_2.pdf` },
-        { title:'الرياضيات (عربي) — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BLOB26}/Primary/Primary4/Term1/StudentBook/Math_AR_prim4_TR1.pdf` },
+        { title:'الرياضيات (عربي) — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/prim/semester1/Grade4/pdf/math_4prim_t1.pdf` },
         { title:'الرياضيات (إنجليزي) — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BLOB26}/Primary/Primary4/Term1/StudentBook/Math_EN_prim4_TR1.pdf` },
         { title:'الرياضيات (فرنساوي) — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BLOB26}/Primary/Primary4/Term1/StudentBook/Math_FR_prim4_TR1.pdf` },
         { title:'الرياضيات (عربي) — ابتدائي خامس ت١ 2025-2026', term:'ابتدائي خامس — ترم أول', url:`${BLOB26}/Primary/Primary5/Term1/StudentBook/Math_AR_prim5_TR1.pdf` },
@@ -5177,7 +5177,7 @@ const TEXTBOOK_DB = {
         { title:'الرياضيات (عربي) — إعدادي أول ت٢ 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BLOB26}/Prepratory/Prepratory1/Term2/StudentBook/Math_AR_prp1_TR2.pdf` },
         { title:'الرياضيات (عربي) — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BLOB26}/Prepratory/Prepratory2/Term1/StudentBook/Math_AR_Prp2_Tr1.pdf` },
         { title:'الرياضيات (إنجليزي) — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BLOB26}/Prepratory/Prepratory2/Term1/StudentBook/Math_En_PE2_SB_T1.pdf` },
-        { title:'الرياضيات (عربي) — إعدادي ثالث ت١ 2025-2026', term:'إعدادي ثالث — ترم أول', url:`${BLOB26}/Prepratory/Prepratory3/Term1/StudentBook/Math_AR_Prp3_Tr1.pdf` },
+        { title:'الرياضيات (عربي) — إعدادي ثالث ت١ 2025-2026', term:'إعدادي ثالث — ترم أول', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/prep/semester1/Grade3/pdf/math_3prep_t1.pdf` },
       ]},
       { subj:'العلوم', icon:'🔬', color:'#10B981', books:[
         { title:'العلوم (عربي) — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BLOB26}/Prepratory/Prepratory1/Term1/StudentBook/Science_AR_Prp1_Tr1.pdf` },
