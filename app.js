@@ -19543,11 +19543,21 @@ function tplUpgrade() {
         <li>✅ &#xA0;${S.lang==='en'?'Voice input':'إدخال صوتي'}</li>
         <li>✅ &#xA0;${S.lang==='en'?'PDF export':'تصدير PDF'}</li>
       </ul>
-      <!-- Plan selector -->
-      <select id="pay-plan-sel" style="width:100%;margin-bottom:14px;padding:11px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-family:inherit;cursor:pointer">
-        <option value="monthly">📅 شهري — $6</option>
-        <option value="yearly">🔥 سنوي — $49 (وفّر 32%)</option>
-      </select>
+      <!-- Plan selector: monthly vs yearly side by side -->
+      <input type="hidden" id="pay-plan-sel" value="monthly"/>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+        <div id="plan-monthly" onclick="selectPlan('monthly')" style="cursor:pointer;border:2px solid #F59E0B;background:rgba(245,158,11,.08);border-radius:12px;padding:14px 10px;text-align:center;transition:.15s">
+          <div style="font-size:13px;font-weight:800">📅 ${S.lang==='en'?'Monthly':'شهري'}</div>
+          <div id="plan-monthly-price" style="font-size:21px;font-weight:900;margin:4px 0">$6</div>
+          <div style="font-size:11px;color:var(--text-muted)">${S.lang==='en'?'per month':'كل شهر'} <span id="plan-monthly-usd"></span></div>
+        </div>
+        <div id="plan-yearly" onclick="selectPlan('yearly')" style="cursor:pointer;position:relative;border:2px solid var(--border);background:var(--surface);border-radius:12px;padding:14px 10px;text-align:center;transition:.15s">
+          <div style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:#10B981;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:999px;white-space:nowrap">${S.lang==='en'?'SAVE 32%':'وفّر 32%'}</div>
+          <div style="font-size:13px;font-weight:800">🔥 ${S.lang==='en'?'Yearly':'سنوي'}</div>
+          <div id="plan-yearly-price" style="font-size:21px;font-weight:900;margin:4px 0">$49</div>
+          <div style="font-size:11px;color:var(--text-muted)">${S.lang==='en'?'per year':'كل سنة'} <span id="plan-yearly-usd"></span></div>
+        </div>
+      </div>
       <!-- Payment gateway buttons -->
       <div style="display:grid;gap:10px">
         <button class="btn btn-primary" id="b-paypal" style="width:100%;font-size:15px;padding:13px;background:#003087;border-color:#003087">
@@ -20909,24 +20919,37 @@ async function doGumroadCheckout() {
    LOCAL CURRENCY DISPLAY  (based on user's IP) — display only;
    actual charge stays USD via Gumroad/PayPal.
    ════════════════════════════════════════════════════════════ */
+function selectPlan(plan) {
+  const inp = ge('pay-plan-sel'); if (inp) inp.value = plan;
+  ['monthly', 'yearly'].forEach(p => {
+    const el = ge('plan-' + p);
+    if (el) { el.style.borderColor = (p === plan) ? '#F59E0B' : 'var(--border)';
+              el.style.background = (p === plan) ? 'rgba(245,158,11,.08)' : 'var(--surface)'; }
+  });
+}
+
 let _localCur = null; // { code, symbol, rate }
 async function applyLocalCurrency() {
-  const sel = ge('pay-plan-sel');
-  if (!sel) return;
+  if (!ge('plan-monthly-price')) return;
   const M_USD = 6, Y_USD = 49;
-  const ar = S.lang !== 'en';
   const setLabels = (cur) => {
     const code = cur && cur.code;
     const rate = cur && cur.rate;
     const fmt = (usd) => {
       if (rate && code && code !== 'USD') {
         const loc = rate < 5 ? (usd * rate).toFixed(2) : Math.round(usd * rate);
-        return `${code} ${loc} / $${usd}`;
+        return `${code} ${loc}`;
       }
       return `$${usd}`;
     };
-    if (sel.options[0]) sel.options[0].text = (ar ? '📅 شهري — ' : '📅 Monthly — ') + fmt(M_USD);
-    if (sel.options[1]) sel.options[1].text = (ar ? '🔥 سنوي — ' : '🔥 Yearly — ') + fmt(Y_USD) + (ar ? ' (وفّر 32%)' : ' (save 32%)');
+    const sub = (usd) => (rate && code && code !== 'USD') ? `$${usd}` : '';
+    const m = ge('plan-monthly-price'), y = ge('plan-yearly-price');
+    if (m) m.textContent = fmt(M_USD);
+    if (y) y.textContent = fmt(Y_USD);
+    // show the USD equivalent under the per-period line when local currency is used
+    const mu = ge('plan-monthly-usd'), yu = ge('plan-yearly-usd');
+    if (mu) mu.textContent = sub(M_USD) ? '(' + sub(M_USD) + ')' : '';
+    if (yu) yu.textContent = sub(Y_USD) ? '(' + sub(Y_USD) + ')' : '';
   };
   // show USD immediately, then upgrade to local currency
   if (_localCur) { setLabels(_localCur); return; }
