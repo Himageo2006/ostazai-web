@@ -1,1 +1,20 @@
 arabic_2sec_t1.pdf
+
+# Dev scratch / one-off injection scripts
+add_*.js
+inject_*.js
+propagate_*.js
+diagnose*.js
+check_*.js
+get_all_missing.js
+list_missing_we.js
+fix_all_boards.js
+debug_prop.js
+planner_fn.js
+worked*_data.js
+*_append.txt
+*.bak
+
+# Local tooling
+.netlify/
+node_modules/
