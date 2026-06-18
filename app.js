@@ -22007,30 +22007,31 @@ function bind() {
     .bm-btn,.copy-msg-btn,.speak-btn,.teach-btn{background:none;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:12px;opacity:.6;transition:.15s;padding:3px 7px}.bm-btn:hover,.copy-msg-btn:hover,.speak-btn:hover,.teach-btn:hover{opacity:1;border-color:var(--primary)}
     /* ── Teacher avatar overlay ── */
     #teacher-overlay{position:fixed;inset:0;background:rgba(8,12,24,.88);z-index:2000;display:none;align-items:center;justify-content:center;padding:18px}
-    .tch-card{background:var(--bg-card);border:1px solid var(--border);border-radius:22px;padding:18px;max-width:520px;width:100%;text-align:center;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+    .tch-card{background:var(--bg-card);border:1px solid var(--border);border-radius:22px;padding:22px;max-width:720px;width:100%;text-align:center;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.5)}
     .tch-close{position:absolute;top:12px;left:12px;background:var(--bg-card2);border:1px solid var(--border);border-radius:50%;width:32px;height:32px;cursor:pointer;color:var(--text);font-size:14px;z-index:5}
     /* ── Classroom ── */
     .tch-classroom{position:relative;margin-bottom:8px}
-    .tch-board{background:linear-gradient(160deg,#1f3d2f,#16302480);border:10px solid #6b4423;border-radius:10px;box-shadow:inset 0 0 40px rgba(0,0,0,.45),0 6px 18px rgba(0,0,0,.4);padding:16px 18px 26px;min-height:230px;text-align:right;position:relative;overflow:hidden}
-    .tch-board-title{color:#fdf6b2;font-weight:900;font-size:15px;border-bottom:2px dashed #ffffff40;padding-bottom:6px;margin-bottom:10px;text-shadow:0 1px 2px rgba(0,0,0,.4)}
-    .tch-board-lines{max-height:170px;overflow-y:auto;display:flex;flex-direction:column;gap:9px;padding-left:120px}
-    .tch-line{color:#eafff2;font-size:14px;line-height:1.8;font-family:'Cairo',cursive;text-shadow:0 1px 1px rgba(0,0,0,.35);opacity:.92;animation:tch-fadein .4s ease}
-    .tch-line.writing{color:#fff39a;font-weight:700;border-right:3px solid #fff39a;padding-right:8px;animation:tch-fadein .4s ease, tch-blinkcursor 1s step-end infinite}
+    .tch-board{background:radial-gradient(120% 90% at 70% 25%,#27483680,transparent 60%),linear-gradient(160deg,#1f3d2f,#122a20);border:14px solid #7a4e29;border-image:linear-gradient(160deg,#8a5a30,#5a3a1e) 1;border-radius:14px;box-shadow:inset 0 0 70px rgba(0,0,0,.5),inset 0 0 0 2px rgba(0,0,0,.25),0 10px 30px rgba(0,0,0,.5);padding:20px 24px 34px;min-height:380px;text-align:right;position:relative;overflow:hidden}
+    .tch-board::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 80%,rgba(255,255,255,.05),transparent 45%);pointer-events:none}
+    .tch-board-title{color:#fdf6b2;font-weight:900;font-size:19px;border-bottom:2px dashed #ffffff40;padding-bottom:9px;margin-bottom:14px;text-shadow:0 1px 2px rgba(0,0,0,.5);letter-spacing:.3px}
+    .tch-board-lines{max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:13px;padding-left:150px}
+    .tch-line{color:#eafff2;font-size:17px;line-height:1.85;font-family:'Cairo',cursive;text-shadow:0 1px 2px rgba(0,0,0,.4);opacity:.92;animation:tch-fadein .4s ease}
+    .tch-line.writing{color:#fff39a;font-weight:700;border-right:3px solid #fff39a;padding-right:10px;animation:tch-fadein .4s ease, tch-blinkcursor 1s step-end infinite}
     @keyframes tch-fadein{from{opacity:0;transform:translateY(6px)}to{opacity:.92;transform:none}}
     @keyframes tch-blinkcursor{50%{border-color:transparent}}
-    .tch-chalk-tray{position:absolute;bottom:0;left:0;right:0;height:10px;background:#5a3a1e}
-    .tch-teacher-wrap{position:absolute;bottom:-14px;left:-8px;width:150px;height:230px}
-    .tch-teacher-wrap .tch-avatar svg{width:150px;height:230px}
-    #tch-3d-canvas{width:130px;height:185px;display:block}
-    #tch-img{display:none;position:absolute;bottom:0;left:-6px;height:185px;width:auto;max-width:150px;object-fit:contain;transform-origin:bottom center;animation:tch-sway 3.2s ease-in-out infinite;filter:drop-shadow(0 6px 10px rgba(0,0,0,.4))}
+    .tch-chalk-tray{position:absolute;bottom:0;left:0;right:0;height:13px;background:linear-gradient(#6b4423,#4a2f17)}
+    .tch-teacher-wrap{position:absolute;bottom:-14px;left:-6px;width:185px;height:300px}
+    .tch-teacher-wrap .tch-avatar svg{width:185px;height:300px}
+    #tch-3d-canvas{width:170px;height:250px;display:block}
+    #tch-img{display:none;position:absolute;bottom:0;left:-6px;height:250px;width:auto;max-width:185px;object-fit:contain;transform-origin:bottom center;animation:tch-sway 3.2s ease-in-out infinite;filter:drop-shadow(0 6px 10px rgba(0,0,0,.4))}
     #teacher-overlay .tch-avatar.talking ~ #tch-img,#tch-img.talking{animation:tch-talkbob .5s ease-in-out infinite}
     @keyframes tch-sway{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-4px) rotate(1deg)}}
     @keyframes tch-talkbob{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-5px) scale(1.015)}}
     .tch-pointer{position:absolute;top:14px;right:-30px;width:46px;height:3px;background:#d9a441;border-radius:2px;transform-origin:right center;transform:rotate(-18deg);display:none}
     .tch-avatar.talking ~ .tch-pointer,.tch-teacher-wrap .tch-avatar.talking + .tch-pointer{animation:tch-point 1.6s ease-in-out infinite}
     @keyframes tch-point{0%,100%{transform:rotate(-18deg)}50%{transform:rotate(-30deg) translateY(-6px)}}
-    .tch-teacher-wrap .tch-avatar{width:84px;height:84px}
-    .tch-teacher-wrap .tch-avatar svg{width:150px;height:230px}
+    .tch-teacher-wrap .tch-avatar{width:185px;height:300px}
+    .tch-teacher-wrap .tch-avatar svg{width:185px;height:300px}
     .tch-avatar{display:inline-block;animation:tch-bob 3s ease-in-out infinite}
     @keyframes tch-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
     .tch-avatar .tch-eye{animation:tch-blink 4s infinite}
@@ -22046,6 +22047,17 @@ function bind() {
     .tch-btn{background:var(--bg-card2);border:1px solid var(--border);border-radius:12px;padding:10px 14px;cursor:pointer;font-family:Cairo,sans-serif;font-size:14px;color:var(--text)}
     .tch-play{background:var(--primary);color:#fff;border:none;font-weight:800;padding:10px 22px}
     .tch-progress{margin-top:10px;font-size:12px;color:var(--text-muted)}
+    @media(max-width:560px){
+      .tch-card{padding:14px}
+      .tch-board{min-height:300px;border-width:9px;padding:14px 14px 26px}
+      .tch-board-title{font-size:16px}
+      .tch-board-lines{max-height:240px;padding-left:96px;gap:10px}
+      .tch-line{font-size:14px}
+      .tch-teacher-wrap{width:120px;height:200px;bottom:-10px;left:-4px}
+      .tch-teacher-wrap .tch-avatar,.tch-teacher-wrap .tch-avatar svg{width:120px;height:200px}
+      #tch-3d-canvas{width:110px;height:165px}
+      #tch-img{height:170px;max-width:120px}
+    }
     .msg-time{font-size:10px;color:var(--text-muted);margin-top:3px;padding:0 4px}
     .thinking{display:flex;gap:6px;align-items:center;padding:14px}
     .thinking span{width:8px;height:8px;border-radius:50%;background:var(--primary);animation:bounce .8s infinite;display:inline-block}
