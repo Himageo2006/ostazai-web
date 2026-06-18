@@ -3235,6 +3235,7 @@ function tplLogin() {
       <div class="lp-level-cta">${L('ابدأ ←','Start →')}</div>
     </div>`;
   const faq = (q, a) => `<details class="lp-faq"><summary>${q}</summary><div class="lp-faq-a">${a}</div></details>`;
+  const testi = (text, who) => `<div class="lp-testi"><div class="lp-stars">★★★★★</div><div class="lp-testi-text">${text}</div><div class="lp-testi-who">${who}</div></div>`;
 
   return `
 <div class="lp" dir="${S.lang === 'en' ? 'ltr' : 'rtl'}">
@@ -3294,6 +3295,14 @@ function tplLogin() {
   .lp-pcard .price{font-size:30px;font-weight:900;margin:8px 0}
   .lp-pcard ul{list-style:none;padding:0;margin:10px 0 0;font-size:14px}
   .lp-pcard li{margin:6px 0}
+  .lp-trustbar{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 22px;margin:14px auto 0;font-size:13px;color:var(--text-muted);font-weight:700}
+  .lp-trustbar .stars{color:#F59E0B;letter-spacing:1px}
+  .lp-testis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+  .lp-testi{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
+  .lp-stars{color:#F59E0B;font-size:15px;letter-spacing:1px}
+  .lp-testi-text{font-size:14px;margin:8px 0;line-height:1.6}
+  .lp-testi-who{font-size:12px;color:var(--text-muted);font-weight:700}
+  @media(max-width:720px){.lp-testis{grid-template-columns:1fr}}
   .lp-faq{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:4px 16px;margin-bottom:10px}
   .lp-faq summary{cursor:pointer;font-weight:800;padding:12px 0;font-size:15px;list-style:none}
   .lp-faq summary::-webkit-details-marker{display:none}
@@ -3328,6 +3337,11 @@ function tplLogin() {
     <p>${L('من الصف الأول حتى الثانوية — مساعدة في الواجبات، شرح مبسّط، مراجعة، ودعم للامتحانات في مكان واحد.','From Year 1 to High School — personalized homework help, explanations, revision, and exam support in one place.')}</p>
     <button class="lp-btn" onclick="goRegister()">${L('ابدأ التعلّم مجاناً','Start Learning Free')}</button>
     <div class="lp-note">${L('🔒 مجاني للبدء • بدون بطاقة ائتمان','🔒 Free to start • No credit card needed')}</div>
+    <div class="lp-trustbar">
+      <span><span class="stars">★★★★★</span> ${L('محبوب من الطلاب والأهل','Loved by students & parents')}</span>
+      <span>🌍 ${L('في 19 دولة عربية وأكثر','19+ Arab countries')}</span>
+      <span>🎓 ${L('كل المراحل — حتى IGCSE و A-Level','Every level — to IGCSE & A-Level')}</span>
+    </div>
     <div class="lp-pos" style="margin-top:26px">${L('يساعد OstazzAI الطلاب من سنوات الدراسة الأولى حتى امتحاناتهم النهائية على التعلّم بمستواهم الخاص.','OstazzAI helps students from early school years to final exams learn at their own level.')}</div>
   </section>
 
@@ -3441,6 +3455,16 @@ function tplLogin() {
       ${useCase('📚', L('يدعم مواد متعددة','Supports multiple subjects'))}
       ${useCase('📱', L('سهل الاستخدام على أي جهاز','Easy to use on any device'))}
       ${useCase('⚡', L('إجابات فورية ودقيقة','Instant, accurate answers'))}
+    </div>
+  </section>
+
+  <!-- 6c. TESTIMONIALS -->
+  <section>
+    <h2>${L('ماذا يقول الطلاب والأهل','What students & parents say')}</h2>
+    <div class="lp-testis">
+      ${testi(L('"ابني أخيراً بدأ يفهم واجب الرياضيات — يسأل OstazzAI بدل ما يقف عند المسألة."','"My son finally understands his math homework — he asks OstazzAI instead of getting stuck."'), L('— ولية أمر، مصر','— Parent, Egypt'))}
+      ${testi(L('"يشرح فيزياء الـ IGCSE أوضح من الكتاب المدرسي بكثير."','"It explains IGCSE physics way better than my textbook."'), L('— طالبة A-Level','— A-Level student'))}
+      ${testi(L('"أستخدمه كل ليلة في المراجعة. الحل خطوة بخطوة رائع."','"I use it every night for revision — the step-by-step answers are amazing."'), L('— طالب صف تاسع','— Year 9 student'))}
     </div>
   </section>
 
