@@ -140,6 +140,44 @@
     }
     @keyframes sp{to{transform:rotate(360deg)}}
   </style>
+
+  <!-- ════════ ANALYTICS ════════
+       Replace the 3 placeholders below with your real IDs.
+       Each block stays dormant (no requests) until its ID is set. -->
+  <script>
+    // 1) Google Analytics 4 — put your Measurement ID here (looks like G-XXXXXXXXXX)
+    window.GA4_ID = 'G-XXXXXXXXXX';
+    // 2) Microsoft Clarity — put your Project ID here (short code, e.g. abcd1234ef)
+    window.CLARITY_ID = 'CLARITY_ID';
+  </script>
+
+  <!-- Google Analytics 4 -->
+  <script>
+    (function(){
+      if (!window.GA4_ID || window.GA4_ID === 'G-XXXXXXXXXX') return;
+      var s=document.createElement('script'); s.async=true;
+      s.src='https://www.googletagmanager.com/gtag/js?id='+window.GA4_ID;
+      document.head.appendChild(s);
+      window.dataLayer=window.dataLayer||[];
+      window.gtag=function(){dataLayer.push(arguments);};
+      gtag('js', new Date());
+      gtag('config', window.GA4_ID);
+    })();
+  </script>
+
+  <!-- Microsoft Clarity -->
+  <script>
+    (function(c,l,a,r,i,t,y){
+      if (!window.CLARITY_ID || window.CLARITY_ID === 'CLARITY_ID') return;
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+window.CLARITY_ID;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window,document,'clarity','script');
+  </script>
+
+  <!-- 3) Google Search Console: paste the verification meta tag content below
+       (Search Console → Add property → HTML tag method) then uncomment it -->
+  <!-- <meta name="google-site-verification" content="PASTE_TOKEN_HERE"/> -->
 </head>
 <body>
   <!-- Shown instantly before JS loads -->
@@ -150,7 +188,7 @@
   </div>
   <div id="app" style="display:none"></div>
 
-  <script src="app.js?v=202"></script>
+  <script src="app.js?v=203"></script>
   <script>
     // Hide loading screen — set up observer AND check immediately (app.js may have already rendered)
     (function() {

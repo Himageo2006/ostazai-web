@@ -3044,6 +3044,9 @@ const tplLoading = () => `
    ════════════════════════════════════════════════════════════ */
 function goRegister(level) {
   if (level) { try { localStorage.setItem('signup_level', level); } catch (_) {} }
+  // analytics: track the "Start Learning" intent
+  try { if (window.gtag) gtag('event', 'start_learning', { level: level || 'cta' }); } catch (_) {}
+  try { if (window.clarity) clarity('event', 'start_learning'); } catch (_) {}
   S.screen = 'register'; render();
 }
 function goSignin() { S.screen = 'signin'; render(); }
