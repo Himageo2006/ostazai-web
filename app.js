@@ -3795,7 +3795,7 @@ function tplShell(content) {
 <div id="more-drawer-overlay" style="display:none;position:fixed;inset:0;z-index:200;background:#00000060" onclick="ge('more-drawer').style.transform='translateY(100%)';setTimeout(()=>{ge('more-drawer-overlay').style.display='none'},250)"></div>
 <div id="more-drawer" style="position:fixed;bottom:0;left:0;right:0;z-index:201;background:var(--bg-card);border-radius:20px 20px 0 0;padding:20px;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1)">
   <div style="width:40px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 20px"></div>
-  <div style="font-size:14px;font-weight:900;color:var(--text-muted);margin-bottom:14px">الأدوات الأخرى</div>
+  <div style="font-size:14px;font-weight:900;color:var(--text-muted);margin-bottom:14px">${S.lang==='en'?'Other tools':'الأدوات الأخرى'}</div>
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
     ${nav.filter(n=>!['chat','lessons','flashcards','stats','admin'].includes(n.s)).map(n=>`
     <button onclick="ge('more-drawer').style.transform='translateY(100%)';setTimeout(()=>{ge('more-drawer-overlay').style.display='none'},250);S.screen='${n.s}';render()"
@@ -4729,7 +4729,13 @@ function tplPomodoro() {
   const secs  = String(left%60).padStart(2,'0');
   const r=88, cx=100, cy=100, circ=2*Math.PI*r;
   const strokeColor = isWork ? 'var(--primary)' : isLongBrk ? '#8B5CF6' : '#22C55E';
-  const quotes = [
+  const quotes = S.lang==='en' ? [
+    'Every minute you focus brings you closer to your goal 🎯',
+    'The mind is like a muscle — it grows with regular training 💪',
+    'Focus is not a talent, it is a habit built day by day ⭐',
+    'Top students do not study more — they study smarter 🧠',
+    'Twenty-five focused minutes beat two hours of distraction ⚡',
+  ] : [
     'كل دقيقة تركّز فيها تُقرّبك من هدفك 🎯',
     'العقل كالعضلة — يقوى بالتمرين المنتظم 💪',
     'التركيز ليس موهبة بل عادة تُبنى يوماً بيوم ⭐',
@@ -4744,7 +4750,7 @@ function tplPomodoro() {
     ${Array(4).fill(0).map((_,i)=>
       '<div style="width:12px;height:12px;border-radius:50%;background:'+(i<(sessions%4)?'var(--primary)':'var(--border)')+';transition:.3s"></div>'
     ).join('')}
-    <span style="font-size:12px;color:var(--text-muted);margin-right:8px">${sessions} جلسة</span>
+    <span style="font-size:12px;color:var(--text-muted);margin-right:8px">${sessions} ${L('sessions','جلسة')}</span>
   </div>
   <div style="display:flex;gap:6px;margin-bottom:24px;background:var(--bg-card2);border-radius:12px;padding:4px">
     <button class="btn ${isWork?'btn-primary':'btn-ghost'}" id="pom-work" style="padding:7px 14px;font-size:13px">${S.lang==='en'?'⚡ Work 25m':'⚡ عمل 25د'}</button>
@@ -4778,7 +4784,9 @@ function tplPomodoro() {
 <style>@keyframes pulse-dot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:.7}}</style>`;
 }
 function tplSchedule() {
-  const days = ['السبت','الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة'];
+  const days = S.lang==='en'
+    ? ['Saturday','Sunday','Monday','Tuesday','Wednesday','Thursday','Friday']
+    : ['السبت','الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة'];
   return `
 <div class="screen-header"><div class="screen-title">📅 ${S.lang==='en'?'Study Schedule':'جدول الدراسة'}</div></div>
 <div class="screen-body">
@@ -4916,13 +4924,13 @@ function tplSummary() {
 </div>
 <div class="screen-body">
   <div class="info-card" style="margin-bottom:16px">
-    <div style="font-weight:800;margin-bottom:10px">📌 موضوع الملخص</div>
+    <div style="font-weight:800;margin-bottom:10px">📌 ${L('Summary topic','موضوع الملخص')}</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
       <input id="sum-topic" class="form-input" placeholder="مثال: قوانين نيوتن في الفيزياء" style="flex:1;min-width:180px"/>
       <select id="pdf-type" class="subj-sel">
-        <option value="summary">ملخص شامل</option>
-        <option value="formulas">قوانين ومعادلات</option>
-        <option value="questions">أسئلة تدريبية</option>
+        <option value="summary">${L('Full summary','ملخص شامل')}</option>
+        <option value="formulas">${L('Formulas & equations','قوانين ومعادلات')}</option>
+        <option value="questions">${L('Practice questions','أسئلة تدريبية')}</option>
       </select>
       <button class="btn btn-primary" id="b-gen-sum">${L('Generate','توليد')}</button>
     </div>
@@ -4937,7 +4945,7 @@ function tplSummary() {
     <button class="btn btn-primary" onclick="exportPDF()">📥 تصدير PDF / طباعة</button>
     <button class="btn btn-secondary" onclick="S.summaryText='';render()">🔄 ملخص جديد</button>
   </div>`:''}
-  ${!S.summaryLoading&&!S.summaryText?'<div class="empty-state"><div style="font-size:48px">📋</div><div>أدخل موضوعاً واضغط توليد</div><div style="font-size:12px;color:var(--text-muted)">يمكنك اختيار ملخص أو قوانين أو أسئلة تدريبية</div></div>':''}
+  ${!S.summaryLoading&&!S.summaryText?`<div class="empty-state"><div style="font-size:48px">📋</div><div>${L('Enter a topic and tap Generate','أدخل موضوعاً واضغط توليد')}</div><div style="font-size:12px;color:var(--text-muted)">${L('Choose summary, formulas, or practice questions','يمكنك اختيار ملخص أو قوانين أو أسئلة تدريبية')}</div></div>`:''}
 </div>`;
 }
 
@@ -4950,7 +4958,7 @@ function tplMindMap() {
     } catch { mapHtml = `<pre style="font-size:12px;overflow:auto">${esc(JSON.stringify(S.mindMapData,null,2))}</pre>`; }
   }
   return `
-<div class="screen-header"><div class="screen-title">🧠 الخريطة الذهنية</div></div>
+<div class="screen-header"><div class="screen-title">🧠 ${L('Mind Map','الخريطة الذهنية')}</div></div>
 <div class="screen-body">
   <div class="info-card" style="margin-bottom:16px">
     <div style="display:flex;gap:8px">
@@ -4958,7 +4966,7 @@ function tplMindMap() {
       <button class="btn btn-primary" id="b-gen-mm">${L('Generate','توليد')}</button>
     </div>
   </div>
-  ${S.mindMapData?mapHtml:'<div class="empty-state"><div style="font-size:40px">🧠</div><div>أدخل موضوعاً لتوليد الخريطة</div></div>'}
+  ${S.mindMapData?mapHtml:`<div class="empty-state"><div style="font-size:40px">🧠</div><div>${L('Enter a topic to generate the map','أدخل موضوعاً لتوليد الخريطة')}</div></div>`}
 </div>`;
 }
 function renderMindMap(d) {
