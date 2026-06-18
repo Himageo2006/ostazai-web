@@ -417,9 +417,10 @@ function ensureVoices(cb) {
 }
 
 /* ── Microsoft Edge neural TTS, run from the BROWSER (user's residential IP) ──
-   The same neural voice (ar-EG-SalmaNeural) is region/IP-blocked from our
-   servers, but usually works from a real user's connection. We try it client
-   side and gracefully fall back to the server voice if it's blocked. */
+   Natural MALE voices matching Mr. Amin: ar-EG-ShakirNeural / en-US-GuyNeural.
+   These are region/IP-blocked from our servers, but usually work from a real
+   user's connection. We try client-side and gracefully fall back to the server
+   voice if it's blocked. */
 let _edgeBlocked = false;        // set true after the first failure this session
 const _edgeAudioCache = {};      // sentence → object URL (avoid re-synthesizing)
 
@@ -432,7 +433,7 @@ async function _edgeSecMsGec() {
   return [...new Uint8Array(hash)].map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
 }
 
-function _edgeTTS(text, voice = 'ar-EG-SalmaNeural', rate = '-4%') {
+function _edgeTTS(text, voice = 'ar-EG-ShakirNeural', rate = '-4%') {
   return new Promise((resolve, reject) => {
     if (_edgeBlocked || !window.WebSocket || !(crypto && crypto.subtle)) return reject(new Error('edge unavailable'));
     _edgeSecMsGec().then(gec => {
@@ -451,7 +452,8 @@ function _edgeTTS(text, voice = 'ar-EG-SalmaNeural', rate = '-4%') {
           + `{"context":{"synthesis":{"audio":{"metadataoptions":{"sentenceBoundaryEnabled":"false","wordBoundaryEnabled":"false"},"outputFormat":"audio-24khz-48kbitrate-mono-mp3"}}}}`);
         const id = (crypto.randomUUID ? crypto.randomUUID() : 'x' + Date.now() + Math.random()).replace(/-/g, '');
         const esc = String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        const ssml = `<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='ar-EG'>`
+        const xmlLang = voice.split('-').slice(0, 2).join('-') || 'ar-EG';  // e.g. ar-EG-ShakirNeural → ar-EG, en-US-GuyNeural → en-US
+        const ssml = `<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='${xmlLang}'>`
           + `<voice name='${voice}'><prosody rate='${rate}'>${esc}</prosody></voice></speak>`;
         ws.send(`X-RequestId:${id}\r\nContent-Type:application/ssml+xml\r\nX-Timestamp:${ts}Z\r\nPath:ssml\r\n\r\n${ssml}`);
       };
@@ -887,43 +889,46 @@ function _teacherSpeakNow() {
     if (_teacherState.idx < _teacherState.sentences.length) teacherSpeakCurrent();
     else teacherStop(true);
   };
-  if (isArabic) {
-    // Voice priority for Arabic lessons:
-    //   1) Edge neural (ar-EG-SalmaNeural) from the user's browser — natural, free
-    //   2) Server /api/tts (Google) — consistent fallback
-    //   3) Silent board-advance — last resort
-    if (av) av.classList.add('talking');
-    _teacher3DGesture(true);
-    const playUrl = (url, onErr, revoke) => {
-      const audio = new Audio(url);
-      _teacherState._audio = audio;
-      audio.onended = () => { if (revoke) URL.revokeObjectURL(url); advance(); };
-      audio.onerror = onErr;
-      audio.play().catch(onErr);
-    };
-    const silentFallback = () => {
-      if (!_teacherState._warnedNoVoice) {
-        _teacherState._warnedNoVoice = true;
-        showToast(S.lang==='en'?'Showing the lesson on the board (audio unavailable).':'يُعرض الدرس على السبورة (الصوت غير متاح حالياً).', 'info');
-      }
-      const ms = Math.max(2200, sentence.length * 75);
-      _teacherState._silentTimer = setTimeout(advance, ms);
-    };
-    const serverFallback = () => playUrl(`${API}/tts?lang=ar&text=${encodeURIComponent(sentence)}`, silentFallback, false);
-    // Try the natural Edge voice first (skips instantly if already known blocked).
-    _edgeTTS(sentence)
-      .then(blob => { if (_teacherState.playing) playUrl(URL.createObjectURL(blob), serverFallback, true); })
-      .catch(serverFallback);
-    return;
-  }
-  if (v) u.voice = v;
-  u.lang = v ? v.lang : (isArabic ? 'ar-SA' : 'en-US');
-  u.rate = 0.92;
-  u.onend = advance;
-  u.onerror = () => teacherStop();
-  speechSynthesis.speak(u);
+  // Mr. Amin is a male teacher — use natural MALE neural voices for BOTH languages.
+  // Priority for each sentence:
+  //   1) Edge neural from the user's browser (ar-EG-ShakirNeural / en-US-GuyNeural) — natural, free
+  //   2) Server /api/tts (Google) — consistent fallback
+  //   3) Device SpeechSynthesis voice — last resort (good for English)
+  //   4) Silent timed board-advance — only if nothing can speak
   if (av) av.classList.add('talking');
   _teacher3DGesture(true);
+  const playUrl = (url, onErr, revoke) => {
+    const audio = new Audio(url);
+    _teacherState._audio = audio;
+    audio.onended = () => { if (revoke) URL.revokeObjectURL(url); advance(); };
+    audio.onerror = onErr;
+    audio.play().catch(onErr);
+  };
+  const silentFallback = () => {
+    if (!_teacherState._warnedNoVoice) {
+      _teacherState._warnedNoVoice = true;
+      showToast(S.lang==='en'?'Showing the lesson on the board (audio unavailable).':'يُعرض الدرس على السبورة (الصوت غير متاح حالياً).', 'info');
+    }
+    const ms = Math.max(2200, sentence.length * 75);
+    _teacherState._silentTimer = setTimeout(advance, ms);
+  };
+  // Device SpeechSynthesis as last resort — only useful if a matching voice exists.
+  const deviceFallback = () => {
+    if (!v) return silentFallback();
+    u.voice = v;
+    u.lang = v.lang || (isArabic ? 'ar-EG' : 'en-US');
+    u.rate = 0.92;
+    u.onend = advance;
+    u.onerror = advance;   // never hard-stop the lesson on one bad sentence
+    try { speechSynthesis.speak(u); } catch (_) { silentFallback(); }
+  };
+  const lang = isArabic ? 'ar' : 'en';
+  const edgeVoice = isArabic ? 'ar-EG-ShakirNeural' : 'en-US-GuyNeural';
+  const serverFallback = () => playUrl(`${API}/tts?lang=${lang}&text=${encodeURIComponent(sentence)}`, deviceFallback, false);
+  // Try the natural Edge neural voice first (skips instantly if already known blocked).
+  _edgeTTS(sentence, edgeVoice)
+    .then(blob => { if (_teacherState.playing) playUrl(URL.createObjectURL(blob), serverFallback, true); })
+    .catch(serverFallback);
 }
 
 function _stopTeacherAudio() {
