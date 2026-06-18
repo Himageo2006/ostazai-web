@@ -3093,6 +3093,10 @@ function tplLogin() {
   .lp-level-range{color:#60A5FA;font-weight:700;font-size:14px;margin:2px 0 8px}
   .lp-level-desc{font-size:13px;color:var(--text-muted)}
   .lp-level-cta{margin-top:12px;color:#F59E0B;font-weight:900}
+  .lp-intl{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:16px;cursor:pointer;background:linear-gradient(135deg,rgba(37,99,235,.22),rgba(245,158,11,.16));border:1.5px solid #60A5FA;border-radius:20px;padding:22px 24px;transition:.18s}
+  .lp-intl:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(37,99,235,.25)}
+  .lp-intl-title{font-size:22px;font-weight:900}
+  .lp-intl-desc{font-size:14px;color:var(--text-muted);margin-top:4px}
   .lp-uc{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;font-weight:700;font-size:15px}
   .lp-subjcol{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px}
   .lp-subjcol h3{margin:0 0 10px;font-size:17px}
@@ -3140,7 +3144,7 @@ function tplLogin() {
 
   <!-- 1. HERO -->
   <section class="lp-hero">
-    <h1>${L('مدرّس ذكي واحد لكل طالب مدرسة','One AI Tutor for Every School Student')}</h1>
+    <h1>${L('مدرّس ذكي واحد لكل الطلاب','One AI Tutor for All Students')}</h1>
     <p>${L('من الصف الأول حتى الثانوية — مساعدة في الواجبات، شرح مبسّط، مراجعة، ودعم للامتحانات في مكان واحد.','From Year 1 to High School — personalized homework help, explanations, revision, and exam support in one place.')}</p>
     <button class="lp-btn" onclick="goRegister()">${L('ابدأ التعلّم مجاناً','Start Learning Free')}</button>
     <div class="lp-note">${L('🔒 مجاني للبدء • بدون بطاقة ائتمان','🔒 Free to start • No credit card needed')}</div>
@@ -3155,6 +3159,17 @@ function tplLogin() {
       ${levelCard('🎒', L('المرحلة الابتدائية','Primary School'), L('الصفوف 1–6','Year 1–6'), 'primary')}
       ${levelCard('📘', L('المرحلة المتوسطة','Middle School'), L('الصفوف 7–9','Year 7–9'), 'middle')}
       ${levelCard('🎓', L('المرحلة الثانوية','High School'), L('الصفوف 10–12/13 · IGCSE / A-Level','Year 10–12 / 13 · IGCSE / A-Level'), 'high')}
+    </div>
+    <div class="lp-intl" onclick="goRegister('international')">
+      <div style="font-size:46px">🌍</div>
+      <div style="flex:1;min-width:200px">
+        <div class="lp-intl-title">${L('طلاب الشهادات الأجنبية','International Certificate Students')}</div>
+        <div class="lp-intl-desc">${L('دعم كامل للمناهج الدولية — IGCSE و A-Level و IB و American و Cambridge و Edexcel وغيرها، بشرح ومراجعة ودعم امتحانات بمستواك.','Full support for international curricula — IGCSE, A-Level, IB, American, Cambridge, Edexcel and more, with explanations, revision, and exam support at your level.')}</div>
+        <div style="margin-top:8px">
+          <span class="lp-chip">IGCSE</span><span class="lp-chip">A-Level</span><span class="lp-chip">IB</span><span class="lp-chip">American</span><span class="lp-chip">Edexcel</span><span class="lp-chip">Cambridge</span>
+        </div>
+      </div>
+      <button class="lp-btn" onclick="event.stopPropagation();goRegister('international')" style="white-space:nowrap">${L('ابدأ الآن ←','Start now →')}</button>
     </div>
   </section>
 
