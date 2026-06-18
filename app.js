@@ -20217,6 +20217,13 @@ async function genAILesson() {
   const singlePrompt = isEn
     ? `Write a COMPLETE textbook-chapter lesson on "${chapter}" in ${subjName} for ${label}, so the student needs NO other source. Identify the 5-6 MAIN sub-topics; for EACH write at least 250 words (definition, everyday analogy, how & why step by step from first principles, two worked examples [basic + harder], common misconception, real-world use). Then Common Mistakes, 5 practice questions with full solutions, and a summary. At least 2500 words — mandatory. Always finish.`
     : `اكتب درساً كاملاً بعمق فصل من كتاب مدرسي عن "${chapter}" في ${subjName} — ${label}، بحيث لا يحتاج الطالب لأي مصدر آخر. حدّد ٥ إلى ٦ أجزاء فرعية رئيسية؛ ولكل جزء اكتب ٢٥٠ كلمة على الأقل (تعريف، تشبيه من الحياة، كيف ولماذا يعمل خطوة بخطوة من الأساس، مثالان محلولان [بسيط وأصعب]، الخطأ الشائع، استخدام واقعي). ثم الأخطاء الشائعة و٥ أسئلة بحلولها الكاملة وملخص. ٢٥٠٠ كلمة على الأقل — إلزامي. أنهِ الدرس كاملاً.`;
+  // Cache: a lesson for a given chapter/grade/curriculum/language is identical every time —
+  // serve it from cache (zero AI calls) instead of regenerating and spending budget.
+  const lessonCacheKey = `oa_lesson_${S.curriculum}_${S.grade}_${subjName}_${chapter}_${isEn?'en':'ar'}`;
+  if (!S._lessonForceRegen) {
+    try { const cached = localStorage.getItem(lessonCacheKey); if (cached && cached.length > 200) { S.lessonContent = cached; render(); return; } } catch(_) {}
+  }
+  S._lessonForceRegen = false;
   S.lessonLoading = true; S.lessonContent = ''; S.lessonProgress = ''; render();
   try {
     // Guests: one call (keeps within the free daily limit). Logged-in: deep section-by-section build.
@@ -20262,6 +20269,8 @@ async function genAILesson() {
     if (!S.lessonContent) S.lessonContent = `❌ ${e.message}`;
   } finally {
     S.lessonLoading = false; S.lessonProgress = ''; render();
+    // Cache the finished lesson so re-opening it costs zero AI calls.
+    try { if (S.lessonContent && !S.lessonContent.startsWith('❌')) localStorage.setItem(lessonCacheKey, S.lessonContent); } catch(_) {}
   }
 }
 
@@ -21445,7 +21454,7 @@ function bind() {
       render();
     });
   });
-  ge('b-gen-lesson')  && ge('b-gen-lesson').addEventListener('click', genAILesson);
+  ge('b-gen-lesson')  && ge('b-gen-lesson').addEventListener('click', () => { if (S.lessonContent) S._lessonForceRegen = true; genAILesson(); });
   ge('b-lesson-teacher') && ge('b-lesson-teacher').addEventListener('click', () => { if (S.lessonContent) showTeacher(S.lessonContent); });
   ge('b-lesson-ask-ai') && ge('b-lesson-ask-ai').addEventListener('click', () => {
     if (!S.lessonSubject || !S.lessonChapter) return;
