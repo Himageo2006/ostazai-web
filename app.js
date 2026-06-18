@@ -1008,6 +1008,7 @@ function render() {
   const el = ge('app');
   if      (S.screen === 'loading')       { el.innerHTML = tplLoading(); }
   else if (S.screen === 'login')         { el.innerHTML = tplLogin(); }
+  else if (S.screen === 'signin')        { el.innerHTML = tplSignin(); }
   else if (S.screen === 'register')      { el.innerHTML = tplRegister(); }
   else if (S.screen === 'forgot')        { el.innerHTML = tplForgotPassword(); }
   else if (S.screen === 'reset-password'){ el.innerHTML = tplResetPassword(S.resetToken || ''); }
@@ -3038,10 +3039,240 @@ const tplLoading = () => `
 @keyframes loading-bar{0%{width:0%;margin-right:100%}50%{width:60%;margin-right:20%}100%{width:0%;margin-right:0%;margin-left:100%}}
 </style>`;
 
-const tplLogin = () => `
+/* ════════════════════════════════════════════════════════════
+   LANDING / MARKETING PAGE (shown to logged-out visitors)
+   ════════════════════════════════════════════════════════════ */
+function goRegister(level) {
+  if (level) { try { localStorage.setItem('signup_level', level); } catch (_) {} }
+  S.screen = 'register'; render();
+}
+function goSignin() { S.screen = 'signin'; render(); }
+
+function tplLogin() {
+  const L = (ar, en) => S.lang === 'en' ? en : ar;
+  const demo = (lvl, subj, q, a) => `
+    <div class="lp-demo">
+      <div class="lp-demo-head">${lvl} · ${subj}</div>
+      <div class="lp-bubble lp-q">${q}</div>
+      <div class="lp-bubble lp-a">🎓 ${a}</div>
+    </div>`;
+  const useCase = (icon, txt) => `<div class="lp-uc"><span style="font-size:22px">${icon}</span><span>${txt}</span></div>`;
+  const levelCard = (icon, title, range, key) => `
+    <div class="lp-level" onclick="goRegister('${key}')">
+      <div style="font-size:40px">${icon}</div>
+      <div class="lp-level-title">${title}</div>
+      <div class="lp-level-range">${range}</div>
+      <div class="lp-level-desc">${L('اختر مستواك واحصل على شرح مناسب لعمرك.','Choose your level and get age-appropriate explanations.')}</div>
+      <div class="lp-level-cta">${L('ابدأ ←','Start →')}</div>
+    </div>`;
+  const faq = (q, a) => `<details class="lp-faq"><summary>${q}</summary><div class="lp-faq-a">${a}</div></details>`;
+
+  return `
+<div class="lp" dir="${S.lang === 'en' ? 'ltr' : 'rtl'}">
+<style>
+  .lp{max-width:100%;overflow-x:hidden;color:var(--text);background:var(--bg);font-family:Cairo,sans-serif;line-height:1.6}
+  .lp section{padding:46px 18px;max-width:1040px;margin:0 auto}
+  .lp h2{font-size:26px;font-weight:900;text-align:center;margin:0 0 6px}
+  .lp .lp-sub2{text-align:center;color:var(--text-muted);margin:0 auto 26px;max-width:620px}
+  .lp-top{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;max-width:1040px;margin:0 auto}
+  .lp-top .lp-logo{font-size:20px;font-weight:900}
+  .lp-top .lp-logo b{color:#F59E0B}
+  .lp-btn{background:#F59E0B;color:#0F172A;border:none;border-radius:14px;padding:14px 26px;font-size:17px;font-weight:900;cursor:pointer;font-family:inherit;box-shadow:0 6px 20px rgba(245,158,11,.35)}
+  .lp-btn:hover{filter:brightness(1.05)}
+  .lp-btn-ghost{background:none;border:1.5px solid var(--border);color:var(--text);border-radius:12px;padding:8px 16px;font-weight:700;cursor:pointer;font-family:inherit;font-size:14px}
+  .lp-hero{text-align:center;padding-top:30px}
+  .lp-hero h1{font-size:38px;line-height:1.25;font-weight:900;margin:0 0 14px;background:linear-gradient(90deg,#60A5FA,#F59E0B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .lp-hero p{font-size:17px;color:var(--text-muted);max-width:640px;margin:0 auto 22px}
+  .lp-note{font-size:13px;color:var(--text-muted);margin-top:12px}
+  .lp-pos{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px 22px;text-align:center;font-size:17px;font-weight:700;max-width:760px;margin:8px auto 0}
+  .lp-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .lp-grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .lp-level{background:var(--surface);border:1.5px solid var(--border);border-radius:18px;padding:24px 16px;text-align:center;cursor:pointer;transition:.18s}
+  .lp-level:hover{border-color:#F59E0B;transform:translateY(-4px)}
+  .lp-level-title{font-size:19px;font-weight:900;margin-top:8px}
+  .lp-level-range{color:#60A5FA;font-weight:700;font-size:14px;margin:2px 0 8px}
+  .lp-level-desc{font-size:13px;color:var(--text-muted)}
+  .lp-level-cta{margin-top:12px;color:#F59E0B;font-weight:900}
+  .lp-uc{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;font-weight:700;font-size:15px}
+  .lp-subjcol{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px}
+  .lp-subjcol h3{margin:0 0 10px;font-size:17px}
+  .lp-chip{display:inline-block;background:rgba(96,165,250,.12);color:#93C5FD;border-radius:999px;padding:5px 12px;margin:3px;font-size:13px;font-weight:700}
+  .lp-demos{display:flex;gap:14px;overflow-x:auto;padding:6px 2px;scroll-snap-type:x mandatory}
+  .lp-demo{min-width:240px;max-width:240px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px;scroll-snap-align:start}
+  .lp-demo-head{font-size:12px;font-weight:900;color:#F59E0B;margin-bottom:10px}
+  .lp-bubble{border-radius:12px;padding:9px 12px;font-size:13px;margin-bottom:8px}
+  .lp-q{background:#1E293B;color:#E2E8F0}
+  .lp-a{background:rgba(37,99,235,.18);color:#DBEAFE}
+  .lp-trust{background:linear-gradient(135deg,rgba(37,99,235,.12),rgba(245,158,11,.10));border:1px solid var(--border);border-radius:20px;padding:30px 22px}
+  .lp-trust ul{list-style:none;padding:0;margin:16px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .lp-trust li{display:flex;gap:8px;align-items:flex-start;font-size:15px}
+  .lp-price{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:680px;margin:0 auto}
+  .lp-pcard{background:var(--surface);border:1.5px solid var(--border);border-radius:18px;padding:24px}
+  .lp-pcard.pro{border-color:#F59E0B}
+  .lp-pcard h3{margin:0;font-size:20px}
+  .lp-pcard .price{font-size:30px;font-weight:900;margin:8px 0}
+  .lp-pcard ul{list-style:none;padding:0;margin:10px 0 0;font-size:14px}
+  .lp-pcard li{margin:6px 0}
+  .lp-faq{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:4px 16px;margin-bottom:10px}
+  .lp-faq summary{cursor:pointer;font-weight:800;padding:12px 0;font-size:15px;list-style:none}
+  .lp-faq summary::-webkit-details-marker{display:none}
+  .lp-faq summary::before{content:'＋ ';color:#F59E0B;font-weight:900}
+  .lp-faq[open] summary::before{content:'− '}
+  .lp-faq-a{padding:0 0 14px;color:var(--text-muted);font-size:14px}
+  .lp-final{text-align:center;background:linear-gradient(135deg,#1E3A8A,#0F172A);border-radius:24px;padding:46px 20px;margin:20px auto}
+  .lp-final h2{font-size:28px}
+  .lp-foot{text-align:center;color:var(--text-muted);font-size:12px;padding:24px}
+  @media(max-width:720px){
+    .lp-hero h1{font-size:28px}
+    .lp-grid3{grid-template-columns:1fr}
+    .lp-grid2,.lp-price,.lp-trust ul{grid-template-columns:1fr}
+  }
+</style>
+
+  <!-- Top bar -->
+  <div class="lp-top">
+    <div class="lp-logo">🎓 Ostazz<b>AI</b></div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="lp-btn-ghost" onclick="toggleLang()">${S.lang === 'ar' ? '🇬🇧 EN' : '🇸🇦 عر'}</button>
+      <button class="lp-btn-ghost" onclick="goSignin()">${L('تسجيل الدخول','Sign in')}</button>
+    </div>
+  </div>
+
+  <!-- 1. HERO -->
+  <section class="lp-hero">
+    <h1>${L('مدرّس ذكي واحد لكل طالب مدرسة','One AI Tutor for Every School Student')}</h1>
+    <p>${L('من الصف الأول حتى الثانوية — مساعدة في الواجبات، شرح مبسّط، مراجعة، ودعم للامتحانات في مكان واحد.','From Year 1 to High School — personalized homework help, explanations, revision, and exam support in one place.')}</p>
+    <button class="lp-btn" onclick="goRegister()">${L('ابدأ التعلّم مجاناً','Start Learning Free')}</button>
+    <div class="lp-note">${L('🔒 مجاني للبدء • بدون بطاقة ائتمان','🔒 Free to start • No credit card needed')}</div>
+    <div class="lp-pos" style="margin-top:26px">${L('يساعد OstazzAI الطلاب من سنوات الدراسة الأولى حتى امتحاناتهم النهائية على التعلّم بمستواهم الخاص.','OstazzAI helps students from early school years to final exams learn at their own level.')}</div>
+  </section>
+
+  <!-- 2. CHOOSE LEVEL -->
+  <section>
+    <h2>${L('اختر مستواك الدراسي','Choose your study level')}</h2>
+    <div class="lp-sub2">${L('اختر فوراً: ابتدائي، متوسط، أو ثانوي.','Pick your stage instantly: Primary, Middle, or High School.')}</div>
+    <div class="lp-grid3">
+      ${levelCard('🎒', L('المرحلة الابتدائية','Primary School'), L('الصفوف 1–6','Year 1–6'), 'primary')}
+      ${levelCard('📘', L('المرحلة المتوسطة','Middle School'), L('الصفوف 7–9','Year 7–9'), 'middle')}
+      ${levelCard('🎓', L('المرحلة الثانوية','High School'), L('الصفوف 10–12/13 · IGCSE / A-Level','Year 10–12 / 13 · IGCSE / A-Level'), 'high')}
+    </div>
+  </section>
+
+  <!-- 3. HOW IT HELPS -->
+  <section>
+    <h2>${L('ماذا يستطيع الطلاب فعله مع OstazzAI؟','What can students do with OstazzAI?')}</h2>
+    <div class="lp-grid2" style="margin-top:18px">
+      ${useCase('📝', L('حل الواجبات خطوة بخطوة','Solve homework step by step'))}
+      ${useCase('💡', L('شرح الدروس الصعبة ببساطة','Explain difficult lessons simply'))}
+      ${useCase('✅', L('التدرّب على اختبارات قصيرة','Practice quizzes'))}
+      ${useCase('🎯', L('الاستعداد للامتحانات','Prepare for exams'))}
+      ${useCase('✍️', L('تحسين الكتابة بالإنجليزية','Improve English writing'))}
+      ${useCase('💬', L('طرح الأسئلة في أي وقت','Ask questions anytime'))}
+    </div>
+  </section>
+
+  <!-- 4. SUBJECTS -->
+  <section>
+    <h2>${L('المواد المغطّاة','Subjects covered')}</h2>
+    <div class="lp-sub2">${L('مواد مناسبة لكل مرحلة دراسية.','Subjects tailored to each stage.')}</div>
+    <div class="lp-grid3">
+      <div class="lp-subjcol"><h3>🎒 ${L('ابتدائي','Primary')}</h3>
+        <span class="lp-chip">${L('رياضيات','Math')}</span><span class="lp-chip">${L('إنجليزي','English')}</span><span class="lp-chip">${L('علوم','Science')}</span></div>
+      <div class="lp-subjcol"><h3>📘 ${L('متوسط','Middle')}</h3>
+        <span class="lp-chip">${L('رياضيات','Math')}</span><span class="lp-chip">${L('إنجليزي','English')}</span><span class="lp-chip">${L('علوم','Science')}</span><span class="lp-chip">ICT</span></div>
+      <div class="lp-subjcol"><h3>🎓 ${L('ثانوي','High School')}</h3>
+        <span class="lp-chip">${L('رياضيات','Math')}</span><span class="lp-chip">${L('فيزياء','Physics')}</span><span class="lp-chip">${L('كيمياء','Chemistry')}</span><span class="lp-chip">${L('أحياء','Biology')}</span><span class="lp-chip">${L('إنجليزي','English')}</span></div>
+    </div>
+  </section>
+
+  <!-- 5. DEMOS -->
+  <section>
+    <h2>${L('شاهد كيف يشرح','See how it explains')}</h2>
+    <div class="lp-sub2">${L('أمثلة حقيقية على الإجابات حسب المستوى.','Real examples of answers by level.')}</div>
+    <div class="lp-demos">
+      ${demo(L('الصف 3','Year 3'), L('رياضيات','Math'), L('كم يساوي 24 + 18؟','What is 24 + 18?'), L('نجمع خطوة بخطوة: العشرات 20+10=30، والآحاد 4+8=12، إذن 30+12 = 42 ✅','Add step by step: tens 20+10=30, ones 4+8=12, so 30+12 = 42 ✅'))}
+      ${demo(L('الصف 6','Year 6'), L('علوم','Science'), L('لماذا نرى البرق قبل الرعد؟','Why do we see lightning before thunder?'), L('الضوء أسرع بكثير من الصوت، لذا نرى الومضة أولاً ثم نسمع الرعد بعد ثوانٍ.','Light travels much faster than sound, so you see the flash first, then hear the thunder seconds later.'))}
+      ${demo(L('الصف 9','Year 9'), L('جبر','Algebra'), L('حل 3س + 5 = 20','Solve 3x + 5 = 20'), L('3س = 20 − 5 = 15، إذن س = 15 ÷ 3 = 5 ✅','3x = 20 − 5 = 15, so x = 15 ÷ 3 = 5 ✅'))}
+      ${demo(L('ثانوي','High School'), L('فيزياء','Physics'), L('ما قانون نيوتن الثاني؟',"Newton's second law?"), L('القوة = الكتلة × التسارع (ق = ك×ت).','Force = mass × acceleration (F = ma).'))}
+      ${demo(L('تصحيح','Correction'), L('إنجليزي','English'), 'He go to school every day.', L("التصحيح: «He goes to school every day» — مع الفاعل المفرد الغائب نضيف s.","Correction: 'He goes to school every day' — third-person singular adds 's'."))}
+    </div>
+  </section>
+
+  <!-- 6. PARENT TRUST -->
+  <section>
+    <div class="lp-trust">
+      <h2>${L('مصمَّم للطلاب. موثوق من الأهل.','Built for students. Trusted by parents.')}</h2>
+      <ul>
+        <li>✅ <span>${L('إجابات مناسبة للعمر','Age-appropriate answers')}</span></li>
+        <li>🛡️ <span>${L('بيئة تعلّم آمنة','Safe learning environment')}</span></li>
+        <li>🙂 <span>${L('بلا أحكام، وأسئلة غير محدودة','No judgment, unlimited questions')}</span></li>
+        <li>📚 <span>${L('يدعم الدراسة المستقلة','Supports independent study')}</span></li>
+        <li>💸 <span>${L('يقلّل ضغط الدروس الخصوصية','Helps reduce private tutoring pressure')}</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7. PRICING -->
+  <section>
+    <h2>${L('الأسعار','Pricing')}</h2>
+    <div class="lp-sub2">${L('ابدأ مجاناً. ارتقِ عندما تحتاج دعماً أكثر تقدّماً.','Start free. Upgrade when you need more advanced support.')}</div>
+    <div class="lp-price">
+      <div class="lp-pcard">
+        <h3>${L('مجاني','Free')}</h3>
+        <div class="price">$0</div>
+        <ul>
+          <li>✅ ${L('5 أسئلة يومياً','5 questions/day')}</li>
+          <li>✅ ${L('كل المراحل والمواد','All levels & subjects')}</li>
+          <li>✅ ${L('بطاقات واختبارات','Flashcards & quizzes')}</li>
+        </ul>
+      </div>
+      <div class="lp-pcard pro">
+        <h3>⭐ Pro</h3>
+        <div class="price">$6<span style="font-size:14px;font-weight:400">/${L('شهر','mo')}</span></div>
+        <ul>
+          <li>⭐ ${L('أسئلة غير محدودة','Unlimited questions')}</li>
+          <li>⭐ ${L('شرح وملخصات وخرائط ذهنية','Explanations, summaries, mind maps')}</li>
+          <li>⭐ ${L('حل بالصورة + إدخال صوتي','Photo solving + voice input')}</li>
+          <li>💡 ${L('أو $49/سنة (توفير)','or $49/year (save)')}</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. FAQ -->
+  <section>
+    <h2>${L('أسئلة شائعة','Frequently asked questions')}</h2>
+    <div style="max-width:720px;margin:20px auto 0">
+      ${faq(L('ما الفئة العمرية لـ OstazzAI؟','What age is OstazzAI for?'), L('من الصف الأول الابتدائي حتى نهاية الثانوية (تقريباً 6–18 سنة)، مع شرح يناسب كل مستوى.','From Year 1 through the end of High School (roughly ages 6–18), with explanations matched to each level.'))}
+      ${faq(L('هل يناسب المرحلة الابتدائية؟','Is it suitable for primary school?'), L('نعم، يقدّم شرحاً مبسّطاً ومناسباً لعمر طلاب الابتدائي في الرياضيات والإنجليزي والعلوم.','Yes — it gives simple, age-appropriate explanations for primary students in Math, English, and Science.'))}
+      ${faq(L('هل يساعد في الواجبات؟','Can it help with homework?'), L('نعم، يحل المسائل خطوة بخطوة ويشرح الفكرة حتى يفهمها الطالب بنفسه.','Yes — it solves problems step by step and explains the idea so the student truly understands.'))}
+      ${faq(L('هل يدعم الاستعداد للامتحانات؟','Does it support exam preparation?'), L('نعم، اختبارات تدريبية، مراجعة، ودعم لمناهج مثل IGCSE و A-Level في الثانوية.','Yes — practice quizzes, revision, and support for curricula like IGCSE and A-Level in High School.'))}
+      ${faq(L('هل هو آمن للأطفال؟','Is it safe for children?'), L('نعم، إجابات مناسبة للعمر وبيئة تعلّم آمنة بلا محتوى غير لائق.','Yes — age-appropriate answers in a safe learning environment with no inappropriate content.'))}
+      ${faq(L('ما المواد المدعومة؟','What subjects are supported?'), L('الرياضيات، الإنجليزي، العلوم، الفيزياء، الكيمياء، الأحياء، ICT وغيرها حسب المرحلة.','Math, English, Science, Physics, Chemistry, Biology, ICT and more depending on the stage.'))}
+    </div>
+  </section>
+
+  <!-- 9. FINAL CTA -->
+  <section>
+    <div class="lp-final">
+      <h2>${L('اجعل طفلك يتعلّم بثقة اليوم','Help your child learn with confidence today')}</h2>
+      <p style="color:#CBD5E1;max-width:520px;margin:8px auto 20px">${L('انضم لآلاف الطلاب — مجاناً للبدء.','Join thousands of students — free to start.')}</p>
+      <button class="lp-btn" onclick="goRegister()">${L('ابدأ التعلّم مجاناً','Start Learning Free')}</button>
+    </div>
+    <div class="lp-foot">© 2026 OstazzAI — ${L('منصة التعلّم الذكي','Smart learning platform')} · <span style="cursor:pointer;text-decoration:underline" onclick="goSignin()">${L('تسجيل الدخول','Sign in')}</span></div>
+  </section>
+</div>`;
+}
+
+const tplSignin = () => `
 <div class="auth-screen">
   <div class="auth-card">
     <div style="position:absolute;top:16px;left:16px">
+      <button onclick="S.screen='login';render()" style="background:none;border:1px solid var(--border);border-radius:12px;padding:4px 10px;font-size:12px;cursor:pointer;color:var(--text-muted);font-family:Cairo,sans-serif">
+        ${S.lang==='en'?'← Home':'← الرئيسية'}
+      </button>
+    </div>
+    <div style="position:absolute;top:16px;right:16px">
       <button onclick="toggleLang()" style="background:none;border:1px solid var(--border);border-radius:12px;padding:4px 10px;font-size:12px;cursor:pointer;color:var(--text-muted);font-family:Cairo,sans-serif">
         ${S.lang==='ar'?'🇬🇧 EN':'🇸🇦 عر'}
       </button>
