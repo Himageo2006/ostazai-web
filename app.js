@@ -19449,7 +19449,7 @@ ${viewer}`;
           </div>
         </div>
         <div style="display:flex;flex-direction:column;gap:0">
-          ${subj.books.filter(b => !b.external).map((book,bi) => `
+          ${subj.books.filter(b => !IS_IOS_APP || !b.external).map((book,bi) => `
           <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;${bi>0?'border-top:1px solid var(--border);':''}">
             <div style="width:40px;height:52px;border-radius:6px;background:${subj.color}22;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">📄</div>
             <div style="flex:1;text-align:right">
