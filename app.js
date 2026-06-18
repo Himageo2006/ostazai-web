@@ -1009,6 +1009,7 @@ function render() {
   if      (S.screen === 'loading')       { el.innerHTML = tplLoading(); }
   else if (S.screen === 'login')         { el.innerHTML = tplLogin(); }
   else if (S.screen === 'signin')        { el.innerHTML = tplSignin(); }
+  else if (S.screen === 'parent')        { el.innerHTML = tplParent(); }
   else if (S.screen === 'register')      { el.innerHTML = tplRegister(); }
   else if (S.screen === 'forgot')        { el.innerHTML = tplForgotPassword(); }
   else if (S.screen === 'reset-password'){ el.innerHTML = tplResetPassword(S.resetToken || ''); }
@@ -3050,6 +3051,82 @@ function goRegister(level) {
   S.screen = 'register'; render();
 }
 function goSignin() { S.screen = 'signin'; render(); }
+function goParent() { S.screen = 'parent'; render(); }
+
+/* ── Parent Dashboard (read-only child progress via consent code) ── */
+function tplParent() {
+  const L = (ar, en) => S.lang === 'en' ? en : ar;
+  return `
+<div class="auth-screen">
+  <div class="auth-card" style="max-width:460px">
+    <div style="position:absolute;top:16px;left:16px">
+      <button onclick="S.screen='login';render()" style="background:none;border:1px solid var(--border);border-radius:12px;padding:4px 10px;font-size:12px;cursor:pointer;color:var(--text-muted);font-family:Cairo,sans-serif">${L('← الرئيسية','← Home')}</button>
+    </div>
+    <div class="auth-logo">👨‍👩‍👧</div>
+    <div class="auth-title">${L('لوحة متابعة ولي الأمر','Parent Dashboard')}</div>
+    <div class="auth-subtitle">${L('تابع تقدّم طفلك. اطلب منه «كود ولي الأمر» من شاشة حسابه.','Track your child\'s progress. Ask them for their "Parent code" from their account screen.')}</div>
+    <div id="parent-msg" class="error-msg" style="display:none"></div>
+    <div class="form-group"><label class="form-label">${L('بريد حساب الطالب','Student account email')}</label>
+      <input id="parent-email" class="form-input" type="email" placeholder="student@email.com"/></div>
+    <div class="form-group"><label class="form-label">${L('كود ولي الأمر','Parent code')}</label>
+      <input id="parent-code" class="form-input" type="text" placeholder="ABC123" style="text-transform:uppercase;letter-spacing:3px"/></div>
+    <button class="btn btn-primary" id="b-parent-view" style="width:100%;margin-top:8px" onclick="doParentView()">${L('عرض التقدّم','View progress')}</button>
+    <div id="parent-result" style="margin-top:18px"></div>
+  </div>
+</div>`;
+}
+
+async function doParentView() {
+  const L = (ar, en) => S.lang === 'en' ? en : ar;
+  const email = (ge('parent-email')?.value || '').trim();
+  const code  = (ge('parent-code')?.value || '').trim().toUpperCase();
+  const msg   = ge('parent-msg');
+  const out   = ge('parent-result');
+  const btn   = ge('b-parent-view');
+  if (msg) msg.style.display = 'none';
+  if (!email || !code) { if (msg) { msg.textContent = L('أدخل البريد والكود','Enter email and code'); msg.style.display='block'; } return; }
+  if (btn) { btn.disabled = true; btn.textContent = L('جارٍ التحميل...','Loading...'); }
+  try {
+    const r = await fetch(API + '/parent/summary', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email, code }) });
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.error || 'Error');
+    const fmtDate = (x) => x ? new Date(x).toLocaleDateString(S.lang==='en'?'en-GB':'ar-EG',{year:'numeric',month:'short',day:'numeric'}) : '—';
+    const lastSeen = d.lastSeen ? new Date(d.lastSeen) : null;
+    const ago = lastSeen ? Math.floor((Date.now()-lastSeen)/86400000) : null;
+    const lastSeenTxt = lastSeen ? (ago<=0?L('اليوم','Today'):ago===1?L('أمس','Yesterday'):L(`منذ ${ago} يوم`,`${ago} days ago`)) : '—';
+    const card = (label,val,color) => `<div style="background:var(--surface);border:1px solid var(--border);border-top:3px solid ${color};border-radius:12px;padding:14px;text-align:center"><div style="font-size:22px;font-weight:900;color:${color}">${val}</div><div style="font-size:11px;color:var(--text-muted);margin-top:3px">${label}</div></div>`;
+    out.innerHTML = `
+      <div style="text-align:center;font-weight:900;font-size:16px;margin-bottom:4px">${esc(d.name||'')}</div>
+      <div style="text-align:center;font-size:12px;color:var(--text-muted);margin-bottom:14px">${esc(d.email||'')} ${d.plan==='pro'?'· ⭐ Pro':'· '+L('مجاني','Free')}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        ${card(L('إجمالي الأسئلة','Total questions'), d.totalQuestions||0, '#3B82F6')}
+        ${card(L('أسئلة اليوم','Questions today'), d.dailyQuestions||0, '#F59E0B')}
+        ${card(L('آخر نشاط','Last active'), lastSeenTxt, '#10B981')}
+        ${card(L('انضمّ في','Joined'), fmtDate(d.joinedAt), '#8B5CF6')}
+      </div>
+      ${d.plan==='pro' && d.planExpiry ? `<div style="text-align:center;font-size:12px;color:var(--text-muted);margin-top:12px">${L('اشتراك Pro حتى','Pro until')} ${fmtDate(d.planExpiry)}</div>`:''}
+      <div style="font-size:11px;color:var(--text-muted);text-align:center;margin-top:14px">${L('عرض للقراءة فقط — بموافقة الطالب عبر الكود.','Read-only view — granted by the student via the code.')}</div>`;
+  } catch (e) {
+    if (msg) { msg.textContent = L('بريد أو كود غير صحيح','Invalid email or code'); msg.style.display='block'; }
+    out.innerHTML = '';
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = L('عرض التقدّم','View progress'); }
+  }
+}
+
+async function showParentCode() {
+  const box = ge('parent-code-box');
+  if (!box) return;
+  if (!S.token) { showToast(S.lang==='en'?'Sign in first':'سجّل الدخول أولاً','error'); return; }
+  box.textContent = '...';
+  try {
+    const d = await req('/parent/my-code');
+    box.textContent = d.code || '——';
+  } catch (e) {
+    box.textContent = '——';
+    showToast(S.lang==='en'?'Could not load code':'تعذّر تحميل الكود','error');
+  }
+}
 
 function tplLogin() {
   const L = (ar, en) => S.lang === 'en' ? en : ar;
@@ -3342,6 +3419,7 @@ function tplLogin() {
       <a onclick="document.querySelector('.lp-hero').scrollIntoView({behavior:'smooth'})">${L('عن المنصة','About')}</a>
       <a onclick="document.getElementById('lp-how').scrollIntoView({behavior:'smooth'})">${L('المميزات','Features')}</a>
       <a onclick="document.getElementById('lp-pricing').scrollIntoView({behavior:'smooth'})">${L('الأسعار','Pricing')}</a>
+      <a onclick="goParent()">${L('لوحة ولي الأمر','For Parents')}</a>
       <a href="mailto:support@ostazzai.com">${L('تواصل معنا','Contact')}</a>
       <a href="privacy.html">${L('سياسة الخصوصية','Privacy Policy')}</a>
       <a href="terms.html">${L('شروط الاستخدام','Terms of Service')}</a>
@@ -4166,6 +4244,16 @@ function tplStats() {
       </div>
     </div>
     <div style="font-size:11px;color:var(--text-muted);margin-top:6px">${500-xpCur} ${S.lang==='en'?'points to next level':'نقطة للمستوى التالي'}</div>
+  </div>
+
+  <!-- Parent access -->
+  <div class="info-card" style="margin-bottom:16px">
+    <div style="font-weight:800;margin-bottom:6px">👨‍👩‍👧 ${S.lang==='en'?'Parent access':'متابعة ولي الأمر'}</div>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px">${S.lang==='en'?'Share this code with a parent so they can view your progress (read-only).':'شارك هذا الكود مع ولي أمرك ليتابع تقدّمك (للقراءة فقط).'}</div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <code id="parent-code-box" style="flex:1;background:var(--bg);border:1px dashed var(--border);border-radius:8px;padding:10px;text-align:center;font-size:18px;letter-spacing:4px;font-weight:900">••••••</code>
+      <button class="btn btn-secondary btn-sm" onclick="showParentCode()">${S.lang==='en'?'Show code':'إظهار الكود'}</button>
+    </div>
   </div>
 
   <!-- Weekly Activity Chart -->
