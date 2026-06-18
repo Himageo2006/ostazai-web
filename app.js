@@ -3530,6 +3530,9 @@ function tplLogin() {
       <a href="ar-mudaris-zaki.html">مدرّس ذكي</a>
       <a href="ar-hal-wajibat.html">حل الواجبات</a>
       <a href="ar-igcse.html">مدرّس IGCSE</a>
+      <a href="ar-math.html">مدرّس رياضيات</a>
+      <a href="ar-science.html">شرح العلوم</a>
+      <a href="ar-english.html">تعلّم الإنجليزية</a>
     </div>
     <div class="lp-footlinks">
       <a onclick="document.querySelector('.lp-hero').scrollIntoView({behavior:'smooth'})">${L('عن المنصة','About')}</a>
