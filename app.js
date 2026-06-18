@@ -20199,6 +20199,15 @@ function teachTopicOnBoard(sk, ci, ti) {
     lines.push('Worked example:');
     tp.workedExample.split('\n').map(s => s.trim()).filter(Boolean).forEach(s => lines.push(s));
   }
+  if (tp.examTips && tp.examTips.length) {
+    lines.push('Exam tips:');
+    tp.examTips.forEach(t => lines.push(`✔️ ${t}`));
+  }
+  if (tp.commonMistakes && tp.commonMistakes.length) {
+    lines.push('Common mistakes to avoid:');
+    tp.commonMistakes.forEach(m => lines.push(`⚠️ ${m}`));
+  }
+  lines.push(`That completes ${tp.title}. Review the points and try the practice questions.`);
   showTeacher(null, lines);
   setTimeout(() => { if (document.getElementById('tch-play')) teacherToggle(); }, 300); // auto-start
 }
