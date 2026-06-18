@@ -5259,7 +5259,6 @@ const TEXTBOOK_DB = {
         { title:'المعاصر رياضيات — ثاني إعدادي ترم أول', term:'إعدادي ثاني', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2-1_20240826' },
         { title:'المعاصر رياضيات — ثالث إعدادي ترم أول', term:'إعدادي ثالث', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/3-1_20220817_202208' },
         { title:'المعاصر رياضيات — ثالث إعدادي ترم ثاني', term:'إعدادي ثالث', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/3-2_20220224' },
-        { title:'المعاصر هندسة — ثالث إعدادي ترم ثاني', term:'إعدادي ثالث', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/3-2_20210525_202105' },
       ]},
       { subj:'العلوم — المعاصر', icon:'🔬', color:'#10B981', books:[
         { title:'المعاصر سايس — أول إعدادي ترم أول', term:'إعدادي أول', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/1-1_20230814' },
@@ -5373,20 +5372,20 @@ const TEXTBOOK_DB = {
   american: {
     high: [
       { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
-        { title:'Elementary Algebra 2e — OpenStax', term:'American Curriculum', url:`https://assets.openstax.org/oscms-prodcms/media/documents/ElementaryAlgebra2e-WEB_3zxfu3Z.pdf` },
+        { title:'Elementary Algebra 2e — OpenStax', term:'American Curriculum', url:`https://assets.openstax.org/oscms-prodcms/media/documents/ElementaryAlgebra2e-WEB.pdf` },
         { title:'College Algebra — OpenStax', term:'American Curriculum', url:`https://assets.openstax.org/oscms-prodcms/media/documents/CollegeAlgebra-OP.pdf` },
         { title:'Calculus Volume 1 — OpenStax', term:'American Curriculum', url:`https://assets.openstax.org/oscms-prodcms/media/documents/Calculus_Volume_1_-_WEB.pdf` },
-        { title:'Introductory Statistics 2e — OpenStax', term:'American Curriculum', url:`https://assets.openstax.org/oscms-prodcms/media/documents/Introductory_Statistics_2e_-_WEB.pdf` },
+        { title:'Introductory Statistics 2e — OpenStax', term:'American Curriculum', url:`https://openstax.org/details/books/introductory-statistics-2e` },
       ]},
       { subj:'Physics', icon:'⚡', color:'#F59E0B', books:[
-        { title:'Physics — OpenStax (High School)', term:'American Curriculum', url:`https://assets.openstax.org/oscms-prodcms/media/documents/Physics-WEB_Sab7RrQ.pdf` },
-        { title:'University Physics Volume 2 — OpenStax', term:'American Curriculum', url:`https://assets.openstax.org/oscms-prodcms/media/documents/University_Physics_Volume_2_-_WEB.pdf` },
+        { title:'Physics — OpenStax (High School)', term:'American Curriculum', url:`https://assets.openstax.org/oscms-prodcms/media/documents/Physics_-_WEB.pdf` },
+        { title:'University Physics Volume 2 — OpenStax', term:'American Curriculum', url:`https://assets.openstax.org/oscms-prodcms/media/documents/UniversityPhysicsVolume2-WEB.pdf` },
       ]},
       { subj:'Computer Science', icon:'💻', color:'#0EA5E9', books:[
         { title:'Introduction to Computer Science — OpenStax', term:'American Curriculum', url:`https://assets.openstax.org/oscms-prodcms/media/documents/Introduction_To_Computer_Science_-_WEB.pdf` },
       ]},
       { subj:'Social Sciences', icon:'🧠', color:'#8B5CF6', books:[
-        { title:'Introduction to Sociology 3e — OpenStax', term:'American Curriculum', url:`https://assets.openstax.org/oscms-prodcms/media/documents/IntroductiontoSociology3e-WEB_9QTqRGQ.pdf` },
+        { title:'Introduction to Sociology 3e — OpenStax', term:'American Curriculum', url:`https://assets.openstax.org/oscms-prodcms/media/documents/IntroductiontoSociology3e-WEB.pdf` },
       ]},
     ],
   },
