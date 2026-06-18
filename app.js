@@ -3881,7 +3881,9 @@ function tplHome() {
 
   // Hour-based greeting
   const hr = new Date().getHours();
-  const greeting = hr<12 ? 'صباح الخير' : hr<17 ? 'مساء الخير' : 'مساء النور';
+  const greeting = S.lang==='en'
+    ? (hr<12 ? 'Good morning' : hr<17 ? 'Good afternoon' : 'Good evening')
+    : (hr<12 ? 'صباح الخير' : hr<17 ? 'مساء الخير' : 'مساء النور');
 
   return `
 <div style="display:flex;flex-direction:column;align-items:center;padding:0 0 20px;min-height:60vh">
@@ -3903,15 +3905,15 @@ function tplHome() {
         </div>
         <div style="background:#ffffff15;border:1px solid #ffffff20;border-radius:12px;padding:6px 12px;text-align:center">
           <div style="font-size:14px;font-weight:900;color:#6EE7B7">✅ ${doneCnt}</div>
-          <div style="font-size:9px;color:#c4b5fd">مكتمل</div>
+          <div style="font-size:9px;color:#c4b5fd">${L('done','مكتمل')}</div>
         </div>
         <div style="background:#ffffff15;border:1px solid #ffffff20;border-radius:12px;padding:6px 12px;text-align:center">
           <div style="font-size:14px;font-weight:900;color:#FCA5A5">🏆 ${mastered}</div>
-          <div style="font-size:9px;color:#c4b5fd">محترف</div>
+          <div style="font-size:9px;color:#c4b5fd">${L('mastered','محترف')}</div>
         </div>
         <div style="background:#ffffff15;border:1px solid #ffffff20;border-radius:12px;padding:6px 12px;text-align:center">
           <div style="font-size:14px;font-weight:900;color:#93C5FD">💬 ${chatCnt}</div>
-          <div style="font-size:9px;color:#c4b5fd">محادثة</div>
+          <div style="font-size:9px;color:#c4b5fd">${L('chats','محادثة')}</div>
         </div>
       </div>
     </div>
@@ -3940,17 +3942,17 @@ function tplHome() {
 
   <!-- ═══ CURRICULUM SELECTOR ═══ -->
   <div style="width:calc(100% - 24px);max-width:520px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:10px 12px 8px;margin:6px auto 0;box-shadow:0 4px 24px #0003">
-    <div style="font-size:10px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:8px">🌍 بلدك ومرحلتك الدراسية</div>
+    <div style="font-size:10px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:8px">🌍 ${L('Your country & grade','بلدك ومرحلتك الدراسية')}</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
       <div>
-        <label style="font-size:11px;font-weight:700;color:var(--text-muted);display:block;margin-bottom:5px">الدولة / المنهج</label>
+        <label style="font-size:11px;font-weight:700;color:var(--text-muted);display:block;margin-bottom:5px">${L('Country / Curriculum','الدولة / المنهج')}</label>
         <select id="home-country" onchange="homeUpdateCountry(this.value)"
           style="width:100%;padding:7px 10px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:12px;font-family:Cairo,sans-serif;font-weight:700;cursor:pointer">
           ${countryOpts}
         </select>
       </div>
       <div>
-        <label style="font-size:10px;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px">المرحلة الدراسية</label>
+        <label style="font-size:10px;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px">${L('Grade / Stage','المرحلة الدراسية')}</label>
         <select id="home-grade" onchange="homeUpdateGrade(this.value)"
           style="width:100%;padding:7px 10px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:12px;font-family:Cairo,sans-serif;font-weight:700;cursor:pointer">
           ${gradeOpts}
@@ -3964,12 +3966,12 @@ function tplHome() {
                cursor:pointer;box-shadow:0 4px 16px #2563EB44;transition:.2s"
         onmouseover="this.style.transform='translateY(-2px)'"
         onmouseout="this.style.transform=''">
-        📚 ابدأ المذاكرة الآن
+        📚 ${L('Start studying now','ابدأ المذاكرة الآن')}
       </button>
       <button onclick="S.screen='chat';render()"
         style="padding:10px 12px;border-radius:12px;border:1.5px solid var(--border);background:var(--bg-card);
                color:var(--text);font-size:13px;font-weight:900;font-family:Cairo,sans-serif;cursor:pointer;transition:.2s"
-        title="محادثة مباشرة مع AI">
+        title="${L('Chat directly with AI','محادثة مباشرة مع AI')}">
         💬
       </button>
     </div>
@@ -3977,7 +3979,7 @@ function tplHome() {
 
   <!-- ═══ TOOLS GRID ═══ -->
   <div style="width:calc(100% - 32px);max-width:520px;margin:8px auto 0">
-    <div style="font-size:11px;color:#3B82F6;font-weight:800;letter-spacing:1.5px;margin-bottom:8px;text-align:center">⚡ الأدوات الرئيسية</div>
+    <div style="font-size:11px;color:#3B82F6;font-weight:800;letter-spacing:1.5px;margin-bottom:8px;text-align:center">⚡ ${L('Main tools','الأدوات الرئيسية')}</div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
 
       <button onclick="S.screen='igcse';render()"
@@ -3987,7 +3989,7 @@ function tplHome() {
         onmouseout="this.style.transform='';this.style.boxShadow='0 4px 14px #4F46E530'">
         <div style="font-size:22px">🎓</div>
         <div style="font-size:11px;font-weight:900;color:#fff">IGCSE</div>
-        <div style="font-size:9px;color:#c4b5fd">مراجعة شاملة</div>
+        <div style="font-size:9px;color:#c4b5fd">${L('Full revision','مراجعة شاملة')}</div>
       </button>
 
       <button onclick="S.screen='papers';render()"
@@ -3996,7 +3998,7 @@ function tplHome() {
         onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px #05966955'"
         onmouseout="this.style.transform='';this.style.boxShadow='0 4px 14px #05966930'">
         <div style="font-size:22px">📝</div>
-        <div style="font-size:11px;font-weight:900;color:#fff">امتحانات</div>
+        <div style="font-size:11px;font-weight:900;color:#fff">${L('Exams','امتحانات')}</div>
         <div style="font-size:9px;color:#a7f3d0">Past Papers</div>
       </button>
 
@@ -4005,8 +4007,8 @@ function tplHome() {
                background:linear-gradient(135deg,#2563EB,#0EA5E9);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #2563EB30"
         onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
         <div style="font-size:22px">💬</div>
-        <div style="font-size:11px;font-weight:900;color:#fff">المحادثة</div>
-        <div style="font-size:9px;color:#bae6fd">اسأل أي سؤال</div>
+        <div style="font-size:11px;font-weight:900;color:#fff">${L('Chat','المحادثة')}</div>
+        <div style="font-size:9px;color:#bae6fd">${L('Ask anything','اسأل أي سؤال')}</div>
       </button>
 
       <button onclick="S.screen='lessons';render()"
@@ -4014,8 +4016,8 @@ function tplHome() {
                background:linear-gradient(135deg,#059669,#10B981);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #05966930"
         onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
         <div style="font-size:22px">📖</div>
-        <div style="font-size:11px;font-weight:900;color:#fff">الدروس</div>
-        <div style="font-size:9px;color:#a7f3d0">دروس منظمة</div>
+        <div style="font-size:11px;font-weight:900;color:#fff">${L('Lessons','الدروس')}</div>
+        <div style="font-size:9px;color:#a7f3d0">${L('Organized lessons','دروس منظمة')}</div>
       </button>
 
       <button onclick="S.screen='flashcards';render()"
@@ -4023,8 +4025,8 @@ function tplHome() {
                background:linear-gradient(135deg,#D97706,#F59E0B);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #D9770630"
         onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
         <div style="font-size:22px">🗂️</div>
-        <div style="font-size:11px;font-weight:900;color:#fff">بطاقات</div>
-        <div style="font-size:9px;color:#fef3c7">مراجعة سريعة</div>
+        <div style="font-size:11px;font-weight:900;color:#fff">${L('Flashcards','بطاقات')}</div>
+        <div style="font-size:9px;color:#fef3c7">${L('Quick review','مراجعة سريعة')}</div>
       </button>
 
       <button onclick="S.screen='quiz';render()"
@@ -4032,8 +4034,8 @@ function tplHome() {
                background:linear-gradient(135deg,#DC2626,#EF4444);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #DC262630"
         onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
         <div style="font-size:22px">📝</div>
-        <div style="font-size:11px;font-weight:900;color:#fff">اختبار</div>
-        <div style="font-size:9px;color:#fecaca">تحقق من نفسك</div>
+        <div style="font-size:11px;font-weight:900;color:#fff">${L('Quiz','اختبار')}</div>
+        <div style="font-size:9px;color:#fecaca">${L('Test yourself','تحقق من نفسك')}</div>
       </button>
 
     </div>
@@ -4044,21 +4046,21 @@ function tplHome() {
   <!-- ═══ TODAY'S PROGRESS ═══ -->
   ${(S.studyMinutesToday > 0 || (S.stats && S.stats.totalChats > 0)) ? `
   <div style="width:calc(100% - 32px);max-width:520px;margin:14px auto 0;background:var(--bg-card);border:1px solid var(--border);border-radius:18px;padding:14px 16px">
-    <div style="font-size:11px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:12px">📅 نشاط اليوم</div>
+    <div style="font-size:11px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:12px">📅 ${L("Today's activity",'نشاط اليوم')}</div>
     <div style="display:flex;gap:12px;justify-content:space-around">
       <div style="text-align:center">
         <div style="font-size:22px;font-weight:900;color:#8B5CF6">${Math.round(S.studyMinutesToday||0)}</div>
-        <div style="font-size:10px;color:var(--text-muted)">دقيقة مذاكرة</div>
+        <div style="font-size:10px;color:var(--text-muted)">${L('study minutes','دقيقة مذاكرة')}</div>
       </div>
       <div style="width:1px;background:var(--border)"></div>
       <div style="text-align:center">
         <div style="font-size:22px;font-weight:900;color:#3B82F6">${(S.stats&&S.stats.weeklyActivity) ? (S.stats.weeklyActivity[new Date().getDay()]||0) : 0}</div>
-        <div style="font-size:10px;color:var(--text-muted)">سؤال اليوم</div>
+        <div style="font-size:10px;color:var(--text-muted)">${L('questions today','سؤال اليوم')}</div>
       </div>
       <div style="width:1px;background:var(--border)"></div>
       <div style="text-align:center">
         <div style="font-size:22px;font-weight:900;color:#F59E0B">${(S.stats&&S.stats.xp)||0}</div>
-        <div style="font-size:10px;color:var(--text-muted)">نقطة XP</div>
+        <div style="font-size:10px;color:var(--text-muted)">${L('XP points','نقطة XP')}</div>
       </div>
     </div>
   </div>` : ''}
@@ -4066,7 +4068,7 @@ function tplHome() {
   <!-- ═══ RECENT SUBJECTS ═══ -->
   ${S.history && S.history.length > 0 ? `
   <div style="width:calc(100% - 32px);max-width:520px;margin:14px auto 0">
-    <div style="font-size:11px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:10px">🕒 آخر ما ذاكرته</div>
+    <div style="font-size:11px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:10px">🕒 ${L('Recently studied','آخر ما ذاكرته')}</div>
     <div style="display:flex;flex-wrap:wrap;gap:8px">
       ${[...new Map(S.history.slice(0,10).map(h=>[h.subject,h])).values()].slice(0,4).map(h=>`
       <button onclick="S.subject='${esc(h.subject)}';S.screen='chat';render()"
@@ -4144,16 +4146,16 @@ function tplChat() {
     <span>${(CURRICULA[S.curriculum]?.grades[S.grade]||Object.values(CURRICULA[S.curriculum]?.grades||{})[0])?.label||S.grade}</span>
     <span style="opacity:.4">›</span>
     <span style="font-weight:700;color:var(--text)">${esc(S.subject)}</span>
-    <button onclick="S.screen='lessons';render()" style="margin-right:auto;background:none;border:1px solid var(--border);border-radius:8px;padding:2px 8px;font-size:10px;cursor:pointer;color:var(--text-muted);font-family:Cairo,sans-serif">تغيير ›</button>
+    <button onclick="S.screen='lessons';render()" style="margin-right:auto;background:none;border:1px solid var(--border);border-radius:8px;padding:2px 8px;font-size:10px;cursor:pointer;color:var(--text-muted);font-family:Cairo,sans-serif">${L('Change ›','تغيير ›')}</button>
   </div>
   <div class="chat-toolbar">
     <select id="subj-sel" class="subj-sel">${subjOpts}</select>
     <div class="tool-strip">
-      <button class="tool-btn" id="tb-fc">🗂️ بطاقات</button>
-      <button class="tool-btn" id="tb-qz">📝 اختبار</button>
-      <button class="tool-btn" id="tb-sm">📋 ملخص</button>
-      <button class="tool-btn" id="tb-mm">🧠 خريطة</button>
-      <button class="tool-btn" id="tb-share">&#x1F4E4; مشاركة</button>
+      <button class="tool-btn" id="tb-fc">🗂️ ${L('Cards','بطاقات')}</button>
+      <button class="tool-btn" id="tb-qz">📝 ${L('Quiz','اختبار')}</button>
+      <button class="tool-btn" id="tb-sm">📋 ${L('Summary','ملخص')}</button>
+      <button class="tool-btn" id="tb-mm">🧠 ${L('Mind map','خريطة')}</button>
+      <button class="tool-btn" id="tb-share">&#x1F4E4; ${L('Share','مشاركة')}</button>
     </div>
   </div>
   <div class="chat-msgs" id="chat-msgs">
@@ -4192,7 +4194,7 @@ function tplChat() {
     <button class="btn-icon" id="b-mic" title="إدخال صوتي" style="font-size:22px;opacity:.8;${S.recording?'color:#EF4444':''}">${S.recording?'⏹️':'🎤'}</button>
     <div style="flex:1;position:relative">
       <input id="f-msg" class="chat-input" placeholder="${S.recording?(S.lang==='en'?'Listening...':'جارٍ الاستماع...'):(S.lang==='en'?'Ask your question here...':'اكتب سؤالك هنا...')}" autocomplete="off" ${S.recording?'disabled':''} maxlength="2000" style="width:100%;padding-left:38px"/>
-      ${S.messages.length>0?`<button id="b-clear-chat" title="مسح المحادثة" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:16px;cursor:pointer;opacity:.4;transition:.15s" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=.4">🗑️</button>`:''}
+      ${S.messages.length>0?`<button id="b-clear-chat" title="${L('Clear chat','مسح المحادثة')}" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:16px;cursor:pointer;opacity:.4;transition:.15s" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=.4">🗑️</button>`:''}
     </div>
     <button class="send-btn" id="b-send">${t('إرسال ➤','send')}</button>
   </div>
@@ -4246,7 +4248,7 @@ function tplQuiz() {
 <div class="screen-body empty-state">
   <div style="font-size:48px">📝</div>
   <div>لا يوجد اختبار بعد</div>
-  <button class="btn btn-primary" id="gen-qz">توليد اختبار لـ ${esc(S.subject)}</button>
+  <button class="btn btn-primary" id="gen-qz">${L('Generate quiz for','توليد اختبار لـ')} ${esc(S.subject)}</button>
 </div>`;
   if (S.quizIndex >= S.quiz.length) {
     const pct = Math.round((S.quizScore/S.quiz.length)*100);
@@ -4330,7 +4332,7 @@ function tplStats() {
   return `
 <div class="screen-header">
   <div class="screen-title">📊 ${t('إحصائياتي','myStats').replace('📊 ','')}</div>
-  <button class="btn btn-secondary btn-sm" id="b-share-stats">${t('📤 مشاركة','shareStats')}</button>
+  <button class="btn btn-secondary btn-sm" id="b-share-stats">📤 ${L('Share','مشاركة')}</button>
 </div>
 <div class="screen-body">
 
@@ -4461,7 +4463,7 @@ function tplProfile() {
 <div class="screen-header">
   <div class="screen-title">👤 ${t('ملفي الشخصي','myProfile').replace('👤 ','')}</div>
   <button onclick="doLogout()" style="background:#EF444420;border:1px solid #EF444440;color:#EF4444;padding:6px 14px;border-radius:10px;font-family:Cairo,sans-serif;font-size:13px;font-weight:700;cursor:pointer">
-    🚪 ${t('خروج','Sign Out')}
+    🚪 ${L('Sign Out','خروج')}
   </button>
 </div>
 <div class="screen-body">
@@ -4501,20 +4503,20 @@ function tplProfile() {
 
   <!-- Edit Name -->
   <div class="info-card" style="margin-bottom:16px">
-    <div style="font-weight:800;margin-bottom:10px">\u{270F}️ تعديل الاسم</div>
+    <div style="font-weight:800;margin-bottom:10px">\u{270F}️ ${L('Edit name','تعديل الاسم')}</div>
     <div style="display:flex;gap:8px">
-      <input id="p-name" class="form-input" value="${esc(u.name||'')}" placeholder="الاسم الجديد" style="flex:1"/>
-      <button class="btn btn-primary btn-sm" id="b-save-name">حفظ</button>
+      <input id="p-name" class="form-input" value="${esc(u.name||'')}" placeholder="${L('New name','الاسم الجديد')}" style="flex:1"/>
+      <button class="btn btn-primary btn-sm" id="b-save-name">${L('Save','حفظ')}</button>
     </div>
   </div>
 
   <!-- Change Password -->
   <div class="info-card" style="margin-bottom:16px">
-    <div style="font-weight:800;margin-bottom:10px">\u{1F510} تغيير كلمة المرور</div>
+    <div style="font-weight:800;margin-bottom:10px">\u{1F510} ${L('Change password','تغيير كلمة المرور')}</div>
     <div style="display:flex;flex-direction:column;gap:8px">
-      <input id="p-pass1" class="form-input" type="password" placeholder="كلمة المرور الجديدة"/>
-      <input id="p-pass2" class="form-input" type="password" placeholder="تأكيد كلمة المرور"/>
-      <button class="btn btn-primary btn-sm" id="b-save-pass">تغيير كلمة المرور</button>
+      <input id="p-pass1" class="form-input" type="password" placeholder="${L('New password','كلمة المرور الجديدة')}"/>
+      <input id="p-pass2" class="form-input" type="password" placeholder="${L('Confirm password','تأكيد كلمة المرور')}"/>
+      <button class="btn btn-primary btn-sm" id="b-save-pass">${L('Change password','تغيير كلمة المرور')}</button>
       <div id="p-pass-msg" style="display:none;font-size:12px"></div>
     </div>
   </div>
@@ -4525,7 +4527,7 @@ function tplProfile() {
     <div style="font-size:18px;font-weight:900;color:var(--primary)">${curData.label}</div>
     <div style="color:var(--text-muted);font-size:13px;margin-top:4px">المرحلة: ${gradeData.label||S.grade}</div>
     <div style="color:var(--text-muted);font-size:13px">المادة: ${esc(S.subject)}</div>
-    <button class="btn btn-secondary btn-sm" id="go-lessons-p" style="margin-top:12px">تغيير المنهج</button>
+    <button class="btn btn-secondary btn-sm" id="go-lessons-p" style="margin-top:12px">${L('Change curriculum','تغيير المنهج')}</button>
   </div>
 
   <!-- Notifications -->
@@ -4567,10 +4569,10 @@ function tplProfile() {
 
   <!-- PWA Install -->
   <button class="btn btn-secondary" id="b-pwa-install" style="width:100%;margin-bottom:12px;display:none">
-    📲 تثبيت التطبيق على هاتفك
+    📲 ${L('Install the app on your phone','تثبيت التطبيق على هاتفك')}
   </button>
 
-  <button class="btn btn-secondary" id="b-logout" onclick="doLogout()" style="width:100%">${t('🚪 تسجيل الخروج','logout')}</button>
+  <button class="btn btn-secondary" id="b-logout" onclick="doLogout()" style="width:100%">${L('🚪 Sign Out','🚪 تسجيل الخروج')}</button>
 
   ${S.token ? `<button onclick="doDeleteAccount()" style="width:100%;margin-top:10px;padding:12px;background:none;border:1px solid #EF444440;border-radius:12px;color:#EF4444;cursor:pointer;font-family:Cairo,sans-serif;font-size:13px;font-weight:600">
     🗑️ ${S.lang==='en'?'Delete My Account':'حذف حسابي نهائياً'}
@@ -4922,7 +4924,7 @@ function tplSummary() {
         <option value="formulas">قوانين ومعادلات</option>
         <option value="questions">أسئلة تدريبية</option>
       </select>
-      <button class="btn btn-primary" id="b-gen-sum">توليد</button>
+      <button class="btn btn-primary" id="b-gen-sum">${L('Generate','توليد')}</button>
     </div>
   </div>
   ${S.summaryLoading?'<div class="empty-state"><div class="spinner"></div><div>جارٍ التوليد...</div></div>':''}
@@ -4953,7 +4955,7 @@ function tplMindMap() {
   <div class="info-card" style="margin-bottom:16px">
     <div style="display:flex;gap:8px">
       <input id="mm-topic" class="form-input" value="${esc(S.mindMapTopic)}" placeholder="أدخل موضوعاً..." style="flex:1"/>
-      <button class="btn btn-primary" id="b-gen-mm">توليد</button>
+      <button class="btn btn-primary" id="b-gen-mm">${L('Generate','توليد')}</button>
     </div>
   </div>
   ${S.mindMapData?mapHtml:'<div class="empty-state"><div style="font-size:40px">🧠</div><div>أدخل موضوعاً لتوليد الخريطة</div></div>'}
@@ -19422,15 +19424,15 @@ ${viewer}`;
   <div style="background:linear-gradient(135deg,#1E293B,#253047);border:1px solid #3B82F633;border-radius:16px;padding:16px;margin-bottom:20px;display:flex;align-items:center;gap:14px">
     <div style="font-size:40px">📚</div>
     <div>
-      <div style="font-size:16px;font-weight:900;color:var(--text)">مكتبة كتب الوزارة</div>
-      <div style="font-size:12px;color:var(--text-muted);margin-top:2px">${curData.label} · ${gradeData.label} · اقرأ الكتاب مباشرة داخل التطبيق</div>
+      <div style="font-size:16px;font-weight:900;color:var(--text)">${S.lang==='en'?'Official Textbook Library':'مكتبة كتب الوزارة'}</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:2px">${curData.label} · ${gradeData.label} · ${S.lang==='en'?'Read or download the book in the app':'اقرأ الكتاب مباشرة داخل التطبيق'}</div>
     </div>
   </div>
 
   <!-- Books for current grade -->
   ${gradeBooks.length > 0 ? `
   <div style="margin-bottom:24px">
-    <div style="font-size:13px;font-weight:800;color:var(--text-muted);margin-bottom:12px">📖 كتب ${gradeData.label}</div>
+    <div style="font-size:13px;font-weight:800;color:var(--text-muted);margin-bottom:12px">📖 ${S.lang==='en'?'Books':'كتب'} ${gradeData.label}</div>
     <div style="display:flex;flex-direction:column;gap:10px">
       ${gradeBooks.map((subj) => `
       <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden">
@@ -19455,7 +19457,7 @@ ${viewer}`;
             <div style="flex:1;text-align:right">
               <div style="font-size:13px;font-weight:800;color:var(--text)">${esc(book.title)}</div>
               <div style="font-size:11px;color:var(--text-muted);margin-top:2px">${esc(book.term||'')}</div>
-              <div style="display:inline-block;margin-top:4px;background:${subj.color}22;color:${subj.color};font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">${book.badge||'📚 وزارة التعليم'}</div>
+              <div style="display:inline-block;margin-top:4px;background:${subj.color}22;color:${subj.color};font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">${book.badge||(S.lang==='en'?'📚 Ministry of Education':'📚 وزارة التعليم')}</div>
             </div>
             <div style="display:flex;flex-direction:column;gap:5px;flex-shrink:0">
               <button onclick="downloadBook('${book.url}','${esc(book.title)}')"
@@ -19474,13 +19476,13 @@ ${viewer}`;
   </div>` : `
   <div style="background:var(--bg-card);border:1px dashed var(--border);border-radius:14px;padding:32px;text-align:center;margin-bottom:20px">
     <div style="font-size:40px;margin-bottom:8px">📚</div>
-    <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px">الكتب قيد الإضافة</div>
-    <div style="font-size:12px;color:var(--text-muted)">يتم إضافة كتب ${curData.label} تدريجياً</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px">${S.lang==='en'?'Books coming soon':'الكتب قيد الإضافة'}</div>
+    <div style="font-size:12px;color:var(--text-muted)">${S.lang==='en'?`${curData.label} books are being added gradually`:`يتم إضافة كتب ${curData.label} تدريجياً`}</div>
   </div>`}
 
   <!-- Online Resources -->
   <div>
-    <div style="font-size:13px;font-weight:800;color:var(--text-muted);margin-bottom:12px">🌐 مصادر تعليمية إضافية</div>
+    <div style="font-size:13px;font-weight:800;color:var(--text-muted);margin-bottom:12px">🌐 ${S.lang==='en'?'More learning resources':'مصادر تعليمية إضافية'}</div>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px">
       ${[
         { name:'Khan Academy', icon:'🎓', color:'#14BF96', url:'https://ar.khanacademy.org' },
@@ -19493,7 +19495,7 @@ ${viewer}`;
         onmouseover="this.style.borderColor='${r.color}'" onmouseout="this.style.borderColor='var(--border)'">
         <span style="font-size:26px">${r.icon}</span>
         <span style="font-size:12px;font-weight:700;color:var(--text)">${r.name}</span>
-        <span style="font-size:10px;color:${r.color};font-weight:700">↗ فتح</span>
+        <span style="font-size:10px;color:${r.color};font-weight:700">↗ ${S.lang==='en'?'Open':'فتح'}</span>
       </a>`).join('')}
     </div>
   </div>
