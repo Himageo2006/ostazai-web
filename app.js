@@ -4432,8 +4432,8 @@ function tplProfile() {
     ${planExpiry ? `<div style="font-size:11px;color:var(--text-muted);margin-top:6px">${S.lang==='en'?'Pro valid until:':'صلاحية Pro حتى:'} ${planExpiry}</div>` : ''}
   </div>
 
-  <!-- Referral -->
-  ${u.referralCode ? `
+  <!-- Referral (hidden on iOS per App Store guideline 3.1.1) -->
+  ${u.referralCode && !IS_IOS_APP ? `
   <div class="info-card" style="margin-bottom:16px;border-color:#F59E0B44;background:linear-gradient(135deg,#F59E0B08,transparent)">
     <div style="font-weight:800;margin-bottom:10px;font-size:15px">🎁 ${S.lang==='en'?'Referral Code — Get 7 days Pro free!':'كود الإحالة — احصل على 7 أيام Pro مجاناً!'}</div>
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
@@ -19595,18 +19595,18 @@ function tplUpgrade() {
     <div style="text-align:center;font-size:12px;color:var(--text-muted);padding:6px 0">⏳ سيتوفر الدفع المحلي قريباً — ترقّبوا!</div>
   </div>
 
-  <!-- Promo Code -->
-  <div class="info-card" style="max-width:560px;margin:0 auto 16px">
+  <!-- Promo Code (hidden on iOS per App Store guideline 3.1.1) -->
+  ${IS_IOS_APP ? '' : `<div class="info-card" style="max-width:560px;margin:0 auto 16px">
     <div style="font-weight:800;margin-bottom:10px">🎁 ${S.lang==='en'?'Have an upgrade code?':'عندك كود ترقية؟'}</div>
     <div style="display:flex;gap:8px">
       <input id="promo-inp" class="form-input" placeholder="${S.lang==='en'?'Enter code (e.g. OSTAZ2025)':'أدخل الكود هنا (مثال: OSTAZ2025)'}" style="flex:1;letter-spacing:2px;text-transform:uppercase"/>
       <button class="btn btn-primary" id="b-redeem">${S.lang==='en'?'Activate':'تفعيل'}</button>
     </div>
     <div id="promo-msg" style="display:none;margin-top:8px;font-size:13px;font-weight:700"></div>
-  </div>
+  </div>`}
 
-  <!-- Free trial via referral -->
-  ${(S.user?.referralCode) ? `
+  <!-- Free trial via referral (hidden on iOS per App Store guideline 3.1.1) -->
+  ${(S.user?.referralCode && !IS_IOS_APP) ? `
   <div class="info-card" style="max-width:560px;margin:0 auto;border-color:#25D36644;background:#25D36608;text-align:center">
     <div style="font-size:18px;font-weight:900;margin-bottom:6px">💬 شارك مع صديق — اشترك معاً مجاناً</div>
     <div style="font-size:13px;color:var(--text-muted);margin-bottom:12px">اشترك بكودك الشخصي وكلاكما يحصل على 7 أيام Pro مجاناً</div>
