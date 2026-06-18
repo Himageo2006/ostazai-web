@@ -3325,6 +3325,19 @@ function tplLogin() {
       <p style="color:#CBD5E1;max-width:560px;margin:8px auto 20px">${L('انضم إلى طلاب من الصف الأول حتى الثانوية وابدأ التعلّم مع مدرّسك الذكي الخاص اليوم.','Join students from Year 1 to High School and start learning with your personal AI tutor today.')}</p>
       <button class="lp-btn" onclick="goRegister()">${L('ابدأ التعلّم مجاناً','Start Learning Free')}</button>
     </div>
+    <div class="lp-footlinks" style="border-top:1px solid var(--border);padding-top:18px">
+      <a href="ai-math-tutor.html">AI Math Tutor</a>
+      <a href="ai-science-tutor.html">AI Science Tutor</a>
+      <a href="ai-english-tutor.html">AI English Tutor</a>
+      <a href="ai-homework-helper.html">AI Homework Helper</a>
+      <a href="ai-tutor-primary-school.html">${L('ابتدائي','Primary')}</a>
+      <a href="ai-tutor-middle-school.html">${L('متوسط','Middle')}</a>
+      <a href="ai-tutor-high-school.html">${L('ثانوي','High School')}</a>
+      <a href="ai-tutor-igcse.html">IGCSE</a>
+      <a href="ai-tutor-gcse.html">GCSE</a>
+      <a href="ai-tutor-sat.html">SAT</a>
+      <a href="ai-tutor-american-curriculum.html">${L('المنهج الأمريكي','American')}</a>
+    </div>
     <div class="lp-footlinks">
       <a onclick="document.querySelector('.lp-hero').scrollIntoView({behavior:'smooth'})">${L('عن المنصة','About')}</a>
       <a onclick="document.getElementById('lp-how').scrollIntoView({behavior:'smooth'})">${L('المميزات','Features')}</a>
