@@ -1010,6 +1010,7 @@ function render() {
   else if (S.screen === 'login')         { el.innerHTML = tplLogin(); }
   else if (S.screen === 'signin')        { el.innerHTML = tplSignin(); }
   else if (S.screen === 'parent')        { el.innerHTML = tplParent(); }
+  else if (S.screen === 'teacher')       { el.innerHTML = tplTeacher(); if (S.token) setTimeout(loadTeacherClasses, 50); }
   else if (S.screen === 'register')      { el.innerHTML = tplRegister(); }
   else if (S.screen === 'forgot')        { el.innerHTML = tplForgotPassword(); }
   else if (S.screen === 'reset-password'){ el.innerHTML = tplResetPassword(S.resetToken || ''); }
@@ -3114,6 +3115,94 @@ async function doParentView() {
   }
 }
 
+function goTeacher() { S.screen = 'teacher'; render(); }
+
+/* ── Teacher Dashboard (classes + roster) ── */
+function tplTeacher() {
+  const L = (ar, en) => S.lang === 'en' ? en : ar;
+  const back = `<div style="position:absolute;top:16px;left:16px"><button onclick="S.screen='login';render()" style="background:none;border:1px solid var(--border);border-radius:12px;padding:4px 10px;font-size:12px;cursor:pointer;color:var(--text-muted);font-family:Cairo,sans-serif">${L('← الرئيسية','← Home')}</button></div>`;
+  if (!S.token) {
+    return `<div class="auth-screen"><div class="auth-card">${back}
+      <div class="auth-logo">👩‍🏫</div>
+      <div class="auth-title">${L('لوحة المعلّم','Teacher Dashboard')}</div>
+      <div class="auth-subtitle">${L('سجّل الدخول لإنشاء فصل ومتابعة طلابك.','Sign in to create a class and track your students.')}</div>
+      <button class="btn btn-primary" style="width:100%;margin-top:8px" onclick="goSignin()">${L('تسجيل الدخول','Sign in')}</button>
+    </div></div>`;
+  }
+  return `<div class="auth-screen"><div class="auth-card" style="max-width:620px">${back}
+    <div class="auth-logo">👩‍🏫</div>
+    <div class="auth-title">${L('لوحة المعلّم','Teacher Dashboard')}</div>
+    <div class="auth-subtitle">${L('أنشئ فصلاً، شارك الكود مع طلابك، وتابع نشاطهم.','Create a class, share the code with your students, and track their activity.')}</div>
+    <div id="teacher-msg" class="error-msg" style="display:none"></div>
+
+    <div class="form-group" style="margin-top:6px"><label class="form-label">${L('إنشاء فصل جديد','Create a new class')}</label>
+      <input id="class-name" class="form-input" type="text" placeholder="${L('اسم الفصل (مثال: الصف 9 رياضيات)','Class name (e.g. Grade 9 Math)')}" style="width:100%;margin-bottom:8px"/>
+      <button class="btn btn-primary" style="width:100%" onclick="createClass()">${L('إنشاء الفصل','Create class')}</button>
+    </div>
+
+    <div class="form-group"><label class="form-label">${L('الانضمام إلى فصل (للطلاب)','Join a class (students)')}</label>
+      <input id="join-code" class="form-input" type="text" placeholder="${L('كود الفصل','Class code')}" style="width:100%;margin-bottom:8px;text-transform:uppercase;letter-spacing:3px"/>
+      <button class="btn btn-secondary" style="width:100%" onclick="joinClass()">${L('انضمام','Join class')}</button>
+    </div>
+
+    <div id="teacher-classes" style="margin-top:18px;text-align:center;color:var(--text-muted)">${L('جارٍ التحميل...','Loading...')}</div>
+  </div></div>`;
+}
+
+async function loadTeacherClasses() {
+  const L = (ar, en) => S.lang === 'en' ? en : ar;
+  const wrap = ge('teacher-classes');
+  if (!wrap) return;
+  try {
+    const classes = await req('/teacher/classes');
+    if (!Array.isArray(classes) || !classes.length) {
+      wrap.innerHTML = `<div style="font-size:13px;color:var(--text-muted)">${L('لا توجد فصول بعد. أنشئ فصلاً للبدء.','No classes yet. Create one to get started.')}</div>`;
+      return;
+    }
+    const fmtSeen = (x) => { if(!x) return '—'; const ago=Math.floor((Date.now()-new Date(x))/86400000); return ago<=0?L('اليوم','Today'):ago===1?L('أمس','Yesterday'):L(`منذ ${ago} يوم`,`${ago}d ago`); };
+    wrap.innerHTML = classes.map(c => `
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:12px;text-align:${S.lang==='en'?'left':'right'}">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+          <div style="font-weight:900;font-size:15px">${esc(c.name)}</div>
+          <div style="font-size:12px;color:var(--text-muted)">${L('كود','Code')}: <code style="background:var(--bg);padding:3px 8px;border-radius:6px;letter-spacing:2px;font-weight:800;color:#F59E0B">${c.joinCode}</code>
+            <button onclick="deleteClass('${c.id}')" title="delete" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:13px;margin-inline-start:6px">🗑</button></div>
+        </div>
+        <div style="font-size:12px;color:var(--text-muted);margin:8px 0 4px">${c.students.length} ${L('طالب','students')}</div>
+        ${c.students.length ? `
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+          <tr style="color:var(--text-muted);font-size:11px;text-align:${S.lang==='en'?'left':'right'}">
+            <th style="padding:4px">${L('الطالب','Student')}</th><th style="padding:4px">${L('الأسئلة','Questions')}</th><th style="padding:4px">${L('آخر نشاط','Last active')}</th><th style="padding:4px">${L('الخطة','Plan')}</th></tr>
+          ${c.students.map(s=>`<tr style="border-top:1px solid var(--border)">
+            <td style="padding:6px 4px;font-weight:700">${esc(s.name||'')}</td>
+            <td style="padding:6px 4px">${s.totalQuestions||0}</td>
+            <td style="padding:6px 4px;color:var(--text-muted)">${fmtSeen(s.lastSeen)}</td>
+            <td style="padding:6px 4px">${s.plan==='pro'?'⭐':'·'}</td></tr>`).join('')}
+        </table>` : `<div style="font-size:12px;color:var(--text-muted)">${L('شارك الكود مع طلابك للانضمام.','Share the code with students to join.')}</div>`}
+      </div>`).join('');
+  } catch (e) {
+    wrap.innerHTML = `<div style="font-size:13px;color:#EF4444">${L('تعذّر التحميل','Could not load')}</div>`;
+  }
+}
+
+async function createClass() {
+  const name = (ge('class-name')?.value || '').trim();
+  if (!name) return;
+  try { await req('/teacher/class', 'POST', { name }); if(ge('class-name')) ge('class-name').value=''; loadTeacherClasses(); }
+  catch (e) { showToast(e.message, 'error'); }
+}
+
+async function joinClass() {
+  const code = (ge('join-code')?.value || '').trim().toUpperCase();
+  if (!code) return;
+  try { const d = await req('/teacher/join', 'POST', { code }); showToast((S.lang==='en'?'Joined ':'انضممت إلى ') + (d.className||''), 'success'); if(ge('join-code')) ge('join-code').value=''; loadTeacherClasses(); }
+  catch (e) { showToast(S.lang==='en'?'Class not found':'الفصل غير موجود', 'error'); }
+}
+
+async function deleteClass(id) {
+  try { await req('/teacher/class/' + id, 'DELETE'); loadTeacherClasses(); }
+  catch (e) { showToast(e.message, 'error'); }
+}
+
 async function showParentCode() {
   const box = ge('parent-code-box');
   if (!box) return;
@@ -3420,6 +3509,7 @@ function tplLogin() {
       <a onclick="document.getElementById('lp-how').scrollIntoView({behavior:'smooth'})">${L('المميزات','Features')}</a>
       <a onclick="document.getElementById('lp-pricing').scrollIntoView({behavior:'smooth'})">${L('الأسعار','Pricing')}</a>
       <a onclick="goParent()">${L('لوحة ولي الأمر','For Parents')}</a>
+      <a onclick="goTeacher()">${L('لوحة المعلّم','For Teachers')}</a>
       <a href="mailto:support@ostazzai.com">${L('تواصل معنا','Contact')}</a>
       <a href="privacy.html">${L('سياسة الخصوصية','Privacy Policy')}</a>
       <a href="terms.html">${L('شروط الاستخدام','Terms of Service')}</a>
