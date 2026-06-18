@@ -3098,6 +3098,14 @@ function tplLogin() {
   .lp-intl-title{font-size:22px;font-weight:900}
   .lp-intl-desc{font-size:14px;color:var(--text-muted);margin-top:4px}
   .lp-uc{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;font-weight:700;font-size:15px}
+  .lp-journey{display:flex;align-items:stretch;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:20px}
+  .lp-step{flex:1;min-width:150px;max-width:210px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px 14px;text-align:center;position:relative}
+  .lp-stepnum{position:absolute;top:10px;inset-inline-start:12px;width:22px;height:22px;border-radius:50%;background:#F59E0B;color:#0F172A;font-weight:900;font-size:12px;display:flex;align-items:center;justify-content:center}
+  .lp-stepicon{font-size:34px}
+  .lp-steptitle{font-size:17px;font-weight:900;margin-top:6px;color:#60A5FA}
+  .lp-stepdesc{font-size:13px;color:var(--text-muted);margin-top:4px}
+  .lp-arrow{display:flex;align-items:center;color:#F59E0B;font-size:24px;font-weight:900}
+  @media(max-width:720px){.lp-arrow{transform:rotate(90deg)}}
   .lp-subjcol{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px}
   .lp-subjcol h3{margin:0 0 10px;font-size:17px}
   .lp-chip{display:inline-block;background:rgba(96,165,250,.12);color:#93C5FD;border-radius:999px;padding:5px 12px;margin:3px;font-size:13px;font-weight:700}
@@ -3189,6 +3197,21 @@ function tplLogin() {
     </div>
   </section>
 
+  <!-- 3b. LEARNING JOURNEY -->
+  <section>
+    <h2>${L('رحلة التعلّم','The Learning Journey')}</h2>
+    <div class="lp-sub2">${L('اسأل ← تعلّم ← تدرّب ← تطوّر','Ask → Learn → Practice → Improve')}</div>
+    <div class="lp-journey">
+      <div class="lp-step"><div class="lp-stepnum">1</div><div class="lp-stepicon">💬</div><div class="lp-steptitle">${L('اسأل','Ask')}</div><div class="lp-stepdesc">${L('اطرح أي سؤال دراسي.','Ask any question.')}</div></div>
+      <div class="lp-arrow">→</div>
+      <div class="lp-step"><div class="lp-stepnum">2</div><div class="lp-stepicon">💡</div><div class="lp-steptitle">${L('تعلّم','Learn')}</div><div class="lp-stepdesc">${L('احصل على شرح مخصّص لك.','Get a personalized explanation.')}</div></div>
+      <div class="lp-arrow">→</div>
+      <div class="lp-step"><div class="lp-stepnum">3</div><div class="lp-stepicon">📝</div><div class="lp-steptitle">${L('تدرّب','Practice')}</div><div class="lp-stepdesc">${L('تدرّب بأسئلة من إنشاء الذكاء.','Practice with AI-generated questions.')}</div></div>
+      <div class="lp-arrow">→</div>
+      <div class="lp-step"><div class="lp-stepnum">4</div><div class="lp-stepicon">📈</div><div class="lp-steptitle">${L('تطوّر','Improve')}</div><div class="lp-stepdesc">${L('تابع تقدّمك باستمرار.','Track your progress.')}</div></div>
+    </div>
+  </section>
+
   <!-- 4. SUBJECTS -->
   <section>
     <h2>${L('المواد المغطّاة','Subjects covered')}</h2>
@@ -3201,18 +3224,27 @@ function tplLogin() {
       <div class="lp-subjcol"><h3>🎓 ${L('ثانوي','High School')}</h3>
         <span class="lp-chip">${L('رياضيات','Math')}</span><span class="lp-chip">${L('فيزياء','Physics')}</span><span class="lp-chip">${L('كيمياء','Chemistry')}</span><span class="lp-chip">${L('أحياء','Biology')}</span><span class="lp-chip">${L('إنجليزي','English')}</span></div>
     </div>
+    <!-- 8. CURRICULA -->
+    <h2 style="margin-top:40px">${L('يدعم مناهج متعددة','Supports multiple curricula')}</h2>
+    <div class="lp-sub2">${L('مهما كان نظام مدرستك، OstazzAI يواكبك.','Whatever school system you follow, OstazzAI keeps up.')}</div>
+    <div class="lp-grid2" style="max-width:760px;margin:0 auto">
+      ${useCase('🇬🇧', L('المنهج البريطاني (IGCSE / A-Level)','British (IGCSE / A-Level)'))}
+      ${useCase('🇺🇸', L('المنهج الأمريكي (Common Core / AP)','American (Common Core / AP)'))}
+      ${useCase('🌐', L('المناهج الدولية (IB / Cambridge)','International (IB / Cambridge)'))}
+      ${useCase('🏫', L('المناهج الوطنية (الدول العربية)','National curricula (Arab countries)'))}
+    </div>
   </section>
 
-  <!-- 5. DEMOS -->
-  <section>
-    <h2>${L('شاهد كيف يشرح','See how it explains')}</h2>
-    <div class="lp-sub2">${L('أمثلة حقيقية على الإجابات حسب المستوى.','Real examples of answers by level.')}</div>
+  <!-- 5. SEE IT IN ACTION -->
+  <section id="lp-action">
+    <h2>${L('شاهد OstazzAI أثناء العمل','See OstazzAI in Action')}</h2>
+    <div class="lp-sub2">${L('محادثات حقيقية من داخل المنصة عبر كل المراحل.','Real conversations from inside the app, across every level.')}</div>
     <div class="lp-demos">
-      ${demo(L('الصف 3','Year 3'), L('رياضيات','Math'), L('كم يساوي 24 + 18؟','What is 24 + 18?'), L('نجمع خطوة بخطوة: العشرات 20+10=30، والآحاد 4+8=12، إذن 30+12 = 42 ✅','Add step by step: tens 20+10=30, ones 4+8=12, so 30+12 = 42 ✅'))}
-      ${demo(L('الصف 6','Year 6'), L('علوم','Science'), L('لماذا نرى البرق قبل الرعد؟','Why do we see lightning before thunder?'), L('الضوء أسرع بكثير من الصوت، لذا نرى الومضة أولاً ثم نسمع الرعد بعد ثوانٍ.','Light travels much faster than sound, so you see the flash first, then hear the thunder seconds later.'))}
-      ${demo(L('الصف 9','Year 9'), L('جبر','Algebra'), L('حل 3س + 5 = 20','Solve 3x + 5 = 20'), L('3س = 20 − 5 = 15، إذن س = 15 ÷ 3 = 5 ✅','3x = 20 − 5 = 15, so x = 15 ÷ 3 = 5 ✅'))}
-      ${demo(L('ثانوي','High School'), L('فيزياء','Physics'), L('ما قانون نيوتن الثاني؟',"Newton's second law?"), L('القوة = الكتلة × التسارع (ق = ك×ت).','Force = mass × acceleration (F = ma).'))}
-      ${demo(L('تصحيح','Correction'), L('إنجليزي','English'), 'He go to school every day.', L("التصحيح: «He goes to school every day» — مع الفاعل المفرد الغائب نضيف s.","Correction: 'He goes to school every day' — third-person singular adds 's'."))}
+      ${demo(L('الصف 2','Year 2'), L('رياضيات','Math'), L('كم يساوي 35 + 27؟','What is 35 + 27?'), L('نجمع خطوة بخطوة: العشرات 30+20=50، والآحاد 5+7=12، إذن 50+12 = 62 ✅','Add step by step: tens 30+20=50, ones 5+7=12, so 50+12 = 62 ✅'))}
+      ${demo(L('الصف 5','Year 5'), L('علوم','Science'), L('لماذا تحتاج النباتات إلى ضوء الشمس؟','Why do plants need sunlight?'), L('لتصنع غذاءها بعملية البناء الضوئي: تحوّل ضوء الشمس والماء وثاني أكسيد الكربون إلى سكر وأكسجين. 🌱','To make their food by photosynthesis — they turn sunlight, water, and CO₂ into sugar and oxygen. 🌱'))}
+      ${demo(L('الصف 8','Year 8'), L('إنجليزي','English'), L('صحّح فقرتي.','Correct my paragraph.'), L('راجعتُ فقرتك وصحّحت أزمنة الأفعال وعلامات الترقيم، مع تمييز كل تعديل وسبب التصحيح. ✍️','I reviewed your paragraph and fixed verb tenses and punctuation, highlighting each change and why. ✍️'))}
+      ${demo(L('الصف 10','Year 10'), L('فيزياء','Physics'), L('اشرح قانون نيوتن الثاني.',"Explain Newton's Second Law."), L('القوة المحصّلة = الكتلة × التسارع (ق = ك×ت). كلما زادت القوة زاد التسارع، وكلما زادت الكتلة قلّ التسارع.','Net force = mass × acceleration (F = ma). More force → more acceleration; more mass → less acceleration.'))}
+      ${demo(L('الصف 12','Year 12'), L('كيمياء','Chemistry'), L('وازن المعادلة الكيميائية.','Balance this chemical equation.'), L('مثال: H₂ + O₂ → H₂O تصبح 2H₂ + O₂ → 2H₂O، بحيث تتساوى الذرات على الطرفين. ⚗️','e.g. H₂ + O₂ → H₂O becomes 2H₂ + O₂ → 2H₂O, so atoms balance on both sides. ⚗️'))}
     </div>
   </section>
 
@@ -3286,8 +3318,8 @@ function tplLogin() {
   <!-- 9. FINAL CTA -->
   <section>
     <div class="lp-final">
-      <h2>${L('اجعل طفلك يتعلّم بثقة اليوم','Help your child learn with confidence today')}</h2>
-      <p style="color:#CBD5E1;max-width:520px;margin:8px auto 20px">${L('انضم لآلاف الطلاب — مجاناً للبدء.','Join thousands of students — free to start.')}</p>
+      <h2>${L('جاهز لتتعلّم بذكاء؟','Ready to Learn Smarter?')}</h2>
+      <p style="color:#CBD5E1;max-width:560px;margin:8px auto 20px">${L('انضم إلى طلاب من الصف الأول حتى الثانوية وابدأ التعلّم مع مدرّسك الذكي الخاص اليوم.','Join students from Year 1 to High School and start learning with your personal AI tutor today.')}</p>
       <button class="lp-btn" onclick="goRegister()">${L('ابدأ التعلّم مجاناً','Start Learning Free')}</button>
     </div>
     <div class="lp-footlinks">
