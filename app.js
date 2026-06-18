@@ -3125,7 +3125,10 @@ function tplLogin() {
   .lp-faq-a{padding:0 0 14px;color:var(--text-muted);font-size:14px}
   .lp-final{text-align:center;background:linear-gradient(135deg,#1E3A8A,#0F172A);border-radius:24px;padding:46px 20px;margin:20px auto}
   .lp-final h2{font-size:28px}
-  .lp-foot{text-align:center;color:var(--text-muted);font-size:12px;padding:24px}
+  .lp-footlinks{display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;padding:20px 16px 4px}
+  .lp-footlinks a{color:var(--text-muted);font-size:14px;font-weight:700;cursor:pointer;text-decoration:none}
+  .lp-footlinks a:hover{color:#F59E0B;text-decoration:underline}
+  .lp-foot{text-align:center;color:var(--text-muted);font-size:12px;padding:10px 24px 28px}
   @media(max-width:720px){
     .lp-hero h1{font-size:28px}
     .lp-grid3{grid-template-columns:1fr}
@@ -3174,15 +3177,15 @@ function tplLogin() {
   </section>
 
   <!-- 3. HOW IT HELPS -->
-  <section>
-    <h2>${L('ماذا يستطيع الطلاب فعله مع OstazzAI؟','What can students do with OstazzAI?')}</h2>
+  <section id="lp-how">
+    <h2>${L('كيف يساعدك OstazzAI على التعلّم','How OstazzAI Helps You Learn')}</h2>
     <div class="lp-grid2" style="margin-top:18px">
+      ${useCase('📖', L('تعلّم أي موضوع بشرح مبسّط','Learn any topic with simple explanations'))}
       ${useCase('📝', L('حل الواجبات خطوة بخطوة','Solve homework step by step'))}
-      ${useCase('💡', L('شرح الدروس الصعبة ببساطة','Explain difficult lessons simply'))}
-      ${useCase('✅', L('التدرّب على اختبارات قصيرة','Practice quizzes'))}
-      ${useCase('🎯', L('الاستعداد للامتحانات','Prepare for exams'))}
-      ${useCase('✍️', L('تحسين الكتابة بالإنجليزية','Improve English writing'))}
-      ${useCase('💬', L('طرح الأسئلة في أي وقت','Ask questions anytime'))}
+      ${useCase('🎯', L('تدرّب على الاختبارات والامتحانات','Practice quizzes and exams'))}
+      ${useCase('✍️', L('حسّن الكتابة والقواعد','Improve writing and grammar'))}
+      ${useCase('💬', L('اسأل أسئلة غير محدودة في أي وقت','Ask unlimited questions, anytime'))}
+      ${useCase('📈', L('تعلّم بالسرعة التي تناسبك','Learn at your own pace'))}
     </div>
   </section>
 
@@ -3227,8 +3230,21 @@ function tplLogin() {
     </div>
   </section>
 
-  <!-- 7. PRICING -->
+  <!-- 6b. WHY CHOOSE -->
   <section>
+    <h2>${L('لماذا يختار الطلاب والأهل OstazzAI','Why Students and Parents Choose OstazzAI')}</h2>
+    <div class="lp-grid3" style="margin-top:18px">
+      ${useCase('🎯', L('تعلّم مخصّص لكل طالب','Personalized learning'))}
+      ${useCase('🕒', L('متاح 24/7','Available 24/7'))}
+      ${useCase('🏫', L('يغطّي كل المراحل الدراسية','Covers all school levels'))}
+      ${useCase('📚', L('يدعم مواد متعددة','Supports multiple subjects'))}
+      ${useCase('📱', L('سهل الاستخدام على أي جهاز','Easy to use on any device'))}
+      ${useCase('⚡', L('إجابات فورية ودقيقة','Instant, accurate answers'))}
+    </div>
+  </section>
+
+  <!-- 7. PRICING -->
+  <section id="lp-pricing">
     <h2>${L('الأسعار','Pricing')}</h2>
     <div class="lp-sub2">${L('ابدأ مجاناً. ارتقِ عندما تحتاج دعماً أكثر تقدّماً.','Start free. Upgrade when you need more advanced support.')}</div>
     <div class="lp-price">
@@ -3274,7 +3290,16 @@ function tplLogin() {
       <p style="color:#CBD5E1;max-width:520px;margin:8px auto 20px">${L('انضم لآلاف الطلاب — مجاناً للبدء.','Join thousands of students — free to start.')}</p>
       <button class="lp-btn" onclick="goRegister()">${L('ابدأ التعلّم مجاناً','Start Learning Free')}</button>
     </div>
-    <div class="lp-foot">© 2026 OstazzAI — ${L('منصة التعلّم الذكي','Smart learning platform')} · <span style="cursor:pointer;text-decoration:underline" onclick="goSignin()">${L('تسجيل الدخول','Sign in')}</span></div>
+    <div class="lp-footlinks">
+      <a onclick="document.querySelector('.lp-hero').scrollIntoView({behavior:'smooth'})">${L('عن المنصة','About')}</a>
+      <a onclick="document.getElementById('lp-how').scrollIntoView({behavior:'smooth'})">${L('المميزات','Features')}</a>
+      <a onclick="document.getElementById('lp-pricing').scrollIntoView({behavior:'smooth'})">${L('الأسعار','Pricing')}</a>
+      <a href="mailto:support@ostazzai.com">${L('تواصل معنا','Contact')}</a>
+      <a href="privacy.html">${L('سياسة الخصوصية','Privacy Policy')}</a>
+      <a href="terms.html">${L('شروط الاستخدام','Terms of Service')}</a>
+      <a onclick="goSignin()">${L('تسجيل الدخول','Sign in')}</a>
+    </div>
+    <div class="lp-foot">© 2026 OstazzAI — ${L('منصة التعلّم الذكي','Smart learning platform')}</div>
   </section>
 </div>`;
 }
