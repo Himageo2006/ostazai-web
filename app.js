@@ -19272,10 +19272,10 @@ function tplTextbook() {
           style="background:var(--primary);color:#fff;border-radius:14px;padding:14px 36px;font-size:16px;font-weight:900;text-decoration:none;font-family:Cairo,sans-serif;box-shadow:0 4px 14px #3B82F655">
           📖 ${S.lang==='en'?'Open the book':'فتح الكتاب'}
         </a>
-        <a href="${dlUrl}" target="_blank" rel="noopener"
-          style="background:var(--bg-card);border:1.5px solid var(--border);color:var(--text);border-radius:12px;padding:10px 26px;font-size:13px;font-weight:700;text-decoration:none;font-family:Cairo,sans-serif">
+        <button onclick="downloadBook('${dlUrl}','${esc(S.textbookActiveTitle||'كتاب')}')"
+          style="background:var(--bg-card);border:1.5px solid var(--border);color:var(--text);border-radius:12px;padding:10px 26px;font-size:13px;font-weight:700;cursor:pointer;font-family:Cairo,sans-serif">
           ⬇️ ${S.lang==='en'?'Download':'تحميل الكتاب'}
-        </a>
+        </button>
       </div>`;
     } else if (isPdf) {
       viewer = `<embed src="${viewUrl}" type="application/pdf" style="width:100%;height:calc(100vh - 110px);display:block">`;
@@ -19290,8 +19290,8 @@ function tplTextbook() {
     style="background:#10B981;color:#fff;border:none;border-radius:8px;padding:6px 12px;font-size:11px;font-weight:800;cursor:pointer;font-family:Cairo,sans-serif;white-space:nowrap">
     🤖 ${S.lang==='en'?'Ask AI':'اسأل AI'}
   </button>
-  <a href="${dlUrl}" target="_blank"
-    style="background:var(--primary);color:#fff;border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;text-decoration:none;font-family:Cairo,sans-serif">⬇️</a>
+  <button onclick="downloadBook('${dlUrl}','${esc(S.textbookActiveTitle||'كتاب')}')"
+    style="background:var(--primary);color:#fff;border:none;border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:Cairo,sans-serif">⬇️</button>
 </div>
 ${viewer}`;
   }
@@ -19458,15 +19458,14 @@ ${viewer}`;
               <div style="display:inline-block;margin-top:4px;background:${subj.color}22;color:${subj.color};font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">${book.badge||'📚 وزارة التعليم'}</div>
             </div>
             <div style="display:flex;flex-direction:column;gap:5px;flex-shrink:0">
+              <button onclick="downloadBook('${book.url}','${esc(book.title)}')"
+                style="background:${subj.color};color:#fff;font-size:11px;font-weight:700;padding:6px 12px;border-radius:8px;border:none;cursor:pointer;font-family:Cairo,sans-serif;display:block;text-align:center;white-space:nowrap">
+                ⬇️ ${S.lang==='en'?'Download':'تحميل'}
+              </button>
               <a href="${book.viewUrl || book.url}" target="_blank" rel="noopener"
-                onclick="event.preventDefault();viewPDF('${book.url}','${book.viewUrl||book.url}','${esc(subj.subj)}','${esc(book.title)}')"
-                style="background:${subj.color};color:#fff;font-size:11px;font-weight:700;padding:6px 12px;border-radius:8px;border:none;cursor:pointer;font-family:Cairo,sans-serif;display:block;text-decoration:none;text-align:center">
-                📖 ${book.external?'افتح':'قراءة'}
+                style="background:transparent;color:${subj.color};font-size:11px;font-weight:700;padding:5px 12px;border-radius:8px;border:1px solid ${subj.color};cursor:pointer;font-family:Cairo,sans-serif;display:block;text-decoration:none;text-align:center;white-space:nowrap">
+                📖 ${book.external?(S.lang==='en'?'Open':'افتح'):(S.lang==='en'?'Open':'فتح')}
               </a>
-              ${book.external?'':`<a href="${book.url}" target="_blank" rel="noopener"
-                style="background:transparent;color:${subj.color};font-size:11px;font-weight:700;padding:5px 12px;border-radius:8px;border:1px solid ${subj.color};cursor:pointer;font-family:Cairo,sans-serif;display:block;text-decoration:none;text-align:center">
-                ⬇️ تحميل
-              </a>`}
             </div>
           </div>`).join('')}
         </div>
