@@ -3747,7 +3747,7 @@ function tplShell(content) {
       <div class="sidebar-logo" style="margin-bottom:0">🎓 أستاذ AI</div>
       <button onclick="doLogout()" style="background:#EF444420;border:1px solid #EF444440;color:#EF4444;padding:5px 10px;border-radius:10px;font-family:Cairo,sans-serif;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap">🚪 ${S.lang==='en'?'Logout':'خروج'}</button>
     </div>
-    <div class="sidebar-cur">${curData.label} · ${gradeData.label}</div>
+    <div class="sidebar-cur">${curLabel(S.curriculum)} · ${gradeData.label}</div>
     <!-- Streak + stats mini bar -->
     <div style="display:flex;gap:6px;margin:6px 8px 2px;flex-wrap:wrap">
       <div style="flex:1;background:#F59E0B18;border:1px solid #F59E0B30;border-radius:10px;padding:5px 8px;text-align:center">
@@ -3873,7 +3873,7 @@ function tplHome() {
 
   // Build country options
   const countryOpts = Object.entries(CURRICULA).map(([k,v]) =>
-    `<option value="${k}" ${S.curriculum===k?'selected':''}>${v.label}</option>`
+    `<option value="${k}" ${S.curriculum===k?'selected':''}>${curLabel(k)}</option>`
   ).join('');
   const gradeOpts = Object.entries(curData.grades).map(([k,v]) =>
     `<option value="${k}" ${S.grade===k?'selected':''}>${v.label}</option>`
@@ -3896,7 +3896,7 @@ function tplHome() {
       <div style="font-size:20px;font-weight:900;color:#fff;margin-bottom:2px">
         ${userName ? userName + ' 👋' : 'أستاذ AI 🎓'}
       </div>
-      <div style="font-size:10px;color:#c4b5fd;margin-bottom:10px">${curData.label} · ${gradeData.label}</div>
+      <div style="font-size:10px;color:#c4b5fd;margin-bottom:10px">${curLabel(S.curriculum)} · ${gradeData.label}</div>
       <!-- Stats Strip -->
       <div style="display:flex;gap:8px;justify-content:center">
         <div style="background:#ffffff15;border:1px solid #ffffff20;border-radius:12px;padding:6px 12px;text-align:center">
@@ -19542,24 +19542,24 @@ function tplUpgrade() {
     <div style="font-size:22px;font-weight:900;color:#F59E0B;margin-bottom:8px">${S.lang==='en'?'You are subscribed to Pro!':'أنت مشترك في Pro!'}</div>
     ${expiryDate ? `
     <div style="color:var(--text-muted);font-size:13px;margin-bottom:16px">
-      ${isExpired ? '❌ انتهى الاشتراك' : `${S.lang==='en'?'Expires:':'ينتهي في:'} <b style="color:${barColor}">${expiry}</b> (${daysLeft} ${S.lang==='en'?'days left)':'يوم متبقي)'}`}
+      ${isExpired ? (S.lang==='en'?'❌ Subscription ended':'❌ انتهى الاشتراك') : `${S.lang==='en'?'Expires:':'ينتهي في:'} <b style="color:${barColor}">${expiry}</b> (${daysLeft} ${S.lang==='en'?'days left)':'يوم متبقي)'}`}
     </div>
     <div style="background:var(--bg);border-radius:20px;height:10px;overflow:hidden;margin-bottom:8px">
       <div style="height:100%;width:${barPct}%;background:${barColor};border-radius:20px;transition:.5s"></div>
     </div>` : ''}
     ${isExpiringSoon ? `
     <div style="background:#EF444422;border:1px solid #EF444444;border-radius:8px;padding:10px;font-size:13px;color:#EF4444;margin-top:12px">
-      ⚠️ اشتراكك ينتهي قريباً! جدّد الآن للاستمرار
+      ⚠️ ${L('Your subscription ends soon! Renew now to continue','اشتراكك ينتهي قريباً! جدّد الآن للاستمرار')}
     </div>` : ''}
     ${isExpired ? `
     <div style="background:#EF444422;border:1px solid #EF444444;border-radius:8px;padding:10px;font-size:13px;color:#EF4444;margin-top:12px">
-      ❌ انتهى اشتراكك — جدّد الآن لاسترداد المزايا كاملة
+      ❌ ${L('Your subscription ended — renew now to restore all features','انتهى اشتراكك — جدّد الآن لاسترداد المزايا كاملة')}
     </div>` : ''}
-    <div style="margin-top:16px;font-size:13px;color:var(--text-muted)">✅ أسئلة غير محدودة &nbsp;|&nbsp; 🧠 خرائط ذهنية &nbsp;|&nbsp; 📸 حل بالصورة</div>
+    <div style="margin-top:16px;font-size:13px;color:var(--text-muted)">✅ ${L('Unlimited questions','أسئلة غير محدودة')} &nbsp;|&nbsp; 🧠 ${L('Mind maps','خرائط ذهنية')} &nbsp;|&nbsp; 📸 ${L('Photo solving','حل بالصورة')}</div>
   </div>
   ${(isExpiringSoon || isExpired) && !IS_IOS_APP ? `
   <button class="btn btn-primary" style="width:100%;max-width:400px;display:block;margin:0 auto 16px;font-size:16px;padding:14px" onclick="S.user.plan='free';render()">
-    🔄 تجديد الاشتراك
+    🔄 ${L('Renew subscription','تجديد الاشتراك')}
   </button>` : ''}
 </div>`;
   }
@@ -19571,22 +19571,22 @@ function tplUpgrade() {
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;max-width:560px;margin-left:auto;margin-right:auto">
     <div class="info-card" style="text-align:center">
       <div style="font-size:28px;margin-bottom:8px">🔓</div>
-      <div style="font-size:17px;font-weight:900;margin-bottom:12px">مجاني</div>
-      <ul style="list-style:none;padding:0;margin:0 0 16px;font-size:13px;color:var(--text-muted);line-height:2.2;text-align:right">
+      <div style="font-size:17px;font-weight:900;margin-bottom:12px">${L('Free','مجاني')}</div>
+      <ul style="list-style:none;padding:0;margin:0 0 16px;font-size:13px;color:var(--text-muted);line-height:2.2;text-align:${S.lang==='en'?'left':'right'}">
         <li>✅ &#xA0;${S.lang==='en'?'5 questions/day':'5 أسئلة يومياً'}</li>
         <li>✅ &#xA0;${S.lang==='en'?'Flashcards':'بطاقات تعليمية'}</li>
         <li>✅ &#xA0;${S.lang==='en'?'Basic quizzes':'اختبارات أساسية'}</li>
-        <li>❌ &#xA0;ملخصات ذكية</li>
-        <li>❌ &#xA0;خرائط ذهنية</li>
-        <li>❌ &#xA0;حل بالصورة</li>
-        <li>❌ &#xA0;إدخال صوتي</li>
+        <li>❌ &#xA0;${L('Smart summaries','ملخصات ذكية')}</li>
+        <li>❌ &#xA0;${L('Mind maps','خرائط ذهنية')}</li>
+        <li>❌ &#xA0;${L('Photo solving','حل بالصورة')}</li>
+        <li>❌ &#xA0;${L('Voice input','إدخال صوتي')}</li>
       </ul>
-      <div style="font-size:20px;font-weight:900">مجاناً</div>
+      <div style="font-size:20px;font-weight:900">${L('Free','مجاناً')}</div>
     </div>
     <div class="info-card" style="text-align:center;border-color:var(--primary);background:var(--primary)11;position:relative">
       <div style="position:absolute;top:-10px;right:50%;transform:translateX(50%);
                   background:var(--primary);color:#fff;font-size:11px;font-weight:800;
-                  padding:3px 12px;border-radius:20px">الأفضل</div>
+                  padding:3px 12px;border-radius:20px">${L('Best','الأفضل')}</div>
       <div style="font-size:28px;margin-bottom:8px">⭐</div>
       <div style="font-size:17px;font-weight:900;margin-bottom:12px;color:var(--primary)">Pro</div>
       <ul style="list-style:none;padding:0;margin:0 0 16px;font-size:13px;line-height:2.2;text-align:right">
@@ -19616,7 +19616,7 @@ function tplUpgrade() {
       <!-- Payment gateway buttons -->
       <div style="display:grid;gap:10px">
         <button class="btn btn-primary" id="b-paypal" style="width:100%;font-size:15px;padding:13px;background:#003087;border-color:#003087">
-          <span style="font-size:20px">💳</span> PayPal — <span style="font-size:12px;opacity:.85">عالمي (Visa/Master/PayPal)</span>
+          <span style="font-size:20px">💳</span> PayPal — <span style="font-size:12px;opacity:.85">${L('Global (Visa/Master/PayPal)','عالمي (Visa/Master/PayPal)')}</span>
         </button>
         <button class="btn btn-primary" id="b-gumroad" style="width:100%;font-size:15px;padding:13px;background:#FF90E8;border-color:#FF90E8;color:#000">
           <span style="font-size:20px">💳</span> ${S.lang==='en'?'Pay by Card':'الدفع بالبطاقة'} <span style="font-size:12px;opacity:.85">(Visa/Mastercard)</span>
@@ -19635,7 +19635,7 @@ function tplUpgrade() {
           🇰🇼 MyFatoorah — KNET <span style="font-size:12px;opacity:.85">${S.lang==='en'?'(coming soon)':'(قريباً)'}</span>
         </button>
         <button class="btn btn-secondary" id="b-stripe" style="width:100%;font-size:13px;padding:11px;opacity:.7">
-          Tap Payments *(قريباً)*
+          Tap Payments ${S.lang==='en'?'(coming soon)':'*(قريباً)*'}
         </button>
       </div>
       <div style="font-size:11px;color:var(--text-muted);margin-top:10px;text-align:center">${S.lang==='en'?'🔒 100% secure — we never store your card details':'🔒 دفع آمن 100% — لا نحتفظ ببيانات بطاقتك'}</div>
@@ -19644,20 +19644,20 @@ function tplUpgrade() {
 
   <!-- Local Payment (Fawry / Vodafone Cash) -->
   <div class="info-card" style="max-width:560px;margin:0 auto 16px">
-    <div style="font-weight:800;margin-bottom:14px">💵 الدفع المحلي (مصر)</div>
+    <div style="font-weight:800;margin-bottom:14px">💵 ${L('Local payment (Egypt)','الدفع المحلي (مصر)')}</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
       <button class="btn btn-secondary" disabled style="padding:14px;font-size:14px;opacity:0.7;cursor:not-allowed;position:relative">
         <div style="font-size:24px;margin-bottom:4px">&#x1F9FE;</div>
-        فوري
-        <span style="position:absolute;top:6px;right:6px;background:linear-gradient(135deg,#F59E0B,#D97706);color:#fff;font-size:9px;font-weight:900;padding:2px 7px;border-radius:20px;letter-spacing:0.5px">قريباً</span>
+        ${L('Fawry','فوري')}
+        <span style="position:absolute;top:6px;right:6px;background:linear-gradient(135deg,#F59E0B,#D97706);color:#fff;font-size:9px;font-weight:900;padding:2px 7px;border-radius:20px;letter-spacing:0.5px">${L('Soon','قريباً')}</span>
       </button>
       <button class="btn btn-secondary" disabled style="padding:14px;font-size:14px;opacity:0.7;cursor:not-allowed;position:relative">
         <div style="font-size:24px;margin-bottom:4px">&#x1F4F1;</div>
-        فودافون كاش
-        <span style="position:absolute;top:6px;right:6px;background:linear-gradient(135deg,#EF4444,#DC2626);color:#fff;font-size:9px;font-weight:900;padding:2px 7px;border-radius:20px;letter-spacing:0.5px">قريباً</span>
+        ${L('Vodafone Cash','فودافون كاش')}
+        <span style="position:absolute;top:6px;right:6px;background:linear-gradient(135deg,#EF4444,#DC2626);color:#fff;font-size:9px;font-weight:900;padding:2px 7px;border-radius:20px;letter-spacing:0.5px">${L('Soon','قريباً')}</span>
       </button>
     </div>
-    <div style="text-align:center;font-size:12px;color:var(--text-muted);padding:6px 0">⏳ سيتوفر الدفع المحلي قريباً — ترقّبوا!</div>
+    <div style="text-align:center;font-size:12px;color:var(--text-muted);padding:6px 0">⏳ ${L('Local payment coming soon — stay tuned!','سيتوفر الدفع المحلي قريباً — ترقّبوا!')}</div>
   </div>
 
   <!-- Promo Code (hidden on iOS per App Store guideline 3.1.1) -->
@@ -19673,14 +19673,29 @@ function tplUpgrade() {
   <!-- Free trial via referral (hidden on iOS per App Store guideline 3.1.1) -->
   ${(S.user?.referralCode && !IS_IOS_APP) ? `
   <div class="info-card" style="max-width:560px;margin:0 auto;border-color:#25D36644;background:#25D36608;text-align:center">
-    <div style="font-size:18px;font-weight:900;margin-bottom:6px">💬 شارك مع صديق — اشترك معاً مجاناً</div>
-    <div style="font-size:13px;color:var(--text-muted);margin-bottom:12px">اشترك بكودك الشخصي وكلاكما يحصل على 7 أيام Pro مجاناً</div>
+    <div style="font-size:18px;font-weight:900;margin-bottom:6px">💬 ${L('Share with a friend — subscribe together free','شارك مع صديق — اشترك معاً مجاناً')}</div>
+    <div style="font-size:13px;color:var(--text-muted);margin-bottom:12px">${L('Share your personal code and you both get 7 days of Pro free','اشترك بكودك الشخصي وكلاكما يحصل على 7 أيام Pro مجاناً')}</div>
     <button class="btn btn-primary" id="b-whatsapp-ref-up" style="background:#25D366;border-color:#25D366;width:100%;max-width:280px">
-      💬 شارك عبر واتساب
+      💬 ${L('Share via WhatsApp','شارك عبر واتساب')}
     </button>
   </div>` : ''}
 
 </div>`;
+}
+
+// English display names for the Arab-country curricula (international ones already have English labels).
+const CUR_EN_NAME = {
+  egypt:'🇪🇬 Egypt', egypt_ext:'🇪🇬 Egypt — Extra Books', saudi:'🇸🇦 Saudi Arabia', uae:'🇦🇪 UAE',
+  kuwait:'🇰🇼 Kuwait', qatar:'🇶🇦 Qatar', bahrain:'🇧🇭 Bahrain', oman:'🇴🇲 Oman', jordan:'🇯🇴 Jordan',
+  palestine:'🇵🇸 Palestine', lebanon:'🇱🇧 Lebanon', syria:'🇸🇾 Syria', iraq:'🇮🇶 Iraq', libya:'🇱🇾 Libya',
+  sudan:'🇸🇩 Sudan', yemen:'🇾🇪 Yemen', morocco:'🇲🇦 Morocco', algeria:'🇩🇿 Algeria', tunisia:'🇹🇳 Tunisia',
+  mauritania:'🇲🇷 Mauritania', other:'🌍 Other / General',
+};
+// Country/curriculum label in the active language (English name when in EN mode, else the Arabic label).
+function curLabel(key) {
+  const c = CURRICULA[key];
+  const ar = c ? c.label : key;
+  return (S.lang === 'en' && CUR_EN_NAME[key]) ? CUR_EN_NAME[key] : ar;
 }
 
 function tplLessons() {
@@ -19700,12 +19715,12 @@ function tplLessons() {
     const chapEnc    = encodeURIComponent(chap);
 
     const studyTools = [
-      { id:'b-lesson-summary', icon:'📋', label:'ملخص ذكي',        desc:'شرح مختصر + النقاط الأساسية',   color:'#3B82F6', action:`openLessonTool('summary','${esc(subj.name)}','${esc(chap)}')` },
-      { id:'b-lesson-quiz2',   icon:'📝', label:'اختبار قصير',     desc:'أسئلة اختيار وإجابات فورية',    color:'#8B5CF6', action:`openLessonTool('quiz','${esc(subj.name)}','${esc(chap)}')` },
-      { id:'b-lesson-fc2',     icon:'🗂️', label:'بطاقات تعليمية', desc:'مراجعة بطريقة السؤال والجواب',  color:'#F59E0B', action:`openLessonTool('flashcards','${esc(subj.name)}','${esc(chap)}')` },
-      { id:'b-lesson-ai2',     icon:'🤖', label:'اسأل AI',         desc:'أسئلة مفتوحة والشرح التفصيلي', color:'#10B981', action:`openLessonTool('chat','${esc(subj.name)}','${esc(chap)}')` },
-      { id:'b-lesson-mm2',     icon:'🧠', label:'خريطة ذهنية',     desc:'تنظيم المعلومات بصرياً',        color:'#EC4899', action:`openLessonTool('mindmap','${esc(subj.name)}','${esc(chap)}')` },
-      { id:'b-lesson-pdf2',    icon:'📥', label:'PDF / طباعة',     desc:'تصدير الملخص للطباعة',          color:'#EF4444', action:`openLessonTool('pdf','${esc(subj.name)}','${esc(chap)}')` },
+      { id:'b-lesson-summary', icon:'📋', label:L('Smart summary','ملخص ذكي'),        desc:L('Concise explanation + key points','شرح مختصر + النقاط الأساسية'),   color:'#3B82F6', action:`openLessonTool('summary','${esc(subj.name)}','${esc(chap)}')` },
+      { id:'b-lesson-quiz2',   icon:'📝', label:L('Short quiz','اختبار قصير'),     desc:L('Multiple choice + instant answers','أسئلة اختيار وإجابات فورية'),    color:'#8B5CF6', action:`openLessonTool('quiz','${esc(subj.name)}','${esc(chap)}')` },
+      { id:'b-lesson-fc2',     icon:'🗂️', label:L('Flashcards','بطاقات تعليمية'), desc:L('Review with Q&A','مراجعة بطريقة السؤال والجواب'),  color:'#F59E0B', action:`openLessonTool('flashcards','${esc(subj.name)}','${esc(chap)}')` },
+      { id:'b-lesson-ai2',     icon:'🤖', label:L('Ask AI','اسأل AI'),         desc:L('Open questions & detailed explanation','أسئلة مفتوحة والشرح التفصيلي'), color:'#10B981', action:`openLessonTool('chat','${esc(subj.name)}','${esc(chap)}')` },
+      { id:'b-lesson-mm2',     icon:'🧠', label:L('Mind map','خريطة ذهنية'),     desc:L('Organize info visually','تنظيم المعلومات بصرياً'),        color:'#EC4899', action:`openLessonTool('mindmap','${esc(subj.name)}','${esc(chap)}')` },
+      { id:'b-lesson-pdf2',    icon:'📥', label:L('PDF / Print','PDF / طباعة'),     desc:L('Export the summary to print','تصدير الملخص للطباعة'),          color:'#EF4444', action:`openLessonTool('pdf','${esc(subj.name)}','${esc(chap)}')` },
     ];
 
     return `
@@ -19721,7 +19736,7 @@ function tplLessons() {
 <div class="screen-body" style="padding-top:12px">
 
   <!-- ═══ STUDY TOOLS GRID ═══ -->
-  <div style="font-size:11px;color:var(--text-muted);font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px">⚡ أدوات المذاكرة</div>
+  <div style="font-size:11px;color:var(--text-muted);font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px">⚡ ${L('Study tools','أدوات المذاكرة')}</div>
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px">
     ${studyTools.map(tool => `
     <button id="${tool.id}" onclick="${tool.action}"
@@ -19741,9 +19756,9 @@ function tplLessons() {
     <div style="display:flex;align-items:center;gap:12px">
       <div style="width:48px;height:48px;border-radius:13px;background:${subj.color}30;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">${subj.icon}</div>
       <div style="flex:1;min-width:0">
-        <div style="font-size:11px;color:${subj.color};font-weight:800;margin-bottom:3px">الفصل ${chapNum} من ${subj.topics.length}</div>
+        <div style="font-size:11px;color:${subj.color};font-weight:800;margin-bottom:3px">${L('Chapter','الفصل')} ${chapNum} ${L('of','من')} ${subj.topics.length}</div>
         <div style="font-size:16px;font-weight:900;color:var(--text)">${esc(chap)}</div>
-        <div style="font-size:11px;color:var(--text-muted);margin-top:2px">${curData.label} · ${gradeData.label}</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:2px">${curLabel(S.curriculum)} · ${gradeData.label}</div>
       </div>
     </div>
   </div>
@@ -19751,34 +19766,34 @@ function tplLessons() {
   <!-- ═══ AI QUICK LESSON ═══ -->
   <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:16px">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-      <div style="font-size:13px;font-weight:900;color:var(--text)">🤖 الشرح بالذكاء الاصطناعي</div>
+      <div style="font-size:13px;font-weight:900;color:var(--text)">🤖 ${L('AI explanation','الشرح بالذكاء الاصطناعي')}</div>
       <button class="btn btn-primary btn-sm" id="b-gen-lesson" style="font-size:12px">
-        ${S.lessonLoading ? '⏳ جارٍ...' : S.lessonContent ? '🔄 تجديد' : '✨ اشرح لي هذا الفصل'}
+        ${S.lessonLoading ? (S.lang==='en'?'⏳ Loading...':'⏳ جارٍ...') : S.lessonContent ? (S.lang==='en'?'🔄 Regenerate':'🔄 تجديد') : (S.lang==='en'?'✨ Explain this chapter':'✨ اشرح لي هذا الفصل')}
       </button>
     </div>
     ${S.lessonContent ? `
     <div style="line-height:2;font-size:14px;max-height:320px;overflow-y:auto;padding-left:4px">${md(S.lessonContent)}</div>
     <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
       <button class="btn btn-primary btn-sm" id="b-lesson-teacher" style="background:#8B5CF6;border-color:#8B5CF6">🎬 ${S.lang==='en'?'Mr. Amin on the board':'الأستاذ أمين على السبورة'}</button>
-      <button class="btn btn-secondary btn-sm" id="b-lesson-chat">💬 ناقش في المحادثة</button>
-      <button class="btn btn-secondary btn-sm" id="b-lesson-fc">🗂️ بطاقات</button>
-      <button class="btn btn-secondary btn-sm" id="b-lesson-quiz">📝 اختبار</button>
+      <button class="btn btn-secondary btn-sm" id="b-lesson-chat">💬 ${L('Discuss in chat','ناقش في المحادثة')}</button>
+      <button class="btn btn-secondary btn-sm" id="b-lesson-fc">🗂️ ${L('Cards','بطاقات')}</button>
+      <button class="btn btn-secondary btn-sm" id="b-lesson-quiz">📝 ${L('Quiz','اختبار')}</button>
     </div>` : `
     <div style="text-align:center;padding:20px 0;color:var(--text-muted)">
       <div style="font-size:32px;margin-bottom:6px">🤖</div>
-      <div style="font-size:13px;font-weight:700">اضغط "اشرح لي هذا الفصل" للحصول على شرح كامل</div>
-      <div style="font-size:11px;margin-top:4px">مع أمثلة وأسئلة تطبيقية</div>
+      <div style="font-size:13px;font-weight:700">${L('Tap "Explain this chapter" for a full explanation','اضغط "اشرح لي هذا الفصل" للحصول على شرح كامل')}</div>
+      <div style="font-size:11px;margin-top:4px">${L('With examples and practice questions','مع أمثلة وأسئلة تطبيقية')}</div>
     </div>`}
   </div>
 
   <!-- ═══ EXTERNAL RESOURCES ═══ -->
   <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:16px">
-    <div style="font-size:13px;font-weight:900;color:var(--text);margin-bottom:10px">🌐 مصادر خارجية</div>
+    <div style="font-size:13px;font-weight:900;color:var(--text);margin-bottom:10px">🌐 ${L('External resources','مصادر خارجية')}</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
       ${[
         { icon:'▶️', name:'YouTube', color:'#FF0000', url:`https://www.youtube.com/results?search_query=${chapEnc}+${subjectEnc}+شرح` },
         { icon:'📐', name:'Khan Academy', color:'#14BF96', url:`https://ar.khanacademy.org/search?page_search_query=${chapEnc}` },
-        { icon:'📖', name:'كتاب الطالب', color:'#3B82F6', url:'javascript:void(0)', onclick:`S.screen='textbook';S.textbookUrl='home';render()` },
+        { icon:'📖', name:L('Student book','كتاب الطالب'), color:'#3B82F6', url:'javascript:void(0)', onclick:`S.screen='textbook';S.textbookUrl='home';render()` },
         { icon:'🌍', name:'Wikipedia', color:'#3366CC', url:`https://ar.wikipedia.org/wiki/${chapEnc}` },
       ].map(r=>`
       <button onclick="${r.onclick || `window.open('${r.url}','_blank')`}"
@@ -19824,11 +19839,11 @@ function tplLessons() {
     style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:7px 12px;cursor:pointer;font-size:18px;color:var(--primary);line-height:1">&#x2190;</button>
   <div style="flex:1">
     <div style="font-size:15px;font-weight:900;color:var(--text)">${subj.icon} ${esc(subj.name)}</div>
-    <div style="font-size:10px;color:var(--text-muted)">${curData.label} · ${gradeData.label}</div>
+    <div style="font-size:10px;color:var(--text-muted)">${curLabel(S.curriculum)} · ${gradeData.label}</div>
   </div>
   <div style="text-align:center;min-width:42px">
     <div style="font-size:14px;font-weight:900;color:${subj.color}">${pct}%</div>
-    <div style="font-size:9px;color:var(--text-muted)">مكتمل</div>
+    <div style="font-size:9px;color:var(--text-muted)">${L('done','مكتمل')}</div>
   </div>
 </div>
 <div class="screen-body" style="padding-top:12px">
@@ -19841,11 +19856,11 @@ function tplLessons() {
   <!-- Quick subject tools -->
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px">
     ${[
-      { icon:'💬', label:'اسأل AI', color:'#10B981', action:`openLessonTool('chat','${esc(subj.name)}','')` },
-      { icon:'📋', label:'ملخص', color:'#3B82F6', action:`openLessonTool('summary','${esc(subj.name)}','')` },
-      { icon:'📝', label:'اختبار', color:'#8B5CF6', action:`openLessonTool('quiz','${esc(subj.name)}','')` },
-      { icon:'🗂️', label:'بطاقات', color:'#F59E0B', action:`openLessonTool('flashcards','${esc(subj.name)}','')` },
-      { icon:'📚', label:'كتاب', color:'#6366F1', action:`S.screen='textbook';S.textbookUrl='home';S.textbookSubjFilter='${esc(subj.name)}';S.textbookViewUrl=null;render()` },
+      { icon:'💬', label:L('Ask AI','اسأل AI'), color:'#10B981', action:`openLessonTool('chat','${esc(subj.name)}','')` },
+      { icon:'📋', label:L('Summary','ملخص'), color:'#3B82F6', action:`openLessonTool('summary','${esc(subj.name)}','')` },
+      { icon:'📝', label:L('Quiz','اختبار'), color:'#8B5CF6', action:`openLessonTool('quiz','${esc(subj.name)}','')` },
+      { icon:'🗂️', label:L('Cards','بطاقات'), color:'#F59E0B', action:`openLessonTool('flashcards','${esc(subj.name)}','')` },
+      { icon:'📚', label:L('Book','كتاب'), color:'#6366F1', action:`S.screen='textbook';S.textbookUrl='home';S.textbookSubjFilter='${esc(subj.name)}';S.textbookViewUrl=null;render()` },
     ].map(t=>`
     <button onclick="${t.action}"
       style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 4px;background:${t.color}14;
@@ -19857,7 +19872,7 @@ function tplLessons() {
   </div>
 
   <!-- Chapters List -->
-  <div style="font-size:11px;font-weight:800;color:var(--text-muted);letter-spacing:1px;margin-bottom:10px">📋 فصول المنهج — ${subj.topics.length} فصل</div>
+  <div style="font-size:11px;font-weight:800;color:var(--text-muted);letter-spacing:1px;margin-bottom:10px">📋 ${L('Curriculum chapters','فصول المنهج')} — ${subj.topics.length} ${L('chapters','فصل')}</div>
   <div style="display:flex;flex-direction:column;gap:8px">
     ${subj.topics.map((topic, idx) => {
       const done = doneChs[idx] ? true : false;
@@ -19875,7 +19890,7 @@ function tplLessons() {
       </div>
       <div style="flex:1;text-align:right;min-width:0">
         <div style="font-size:14px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(topic)}</div>
-        <div style="font-size:10px;color:var(--text-muted);margin-top:2px">الفصل ${idx+1}${done?' · ✅ تمت المراجعة':''}</div>
+        <div style="font-size:10px;color:var(--text-muted);margin-top:2px">${L('Chapter','الفصل')} ${idx+1}${done?(S.lang==='en'?' · ✅ Reviewed':' · ✅ تمت المراجعة'):''}</div>
       </div>
       <span class="lesson-board-btn" data-topic-idx="${idx}" title="${S.lang==='en'?'Mr. Amin on the board':'الأستاذ أمين على السبورة'}"
         style="flex-shrink:0;background:#8B5CF6;color:#fff;font-size:12px;font-weight:800;border-radius:10px;padding:7px 11px;font-family:Cairo,sans-serif;white-space:nowrap;cursor:pointer">
@@ -19894,27 +19909,27 @@ function tplLessons() {
   return `
 <div class="screen-header">
   <div class="screen-title">📚 ${S.lang==='en'?'Study Hub':'المذاكرة'}</div>
-  <div style="font-size:11px;color:var(--text-muted)">${curData.label} · ${gradeData.label}</div>
+  <div style="font-size:11px;color:var(--text-muted)">${curLabel(S.curriculum)} · ${gradeData.label}</div>
 </div>
 <div class="screen-body">
 
   ${['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian','south_africa'].includes(S.curriculum) ? `
   <div style="background:#3B82F611;border:1px solid #3B82F633;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:12px;display:flex;gap:8px;align-items:flex-start">
     <span style="font-size:16px">ℹ️</span>
-    <span style="color:var(--text-muted);line-height:1.7">المحتوى مبني على أحدث إصدار متاح من المنهج الرسمي. <b style="color:var(--primary)">أكواد المواد والموضوعات مُدققة ✅</b></span>
+    <span style="color:var(--text-muted);line-height:1.7">${L('Content is based on the latest available official curriculum.','المحتوى مبني على أحدث إصدار متاح من المنهج الرسمي.')} <b style="color:var(--primary)">${L('Subject & topic codes verified ✅','أكواد المواد والموضوعات مُدققة ✅')}</b></span>
   </div>` : ''}
 
   <!-- Country & Grade Selector -->
   <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:12px">
-    <div style="font-size:12px;font-weight:800;color:var(--text-muted);margin-bottom:8px">🌍 اختر الدولة / المنهج</div>
+    <div style="font-size:12px;font-weight:800;color:var(--text-muted);margin-bottom:8px">🌍 ${L('Choose country / curriculum','اختر الدولة / المنهج')}</div>
     <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px">
       ${Object.entries(CURRICULA).map(([k,v])=>`
       <button class="curriculum-btn" data-curriculum="${k}"
         style="padding:5px 10px;border-radius:16px;border:1.5px solid ${S.curriculum===k?'var(--primary)':'var(--border)'};background:${S.curriculum===k?'var(--primary)':'transparent'};color:${S.curriculum===k?'#fff':'var(--text)'};font-family:Cairo,sans-serif;font-size:11px;font-weight:700;cursor:pointer;transition:.2s">
-        ${v.label}
+        ${curLabel(k)}
       </button>`).join('')}
     </div>
-    <div style="font-size:12px;font-weight:800;color:var(--text-muted);margin-bottom:8px">🎓 اختر المرحلة الدراسية</div>
+    <div style="font-size:12px;font-weight:800;color:var(--text-muted);margin-bottom:8px">🎓 ${L('Choose grade / stage','اختر المرحلة الدراسية')}</div>
     <div style="display:flex;flex-wrap:wrap;gap:6px">
       ${Object.entries(curData.grades).map(([k,v])=>`
       <button class="grade-btn" data-grade="${k}"
@@ -19925,7 +19940,7 @@ function tplLessons() {
   </div>
 
   <!-- Subjects Grid -->
-  <div style="font-size:13px;font-weight:800;color:var(--text-muted);margin-bottom:10px">📚 اختر المادة الدراسية</div>
+  <div style="font-size:13px;font-weight:800;color:var(--text-muted);margin-bottom:10px">📚 ${L('Choose subject','اختر المادة الدراسية')}</div>
   <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px">
     ${subjects.map(s=>`
     <button class="lesson-subj-btn" data-subj-idx="${subjects.indexOf(s)}"
@@ -19933,7 +19948,7 @@ function tplLessons() {
       onmouseover="this.style.borderColor='${s.color}';this.style.background='${s.color}11'" onmouseout="this.style.borderColor='var(--border)';this.style.background='var(--bg-card)'">
       <div style="width:56px;height:56px;border-radius:16px;background:${s.color}22;display:flex;align-items:center;justify-content:center;font-size:28px">${s.icon}</div>
       <div style="font-size:13px;font-weight:900;color:var(--text);text-align:center">${esc(s.name)}</div>
-      <div style="font-size:10px;color:var(--text-muted)">${s.topics.length} فصل</div>
+      <div style="font-size:10px;color:var(--text-muted)">${s.topics.length} ${L('chapters','فصل')}</div>
       <div style="position:absolute;top:8px;left:8px;width:6px;height:6px;border-radius:50%;background:${s.color}"></div>
     </button>`).join('')}
   </div>
