@@ -539,25 +539,35 @@ const TEACHER_SVG = `
 
 let _teacherState = { sentences: [], idx: 0, playing: false };
 
-function showTeacher(text) {
+// showTeacher(text)            → splits free-text prose into board lines by sentence/length
+// showTeacher(null, lines)     → uses the given array as board lines verbatim (one slide per line),
+//                                so structured lessons (e.g. IGCSE topic points) match line-by-line.
+function showTeacher(text, lines) {
   if (!('speechSynthesis' in window)) { showToast(S.lang==='en'?'Voice not supported on this device':'القراءة الصوتية غير مدعومة على هذا الجهاز', 'error'); return; }
   // stop any previous playback/timers so a fresh open never inherits a stale counter
   try { speechSynthesis.cancel(); } catch(_) {}
   if (_teacherState && _teacherState._silentTimer) clearTimeout(_teacherState._silentTimer);
-  const clean = cleanForSpeech(text);
-  if (!clean) return;
-  // split into board lines — one sentence per line (merge only very short fragments)
-  const parts = clean.split(/(?<=[.!?؟…:])\s+/).map(s => s.trim()).filter(Boolean);
-  const sentences = [];
-  let buf = '';
-  for (const p of parts) {
-    const joined = buf ? buf + ' ' + p : p;
-    // keep a line until it's a reasonable length, then break (so the board fills point-by-point)
-    if (buf && joined.length > 95) { sentences.push(buf); buf = p; }
-    else if (joined.length >= 35 || /[.!?؟…]$/.test(p)) { sentences.push(joined); buf = ''; }
-    else buf = joined;
+  let sentences;
+  if (Array.isArray(lines) && lines.length) {
+    // Explicit lines mode: each line is a ready-made board "slide" — show verbatim, speak as-is.
+    sentences = lines.map(s => String(s).trim()).filter(Boolean);
+    if (!sentences.length) return;
+  } else {
+    const clean = cleanForSpeech(text);
+    if (!clean) return;
+    // split into board lines — one sentence per line (merge only very short fragments)
+    const parts = clean.split(/(?<=[.!?؟…:])\s+/).map(s => s.trim()).filter(Boolean);
+    sentences = [];
+    let buf = '';
+    for (const p of parts) {
+      const joined = buf ? buf + ' ' + p : p;
+      // keep a line until it's a reasonable length, then break (so the board fills point-by-point)
+      if (buf && joined.length > 95) { sentences.push(buf); buf = p; }
+      else if (joined.length >= 35 || /[.!?؟…]$/.test(p)) { sentences.push(joined); buf = ''; }
+      else buf = joined;
+    }
+    if (buf) sentences.push(buf);
   }
-  if (buf) sentences.push(buf);
   _teacherState = { sentences, idx: 0, playing: false };
 
   let ov = document.getElementById('teacher-overlay');
@@ -865,7 +875,8 @@ function _teacherSpeakNow() {
   const t = _teacherState;
   if (!t.playing || t.idx >= t.sentences.length) return;
   speechSynthesis.cancel();
-  const sentence = t.sentences[t.idx];
+  // Board shows the raw line (keeps "x = y", emoji); narration speaks a speech-cleaned version.
+  const sentence = cleanForSpeech(t.sentences[t.idx]) || t.sentences[t.idx];
   const u = new SpeechSynthesisUtterance(sentence);
   const isArabic = /[؀-ۿ]/.test(sentence);
   const v = pickVoice(isArabic);
@@ -18925,9 +18936,14 @@ function tplIGCSETopic() {
         </div>`;
       })()}
       <div style="display:flex;gap:8px;margin-top:14px">
-        <button onclick="chatWith('${subj.label} IGCSE — ${tp.title}','Explain ${tp.title.replace(/'/g,"\\'")} for IGCSE ${subj.label} in detail with worked examples and exam tips')"
+        <button onclick="teachTopicOnBoard('${S.igcseSubject}',${S.igcseChapter},${S.igcseTopic})"
           style="flex:1;padding:11px;background:var(--primary);color:#fff;border:none;border-radius:12px;cursor:pointer;font-family:Cairo,sans-serif;font-weight:700;font-size:12px">
-          🤖 Explain with AI
+          🎬 ${L('Teach on board','اشرح على السبورة')}
+        </button>
+        <button onclick="chatWith('${subj.label} IGCSE — ${tp.title}','Explain ${tp.title.replace(/'/g,"\\'")} for IGCSE ${subj.label} in detail with worked examples and exam tips')"
+          style="padding:11px 14px;background:var(--bg-card);border:1px solid var(--border);color:var(--text);border-radius:12px;cursor:pointer;font-size:12px;font-weight:700"
+          title="Explain with AI">
+          🤖
         </button>
         <button onclick="shareIGCSETopic('${S.igcseSubject}','${S.igcseBoard}',${S.igcseChapter},${S.igcseTopic})"
           style="padding:11px 14px;background:var(--bg-card);border:1px solid var(--border);color:var(--text);border-radius:12px;cursor:pointer;font-size:12px;font-weight:700"
@@ -20166,6 +20182,25 @@ async function genAILesson() {
   } finally {
     S.lessonLoading = false; render();
   }
+}
+
+// Teach a structured IGCSE topic on the board — each defined point becomes one board slide,
+// matched line-by-line (no AI re-generation), with the worked example walked through after.
+function teachTopicOnBoard(sk, ci, ti) {
+  const subj = IGCSE_SUBJECTS[sk];
+  if (!subj) return;
+  const ch = (subj.chapters[S.igcseBoard] || [])[ci];
+  const tp = ch && ch.topics[ti];
+  if (!tp || !tp.points) return;
+  const lines = [];
+  lines.push(`${tp.title}.`);                       // opening slide: the topic title
+  tp.points.forEach(p => lines.push(p));            // one slide per revision point
+  if (tp.workedExample) {
+    lines.push('Worked example:');
+    tp.workedExample.split('\n').map(s => s.trim()).filter(Boolean).forEach(s => lines.push(s));
+  }
+  showTeacher(null, lines);
+  setTimeout(() => { if (document.getElementById('tch-play')) teacherToggle(); }, 300); // auto-start
 }
 
 // Generate the lesson for the current chapter, then open Mr. Amin on the board
