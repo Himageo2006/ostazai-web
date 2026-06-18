@@ -3252,6 +3252,8 @@ function tplLogin() {
     </div>`;
   const faq = (q, a) => `<details class="lp-faq"><summary>${q}</summary><div class="lp-faq-a">${a}</div></details>`;
   const testi = (text, who) => `<div class="lp-testi"><div class="lp-stars">★★★★★</div><div class="lp-testi-text">${text}</div><div class="lp-testi-who">${who}</div></div>`;
+  // Honest, factual trust card (no fabricated quotes/ratings) — swap back to testi() when real reviews exist.
+  const trust = (icon, title, text) => `<div class="lp-testi"><div style="font-size:30px">${icon}</div><div class="lp-testi-who" style="margin-top:6px;color:var(--text);font-size:14px">${title}</div><div class="lp-testi-text" style="color:var(--text-muted)">${text}</div></div>`;
 
   return `
 <div class="lp" dir="${S.lang === 'en' ? 'ltr' : 'rtl'}">
@@ -3476,11 +3478,11 @@ function tplLogin() {
 
   <!-- 6c. TESTIMONIALS -->
   <section>
-    <h2>${L('ماذا يقول الطلاب والأهل','What students & parents say')}</h2>
+    <h2>${L('لماذا يختار الطلاب والأهل OstazzAI','Why students & parents choose OstazzAI')}</h2>
     <div class="lp-testis">
-      ${testi(L('"ابني أخيراً بدأ يفهم واجب الرياضيات — يسأل OstazzAI بدل ما يقف عند المسألة."','"My son finally understands his math homework — he asks OstazzAI instead of getting stuck."'), L('— ولية أمر، مصر','— Parent, Egypt'))}
-      ${testi(L('"يشرح فيزياء الـ IGCSE أوضح من الكتاب المدرسي بكثير."','"It explains IGCSE physics way better than my textbook."'), L('— طالبة A-Level','— A-Level student'))}
-      ${testi(L('"أستخدمه كل ليلة في المراجعة. الحل خطوة بخطوة رائع."','"I use it every night for revision — the step-by-step answers are amazing."'), L('— طالب صف تاسع','— Year 9 student'))}
+      ${trust('📚', L('مبني على المناهج الرسمية','Built on official curricula'), L('مصر والخليج و IGCSE والمنهج الأمريكي و IB وأكثر — لكل المراحل.','Egypt, the Gulf, IGCSE, American, IB and more — for every grade.'))}
+      ${trust('🧠', L('شرح خطوة بخطوة','Step-by-step explanations'), L('ليس مجرد إجابة — بل شرح يجعل الطالب يفهم فعلاً.','Not just an answer — explanations so students truly understand.'))}
+      ${trust('🆓', L('مجاني ومتاح 24/7','Free & available 24/7'), L('ابدأ مجاناً، واسأل في أي وقت — في الواجب أو المراجعة أو الامتحان.','Start free and ask anytime — homework, revision, or exam prep.'))}
     </div>
   </section>
 
