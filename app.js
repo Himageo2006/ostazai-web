@@ -20140,21 +20140,21 @@ async function handleGoogleCredential(response) {
 window.handleGoogleCredential = handleGoogleCredential;
 
 async function downloadBook(url, title) {
-  showToast('⏳ جارٍ تحميل الكتاب...', 'info');
+  showToast(S.lang==='en'?'⏳ Downloading the book...':'⏳ جارٍ تحميل الكتاب...', 'info');
+  // Our own server proxy streams the PDF with Content-Disposition: attachment,
+  // so the browser saves it directly (proper filename) instead of slowly rendering inline.
+  const proxied = `${API}/books/download?url=${encodeURIComponent(url)}&name=${encodeURIComponent(title || 'كتاب')}`;
   try {
-    const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(url);
-    const r = await fetch(proxyUrl);
-    if (!r.ok) throw new Error('خطأ ' + r.status);
-    const blob = await r.blob();
     const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = (title || 'كتاب') + '.pdf';
+    a.href = proxied;
+    a.download = (title || 'book') + '.pdf';
+    a.rel = 'noopener';
     document.body.appendChild(a);
     a.click();
-    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
-    showToast('✅ تم تحميل الكتاب بنجاح!', 'success');
+    setTimeout(() => { try { document.body.removeChild(a); } catch(_) {} }, 1000);
+    showToast(S.lang==='en'?'✅ Download started':'✅ بدأ تنزيل الكتاب', 'success');
   } catch(e) {
-    showToast('فشل التحميل — جارٍ فتح في تبويب جديد', 'error');
+    showToast(S.lang==='en'?'Opening in a new tab instead':'فشل التحميل — جارٍ فتح في تبويب جديد', 'error');
     setTimeout(() => window.open(url, '_blank'), 500);
   }
 }
