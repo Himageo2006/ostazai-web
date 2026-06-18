@@ -19779,7 +19779,7 @@ function tplLessons() {
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
       <div style="font-size:13px;font-weight:900;color:var(--text)">🤖 ${L('AI explanation','الشرح بالذكاء الاصطناعي')}</div>
       <button class="btn btn-primary btn-sm" id="b-gen-lesson" style="font-size:12px">
-        ${S.lessonLoading ? (S.lang==='en'?'⏳ Loading...':'⏳ جارٍ...') : S.lessonContent ? (S.lang==='en'?'🔄 Regenerate':'🔄 تجديد') : (S.lang==='en'?'✨ Explain this chapter':'✨ اشرح لي هذا الفصل')}
+        ${S.lessonLoading ? (S.lessonProgress || (S.lang==='en'?'⏳ Loading...':'⏳ جارٍ...')) : S.lessonContent ? (S.lang==='en'?'🔄 Regenerate':'🔄 تجديد') : (S.lang==='en'?'✨ Explain this chapter':'✨ اشرح لي هذا الفصل')}
       </button>
     </div>
     ${S.lessonContent ? `
@@ -20206,28 +20206,62 @@ async function genAILesson() {
   if (S.lessonLoading) return;
   const curData   = CURRICULA[S.curriculum] || CURRICULA.egypt;
   const gradeData = (curData.grades && (curData.grades[S.grade] || Object.values(curData.grades)[0])) || { label:'' };
-  S.lessonLoading = true; S.lessonContent = ''; render();
+  const isEn = ['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian','south_africa'].includes(S.curriculum);
+  const chapter = S.lessonChapter, subjName = S.lessonSubject.name, label = `${curData.label||''} ${gradeData.label||''}`.trim();
+  const { stage, grade, curriculum } = gradeToAPI();
+  const ask = async (content, longForm=false) => {
+    const d = await req('/chat', 'POST', { messages:[{role:'user',content}], subject:subjName, country:S.curriculum, curriculum, stage, grade, longForm });
+    return (d.content || d.reply || d.message || d.response || '').trim();
+  };
+  // Single-call full lesson (used for guests, to protect the free daily quota, and as a fallback).
+  const singlePrompt = isEn
+    ? `Write a COMPLETE textbook-chapter lesson on "${chapter}" in ${subjName} for ${label}, so the student needs NO other source. Identify the 5-6 MAIN sub-topics; for EACH write at least 250 words (definition, everyday analogy, how & why step by step from first principles, two worked examples [basic + harder], common misconception, real-world use). Then Common Mistakes, 5 practice questions with full solutions, and a summary. At least 2500 words — mandatory. Always finish.`
+    : `اكتب درساً كاملاً بعمق فصل من كتاب مدرسي عن "${chapter}" في ${subjName} — ${label}، بحيث لا يحتاج الطالب لأي مصدر آخر. حدّد ٥ إلى ٦ أجزاء فرعية رئيسية؛ ولكل جزء اكتب ٢٥٠ كلمة على الأقل (تعريف، تشبيه من الحياة، كيف ولماذا يعمل خطوة بخطوة من الأساس، مثالان محلولان [بسيط وأصعب]، الخطأ الشائع، استخدام واقعي). ثم الأخطاء الشائعة و٥ أسئلة بحلولها الكاملة وملخص. ٢٥٠٠ كلمة على الأقل — إلزامي. أنهِ الدرس كاملاً.`;
+  S.lessonLoading = true; S.lessonContent = ''; S.lessonProgress = ''; render();
   try {
-    const isEn = ['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian','south_africa'].includes(S.curriculum);
-    const prompt = isEn
-      ? `Write a COMPLETE textbook-chapter lesson on "${S.lessonChapter}" in ${S.lessonSubject.name} for ${curData.label} ${gradeData.label}, written so well the student needs NO other book, website, or teacher. Start immediately, no clarifying questions.\n\nFirst identify only the 5-6 MAIN sub-topics of this lesson (do NOT over-fragment into many tiny headings). Then, for EACH main sub-topic, you MUST write at least 250 words containing:\n  1. A clear definition.\n  2. An everyday analogy the student instantly gets.\n  3. How and WHY it works — step by step from first principles, assuming zero prior knowledge.\n  4. TWO worked examples — one basic, one harder — each solved step by step with the reason for every step.\n  5. The common misconception about it.\n  6. A real-world use.\n\nThen add: a "Common Mistakes" section, 5 practice questions WITH full worked solutions, and a short summary.\n\nThe whole lesson MUST be at least 2500 words — this length is MANDATORY. Write in clear flowing paragraphs. Do NOT stop until every sub-topic is fully covered; always finish the entire lesson.`
-      : `اكتب درساً كاملاً بعمق فصل من كتاب مدرسي عن "${S.lessonChapter}" في مادة ${S.lessonSubject.name} — ${curData.label} ${gradeData.label}، مكتوباً بإتقان بحيث لا يحتاج الطالب لأي كتاب أو موقع أو مدرّس آخر. ابدأ فوراً دون أسئلة استيضاحية.\n\nحدّد أولاً الأجزاء الفرعية الرئيسية فقط (٥ إلى ٦ أجزاء — لا تُفرّط في التقسيم إلى عناوين صغيرة كثيرة). ثم لكل جزء فرعي رئيسي يجب أن تكتب ٢٥٠ كلمة على الأقل تتضمن:\n  ١. تعريفاً واضحاً.\n  ٢. تشبيهاً من الحياة اليومية يفهمه الطالب فوراً.\n  ٣. كيف ولماذا يعمل — خطوة بخطوة من الأساس وكأن الطالب لا يعرف شيئاً مسبقاً.\n  ٤. مثالين محلولين — واحد بسيط وواحد أصعب — كل منهما خطوة بخطوة مع سبب كل خطوة.\n  ٥. الخطأ الشائع حوله.\n  ٦. استخدامه في الحياة الواقعية.\n\nثم أضف: قسم "الأخطاء الشائعة"، و٥ أسئلة تدريبية مع حلولها الكاملة المشروحة، وملخصاً قصيراً.\n\nيجب ألا يقل الدرس كاملاً عن ٢٥٠٠ كلمة — هذا الطول إلزامي. اكتب بفقرات واضحة متصلة. لا تتوقف حتى تغطي كل جزء فرعي بالكامل، وأنهِ الدرس كاملاً دائماً. ملاحظة: لا تضع رموزاً تعبيرية داخل الكلمات أو وسط الجمل.`;
-    const { stage, grade, curriculum } = gradeToAPI();
-    const d = await req('/chat', 'POST', {
-      messages:   [{ role: 'user', content: prompt }],
-      subject:    S.lessonSubject.name,
-      country:    S.curriculum,
-      curriculum,
-      stage,
-      grade,
-      longForm:   true,
-    });
-    S.lessonContent = d.content || d.reply || d.message || d.response || '';
-    if (!S.lessonContent) S.lessonContent = '❌ لم يصل رد من الذكاء الاصطناعي — حاول مجدداً';
+    // Guests: one call (keeps within the free daily limit). Logged-in: deep section-by-section build.
+    if (!S.token) {
+      S.lessonContent = await ask(singlePrompt, true) || (isEn?'❌ No response — try again':'❌ لم يصل رد — حاول مجدداً');
+      return;
+    }
+    // 1) Get the main sub-topics.
+    const listPrompt = isEn
+      ? `List ONLY the 5-6 MAIN sub-topics of the lesson "${chapter}" in ${subjName} for ${label}. Return ONLY a JSON array of short titles, nothing else.`
+      : `اذكر فقط الأجزاء الفرعية الرئيسية (٥ إلى ٦) لدرس "${chapter}" في ${subjName} — ${label}. أرجع فقط مصفوفة JSON من عناوين قصيرة، بدون أي شيء آخر.`;
+    let subs = [];
+    try { const raw = await ask(listPrompt); const m = raw.match(/\[[\s\S]*\]/); if (m) subs = JSON.parse(m[0]); } catch(_) {}
+    subs = (Array.isArray(subs) ? subs : []).filter(x => typeof x === 'string' && x.trim()).slice(0, 6);
+    const stillHere = () => S.screen === 'lessons' && S.lessonView === 'lesson' && S.lessonChapter === chapter;
+    if (!subs.length) {
+      // Couldn't get a list — fall back to a single full-lesson call.
+      S.lessonContent = await ask(singlePrompt, true) || (isEn?'❌ No response — try again':'❌ لم يصل رد — حاول مجدداً');
+      return;
+    }
+    S.lessonContent = `# ${chapter}\n`; render();
+    // 2) Generate each sub-topic as its own focused, in-depth section (streams in).
+    for (let i = 0; i < subs.length; i++) {
+      if (!stillHere()) return;   // user navigated away — stop
+      S.lessonProgress = isEn ? `✍️ Part ${i+1} of ${subs.length}: ${subs[i]}` : `✍️ الجزء ${i+1} من ${subs.length}: ${subs[i]}`;
+      render();
+      const secPrompt = isEn
+        ? `Explain ONLY the sub-topic "${subs[i]}" of the lesson "${chapter}" (${subjName}, ${label}) in depth (about 300-400 words): a precise definition, an everyday analogy, how & why it works step by step from first principles, TWO worked examples (one basic, one harder) solved step by step, the common misconception, and a real-world use. Go straight in — no general intro.`
+        : `اشرح فقط الجزء "${subs[i]}" من درس "${chapter}" (${subjName}، ${label}) بعمق (حوالي ٣٠٠-٤٠٠ كلمة): تعريف دقيق، تشبيه من الحياة، كيف ولماذا يعمل خطوة بخطوة من الأساس، مثالان محلولان (بسيط وأصعب) خطوة بخطوة، الخطأ الشائع، واستخدام واقعي. ادخل مباشرة دون مقدمة عامة.`;
+      let sec = ''; try { sec = await ask(secPrompt); } catch(_) {}
+      if (sec) { S.lessonContent += `\n\n## ${subs[i]}\n\n${sec}`; render(); }
+    }
+    // 3) Closing: common mistakes + practice + summary.
+    if (!stillHere()) return;
+    S.lessonProgress = isEn ? '✍️ Practice & summary…' : '✍️ التمارين والملخص…'; render();
+    const endPrompt = isEn
+      ? `For the lesson "${chapter}" (${subjName}, ${label}) write three sections: ## Common Mistakes (each with how to avoid it), ## Practice Questions (5 questions, each with a full step-by-step solution), ## Quick Summary (key points).`
+      : `لدرس "${chapter}" (${subjName}، ${label}) اكتب ثلاثة أقسام: ## الأخطاء الشائعة (مع كيفية تجنّب كل منها)، ## أسئلة تدريبية (٥ أسئلة، كل منها بحل كامل خطوة بخطوة)، ## ملخص سريع (أهم النقاط).`;
+    let endSec = ''; try { endSec = await ask(endPrompt, true); } catch(_) {}
+    if (endSec) S.lessonContent += `\n\n${endSec}`;
+    if (S.lessonContent.replace(/^#.*$/m,'').trim().length < 20) S.lessonContent = isEn?'❌ Could not generate — try again':'❌ تعذّر التوليد — حاول مجدداً';
   } catch(e) {
-    S.lessonContent = `❌ ${e.message}`;
+    if (!S.lessonContent) S.lessonContent = `❌ ${e.message}`;
   } finally {
-    S.lessonLoading = false; render();
+    S.lessonLoading = false; S.lessonProgress = ''; render();
   }
 }
 
