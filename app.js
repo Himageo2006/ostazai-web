@@ -3061,7 +3061,7 @@ function tplParent() {
 <div class="auth-screen">
   <div class="auth-card" style="max-width:460px">
     <div style="position:absolute;top:16px;left:16px">
-      <button onclick="S.screen='login';render()" style="background:none;border:1px solid var(--border);border-radius:12px;padding:4px 10px;font-size:12px;cursor:pointer;color:var(--text-muted);font-family:Cairo,sans-serif">${L('← الرئيسية','← Home')}</button>
+      <button onclick="S.screen='${S.token?'chat':'login'}';render()" style="background:none;border:1px solid var(--border);border-radius:12px;padding:4px 10px;font-size:12px;cursor:pointer;color:var(--text-muted);font-family:Cairo,sans-serif">${L('← الرئيسية','← Home')}</button>
     </div>
     <div class="auth-logo">👨‍👩‍👧</div>
     <div class="auth-title">${L('لوحة متابعة ولي الأمر','Parent Dashboard')}</div>
@@ -3120,7 +3120,7 @@ function goTeacher() { S.screen = 'teacher'; render(); }
 /* ── Teacher Dashboard (classes + roster) ── */
 function tplTeacher() {
   const L = (ar, en) => S.lang === 'en' ? en : ar;
-  const back = `<div style="position:absolute;top:16px;left:16px"><button onclick="S.screen='login';render()" style="background:none;border:1px solid var(--border);border-radius:12px;padding:4px 10px;font-size:12px;cursor:pointer;color:var(--text-muted);font-family:Cairo,sans-serif">${L('← الرئيسية','← Home')}</button></div>`;
+  const back = `<div style="position:absolute;top:16px;left:16px"><button onclick="S.screen='${S.token?'chat':'login'}';render()" style="background:none;border:1px solid var(--border);border-radius:12px;padding:4px 10px;font-size:12px;cursor:pointer;color:var(--text-muted);font-family:Cairo,sans-serif">${L('← الرئيسية','← Home')}</button></div>`;
   if (!S.token) {
     return `<div class="auth-screen"><div class="auth-card">${back}
       <div class="auth-logo">👩‍🏫</div>
@@ -3668,6 +3668,7 @@ function tplShell(content) {
     { s:'schedule',    icon:'📅', label: t('الجدول','schedule') },
     { s:'history',     icon:'🕒', label: t('السجل','history') },
     { s:'leaderboard', icon:'🏆', label: t('المتصدرون','leaderboard') },
+    { s:'teacher',     icon:'👩‍🏫', label: S.lang==='en'?'Teacher':'المعلّم' },
     { s:'profile',     icon:'👤', label: t('الملف','profile') },
     { s:'upgrade',     icon:'⭐',  label:'Pro' },
     { s:'admin',       icon:'🛡', label:'Admin' },
