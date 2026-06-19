@@ -3681,11 +3681,11 @@ const tplRegister = () => `
         <optgroup label="──── مناهج دولية / International ────"><option value="igcse">🎓 IGCSE / Cambridge International</option><option value="cambridge_alevel">🎓 Cambridge A-Levels (AS/A2)</option><option value="edexcel">📘 Edexcel / Pearson</option><option value="aqa">📗 AQA (UK)</option><option value="ocr">📙 OCR (UK)</option><option value="american">🇺🇸 American Curriculum</option><option value="ib">🌐 IB — International Baccalaureate</option><option value="cbse">🇮🇳 CBSE (India)</option><option value="icse">🇮🇳 ICSE / ISC (India)</option><option value="french_bac">🇫🇷 Baccalauréat Français</option><option value="australian">🇦🇺 Australian Curriculum</option><option value="canadian">🇨🇦 Canadian Curriculum</option></optgroup>
       </select>
     </div>
-    <div class="form-group" id="ref-group" style="display:none">
+    ${IS_IOS_APP ? '' : `<div class="form-group" id="ref-group" style="display:none">
       <label class="form-label" style="color:#F59E0B">🎁 كود الإحالة (اختياري)</label>
       <input id="f-ref" class="form-input" type="text" placeholder="مثال: OZ-ABC123" style="text-transform:uppercase;letter-spacing:2px"/>
       <div style="font-size:11px;color:#F59E0B;margin-top:4px">✨ سجّل بكود إحالة وتحصل على 7 أيام Pro مجاناً!</div>
-    </div>
+    </div>`}
     <button class="btn btn-primary" id="b-register" style="width:100%;margin-top:8px">${t('إنشاء حساب 🚀','registerBtn')}</button>
     <div style="display:flex;align-items:center;gap:8px;margin:12px 0">
       <div style="flex:1;height:1px;background:var(--border)"></div>
@@ -3694,9 +3694,9 @@ const tplRegister = () => `
     </div>
     ${IS_IOS_APP ? '' : `<div id="g-btn" style="display:flex;justify-content:center;margin-bottom:4px;min-height:44px"></div>`}
     ${IS_IOS_APP ? `<button id="b-apple-register" onclick="requestAppleSignIn()" style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:44px;border:1px solid #000;border-radius:4px;background:#000;cursor:pointer;font-size:14px;font-weight:600;font-family:Arial,sans-serif;color:#fff;margin-bottom:8px"><svg width="18" height="18" viewBox="0 0 814 1000" fill="white"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 389.4 45.8 264.3 85.8 162.9c35.4-91.2 118.8-148.4 209.5-148.4 79.5 0 135.9 52.5 180.7 52.5 43 0 110.9-54.5 200.7-54.5zm-183.1-181c28.7-35.3 49.9-85 49.9-134.7 0-6.9-.6-13.9-1.9-19.5-47.6 1.9-104.8 31.9-139.2 71.3-26.2 30.2-50.5 80.9-50.5 131.9 0 7.6 1.3 15.2 1.9 17.5 3.2.6 8.4 1.3 13.6 1.3 43 0 97.7-28.7 126.2-67.8z"/></svg>${S.lang==='ar'?'التسجيل بـ Apple':'Sign up with Apple'}</button>` : ''}
-    <div style="text-align:center;margin-top:8px">
+    ${IS_IOS_APP ? '' : `<div style="text-align:center;margin-top:8px">
       <span id="go-ref-toggle" style="font-size:12px;color:var(--primary);cursor:pointer;text-decoration:underline">عندك كود إحالة؟</span>
-    </div>
+    </div>`}
     <div class="auth-switch">لديك حساب؟ <span id="go-login">سجّل دخول</span></div>
   </div>
 </div>`;
