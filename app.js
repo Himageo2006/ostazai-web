@@ -19541,13 +19541,13 @@ function tplUpgrade() {
       <button onclick="requestIAPPurchase('monthly')"
         style="background:var(--primary);color:#fff;border:none;border-radius:14px;padding:16px;font-size:15px;font-weight:800;cursor:pointer;font-family:Cairo,sans-serif;width:100%">
         📅 ${S.lang==='en'?'Monthly':'شهري'}<br>
-        <span style="font-size:12px;font-weight:600;opacity:.85">$4.99 / ${S.lang==='en'?'month':'شهر'}</span>
+        <span style="font-size:12px;font-weight:600;opacity:.85">$5.99 / ${S.lang==='en'?'month':'شهر'}</span>
       </button>
       <button onclick="requestIAPPurchase('yearly')"
         style="background:linear-gradient(135deg,#F59E0B,#D97706);color:#fff;border:none;border-radius:14px;padding:16px;font-size:15px;font-weight:800;cursor:pointer;font-family:Cairo,sans-serif;width:100%;position:relative">
-        <span style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#10B981;color:#fff;font-size:10px;font-weight:900;padding:2px 10px;border-radius:20px;white-space:nowrap">${S.lang==='en'?'BEST VALUE — SAVE 50%':'الأفضل — وفّر 50%'}</span>
+        <span style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#10B981;color:#fff;font-size:10px;font-weight:900;padding:2px 10px;border-radius:20px;white-space:nowrap">${S.lang==='en'?'BEST VALUE — SAVE 51%':'الأفضل — وفّر 51%'}</span>
         🔥 ${S.lang==='en'?'Yearly':'سنوي'}<br>
-        <span style="font-size:12px;font-weight:600;opacity:.85">$29.99 / ${S.lang==='en'?'year':'سنة'}</span>
+        <span style="font-size:12px;font-weight:600;opacity:.85">$34.99 / ${S.lang==='en'?'year':'سنة'}</span>
       </button>
     </div>
 
