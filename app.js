@@ -20220,12 +20220,23 @@ async function genAILesson() {
   // Cache: a lesson for a given chapter/grade/curriculum/language is identical every time —
   // serve it from cache (zero AI calls) instead of regenerating and spending budget.
   const lessonCacheKey = `oa_lesson_${S.curriculum}_${S.grade}_${subjName}_${chapter}_${isEn?'en':'ar'}`;
-  if (!S._lessonForceRegen) {
+  const cacheFields = { country:S.curriculum, curriculum, stage, grade, subject:subjName, chapter, lang:isEn?'en':'ar' };
+  const forceRegen = !!S._lessonForceRegen; S._lessonForceRegen = false;
+  // 1) Per-device cache (instant, zero network).
+  if (!forceRegen) {
     try { const cached = localStorage.getItem(lessonCacheKey); if (cached && cached.length > 200) { S.lessonContent = cached; render(); return; } } catch(_) {}
   }
-  S._lessonForceRegen = false;
-  S.lessonLoading = true; S.lessonContent = ''; S.lessonProgress = ''; render();
+  S.lessonLoading = true; S.lessonContent = ''; S.lessonProgress = isEn?'⏳ Loading…':'⏳ جارٍ التحميل…'; render();
+  let generated = false;
   try {
+    // 2) Global cache — another student may have already generated this exact lesson (zero AI calls).
+    if (!forceRegen) {
+      try {
+        const g = await req('/lessons/content?' + new URLSearchParams(cacheFields).toString(), 'GET');
+        if (g && g.found && g.content) { S.lessonContent = g.content; try { localStorage.setItem(lessonCacheKey, g.content); } catch(_) {} return; }
+      } catch(_) {}
+    }
+    generated = true;   // past both caches → we will spend AI calls now
     // Guests: one call (keeps within the free daily limit). Logged-in: deep section-by-section build.
     if (!S.token) {
       S.lessonContent = await ask(singlePrompt, true) || (isEn?'❌ No response — try again':'❌ لم يصل رد — حاول مجدداً');
@@ -20269,8 +20280,13 @@ async function genAILesson() {
     if (!S.lessonContent) S.lessonContent = `❌ ${e.message}`;
   } finally {
     S.lessonLoading = false; S.lessonProgress = ''; render();
-    // Cache the finished lesson so re-opening it costs zero AI calls.
-    try { if (S.lessonContent && !S.lessonContent.startsWith('❌')) localStorage.setItem(lessonCacheKey, S.lessonContent); } catch(_) {}
+    // Cache the finished lesson: locally (this device) + globally (all users) so it's never regenerated.
+    try {
+      if (S.lessonContent && !S.lessonContent.startsWith('❌')) {
+        localStorage.setItem(lessonCacheKey, S.lessonContent);
+        if (generated) req('/lessons/content', 'POST', { ...cacheFields, content: S.lessonContent }).catch(()=>{});
+      }
+    } catch(_) {}
   }
 }
 
