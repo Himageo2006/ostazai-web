@@ -19526,15 +19526,42 @@ function tplUpgrade() {
   // App Store guideline 3.1.1: no external purchase options inside the iOS app
   if (IS_IOS_APP && !isPro) {
     return `
-<div class="screen-header"><div class="screen-title">⭐ Pro</div></div>
-<div class="screen-body" style="display:flex;align-items:center;justify-content:center;min-height:60vh">
-  <div class="info-card" style="max-width:420px;text-align:center;padding:32px">
-    <div style="font-size:48px;margin-bottom:12px">⭐</div>
-    <div style="font-size:18px;font-weight:900;margin-bottom:10px">${S.lang==='en'?'OstazAI Pro':'أستاذ AI برو'}</div>
-    <div style="font-size:14px;color:var(--text-muted);line-height:2">
+<div class="screen-header"><div class="screen-title">⭐ ${S.lang==='en'?'Upgrade to Pro':'الترقية إلى Pro'}</div></div>
+<div class="screen-body">
+  <div class="info-card" style="max-width:420px;margin:0 auto;text-align:center;padding:28px">
+    <div style="font-size:48px;margin-bottom:8px">⭐</div>
+    <div style="font-size:20px;font-weight:900;margin-bottom:8px;color:var(--primary)">${S.lang==='en'?'OstazAI Pro':'أستاذ AI Pro'}</div>
+    <div style="font-size:13px;color:var(--text-muted);margin-bottom:20px;line-height:1.8">
       ${S.lang==='en'
-        ? 'Pro subscriptions are not available in this version of the app.'
-        : 'اشتراكات Pro غير متاحة في هذه النسخة من التطبيق.'}
+        ? 'Unlimited questions · Smart summaries · Mind maps · Photo solving · Voice input · PDF export'
+        : 'أسئلة غير محدودة · ملخصات ذكية · خرائط ذهنية · حل بالصورة · إدخال صوتي · تصدير PDF'}
+    </div>
+
+    <div style="display:grid;gap:12px;margin-bottom:16px">
+      <button onclick="requestIAPPurchase('monthly')"
+        style="background:var(--primary);color:#fff;border:none;border-radius:14px;padding:16px;font-size:15px;font-weight:800;cursor:pointer;font-family:Cairo,sans-serif;width:100%">
+        📅 ${S.lang==='en'?'Monthly':'شهري'}<br>
+        <span style="font-size:12px;font-weight:600;opacity:.85">$4.99 / ${S.lang==='en'?'month':'شهر'}</span>
+      </button>
+      <button onclick="requestIAPPurchase('yearly')"
+        style="background:linear-gradient(135deg,#F59E0B,#D97706);color:#fff;border:none;border-radius:14px;padding:16px;font-size:15px;font-weight:800;cursor:pointer;font-family:Cairo,sans-serif;width:100%;position:relative">
+        <span style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#10B981;color:#fff;font-size:10px;font-weight:900;padding:2px 10px;border-radius:20px;white-space:nowrap">${S.lang==='en'?'BEST VALUE — SAVE 50%':'الأفضل — وفّر 50%'}</span>
+        🔥 ${S.lang==='en'?'Yearly':'سنوي'}<br>
+        <span style="font-size:12px;font-weight:600;opacity:.85">$29.99 / ${S.lang==='en'?'year':'سنة'}</span>
+      </button>
+    </div>
+
+    <button onclick="restoreIAPPurchases()"
+      style="background:none;border:none;color:var(--primary);font-size:13px;cursor:pointer;text-decoration:underline;font-family:Cairo,sans-serif;margin-bottom:12px">
+      ${S.lang==='en'?'Restore previous purchase':'استعادة اشتراك سابق'}
+    </button>
+
+    <div id="iap-msg" style="display:none;margin-bottom:12px;font-size:13px;font-weight:700;padding:10px;border-radius:8px;background:var(--bg)"></div>
+
+    <div style="font-size:10px;color:var(--text-muted);line-height:1.6;text-align:center">
+      ${S.lang==='en'
+        ? 'Payment charged to Apple ID. Auto-renews unless cancelled 24h before period end. Manage in App Settings → Subscriptions.'
+        : 'يُخصم من Apple ID. يتجدد تلقائياً ما لم يُلغَ قبل 24 ساعة من نهاية الفترة. الإدارة من الإعدادات ← الاشتراكات.'}
     </div>
   </div>
 </div>`;
@@ -20112,6 +20139,50 @@ function requestAppleSignIn() {
   if (window.ReactNativeWebView) {
     window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'requestAppleSignIn' }));
   }
+}
+
+// ── Apple IAP (In-App Purchase via RevenueCat) ───────────────────────────────
+function requestIAPPurchase(plan) {
+  const msg = ge('iap-msg');
+  if (msg) { msg.style.display = 'block'; msg.style.color = 'var(--text-muted)'; msg.textContent = '⏳ ' + (S.lang === 'en' ? 'Opening payment...' : 'جارٍ فتح الدفع...'); }
+  if (window.ReactNativeWebView) {
+    window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'requestIAPPurchase', plan }));
+  }
+}
+
+function restoreIAPPurchases() {
+  const msg = ge('iap-msg');
+  if (msg) { msg.style.display = 'block'; msg.style.color = 'var(--text-muted)'; msg.textContent = '⏳ ' + (S.lang === 'en' ? 'Restoring...' : 'جارٍ الاستعادة...'); }
+  if (window.ReactNativeWebView) {
+    window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'restoreIAPPurchases' }));
+  }
+}
+
+async function handleIAPSuccess(data) {
+  const { customerId, plan } = data || {};
+  const msg = ge('iap-msg');
+  if (!customerId) { if (msg) { msg.style.color='#EF4444'; msg.textContent='❌ خطأ في البيانات'; } return; }
+  if (msg) { msg.style.display='block'; msg.style.color='var(--text-muted)'; msg.textContent='⏳ ' + (S.lang==='en'?'Verifying...':'جارٍ التحقق...'); }
+  try {
+    const d = await req('/auth/iap-verify', 'POST', { customerId, plan });
+    if (d.ok) {
+      S.user.plan = 'pro';
+      if (d.planExpiry) S.user.planExpiry = d.planExpiry;
+      saveLocal();
+      showToast(S.lang === 'en' ? '🎉 Subscription activated!' : '🎉 تم تفعيل الاشتراك!', 'success');
+      S.screen = 'home';
+      render();
+    } else {
+      if (msg) { msg.style.color='#EF4444'; msg.textContent='❌ ' + (d.error || (S.lang==='en'?'Verification failed':'فشل التحقق')); }
+    }
+  } catch(e) {
+    if (msg) { msg.style.color='#EF4444'; msg.textContent='❌ ' + (e.message || (S.lang==='en'?'Connection error':'خطأ في الاتصال')); }
+  }
+}
+
+function handleIAPError(errorMsg) {
+  const msg = ge('iap-msg');
+  if (msg) { msg.style.display='block'; msg.style.color='#EF4444'; msg.textContent='❌ ' + (errorMsg || (S.lang==='en'?'Purchase failed':'فشل الشراء')); }
 }
 
 async function handleAppleCredential(response) {
