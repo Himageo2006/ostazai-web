@@ -3829,7 +3829,7 @@ ${S.screen!=='home' && S.screen!=='chat' ? `
   🏠
 </button>` : ''}
 <!-- Floating Feedback Button -->
-<button id="b-feedback-float" title="ملاحظات أو مشكلة؟"
+<button id="b-feedback-float" title="${S.lang==='en'?'Feedback about the app?':'رأيك في التطبيق؟'}"
   style="position:fixed;bottom:calc(92px + env(safe-area-inset-bottom,0px));left:14px;z-index:999;width:42px;height:42px;border-radius:50%;
          ${S.screen==='chat' ? 'display:none!important;' : ''}
          background:var(--primary);border:none;font-size:19px;cursor:pointer;
@@ -3840,9 +3840,10 @@ ${S.screen!=='home' && S.screen!=='chat' ? `
 <!-- Feedback Modal -->
 <div id="feedback-modal" style="display:none;position:fixed;inset:0;z-index:1000;background:#00000080;align-items:center;justify-content:center">
   <div style="background:var(--surface);border-radius:16px;padding:24px;width:90%;max-width:400px;box-shadow:0 20px 60px #000a">
-    <div style="font-size:18px;font-weight:900;margin-bottom:4px">${S.lang==='en'?'💬 Send Feedback or Report a Bug':'💬 أرسل ملاحظة أو بلّغ عن مشكلة'}</div>
-    <div style="font-size:13px;color:var(--text-muted);margin-bottom:16px">${S.lang==='en'?'Your feedback helps us improve 🙏':'رأيك يساعدنا على التحسين 🙏'}</div>
-    <textarea id="feedback-text" placeholder="${S.lang==='en'?'Write your feedback here...':'اكتب ملاحظتك هنا...'}" rows="4"
+    <div style="font-size:18px;font-weight:900;margin-bottom:4px">${S.lang==='en'?'💬 Feedback about the app':'💬 رأيك في التطبيق'}</div>
+    <div style="font-size:13px;color:var(--text-muted);margin-bottom:10px">${S.lang==='en'?'Tell us what to improve or report a problem with the app 🙏':'أخبرنا بما نحسّنه أو بلّغ عن مشكلة في التطبيق 🙏'}</div>
+    <div style="font-size:12px;color:#F59E0B;background:#F59E0B14;border:1px solid #F59E0B33;border-radius:10px;padding:8px 12px;margin-bottom:12px;line-height:1.6">${S.lang==='en'?'⚠️ This is for app feedback only — please do NOT enter personal info (name, phone, ID or account numbers).':'⚠️ هذا الصندوق لرأيك في التطبيق فقط — من فضلك لا تكتب معلومات شخصية (اسم، هاتف، أرقام هوية أو حسابات).'}</div>
+    <textarea id="feedback-text" placeholder="${S.lang==='en'?'e.g. The lesson was helpful / I found a bug in…':'مثال: الشرح كان مفيداً / واجهت مشكلة في…'}" rows="4"
       style="width:100%;padding:12px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);
              font-family:Cairo,sans-serif;font-size:14px;resize:none;box-sizing:border-box;margin-bottom:12px"></textarea>
     <div style="display:flex;gap:8px">
