@@ -2,6 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8"/>
+  <!-- Force HTTPS: http:// origins are rejected by Google Sign-In (origin_mismatch). Bounce to https immediately. -->
+  <script>if(location.protocol==='http:'&&!/^(localhost|127\.0\.0\.1)/.test(location.hostname)){location.replace('https://'+location.host+location.pathname+location.search+location.hash);}</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
   <meta http-equiv="Pragma" content="no-cache"/>
@@ -192,7 +194,7 @@
   </div>
   <div id="app" style="display:none"></div>
 
-  <script src="app.js?v=237"></script>
+  <script src="app.js?v=238"></script>
   <script>
     // Hide loading screen — set up observer AND check immediately (app.js may have already rendered)
     (function() {
