@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mr. Amin — 3D AI Tutor (Prototype)</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Arial,sans-serif;background:linear-gradient(160deg,#0F172A,#1E293B);color:#F1F5F9;min-height:100vh;display:flex;flex-direction:column}
+  header{padding:16px 24px;border-bottom:1px solid #334155;display:flex;align-items:center;gap:10px}
+  header h1{font-size:18px;font-weight:900}
+  header h1 span{color:#3B82F6}
+  .badge{font-size:11px;background:#1c1a05;color:#F59E0B;border:1px solid #F59E0B;border-radius:20px;padding:2px 10px;font-weight:700}
+  #stage{flex:1;position:relative;min-height:0}
+  #avatar{width:100%;height:100%;display:block}
+  #status{position:absolute;top:14px;left:50%;transform:translateX(-50%);font-size:13px;color:#94A3B8;background:rgba(15,23,42,.7);padding:6px 14px;border-radius:20px;backdrop-filter:blur(4px)}
+  #loader{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:#64748B}
+  .spinner{width:44px;height:44px;border:4px solid #334155;border-top-color:#3B82F6;border-radius:50%;animation:spin 1s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .controls{padding:16px 24px;border-top:1px solid #334155;background:#0F172A}
+  .row{display:flex;gap:10px;max-width:860px;margin:0 auto;align-items:flex-end;flex-wrap:wrap}
+  textarea{flex:1;min-width:200px;padding:12px 16px;background:#1E293B;border:1px solid #334155;border-radius:10px;color:#F1F5F9;font-size:14px;resize:none;font-family:inherit}
+  select{padding:12px;background:#1E293B;border:1px solid #334155;border-radius:10px;color:#F1F5F9;font-size:13px;max-width:200px}
+  button{padding:12px 22px;border:none;border-radius:10px;font-weight:700;font-size:15px;cursor:pointer}
+  .btn-speak{background:#3B82F6;color:#fff}
+  .btn-speak:hover{background:#2563EB}
+  .btn-speak:disabled{opacity:.5;cursor:not-allowed}
+  .btn-stop{background:#1a0a0a;color:#EF4444;border:1px solid #EF4444}
+  .hint{max-width:860px;margin:8px auto 0;font-size:11px;color:#475569;text-align:center}
+  .err{color:#EF4444;font-size:13px;text-align:center;padding:12px}
+</style>
+</head>
+<body>
+<header>
+  <h1>🎓 Mr. Amin <span>3D</span></h1>
+  <span class="badge">PROTOTYPE · Milestone 1</span>
+</header>
+
+<div style="padding:10px 24px;border-bottom:1px solid #334155;background:#0F172A">
+  <div class="row" style="align-items:center">
+    <input id="avatarUrl" type="text" placeholder="Paste your Ready Player Me .glb URL (or leave default)"
+      style="flex:1;min-width:200px;padding:10px 14px;background:#1E293B;border:1px solid #334155;border-radius:10px;color:#F1F5F9;font-size:13px"/>
+    <button class="btn-speak" onclick="loadAvatarFromInput()">Load Avatar</button>
+  </div>
+  <div class="hint" style="margin-top:6px">Create a custom Mr. Amin free at <b>readyplayer.me</b> → copy your avatar's <b>.glb</b> link → paste above. Leave blank to use the demo avatar.</div>
+</div>
+
+<div id="stage">
+  <canvas id="avatar"></canvas>
+  <div id="status" style="display:none"></div>
+  <div id="loader">
+    <div class="spinner"></div>
+    <div>Loading Mr. Amin…</div>
+  </div>
+</div>
+
+<div class="controls">
+  <div class="row">
+    <textarea id="text" rows="2" placeholder="Type what Mr. Amin should say…">Hello! I'm Mr. Amin, your AI tutor. Ask me anything about your subjects and I'll help you learn step by step.</textarea>
+    <select id="voice" title="Voice"></select>
+    <button class="btn-speak" id="speakBtn" onclick="speak()">🔊 Speak</button>
+    <button class="btn-stop" id="stopBtn" onclick="stopSpeaking()">⏹ Stop</button>
+  </div>
+  <div class="hint">Milestone 1 uses your browser's built-in voice + procedural mouth animation. Milestone 2 swaps in Azure Neural TTS for phoneme-accurate lip-sync (Arabic + English).</div>
+</div>
+
+<!-- Three.js via CDN import map -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+// A Ready Player Me avatar. Morph targets requested for blinking + visemes.
+// Swap this URL for a custom-designed Mr. Amin (RPM / Avaturn / VRoid export).
+const DEFAULT_AVATAR = 'https://models.readyplayer.me/64bfa15f0e72c63d7c3934a6.glb';
+const MORPH_QS = '?morphTargets=ARKit,Oculus%20Visemes&textureSizeLimit=1024';
+
+function buildAvatarUrl(raw) {
+  let u = (raw || '').trim() || DEFAULT_AVATAR;
+  // Strip any existing query, ensure .glb, append morph-target params
+  u = u.split('?')[0];
+  if (!/\.glb$/i.test(u)) u += '.glb';
+  return u + MORPH_QS;
+}
+
+const savedUrl = localStorage.getItem('mrAmin_avatarUrl') || '';
+document.getElementById('avatarUrl').value = savedUrl;
+const AVATAR_URL = buildAvatarUrl(savedUrl);
+
+window.loadAvatarFromInput = function() {
+  const raw = document.getElementById('avatarUrl').value.trim();
+  localStorage.setItem('mrAmin_avatarUrl', raw);
+  location.reload();
+};
+
+const canvas = document.getElementById('avatar');
+const loaderEl = document.getElementById('loader');
+const statusEl = document.getElementById('status');
+
+let renderer, scene, camera, clock, head, morphDict = {}, morphMesh = null;
+let talking = false;
+let blinkTimer = 0, nextBlink = 2;
+
+function setStatus(t){ if(!t){statusEl.style.display='none';return;} statusEl.textContent=t; statusEl.style.display='block'; }
+
+function init() {
+  renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  resize();
+
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(28, canvas.clientWidth/canvas.clientHeight, 0.1, 100);
+  camera.position.set(0, 1.55, 0.85);
+
+  // Lighting
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x334155, 1.6));
+  const key = new THREE.DirectionalLight(0xffffff, 2.0); key.position.set(1, 3, 2); scene.add(key);
+  const fill = new THREE.DirectionalLight(0x88aaff, 0.6); fill.position.set(-2, 1, 1); scene.add(fill);
+
+  clock = new THREE.Clock();
+
+  const gltf = new GLTFLoader();
+  gltf.load(AVATAR_URL, onLoaded, onProgress, onError);
+
+  window.addEventListener('resize', resize);
+  animate();
+}
+
+function onProgress(e){ if(e.total) loaderEl.querySelector('div:last-child').textContent = `Loading Mr. Amin… ${Math.round(e.loaded/e.total*100)}%`; }
+function onError(err){ console.error(err); loaderEl.innerHTML = '<div class="err">Could not load the 3D avatar.<br>Check your internet connection and refresh.</div>'; }
+
+function onLoaded(gltf) {
+  head = gltf.scene;
+  head.traverse(o => {
+    if (o.isMesh && o.morphTargetDictionary) {
+      // Use the mesh that has the face blendshapes (head mesh)
+      if (o.morphTargetDictionary['jawOpen'] !== undefined || o.morphTargetDictionary['viseme_aa'] !== undefined) {
+        morphMesh = o; morphDict = o.morphTargetDictionary;
+      }
+    }
+    if (o.isMesh) o.frustumCulled = false;
+  });
+  scene.add(head);
+  loaderEl.style.display = 'none';
+  setStatus('Ready — type something and press Speak');
+  setTimeout(()=>setStatus(''), 2500);
+  loadVoices();
+}
+
+function setMorph(name, value) {
+  if (!morphMesh) return;
+  const i = morphDict[name];
+  if (i === undefined) return;
+  morphMesh.morphTargetInfluences[i] = value;
+}
+
+function resize() {
+  const w = canvas.clientWidth || canvas.parentElement.clientWidth;
+  const h = canvas.clientHeight || canvas.parentElement.clientHeight;
+  renderer.setSize(w, h, false);
+  if (camera){ camera.aspect = w/h; camera.updateProjectionMatrix(); }
+}
+
+const VISEMES = ['viseme_aa','viseme_E','viseme_I','viseme_O','viseme_U','viseme_PP','viseme_FF','viseme_kk'];
+let curViseme = null, visemeTimer = 0;
+
+function animate() {
+  requestAnimationFrame(animate);
+  if (!head) { renderer.render(scene, camera); return; }
+  const dt = clock.getDelta();
+  const t = clock.elapsedTime;
+
+  // Subtle idle: breathing + head sway
+  head.position.y = Math.sin(t*1.2)*0.004;
+  head.rotation.y = Math.sin(t*0.5)*0.04;
+  head.rotation.x = Math.sin(t*0.37)*0.02;
+
+  // Blinking
+  blinkTimer += dt;
+  let blink = 0;
+  if (blinkTimer > nextBlink) {
+    const p = (blinkTimer - nextBlink);
+    blink = p < 0.06 ? p/0.06 : p < 0.12 ? 1-(p-0.06)/0.06 : 0;
+    if (p >= 0.12) { blinkTimer = 0; nextBlink = 2 + Math.random()*3; }
+  }
+  setMorph('eyeBlinkLeft', blink); setMorph('eyeBlinkRight', blink);
+
+  // Talking: cycle visemes for a natural mouth
+  if (talking) {
+    visemeTimer += dt;
+    if (visemeTimer > 0.09) {
+      visemeTimer = 0;
+      VISEMES.forEach(v => setMorph(v, 0));
+      curViseme = VISEMES[(Math.random()*VISEMES.length)|0];
+    }
+    if (curViseme) setMorph(curViseme, 0.35 + Math.random()*0.5);
+    setMorph('jawOpen', 0.12 + Math.abs(Math.sin(t*18))*0.22);
+  } else {
+    VISEMES.forEach(v => setMorph(v, 0));
+    setMorph('jawOpen', 0);
+    // tiny mouth smile at rest
+    setMorph('mouthSmileLeft', 0.12); setMorph('mouthSmileRight', 0.12);
+  }
+
+  renderer.render(scene, camera);
+}
+
+// ── Voice (browser SpeechSynthesis) ──────────────────────────────────────────
+let voices = [];
+function loadVoices() {
+  voices = speechSynthesis.getVoices();
+  const sel = document.getElementById('voice');
+  if (!voices.length) { return; }
+  sel.innerHTML = voices.map((v,i)=>`<option value="${i}">${v.name} (${v.lang})</option>`).join('');
+  // Prefer an English male-ish or any English voice by default
+  const pref = voices.findIndex(v => /en(-|_)?(US|GB)/i.test(v.lang));
+  if (pref >= 0) sel.value = pref;
+}
+speechSynthesis.onvoiceschanged = loadVoices;
+
+window.speak = function() {
+  const text = document.getElementById('text').value.trim();
+  if (!text) return;
+  stopSpeaking();
+  const u = new SpeechSynthesisUtterance(text);
+  const vi = document.getElementById('voice').value;
+  if (voices[vi]) u.voice = voices[vi];
+  u.rate = 1.0; u.pitch = 1.0;
+  u.onstart = () => { talking = true; document.getElementById('speakBtn').disabled = true; setStatus('🗣️ Mr. Amin is speaking…'); };
+  u.onend   = () => { talking = false; document.getElementById('speakBtn').disabled = false; setStatus(''); };
+  u.onerror = () => { talking = false; document.getElementById('speakBtn').disabled = false; setStatus(''); };
+  speechSynthesis.speak(u);
+};
+
+window.stopSpeaking = function() {
+  speechSynthesis.cancel();
+  talking = false;
+  document.getElementById('speakBtn').disabled = false;
+  setStatus('');
+};
+
+init();
+</script>
+</body>
+</html>
