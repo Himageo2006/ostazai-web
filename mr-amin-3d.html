@@ -252,10 +252,10 @@ function frameModel(){
     dist = (modelSize/2) / Math.tan(fov/2) * 1.25;
     target = modelCenter.clone();
   } else {
-    const headY = box.max.y - size.y*0.20;            // chin / mid-face
-    const portrait = size.y*0.42;                      // show head + shoulders
+    const headY = box.max.y - size.y*0.11;            // eye line
+    const portrait = size.y*0.34;                      // head + a little shoulders
     modelSize = portrait || 1;
-    dist = (modelSize/2) / Math.tan(fov/2) * 1.5;
+    dist = (modelSize/2) / Math.tan(fov/2) * 1.45;
     target = new THREE.Vector3(modelCenter.x, headY, modelCenter.z);
   }
   camera.near = Math.max(dist/100,0.01); camera.far = dist*100; camera.updateProjectionMatrix();
