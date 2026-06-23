@@ -262,10 +262,12 @@ const NAV_TEACHER = [
   { id:'materials',     icon:'📚', label:'Materials' },
   { id:'submissions',   icon:'📥', label:'Submissions' },
   { id:'assign',        icon:'📋', label:'Assign Lessons' },
+  { id:'ai-tutor',      icon:'🤖', label:'AI Tutor' },
   { id:'notifications', icon:'🔔', label:'Notifications' },
 ];
 const NAV_STUDENT = [
   { id:'dashboard',     icon:'📚', label:'My Lessons' },
+  { id:'ai-tutor',      icon:'🤖', label:'AI Tutor' },
   { id:'timetable',     icon:'🗓️', label:'Timetable' },
   { id:'live',          icon:'🔴', label:'Live Class' },
   { id:'materials',     icon:'📂', label:'Materials' },
@@ -577,6 +579,41 @@ function studentPages() { return `
     <button class="btn btn-outline btn-sm" style="margin-bottom:16px" onclick="markAllRead()">Mark all as read</button>
     <div class="card" style="padding:0;overflow:hidden"><div id="notifList"><div style="padding:20px;color:#64748B;font-size:13px">Loading...</div></div></div>
   </div>
+
+  <div id="page-ai-tutor" class="page">
+    <div class="page-title">🤖 AI Tutor — Mr. Amin</div>
+    <div class="page-sub">Ask anything about your subjects. Powered by your school subscription — unlimited questions.</div>
+    <div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+      <input id="ait-subject" placeholder="Subject (e.g. Physics, Math)" style="flex:1;min-width:150px;padding:10px 14px;background:#1E293B;border:1px solid #334155;border-radius:8px;color:#F1F5F9;font-size:14px"/>
+      <input id="ait-grade" placeholder="Grade (e.g. 10, 11)" style="width:120px;padding:10px 14px;background:#1E293B;border:1px solid #334155;border-radius:8px;color:#F1F5F9;font-size:14px"/>
+      <select id="ait-curriculum" style="padding:10px 14px;background:#1E293B;border:1px solid #334155;border-radius:8px;color:#F1F5F9;font-size:14px">
+        <option value="igcse">IGCSE (Cambridge)</option>
+        <option value="edexcel">Edexcel</option>
+        <option value="ib">IB</option>
+        <option value="american">American</option>
+        <option value="cambridge_alevel">A-Level</option>
+        <option value="aqa">AQA</option>
+        <option value="ocr">OCR</option>
+        <option value="cbse">CBSE</option>
+        <option value="egypt">Egyptian</option>
+        <option value="saudi">Saudi</option>
+        <option value="kuwait">Kuwaiti</option>
+        <option value="uae">UAE</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <div id="ait-messages" style="background:#1E293B;border:1px solid #334155;border-radius:12px;padding:20px;min-height:300px;max-height:480px;overflow-y:auto;margin-bottom:12px;display:flex;flex-direction:column;gap:14px">
+      <div id="ait-welcome" style="text-align:center;color:#64748B;font-size:14px;padding:40px 0">
+        <div style="font-size:40px;margin-bottom:8px">🤖</div>
+        <div>Hi! I'm Mr. Amin, your AI tutor. Ask me anything about your subjects!</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px">
+      <textarea id="ait-input" placeholder="Ask a question... (Enter to send, Shift+Enter for new line)" rows="2" style="flex:1;padding:12px 16px;background:#1E293B;border:1px solid #334155;border-radius:10px;color:#F1F5F9;font-size:14px;resize:none;font-family:inherit" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAITutorMsg();}"></textarea>
+      <button onclick="sendAITutorMsg()" id="ait-send" style="padding:12px 20px;background:#3B82F6;color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:20px;align-self:flex-end">➤</button>
+    </div>
+    <div style="text-align:right;margin-top:6px"><button onclick="clearAITutorChat()" style="background:none;border:none;color:#475569;font-size:12px;cursor:pointer">🗑 Clear chat</button></div>
+  </div>
 `;}
 
 // ── Page loaders ──────────────────────────────────────────────────────────────
@@ -601,6 +638,7 @@ async function loadPage(id) {
       if (id === 'submissions')   await loadTeacherSubmissions();
       if (id === 'assign')        await loadAssignPage();
       if (id === 'notifications') await loadNotifications();
+      if (id === 'ai-tutor')      initAITutor();
     }
     if (USER.role === 'student') {
       if (id === 'dashboard')     await loadStudentAssigned();
@@ -610,6 +648,7 @@ async function loadPage(id) {
       if (id === 'submit')        await loadMySubmissions();
       if (id === 'progress')      await loadStudentProgress();
       if (id === 'notifications') await loadNotifications();
+      if (id === 'ai-tutor')      initAITutor();
     }
   } catch(e) { console.error(e); }
 }
@@ -1171,6 +1210,92 @@ function setSwbTool(t){ _swbTool=t; document.getElementById('swbPen').classList.
 function clearWhiteboard(){ if(_wbCtx){ _wbCtx.clearRect(0,0,_wbCtx.canvas.width,_wbCtx.canvas.height); } }
 function clearSwb(){ if(_swbCtx){ _swbCtx.clearRect(0,0,_swbCtx.canvas.width,_swbCtx.canvas.height); } }
 function downloadWhiteboard(){ const c=document.getElementById('wbCanvas'); const a=document.createElement('a'); a.download='whiteboard.png'; a.href=c.toDataURL(); a.click(); }
+
+// ══════════════════════════ AI TUTOR ══════════════════════════════════════════
+let _aitHistory = [];
+
+function initAITutor() {
+  // Pre-fill curriculum from school info if available
+  const cur = SCHOOL?.curriculum || '';
+  const curMap = {
+    'IGCSE (Cambridge)':'igcse','IGCSE (Edexcel)':'edexcel','IB (MYP / DP)':'ib',
+    'American / Common Core':'american','A-Level':'cambridge_alevel','AQA / OCR':'aqa',
+    'CBSE / ICSE':'cbse','Egyptian National Curriculum':'egypt','Saudi National Curriculum':'saudi',
+    'Kuwaiti Curriculum':'kuwait','UAE Curriculum (ADEC/KHDA)':'uae',
+  };
+  const sel = document.getElementById('ait-curriculum');
+  if (sel && curMap[cur]) sel.value = curMap[cur];
+}
+
+async function sendAITutorMsg() {
+  const input = document.getElementById('ait-input');
+  const text  = input?.value?.trim();
+  if (!text) return;
+
+  const subject    = document.getElementById('ait-subject')?.value?.trim() || '';
+  const grade      = document.getElementById('ait-grade')?.value?.trim() || '';
+  const curriculum = document.getElementById('ait-curriculum')?.value || 'igcse';
+
+  const messagesEl = document.getElementById('ait-messages');
+  const welcome    = document.getElementById('ait-welcome');
+  if (welcome) welcome.remove();
+
+  // Add user bubble
+  _aitHistory.push({ role: 'user', content: text });
+  messagesEl.innerHTML += `
+    <div style="display:flex;justify-content:flex-end">
+      <div style="background:#1e3a5f;color:#F1F5F9;padding:12px 16px;border-radius:14px 14px 2px 14px;max-width:75%;font-size:14px;line-height:1.6">${text.replace(/\n/g,'<br>')}</div>
+    </div>`;
+  input.value = '';
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+
+  // Typing indicator
+  const typingId = 'ait-typing-' + Date.now();
+  messagesEl.innerHTML += `<div id="${typingId}" style="display:flex;align-items:center;gap:8px;color:#64748B;font-size:13px"><div style="font-size:24px">🤖</div><div>Mr. Amin is thinking...</div></div>`;
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+
+  const sendBtn = document.getElementById('ait-send');
+  if (sendBtn) sendBtn.disabled = true;
+
+  try {
+    const d = await api('POST', '/ai-chat', {
+      messages:   _aitHistory.slice(-12),
+      subject, grade, curriculum,
+      userName:   USER.name,
+      country:    'other',
+    });
+
+    document.getElementById(typingId)?.remove();
+    const reply = d.content || 'Sorry, I could not generate a response.';
+    _aitHistory.push({ role: 'assistant', content: reply });
+
+    // Render assistant bubble with basic markdown (bold, code)
+    const html = reply
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/\*\*(.*?)\*\*/g,'<b>$1</b>')
+      .replace(/`([^`]+)`/g,'<code style="background:#0F172A;padding:2px 6px;border-radius:4px;font-family:monospace">$1</code>')
+      .replace(/\n/g,'<br>');
+
+    messagesEl.innerHTML += `
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <div style="font-size:24px;flex-shrink:0">🤖</div>
+        <div style="background:#0F172A;color:#F1F5F9;padding:12px 16px;border-radius:2px 14px 14px 14px;max-width:80%;font-size:14px;line-height:1.7">${html}</div>
+      </div>`;
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  } catch(e) {
+    document.getElementById(typingId)?.remove();
+    messagesEl.innerHTML += `<div style="color:#EF4444;font-size:13px;padding:8px">Error: ${e.message}</div>`;
+  } finally {
+    if (sendBtn) sendBtn.disabled = false;
+    input.focus();
+  }
+}
+
+function clearAITutorChat() {
+  _aitHistory = [];
+  const el = document.getElementById('ait-messages');
+  if (el) el.innerHTML = `<div id="ait-welcome" style="text-align:center;color:#64748B;font-size:14px;padding:40px 0"><div style="font-size:40px;margin-bottom:8px">🤖</div><div>Chat cleared! Ask me anything.</div></div>`;
+}
 
 // ══════════════════════════ MATERIALS ═════════════════════════════════════════
 const MATERIAL_API = 'https://ostazai-server-production.up.railway.app/api/school-materials';

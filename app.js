@@ -20071,7 +20071,26 @@ async function doLogin() {
     const d = await req('/auth/login', 'POST', { email, password: pass });
     S.token = d.token; S.user = d.user; saveLocal();
     S.screen = 'home'; render(); showToast(S.lang==='en'?'Welcome back 👋':'أهلاً بعودتك 👋', 'success');
-  } catch(e) { showAuthErr(e.message); }
+  } catch(e) {
+    // If regular login fails, try school account login
+    try {
+      const SERVER = 'https://ostazai-server-production.up.railway.app';
+      const r = await fetch(SERVER + '/api/school/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password: pass }),
+      });
+      const sd = await r.json();
+      if (r.ok && sd.token) {
+        localStorage.setItem('school_token', sd.token);
+        localStorage.setItem('school_user',  JSON.stringify(sd.user));
+        localStorage.setItem('school_info',  JSON.stringify(sd.school));
+        window.location.href = '/school-portal.html';
+        return;
+      }
+    } catch(_) {}
+    showAuthErr(e.message);
+  }
   finally { setBtnLoading('b-login', 'دخول'); }
 }
 
