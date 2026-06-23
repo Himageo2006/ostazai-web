@@ -598,8 +598,11 @@ function teacherPages() { return `
 
   <div id="page-students" class="page">
     <div class="page-title">My Students</div>
-    <div class="page-sub">View progress or create student accounts directly</div>
-    <button class="btn btn-success" style="margin-bottom:20px" onclick="showCreateStudent()">+ Create Student Account</button>
+    <div class="page-sub">View progress, create accounts, or import a whole class at once</div>
+    <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap">
+      <button class="btn btn-success" onclick="showCreateStudent()">+ Create Student Account</button>
+      <button class="btn btn-outline" onclick="showImportStudents()">📥 Import from CSV</button>
+    </div>
     <div class="card"><table><thead><tr><th>Name</th><th>Email</th><th>Grade</th><th>Questions</th><th>Last Active</th><th></th></tr></thead>
     <tbody id="teacherStudentBody"><tr><td colspan="6" style="color:#64748B">Loading...</td></tr></tbody></table></div>
   </div>
@@ -1217,6 +1220,81 @@ async function doCreateStudent() {
     showMsg(msg,'✅ Student account created!','ok');
     setTimeout(()=>{closeModal();loadTeacherStudents();},1200);
   } catch(e){showMsg(msg,e.message,'err');}
+}
+
+// ── Bulk CSV import ─────────────────────────────────────────────────────────────
+async function showImportStudents() {
+  let classes = _teacherClasses;
+  if (!classes || !classes.length) { try { classes = await api('GET','/teacher/classes'); _teacherClasses = classes; } catch(_) { classes = []; } }
+  const classOpts = classes.map(c=>`<option value="${c._id||c.id}">${c.name}</option>`).join('');
+  showModal(`
+    <div class="modal-title">📥 Import Students from CSV</div>
+    <div style="font-size:13px;color:#94A3B8;margin-bottom:14px">
+      Paste rows as <b>name,email,grade</b> (one per line) or upload a .csv file.
+      Grade is optional. A temporary password is generated and emailed to each student.
+    </div>
+    <div class="form-group"><label>Assign to Class</label>
+      <select id="impClass">${classOpts || '<option value="">No classes — create one first</option>'}</select>
+    </div>
+    <div class="form-group"><label>Upload CSV file</label>
+      <input type="file" id="impFile" accept=".csv,text/csv" onchange="readImportFile(this)"/>
+    </div>
+    <div class="form-group"><label>Or paste CSV data</label>
+      <textarea id="impText" rows="6" placeholder="Ahmed Ali,ahmed@email.com,Grade 10
+Sara Noor,sara@email.com,Grade 10" style="background:#0F172A;border:1px solid #334155;border-radius:8px;padding:10px;color:#F1F5F9;width:100%;resize:vertical;font-family:monospace;font-size:13px"></textarea>
+    </div>
+    <button class="btn btn-primary" style="width:100%" onclick="doImportStudents()">Import Students</button>
+    <div id="impMsg" style="margin-top:10px;font-size:13px"></div>
+    <div id="impResults" style="margin-top:12px"></div>`);
+}
+
+function readImportFile(input) {
+  const file = input.files?.[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => { document.getElementById('impText').value = e.target.result; };
+  reader.readAsText(file);
+}
+
+function parseStudentCSV(text) {
+  const rows = [];
+  text.split(/\r?\n/).forEach(line => {
+    const t = line.trim();
+    if (!t) return;
+    // Skip a header row if present
+    if (/^name\s*,\s*email/i.test(t)) return;
+    const parts = t.split(',').map(p => p.trim());
+    const [name, email, grade] = parts;
+    if (name && email) rows.push({ name, email, grade: grade || '' });
+  });
+  return rows;
+}
+
+async function doImportStudents() {
+  const classId = document.getElementById('impClass').value;
+  const text    = document.getElementById('impText').value;
+  const msg     = document.getElementById('impMsg');
+  const resEl   = document.getElementById('impResults');
+  msg.style.display='block';
+  if (!classId) { msg.style.color='#EF4444'; msg.textContent='Please select a class.'; return; }
+  const students = parseStudentCSV(text);
+  if (!students.length) { msg.style.color='#EF4444'; msg.textContent='No valid rows found. Use: name,email,grade'; return; }
+  msg.style.color='#94A3B8'; msg.textContent=`Importing ${students.length} student(s)...`;
+  try {
+    const d = await api('POST','/teacher/import-students',{ classId, students });
+    msg.style.color='#10B981';
+    msg.textContent = `✅ Created ${d.created}, skipped ${d.skipped} (already existed).`;
+    if (d.details?.length) {
+      resEl.innerHTML = `<div style="background:#0F172A;border:1px solid #334155;border-radius:8px;padding:12px;max-height:180px;overflow-y:auto">
+        <div style="font-size:12px;font-weight:700;color:#94A3B8;margin-bottom:8px">TEMPORARY PASSWORDS (also emailed)</div>
+        ${d.details.map(s=>`<div style="font-size:12px;display:flex;justify-content:space-between;padding:3px 0"><span>${s.name}</span><code style="color:#10B981">${s.tempPassword}</code></div>`).join('')}
+      </div>`;
+    }
+    if (d.errors?.length) {
+      resEl.innerHTML += `<div style="color:#F59E0B;font-size:12px;margin-top:8px">${d.errors.length} row(s) had errors and were skipped.</div>`;
+    }
+    loadTeacherStudents();
+  } catch(e) { msg.style.color='#EF4444'; msg.textContent=e.message; }
 }
 
 async function viewStudentDetail(id) {
