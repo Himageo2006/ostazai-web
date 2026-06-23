@@ -40,11 +40,17 @@
 
 <div class="urlbar">
   <div class="row" style="align-items:center">
-    <input id="avatarUrl" type="text" placeholder="Optional: paste a Ready Player Me .glb URL to use a custom avatar"/>
-    <button class="btn-speak" onclick="loadAvatarFromInput()">Load</button>
-    <button class="btn-stop" onclick="resetAvatar()" style="padding:10px 16px">Reset to default</button>
+    <select id="modelPick" onchange="pickModel()" style="max-width:260px">
+      <option value="assets3d/teacher-human.glb">Teacher — Human (your model)</option>
+      <option value="assets3d/teacher.glb">Teacher — Stylized (your model)</option>
+      <option value="assets/facecap.glb">Demo Face (placeholder)</option>
+      <option value="__custom">Custom URL…</option>
+    </select>
+    <input id="avatarUrl" type="text" placeholder="Paste a Ready Player Me .glb URL" style="display:none"/>
+    <button class="btn-speak" onclick="loadAvatarFromInput()" id="loadBtn" style="display:none">Load</button>
+    <label style="font-size:12px;color:#94A3B8;display:flex;align-items:center;gap:6px"><input type="checkbox" id="fullBody" onchange="reframe()"/> Full body</label>
   </div>
-  <div class="hint" style="margin-top:6px">Default avatar is hosted on your own site (always loads). To use a custom Mr. Amin, create one free at <b>readyplayer.me</b> and paste its <b>.glb</b> link.</div>
+  <div class="hint" style="margin-top:6px">Switch models to compare. Your existing teacher models are full-body & rigged. For accurate lip-sync we'll use a model with named mouth visemes (Ready Player Me).</div>
 </div>
 
 <div id="stage">
@@ -79,26 +85,38 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { KTX2Loader } from 'three/addons/loaders/KTX2Loader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 
-// Default avatar is self-hosted on this site (no external avatar CDN needed).
-const DEFAULT_AVATAR = 'assets/facecap.glb';
 const MORPH_QS = '?morphTargets=ARKit,Oculus%20Visemes&textureSizeLimit=1024';
 
 function buildAvatarUrl(raw) {
   raw = (raw || '').trim();
-  if (!raw) return DEFAULT_AVATAR;                 // local model, load as-is
+  if (!raw) return 'assets3d/teacher-human.glb';
+  if (raw.startsWith('assets')) return raw;          // local model, as-is
   let u = raw.split('?')[0];
   if (!/\.glb$/i.test(u)) u += '.glb';
-  return u + MORPH_QS;                              // remote RPM avatar
+  return u + MORPH_QS;                                // remote RPM avatar
 }
 
-const savedUrl = localStorage.getItem('mrAmin_avatarUrl') || '';
-document.getElementById('avatarUrl').value = savedUrl;
-const AVATAR_URL = buildAvatarUrl(savedUrl);
+// Restore last choice
+const savedModel = localStorage.getItem('mrAmin_model') || 'assets3d/teacher-human.glb';
+const savedCustom = localStorage.getItem('mrAmin_customUrl') || '';
+const AVATAR_URL = savedModel === '__custom' ? buildAvatarUrl(savedCustom) : savedModel;
 
-window.loadAvatarFromInput = function(){ localStorage.setItem('mrAmin_avatarUrl', document.getElementById('avatarUrl').value.trim()); location.reload(); };
-window.resetAvatar = function(){ localStorage.removeItem('mrAmin_avatarUrl'); location.reload(); };
+// Sync UI
+const pick = document.getElementById('modelPick');
+if ([...pick.options].some(o=>o.value===savedModel)) pick.value = savedModel;
+if (savedModel === '__custom') { document.getElementById('avatarUrl').style.display=''; document.getElementById('loadBtn').style.display=''; document.getElementById('avatarUrl').value = savedCustom; }
+if (localStorage.getItem('mrAmin_fullBody')==='1') document.getElementById('fullBody').checked = true;
+
+window.pickModel = function(){
+  const v = document.getElementById('modelPick').value;
+  if (v === '__custom') { document.getElementById('avatarUrl').style.display=''; document.getElementById('loadBtn').style.display=''; return; }
+  localStorage.setItem('mrAmin_model', v); location.reload();
+};
+window.loadAvatarFromInput = function(){ localStorage.setItem('mrAmin_model','__custom'); localStorage.setItem('mrAmin_customUrl', document.getElementById('avatarUrl').value.trim()); location.reload(); };
+window.reframe = function(){ localStorage.setItem('mrAmin_fullBody', document.getElementById('fullBody').checked?'1':'0'); if(head) frameModel(); };
 
 const canvas = document.getElementById('avatar');
 const loaderEl = document.getElementById('loader');
@@ -129,7 +147,8 @@ function init(){
   const ktx2 = new KTX2Loader()
     .setTranscoderPath('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/basis/')
     .detectSupport(renderer);
-  const loader = new GLTFLoader().setKTX2Loader(ktx2).setMeshoptDecoder(MeshoptDecoder);
+  const draco = new DRACOLoader().setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/draco/');
+  const loader = new GLTFLoader().setKTX2Loader(ktx2).setMeshoptDecoder(MeshoptDecoder).setDRACOLoader(draco);
   loader.load(AVATAR_URL, onLoaded, onProgress, onError);
 
   window.addEventListener('resize', resize);
@@ -166,17 +185,31 @@ function onLoaded(gltf){
 }
 
 function frameModel(){
+  // reset transform so bbox is clean
+  head.position.set(0,0,0); head.rotation.set(0,0,0);
   const box = new THREE.Box3().setFromObject(head);
   box.getCenter(modelCenter);
   const size = box.getSize(new THREE.Vector3());
-  modelSize = Math.max(size.x, size.y, size.z) || 1;
   const fov = camera.fov * Math.PI/180;
-  const dist = (modelSize/2) / Math.tan(fov/2) * 1.5;
-  // Look at the upper half (face) of the model
-  const target = modelCenter.clone(); target.y += size.y*0.18;
-  camera.position.set(target.x, target.y, modelCenter.z + dist);
-  camera.lookAt(target);
-  head.userData.target = target;
+  const fullBody = document.getElementById('fullBody').checked;
+
+  if (fullBody) {
+    // Frame the whole model
+    modelSize = Math.max(size.x, size.y) || 1;
+    const dist = (modelSize/2) / Math.tan(fov/2) * 1.25;
+    const target = modelCenter.clone();
+    camera.position.set(target.x, target.y, box.max.z + dist);
+    camera.lookAt(target);
+  } else {
+    // Frame head & shoulders: assume head is near the top of the bbox
+    const headY = box.max.y - size.y*0.12;            // approx eye line
+    const portrait = size.y*0.32;                      // vertical span to show
+    modelSize = portrait || 1;
+    const dist = (modelSize/2) / Math.tan(fov/2) * 1.6;
+    const target = new THREE.Vector3(modelCenter.x, headY, modelCenter.z);
+    camera.position.set(target.x, target.y, box.max.z + dist);
+    camera.lookAt(target);
+  }
 }
 
 function setMorph(name,v){ if(!morphMesh)return; const i=morphDict[name]; if(i===undefined)return; morphMesh.morphTargetInfluences[i]=v; }
