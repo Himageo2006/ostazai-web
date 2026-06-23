@@ -159,7 +159,7 @@ tr:hover td{background:#1a2540}
 
 <!-- TRIAL BANNER -->
 <div id="trialBanner" style="display:none;background:#1c1a05;border-bottom:2px solid #F59E0B;padding:10px 24px;margin-left:220px;display:none;align-items:center;justify-content:space-between;gap:12px">
-  <div style="font-size:13px;color:#FCD34D"><span style="font-size:16px">⏳</span> <b>Free Trial</b> — <span id="trialDaysLeft"></span> days remaining. <a href="mailto:himageo1@gmail.com?subject=Activate School Account" style="color:#F59E0B;font-weight:700">Activate now →</a></div>
+  <div style="font-size:13px;color:#FCD34D"><span style="font-size:16px">⏳</span> <b>Free Trial</b> — <span id="trialDaysLeft"></span> days remaining. <button onclick="startCheckout()" style="background:#F59E0B;color:#000;border:none;border-radius:6px;padding:4px 14px;font-weight:700;cursor:pointer;font-size:13px" id="activateBtn">Activate now →</button></div>
   <div style="font-size:11px;color:#92400E">Your data is safe. Upgrade anytime before trial ends.</div>
 </div>
 
@@ -190,6 +190,15 @@ window.onload = async () => {
   USER  = JSON.parse(localStorage.getItem('school_user') || 'null');
   SCHOOL= JSON.parse(localStorage.getItem('school_info') || 'null');
   if (!TOKEN || !USER) return location.href = '/school-join.html';
+
+  // Handle Stripe return
+  const params = new URLSearchParams(location.search);
+  if (params.get('activated') === '1') {
+    history.replaceState({}, '', location.pathname);
+    setTimeout(() => alert('🎉 Payment successful! Your school account is now active.'), 800);
+  } else if (params.get('activated') === '0') {
+    history.replaceState({}, '', location.pathname);
+  }
 
   // Refresh from server
   try {
@@ -926,9 +935,26 @@ function showTrialExpired() {
       <div style="font-size:56px">⏰</div>
       <div style="font-size:22px;font-weight:900;color:#F1F5F9">Your 7-Day Trial Has Ended</div>
       <div style="font-size:14px;color:#64748B;max-width:420px">Activate your subscription to continue. Your data and accounts are safely kept.</div>
-      <a href="mailto:himageo1@gmail.com?subject=Activate School Account — ${SCHOOL?.name}" style="background:#3B82F6;color:#fff;padding:14px 28px;border-radius:10px;font-weight:700;text-decoration:none">📩 Contact Us to Activate</a>
+      <button onclick="startCheckout()" style="background:#3B82F6;color:#fff;padding:14px 28px;border-radius:10px;font-weight:700;border:none;cursor:pointer;font-size:15px" id="activateBtn2">💳 Activate Subscription</button>
       <button onclick="logout()" style="background:none;border:none;color:#64748B;font-size:13px;cursor:pointer">Log Out</button>
     </div>`;
+}
+
+async function startCheckout() {
+  const btn = document.getElementById('activateBtn') || document.getElementById('activateBtn2');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ Loading…'; }
+  try {
+    const d = await api('POST', '/api/school/create-checkout', {});
+    if (d?.url) {
+      window.location.href = d.url;
+    } else {
+      alert(d?.error || 'Could not start checkout. Please contact support.');
+      if (btn) { btn.disabled = false; btn.textContent = btn.id === 'activateBtn' ? 'Activate now →' : '💳 Activate Subscription'; }
+    }
+  } catch(e) {
+    alert(e.message || 'Could not start checkout. Please contact support.');
+    if (btn) { btn.disabled = false; btn.textContent = btn.id === 'activateBtn' ? 'Activate now →' : '💳 Activate Subscription'; }
+  }
 }
 
 function showMsg(el,text,type) {
