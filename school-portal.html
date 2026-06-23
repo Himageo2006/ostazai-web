@@ -433,7 +433,10 @@ function adminPages() { return `
   <div id="page-teachers" class="page">
     <div class="page-title">Teachers</div>
     <div class="page-sub">Manage teacher accounts</div>
-    <button class="btn btn-primary" style="margin-bottom:20px" onclick="showInviteTeacher()">+ Invite Teacher</button>
+    <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="showInviteTeacher()">+ Invite Teacher</button>
+      <button class="btn btn-outline" onclick="exportTeachersCSV()">⬇️ Export Teachers CSV</button>
+    </div>
     <div class="card"><table><thead><tr><th>Name</th><th>Email</th><th>Status</th><th>Joined</th><th></th></tr></thead>
     <tbody id="teacherTableBody"><tr><td colspan="5" style="color:#64748B">Loading...</td></tr></tbody></table></div>
   </div>
@@ -441,6 +444,7 @@ function adminPages() { return `
   <div id="page-students" class="page">
     <div class="page-title">All Students</div>
     <div class="page-sub">View and manage all students in the school</div>
+    <button class="btn btn-outline" style="margin-bottom:16px" onclick="exportStudentsCSV()">⬇️ Export Students CSV</button>
     <div class="card"><table><thead><tr><th>Name</th><th>Email</th><th>Grade</th><th>Questions</th><th>Last Active</th><th></th></tr></thead>
     <tbody id="adminStudentBody"><tr><td colspan="6" style="color:#64748B">Loading...</td></tr></tbody></table></div>
   </div>
@@ -897,8 +901,10 @@ async function loadAdminDashboard() {
     `</tbody></table>`;
 }
 
+let _adminTeachers = [], _adminStudents = [];
 async function loadTeachers() {
   const teachers = await api('GET', '/admin/teachers');
+  _adminTeachers = teachers;
   const tbody = document.getElementById('teacherTableBody');
   if (!teachers.length) { tbody.innerHTML = '<tr><td colspan="5" style="color:#64748B">No teachers yet. Invite one above.</td></tr>'; return; }
   tbody.innerHTML = teachers.map(t => `<tr>
@@ -912,6 +918,7 @@ async function loadTeachers() {
 
 async function loadAdminStudents() {
   const students = await api('GET', '/admin/students');
+  _adminStudents = students;
   const tbody = document.getElementById('adminStudentBody');
   if (!students.length) { tbody.innerHTML = '<tr><td colspan="6" style="color:#64748B">No students yet.</td></tr>'; return; }
   tbody.innerHTML = students.map(s => `<tr>
@@ -1089,6 +1096,48 @@ function renderStudentRows(students) {
       ${s.classId?`<button class="btn btn-danger btn-sm" onclick="removeStudentFromClass('${s.classId}','${s.id}','${s.name.replace(/'/g,"\\'")}')">Remove</button>`:''}
     </td>
   </tr>`).join('');
+}
+
+// ── CSV export ──────────────────────────────────────────────────────────────────
+function downloadCSV(filename, headers, rows) {
+  const esc = v => {
+    const s = (v ?? '').toString();
+    return /[",\n]/.test(s) ? `"${s.replace(/"/g,'""')}"` : s;
+  };
+  const csv = [headers.join(','), ...rows.map(r => r.map(esc).join(','))].join('\r\n');
+  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 60000);
+}
+
+function exportStudentsCSV() {
+  if (!_adminStudents.length) { alert('No students to export.'); return; }
+  const today = new Date().toISOString().slice(0,10);
+  downloadCSV(
+    `${(SCHOOL?.name||'school').replace(/[^a-z0-9]/gi,'_')}_students_${today}.csv`,
+    ['Name','Email','Grade','Total Questions','Last Active','Joined'],
+    _adminStudents.map(s => [
+      s.name, s.email, s.grade||'', s.totalQuestions||0,
+      s.lastSeen ? new Date(s.lastSeen).toLocaleDateString() : 'Never',
+      s.createdAt ? new Date(s.createdAt).toLocaleDateString() : '',
+    ])
+  );
+}
+
+function exportTeachersCSV() {
+  if (!_adminTeachers.length) { alert('No teachers to export.'); return; }
+  const today = new Date().toISOString().slice(0,10);
+  downloadCSV(
+    `${(SCHOOL?.name||'school').replace(/[^a-z0-9]/gi,'_')}_teachers_${today}.csv`,
+    ['Name','Email','Status','Joined'],
+    _adminTeachers.map(t => [
+      t.name, t.email, t.status||'',
+      t.createdAt ? new Date(t.createdAt).toLocaleDateString() : '',
+    ])
+  );
 }
 
 function filterStudents() {
