@@ -20405,7 +20405,7 @@ async function teachChapterOnBoard() {
     const gradeData = (curData.grades && (curData.grades[S.grade] || Object.values(curData.grades)[0])) || { label:'' };
     const isEn = ['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian','south_africa'].includes(S.curriculum);
     const prompt = isEn
-      ? `Explain the lesson "${S.lessonChapter}" in ${S.lessonSubject.name} for ${curData.label} ${gradeData.label} clearly and simply for a student, as a teacher speaking aloud. Use short clear sentences. Cover the key concepts, give 2-3 worked examples, and end with a quick summary. No headings symbols, just clear spoken explanation.`
+      ? `You are Mr. Amin, an expert teacher explaining to a student. Explain the lesson "${S.lessonChapter}" in ${S.lessonSubject.name} for ${curData.label} ${gradeData.label} clearly and simply, as a teacher speaking aloud. Use short clear sentences. Cover the key concepts, give 2-3 worked examples, and end with a quick summary. No headings symbols, just clear spoken explanation. IMPORTANT: Respond ONLY in English. Do not use any Arabic words at all.`
       : `اشرح درس "${S.lessonChapter}" في مادة ${S.lessonSubject.name} — ${curData.label} ${gradeData.label} بأسلوب معلّم يتحدث للطلاب على السبورة. استخدم جملاً قصيرة وواضحة. اشرح المفاهيم الأساسية، أعطِ مثالين أو ثلاثة محلولة خطوة بخطوة، واختم بملخص سريع. ابدأ فوراً دون أسئلة. لا تستخدم رموز عناوين، فقط شرح واضح مسموع.`;
     const { stage, grade, curriculum } = gradeToAPI();
     const d = await req('/chat', 'POST', {
@@ -20560,18 +20560,18 @@ function explainTextbookChapter(subj, curricLabel, chapter, mode) {
   const isSummary = mode === 'summary';
   if (!chapter) {
     chatWith(`${subj} — ${curricLabel}`, isEn
-      ? `You are an expert teacher for ${subj} (${curricLabel} curriculum). The student is using the official textbook. Ask them: "Which chapter or topic would you like me to ${isSummary?'summarise':'explain in detail'}?"`
+      ? `You are an expert teacher for ${subj} (${curricLabel} curriculum). The student is using the official textbook. Respond ONLY in English — do not use any Arabic words. Ask them: "Which chapter or topic would you like me to ${isSummary?'summarise':'explain in detail'}?"`
       : `أنت أستاذ متخصص في مادة ${subj} وفق منهج ${curricLabel}. الطالب يدرس من الكتاب المدرسي الرسمي. اسأله: "ما الدرس أو الموضوع الذي تريد ${isSummary?'تلخيصه':'أن أشرحه لك بالتفصيل'}؟"`);
     return;
   }
   let prompt;
   if (isSummary) {
     prompt = isEn
-      ? `You are an expert ${subj} teacher using the ${curricLabel} official textbook.\n\nWrite a comprehensive smart summary for "${chapter}":\n\n## Key Points\n## Important Definitions\n## Core Formulas / Rules (if applicable)\n## Quick Examples\n## What to Remember for the Exam\n\nMake it concise, well-structured, and easy to revise from.`
+      ? `You are an expert ${subj} teacher using the ${curricLabel} official textbook. Respond ONLY in English — do not use any Arabic words.\n\nWrite a comprehensive smart summary for "${chapter}":\n\n## Key Points\n## Important Definitions\n## Core Formulas / Rules (if applicable)\n## Quick Examples\n## What to Remember for the Exam\n\nMake it concise, well-structured, and easy to revise from.`
       : `أنت أستاذ متخصص في مادة ${subj} وفق منهج ${curricLabel}، تلخص من الكتاب المدرسي الرسمي.\n\nاكتب ملخصاً ذكياً شاملاً لـ "${chapter}" يتضمن:\n\n## النقاط الأساسية\n## التعريفات المهمة\n## القوانين والقواعد الأساسية (إن وجدت)\n## أمثلة سريعة\n## ما يجب حفظه للامتحان\n\nاجعله مختصراً ومنظماً وسهل المراجعة.`;
   } else {
     prompt = isEn
-      ? `You are an expert ${subj} teacher (${curricLabel} official textbook). Write a COMPLETE textbook-chapter lesson on "${chapter}" so the student needs NO other source. Start immediately, no questions.\n\nIdentify only the 5-6 MAIN sub-topics (do NOT over-fragment). For EACH main sub-topic you MUST write at least 250 words: (1) clear definition, (2) everyday analogy, (3) how & why it works step by step from first principles, (4) TWO worked examples (basic + harder), each step by step, (5) the common misconception, (6) a real-world use.\n\nThen add: Common Mistakes, 5 practice questions WITH full worked solutions, and a short summary.\n\nThe whole lesson MUST be at least 2500 words — mandatory. Clear flowing paragraphs. Do not stop until every sub-topic is fully covered; always finish.`
+      ? `You are an expert ${subj} teacher (${curricLabel} official textbook). Respond ONLY in English — do not use any Arabic words. Write a COMPLETE textbook-chapter lesson on "${chapter}" so the student needs NO other source. Start immediately, no questions.\n\nIdentify only the 5-6 MAIN sub-topics (do NOT over-fragment). For EACH main sub-topic you MUST write at least 250 words: (1) clear definition, (2) everyday analogy, (3) how & why it works step by step from first principles, (4) TWO worked examples (basic + harder), each step by step, (5) the common misconception, (6) a real-world use.\n\nThen add: Common Mistakes, 5 practice questions WITH full worked solutions, and a short summary.\n\nThe whole lesson MUST be at least 2500 words — mandatory. Clear flowing paragraphs. Do not stop until every sub-topic is fully covered; always finish.`
       : `أنت أستاذ متخصص في ${subj} (الكتاب الرسمي لمنهج ${curricLabel}). اكتب درساً كاملاً بعمق فصل من كتاب مدرسي عن "${chapter}" بحيث لا يحتاج الطالب لأي مصدر آخر. ابدأ فوراً دون أسئلة.\n\nحدّد الأجزاء الفرعية الرئيسية فقط (٥ إلى ٦ — لا تُفرّط في التقسيم). ولكل جزء فرعي رئيسي اكتب ٢٥٠ كلمة على الأقل: ١) تعريف واضح، ٢) تشبيه من الحياة، ٣) كيف ولماذا يعمل خطوة بخطوة من الأساس، ٤) مثالان محلولان (بسيط وأصعب) خطوة بخطوة، ٥) الخطأ الشائع، ٦) استخدام واقعي.\n\nثم أضف: الأخطاء الشائعة، و٥ أسئلة تدريبية مع حلولها الكاملة، وملخصاً قصيراً.\n\nيجب ألا يقل الدرس عن ٢٥٠٠ كلمة — إلزامي. فقرات واضحة متصلة. لا تتوقف حتى تغطي كل جزء فرعي بالكامل، وأنهِ الدرس كاملاً.`;
   }
   chatWith(`${subj} — ${chapter}`, prompt, !isSummary);  // full lesson = long-form; summaries stay normal length
