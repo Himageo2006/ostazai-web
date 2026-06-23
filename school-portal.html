@@ -276,6 +276,7 @@ const NAV_TEACHER = [
   { id:'dashboard',     icon:'📊', label:'Dashboard' },
   { id:'classes',       icon:'🏫', label:'My Classes' },
   { id:'students',      icon:'🎓', label:'My Students' },
+  { id:'gradebook',     icon:'📒', label:'Grade Book' },
   { id:'timetable',     icon:'🗓️', label:'Timetable' },
   { id:'live',          icon:'🔴', label:'Live Class' },
   { id:'materials',     icon:'📚', label:'Materials' },
@@ -283,6 +284,7 @@ const NAV_TEACHER = [
   { id:'assign',        icon:'📋', label:'Assign Lessons' },
   { id:'ai-tutor',      icon:'🤖', label:'AI Tutor' },
   { id:'notifications', icon:'🔔', label:'Notifications' },
+  { id:'settings',      icon:'⚙️',  label:'Settings' },
 ];
 const NAV_STUDENT = [
   { id:'dashboard',     icon:'📚', label:'My Lessons' },
@@ -293,6 +295,7 @@ const NAV_STUDENT = [
   { id:'submit',        icon:'📤', label:'Submit Work' },
   { id:'progress',      icon:'📈', label:'My Progress' },
   { id:'notifications', icon:'🔔', label:'Notifications' },
+  { id:'settings',      icon:'⚙️',  label:'Settings' },
 ];
 
 function renderSidebar() {
@@ -363,6 +366,27 @@ async function saveSchoolSettings() {
     if (msgEl) { msgEl.style.display = 'block'; setTimeout(() => msgEl.style.display = 'none', 3000); }
     document.getElementById('sideSchoolName').textContent = SCHOOL.name;
   } catch(e) { alert(e.message); }
+}
+
+async function saveStudentProfile() {
+  const name  = document.getElementById('sp_name')?.value?.trim();
+  const grade = document.getElementById('sp_grade')?.value?.trim();
+  const msg   = document.getElementById('spMsg');
+  msg.style.display = 'none';
+  if (!name) { msg.style.color='#EF4444'; msg.textContent='Name cannot be empty.'; msg.style.display='block'; return; }
+  try {
+    const d = await api('PATCH', '/student/update-profile', { name, grade });
+    USER = d.user;
+    localStorage.setItem('school_user', JSON.stringify(USER));
+    document.getElementById('sideUserName').textContent = USER.name;
+    msg.style.color = '#10B981';
+    msg.textContent = '✅ Profile updated!';
+    msg.style.display = 'block';
+  } catch(e) {
+    msg.style.color = '#EF4444';
+    msg.textContent = e.message || 'Failed to update profile.';
+    msg.style.display = 'block';
+  }
 }
 
 function openAITutorForTopic(subject, chapter) {
@@ -445,6 +469,11 @@ function adminPages() { return `
     <div class="card" style="padding:0;overflow:hidden"><div id="notifList"><div style="padding:20px;color:#64748B;font-size:13px">Loading...</div></div></div>
   </div>
 
+  ${settingsPage()}
+`;}
+
+// ══════════════════════════ SHARED SETTINGS PAGE ══════════════════════════════
+function settingsPage() { return `
   <div id="page-settings" class="page">
     <div class="page-title">Settings</div>
     <div class="page-sub">Account details, school profile, and security</div>
@@ -483,6 +512,25 @@ function adminPages() { return `
       <div style="margin-top:16px">
         <a href="mailto:himageo1@gmail.com?subject=Upgrade School Package — ${SCHOOL?.name}" class="btn btn-primary">📦 Upgrade Package</a>
       </div>
+    </div>` : USER.role === 'student' ? `
+    <div class="card">
+      <div class="card-title">📋 My Profile</div>
+      <div style="max-width:360px">
+        <div class="form-group">
+          <label class="form-label">Name</label>
+          <input class="form-input" id="sp_name" value="${USER.name||''}" placeholder="Your name"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Grade / Year</label>
+          <input class="form-input" id="sp_grade" value="${USER.grade||''}" placeholder="e.g. Grade 10"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input class="form-input" value="${USER.email||''}" disabled style="opacity:.6"/>
+        </div>
+        <button class="btn btn-primary" onclick="saveStudentProfile()">💾 Save Profile</button>
+        <div id="spMsg" style="display:none;margin-top:10px;font-size:13px"></div>
+      </div>
     </div>` : `
     <div class="card">
       <div class="card-title">📋 My Account</div>
@@ -513,6 +561,19 @@ function adminPages() { return `
         <div id="cpMsg" style="display:none;margin-top:10px;font-size:13px"></div>
       </div>
     </div>
+  </div>
+`;}
+
+// ══════════════════════════ GRADE BOOK PAGE ═══════════════════════════════════
+function gradebookPage() { return `
+  <div id="page-gradebook" class="page">
+    <div class="page-title">📒 Grade Book</div>
+    <div class="page-sub">Overview of every student's submissions, grades, and progress per class</div>
+    <div class="form-group" style="max-width:320px">
+      <label class="form-label">Select Class</label>
+      <select class="form-input" id="gb_class" onchange="loadGradebook()"><option value="">Loading classes...</option></select>
+    </div>
+    <div id="gradebookWrap"><div style="color:#64748B;font-size:13px">Select a class to view the grade book.</div></div>
   </div>
 `;}
 
@@ -658,6 +719,9 @@ function teacherPages() { return `
     </div>
     <div class="card" style="padding:0;overflow:hidden"><div id="notifList"><div style="padding:20px;color:#64748B;font-size:13px">Loading...</div></div></div>
   </div>
+
+  ${gradebookPage()}
+  ${settingsPage()}
 `;}
 
 // ══════════════════════════ STUDENT PAGES ═════════════════════════════════════
@@ -771,6 +835,8 @@ function studentPages() { return `
     </div>
     <div style="text-align:right;margin-top:6px"><button onclick="clearAITutorChat()" style="background:none;border:none;color:#475569;font-size:12px;cursor:pointer">🗑 Clear chat</button></div>
   </div>
+
+  ${settingsPage()}
 `;}
 
 // ── Page loaders ──────────────────────────────────────────────────────────────
@@ -794,6 +860,7 @@ async function loadPage(id) {
       if (id === 'materials')     await loadMaterials('teacherMaterialsList', true);
       if (id === 'submissions')   await loadTeacherSubmissions();
       if (id === 'assign')        await loadAssignPage();
+      if (id === 'gradebook')     await loadGradebookClasses();
       if (id === 'notifications') { await loadNotifications(); await loadAnnounceClassOptions(); }
       if (id === 'ai-tutor')      initAITutor();
     }
@@ -894,6 +961,58 @@ async function loadTeacherClasses() {
         <div style="font-size:13px;color:#94A3B8">${c.students?.length||0} students</div>
       </div>
     </div>`).join('');
+}
+
+// ── Grade Book ─────────────────────────────────────────────────────────────────
+async function loadGradebookClasses() {
+  const sel = document.getElementById('gb_class');
+  if (!sel) return;
+  try {
+    const classes = await api('GET', '/teacher/classes');
+    if (!classes.length) {
+      sel.innerHTML = '<option value="">No classes yet</option>';
+      document.getElementById('gradebookWrap').innerHTML = '<div style="color:#64748B;font-size:13px">Create a class first to use the grade book.</div>';
+      return;
+    }
+    sel.innerHTML = classes.map(c => `<option value="${c._id||c.id}">${c.name}</option>`).join('');
+    loadGradebook();
+  } catch(e) {}
+}
+
+async function loadGradebook() {
+  const classId = document.getElementById('gb_class')?.value;
+  const wrap = document.getElementById('gradebookWrap');
+  if (!classId) { wrap.innerHTML = '<div style="color:#64748B;font-size:13px">Select a class.</div>'; return; }
+  wrap.innerHTML = '<div style="color:#64748B;font-size:13px">Loading grade book...</div>';
+  try {
+    const d = await api('GET', `/teacher/gradebook/${classId}`);
+    if (!d.students.length) { wrap.innerHTML = '<div style="color:#64748B;font-size:13px">No students in this class yet.</div>'; return; }
+    wrap.innerHTML = `
+      <div class="card" style="padding:0;overflow-x:auto">
+        <table>
+          <thead><tr>
+            <th>Student</th>
+            <th style="text-align:center">AI Questions</th>
+            <th style="text-align:center">Topics Done</th>
+            <th style="text-align:center">Submissions</th>
+            <th style="text-align:center">Latest Grade</th>
+          </tr></thead>
+          <tbody>
+            ${d.students.map(s => {
+              const graded = s.submissions.filter(x => x.status === 'graded');
+              const latest = graded.length ? graded[graded.length-1].grade : null;
+              return `<tr>
+                <td><button style="background:none;border:none;color:#60A5FA;cursor:pointer;font-weight:700;font-size:13px;padding:0;text-align:left" onclick="viewStudentDetail('${s.id}')">${s.name}</button></td>
+                <td style="text-align:center;font-weight:700;color:${s.totalQuestions>0?'#10B981':'#64748B'}">${s.totalQuestions||0}</td>
+                <td style="text-align:center">${s.completedTopics}/${s.totalTopics}</td>
+                <td style="text-align:center">${s.submissions.length}</td>
+                <td style="text-align:center">${latest ? `<span class="grade-badge">${latest}</span>` : '<span style="color:#64748B">—</span>'}</td>
+              </tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>`;
+  } catch(e) { wrap.innerHTML = `<div style="color:#EF4444;font-size:13px">${e.message}</div>`; }
 }
 
 async function loadTeacherStudents() {
@@ -1733,7 +1852,7 @@ async function loadTeacherSubmissions() {
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         ${s.fileName?`<button class="btn btn-outline btn-sm" onclick="secureDownload('${MATERIAL_API}/submissions/${s._id}/download','${(s.fileName||'file').replace(/'/g,"\\'")}')">⬇️ ${s.fileName}</button>`:''}
-        ${s.status!=='graded'?`<button class="btn btn-success btn-sm" onclick="showGradeModal('${s._id}','${(s.studentId?.name||'Student').replace(/'/g,'\\'')}','${s.title.replace(/'/g,"\\'")}')">✅ Grade</button>`:`<div style="font-size:12px;color:#64748B;padding:6px">Feedback: ${s.feedback||'—'}</div>`}
+        ${s.status!=='graded'?`<button class="btn btn-success btn-sm" onclick="showGradeModal('${s._id}','${(s.studentId?.name||'Student').replace(/'/g,"\\'")}','${s.title.replace(/'/g,"\\'")}')">✅ Grade</button>`:`<div style="font-size:12px;color:#64748B;padding:6px">Feedback: ${s.feedback||'—'}</div>`}
       </div>
     </div>`).join('');
 }
