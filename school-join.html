@@ -93,6 +93,23 @@ input::placeholder{color:#475569}
       </div>
       <button class="btn" onclick="schoolLogin()">Log In</button>
       <div id="loginMsg"></div>
+      <div style="text-align:center;margin-top:14px">
+        <button onclick="showForgotPassword()" style="background:none;border:none;color:#3B82F6;font-size:13px;cursor:pointer;text-decoration:underline">Forgot your password?</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Forgot Password Panel -->
+  <div id="forgotPanel" style="display:none;margin-top:16px">
+    <div style="background:#1a2540;border:1px solid #334155;border-radius:12px;padding:20px">
+      <div style="font-size:15px;font-weight:700;color:#F1F5F9;margin-bottom:6px">🔒 Reset Password</div>
+      <div style="font-size:13px;color:#64748B;margin-bottom:14px">Enter your school email — we'll send a reset link.</div>
+      <div class="form-group">
+        <input type="email" id="forgotEmail" placeholder="your@email.com"/>
+      </div>
+      <button class="btn" onclick="sendForgotPassword()">Send Reset Link</button>
+      <div id="forgotMsg" style="margin-top:10px;font-size:13px;display:none"></div>
+      <button onclick="hideForgotPassword()" style="background:none;border:none;color:#64748B;font-size:12px;cursor:pointer;margin-top:10px">← Back to login</button>
     </div>
   </div>
 
@@ -183,6 +200,35 @@ function showMsg(el, text, type) {
   el.className = type === 'error' ? 'error' : 'success';
   el.textContent = text;
   el.style.display = 'block';
+}
+
+function showForgotPassword() {
+  document.getElementById('forgotPanel').style.display = 'block';
+  document.getElementById('forgotEmail').value = document.getElementById('loginEmail')?.value || '';
+  document.getElementById('forgotEmail').focus();
+}
+
+function hideForgotPassword() {
+  document.getElementById('forgotPanel').style.display = 'none';
+  document.getElementById('forgotMsg').style.display = 'none';
+}
+
+async function sendForgotPassword() {
+  const email = document.getElementById('forgotEmail').value.trim();
+  const msg   = document.getElementById('forgotMsg');
+  msg.style.display = 'none';
+  if (!email) { msg.style.color='#EF4444'; msg.textContent='Please enter your email.'; msg.style.display='block'; return; }
+  try {
+    await post('/forgot-password', { email });
+    msg.style.color = '#10B981';
+    msg.textContent = '✅ If your email is registered, a reset link has been sent. Check your inbox.';
+    msg.style.display = 'block';
+    document.getElementById('forgotEmail').value = '';
+  } catch(e) {
+    msg.style.color = '#EF4444';
+    msg.textContent = e.message || 'Something went wrong. Please try again.';
+    msg.style.display = 'block';
+  }
 }
 </script>
 </body>

@@ -200,13 +200,18 @@ let TOKEN, USER, SCHOOL;
 
 // ── Bootstrap ─────────────────────────────────────────────────────────────────
 window.onload = async () => {
+  const params = new URLSearchParams(location.search);
+
+  // Handle password reset link (no login needed)
+  const resetToken = params.get('resetToken');
+  if (resetToken) { showResetPasswordScreen(resetToken); return; }
+
   TOKEN = localStorage.getItem('school_token');
   USER  = JSON.parse(localStorage.getItem('school_user') || 'null');
   SCHOOL= JSON.parse(localStorage.getItem('school_info') || 'null');
   if (!TOKEN || !USER) return location.href = '/school-join.html';
 
-  // Handle Stripe return
-  const params = new URLSearchParams(location.search);
+  // Handle payment return
   if (params.get('activated') === '1') {
     history.replaceState({}, '', location.pathname);
     setTimeout(() => alert('🎉 Payment successful! Your school account is now active.'), 800);
@@ -621,9 +626,33 @@ function teacherPages() { return `
   </div>
 
   <div id="page-notifications" class="page">
-    <div class="page-title">Notifications</div>
+    <div class="page-title">Notifications & Announcements</div>
     <div class="page-sub"></div>
-    <button class="btn btn-outline btn-sm" style="margin-bottom:16px" onclick="markAllRead()">Mark all as read</button>
+
+    <div class="card" style="margin-bottom:20px">
+      <div class="card-title">📢 Send Announcement to Your Students</div>
+      <div class="form-group">
+        <label class="form-label">Title</label>
+        <input class="form-input" id="ann_title" placeholder="e.g. Homework Due Tomorrow"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea class="form-input" id="ann_msg" rows="3" placeholder="Write your announcement..." style="resize:vertical"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Send to</label>
+        <select class="form-input" id="ann_class">
+          <option value="">All my students</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" onclick="sendAnnouncement()">📢 Send to Students</button>
+      <div id="ann_status" style="margin-top:10px;font-size:13px"></div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div style="font-size:14px;font-weight:700;color:#94A3B8">YOUR NOTIFICATIONS</div>
+      <button class="btn btn-outline btn-sm" onclick="markAllRead()">Mark all as read</button>
+    </div>
     <div class="card" style="padding:0;overflow:hidden"><div id="notifList"><div style="padding:20px;color:#64748B;font-size:13px">Loading...</div></div></div>
   </div>
 `;}
@@ -762,7 +791,7 @@ async function loadPage(id) {
       if (id === 'materials')     await loadMaterials('teacherMaterialsList', true);
       if (id === 'submissions')   await loadTeacherSubmissions();
       if (id === 'assign')        await loadAssignPage();
-      if (id === 'notifications') await loadNotifications();
+      if (id === 'notifications') { await loadNotifications(); await loadAnnounceClassOptions(); }
       if (id === 'ai-tutor')      initAITutor();
     }
     if (USER.role === 'student') {
@@ -869,12 +898,12 @@ async function loadTeacherStudents() {
   const tbody = document.getElementById('teacherStudentBody');
   if (!students.length) { tbody.innerHTML = '<tr><td colspan="6" style="color:#64748B">No students yet.</td></tr>'; return; }
   tbody.innerHTML = students.map(s => `<tr>
-    <td>${s.name}</td>
+    <td><button style="background:none;border:none;color:#60A5FA;cursor:pointer;font-weight:700;font-size:13px;text-align:left;padding:0" onclick="viewStudentDetail('${s.id}')">${s.name}</button></td>
     <td style="color:#64748B">${s.email}</td>
     <td style="color:#64748B">${s.grade||'—'}</td>
-    <td>${s.totalQuestions||0}</td>
-    <td style="color:#64748B">${s.lastSeen?new Date(s.lastSeen).toLocaleDateString():'Never'}</td>
-    <td><button class="btn btn-outline btn-sm" onclick="viewStudentProgress('${s.id}','${s.name}')">Progress</button></td>
+    <td><span style="font-weight:700;color:${s.totalQuestions>0?'#10B981':'#64748B'}">${s.totalQuestions||0}</span></td>
+    <td style="color:${s.lastSeen&&(Date.now()-new Date(s.lastSeen))<86400000?'#10B981':'#64748B'}">${s.lastSeen?new Date(s.lastSeen).toLocaleDateString():'Never'}</td>
+    <td><button class="btn btn-outline btn-sm" onclick="viewStudentDetail('${s.id}')">View Profile</button></td>
   </tr>`).join('');
 }
 
@@ -1051,30 +1080,133 @@ async function doCreateStudent() {
   } catch(e){showMsg(msg,e.message,'err');}
 }
 
-async function viewStudentProgress(id,name) {
-  const s = await api('GET',`/teacher/progress/${id}`);
-  const progress = s.progress||[];
-  const assigned = s.assignedTopics||[];
-  const doneCount = assigned.filter(t=>t.completed).length;
-  showModal(`
-    <div class="modal-title">${name}'s Progress</div>
-    <div style="display:flex;gap:16px;margin-bottom:16px">
-      <div class="stat-card" style="flex:1;padding:14px"><div class="val" style="font-size:28px">${s.totalQuestions||0}</div><div class="lbl">Total Questions</div></div>
-      <div class="stat-card green" style="flex:1;padding:14px"><div class="val" style="font-size:28px">${doneCount}/${assigned.length}</div><div class="lbl">Topics Done</div></div>
-    </div>
-    ${progress.length?`
-    <div class="card-title" style="margin-bottom:10px">Questions by Subject</div>
-    ${progress.map(p=>`<div style="margin-bottom:10px">
-      <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span>${p.subject}</span><span style="color:#64748B">${p.questionsAsked}</span></div>
-      <div class="progress-bar"><div class="fill" style="width:${Math.min(100,p.questionsAsked*5)}%"></div></div>
-    </div>`).join('')}`:'<div style="color:#64748B;font-size:13px">No questions asked yet.</div>'}
-    ${assigned.length?`
-    <div class="card-title" style="margin:14px 0 10px">Assigned Topics</div>
-    ${assigned.map(t=>`<div style="display:flex;justify-content:space-between;font-size:13px;padding:7px 0;border-bottom:1px solid #334155">
-      <span>${t.subject} — ${t.chapter}</span>
-      <span>${t.completed?'✅':' ⏳'}</span>
-    </div>`).join('')}`:''}
-  `);
+async function viewStudentDetail(id) {
+  showModal(`<div class="modal-title">Loading student profile...</div><div style="color:#64748B;text-align:center;padding:24px">⏳</div>`);
+  try {
+    const { student: s } = await api('GET', `/teacher/student-stats/${id}`);
+    const maxQ = Math.max(1, ...s.progress.map(p => p.questionsAsked));
+    showModal(`
+      <div class="modal-title">🎓 ${s.name}</div>
+      <div style="color:#64748B;font-size:12px;margin-bottom:16px">${s.email} · Grade ${s.grade||'—'} · ${s.curriculum||'—'}</div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px">
+        <div class="stat-card" style="padding:12px;text-align:center">
+          <div class="val" style="font-size:24px;color:#3B82F6">${s.totalQuestions}</div>
+          <div class="lbl">AI Questions</div>
+        </div>
+        <div class="stat-card green" style="padding:12px;text-align:center">
+          <div class="val" style="font-size:24px">${s.completedTopics}</div>
+          <div class="lbl">Topics Done</div>
+        </div>
+        <div class="stat-card amber" style="padding:12px;text-align:center">
+          <div class="val" style="font-size:24px;color:#F59E0B">${s.pendingTopics}</div>
+          <div class="lbl">Pending</div>
+        </div>
+      </div>
+
+      ${s.progress.length ? `
+      <div style="font-size:13px;font-weight:700;color:#94A3B8;margin-bottom:10px">AI USAGE BY SUBJECT</div>
+      ${s.progress.sort((a,b)=>b.questionsAsked-a.questionsAsked).map(p=>`
+        <div style="margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px">
+            <span style="color:#F1F5F9">${p.subject}</span>
+            <span style="color:#64748B">${p.questionsAsked} questions</span>
+          </div>
+          <div style="background:#0F172A;border-radius:6px;height:8px;overflow:hidden">
+            <div style="background:linear-gradient(90deg,#3B82F6,#8B5CF6);height:100%;border-radius:6px;width:${Math.round(p.questionsAsked/maxQ*100)}%;min-width:4px"></div>
+          </div>
+        </div>`).join('')}` : `<div style="color:#64748B;font-size:13px;margin-bottom:16px">No AI questions asked yet.</div>`}
+
+      ${s.assignedTopics.length ? `
+      <div style="font-size:13px;font-weight:700;color:#94A3B8;margin:16px 0 10px">RECENT ASSIGNED TOPICS</div>
+      ${s.assignedTopics.slice().reverse().map(t=>`
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:8px 0;border-bottom:1px solid #1a2540">
+          <span style="color:${t.completed?'#10B981':'#CBD5E1'}">${t.subject} — ${t.chapter}</span>
+          <span>${t.completed?'✅ Done':'⏳'}</span>
+        </div>`).join('')}` : ''}
+
+      <div style="color:#475569;font-size:12px;margin-top:16px">
+        Joined: ${new Date(s.createdAt).toLocaleDateString()} ·
+        Last active: ${s.lastSeen ? new Date(s.lastSeen).toLocaleDateString() : 'Never'}
+      </div>
+    `);
+  } catch(e) {
+    showModal(`<div class="modal-title">Error</div><div style="color:#EF4444">${e.message}</div>`);
+  }
+}
+
+// ── Reset Password Screen (shown when ?resetToken=... is in URL) ───────────────
+function showResetPasswordScreen(token) {
+  document.body.innerHTML = `
+    <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0F172A;font-family:Arial,sans-serif">
+      <div style="background:#1E293B;border:1px solid #334155;border-radius:16px;padding:40px;width:360px;text-align:center">
+        <div style="font-size:40px;margin-bottom:8px">🔒</div>
+        <h2 style="color:#F1F5F9;font-size:20px;margin-bottom:6px">Set New Password</h2>
+        <p style="color:#64748B;font-size:13px;margin-bottom:24px">Choose a new password for your school account.</p>
+        <input type="password" id="rp_new" placeholder="New password (min. 6 chars)"
+          style="width:100%;padding:12px 16px;background:#0F172A;border:1px solid #334155;border-radius:8px;color:#F1F5F9;font-size:14px;margin-bottom:12px"/>
+        <input type="password" id="rp_confirm" placeholder="Confirm new password"
+          style="width:100%;padding:12px 16px;background:#0F172A;border:1px solid #334155;border-radius:8px;color:#F1F5F9;font-size:14px;margin-bottom:16px"/>
+        <button onclick="doResetPassword('${token}')"
+          style="width:100%;padding:13px;background:#3B82F6;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:15px;cursor:pointer">
+          Update Password
+        </button>
+        <div id="rp_msg" style="margin-top:12px;font-size:13px;display:none"></div>
+      </div>
+    </div>`;
+}
+
+async function doResetPassword(token) {
+  const newP = document.getElementById('rp_new').value;
+  const conf = document.getElementById('rp_confirm').value;
+  const msg  = document.getElementById('rp_msg');
+  msg.style.display = 'none';
+  if (!newP || newP.length < 6) { msg.style.color='#EF4444'; msg.textContent='Password must be at least 6 characters.'; msg.style.display='block'; return; }
+  if (newP !== conf) { msg.style.color='#EF4444'; msg.textContent='Passwords do not match.'; msg.style.display='block'; return; }
+  try {
+    const SERVER = 'https://ostazai-server-production.up.railway.app';
+    const r = await fetch(SERVER + '/api/school/reset-password', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ token, newPassword: newP }),
+    });
+    const d = await r.json();
+    if (!r.ok) { msg.style.color='#EF4444'; msg.textContent=d.error||'Failed.'; msg.style.display='block'; return; }
+    // Log the user in automatically
+    localStorage.setItem('school_token', d.token);
+    localStorage.setItem('school_user',  JSON.stringify(d.user));
+    localStorage.setItem('school_info',  JSON.stringify(d.school));
+    history.replaceState({}, '', '/school-portal.html');
+    location.reload();
+  } catch(e) { msg.style.color='#EF4444'; msg.textContent=e.message; msg.style.display='block'; }
+}
+
+// ── Teacher: Send Announcement ─────────────────────────────────────────────────
+async function sendAnnouncement() {
+  const title   = document.getElementById('ann_title')?.value?.trim();
+  const message = document.getElementById('ann_msg')?.value?.trim();
+  const classId = document.getElementById('ann_class')?.value || '';
+  const statusEl = document.getElementById('ann_status');
+  if (!title || !message) { statusEl.style.color='#EF4444'; statusEl.textContent='Title and message are required.'; return; }
+  try {
+    const d = await api('POST', '/teacher/announce', { title, message, classId: classId||undefined });
+    statusEl.style.color = '#10B981';
+    statusEl.textContent = `✅ Sent to ${d.sent} student(s)`;
+    document.getElementById('ann_title').value = '';
+    document.getElementById('ann_msg').value = '';
+  } catch(e) {
+    statusEl.style.color = '#EF4444';
+    statusEl.textContent = e.message;
+  }
+}
+
+async function loadAnnounceClassOptions() {
+  const sel = document.getElementById('ann_class');
+  if (!sel) return;
+  try {
+    const classes = await api('GET', '/teacher/classes');
+    sel.innerHTML = '<option value="">All my students</option>' +
+      classes.map(c => `<option value="${c._id||c.id}">${c.name}</option>`).join('');
+  } catch(_) {}
 }
 
 // ── Unified API helper ────────────────────────────────────────────────────────
