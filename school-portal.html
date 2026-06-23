@@ -1051,18 +1051,35 @@ async function loadGradebook() {
   } catch(e) { wrap.innerHTML = `<div style="color:#EF4444;font-size:13px">${e.message}</div>`; }
 }
 
+let _studentList = [];
 async function loadTeacherStudents() {
-  const students = await api('GET', '/teacher/students');
+  _studentList = await api('GET', '/teacher/students');
+  renderStudentRows(_studentList);
+}
+
+function renderStudentRows(students) {
   const tbody = document.getElementById('teacherStudentBody');
-  if (!students.length) { tbody.innerHTML = '<tr><td colspan="6" style="color:#64748B">No students yet.</td></tr>'; return; }
+  if (!tbody) return;
+  if (!students.length) { tbody.innerHTML = '<tr><td colspan="6" style="color:#64748B">No students found.</td></tr>'; return; }
   tbody.innerHTML = students.map(s => `<tr>
     <td><button style="background:none;border:none;color:#60A5FA;cursor:pointer;font-weight:700;font-size:13px;text-align:left;padding:0" onclick="viewStudentDetail('${s.id}')">${s.name}</button></td>
     <td style="color:#64748B">${s.email}</td>
     <td style="color:#64748B">${s.grade||'—'}</td>
     <td><span style="font-weight:700;color:${s.totalQuestions>0?'#10B981':'#64748B'}">${s.totalQuestions||0}</span></td>
     <td style="color:${s.lastSeen&&(Date.now()-new Date(s.lastSeen))<86400000?'#10B981':'#64748B'}">${s.lastSeen?new Date(s.lastSeen).toLocaleDateString():'Never'}</td>
-    <td><button class="btn btn-outline btn-sm" onclick="viewStudentDetail('${s.id}')">View Profile</button></td>
+    <td style="white-space:nowrap">
+      <button class="btn btn-outline btn-sm" onclick="viewStudentDetail('${s.id}')">View</button>
+      ${s.classId?`<button class="btn btn-danger btn-sm" onclick="removeStudentFromClass('${s.classId}','${s.id}','${s.name.replace(/'/g,"\\'")}')">Remove</button>`:''}
+    </td>
   </tr>`).join('');
+}
+
+async function removeStudentFromClass(classId, studentId, name) {
+  if (!confirm(`Remove ${name} from this class? Their account stays, but they'll be unassigned from the class.`)) return;
+  try {
+    await api('DELETE', `/teacher/class/${classId}/student/${studentId}`);
+    loadTeacherStudents();
+  } catch(e) { alert(e.message); }
 }
 
 let _teacherClasses = [], _teacherStudents = [];
