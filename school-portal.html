@@ -1149,6 +1149,19 @@ function downloadWhiteboard(){ const c=document.getElementById('wbCanvas'); cons
 // ══════════════════════════ MATERIALS ═════════════════════════════════════════
 const MATERIAL_API = 'https://ostazai-server-production.up.railway.app/api/school-materials';
 
+async function secureDownload(url, filename) {
+  try {
+    const r = await fetch(url, { headers: { Authorization: 'Bearer ' + TOKEN } });
+    if (!r.ok) { alert('Download failed — please try again.'); return; }
+    const blob = await r.blob();
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename || 'download';
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 60000);
+  } catch(e) { alert('Download error: ' + e.message); }
+}
+
 async function loadMaterials(wrapperId, canDelete) {
   const el = document.getElementById(wrapperId);
   if (!el) return;
@@ -1157,7 +1170,7 @@ async function loadMaterials(wrapperId, canDelete) {
   el.innerHTML = mats.map(m => {
     const icon = m.type==='file'?'📎':m.type==='link'?'🔗':'📝';
     const action = m.type==='file'
-      ? `<a class="btn btn-outline btn-sm" href="${MATERIAL_API}/${m._id}/download?token=${TOKEN}" target="_blank">⬇️ Download</a>`
+      ? `<button class="btn btn-outline btn-sm" onclick="secureDownload('${MATERIAL_API}/${m._id}/download','${(m.fileName||'file').replace(/'/g,"\\'")}')">⬇️ Download</button>`
       : m.type==='link'
         ? `<a class="btn btn-outline btn-sm" href="${m.url}" target="_blank">🔗 Open</a>`
         : `<button class="btn btn-outline btn-sm" onclick="showTextContent('${m._id}','${m.title}')">👁️ View</button>`;
@@ -1270,7 +1283,7 @@ async function loadTeacherSubmissions() {
         <div>${s.status==='graded'?`<span class="grade-badge">Grade: ${s.grade}</span>`:`<span class="badge pending">Pending</span>`}</div>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
-        ${s.fileName?`<a class="btn btn-outline btn-sm" href="${MATERIAL_API}/submissions/${s._id}/download?token=${TOKEN}" target="_blank">⬇️ ${s.fileName}</a>`:''}
+        ${s.fileName?`<button class="btn btn-outline btn-sm" onclick="secureDownload('${MATERIAL_API}/submissions/${s._id}/download','${(s.fileName||'file').replace(/'/g,"\\'")}')">⬇️ ${s.fileName}</button>`:''}
         ${s.status!=='graded'?`<button class="btn btn-success btn-sm" onclick="showGradeModal('${s._id}','${(s.studentId?.name||'Student').replace(/'/g,'\\'')}','${s.title.replace(/'/g,"\\'")}')">✅ Grade</button>`:`<div style="font-size:12px;color:#64748B;padding:6px">Feedback: ${s.feedback||'—'}</div>`}
       </div>
     </div>`).join('');
