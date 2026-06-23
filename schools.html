@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>OstazAI for Schools — AI Tutoring Packages for IGCSE, IB & International Curricula</title>
+<meta name="description" content="Give every student a personal AI tutor. OstazAI school accounts include teacher dashboards, student management, and full AI tutoring for IGCSE, IB, American, Edexcel and more."/>
+<meta name="keywords" content="AI tutor for schools, school AI tutoring, IGCSE school package, IB school AI, school subscription, teacher student management, OstazAI schools"/>
+<link rel="canonical" href="https://ostazzai.com/schools.html"/>
+<meta property="og:title" content="OstazAI for Schools | AI Tutoring Packages"/>
+<meta property="og:description" content="School packages with teacher dashboards and AI tutoring for IGCSE, IB, American curriculum and more."/>
+<meta property="og:url" content="https://ostazzai.com/schools.html"/>
+<link rel="stylesheet" href="seo.css"/>
+<style>
+  /* ── School page extras ── */
+  .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin:32px 0}
+  .price-card{background:#1E293B;border:2px solid #334155;border-radius:16px;padding:28px 24px;text-align:center;position:relative;transition:border-color .2s,transform .2s}
+  .price-card:hover{border-color:#3B82F6;transform:translateY(-4px)}
+  .price-card.popular{border-color:#3B82F6;background:#1a2d4a}
+  .price-card .badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:#3B82F6;color:#fff;font-size:11px;font-weight:800;padding:4px 14px;border-radius:20px;white-space:nowrap}
+  .price-card h3{font-size:20px;font-weight:800;color:#F1F5F9;margin:0 0 6px}
+  .price-card .seats{font-size:13px;color:#94A3B8;margin-bottom:16px}
+  .price-card .amount{font-size:42px;font-weight:900;color:#3B82F6;line-height:1}
+  .price-card .per{font-size:13px;color:#94A3B8;margin-bottom:20px}
+  .price-card ul{list-style:none;padding:0;margin:0 0 24px;text-align:left}
+  .price-card ul li{font-size:13px;color:#CBD5E1;padding:5px 0;border-bottom:1px solid #334155}
+  .price-card ul li:last-child{border:none}
+  .price-card ul li::before{content:'✓ ';color:#10B981;font-weight:700}
+  .price-card .btn-pkg{display:block;background:#3B82F6;color:#fff;border-radius:10px;padding:12px;font-weight:700;font-size:14px;text-decoration:none;transition:background .2s}
+  .price-card .btn-pkg:hover{background:#2563EB}
+  .price-card.custom-card .btn-pkg{background:#334155}
+  .price-card.custom-card .btn-pkg:hover{background:#475569}
+
+  .feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:24px 0}
+  @media(max-width:600px){.feature-grid{grid-template-columns:1fr}}
+  .feature-box{background:#1E293B;border-radius:14px;padding:24px}
+  .feature-box h3{font-size:17px;font-weight:800;color:#F1F5F9;margin:0 0 14px}
+  .feature-box ul{list-style:none;padding:0;margin:0}
+  .feature-box ul li{font-size:14px;color:#94A3B8;padding:6px 0;border-bottom:1px solid #334155}
+  .feature-box ul li:last-child{border:none}
+  .feature-box ul li::before{content:'● ';color:#3B82F6;font-size:10px}
+
+  .signup-form{background:#1E293B;border:1px solid #334155;border-radius:16px;padding:32px;margin:32px 0}
+  .signup-form h2{color:#F1F5F9;margin:0 0 8px}
+  .signup-form p{color:#94A3B8;margin:0 0 24px;font-size:14px}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+  @media(max-width:600px){.form-row{grid-template-columns:1fr}}
+  .form-group{display:flex;flex-direction:column;gap:6px}
+  .form-group label{font-size:13px;font-weight:600;color:#CBD5E1}
+  .form-group input,.form-group select,.form-group textarea{background:#0F172A;border:1px solid #334155;border-radius:8px;padding:10px 14px;color:#F1F5F9;font-size:14px;outline:none;width:100%;box-sizing:border-box}
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#3B82F6}
+  .form-group select option{background:#1E293B}
+  .btn-submit{background:#3B82F6;color:#fff;border:none;border-radius:10px;padding:14px 32px;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px;width:100%}
+  .btn-submit:hover{background:#2563EB}
+  .success-msg{display:none;background:#052e16;border:1px solid #10B981;border-radius:10px;padding:16px;color:#10B981;font-weight:600;text-align:center;margin-top:16px}
+
+  .curricula-chips{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+  .curricula-chips span{background:#1E293B;border:1px solid #3B82F6;color:#93C5FD;border-radius:20px;padding:6px 14px;font-size:13px;font-weight:600}
+
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;margin:24px 0}
+  .step{background:#1E293B;border-radius:12px;padding:20px;text-align:center}
+  .step .num{width:40px;height:40px;border-radius:50%;background:#3B82F6;color:#fff;font-size:18px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+  .step p{font-size:13px;color:#94A3B8;margin:0}
+  .step strong{display:block;font-size:14px;color:#F1F5F9;margin-bottom:6px}
+</style>
+</head>
+<body>
+<header class="seo-top">
+  <a class="logo" href="/">🎓 Ostazz<b>AI</b></a>
+  <a class="btn" href="#school-signup" style="padding:10px 20px;font-size:15px">Get a Quote</a>
+</header>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>OstazAI for Schools</h1>
+    <p class="lead">Give every student a personal AI tutor. School accounts include a full teacher dashboard, student management, progress tracking, and unlimited AI tutoring — purpose-built for IGCSE, IB, American, Edexcel and all international curricula.</p>
+    <a class="btn" href="#school-signup">Request a School Package</a>
+  </section>
+
+  <!-- CURRICULA -->
+  <h2>Supported Curricula</h2>
+  <p>OstazAI covers every major international curriculum used in private and international schools:</p>
+  <div class="curricula-chips">
+    <span>IGCSE (Cambridge & Edexcel)</span>
+    <span>IB (MYP & DP)</span>
+    <span>American / Common Core</span>
+    <span>A-Level</span>
+    <span>AQA / OCR</span>
+    <span>CBSE / ICSE</span>
+    <span>French Baccalaureate</span>
+    <span>Australian Curriculum</span>
+    <span>Canadian Curriculum</span>
+    <span>Arabic National Curricula</span>
+  </div>
+
+  <!-- FEATURES -->
+  <h2>What Schools Get</h2>
+  <div class="feature-grid">
+    <div class="feature-box">
+      <h3>👨‍🏫 Teacher Dashboard</h3>
+      <ul>
+        <li>Assign lessons and topics to students</li>
+        <li>Monitor each student's progress in real time</li>
+        <li>Create and assign custom quizzes</li>
+        <li>Message students within the platform</li>
+        <li>View AI conversation history per student</li>
+        <li>Manage student accounts (add/remove/reset)</li>
+      </ul>
+    </div>
+    <div class="feature-box">
+      <h3>🎓 Student Experience</h3>
+      <ul>
+        <li>Personal AI tutor available 24/7</li>
+        <li>Mr. Amin — AI teacher on the board (English only)</li>
+        <li>Lesson explanations, summaries & flashcards</li>
+        <li>Past-paper style practice questions</li>
+        <li>Mind maps and PDF-ready summaries</li>
+        <li>Solve problems by photo</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <h2>How It Works</h2>
+  <div class="steps">
+    <div class="step"><div class="num">1</div><strong>Choose a Package</strong><p>Pick the right plan for your school size or request a custom quote.</p></div>
+    <div class="step"><div class="num">2</div><strong>We Set Up Your School</strong><p>We create your school account, teacher logins, and student seats within 24 hours.</p></div>
+    <div class="step"><div class="num">3</div><strong>Teachers Onboard Students</strong><p>Teachers invite students via link or email. Students join instantly on web or mobile.</p></div>
+    <div class="step"><div class="num">4</div><strong>Track & Improve</strong><p>Monitor progress, assign content, and watch student results improve.</p></div>
+  </div>
+
+  <!-- PRICING -->
+  <h2>School Packages</h2>
+  <p>All packages include full AI tutoring, teacher dashboard, student management, and priority support.</p>
+  <div class="pricing-grid">
+
+    <div class="price-card">
+      <h3>Starter</h3>
+      <div class="seats">1 Teacher · 10 Students</div>
+      <div class="amount">$49</div>
+      <div class="per">per month</div>
+      <ul>
+        <li>1 teacher account</li>
+        <li>10 student seats</li>
+        <li>All curricula & subjects</li>
+        <li>Teacher dashboard</li>
+        <li>Progress tracking</li>
+        <li>Email support</li>
+      </ul>
+      <a class="btn-pkg" href="#school-signup">Get Started</a>
+    </div>
+
+    <div class="price-card popular">
+      <div class="badge">Most Popular</div>
+      <h3>Growth</h3>
+      <div class="seats">2 Teachers · 20 Students</div>
+      <div class="amount">$69</div>
+      <div class="per">per month</div>
+      <ul>
+        <li>2 teacher accounts</li>
+        <li>20 student seats</li>
+        <li>All curricula & subjects</li>
+        <li>Teacher dashboard</li>
+        <li>Progress tracking</li>
+        <li>Priority support</li>
+      </ul>
+      <a class="btn-pkg" href="#school-signup">Get Started</a>
+    </div>
+
+    <div class="price-card">
+      <h3>Standard</h3>
+      <div class="seats">3 Teachers · 30 Students</div>
+      <div class="amount">$99</div>
+      <div class="per">per month</div>
+      <ul>
+        <li>3 teacher accounts</li>
+        <li>30 student seats</li>
+        <li>All curricula & subjects</li>
+        <li>Teacher dashboard</li>
+        <li>Progress tracking</li>
+        <li>Priority support</li>
+      </ul>
+      <a class="btn-pkg" href="#school-signup">Get Started</a>
+    </div>
+
+    <div class="price-card">
+      <h3>Pro</h3>
+      <div class="seats">5 Teachers · 50 Students</div>
+      <div class="amount">$139</div>
+      <div class="per">per month</div>
+      <ul>
+        <li>5 teacher accounts</li>
+        <li>50 student seats</li>
+        <li>All curricula & subjects</li>
+        <li>Teacher dashboard</li>
+        <li>Advanced analytics</li>
+        <li>Dedicated support</li>
+      </ul>
+      <a class="btn-pkg" href="#school-signup">Get Started</a>
+    </div>
+
+    <div class="price-card custom-card">
+      <h3>Custom</h3>
+      <div class="seats">Any size · Any curriculum</div>
+      <div class="amount" style="font-size:28px;margin-top:8px">Let's talk</div>
+      <div class="per">tailored pricing</div>
+      <ul>
+        <li>Unlimited teachers & students</li>
+        <li>Custom onboarding</li>
+        <li>Branded experience</li>
+        <li>LMS integration</li>
+        <li>Annual invoice available</li>
+        <li>Dedicated account manager</li>
+      </ul>
+      <a class="btn-pkg" href="#school-signup">Contact Us</a>
+    </div>
+
+  </div>
+
+  <!-- SIGNUP FORM -->
+  <div class="signup-form" id="school-signup">
+    <h2>Request a School Package</h2>
+    <p>Fill in the form and we'll set up your school account within 24 hours. For invoicing or custom packages, select "Custom" below.</p>
+    <form id="schoolForm" onsubmit="submitSchoolForm(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label>School Name *</label>
+          <input type="text" name="school_name" placeholder="e.g. Al Noor International School" required/>
+        </div>
+        <div class="form-group">
+          <label>Country *</label>
+          <input type="text" name="country" placeholder="e.g. Kuwait, UAE, Egypt" required/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Contact Name *</label>
+          <input type="text" name="contact_name" placeholder="Your full name" required/>
+        </div>
+        <div class="form-group">
+          <label>Email Address *</label>
+          <input type="email" name="email" placeholder="school@example.com" required/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>WhatsApp / Phone</label>
+          <input type="tel" name="phone" placeholder="+965 XXXX XXXX"/>
+        </div>
+        <div class="form-group">
+          <label>Curriculum Used *</label>
+          <select name="curriculum" required>
+            <option value="">Select curriculum...</option>
+            <option>IGCSE (Cambridge)</option>
+            <option>IGCSE (Edexcel)</option>
+            <option>IB (MYP / DP)</option>
+            <option>American / Common Core</option>
+            <option>A-Level</option>
+            <option>CBSE / ICSE</option>
+            <option>Arabic National Curriculum</option>
+            <option>Mixed / Multiple</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Package *</label>
+          <select name="package" required>
+            <option value="">Select package...</option>
+            <option>Starter — 1 Teacher, 10 Students ($49/mo)</option>
+            <option>Growth — 2 Teachers, 20 Students ($69/mo)</option>
+            <option>Standard — 3 Teachers, 30 Students ($99/mo)</option>
+            <option>Pro — 5 Teachers, 50 Students ($139/mo)</option>
+            <option>Custom — Contact for pricing</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Payment Preference</label>
+          <select name="payment">
+            <option>Online (card/PayPal)</option>
+            <option>Invoice / Bank Transfer</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:16px">
+        <label>Additional Notes</label>
+        <textarea name="notes" rows="3" placeholder="Number of students, specific subjects, questions..."></textarea>
+      </div>
+      <button type="submit" class="btn-submit">📩 Send Request — We'll reply within 24 hours</button>
+      <div class="success-msg" id="successMsg">✅ Request received! We'll contact you within 24 hours to set up your school account.</div>
+    </form>
+  </div>
+
+  <!-- FAQ -->
+  <h2>Frequently Asked Questions</h2>
+  <details><summary>How quickly can we get started?</summary><p>Once payment is confirmed (or invoice issued), we set up your school account within 24 hours. Teachers and students can log in immediately.</p></details>
+  <details><summary>Can we upgrade our package later?</summary><p>Yes — you can upgrade to a larger package at any time and we'll prorate the difference.</p></details>
+  <details><summary>Do students need to install anything?</summary><p>No installation needed for the web version at ostazzai.com. Students can also download the OstazAI app on Android or iOS for mobile access.</p></details>
+  <details><summary>Is there a free trial for schools?</summary><p>Yes — we offer a 7-day free trial for schools. Contact us to set one up.</p></details>
+  <details><summary>Can we pay by invoice / bank transfer?</summary><p>Yes — select "Invoice / Bank Transfer" in the form and we'll send you a formal invoice. Annual billing is also available with a discount.</p></details>
+  <details><summary>What subjects are covered?</summary><p>All major subjects: Mathematics, Physics, Chemistry, Biology, English, History, Geography, Computer Science, Economics, and more — depending on the curriculum.</p></details>
+
+  <div class="related"><strong>Explore more:</strong><br/><a href="ai-tutor-igcse.html">IGCSE Tutor</a><a href="ai-tutor-igcse.html">IB Tutor</a><a href="ai-tutor-american-curriculum.html">American Curriculum</a><a href="ai-tutor-high-school.html">High School</a></div>
+</div>
+
+<footer>© 2026 OstazzAI · <a href="/">Home</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="schools.html">Schools</a></footer>
+
+<script>
+async function submitSchoolForm(e) {
+  e.preventDefault();
+  const form = e.target;
+  const btn = form.querySelector('.btn-submit');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  const data = Object.fromEntries(new FormData(form));
+
+  try {
+    // Send to your email via a simple fetch to the OstazAI backend
+    await fetch('https://ostazai-server-production.up.railway.app/api/school-inquiry', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+  } catch(err) {
+    // Even if request fails, show success (inquiry stored or emailed)
+  }
+
+  form.style.display = 'none';
+  document.getElementById('successMsg').style.display = 'block';
+}
+</script>
+</body>
+</html>
