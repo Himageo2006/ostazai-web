@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>School Portal — OstazAI</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#0F172A;color:#F1F5F9;min-height:100vh}
+
+/* ── Layout ── */
+.sidebar{position:fixed;top:0;left:0;width:220px;height:100vh;background:#1E293B;border-right:1px solid #334155;display:flex;flex-direction:column;z-index:100}
+.main{margin-left:220px;padding:28px;min-height:100vh}
+@media(max-width:768px){.sidebar{width:100%;height:auto;position:relative;flex-direction:row;flex-wrap:wrap;padding:12px}.main{margin-left:0;padding:16px}}
+
+/* ── Sidebar ── */
+.logo{padding:20px 16px 16px;font-size:18px;font-weight:900;color:#3B82F6;border-bottom:1px solid #334155}
+.logo span{color:#F1F5F9}
+.school-name{padding:12px 16px;font-size:12px;color:#64748B;font-weight:600;border-bottom:1px solid #334155;word-break:break-word}
+.nav{flex:1;padding:12px 0}
+.nav-item{display:flex;align-items:center;gap:10px;padding:11px 16px;cursor:pointer;font-size:14px;font-weight:600;color:#94A3B8;transition:.15s;border-radius:0}
+.nav-item:hover{background:#334155;color:#F1F5F9}
+.nav-item.active{background:#1e3a5f;color:#3B82F6;border-right:3px solid #3B82F6}
+.nav-item .icon{font-size:16px;width:20px;text-align:center}
+.sidebar-footer{padding:16px;border-top:1px solid #334155}
+.user-chip{font-size:12px;color:#64748B;margin-bottom:10px;word-break:break-word}
+.user-chip b{color:#94A3B8;display:block}
+.btn-logout{width:100%;background:#1a0a0a;border:1px solid #EF4444;color:#EF4444;border-radius:8px;padding:8px;font-size:13px;font-weight:700;cursor:pointer}
+.btn-logout:hover{background:#EF4444;color:#fff}
+
+/* ── Cards & Grid ── */
+.page{display:none}.page.active{display:block}
+.page-title{font-size:22px;font-weight:900;color:#F1F5F9;margin-bottom:6px}
+.page-sub{font-size:14px;color:#64748B;margin-bottom:24px}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:28px}
+.stat-card{background:#1E293B;border:1px solid #334155;border-radius:12px;padding:20px;text-align:center}
+.stat-card .val{font-size:36px;font-weight:900;color:#3B82F6}
+.stat-card .lbl{font-size:13px;color:#94A3B8;margin-top:4px}
+.stat-card.green .val{color:#10B981}
+.stat-card.amber .val{color:#F59E0B}
+
+.card{background:#1E293B;border:1px solid #334155;border-radius:12px;padding:20px;margin-bottom:20px}
+.card-title{font-size:15px;font-weight:800;color:#F1F5F9;margin-bottom:14px}
+
+/* ── Table ── */
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:10px 12px;color:#64748B;font-weight:700;border-bottom:2px solid #334155}
+td{padding:10px 12px;border-bottom:1px solid #1a2540;color:#CBD5E1}
+tr:last-child td{border:none}
+tr:hover td{background:#1a2540}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.badge.active{background:#052e16;color:#10B981}
+.badge.pending{background:#1c1a05;color:#F59E0B}
+.badge.student{background:#0f172a;color:#60A5FA}
+.badge.teacher{background:#0f1e2a;color:#818CF8}
+.badge.admin{background:#1a0a0a;color:#F87171}
+
+/* ── Forms & Modals ── */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:#1E293B;border:1px solid #334155;border-radius:16px;padding:28px;width:100%;max-width:420px;position:relative}
+.modal-title{font-size:17px;font-weight:800;color:#F1F5F9;margin-bottom:18px}
+.modal-close{position:absolute;top:14px;right:16px;background:none;border:none;color:#64748B;font-size:20px;cursor:pointer}
+.form-group{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.form-group label{font-size:12px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px}
+.form-group input,.form-group select{background:#0F172A;border:1px solid #334155;border-radius:8px;padding:10px 12px;color:#F1F5F9;font-size:14px;outline:none;width:100%}
+.form-group input:focus,.form-group select:focus{border-color:#3B82F6}
+.form-group select option{background:#1E293B}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:.15s}
+.btn-primary{background:#3B82F6;color:#fff}.btn-primary:hover{background:#2563EB}
+.btn-success{background:#10B981;color:#fff}.btn-success:hover{background:#059669}
+.btn-danger{background:transparent;border:1px solid #EF4444;color:#EF4444;font-size:12px;padding:5px 10px}.btn-danger:hover{background:#EF4444;color:#fff}
+.btn-sm{padding:6px 12px;font-size:12px}
+.btn-outline{background:transparent;border:1px solid #334155;color:#94A3B8}.btn-outline:hover{border-color:#3B82F6;color:#3B82F6}
+.actions{display:flex;gap:8px;align-items:center}
+.msg{padding:10px;border-radius:8px;font-size:13px;font-weight:600;margin-top:10px;text-align:center}
+.msg.ok{background:#052e16;color:#10B981;border:1px solid #10B981}
+.msg.err{background:#1a0a0a;color:#EF4444;border:1px solid #EF4444}
+
+/* ── Progress bars ── */
+.progress-wrap{margin-top:6px}
+.progress-bar{height:6px;background:#334155;border-radius:3px;overflow:hidden}
+.progress-bar .fill{height:100%;background:#3B82F6;border-radius:3px;transition:.3s}
+
+/* ── Assigned topics ── */
+.topic-card{background:#0F172A;border:1px solid #334155;border-radius:10px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between}
+.topic-card.done{border-color:#10B981;opacity:.7}
+.topic-info .subject{font-size:11px;font-weight:700;color:#3B82F6;text-transform:uppercase;letter-spacing:.5px}
+.topic-info .chapter{font-size:14px;font-weight:700;color:#F1F5F9;margin-top:2px}
+.topic-info .date{font-size:11px;color:#64748B;margin-top:2px}
+.btn-study{background:#3B82F6;color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none}
+.btn-study:hover{background:#2563EB}
+.check-done{background:#052e16;color:#10B981;border:1px solid #10B981;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700}
+
+/* ── Code chip ── */
+.code-chip{background:#0F172A;border:2px dashed #334155;border-radius:10px;padding:14px 20px;text-align:center;cursor:pointer}
+.code-chip .code{font-size:28px;font-weight:900;letter-spacing:6px;color:#3B82F6;font-family:monospace}
+.code-chip .hint{font-size:11px;color:#64748B;margin-top:4px}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <div class="logo">🎓 Ostazz<span>AI</span></div>
+  <div class="school-name" id="sideSchoolName">Loading...</div>
+  <nav class="nav" id="sideNav"></nav>
+  <div class="sidebar-footer">
+    <div class="user-chip"><b id="sideUserName">—</b><span id="sideUserEmail">—</span></div>
+    <button class="btn-logout" onclick="logout()">Log Out</button>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main" id="mainContent">
+  <div id="loadingState" style="display:flex;align-items:center;justify-content:center;height:60vh">
+    <div style="text-align:center;color:#64748B"><div style="font-size:40px;margin-bottom:12px">🎓</div><div>Loading your portal...</div></div>
+  </div>
+  <div id="portalPages" style="display:none"></div>
+</div>
+
+<!-- MODALS -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal" id="modalBox">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+const API = 'https://ostazai-server-production.up.railway.app/api/school';
+let TOKEN, USER, SCHOOL;
+
+// ── Bootstrap ─────────────────────────────────────────────────────────────────
+window.onload = async () => {
+  TOKEN = localStorage.getItem('school_token');
+  USER  = JSON.parse(localStorage.getItem('school_user') || 'null');
+  SCHOOL= JSON.parse(localStorage.getItem('school_info') || 'null');
+  if (!TOKEN || !USER) return location.href = '/school-join.html';
+
+  // Refresh from server
+  try {
+    const d = await api('GET', '/me');
+    USER   = d.user;
+    SCHOOL = d.school;
+    localStorage.setItem('school_user', JSON.stringify(USER));
+    localStorage.setItem('school_info', JSON.stringify(SCHOOL));
+  } catch(e) {
+    if (e.message === 'No token' || e.message === 'Invalid token') {
+      logout(); return;
+    }
+  }
+
+  renderSidebar();
+  renderPages();
+  navigate(USER.role === 'student' ? 'dashboard' : 'dashboard');
+  document.getElementById('loadingState').style.display = 'none';
+  document.getElementById('portalPages').style.display  = 'block';
+};
+
+function logout() {
+  localStorage.removeItem('school_token');
+  localStorage.removeItem('school_user');
+  localStorage.removeItem('school_info');
+  location.href = '/school-join.html';
+}
+
+// ── Sidebar ───────────────────────────────────────────────────────────────────
+const NAV_ADMIN   = [
+  { id:'dashboard',  icon:'📊', label:'Dashboard' },
+  { id:'teachers',   icon:'👨‍🏫', label:'Teachers' },
+  { id:'students',   icon:'🎓', label:'Students' },
+  { id:'classes',    icon:'🏫', label:'Classes' },
+  { id:'settings',   icon:'⚙️',  label:'Settings' },
+];
+const NAV_TEACHER = [
+  { id:'dashboard',  icon:'📊', label:'Dashboard' },
+  { id:'classes',    icon:'🏫', label:'My Classes' },
+  { id:'students',   icon:'🎓', label:'My Students' },
+  { id:'assign',     icon:'📋', label:'Assign Lessons' },
+];
+const NAV_STUDENT = [
+  { id:'dashboard',  icon:'📚', label:'My Lessons' },
+  { id:'progress',   icon:'📈', label:'My Progress' },
+];
+
+function renderSidebar() {
+  document.getElementById('sideSchoolName').textContent = SCHOOL?.name || '—';
+  document.getElementById('sideUserName').textContent   = USER.name;
+  document.getElementById('sideUserEmail').textContent  = USER.email;
+  const nav   = USER.role === 'admin' ? NAV_ADMIN : USER.role === 'teacher' ? NAV_TEACHER : NAV_STUDENT;
+  const sideNav = document.getElementById('sideNav');
+  sideNav.innerHTML = nav.map(n =>
+    `<div class="nav-item" id="nav-${n.id}" onclick="navigate('${n.id}')"><span class="icon">${n.icon}</span>${n.label}</div>`
+  ).join('');
+}
+
+function navigate(pageId) {
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+  const navEl  = document.getElementById('nav-' + pageId);
+  const pageEl = document.getElementById('page-' + pageId);
+  if (navEl)  navEl.classList.add('active');
+  if (pageEl) { pageEl.classList.add('active'); loadPage(pageId); }
+}
+
+// ── Pages ─────────────────────────────────────────────────────────────────────
+function renderPages() {
+  const pages = document.getElementById('portalPages');
+  if (USER.role === 'admin')   pages.innerHTML = adminPages();
+  if (USER.role === 'teacher') pages.innerHTML = teacherPages();
+  if (USER.role === 'student') pages.innerHTML = studentPages();
+}
+
+// ══════════════════════════ ADMIN PAGES ═══════════════════════════════════════
+function adminPages() { return `
+  <div id="page-dashboard" class="page">
+    <div class="page-title">School Dashboard</div>
+    <div class="page-sub">Overview of ${SCHOOL?.name || 'your school'}</div>
+    <div class="stat-grid" id="adminStats">
+      <div class="stat-card"><div class="val">—</div><div class="lbl">Teachers</div></div>
+      <div class="stat-card green"><div class="val">—</div><div class="lbl">Students</div></div>
+      <div class="stat-card amber"><div class="val">—</div><div class="lbl">Classes</div></div>
+      <div class="stat-card"><div class="val">—</div><div class="lbl">Seats Left</div></div>
+    </div>
+    <div class="card"><div class="card-title">Recent Students</div><div id="recentStudents"><div style="color:#64748B;font-size:13px">Loading...</div></div></div>
+    <div class="card" style="background:#1a2d4a;border-color:#3B82F6">
+      <div class="card-title" style="color:#93C5FD">School Code</div>
+      <div class="code-chip" onclick="copyCode('${SCHOOL?.schoolCode}')">
+        <div class="code">${SCHOOL?.schoolCode || '——'}</div>
+        <div class="hint">Click to copy · Share with teachers & students</div>
+      </div>
+      <p style="font-size:12px;color:#64748B;margin-top:10px">Teachers use this code to log in. Students enter it on the join page.</p>
+    </div>
+  </div>
+
+  <div id="page-teachers" class="page">
+    <div class="page-title">Teachers</div>
+    <div class="page-sub">Manage teacher accounts</div>
+    <button class="btn btn-primary" style="margin-bottom:20px" onclick="showInviteTeacher()">+ Invite Teacher</button>
+    <div class="card"><table><thead><tr><th>Name</th><th>Email</th><th>Status</th><th>Joined</th><th></th></tr></thead>
+    <tbody id="teacherTableBody"><tr><td colspan="5" style="color:#64748B">Loading...</td></tr></tbody></table></div>
+  </div>
+
+  <div id="page-students" class="page">
+    <div class="page-title">All Students</div>
+    <div class="page-sub">View and manage all students in the school</div>
+    <div class="card"><table><thead><tr><th>Name</th><th>Email</th><th>Grade</th><th>Questions</th><th>Last Active</th><th></th></tr></thead>
+    <tbody id="adminStudentBody"><tr><td colspan="6" style="color:#64748B">Loading...</td></tr></tbody></table></div>
+  </div>
+
+  <div id="page-classes" class="page">
+    <div class="page-title">Classes</div>
+    <div class="page-sub">All classes across the school</div>
+    <div id="adminClassList"><div style="color:#64748B;font-size:13px">Loading...</div></div>
+  </div>
+
+  <div id="page-settings" class="page">
+    <div class="page-title">School Settings</div>
+    <div class="page-sub">Account details and package information</div>
+    <div class="card">
+      <div class="card-title">Package Details</div>
+      <table>
+        <tr><td style="color:#64748B;width:140px">School Name</td><td>${SCHOOL?.name}</td></tr>
+        <tr><td style="color:#64748B">Package</td><td><span class="badge active">${(SCHOOL?.package||'').toUpperCase()}</span></td></tr>
+        <tr><td style="color:#64748B">Status</td><td><span class="badge ${SCHOOL?.status==='active'?'active':'pending'}">${SCHOOL?.status}</span></td></tr>
+        <tr><td style="color:#64748B">Max Teachers</td><td>${SCHOOL?.maxTeachers}</td></tr>
+        <tr><td style="color:#64748B">Max Students</td><td>${SCHOOL?.maxStudents}</td></tr>
+        <tr><td style="color:#64748B">Curriculum</td><td>${SCHOOL?.curriculum||'—'}</td></tr>
+        <tr><td style="color:#64748B">Country</td><td>${SCHOOL?.country||'—'}</td></tr>
+      </table>
+      <div style="margin-top:20px">
+        <a href="mailto:himageo1@gmail.com?subject=Upgrade School Package — ${SCHOOL?.name}" class="btn btn-primary">📦 Upgrade Package</a>
+      </div>
+    </div>
+  </div>
+`;}
+
+// ══════════════════════════ TEACHER PAGES ═════════════════════════════════════
+function teacherPages() { return `
+  <div id="page-dashboard" class="page">
+    <div class="page-title">Teacher Dashboard</div>
+    <div class="page-sub">Welcome back, ${USER.name}</div>
+    <div class="stat-grid" id="teacherStats">
+      <div class="stat-card"><div class="val" id="tStatClasses">—</div><div class="lbl">My Classes</div></div>
+      <div class="stat-card green"><div class="val" id="tStatStudents">—</div><div class="lbl">My Students</div></div>
+    </div>
+    <div class="card"><div class="card-title">Recent Student Activity</div><div id="teacherRecentActivity"><div style="color:#64748B;font-size:13px">Loading...</div></div></div>
+  </div>
+
+  <div id="page-classes" class="page">
+    <div class="page-title">My Classes</div>
+    <div class="page-sub">Create classes and share join codes with students</div>
+    <button class="btn btn-primary" style="margin-bottom:20px" onclick="showCreateClass()">+ New Class</button>
+    <div id="teacherClassList"><div style="color:#64748B;font-size:13px">Loading...</div></div>
+  </div>
+
+  <div id="page-students" class="page">
+    <div class="page-title">My Students</div>
+    <div class="page-sub">View progress or create student accounts directly</div>
+    <button class="btn btn-success" style="margin-bottom:20px" onclick="showCreateStudent()">+ Create Student Account</button>
+    <div class="card"><table><thead><tr><th>Name</th><th>Email</th><th>Grade</th><th>Questions</th><th>Last Active</th><th></th></tr></thead>
+    <tbody id="teacherStudentBody"><tr><td colspan="6" style="color:#64748B">Loading...</td></tr></tbody></table></div>
+  </div>
+
+  <div id="page-assign" class="page">
+    <div class="page-title">Assign Lessons</div>
+    <div class="page-sub">Assign a specific topic to a student or an entire class</div>
+    <div class="card">
+      <div class="form-group"><label>Assign To</label>
+        <select id="assignTarget" onchange="loadAssignTargets()">
+          <option value="class">Entire Class</option>
+          <option value="student">Individual Student</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Select Class / Student</label>
+        <select id="assignTargetId"><option value="">Loading...</option></select>
+      </div>
+      <div class="form-group"><label>Subject</label>
+        <input type="text" id="assignSubject" placeholder="e.g. Mathematics"/>
+      </div>
+      <div class="form-group"><label>Chapter / Topic</label>
+        <input type="text" id="assignChapter" placeholder="e.g. Chapter 3 — Quadratic Equations"/>
+      </div>
+      <button class="btn btn-primary" onclick="doAssign()">Assign Lesson</button>
+      <div id="assignMsg"></div>
+    </div>
+  </div>
+`;}
+
+// ══════════════════════════ STUDENT PAGES ═════════════════════════════════════
+function studentPages() { return `
+  <div id="page-dashboard" class="page">
+    <div class="page-title">My Assigned Lessons</div>
+    <div class="page-sub">Topics your teacher has assigned to you</div>
+    <div id="assignedTopicsList"><div style="color:#64748B;font-size:13px">Loading...</div></div>
+  </div>
+
+  <div id="page-progress" class="page">
+    <div class="page-title">My Progress</div>
+    <div class="page-sub">Questions asked per subject</div>
+    <div id="studentProgressList"><div style="color:#64748B;font-size:13px">Loading...</div></div>
+  </div>
+`;}
+
+// ── Page loaders ──────────────────────────────────────────────────────────────
+async function loadPage(id) {
+  try {
+    if (USER.role === 'admin') {
+      if (id === 'dashboard') await loadAdminDashboard();
+      if (id === 'teachers')  await loadTeachers();
+      if (id === 'students')  await loadAdminStudents();
+      if (id === 'classes')   await loadAdminClasses();
+    }
+    if (USER.role === 'teacher') {
+      if (id === 'dashboard') await loadTeacherDashboard();
+      if (id === 'classes')   await loadTeacherClasses();
+      if (id === 'students')  await loadTeacherStudents();
+      if (id === 'assign')    await loadAssignPage();
+    }
+    if (USER.role === 'student') {
+      if (id === 'dashboard') await loadStudentAssigned();
+      if (id === 'progress')  await loadStudentProgress();
+    }
+  } catch(e) { console.error(e); }
+}
+
+// ── Admin loaders ─────────────────────────────────────────────────────────────
+async function loadAdminDashboard() {
+  const d = await api('GET', '/admin/dashboard');
+  const statsEl = document.getElementById('adminStats');
+  statsEl.innerHTML = `
+    <div class="stat-card"><div class="val">${d.teachers}</div><div class="lbl">Teachers (max ${SCHOOL.maxTeachers})</div></div>
+    <div class="stat-card green"><div class="val">${d.students}</div><div class="lbl">Students (max ${SCHOOL.maxStudents})</div></div>
+    <div class="stat-card amber"><div class="val">${d.classes}</div><div class="lbl">Classes</div></div>
+    <div class="stat-card"><div class="val">${d.seatsLeft.students}</div><div class="lbl">Student Seats Left</div></div>`;
+  const recEl = document.getElementById('recentStudents');
+  if (!d.recentStudents?.length) { recEl.innerHTML = '<div style="color:#64748B;font-size:13px">No students yet.</div>'; return; }
+  recEl.innerHTML = `<table><thead><tr><th>Name</th><th>Email</th><th>Last Active</th></tr></thead><tbody>` +
+    d.recentStudents.map(s => `<tr><td>${s.name}</td><td style="color:#64748B">${s.email}</td><td style="color:#64748B">${s.lastSeen?new Date(s.lastSeen).toLocaleDateString():'Never'}</td></tr>`).join('') +
+    `</tbody></table>`;
+}
+
+async function loadTeachers() {
+  const teachers = await api('GET', '/admin/teachers');
+  const tbody = document.getElementById('teacherTableBody');
+  if (!teachers.length) { tbody.innerHTML = '<tr><td colspan="5" style="color:#64748B">No teachers yet. Invite one above.</td></tr>'; return; }
+  tbody.innerHTML = teachers.map(t => `<tr>
+    <td>${t.name}</td>
+    <td style="color:#64748B">${t.email}</td>
+    <td><span class="badge ${t.status}">${t.status}</span></td>
+    <td style="color:#64748B">${new Date(t.createdAt).toLocaleDateString()}</td>
+    <td><button class="btn btn-danger btn-sm" onclick="removeTeacher('${t.id}','${t.name}')">Remove</button></td>
+  </tr>`).join('');
+}
+
+async function loadAdminStudents() {
+  const students = await api('GET', '/admin/students');
+  const tbody = document.getElementById('adminStudentBody');
+  if (!students.length) { tbody.innerHTML = '<tr><td colspan="6" style="color:#64748B">No students yet.</td></tr>'; return; }
+  tbody.innerHTML = students.map(s => `<tr>
+    <td>${s.name}</td>
+    <td style="color:#64748B">${s.email}</td>
+    <td style="color:#64748B">${s.grade||'—'}</td>
+    <td>${s.totalQuestions||0}</td>
+    <td style="color:#64748B">${s.lastSeen?new Date(s.lastSeen).toLocaleDateString():'Never'}</td>
+    <td><button class="btn btn-danger btn-sm" onclick="removeStudent('${s.id}','${s.name}')">Remove</button></td>
+  </tr>`).join('');
+}
+
+async function loadAdminClasses() {
+  const teachers = await api('GET', '/admin/teachers');
+  const el = document.getElementById('adminClassList');
+  if (!teachers.length) { el.innerHTML = '<div style="color:#64748B;font-size:13px">No teachers yet.</div>'; return; }
+  el.innerHTML = '<div style="color:#64748B;font-size:13px">Classes are managed by teachers. Go to Teachers to see who is active.</div>';
+}
+
+// ── Teacher loaders ───────────────────────────────────────────────────────────
+async function loadTeacherDashboard() {
+  const [classes, students] = await Promise.all([
+    api('GET', '/teacher/classes'),
+    api('GET', '/teacher/students'),
+  ]);
+  document.getElementById('tStatClasses').textContent  = classes.length;
+  document.getElementById('tStatStudents').textContent = students.length;
+  const act = document.getElementById('teacherRecentActivity');
+  if (!students.length) { act.innerHTML = '<div style="color:#64748B;font-size:13px">No students yet. Create a class and add students.</div>'; return; }
+  const recent = students.sort((a,b) => (b.lastSeen||0) > (a.lastSeen||0) ? 1:-1).slice(0,5);
+  act.innerHTML = `<table><thead><tr><th>Student</th><th>Questions</th><th>Last Active</th></tr></thead><tbody>` +
+    recent.map(s => `<tr><td>${s.name}</td><td>${s.totalQuestions||0}</td><td style="color:#64748B">${s.lastSeen?new Date(s.lastSeen).toLocaleDateString():'Never'}</td></tr>`).join('') +
+    `</tbody></table>`;
+}
+
+async function loadTeacherClasses() {
+  const classes = await api('GET', '/teacher/classes');
+  const el = document.getElementById('teacherClassList');
+  if (!classes.length) { el.innerHTML = '<div style="color:#64748B;font-size:13px">No classes yet. Create one above.</div>'; return; }
+  el.innerHTML = classes.map(c => `
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <div><div class="card-title" style="margin:0">${c.name}</div><div style="font-size:12px;color:#64748B">${c.grade||''} ${c.curriculum||''} ${c.subject||''}</div></div>
+        <button class="btn btn-danger btn-sm" onclick="deleteClass('${c._id}','${c.name}')">Delete</button>
+      </div>
+      <div style="display:flex;gap:16px;align-items:center">
+        <div class="code-chip" style="flex:1" onclick="copyCode('${c.joinCode}')">
+          <div class="code">${c.joinCode}</div>
+          <div class="hint">Student Join Code — click to copy</div>
+        </div>
+        <div style="font-size:13px;color:#94A3B8">${c.students?.length||0} students</div>
+      </div>
+    </div>`).join('');
+}
+
+async function loadTeacherStudents() {
+  const students = await api('GET', '/teacher/students');
+  const tbody = document.getElementById('teacherStudentBody');
+  if (!students.length) { tbody.innerHTML = '<tr><td colspan="6" style="color:#64748B">No students yet.</td></tr>'; return; }
+  tbody.innerHTML = students.map(s => `<tr>
+    <td>${s.name}</td>
+    <td style="color:#64748B">${s.email}</td>
+    <td style="color:#64748B">${s.grade||'—'}</td>
+    <td>${s.totalQuestions||0}</td>
+    <td style="color:#64748B">${s.lastSeen?new Date(s.lastSeen).toLocaleDateString():'Never'}</td>
+    <td><button class="btn btn-outline btn-sm" onclick="viewStudentProgress('${s.id}','${s.name}')">Progress</button></td>
+  </tr>`).join('');
+}
+
+let _teacherClasses = [], _teacherStudents = [];
+async function loadAssignPage() {
+  [_teacherClasses, _teacherStudents] = await Promise.all([api('GET','/teacher/classes'), api('GET','/teacher/students')]);
+  loadAssignTargets();
+}
+
+function loadAssignTargets() {
+  const type = document.getElementById('assignTarget').value;
+  const sel  = document.getElementById('assignTargetId');
+  const list = type === 'class' ? _teacherClasses : _teacherStudents;
+  sel.innerHTML = list.length
+    ? list.map(x => `<option value="${x._id||x.id}">${x.name}</option>`).join('')
+    : '<option value="">None available</option>';
+}
+
+async function doAssign() {
+  const type    = document.getElementById('assignTarget').value;
+  const targetId= document.getElementById('assignTargetId').value;
+  const subject = document.getElementById('assignSubject').value.trim();
+  const chapter = document.getElementById('assignChapter').value.trim();
+  const msg     = document.getElementById('assignMsg');
+  if (!targetId||!subject||!chapter) return showMsg(msg,'All fields required','err');
+  try {
+    const body = type==='class' ? {classId:targetId,subject,chapter} : {studentId:targetId,subject,chapter};
+    const r = await api('POST','/teacher/assign',body);
+    showMsg(msg,`✅ Assigned to ${r.assigned} student(s)`,'ok');
+    document.getElementById('assignSubject').value='';
+    document.getElementById('assignChapter').value='';
+  } catch(e) { showMsg(msg,e.message,'err'); }
+}
+
+// ── Student loaders ───────────────────────────────────────────────────────────
+async function loadStudentAssigned() {
+  const d = await api('GET','/student/assigned');
+  const el = document.getElementById('assignedTopicsList');
+  if (!d.assignedTopics?.length) {
+    el.innerHTML='<div style="color:#64748B;font-size:13px;padding:20px;text-align:center">No lessons assigned yet. Check back soon!</div>';
+    return;
+  }
+  el.innerHTML = d.assignedTopics.map(t => `
+    <div class="topic-card ${t.completed?'done':''}">
+      <div class="topic-info">
+        <div class="subject">${t.subject}</div>
+        <div class="chapter">${t.chapter}</div>
+        <div class="date">Assigned ${new Date(t.assignedAt).toLocaleDateString()}${t.completed?' · ✅ Completed':''}</div>
+      </div>
+      <div class="actions">
+        <a class="btn-study" href="/?subject=${encodeURIComponent(t.subject)}&chapter=${encodeURIComponent(t.chapter)}" target="_blank">Study Now</a>
+        ${!t.completed?`<button class="check-done" onclick="markDone('${t.subject}','${t.chapter}',this)">Done</button>`:''}
+      </div>
+    </div>`).join('');
+}
+
+async function markDone(subject,chapter,btn) {
+  await api('POST','/student/complete-topic',{subject,chapter});
+  btn.closest('.topic-card').classList.add('done');
+  btn.remove();
+}
+
+async function loadStudentProgress() {
+  const d = await api('GET','/me');
+  const el = document.getElementById('studentProgressList');
+  const progress = d.user?.progress || [];
+  if (!progress.length) { el.innerHTML='<div class="card" style="color:#64748B;font-size:13px">No questions asked yet. Start studying!</div>'; return; }
+  const max = Math.max(...progress.map(p=>p.questionsAsked));
+  el.innerHTML = progress.map(p=>`
+    <div class="card" style="margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+        <div style="font-weight:700">${p.subject}</div>
+        <div style="color:#64748B;font-size:13px">${p.questionsAsked} questions</div>
+      </div>
+      <div class="progress-wrap"><div class="progress-bar"><div class="fill" style="width:${max>0?Math.round(p.questionsAsked/max*100):0}%"></div></div></div>
+      <div style="font-size:11px;color:#64748B;margin-top:6px">Last active: ${p.lastActive?new Date(p.lastActive).toLocaleDateString():'Never'}</div>
+    </div>`).join('');
+}
+
+// ── Modals ────────────────────────────────────────────────────────────────────
+function showModal(html) { document.getElementById('modalContent').innerHTML=html; document.getElementById('modalBg').classList.add('open'); }
+function closeModal()    { document.getElementById('modalBg').classList.remove('open'); }
+document.getElementById('modalBg').addEventListener('click', e => { if(e.target===document.getElementById('modalBg')) closeModal(); });
+
+function showInviteTeacher() {
+  showModal(`
+    <div class="modal-title">Invite a Teacher</div>
+    <div class="form-group"><label>Teacher Name</label><input id="mTeacherName" placeholder="Full name"/></div>
+    <div class="form-group"><label>Email Address</label><input id="mTeacherEmail" type="email" placeholder="teacher@school.com"/></div>
+    <button class="btn btn-primary" style="width:100%" onclick="doInviteTeacher()">Send Invitation Email</button>
+    <div id="mTeacherMsg"></div>`);
+}
+
+async function doInviteTeacher() {
+  const name=document.getElementById('mTeacherName').value.trim();
+  const email=document.getElementById('mTeacherEmail').value.trim();
+  const msg=document.getElementById('mTeacherMsg');
+  if(!name||!email) return showMsg(msg,'Name and email required','err');
+  try {
+    await api('POST','/admin/invite-teacher',{name,email});
+    showMsg(msg,`✅ Invite sent to ${email}`,'ok');
+    setTimeout(()=>{closeModal();loadTeachers();},1500);
+  } catch(e){showMsg(msg,e.message,'err');}
+}
+
+async function removeTeacher(id,name) {
+  if(!confirm(`Remove teacher "${name}"? This also deletes their classes.`)) return;
+  await api('DELETE',`/admin/teachers/${id}`);
+  loadTeachers();
+}
+
+async function removeStudent(id,name) {
+  if(!confirm(`Remove student "${name}"?`)) return;
+  await api('DELETE',`/admin/students/${id}`);
+  loadAdminStudents();
+}
+
+function showCreateClass() {
+  showModal(`
+    <div class="modal-title">Create a New Class</div>
+    <div class="form-group"><label>Class Name</label><input id="mClassName" placeholder="e.g. Grade 10A — Math"/></div>
+    <div class="form-group"><label>Grade</label><input id="mClassGrade" placeholder="e.g. Grade 10"/></div>
+    <div class="form-group"><label>Curriculum</label><input id="mClassCurriculum" placeholder="e.g. IGCSE, Egyptian..."/></div>
+    <div class="form-group"><label>Subject (optional)</label><input id="mClassSubject" placeholder="e.g. Mathematics"/></div>
+    <button class="btn btn-primary" style="width:100%" onclick="doCreateClass()">Create Class</button>
+    <div id="mClassMsg"></div>`);
+}
+
+async function doCreateClass() {
+  const name=document.getElementById('mClassName').value.trim();
+  const grade=document.getElementById('mClassGrade').value.trim();
+  const curriculum=document.getElementById('mClassCurriculum').value.trim();
+  const subject=document.getElementById('mClassSubject').value.trim();
+  const msg=document.getElementById('mClassMsg');
+  if(!name) return showMsg(msg,'Class name required','err');
+  try {
+    await api('POST','/teacher/classes',{name,grade,curriculum,subject});
+    showMsg(msg,'✅ Class created!','ok');
+    setTimeout(()=>{closeModal();loadTeacherClasses();},1200);
+  } catch(e){showMsg(msg,e.message,'err');}
+}
+
+async function deleteClass(id,name) {
+  if(!confirm(`Delete class "${name}"?`)) return;
+  await api('DELETE',`/teacher/classes/${id}`);
+  loadTeacherClasses();
+}
+
+function showCreateStudent() {
+  const classOpts = _teacherClasses.map(c=>`<option value="${c._id}">${c.name}</option>`).join('');
+  showModal(`
+    <div class="modal-title">Create Student Account</div>
+    <div class="form-group"><label>Student Name</label><input id="mStuName" placeholder="Full name"/></div>
+    <div class="form-group"><label>Email</label><input id="mStuEmail" type="email" placeholder="student@email.com"/></div>
+    <div class="form-group"><label>Password</label><input id="mStuPassword" type="password" placeholder="Choose a password"/></div>
+    <div class="form-group"><label>Grade</label><input id="mStuGrade" placeholder="e.g. Grade 10"/></div>
+    <div class="form-group"><label>Assign to Class</label><select id="mStuClass"><option value="">None</option>${classOpts}</select></div>
+    <button class="btn btn-success" style="width:100%" onclick="doCreateStudent()">Create Account</button>
+    <div id="mStuMsg"></div>`);
+}
+
+async function doCreateStudent() {
+  const name=document.getElementById('mStuName').value.trim();
+  const email=document.getElementById('mStuEmail').value.trim();
+  const password=document.getElementById('mStuPassword').value;
+  const grade=document.getElementById('mStuGrade').value.trim();
+  const classId=document.getElementById('mStuClass').value;
+  const msg=document.getElementById('mStuMsg');
+  if(!name||!email||!password) return showMsg(msg,'Name, email and password required','err');
+  try {
+    await api('POST','/teacher/create-student',{name,email,password,grade,classId});
+    showMsg(msg,'✅ Student account created!','ok');
+    setTimeout(()=>{closeModal();loadTeacherStudents();},1200);
+  } catch(e){showMsg(msg,e.message,'err');}
+}
+
+async function viewStudentProgress(id,name) {
+  const s = await api('GET',`/teacher/progress/${id}`);
+  const progress = s.progress||[];
+  const assigned = s.assignedTopics||[];
+  const doneCount = assigned.filter(t=>t.completed).length;
+  showModal(`
+    <div class="modal-title">${name}'s Progress</div>
+    <div style="display:flex;gap:16px;margin-bottom:16px">
+      <div class="stat-card" style="flex:1;padding:14px"><div class="val" style="font-size:28px">${s.totalQuestions||0}</div><div class="lbl">Total Questions</div></div>
+      <div class="stat-card green" style="flex:1;padding:14px"><div class="val" style="font-size:28px">${doneCount}/${assigned.length}</div><div class="lbl">Topics Done</div></div>
+    </div>
+    ${progress.length?`
+    <div class="card-title" style="margin-bottom:10px">Questions by Subject</div>
+    ${progress.map(p=>`<div style="margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span>${p.subject}</span><span style="color:#64748B">${p.questionsAsked}</span></div>
+      <div class="progress-bar"><div class="fill" style="width:${Math.min(100,p.questionsAsked*5)}%"></div></div>
+    </div>`).join('')}`:'<div style="color:#64748B;font-size:13px">No questions asked yet.</div>'}
+    ${assigned.length?`
+    <div class="card-title" style="margin:14px 0 10px">Assigned Topics</div>
+    ${assigned.map(t=>`<div style="display:flex;justify-content:space-between;font-size:13px;padding:7px 0;border-bottom:1px solid #334155">
+      <span>${t.subject} — ${t.chapter}</span>
+      <span>${t.completed?'✅':' ⏳'}</span>
+    </div>`).join('')}`:''}
+  `);
+}
+
+// ── Utilities ─────────────────────────────────────────────────────────────────
+async function api(method, path, body) {
+  const r = await fetch(API+path, {
+    method, headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  const d = await r.json();
+  if (!r.ok) throw new Error(d.error||'Request failed');
+  return d;
+}
+
+function showMsg(el,text,type) {
+  el.className='msg '+(type==='ok'?'ok':'err');
+  el.textContent=text;
+  el.style.display='block';
+}
+
+function copyCode(code) {
+  navigator.clipboard.writeText(code).then(()=>{
+    const orig = event.currentTarget.querySelector('.hint').textContent;
+    event.currentTarget.querySelector('.hint').textContent='Copied!';
+    setTimeout(()=>{ if(event.currentTarget) event.currentTarget.querySelector('.hint').textContent=orig; },1500);
+  });
+}
+</script>
+</body>
+</html>
