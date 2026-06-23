@@ -127,6 +127,7 @@ const loaderText = document.getElementById('loaderText');
 const statusEl = document.getElementById('status');
 
 let renderer, scene, camera, clock, head, morphMesh=null, morphDict={}, controls=null;
+let mouthIdx=[], blinkIdx=[];
 let modelSize = 1, modelCenter = new THREE.Vector3();
 let talking=false, blinkTimer=0, nextBlink=2, visemeTimer=0, curViseme=null;
 
@@ -175,21 +176,65 @@ function onError(err){ console.error(err); loaderEl.innerHTML = '<div class="err
 
 function onLoaded(gltf){
   head = gltf.scene;
+  let best=0;
   head.traverse(o=>{
     if(o.isMesh){
       o.frustumCulled=false;
+      const n = o.morphTargetInfluences ? o.morphTargetInfluences.length : 0;
+      // Prefer named face mesh; else fall back to the mesh with the most morphs
       if(o.morphTargetDictionary && (o.morphTargetDictionary['jawOpen']!==undefined || o.morphTargetDictionary['viseme_aa']!==undefined)){
-        morphMesh=o; morphDict=o.morphTargetDictionary;
-      }
+        morphMesh=o; morphDict=o.morphTargetDictionary; best=999;
+      } else if(n>best && best<999){ best=n; morphMesh=o; morphDict=o.morphTargetDictionary||{}; }
     }
   });
   scene.add(head);
+  fixPose();
+  detectMorphs();
   frameModel();
   loaderEl.style.display='none';
   setStatus('Ready — type something and press Speak');
   setTimeout(()=>setStatus(''),2500);
   loadVoices();
 }
+
+// Lower arms from T-pose to a relaxed stance (rotate upper-arm bones; Mixamo: +localX lowers)
+function fixPose(){
+  const bones={};
+  head.traverse(o=>{ if(o.isBone) bones[o.name]=o; });
+  const names=Object.keys(bones);
+  const find=re=>bones[names.find(n=>re.test(n))];
+  const LA=find(/LeftArm$/), RA=find(/RightArm$/);
+  const LF=find(/LeftForeArm$/), RF=find(/RightForeArm$/);
+  if(LA) LA.rotation.x += 1.15;
+  if(RA) RA.rotation.x += 1.15;
+  if(LF) LF.rotation.x += 0.15;
+  if(RF) RF.rotation.x += 0.15;
+  head.updateMatrixWorld(true);
+}
+
+// Find mouth-open + blink morphs (named for RPM/facecap, auto-detected for VRoid numeric morphs)
+function detectMorphs(){
+  mouthIdx=[]; blinkIdx=[];
+  if(!morphMesh) return;
+  const named=Object.keys(morphDict);
+  const vis=named.filter(n=>/viseme_|jawOpen|mouthOpen/i.test(n));
+  if(vis.length){
+    mouthIdx = vis.map(n=>morphDict[n]);
+    blinkIdx = ['eyeBlinkLeft','eyeBlinkRight','eyesClosed'].filter(n=>morphDict[n]!=null).map(n=>morphDict[n]);
+    return;
+  }
+  // Numeric: analyze geometry morph deltas
+  const geo=morphMesh.geometry, pos=geo.attributes.position, morphs=geo.morphAttributes&&geo.morphAttributes.position;
+  if(!morphs) return;
+  const N=pos.count;
+  let minY=1e9,maxY=-1e9; for(let i=0;i<N;i++){const y=pos.getY(i); if(y<minY)minY=y; if(y>maxY)maxY=y;}
+  const low=minY+(maxY-minY)*0.35;
+  const stats=morphs.map((mp,t)=>{ let moved=0,sumdy=0,lowMoved=0; for(let i=0;i<N;i++){const d=Math.abs(mp.getX(i))+Math.abs(mp.getY(i))+Math.abs(mp.getZ(i)); if(d>1e-5){moved++; sumdy+=mp.getY(i); if(pos.getY(i)<low)lowMoved++;}} return {t,moved,avgDy:moved?sumdy/moved:0,lowMoved}; });
+  mouthIdx = stats.filter(s=>s.lowMoved>20 && s.avgDy<-0.002).sort((a,b)=>a.avgDy-b.avgDy).slice(0,4).map(s=>s.t);
+  blinkIdx = stats.filter(s=>s.lowMoved===0 && s.moved>300 && s.avgDy<0).sort((a,b)=>b.moved-a.moved).slice(0,1).map(s=>s.t);
+}
+
+function setMorphIdx(i,v){ if(morphMesh&&i!=null&&morphMesh.morphTargetInfluences[i]!==undefined) morphMesh.morphTargetInfluences[i]=v; }
 
 function frameModel(){
   // reset transform so bbox is clean
@@ -249,29 +294,23 @@ function animate(){
     blink = p<0.06 ? p/0.06 : p<0.12 ? 1-(p-0.06)/0.06 : 0;
     if(p>=0.12){ blinkTimer=0; nextBlink=2+Math.random()*3; }
   }
-  setMorph('eyeBlinkLeft',blink); setMorph('eyeBlinkRight',blink);
+  blinkIdx.forEach(i=>setMorphIdx(i,blink));
 
-  // Talk
+  // Talk — drive the detected mouth morphs
   if(talking){
     visemeTimer+=dt;
-    if(visemeTimer>0.09){
-      visemeTimer=0;
-      VISEMES.forEach(v=>setMorph(v,0)); ARKIT_MOUTH.forEach(v=>setMorph(v,0));
-      curViseme = VISEMES[(Math.random()*VISEMES.length)|0];
-      curArkit  = ARKIT_MOUTH[(Math.random()*ARKIT_MOUTH.length)|0];
-    }
-    if(curViseme) setMorph(curViseme, 0.3+Math.random()*0.5);
-    if(curArkit)  setMorph(curArkit, 0.15+Math.random()*0.25);
-    setMorph('jawOpen', 0.12+Math.abs(Math.sin(t*18))*0.25);
-    setMorph('mouthClose',0);
+    if(visemeTimer>0.085){ visemeTimer=0; curMouth = mouthIdx[(Math.random()*mouthIdx.length)|0]; }
+    const open = 0.25 + Math.abs(Math.sin(t*16))*0.65;     // oscillating jaw
+    mouthIdx.forEach(i=>setMorphIdx(i, i===curMouth ? open : 0));
+    setMorph('jawOpen', 0.12+Math.abs(Math.sin(t*18))*0.25); // named-model fallback
   } else {
-    VISEMES.forEach(v=>setMorph(v,0)); ARKIT_MOUTH.forEach(v=>setMorph(v,0));
+    mouthIdx.forEach(i=>setMorphIdx(i,0));
     setMorph('jawOpen',0);
-    setMorph('mouthSmileLeft',0.12); setMorph('mouthSmileRight',0.12);
+    setMorph('mouthSmileLeft',0.10); setMorph('mouthSmileRight',0.10);
   }
   renderer.render(scene,camera);
 }
-let curArkit=null;
+let curMouth=null;
 
 // ── Voice ────────────────────────────────────────────────────────────────────
 let voices=[];
