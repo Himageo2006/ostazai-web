@@ -951,20 +951,36 @@ async function loadTeacherClasses() {
   const classes = await api('GET', '/teacher/classes');
   const el = document.getElementById('teacherClassList');
   if (!classes.length) { el.innerHTML = '<div style="color:#64748B;font-size:13px">No classes yet. Create one above.</div>'; return; }
-  el.innerHTML = classes.map(c => `
+  el.innerHTML = classes.map(c => {
+    const joinLink = `https://ostazzai.com/school-join.html?code=${c.joinCode}`;
+    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=120x120&bgcolor=1E293B&color=F1F5F9&data=${encodeURIComponent(joinLink)}`;
+    return `
     <div class="card">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
         <div><div class="card-title" style="margin:0">${c.name}</div><div style="font-size:12px;color:#64748B">${c.grade||''} ${c.curriculum||''} ${c.subject||''}</div></div>
         <button class="btn btn-danger btn-sm" onclick="deleteClass('${c._id}','${c.name}')">Delete</button>
       </div>
-      <div style="display:flex;gap:16px;align-items:center">
-        <div class="code-chip" style="flex:1" onclick="copyCode('${c.joinCode}')">
-          <div class="code">${c.joinCode}</div>
-          <div class="hint">Student Join Code — click to copy</div>
+      <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+        <img src="${qrUrl}" alt="Join QR" width="100" height="100" style="border-radius:8px;border:1px solid #334155;background:#1E293B"/>
+        <div style="flex:1;min-width:180px">
+          <div class="code-chip" onclick="copyCode('${c.joinCode}')" style="margin-bottom:8px">
+            <div class="code">${c.joinCode}</div>
+            <div class="hint">Student Join Code — click to copy</div>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="copyJoinLink('${joinLink}',this)">🔗 Copy Join Link</button>
+          <div style="font-size:13px;color:#94A3B8;margin-top:8px">${c.students?.length||0} students · Scan QR or share the link to join</div>
         </div>
-        <div style="font-size:13px;color:#94A3B8">${c.students?.length||0} students</div>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
+}
+
+function copyJoinLink(link, btn) {
+  navigator.clipboard.writeText(link).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✅ Copied!';
+    setTimeout(() => { btn.textContent = orig; }, 1500);
+  }).catch(() => alert(link));
 }
 
 // ── Grade Book ─────────────────────────────────────────────────────────────────
