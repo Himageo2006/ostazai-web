@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>OstazAI — School Admin</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0F172A;color:#F1F5F9;font-family:Arial,sans-serif;min-height:100vh}
+.header{background:#1E293B;border-bottom:1px solid #334155;padding:16px 28px;display:flex;align-items:center;justify-content:space-between}
+.header h1{font-size:18px;font-weight:800;color:#3B82F6}
+.header span{font-size:13px;color:#64748B}
+.login-wrap{display:flex;align-items:center;justify-content:center;min-height:80vh}
+.login-box{background:#1E293B;border:1px solid #334155;border-radius:16px;padding:40px;width:320px;text-align:center}
+.login-box h2{margin-bottom:24px;font-size:20px}
+.login-box input{width:100%;padding:12px 16px;background:#0F172A;border:1px solid #334155;border-radius:8px;color:#F1F5F9;font-size:14px;margin-bottom:14px}
+.login-box button{width:100%;padding:13px;background:#3B82F6;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:15px;cursor:pointer}
+.login-box button:hover{background:#2563EB}
+.container{padding:28px;max-width:1400px;margin:0 auto}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+.stat-card{background:#1E293B;border:1px solid #334155;border-radius:12px;padding:20px;text-align:center}
+.stat-card .num{font-size:36px;font-weight:900;margin-bottom:4px}
+.stat-card .lbl{font-size:12px;color:#64748B}
+.toolbar{display:flex;gap:12px;margin-bottom:20px;align-items:center;flex-wrap:wrap}
+.toolbar input{flex:1;min-width:200px;padding:10px 16px;background:#1E293B;border:1px solid #334155;border-radius:8px;color:#F1F5F9;font-size:14px}
+.toolbar select{padding:10px 14px;background:#1E293B;border:1px solid #334155;border-radius:8px;color:#F1F5F9;font-size:14px}
+.btn{padding:10px 18px;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer}
+.btn-blue{background:#3B82F6;color:#fff}.btn-blue:hover{background:#2563EB}
+.btn-green{background:#10B981;color:#fff}.btn-green:hover{background:#059669}
+.btn-red{background:#EF4444;color:#fff}.btn-red:hover{background:#DC2626}
+.btn-yellow{background:#F59E0B;color:#000}.btn-yellow:hover{background:#D97706}
+.btn-sm{padding:6px 12px;font-size:12px}
+table{width:100%;border-collapse:collapse;background:#1E293B;border-radius:12px;overflow:hidden}
+th{background:#0F172A;padding:12px 16px;text-align:left;font-size:12px;color:#64748B;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+td{padding:12px 16px;border-bottom:1px solid #1E293B;font-size:13px;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#1a2844}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.badge-trial{background:#1c1a05;color:#F59E0B;border:1px solid #F59E0B}
+.badge-active{background:#052016;color:#10B981;border:1px solid #10B981}
+.badge-suspended{background:#1a0505;color:#EF4444;border:1px solid #EF4444}
+.pkg{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;background:#1E3A5F;color:#93C5FD}
+.actions{display:flex;gap:6px;flex-wrap:wrap}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:#1E293B;border:1px solid #334155;border-radius:16px;padding:32px;width:400px;max-width:90vw}
+.modal h3{margin-bottom:20px;font-size:17px}
+.modal input,.modal select{width:100%;padding:10px 14px;background:#0F172A;border:1px solid #334155;border-radius:8px;color:#F1F5F9;font-size:14px;margin-bottom:12px}
+.modal .row{display:flex;gap:10px;margin-top:8px}
+.modal .row button{flex:1}
+#toast{position:fixed;bottom:24px;right:24px;background:#10B981;color:#fff;padding:12px 20px;border-radius:10px;font-weight:700;font-size:14px;display:none;z-index:200}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🎓 OstazAI — School Admin</h1>
+  <span id="headerInfo"></span>
+</div>
+
+<!-- Login -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-box">
+    <h2>🔐 Admin Access</h2>
+    <input type="password" id="secretInput" placeholder="Enter super admin secret" onkeydown="if(event.key==='Enter')login()"/>
+    <button onclick="login()">Enter Dashboard</button>
+    <div id="loginErr" style="color:#EF4444;font-size:13px;margin-top:12px"></div>
+  </div>
+</div>
+
+<!-- Dashboard -->
+<div class="container" id="dashboard" style="display:none">
+  <div class="stats-row" id="statsRow"></div>
+  <div class="toolbar">
+    <input type="text" id="searchInput" placeholder="Search by name, email, code..." oninput="renderTable()"/>
+    <select id="filterStatus" onchange="renderTable()">
+      <option value="">All Status</option>
+      <option value="trial">Trial</option>
+      <option value="active">Active</option>
+      <option value="suspended">Suspended</option>
+    </select>
+    <select id="filterPkg" onchange="renderTable()">
+      <option value="">All Packages</option>
+      <option value="starter">Starter</option>
+      <option value="growth">Growth</option>
+      <option value="standard">Standard</option>
+      <option value="pro">Pro</option>
+      <option value="enterprise">Enterprise</option>
+      <option value="custom">Custom</option>
+    </select>
+    <button class="btn btn-blue" onclick="loadSchools()">🔄 Refresh</button>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>School</th>
+        <th>Admin</th>
+        <th>Code</th>
+        <th>Package</th>
+        <th>Status</th>
+        <th>Teachers</th>
+        <th>Students</th>
+        <th>Days Left</th>
+        <th>Registered</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+  <div id="emptyMsg" style="display:none;text-align:center;padding:48px;color:#64748B">No schools found.</div>
+</div>
+
+<!-- Activate Modal -->
+<div class="modal-bg" id="activateModal">
+  <div class="modal">
+    <h3>⚡ Manage School</h3>
+    <div id="modalSchoolName" style="color:#94A3B8;font-size:13px;margin-bottom:16px"></div>
+    <select id="modalAction">
+      <option value="activate">Activate (full — no expiry)</option>
+      <option value="trial">Extend Trial</option>
+      <option value="suspend">Suspend</option>
+    </select>
+    <input type="number" id="modalDays" placeholder="Days (for trial extension)" style="display:none"/>
+    <div class="row">
+      <button class="btn btn-green" onclick="submitActivate()">Apply</button>
+      <button class="btn btn-red" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const SERVER = 'https://ostazai-server-production.up.railway.app';
+let SECRET = '';
+let ALL_SCHOOLS = [];
+let ACTIVE_SCHOOL_ID = '';
+
+function login() {
+  const s = document.getElementById('secretInput').value.trim();
+  if (!s) return;
+  SECRET = s;
+  loadSchools();
+}
+
+async function loadSchools() {
+  try {
+    const r = await fetch(`${SERVER}/api/school/super/all?secret=${encodeURIComponent(SECRET)}`);
+    if (r.status === 403) {
+      document.getElementById('loginErr').textContent = 'Wrong secret.';
+      return;
+    }
+    const d = await r.json();
+    ALL_SCHOOLS = d.schools || [];
+    document.getElementById('loginWrap').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    document.getElementById('headerInfo').textContent = `${ALL_SCHOOLS.length} schools total`;
+    renderStats();
+    renderTable();
+  } catch(e) {
+    document.getElementById('loginErr').textContent = 'Connection error.';
+  }
+}
+
+function renderStats() {
+  const total      = ALL_SCHOOLS.length;
+  const active     = ALL_SCHOOLS.filter(s => s.status === 'active').length;
+  const trial      = ALL_SCHOOLS.filter(s => s.status === 'trial').length;
+  const suspended  = ALL_SCHOOLS.filter(s => s.status === 'suspended').length;
+  document.getElementById('statsRow').innerHTML = `
+    <div class="stat-card"><div class="num" style="color:#3B82F6">${total}</div><div class="lbl">Total Schools</div></div>
+    <div class="stat-card"><div class="num" style="color:#10B981">${active}</div><div class="lbl">Active</div></div>
+    <div class="stat-card"><div class="num" style="color:#F59E0B">${trial}</div><div class="lbl">On Trial</div></div>
+    <div class="stat-card"><div class="num" style="color:#EF4444">${suspended}</div><div class="lbl">Suspended</div></div>`;
+}
+
+function renderTable() {
+  const q    = document.getElementById('searchInput').value.toLowerCase();
+  const st   = document.getElementById('filterStatus').value;
+  const pkg  = document.getElementById('filterPkg').value;
+
+  let list = ALL_SCHOOLS.filter(s => {
+    if (st  && s.status  !== st)  return false;
+    if (pkg && s.package !== pkg) return false;
+    if (q && !`${s.name} ${s.adminEmail} ${s.schoolCode} ${s.country}`.toLowerCase().includes(q)) return false;
+    return true;
+  });
+
+  const tbody = document.getElementById('tableBody');
+  document.getElementById('emptyMsg').style.display = list.length ? 'none' : 'block';
+
+  tbody.innerHTML = list.map(s => {
+    const badge = `<span class="badge badge-${s.status}">${s.status}</span>`;
+    const days  = s.daysLeft !== null ? (s.daysLeft <= 2 ? `<span style="color:#EF4444;font-weight:700">${s.daysLeft}d</span>` : `${s.daysLeft}d`) : '∞';
+    const date  = new Date(s.createdAt).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+    return `<tr>
+      <td><b>${s.name}</b><br/><span style="color:#64748B;font-size:11px">${s.country||'—'}</span></td>
+      <td>${s.adminName||'—'}<br/><span style="color:#64748B;font-size:11px">${s.adminEmail}</span></td>
+      <td><code style="background:#0F172A;padding:3px 8px;border-radius:4px;letter-spacing:3px;font-size:13px">${s.schoolCode}</code></td>
+      <td><span class="pkg">${s.package}</span></td>
+      <td>${badge}</td>
+      <td style="text-align:center">${s.teacherCount}/${s.maxTeachers}</td>
+      <td style="text-align:center">${s.studentCount}/${s.maxStudents}</td>
+      <td style="text-align:center">${days}</td>
+      <td style="color:#64748B">${date}</td>
+      <td><div class="actions">
+        <button class="btn btn-yellow btn-sm" onclick="openModal('${s._id}','${s.name.replace(/'/g,"\\'")}')">⚡ Manage</button>
+        <a class="btn btn-blue btn-sm" href="mailto:${s.adminEmail}">✉️</a>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+function openModal(id, name) {
+  ACTIVE_SCHOOL_ID = id;
+  document.getElementById('modalSchoolName').textContent = name;
+  document.getElementById('modalAction').value = 'activate';
+  document.getElementById('modalDays').style.display = 'none';
+  document.getElementById('activateModal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('activateModal').classList.remove('open');
+}
+
+document.getElementById('modalAction').addEventListener('change', function() {
+  document.getElementById('modalDays').style.display = this.value === 'trial' ? 'block' : 'none';
+});
+
+async function submitActivate() {
+  const action = document.getElementById('modalAction').value;
+  const days   = parseInt(document.getElementById('modalDays').value) || 7;
+  let body;
+  if (action === 'activate') {
+    body = { secret: SECRET, schoolId: ACTIVE_SCHOOL_ID };
+  } else if (action === 'trial') {
+    body = { secret: SECRET, schoolId: ACTIVE_SCHOOL_ID, days };
+  } else {
+    body = { secret: SECRET, schoolId: ACTIVE_SCHOOL_ID, suspend: true };
+  }
+
+  const endpoint = action === 'suspend'
+    ? `${SERVER}/api/school/super/suspend`
+    : `${SERVER}/api/school/super/activate`;
+
+  try {
+    const r = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const d = await r.json();
+    if (d.ok) {
+      closeModal();
+      toast('Done!');
+      loadSchools();
+    } else {
+      alert(d.error || 'Failed');
+    }
+  } catch(e) { alert(e.message); }
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.display = 'block';
+  setTimeout(() => t.style.display = 'none', 2500);
+}
+</script>
+</body>
+</html>
