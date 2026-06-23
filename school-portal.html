@@ -180,7 +180,8 @@ tr:hover td{background:#1a2540}
 </div>
 
 <script>
-const API = 'https://ostazai-server-production.up.railway.app/api/school';
+const SERVER = 'https://ostazai-server-production.up.railway.app';
+const API    = SERVER + '/api/school'; // kept for legacy fetch calls below
 let TOKEN, USER, SCHOOL;
 
 // ── Bootstrap ─────────────────────────────────────────────────────────────────
@@ -903,28 +904,31 @@ async function viewStudentProgress(id,name) {
   `);
 }
 
-// ── Utilities ─────────────────────────────────────────────────────────────────
+// ── Unified API helper ────────────────────────────────────────────────────────
+// Accepts both short paths (/admin/...) and full paths (/api/school-timetable/...)
 async function api(method, path, body) {
-  const r = await fetch(API+path, {
+  const url = path.startsWith('/api/') ? SERVER + path : API + path;
+  const r = await fetch(url, {
     method, headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},
     body: body ? JSON.stringify(body) : undefined,
   });
   const d = await r.json();
   if (!r.ok) {
-    if (d.error === 'trial_expired') {
-      document.getElementById('portalPages').innerHTML = `
-        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:60vh;text-align:center;gap:16px">
-          <div style="font-size:56px">⏰</div>
-          <div style="font-size:22px;font-weight:900;color:#F1F5F9">Your 7-Day Trial Has Ended</div>
-          <div style="font-size:14px;color:#64748B;max-width:420px">To continue using OstazAI for your school, please activate your subscription. Your data and accounts are safely kept.</div>
-          <a href="mailto:himageo1@gmail.com?subject=Activate School Account — ${SCHOOL?.name}" style="background:#3B82F6;color:#fff;padding:14px 28px;border-radius:10px;font-weight:700;text-decoration:none;font-size:15px">📩 Contact Us to Activate</a>
-          <button onclick="logout()" style="background:none;border:none;color:#64748B;font-size:13px;cursor:pointer;margin-top:8px">Log Out</button>
-        </div>`;
-      return;
-    }
-    throw new Error(d.error||'Request failed');
+    if (d.error === 'trial_expired') { showTrialExpired(); return; }
+    throw new Error(d.error || 'Request failed');
   }
   return d;
+}
+
+function showTrialExpired() {
+  document.getElementById('portalPages').innerHTML = `
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:60vh;text-align:center;gap:16px">
+      <div style="font-size:56px">⏰</div>
+      <div style="font-size:22px;font-weight:900;color:#F1F5F9">Your 7-Day Trial Has Ended</div>
+      <div style="font-size:14px;color:#64748B;max-width:420px">Activate your subscription to continue. Your data and accounts are safely kept.</div>
+      <a href="mailto:himageo1@gmail.com?subject=Activate School Account — ${SCHOOL?.name}" style="background:#3B82F6;color:#fff;padding:14px 28px;border-radius:10px;font-weight:700;text-decoration:none">📩 Contact Us to Activate</a>
+      <button onclick="logout()" style="background:none;border:none;color:#64748B;font-size:13px;cursor:pointer">Log Out</button>
+    </div>`;
 }
 
 function showMsg(el,text,type) {
@@ -950,7 +954,7 @@ let _ttEntries = [];
 async function loadTimetable(wrapperId) {
   const el = document.getElementById(wrapperId);
   if (!el) return;
-  _ttEntries = await apiReq('GET', '/api/school-timetable/');
+  _ttEntries = await api('GET', '/api/school-timetable/');
   renderTimetableGrid(el, _ttEntries);
 }
 
@@ -1014,7 +1018,7 @@ async function doAddTTEntry() {
   };
   if (!body.subject) return showMsg(msg,'Subject required','err');
   try {
-    await apiReq('POST','/api/school-timetable/', body);
+    await api('POST','/api/school-timetable/', body);
     showMsg(msg,'✅ Added!','ok');
     setTimeout(()=>{ closeModal(); loadTimetable('teacherTimetableWrap'); },1000);
   } catch(e) { showMsg(msg,e.message,'err'); }
@@ -1022,13 +1026,13 @@ async function doAddTTEntry() {
 
 async function deleteTTEntry(id) {
   if (!confirm('Remove this entry?')) return;
-  await apiReq('DELETE',`/api/school-timetable/${id}`);
+  await api('DELETE',`/api/school-timetable/${id}`);
   loadTimetable('teacherTimetableWrap');
 }
 
 async function startSessionFromEntry(id) {
   try {
-    const r = await apiReq('POST',`/api/school-timetable/${id}/start-session`);
+    const r = await api('POST',`/api/school-timetable/${id}/start-session`);
     openJitsiRoom(r.roomId, document.getElementById('liveRoomTitle')?.textContent || 'Live Class');
     navigate('live');
   } catch(e) { alert(e.message); }
@@ -1045,7 +1049,7 @@ async function initTeacherLive() {
 }
 
 async function populateLiveClassSelect() {
-  if (!_teacherClasses.length) _teacherClasses = await apiReq('GET','/api/school/teacher/classes');
+  if (!_teacherClasses.length) _teacherClasses = await api('GET','/api/school/teacher/classes');
   const sel = document.getElementById('liveClassSelect');
   if (sel) sel.innerHTML = `<option value="">All my students</option>${_teacherClasses.map(c=>`<option value="${c._id||c.id}">${c.name}</option>`).join('')}`;
 }
@@ -1058,7 +1062,7 @@ async function startLiveSession() {
 
   // Notify students
   try {
-    if (classId) await apiReq('POST',`/api/school-timetable/notify-live`,{ classId, title, roomId }).catch(()=>{});
+    if (classId) await api('POST',`/api/school-timetable/notify-live`,{ classId, title, roomId }).catch(()=>{});
   } catch(e){}
 
   document.getElementById('liveSetup').style.display = 'none';
@@ -1078,7 +1082,7 @@ function endLiveSession() {
 async function checkLiveSession() {
   try {
     // Look for a timetable entry with liveRoomId from teacher
-    const entries = await apiReq('GET','/api/school-timetable/');
+    const entries = await api('GET','/api/school-timetable/');
     const live = entries.find(e => e.liveRoomId);
     const joinBtn = document.getElementById('joinLiveBtn');
     if (live) {
@@ -1148,7 +1152,7 @@ const MATERIAL_API = 'https://ostazai-server-production.up.railway.app/api/schoo
 async function loadMaterials(wrapperId, canDelete) {
   const el = document.getElementById(wrapperId);
   if (!el) return;
-  const mats = await apiReq('GET', '/api/school-materials/');
+  const mats = await api('GET', '/api/school-materials/');
   if (!mats.length) { el.innerHTML='<div style="color:#64748B;font-size:13px">No materials yet.</div>'; return; }
   el.innerHTML = mats.map(m => {
     const icon = m.type==='file'?'📎':m.type==='link'?'🔗':'📝';
@@ -1173,7 +1177,7 @@ async function loadMaterials(wrapperId, canDelete) {
 
 async function deleteMaterial(id, wrapperId, canDelete) {
   if (!confirm('Delete this material?')) return;
-  await apiReq('DELETE',`/api/school-materials/${id}`);
+  await api('DELETE',`/api/school-materials/${id}`);
   loadMaterials(wrapperId, canDelete);
 }
 
@@ -1224,7 +1228,7 @@ async function doShareLink() {
   const classId=document.getElementById('mLinkClass').value;
   const msg=document.getElementById('mLinkMsg');
   if(!title||!url) return showMsg(msg,'Title and URL required','err');
-  await apiReq('POST','/api/school-materials/link',{title,url,classId:classId||undefined});
+  await api('POST','/api/school-materials/link',{title,url,classId:classId||undefined});
   showMsg(msg,'✅ Shared!','ok');
   setTimeout(()=>{ closeModal(); loadMaterials('teacherMaterialsList', true); },1200);
 }
@@ -1245,7 +1249,7 @@ async function doPostText() {
   const classId=document.getElementById('mTxtClass').value;
   const msg=document.getElementById('mTxtMsg');
   if(!title||!content) return showMsg(msg,'Title and message required','err');
-  await apiReq('POST','/api/school-materials/text',{title,content,classId:classId||undefined});
+  await api('POST','/api/school-materials/text',{title,content,classId:classId||undefined});
   showMsg(msg,'✅ Posted!','ok');
   setTimeout(()=>{ closeModal(); loadMaterials('teacherMaterialsList', true); },1200);
 }
@@ -1253,7 +1257,7 @@ async function doPostText() {
 // ══════════════════════════ SUBMISSIONS ═══════════════════════════════════════
 async function loadTeacherSubmissions() {
   const el = document.getElementById('teacherSubmissionsList');
-  const subs = await apiReq('GET','/api/school-materials/submissions');
+  const subs = await api('GET','/api/school-materials/submissions');
   if (!subs.length) { el.innerHTML='<div style="color:#64748B;font-size:13px">No submissions yet.</div>'; return; }
   el.innerHTML = subs.map(s=>`
     <div class="sub-card">
@@ -1287,7 +1291,7 @@ async function doGrade(subId) {
   const feedback=document.getElementById('gradeFeedback').value.trim();
   const msg=document.getElementById('gradeMsg');
   if (!grade) return showMsg(msg,'Grade required','err');
-  await apiReq('POST',`/api/school-materials/submissions/${subId}/grade`,{grade,feedback});
+  await api('POST',`/api/school-materials/submissions/${subId}/grade`,{grade,feedback});
   showMsg(msg,'✅ Graded!','ok');
   setTimeout(()=>{ closeModal(); loadTeacherSubmissions(); },1200);
 }
@@ -1315,7 +1319,7 @@ async function doSubmit() {
 async function loadMySubmissions() {
   const el=document.getElementById('mySubmissionsList');
   if (!el) return;
-  const subs=await apiReq('GET','/api/school-materials/submissions');
+  const subs=await api('GET','/api/school-materials/submissions');
   if (!subs.length){ el.innerHTML='<div style="color:#64748B;font-size:13px">No submissions yet.</div>'; return; }
   el.innerHTML=subs.map(s=>`
     <div class="sub-card">
@@ -1333,7 +1337,7 @@ let _notifPollTimer = null;
 async function loadNotifications() {
   const el = document.getElementById('notifList');
   if (!el) return;
-  const notifs = await apiReq('GET','/api/school-notifications/');
+  const notifs = await api('GET','/api/school-notifications/');
   if (!notifs.length){ el.innerHTML='<div style="padding:20px;color:#64748B;font-size:13px">No notifications yet.</div>'; return; }
   el.innerHTML = notifs.map(n=>`
     <div class="notif-item ${n.read?'':'unread'}" onclick="readNotif('${n._id}','${n.link||''}',this)">
@@ -1345,20 +1349,20 @@ async function loadNotifications() {
 
 async function readNotif(id, link, el) {
   el.classList.remove('unread');
-  await apiReq('POST',`/api/school-notifications/read/${id}`).catch(()=>{});
+  await api('POST',`/api/school-notifications/read/${id}`).catch(()=>{});
   if (link) navigate(link);
   updateNotifBadge();
 }
 
 async function markAllRead() {
-  await apiReq('POST','/api/school-notifications/read-all');
+  await api('POST','/api/school-notifications/read-all');
   loadNotifications();
   updateNotifBadge();
 }
 
 async function updateNotifBadge() {
   try {
-    const {count} = await apiReq('GET','/api/school-notifications/unread-count');
+    const {count} = await api('GET','/api/school-notifications/unread-count');
     const badge = document.getElementById('notifBadge');
     if (!badge) return;
     badge.textContent = count > 0 ? (count > 9 ? '9+' : count) : '';
@@ -1379,30 +1383,7 @@ function timeAgo(dateStr) {
   return new Date(dateStr).toLocaleDateString();
 }
 
-// ── Shared API helper (uses absolute URL) ─────────────────────────────────────
-const SERVER = 'https://ostazai-server-production.up.railway.app';
-async function apiReq(method, path, body) {
-  const r = await fetch(SERVER+path, {
-    method, headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},
-    body: body ? JSON.stringify(body) : undefined,
-  });
-  const d = await r.json();
-  if (!r.ok) {
-    if (d.error === 'trial_expired') {
-      document.getElementById('portalPages').innerHTML = `
-        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:60vh;text-align:center;gap:16px">
-          <div style="font-size:56px">⏰</div>
-          <div style="font-size:22px;font-weight:900;color:#F1F5F9">Your 7-Day Trial Has Ended</div>
-          <div style="font-size:14px;color:#64748B;max-width:420px">Activate your subscription to continue. Your data is safely kept.</div>
-          <a href="mailto:himageo1@gmail.com?subject=Activate School Account — ${SCHOOL?.name}" style="background:#3B82F6;color:#fff;padding:14px 28px;border-radius:10px;font-weight:700;text-decoration:none">📩 Contact Us to Activate</a>
-          <button onclick="logout()" style="background:none;border:none;color:#64748B;font-size:13px;cursor:pointer">Log Out</button>
-        </div>`;
-      return;
-    }
-    throw new Error(d.error||'Request failed');
-  }
-  return d;
-}
+// apiReq removed — use api() for all requests (handles both /api/school/* and /api/school-*/ paths)
 </script>
 </body>
 </html>
