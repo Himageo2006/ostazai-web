@@ -257,37 +257,37 @@
 
   <!-- SIGNUP FORM -->
   <div class="signup-form" id="school-signup">
-    <h2>Request a School Package</h2>
-    <p>Fill in the form and we'll set up your school account within 24 hours. For invoicing or custom packages, select "Custom" below.</p>
+    <h2>Start Your Free 7-Day Trial</h2>
+    <p>Fill in your details and your school account will be created <strong>instantly</strong>. Login credentials will be emailed to you right away — no waiting.</p>
     <form id="schoolForm" onsubmit="submitSchoolForm(event)">
       <div class="form-row">
         <div class="form-group">
           <label>School Name *</label>
-          <input type="text" name="school_name" placeholder="e.g. Al Noor International School" required/>
+          <input type="text" id="f_school" placeholder="e.g. Al Noor International School" required/>
         </div>
         <div class="form-group">
           <label>Country *</label>
-          <input type="text" name="country" placeholder="e.g. Kuwait, UAE, Egypt" required/>
+          <input type="text" id="f_country" placeholder="e.g. Kuwait, UAE, Egypt" required/>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label>Contact Name *</label>
-          <input type="text" name="contact_name" placeholder="Your full name" required/>
+          <label>Your Full Name *</label>
+          <input type="text" id="f_name" placeholder="School admin / coordinator name" required/>
         </div>
         <div class="form-group">
           <label>Email Address *</label>
-          <input type="email" name="email" placeholder="school@example.com" required/>
+          <input type="email" id="f_email" placeholder="your@school.com" required/>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group">
           <label>WhatsApp / Phone</label>
-          <input type="tel" name="phone" placeholder="+965 XXXX XXXX"/>
+          <input type="tel" id="f_phone" placeholder="+965 XXXX XXXX"/>
         </div>
         <div class="form-group">
-          <label>Curriculum Used *</label>
-          <select name="curriculum" required>
+          <label>Curriculum *</label>
+          <select id="f_curriculum" required>
             <option value="">Select curriculum...</option>
             <optgroup label="🌍 Arabic National Curricula">
               <option>Egyptian National Curriculum</option>
@@ -320,45 +320,32 @@
           </select>
         </div>
       </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Package *</label>
-          <select name="package" required>
-            <option value="">Select package...</option>
-            <option>Starter — 1 Teacher, 10 Students ($49/mo)</option>
-            <option>Growth — 2 Teachers, 20 Students ($69/mo)</option>
-            <option>Standard — 3 Teachers, 30 Students ($99/mo)</option>
-            <option>Pro — 5 Teachers, 50 Students ($139/mo)</option>
-            <option>Enterprise — 10 Teachers, 100 Students ($249/mo)</option>
-            <option>Custom — Contact for pricing</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Payment Preference</label>
-          <select name="payment">
-            <option>Online (card/PayPal)</option>
-            <option>Invoice / Bank Transfer</option>
-            <option>Not sure yet</option>
-          </select>
-        </div>
-      </div>
       <div class="form-group" style="margin-bottom:16px">
-        <label>Additional Notes</label>
-        <textarea name="notes" rows="3" placeholder="Number of students, specific subjects, questions..."></textarea>
+        <label>Package *</label>
+        <select id="f_package" required>
+          <option value="">Select package...</option>
+          <option value="starter">Starter — 1 Teacher, 10 Students ($49/mo)</option>
+          <option value="growth">Growth — 2 Teachers, 20 Students ($69/mo)</option>
+          <option value="standard">Standard — 3 Teachers, 30 Students ($99/mo)</option>
+          <option value="pro">Pro — 5 Teachers, 50 Students ($139/mo)</option>
+          <option value="enterprise">Enterprise — 10 Teachers, 100 Students ($249/mo)</option>
+          <option value="custom">Custom — Contact for pricing</option>
+        </select>
       </div>
-      <button type="submit" class="btn-submit">📩 Send Request — We'll reply within 24 hours</button>
-      <div class="success-msg" id="successMsg">✅ Request received! We'll contact you within 24 hours to set up your school account.</div>
+      <button type="submit" class="btn-submit" id="submitBtn">🚀 Create My School Account — Free for 7 Days</button>
+      <div id="formError" style="display:none;margin-top:12px;background:#1a0a0a;border:1px solid #EF4444;color:#EF4444;border-radius:8px;padding:12px;font-size:13px;text-align:center"></div>
+      <div class="success-msg" id="successMsg"></div>
     </form>
   </div>
 
   <!-- FAQ -->
   <h2>Frequently Asked Questions</h2>
-  <details><summary>How quickly can we get started?</summary><p>Once payment is confirmed (or invoice issued), we set up your school account within 24 hours. Teachers and students can log in immediately.</p></details>
+  <details><summary>How quickly can we get started?</summary><p>Instantly — your account is created the moment you submit the form and credentials are emailed to you right away.</p></details>
+  <details><summary>Do I need a credit card for the trial?</summary><p>No — the 7-day free trial requires no payment. You only pay when you decide to activate after the trial.</p></details>
   <details><summary>Can we upgrade our package later?</summary><p>Yes — you can upgrade to a larger package at any time and we'll prorate the difference.</p></details>
   <details><summary>Do students need to install anything?</summary><p>No installation needed for the web version at ostazzai.com. Students can also download the OstazAI app on Android or iOS for mobile access.</p></details>
-  <details><summary>Is there a free trial for schools?</summary><p>Yes — we offer a 7-day free trial for schools. Contact us to set one up.</p></details>
-  <details><summary>Can we pay by invoice / bank transfer?</summary><p>Yes — select "Invoice / Bank Transfer" in the form and we'll send you a formal invoice. Annual billing is also available with a discount.</p></details>
-  <details><summary>What subjects are covered?</summary><p>All major subjects: Mathematics, Physics, Chemistry, Biology, English, History, Geography, Computer Science, Economics, and more — depending on the curriculum.</p></details>
+  <details><summary>Can we pay by invoice / bank transfer?</summary><p>Yes — contact us after your trial and we'll issue a formal invoice. Annual billing available with a discount.</p></details>
+  <details><summary>What subjects are covered?</summary><p>All major subjects: Mathematics, Physics, Chemistry, Biology, English, History, Geography, Computer Science, Economics, and more.</p></details>
 
   <div class="related"><strong>Explore more:</strong><br/><a href="ai-tutor-igcse.html">IGCSE Tutor</a><a href="ai-tutor-igcse.html">IB Tutor</a><a href="ai-tutor-american-curriculum.html">American Curriculum</a><a href="ai-tutor-high-school.html">High School</a></div>
 </div>
@@ -368,26 +355,66 @@
 <script>
 async function submitSchoolForm(e) {
   e.preventDefault();
-  const form = e.target;
-  const btn = form.querySelector('.btn-submit');
-  btn.disabled = true;
-  btn.textContent = 'Sending...';
+  const btn    = document.getElementById('submitBtn');
+  const errEl  = document.getElementById('formError');
+  const okEl   = document.getElementById('successMsg');
+  errEl.style.display = 'none';
+  okEl.style.display  = 'none';
 
-  const data = Object.fromEntries(new FormData(form));
-
-  try {
-    // Send to your email via a simple fetch to the OstazAI backend
-    await fetch('https://ostazai-server-production.up.railway.app/api/school-inquiry', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
-  } catch(err) {
-    // Even if request fails, show success (inquiry stored or emailed)
+  const pkg = document.getElementById('f_package').value;
+  if (pkg === 'custom') {
+    // Custom packages go to email instead
+    window.location.href = 'mailto:himageo1@gmail.com?subject=Custom School Package Request';
+    return;
   }
 
-  form.style.display = 'none';
-  document.getElementById('successMsg').style.display = 'block';
+  btn.disabled    = true;
+  btn.textContent = '⏳ Creating your account...';
+
+  const body = {
+    schoolName: document.getElementById('f_school').value.trim(),
+    country:    document.getElementById('f_country').value.trim(),
+    adminName:  document.getElementById('f_name').value.trim(),
+    adminEmail: document.getElementById('f_email').value.trim(),
+    phone:      document.getElementById('f_phone').value.trim(),
+    curriculum: document.getElementById('f_curriculum').value,
+    package:    pkg,
+  };
+
+  try {
+    const r = await fetch('https://ostazai-server-production.up.railway.app/api/school/register', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(body),
+    });
+    const d = await r.json();
+
+    if (!r.ok) {
+      errEl.textContent    = d.error || 'Something went wrong. Please try again.';
+      errEl.style.display  = 'block';
+      btn.disabled         = false;
+      btn.textContent      = '🚀 Create My School Account — Free for 7 Days';
+      return;
+    }
+
+    // Success
+    document.getElementById('schoolForm').style.display = 'none';
+    okEl.innerHTML = `
+      <div style="font-size:20px;margin-bottom:8px">🎉 Account Created!</div>
+      <div style="font-size:14px;margin-bottom:16px">Check your email at <b>${body.adminEmail}</b> for your login credentials.</div>
+      <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:12px;margin-bottom:16px">
+        <div style="font-size:12px;opacity:.8;margin-bottom:4px">Your School Code</div>
+        <div style="font-size:28px;font-weight:900;letter-spacing:6px;font-family:monospace">${d.schoolCode}</div>
+        <div style="font-size:12px;opacity:.7;margin-top:4px">Share this with your teachers and students</div>
+      </div>
+      <a href="/school-portal.html" style="display:inline-block;background:#fff;color:#10B981;padding:12px 28px;border-radius:10px;font-weight:800;text-decoration:none;font-size:15px">Open School Portal →</a>`;
+    okEl.style.display = 'block';
+  } catch(err) {
+    errEl.textContent   = 'Network error. Please check your connection and try again.';
+    errEl.style.display = 'block';
+    btn.disabled        = false;
+    btn.textContent     = '🚀 Create My School Account — Free for 7 Days';
+  }
 }
 </script>
 </body>
