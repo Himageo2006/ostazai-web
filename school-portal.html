@@ -96,6 +96,52 @@ tr:hover td{background:#1a2540}
 .code-chip{background:#0F172A;border:2px dashed #334155;border-radius:10px;padding:14px 20px;text-align:center;cursor:pointer}
 .code-chip .code{font-size:28px;font-weight:900;letter-spacing:6px;color:#3B82F6;font-family:monospace}
 .code-chip .hint{font-size:11px;color:#64748B;margin-top:4px}
+
+/* ── Timetable ── */
+.tt-grid{display:grid;grid-template-columns:80px repeat(7,1fr);gap:2px;font-size:12px}
+.tt-header{background:#334155;color:#94A3B8;padding:8px 4px;text-align:center;font-weight:700;border-radius:4px}
+.tt-time{color:#64748B;padding:8px 4px;text-align:right;font-size:11px}
+.tt-cell{min-height:44px;border-radius:6px;border:1px dashed #1E293B}
+.tt-slot{border-radius:6px;padding:6px 8px;margin:1px;cursor:pointer;transition:.15s}
+.tt-slot:hover{opacity:.85}
+.tt-slot .s-subj{font-weight:800;font-size:11px;color:#fff}
+.tt-slot .s-time{font-size:10px;color:rgba(255,255,255,.7);margin-top:2px}
+@media(max-width:700px){.tt-grid{grid-template-columns:60px repeat(5,1fr)}}
+
+/* ── Notifications ── */
+.notif-bell{position:relative;cursor:pointer;padding:6px;margin-bottom:4px}
+.notif-badge{position:absolute;top:0;right:0;background:#EF4444;color:#fff;border-radius:50%;width:16px;height:16px;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.notif-item{padding:12px 14px;border-bottom:1px solid #334155;cursor:pointer;transition:.15s}
+.notif-item:hover{background:#1a2540}
+.notif-item.unread{background:#1a2d4a;border-left:3px solid #3B82F6}
+.notif-item .n-title{font-size:13px;font-weight:700;color:#F1F5F9}
+.notif-item .n-msg{font-size:12px;color:#94A3B8;margin-top:2px}
+.notif-item .n-time{font-size:11px;color:#475569;margin-top:4px}
+
+/* ── Materials ── */
+.material-card{background:#0F172A;border:1px solid #334155;border-radius:10px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.material-card .m-icon{font-size:24px;flex-shrink:0}
+.material-card .m-info .m-title{font-size:14px;font-weight:700;color:#F1F5F9}
+.material-card .m-info .m-meta{font-size:12px;color:#64748B;margin-top:3px}
+.material-card .m-actions{display:flex;gap:8px;flex-shrink:0}
+
+/* ── Live session ── */
+.live-container{display:grid;grid-template-columns:1fr 320px;gap:16px;height:calc(100vh - 140px)}
+.jitsi-wrap{background:#000;border-radius:12px;overflow:hidden;position:relative}
+.jitsi-wrap iframe{width:100%;height:100%;border:none}
+.whiteboard-panel{background:#1E293B;border:1px solid #334155;border-radius:12px;display:flex;flex-direction:column;overflow:hidden}
+.wb-toolbar{padding:8px 10px;background:#0F172A;display:flex;gap:8px;align-items:center;flex-wrap:wrap;border-bottom:1px solid #334155}
+.wb-btn{background:#334155;border:none;color:#F1F5F9;border-radius:6px;padding:6px 10px;cursor:pointer;font-size:12px}
+.wb-btn.active{background:#3B82F6}
+.wb-canvas{flex:1;cursor:crosshair;display:block;background:#fff}
+@media(max-width:900px){.live-container{grid-template-columns:1fr;height:auto}}
+
+/* ── Submission ── */
+.sub-card{background:#0F172A;border:1px solid #334155;border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.sub-card .sub-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.sub-card .sub-title{font-size:14px;font-weight:700;color:#F1F5F9}
+.sub-card .sub-meta{font-size:12px;color:#64748B;margin-top:2px}
+.grade-badge{display:inline-block;background:#052e16;color:#10B981;border:1px solid #10B981;border-radius:20px;padding:3px 10px;font-size:12px;font-weight:700}
 </style>
 </head>
 <body>
@@ -163,6 +209,7 @@ window.onload = async () => {
   document.getElementById('loadingState').style.display = 'none';
   document.getElementById('portalPages').style.display  = 'block';
   showTrialBanner();
+  startNotifPolling();
 };
 
 function showTrialBanner() {
@@ -187,21 +234,34 @@ function logout() {
 
 // ── Sidebar ───────────────────────────────────────────────────────────────────
 const NAV_ADMIN   = [
-  { id:'dashboard',  icon:'📊', label:'Dashboard' },
-  { id:'teachers',   icon:'👨‍🏫', label:'Teachers' },
-  { id:'students',   icon:'🎓', label:'Students' },
-  { id:'classes',    icon:'🏫', label:'Classes' },
-  { id:'settings',   icon:'⚙️',  label:'Settings' },
+  { id:'dashboard',     icon:'📊', label:'Dashboard' },
+  { id:'teachers',      icon:'👨‍🏫', label:'Teachers' },
+  { id:'students',      icon:'🎓', label:'Students' },
+  { id:'classes',       icon:'🏫', label:'Classes' },
+  { id:'timetable',     icon:'🗓️', label:'Timetable' },
+  { id:'materials',     icon:'📚', label:'Materials' },
+  { id:'notifications', icon:'🔔', label:'Notifications' },
+  { id:'settings',      icon:'⚙️',  label:'Settings' },
 ];
 const NAV_TEACHER = [
-  { id:'dashboard',  icon:'📊', label:'Dashboard' },
-  { id:'classes',    icon:'🏫', label:'My Classes' },
-  { id:'students',   icon:'🎓', label:'My Students' },
-  { id:'assign',     icon:'📋', label:'Assign Lessons' },
+  { id:'dashboard',     icon:'📊', label:'Dashboard' },
+  { id:'classes',       icon:'🏫', label:'My Classes' },
+  { id:'students',      icon:'🎓', label:'My Students' },
+  { id:'timetable',     icon:'🗓️', label:'Timetable' },
+  { id:'live',          icon:'🔴', label:'Live Class' },
+  { id:'materials',     icon:'📚', label:'Materials' },
+  { id:'submissions',   icon:'📥', label:'Submissions' },
+  { id:'assign',        icon:'📋', label:'Assign Lessons' },
+  { id:'notifications', icon:'🔔', label:'Notifications' },
 ];
 const NAV_STUDENT = [
-  { id:'dashboard',  icon:'📚', label:'My Lessons' },
-  { id:'progress',   icon:'📈', label:'My Progress' },
+  { id:'dashboard',     icon:'📚', label:'My Lessons' },
+  { id:'timetable',     icon:'🗓️', label:'Timetable' },
+  { id:'live',          icon:'🔴', label:'Live Class' },
+  { id:'materials',     icon:'📂', label:'Materials' },
+  { id:'submit',        icon:'📤', label:'Submit Work' },
+  { id:'progress',      icon:'📈', label:'My Progress' },
+  { id:'notifications', icon:'🔔', label:'Notifications' },
 ];
 
 function renderSidebar() {
@@ -211,7 +271,7 @@ function renderSidebar() {
   const nav   = USER.role === 'admin' ? NAV_ADMIN : USER.role === 'teacher' ? NAV_TEACHER : NAV_STUDENT;
   const sideNav = document.getElementById('sideNav');
   sideNav.innerHTML = nav.map(n =>
-    `<div class="nav-item" id="nav-${n.id}" onclick="navigate('${n.id}')"><span class="icon">${n.icon}</span>${n.label}</div>`
+    `<div class="nav-item" id="nav-${n.id}" onclick="navigate('${n.id}')"><span class="icon">${n.icon}</span>${n.label}${n.id==='notifications'?'<span id="notifBadge" class="notif-badge" style="display:none;margin-left:auto">0</span>':''}</div>`
   ).join('');
 }
 
@@ -275,6 +335,24 @@ function adminPages() { return `
     <div id="adminClassList"><div style="color:#64748B;font-size:13px">Loading...</div></div>
   </div>
 
+  <div id="page-timetable" class="page">
+    <div class="page-title">School Timetable</div>
+    <div class="page-sub">View the full school schedule</div>
+    <div id="adminTimetableWrap"><div style="color:#64748B;font-size:13px">Loading...</div></div>
+  </div>
+
+  <div id="page-materials" class="page">
+    <div class="page-title">All Materials</div>
+    <div class="page-sub">Files and resources shared across the school</div>
+    <div id="adminMaterialsList"><div style="color:#64748B;font-size:13px">Loading...</div></div>
+  </div>
+
+  <div id="page-notifications" class="page">
+    <div class="page-title">Notifications</div>
+    <div class="page-sub"></div>
+    <div class="card" style="padding:0;overflow:hidden"><div id="notifList"><div style="padding:20px;color:#64748B;font-size:13px">Loading...</div></div></div>
+  </div>
+
   <div id="page-settings" class="page">
     <div class="page-title">School Settings</div>
     <div class="page-sub">Account details and package information</div>
@@ -323,6 +401,64 @@ function teacherPages() { return `
     <tbody id="teacherStudentBody"><tr><td colspan="6" style="color:#64748B">Loading...</td></tr></tbody></table></div>
   </div>
 
+  <div id="page-timetable" class="page">
+    <div class="page-title">My Timetable</div>
+    <div class="page-sub">Your weekly class schedule</div>
+    <button class="btn btn-primary" style="margin-bottom:20px" onclick="showAddTimetableEntry()">+ Add Entry</button>
+    <div id="teacherTimetableWrap"><div style="color:#64748B;font-size:13px">Loading...</div></div>
+  </div>
+
+  <div id="page-live" class="page">
+    <div class="page-title">Live Class</div>
+    <div class="page-sub">Start a live session — video, audio, screen sharing, and whiteboard</div>
+    <div id="liveSetup">
+      <div class="card" style="max-width:480px">
+        <div class="card-title">Start a Live Session</div>
+        <div class="form-group"><label>Select Class</label><select id="liveClassSelect"><option value="">All my students</option></select></div>
+        <div class="form-group"><label>Session Title</label><input id="liveTitle" placeholder="e.g. Chapter 5 — Photosynthesis"/></div>
+        <button class="btn btn-primary" style="width:100%;margin-top:8px" onclick="startLiveSession()">🔴 Start Live Session</button>
+      </div>
+    </div>
+    <div id="liveRoom" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <div><span style="background:#EF4444;color:#fff;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:800">🔴 LIVE</span> <span id="liveRoomTitle" style="font-weight:700;margin-left:10px"></span></div>
+        <button class="btn btn-danger" onclick="endLiveSession()">End Session</button>
+      </div>
+      <div class="live-container">
+        <div class="jitsi-wrap" id="jitsiWrap"></div>
+        <div class="whiteboard-panel">
+          <div class="wb-toolbar">
+            <span style="font-size:12px;font-weight:700;color:#94A3B8">Whiteboard</span>
+            <button class="wb-btn active" id="wbPen" onclick="setWbTool('pen')">✏️ Pen</button>
+            <button class="wb-btn" id="wbEraser" onclick="setWbTool('eraser')">⬜ Eraser</button>
+            <input type="color" id="wbColor" value="#3B82F6" style="width:28px;height:28px;border:none;border-radius:4px;cursor:pointer;padding:0"/>
+            <input type="range" id="wbSize" min="2" max="20" value="4" style="width:60px"/>
+            <button class="wb-btn" onclick="clearWhiteboard()">🗑️ Clear</button>
+            <button class="wb-btn" onclick="downloadWhiteboard()">💾 Save</button>
+          </div>
+          <canvas id="wbCanvas" class="wb-canvas"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="page-materials" class="page">
+    <div class="page-title">Materials</div>
+    <div class="page-sub">Upload files, links, or announcements for your students</div>
+    <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="showUploadFile()">📎 Upload File</button>
+      <button class="btn btn-outline" onclick="showShareLink()">🔗 Share Link</button>
+      <button class="btn btn-outline" onclick="showPostText()">📝 Post Announcement</button>
+    </div>
+    <div id="teacherMaterialsList"><div style="color:#64748B;font-size:13px">Loading...</div></div>
+  </div>
+
+  <div id="page-submissions" class="page">
+    <div class="page-title">Student Submissions</div>
+    <div class="page-sub">Review and grade work submitted by students</div>
+    <div id="teacherSubmissionsList"><div style="color:#64748B;font-size:13px">Loading...</div></div>
+  </div>
+
   <div id="page-assign" class="page">
     <div class="page-title">Assign Lessons</div>
     <div class="page-sub">Assign a specific topic to a student or an entire class</div>
@@ -346,6 +482,13 @@ function teacherPages() { return `
       <div id="assignMsg"></div>
     </div>
   </div>
+
+  <div id="page-notifications" class="page">
+    <div class="page-title">Notifications</div>
+    <div class="page-sub"></div>
+    <button class="btn btn-outline btn-sm" style="margin-bottom:16px" onclick="markAllRead()">Mark all as read</button>
+    <div class="card" style="padding:0;overflow:hidden"><div id="notifList"><div style="padding:20px;color:#64748B;font-size:13px">Loading...</div></div></div>
+  </div>
 `;}
 
 // ══════════════════════════ STUDENT PAGES ═════════════════════════════════════
@@ -356,10 +499,73 @@ function studentPages() { return `
     <div id="assignedTopicsList"><div style="color:#64748B;font-size:13px">Loading...</div></div>
   </div>
 
+  <div id="page-timetable" class="page">
+    <div class="page-title">My Timetable</div>
+    <div class="page-sub">Your weekly class schedule</div>
+    <div id="studentTimetableWrap"><div style="color:#64748B;font-size:13px">Loading...</div></div>
+  </div>
+
+  <div id="page-live" class="page">
+    <div class="page-title">Live Class</div>
+    <div class="page-sub">Join your teacher's live session</div>
+    <div id="studentLiveWrap">
+      <div class="card" style="text-align:center;padding:40px">
+        <div style="font-size:48px;margin-bottom:16px">📡</div>
+        <div style="font-size:16px;font-weight:700;color:#F1F5F9;margin-bottom:8px">Waiting for your teacher to start</div>
+        <div style="font-size:13px;color:#64748B;margin-bottom:24px">When your teacher starts a live session, a Join button will appear here.</div>
+        <button class="btn btn-primary" onclick="checkLiveSession()">🔄 Check for Live Session</button>
+        <div id="joinLiveBtn" style="margin-top:20px"></div>
+      </div>
+    </div>
+    <div id="studentLiveRoom" style="display:none">
+      <div class="live-container">
+        <div class="jitsi-wrap" id="studentJitsiWrap"></div>
+        <div class="whiteboard-panel">
+          <div class="wb-toolbar">
+            <span style="font-size:12px;font-weight:700;color:#94A3B8">Whiteboard</span>
+            <button class="wb-btn active" id="swbPen" onclick="setSwbTool('pen')">✏️ Pen</button>
+            <button class="wb-btn" id="swbEraser" onclick="setSwbTool('eraser')">⬜ Eraser</button>
+            <input type="color" id="swbColor" value="#EF4444" style="width:28px;height:28px;border:none;border-radius:4px;cursor:pointer;padding:0"/>
+            <button class="wb-btn" onclick="clearSwb()">🗑️ Clear</button>
+          </div>
+          <canvas id="swbCanvas" class="wb-canvas"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="page-materials" class="page">
+    <div class="page-title">Materials</div>
+    <div class="page-sub">Files, links and announcements from your teacher</div>
+    <div id="studentMaterialsList"><div style="color:#64748B;font-size:13px">Loading...</div></div>
+  </div>
+
+  <div id="page-submit" class="page">
+    <div class="page-title">Submit Work</div>
+    <div class="page-sub">Upload your assignments and homework to your teacher</div>
+    <div class="card" style="max-width:520px;margin-bottom:24px">
+      <div class="card-title">New Submission</div>
+      <div class="form-group"><label>Title</label><input id="subTitle" placeholder="e.g. Chapter 3 Homework"/></div>
+      <div class="form-group"><label>Note to teacher (optional)</label><input id="subNote" placeholder="Any message for your teacher..."/></div>
+      <div class="form-group"><label>Attach File (optional, max 10MB)</label><input type="file" id="subFile" style="background:transparent;border:1px dashed #334155;padding:10px"/></div>
+      <button class="btn btn-success" style="margin-top:8px;width:100%" onclick="doSubmit()">📤 Submit to Teacher</button>
+      <div id="subMsg"></div>
+    </div>
+    <div class="card-title" style="margin-bottom:12px">My Previous Submissions</div>
+    <div id="mySubmissionsList"><div style="color:#64748B;font-size:13px">Loading...</div></div>
+  </div>
+
   <div id="page-progress" class="page">
     <div class="page-title">My Progress</div>
     <div class="page-sub">Questions asked per subject</div>
     <div id="studentProgressList"><div style="color:#64748B;font-size:13px">Loading...</div></div>
+  </div>
+
+  <div id="page-notifications" class="page">
+    <div class="page-title">Notifications</div>
+    <div class="page-sub"></div>
+    <button class="btn btn-outline btn-sm" style="margin-bottom:16px" onclick="markAllRead()">Mark all as read</button>
+    <div class="card" style="padding:0;overflow:hidden"><div id="notifList"><div style="padding:20px;color:#64748B;font-size:13px">Loading...</div></div></div>
   </div>
 `;}
 
@@ -367,20 +573,33 @@ function studentPages() { return `
 async function loadPage(id) {
   try {
     if (USER.role === 'admin') {
-      if (id === 'dashboard') await loadAdminDashboard();
-      if (id === 'teachers')  await loadTeachers();
-      if (id === 'students')  await loadAdminStudents();
-      if (id === 'classes')   await loadAdminClasses();
+      if (id === 'dashboard')     await loadAdminDashboard();
+      if (id === 'teachers')      await loadTeachers();
+      if (id === 'students')      await loadAdminStudents();
+      if (id === 'classes')       await loadAdminClasses();
+      if (id === 'timetable')     await loadTimetable('adminTimetableWrap');
+      if (id === 'materials')     await loadMaterials('adminMaterialsList', false);
+      if (id === 'notifications') await loadNotifications();
     }
     if (USER.role === 'teacher') {
-      if (id === 'dashboard') await loadTeacherDashboard();
-      if (id === 'classes')   await loadTeacherClasses();
-      if (id === 'students')  await loadTeacherStudents();
-      if (id === 'assign')    await loadAssignPage();
+      if (id === 'dashboard')     await loadTeacherDashboard();
+      if (id === 'classes')       await loadTeacherClasses();
+      if (id === 'students')      await loadTeacherStudents();
+      if (id === 'timetable')     { await loadTimetable('teacherTimetableWrap'); await populateLiveClassSelect(); }
+      if (id === 'live')          await initTeacherLive();
+      if (id === 'materials')     await loadMaterials('teacherMaterialsList', true);
+      if (id === 'submissions')   await loadTeacherSubmissions();
+      if (id === 'assign')        await loadAssignPage();
+      if (id === 'notifications') await loadNotifications();
     }
     if (USER.role === 'student') {
-      if (id === 'dashboard') await loadStudentAssigned();
-      if (id === 'progress')  await loadStudentProgress();
+      if (id === 'dashboard')     await loadStudentAssigned();
+      if (id === 'timetable')     await loadTimetable('studentTimetableWrap');
+      if (id === 'live')          await checkLiveSession();
+      if (id === 'materials')     await loadMaterials('studentMaterialsList', false);
+      if (id === 'submit')        await loadMySubmissions();
+      if (id === 'progress')      await loadStudentProgress();
+      if (id === 'notifications') await loadNotifications();
     }
   } catch(e) { console.error(e); }
 }
@@ -720,6 +939,469 @@ function copyCode(code) {
     event.currentTarget.querySelector('.hint').textContent='Copied!';
     setTimeout(()=>{ if(event.currentTarget) event.currentTarget.querySelector('.hint').textContent=orig; },1500);
   });
+}
+
+// ══════════════════════════ TIMETABLE ═════════════════════════════════════════
+const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+const TIMES = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'];
+const COLORS = ['#3B82F6','#10B981','#F59E0B','#EF4444','#8B5CF6','#06B6D4','#EC4899'];
+let _ttEntries = [];
+
+async function loadTimetable(wrapperId) {
+  const el = document.getElementById(wrapperId);
+  if (!el) return;
+  _ttEntries = await apiReq('GET', '/api/school-timetable/');
+  renderTimetableGrid(el, _ttEntries);
+}
+
+function renderTimetableGrid(el, entries) {
+  const grouped = {};
+  DAYS.forEach(d => grouped[d] = []);
+  entries.forEach(e => { if (grouped[e.day]) grouped[e.day].push(e); });
+
+  let html = `<div style="overflow-x:auto"><div class="tt-grid">
+    <div class="tt-header"></div>
+    ${DAYS.map(d=>`<div class="tt-header">${d.slice(0,3)}</div>`).join('')}`;
+
+  TIMES.forEach(t => {
+    html += `<div class="tt-time">${t}</div>`;
+    DAYS.forEach(d => {
+      const slots = grouped[d].filter(e => e.startTime === t);
+      html += `<div class="tt-cell">${slots.map(s=>`
+        <div class="tt-slot" style="background:${s.color||'#3B82F6'}" title="${s.subject} ${s.startTime}–${s.endTime}">
+          <div class="s-subj">${s.subject}</div>
+          <div class="s-time">${s.startTime}–${s.endTime}</div>
+          ${USER.role==='teacher'?`<div style="display:flex;gap:4px;margin-top:4px">
+            <button style="background:rgba(0,0,0,.3);border:none;color:#fff;border-radius:4px;padding:2px 6px;font-size:10px;cursor:pointer" onclick="startSessionFromEntry('${s._id}')">🔴 Live</button>
+            <button style="background:rgba(0,0,0,.3);border:none;color:#fff;border-radius:4px;padding:2px 6px;font-size:10px;cursor:pointer" onclick="deleteTTEntry('${s._id}')">✕</button>
+          </div>`:''}
+        </div>`).join('')}</div>`;
+    });
+  });
+  html += `</div></div>`;
+  el.innerHTML = html;
+}
+
+function showAddTimetableEntry() {
+  const colorOpts = COLORS.map((c,i)=>`<span onclick="document.getElementById('ttColor').value='${c}'" style="display:inline-block;width:20px;height:20px;border-radius:50%;background:${c};cursor:pointer;margin:2px"></span>`).join('');
+  showModal(`
+    <div class="modal-title">Add Timetable Entry</div>
+    <div class="form-row">
+      <div class="form-group"><label>Day</label><select id="ttDay">${DAYS.map(d=>`<option>${d}</option>`).join('')}</select></div>
+      <div class="form-group"><label>Start Time</label><select id="ttStart">${TIMES.map(t=>`<option>${t}</option>`).join('')}</select></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>End Time</label><select id="ttEnd">${TIMES.map(t=>`<option>${t}</option>`).join('')}</select></div>
+      <div class="form-group"><label>Subject</label><input id="ttSubject" placeholder="e.g. Mathematics"/></div>
+    </div>
+    <div class="form-group"><label>Title (optional)</label><input id="ttTitle" placeholder="e.g. Chapter 4 — Algebra"/></div>
+    <div class="form-group"><label>Class</label><select id="ttClass"><option value="">All my students</option>${_teacherClasses.map(c=>`<option value="${c._id||c.id}">${c.name}</option>`).join('')}</select></div>
+    <div class="form-group"><label>Color</label><div style="margin-top:4px">${colorOpts}<input type="hidden" id="ttColor" value="${COLORS[0]}"/></div></div>
+    <button class="btn btn-primary" style="width:100%;margin-top:8px" onclick="doAddTTEntry()">Add to Timetable</button>
+    <div id="ttMsg"></div>`);
+}
+
+async function doAddTTEntry() {
+  const msg = document.getElementById('ttMsg');
+  const body = {
+    day: document.getElementById('ttDay').value,
+    startTime: document.getElementById('ttStart').value,
+    endTime: document.getElementById('ttEnd').value,
+    subject: document.getElementById('ttSubject').value.trim(),
+    title: document.getElementById('ttTitle').value.trim(),
+    classId: document.getElementById('ttClass').value || null,
+    color: document.getElementById('ttColor').value,
+  };
+  if (!body.subject) return showMsg(msg,'Subject required','err');
+  try {
+    await apiReq('POST','/api/school-timetable/', body);
+    showMsg(msg,'✅ Added!','ok');
+    setTimeout(()=>{ closeModal(); loadTimetable('teacherTimetableWrap'); },1000);
+  } catch(e) { showMsg(msg,e.message,'err'); }
+}
+
+async function deleteTTEntry(id) {
+  if (!confirm('Remove this entry?')) return;
+  await apiReq('DELETE',`/api/school-timetable/${id}`);
+  loadTimetable('teacherTimetableWrap');
+}
+
+async function startSessionFromEntry(id) {
+  try {
+    const r = await apiReq('POST',`/api/school-timetable/${id}/start-session`);
+    openJitsiRoom(r.roomId, document.getElementById('liveRoomTitle')?.textContent || 'Live Class');
+    navigate('live');
+  } catch(e) { alert(e.message); }
+}
+
+// ══════════════════════════ LIVE SESSION + WHITEBOARD ═════════════════════════
+let _liveRoomId = null;
+let _wbCtx = null, _wbDrawing = false, _wbTool = 'pen', _swbCtx = null, _swbDrawing = false, _swbTool = 'pen';
+
+async function initTeacherLive() {
+  await populateLiveClassSelect();
+  document.getElementById('liveSetup').style.display = 'block';
+  document.getElementById('liveRoom').style.display  = 'none';
+}
+
+async function populateLiveClassSelect() {
+  if (!_teacherClasses.length) _teacherClasses = await apiReq('GET','/api/school/teacher/classes');
+  const sel = document.getElementById('liveClassSelect');
+  if (sel) sel.innerHTML = `<option value="">All my students</option>${_teacherClasses.map(c=>`<option value="${c._id||c.id}">${c.name}</option>`).join('')}`;
+}
+
+async function startLiveSession() {
+  const title   = document.getElementById('liveTitle').value.trim() || 'Live Class';
+  const classId = document.getElementById('liveClassSelect').value;
+  const roomId  = `OstazAI-${SCHOOL.schoolCode}-${Date.now().toString(36)}`;
+  _liveRoomId = roomId;
+
+  // Notify students
+  try {
+    if (classId) await apiReq('POST',`/api/school-timetable/notify-live`,{ classId, title, roomId }).catch(()=>{});
+  } catch(e){}
+
+  document.getElementById('liveSetup').style.display = 'none';
+  document.getElementById('liveRoom').style.display  = 'block';
+  document.getElementById('liveRoomTitle').textContent = title;
+  openJitsiRoom(roomId, title, 'jitsiWrap');
+  initWhiteboard('wbCanvas', false);
+}
+
+function endLiveSession() {
+  document.getElementById('liveSetup').style.display = 'block';
+  document.getElementById('liveRoom').style.display  = 'none';
+  document.getElementById('jitsiWrap').innerHTML = '';
+  _liveRoomId = null;
+}
+
+async function checkLiveSession() {
+  try {
+    // Look for a timetable entry with liveRoomId from teacher
+    const entries = await apiReq('GET','/api/school-timetable/');
+    const live = entries.find(e => e.liveRoomId);
+    const joinBtn = document.getElementById('joinLiveBtn');
+    if (live) {
+      joinBtn.innerHTML = `<button class="btn btn-primary" style="font-size:16px;padding:14px 32px" onclick="joinLiveRoom('${live.liveRoomId}','${live.title||live.subject}')">🔴 Join Live: ${live.title||live.subject}</button>`;
+    } else {
+      joinBtn.innerHTML = `<div style="color:#64748B;font-size:13px">No active session right now.</div>`;
+    }
+  } catch(e){}
+}
+
+function joinLiveRoom(roomId, title) {
+  document.getElementById('studentLiveWrap').style.display = 'none';
+  document.getElementById('studentLiveRoom').style.display = 'block';
+  openJitsiRoom(roomId, title, 'studentJitsiWrap');
+  initWhiteboard('swbCanvas', true);
+}
+
+function openJitsiRoom(roomId, title, wrapperId='jitsiWrap') {
+  const wrap = document.getElementById(wrapperId);
+  wrap.innerHTML = `<iframe src="https://meet.jit.si/${roomId}#userInfo.displayName=${encodeURIComponent(USER.name)}&config.prejoinPageEnabled=false&config.startWithVideoMuted=false" allow="camera;microphone;display-capture;fullscreen" style="width:100%;height:100%;border:none"></iframe>`;
+}
+
+function initWhiteboard(canvasId, isStudent) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  canvas.width  = canvas.offsetWidth  || 300;
+  canvas.height = canvas.offsetHeight || 400;
+  const ctx = canvas.getContext('2d');
+  if (isStudent) _swbCtx = ctx; else _wbCtx = ctx;
+  ctx.strokeStyle = isStudent ? '#EF4444' : '#3B82F6';
+  ctx.lineWidth = 4; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+
+  let drawing = false, lastX = 0, lastY = 0;
+  const getPos = e => {
+    const r = canvas.getBoundingClientRect();
+    const src = e.touches ? e.touches[0] : e;
+    return [src.clientX - r.left, src.clientY - r.top];
+  };
+  const start = e => { e.preventDefault(); drawing = true; [lastX,lastY] = getPos(e); };
+  const draw  = e => {
+    e.preventDefault();
+    if (!drawing) return;
+    const [x,y] = getPos(e);
+    const tool = isStudent ? _swbTool : _wbTool;
+    ctx.globalCompositeOperation = tool==='eraser' ? 'destination-out' : 'source-over';
+    ctx.strokeStyle = tool==='eraser' ? 'rgba(0,0,0,1)' : (isStudent ? document.getElementById('swbColor')?.value||'#EF4444' : document.getElementById('wbColor')?.value||'#3B82F6');
+    ctx.lineWidth   = tool==='eraser' ? 20 : parseInt(document.getElementById(isStudent?'':'wbSize')?.value||4);
+    ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(x,y); ctx.stroke();
+    [lastX,lastY] = [x,y];
+  };
+  const stop = () => { drawing = false; };
+  canvas.addEventListener('mousedown', start); canvas.addEventListener('mousemove', draw);
+  canvas.addEventListener('mouseup', stop);    canvas.addEventListener('mouseleave', stop);
+  canvas.addEventListener('touchstart', start,{passive:false}); canvas.addEventListener('touchmove', draw,{passive:false});
+  canvas.addEventListener('touchend', stop);
+}
+
+function setWbTool(t) { _wbTool=t; document.getElementById('wbPen').classList.toggle('active',t==='pen'); document.getElementById('wbEraser').classList.toggle('active',t==='eraser'); }
+function setSwbTool(t){ _swbTool=t; document.getElementById('swbPen').classList.toggle('active',t==='pen'); document.getElementById('swbEraser').classList.toggle('active',t==='eraser'); }
+function clearWhiteboard(){ if(_wbCtx){ _wbCtx.clearRect(0,0,_wbCtx.canvas.width,_wbCtx.canvas.height); } }
+function clearSwb(){ if(_swbCtx){ _swbCtx.clearRect(0,0,_swbCtx.canvas.width,_swbCtx.canvas.height); } }
+function downloadWhiteboard(){ const c=document.getElementById('wbCanvas'); const a=document.createElement('a'); a.download='whiteboard.png'; a.href=c.toDataURL(); a.click(); }
+
+// ══════════════════════════ MATERIALS ═════════════════════════════════════════
+const MATERIAL_API = 'https://ostazai-server-production.up.railway.app/api/school-materials';
+
+async function loadMaterials(wrapperId, canDelete) {
+  const el = document.getElementById(wrapperId);
+  if (!el) return;
+  const mats = await apiReq('GET', '/api/school-materials/');
+  if (!mats.length) { el.innerHTML='<div style="color:#64748B;font-size:13px">No materials yet.</div>'; return; }
+  el.innerHTML = mats.map(m => {
+    const icon = m.type==='file'?'📎':m.type==='link'?'🔗':'📝';
+    const action = m.type==='file'
+      ? `<a class="btn btn-outline btn-sm" href="${MATERIAL_API}/${m._id}/download?token=${TOKEN}" target="_blank">⬇️ Download</a>`
+      : m.type==='link'
+        ? `<a class="btn btn-outline btn-sm" href="${m.url}" target="_blank">🔗 Open</a>`
+        : `<button class="btn btn-outline btn-sm" onclick="showTextContent('${m._id}','${m.title}')">👁️ View</button>`;
+    return `<div class="material-card">
+      <div class="m-icon">${icon}</div>
+      <div class="m-info" style="flex:1">
+        <div class="m-title">${m.title}</div>
+        <div class="m-meta">${m.description||''} · ${new Date(m.uploadedAt).toLocaleDateString()}</div>
+      </div>
+      <div class="m-actions">
+        ${action}
+        ${canDelete?`<button class="btn btn-danger btn-sm" onclick="deleteMaterial('${m._id}','${wrapperId}',${canDelete})">✕</button>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function deleteMaterial(id, wrapperId, canDelete) {
+  if (!confirm('Delete this material?')) return;
+  await apiReq('DELETE',`/api/school-materials/${id}`);
+  loadMaterials(wrapperId, canDelete);
+}
+
+function showUploadFile() {
+  showModal(`
+    <div class="modal-title">📎 Upload File</div>
+    <div class="form-group"><label>Title</label><input id="mFileTitle" placeholder="e.g. Chapter 5 Notes"/></div>
+    <div class="form-group"><label>Description (optional)</label><input id="mFileDesc" placeholder="Brief description..."/></div>
+    <div class="form-group"><label>Class</label><select id="mFileClass"><option value="">All my students</option>${_teacherClasses.map(c=>`<option value="${c._id||c.id}">${c.name}</option>`).join('')}</select></div>
+    <div class="form-group"><label>File (max 10MB)</label><input type="file" id="mFileInput" style="background:transparent;border:1px dashed #334155;padding:10px"/></div>
+    <button class="btn btn-primary" style="width:100%;margin-top:8px" onclick="doUploadFile()">Upload</button>
+    <div id="mFileMsg"></div>`);
+}
+
+async function doUploadFile() {
+  const title   = document.getElementById('mFileTitle').value.trim();
+  const desc    = document.getElementById('mFileDesc').value.trim();
+  const classId = document.getElementById('mFileClass').value;
+  const file    = document.getElementById('mFileInput').files[0];
+  const msg     = document.getElementById('mFileMsg');
+  if (!title)  return showMsg(msg,'Title required','err');
+  if (!file)   return showMsg(msg,'Please select a file','err');
+  if (file.size > 10*1024*1024) return showMsg(msg,'File too large (max 10MB)','err');
+  showMsg(msg,'Uploading...','ok');
+  const fd = new FormData();
+  fd.append('file', file); fd.append('title', title);
+  fd.append('description', desc); if (classId) fd.append('classId', classId);
+  const r = await fetch(MATERIAL_API+'/file',{ method:'POST', headers:{'Authorization':'Bearer '+TOKEN}, body:fd });
+  const d = await r.json();
+  if (!r.ok) return showMsg(msg,d.error,'err');
+  showMsg(msg,'✅ Uploaded!','ok');
+  setTimeout(()=>{ closeModal(); loadMaterials('teacherMaterialsList', true); },1200);
+}
+
+function showShareLink() {
+  showModal(`
+    <div class="modal-title">🔗 Share a Link</div>
+    <div class="form-group"><label>Title</label><input id="mLinkTitle" placeholder="e.g. Khan Academy — Algebra"/></div>
+    <div class="form-group"><label>URL</label><input id="mLinkUrl" placeholder="https://..."/></div>
+    <div class="form-group"><label>Class</label><select id="mLinkClass"><option value="">All my students</option>${_teacherClasses.map(c=>`<option value="${c._id||c.id}">${c.name}</option>`).join('')}</select></div>
+    <button class="btn btn-primary" style="width:100%;margin-top:8px" onclick="doShareLink()">Share</button>
+    <div id="mLinkMsg"></div>`);
+}
+
+async function doShareLink() {
+  const title=document.getElementById('mLinkTitle').value.trim();
+  const url=document.getElementById('mLinkUrl').value.trim();
+  const classId=document.getElementById('mLinkClass').value;
+  const msg=document.getElementById('mLinkMsg');
+  if(!title||!url) return showMsg(msg,'Title and URL required','err');
+  await apiReq('POST','/api/school-materials/link',{title,url,classId:classId||undefined});
+  showMsg(msg,'✅ Shared!','ok');
+  setTimeout(()=>{ closeModal(); loadMaterials('teacherMaterialsList', true); },1200);
+}
+
+function showPostText() {
+  showModal(`
+    <div class="modal-title">📝 Post Announcement</div>
+    <div class="form-group"><label>Title</label><input id="mTxtTitle" placeholder="e.g. Homework due Friday"/></div>
+    <div class="form-group"><label>Message</label><textarea id="mTxtContent" rows="4" style="background:#0F172A;border:1px solid #334155;border-radius:8px;padding:10px;color:#F1F5F9;width:100%;resize:vertical" placeholder="Write your announcement..."></textarea></div>
+    <div class="form-group"><label>Class</label><select id="mTxtClass"><option value="">All my students</option>${_teacherClasses.map(c=>`<option value="${c._id||c.id}">${c.name}</option>`).join('')}</select></div>
+    <button class="btn btn-primary" style="width:100%;margin-top:8px" onclick="doPostText()">Post</button>
+    <div id="mTxtMsg"></div>`);
+}
+
+async function doPostText() {
+  const title=document.getElementById('mTxtTitle').value.trim();
+  const content=document.getElementById('mTxtContent').value.trim();
+  const classId=document.getElementById('mTxtClass').value;
+  const msg=document.getElementById('mTxtMsg');
+  if(!title||!content) return showMsg(msg,'Title and message required','err');
+  await apiReq('POST','/api/school-materials/text',{title,content,classId:classId||undefined});
+  showMsg(msg,'✅ Posted!','ok');
+  setTimeout(()=>{ closeModal(); loadMaterials('teacherMaterialsList', true); },1200);
+}
+
+// ══════════════════════════ SUBMISSIONS ═══════════════════════════════════════
+async function loadTeacherSubmissions() {
+  const el = document.getElementById('teacherSubmissionsList');
+  const subs = await apiReq('GET','/api/school-materials/submissions');
+  if (!subs.length) { el.innerHTML='<div style="color:#64748B;font-size:13px">No submissions yet.</div>'; return; }
+  el.innerHTML = subs.map(s=>`
+    <div class="sub-card">
+      <div class="sub-header">
+        <div>
+          <div class="sub-title">${s.title}</div>
+          <div class="sub-meta">${s.studentId?.name||'Student'} · ${new Date(s.submittedAt).toLocaleDateString()}</div>
+          ${s.note?`<div class="sub-meta" style="margin-top:4px;color:#F1F5F9">"${s.note}"</div>`:''}
+        </div>
+        <div>${s.status==='graded'?`<span class="grade-badge">Grade: ${s.grade}</span>`:`<span class="badge pending">Pending</span>`}</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        ${s.fileName?`<a class="btn btn-outline btn-sm" href="${MATERIAL_API}/submissions/${s._id}/download?token=${TOKEN}" target="_blank">⬇️ ${s.fileName}</a>`:''}
+        ${s.status!=='graded'?`<button class="btn btn-success btn-sm" onclick="showGradeModal('${s._id}','${(s.studentId?.name||'Student').replace(/'/g,'\\'')}','${s.title.replace(/'/g,"\\'")}')">✅ Grade</button>`:`<div style="font-size:12px;color:#64748B;padding:6px">Feedback: ${s.feedback||'—'}</div>`}
+      </div>
+    </div>`).join('');
+}
+
+function showGradeModal(subId, studentName, title) {
+  showModal(`
+    <div class="modal-title">Grade Submission</div>
+    <div style="color:#94A3B8;font-size:13px;margin-bottom:16px">${studentName} — "${title}"</div>
+    <div class="form-group"><label>Grade</label><input id="gradeVal" placeholder="e.g. A, 85%, Excellent"/></div>
+    <div class="form-group"><label>Feedback (optional)</label><textarea id="gradeFeedback" rows="3" style="background:#0F172A;border:1px solid #334155;border-radius:8px;padding:10px;color:#F1F5F9;width:100%;resize:vertical" placeholder="Write feedback for the student..."></textarea></div>
+    <button class="btn btn-success" style="width:100%;margin-top:8px" onclick="doGrade('${subId}')">Submit Grade</button>
+    <div id="gradeMsg"></div>`);
+}
+
+async function doGrade(subId) {
+  const grade=document.getElementById('gradeVal').value.trim();
+  const feedback=document.getElementById('gradeFeedback').value.trim();
+  const msg=document.getElementById('gradeMsg');
+  if (!grade) return showMsg(msg,'Grade required','err');
+  await apiReq('POST',`/api/school-materials/submissions/${subId}/grade`,{grade,feedback});
+  showMsg(msg,'✅ Graded!','ok');
+  setTimeout(()=>{ closeModal(); loadTeacherSubmissions(); },1200);
+}
+
+async function doSubmit() {
+  const title=document.getElementById('subTitle').value.trim();
+  const note=document.getElementById('subNote').value.trim();
+  const file=document.getElementById('subFile').files[0];
+  const msg=document.getElementById('subMsg');
+  if (!title) return showMsg(msg,'Title required','err');
+  showMsg(msg,'Submitting...','ok');
+  const fd=new FormData();
+  fd.append('title',title); fd.append('note',note||'');
+  if (file) fd.append('file',file);
+  const r=await fetch(MATERIAL_API+'/submit',{method:'POST',headers:{'Authorization':'Bearer '+TOKEN},body:fd});
+  const d=await r.json();
+  if (!r.ok) return showMsg(msg,d.error||'Failed','err');
+  showMsg(msg,'✅ Submitted!','ok');
+  document.getElementById('subTitle').value='';
+  document.getElementById('subNote').value='';
+  document.getElementById('subFile').value='';
+  loadMySubmissions();
+}
+
+async function loadMySubmissions() {
+  const el=document.getElementById('mySubmissionsList');
+  if (!el) return;
+  const subs=await apiReq('GET','/api/school-materials/submissions');
+  if (!subs.length){ el.innerHTML='<div style="color:#64748B;font-size:13px">No submissions yet.</div>'; return; }
+  el.innerHTML=subs.map(s=>`
+    <div class="sub-card">
+      <div class="sub-header">
+        <div><div class="sub-title">${s.title}</div><div class="sub-meta">${new Date(s.submittedAt).toLocaleDateString()}</div></div>
+        <div>${s.status==='graded'?`<span class="grade-badge">Grade: ${s.grade}</span>`:`<span class="badge pending">Pending review</span>`}</div>
+      </div>
+      ${s.status==='graded'&&s.feedback?`<div style="font-size:13px;color:#94A3B8;margin-top:6px">Feedback: ${s.feedback}</div>`:''}
+    </div>`).join('');
+}
+
+// ══════════════════════════ NOTIFICATIONS ════════════════════════════════════
+let _notifPollTimer = null;
+
+async function loadNotifications() {
+  const el = document.getElementById('notifList');
+  if (!el) return;
+  const notifs = await apiReq('GET','/api/school-notifications/');
+  if (!notifs.length){ el.innerHTML='<div style="padding:20px;color:#64748B;font-size:13px">No notifications yet.</div>'; return; }
+  el.innerHTML = notifs.map(n=>`
+    <div class="notif-item ${n.read?'':'unread'}" onclick="readNotif('${n._id}','${n.link||''}',this)">
+      <div class="n-title">${n.title}</div>
+      <div class="n-msg">${n.message}</div>
+      <div class="n-time">${timeAgo(n.createdAt)}</div>
+    </div>`).join('');
+}
+
+async function readNotif(id, link, el) {
+  el.classList.remove('unread');
+  await apiReq('POST',`/api/school-notifications/read/${id}`).catch(()=>{});
+  if (link) navigate(link);
+  updateNotifBadge();
+}
+
+async function markAllRead() {
+  await apiReq('POST','/api/school-notifications/read-all');
+  loadNotifications();
+  updateNotifBadge();
+}
+
+async function updateNotifBadge() {
+  try {
+    const {count} = await apiReq('GET','/api/school-notifications/unread-count');
+    const badge = document.getElementById('notifBadge');
+    if (!badge) return;
+    badge.textContent = count > 0 ? (count > 9 ? '9+' : count) : '';
+    badge.style.display = count > 0 ? 'flex' : 'none';
+  } catch(e){}
+}
+
+function startNotifPolling() {
+  updateNotifBadge();
+  _notifPollTimer = setInterval(updateNotifBadge, 30000);
+}
+
+function timeAgo(dateStr) {
+  const s = Math.floor((Date.now() - new Date(dateStr)) / 1000);
+  if (s < 60)   return 'Just now';
+  if (s < 3600) return `${Math.floor(s/60)}m ago`;
+  if (s < 86400)return `${Math.floor(s/3600)}h ago`;
+  return new Date(dateStr).toLocaleDateString();
+}
+
+// ── Shared API helper (uses absolute URL) ─────────────────────────────────────
+const SERVER = 'https://ostazai-server-production.up.railway.app';
+async function apiReq(method, path, body) {
+  const r = await fetch(SERVER+path, {
+    method, headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  const d = await r.json();
+  if (!r.ok) {
+    if (d.error === 'trial_expired') {
+      document.getElementById('portalPages').innerHTML = `
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:60vh;text-align:center;gap:16px">
+          <div style="font-size:56px">⏰</div>
+          <div style="font-size:22px;font-weight:900;color:#F1F5F9">Your 7-Day Trial Has Ended</div>
+          <div style="font-size:14px;color:#64748B;max-width:420px">Activate your subscription to continue. Your data is safely kept.</div>
+          <a href="mailto:himageo1@gmail.com?subject=Activate School Account — ${SCHOOL?.name}" style="background:#3B82F6;color:#fff;padding:14px 28px;border-radius:10px;font-weight:700;text-decoration:none">📩 Contact Us to Activate</a>
+          <button onclick="logout()" style="background:none;border:none;color:#64748B;font-size:13px;cursor:pointer">Log Out</button>
+        </div>`;
+      return;
+    }
+    throw new Error(d.error||'Request failed');
+  }
+  return d;
 }
 </script>
 </body>
