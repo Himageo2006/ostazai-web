@@ -9,9 +9,19 @@
 body{font-family:Arial,sans-serif;background:#0F172A;color:#F1F5F9;min-height:100vh}
 
 /* ── Layout ── */
-.sidebar{position:fixed;top:0;left:0;width:220px;height:100vh;background:#1E293B;border-right:1px solid #334155;display:flex;flex-direction:column;z-index:100}
+.sidebar{position:fixed;top:0;left:0;width:220px;height:100vh;background:#1E293B;border-right:1px solid #334155;display:flex;flex-direction:column;z-index:100;transition:transform .25s}
 .main{margin-left:220px;padding:28px;min-height:100vh}
-@media(max-width:768px){.sidebar{width:100%;height:auto;position:relative;flex-direction:row;flex-wrap:wrap;padding:12px}.main{margin-left:0;padding:16px}}
+.hamburger{display:none;position:fixed;top:12px;left:12px;z-index:300;background:#1E293B;border:1px solid #334155;border-radius:8px;padding:8px 10px;cursor:pointer;font-size:18px;color:#F1F5F9}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99}
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%);width:240px}
+  .sidebar.open{transform:translateX(0)}
+  .sidebar-overlay.open{display:block}
+  .main{margin-left:0;padding:16px}
+  .hamburger{display:flex;align-items:center;justify-content:center}
+  .page-title{font-size:18px}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+}
 
 /* ── Sidebar ── */
 .logo{padding:20px 16px 16px;font-size:18px;font-weight:900;color:#3B82F6;border-bottom:1px solid #334155}
@@ -146,6 +156,10 @@ tr:hover td{background:#1a2540}
 </head>
 <body>
 
+<!-- HAMBURGER (mobile) -->
+<button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()">☰</button>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
 <!-- SIDEBAR -->
 <div class="sidebar" id="sidebar">
   <div class="logo">🎓 Ostazz<span>AI</span></div>
@@ -158,7 +172,7 @@ tr:hover td{background:#1a2540}
 </div>
 
 <!-- TRIAL BANNER -->
-<div id="trialBanner" style="display:none;background:#1c1a05;border-bottom:2px solid #F59E0B;padding:10px 24px;margin-left:220px;display:none;align-items:center;justify-content:space-between;gap:12px">
+<div id="trialBanner" style="display:none;background:#1c1a05;border-bottom:2px solid #F59E0B;padding:10px 24px;margin-left:220px;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
   <div style="font-size:13px;color:#FCD34D"><span style="font-size:16px">⏳</span> <b>Free Trial</b> — <span id="trialDaysLeft"></span> days remaining. <button onclick="startCheckout()" style="background:#F59E0B;color:#000;border:none;border-radius:6px;padding:4px 14px;font-weight:700;cursor:pointer;font-size:13px" id="activateBtn">Activate now →</button></div>
   <div style="font-size:11px;color:#92400E">Your data is safe. Upgrade anytime before trial ends.</div>
 </div>
@@ -294,6 +308,67 @@ function navigate(pageId) {
   const pageEl = document.getElementById('page-' + pageId);
   if (navEl)  navEl.classList.add('active');
   if (pageEl) { pageEl.classList.add('active'); loadPage(pageId); }
+  // Close sidebar on mobile after navigating
+  if (window.innerWidth <= 768) closeSidebar();
+}
+
+function toggleSidebar() {
+  const s = document.getElementById('sidebar');
+  const o = document.getElementById('sidebarOverlay');
+  s.classList.toggle('open');
+  o.classList.toggle('open');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+}
+
+async function changePassword() {
+  const oldP = document.getElementById('cp_old').value;
+  const newP = document.getElementById('cp_new').value;
+  const conf = document.getElementById('cp_confirm').value;
+  const msg  = document.getElementById('cpMsg');
+  msg.style.display = 'none';
+  if (!oldP || !newP) { msg.style.color='#EF4444'; msg.textContent='Please fill all fields.'; msg.style.display='block'; return; }
+  if (newP !== conf)  { msg.style.color='#EF4444'; msg.textContent='New passwords do not match.'; msg.style.display='block'; return; }
+  if (newP.length < 6){ msg.style.color='#EF4444'; msg.textContent='Password must be at least 6 characters.'; msg.style.display='block'; return; }
+  try {
+    await api('POST', '/change-password', { currentPassword: oldP, newPassword: newP });
+    msg.style.color = '#10B981';
+    msg.textContent = '✅ Password updated successfully!';
+    msg.style.display = 'block';
+    document.getElementById('cp_old').value = '';
+    document.getElementById('cp_new').value = '';
+    document.getElementById('cp_confirm').value = '';
+  } catch(e) {
+    msg.style.color = '#EF4444';
+    msg.textContent = e.message || 'Failed to update password.';
+    msg.style.display = 'block';
+  }
+}
+
+async function saveSchoolSettings() {
+  const name       = document.getElementById('set_name')?.value?.trim();
+  const country    = document.getElementById('set_country')?.value?.trim();
+  const curriculum = document.getElementById('set_curriculum')?.value;
+  const msgEl      = document.getElementById('settingsSaveMsg');
+  try {
+    const d = await api('PATCH', '/update-settings', { name, country, curriculum });
+    SCHOOL = d.school;
+    if (msgEl) { msgEl.style.display = 'block'; setTimeout(() => msgEl.style.display = 'none', 3000); }
+    document.getElementById('sideSchoolName').textContent = SCHOOL.name;
+  } catch(e) { alert(e.message); }
+}
+
+function openAITutorForTopic(subject, chapter) {
+  navigate('ai-tutor');
+  // Pre-fill subject and send an opening message
+  setTimeout(() => {
+    const subEl = document.getElementById('ait-subject');
+    const inEl  = document.getElementById('ait-input');
+    if (subEl) subEl.value = subject;
+    if (inEl)  { inEl.value = `Explain this topic to me: ${chapter} (${subject})`; sendAITutorMsg(); }
+  }, 100);
 }
 
 // ── Pages ─────────────────────────────────────────────────────────────────────
@@ -366,21 +441,71 @@ function adminPages() { return `
   </div>
 
   <div id="page-settings" class="page">
-    <div class="page-title">School Settings</div>
-    <div class="page-sub">Account details and package information</div>
+    <div class="page-title">Settings</div>
+    <div class="page-sub">Account details, school profile, and security</div>
+
+    ${USER.role === 'admin' ? `
     <div class="card">
-      <div class="card-title">Package Details</div>
+      <div class="card-title">📋 School Profile</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px" id="schoolEditForm">
+        <div class="form-group">
+          <label class="form-label">School Name</label>
+          <input class="form-input" id="set_name" value="${SCHOOL?.name||''}" placeholder="School name"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Country</label>
+          <input class="form-input" id="set_country" value="${SCHOOL?.country||''}" placeholder="Country"/>
+        </div>
+        <div class="form-group" style="grid-column:1/-1">
+          <label class="form-label">Curriculum</label>
+          <select class="form-input" id="set_curriculum">
+            ${['IGCSE (Cambridge)','IGCSE (Edexcel)','IB (MYP / DP)','American / Common Core','A-Level','AQA / OCR','CBSE / ICSE','Egyptian National Curriculum','Saudi National Curriculum','Kuwaiti Curriculum','UAE Curriculum (ADEC/KHDA)','Other'].map(c=>`<option value="${c}" ${SCHOOL?.curriculum===c?'selected':''}>${c}</option>`).join('')}
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="saveSchoolSettings()">💾 Save Changes</button>
+      <div id="settingsSaveMsg" style="display:none;margin-top:10px;font-size:13px;color:#10B981">✅ Saved!</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📦 Package Details</div>
       <table>
-        <tr><td style="color:#64748B;width:140px">School Name</td><td>${SCHOOL?.name}</td></tr>
-        <tr><td style="color:#64748B">Package</td><td><span class="badge active">${(SCHOOL?.package||'').toUpperCase()}</span></td></tr>
+        <tr><td style="color:#64748B;width:140px">Package</td><td><span class="badge active">${(SCHOOL?.package||'').toUpperCase()}</span></td></tr>
         <tr><td style="color:#64748B">Status</td><td><span class="badge ${SCHOOL?.status==='active'?'active':'pending'}">${SCHOOL?.status}</span></td></tr>
         <tr><td style="color:#64748B">Max Teachers</td><td>${SCHOOL?.maxTeachers}</td></tr>
         <tr><td style="color:#64748B">Max Students</td><td>${SCHOOL?.maxStudents}</td></tr>
-        <tr><td style="color:#64748B">Curriculum</td><td>${SCHOOL?.curriculum||'—'}</td></tr>
-        <tr><td style="color:#64748B">Country</td><td>${SCHOOL?.country||'—'}</td></tr>
       </table>
-      <div style="margin-top:20px">
+      <div style="margin-top:16px">
         <a href="mailto:himageo1@gmail.com?subject=Upgrade School Package — ${SCHOOL?.name}" class="btn btn-primary">📦 Upgrade Package</a>
+      </div>
+    </div>` : `
+    <div class="card">
+      <div class="card-title">📋 My Account</div>
+      <table>
+        <tr><td style="color:#64748B;width:140px">Name</td><td>${USER.name}</td></tr>
+        <tr><td style="color:#64748B">Email</td><td>${USER.email}</td></tr>
+        <tr><td style="color:#64748B">Role</td><td><span class="badge teacher">${USER.role}</span></td></tr>
+        <tr><td style="color:#64748B">School</td><td>${SCHOOL?.name}</td></tr>
+      </table>
+    </div>`}
+
+    <div class="card">
+      <div class="card-title">🔒 Change Password</div>
+      <div style="max-width:360px">
+        <div class="form-group">
+          <label class="form-label">Current Password</label>
+          <input class="form-input" type="password" id="cp_old" placeholder="Your current password"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">New Password</label>
+          <input class="form-input" type="password" id="cp_new" placeholder="Min. 6 characters"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Confirm New Password</label>
+          <input class="form-input" type="password" id="cp_confirm" placeholder="Repeat new password"/>
+        </div>
+        <button class="btn btn-primary" onclick="changePassword()">🔒 Update Password</button>
+        <div id="cpMsg" style="display:none;margin-top:10px;font-size:13px"></div>
       </div>
     </div>
   </div>
@@ -800,7 +925,7 @@ async function loadStudentAssigned() {
         <div class="date">Assigned ${new Date(t.assignedAt).toLocaleDateString()}${t.completed?' · ✅ Completed':''}</div>
       </div>
       <div class="actions">
-        <a class="btn-study" href="/?subject=${encodeURIComponent(t.subject)}&chapter=${encodeURIComponent(t.chapter)}" target="_blank">Study Now</a>
+        <button class="btn-study" onclick="openAITutorForTopic('${t.subject.replace(/'/g,"\\'")}','${t.chapter.replace(/'/g,"\\'")}')">Study with AI</button>
         ${!t.completed?`<button class="check-done" onclick="markDone('${t.subject}','${t.chapter}',this)">Done</button>`:''}
       </div>
     </div>`).join('');
@@ -1214,17 +1339,38 @@ function downloadWhiteboard(){ const c=document.getElementById('wbCanvas'); cons
 // ══════════════════════════ AI TUTOR ══════════════════════════════════════════
 let _aitHistory = [];
 
-function initAITutor() {
-  // Pre-fill curriculum from school info if available
-  const cur = SCHOOL?.curriculum || '';
-  const curMap = {
-    'IGCSE (Cambridge)':'igcse','IGCSE (Edexcel)':'edexcel','IB (MYP / DP)':'ib',
-    'American / Common Core':'american','A-Level':'cambridge_alevel','AQA / OCR':'aqa',
-    'CBSE / ICSE':'cbse','Egyptian National Curriculum':'egypt','Saudi National Curriculum':'saudi',
-    'Kuwaiti Curriculum':'kuwait','UAE Curriculum (ADEC/KHDA)':'uae',
-  };
-  const sel = document.getElementById('ait-curriculum');
-  if (sel && curMap[cur]) sel.value = curMap[cur];
+const CUR_MAP = {
+  'IGCSE (Cambridge)':'igcse','IGCSE (Edexcel)':'edexcel','IB (MYP / DP)':'ib',
+  'American / Common Core':'american','A-Level':'cambridge_alevel','AQA / OCR':'aqa',
+  'CBSE / ICSE':'cbse','Egyptian National Curriculum':'egypt','Saudi National Curriculum':'saudi',
+  'Kuwaiti Curriculum':'kuwait','UAE Curriculum (ADEC/KHDA)':'uae',
+};
+
+async function initAITutor() {
+  const sel     = document.getElementById('ait-curriculum');
+  const subEl   = document.getElementById('ait-subject');
+  const gradeEl = document.getElementById('ait-grade');
+
+  // For students — try to load their class data for auto-fill
+  if (USER.role === 'student') {
+    try {
+      const d = await api('GET', '/my-class');
+      if (d.class) {
+        if (d.class.subject && subEl && !subEl.value)   subEl.value   = d.class.subject;
+        if (d.class.grade  && gradeEl && !gradeEl.value) gradeEl.value = d.class.grade;
+        if (d.class.curriculum && sel) {
+          const mapped = CUR_MAP[d.class.curriculum];
+          if (mapped) sel.value = mapped;
+        }
+      }
+    } catch(_) {}
+  }
+
+  // Fallback: use school-level curriculum
+  if (sel && sel.value === 'igcse') {
+    const cur = SCHOOL?.curriculum || '';
+    if (CUR_MAP[cur]) sel.value = CUR_MAP[cur];
+  }
 }
 
 async function sendAITutorMsg() {
