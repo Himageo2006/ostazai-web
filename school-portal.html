@@ -599,10 +599,11 @@ function teacherPages() { return `
   <div id="page-students" class="page">
     <div class="page-title">My Students</div>
     <div class="page-sub">View progress, create accounts, or import a whole class at once</div>
-    <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap">
+    <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
       <button class="btn btn-success" onclick="showCreateStudent()">+ Create Student Account</button>
       <button class="btn btn-outline" onclick="showImportStudents()">📥 Import from CSV</button>
     </div>
+    <input type="text" id="studentSearch" placeholder="🔍 Search by name or email..." oninput="filterStudents()" style="width:100%;max-width:360px;padding:10px 14px;background:#1E293B;border:1px solid #334155;border-radius:8px;color:#F1F5F9;font-size:14px;margin-bottom:16px"/>
     <div class="card"><table><thead><tr><th>Name</th><th>Email</th><th>Grade</th><th>Questions</th><th>Last Active</th><th></th></tr></thead>
     <tbody id="teacherStudentBody"><tr><td colspan="6" style="color:#64748B">Loading...</td></tr></tbody></table></div>
   </div>
@@ -1072,6 +1073,14 @@ function renderStudentRows(students) {
       ${s.classId?`<button class="btn btn-danger btn-sm" onclick="removeStudentFromClass('${s.classId}','${s.id}','${s.name.replace(/'/g,"\\'")}')">Remove</button>`:''}
     </td>
   </tr>`).join('');
+}
+
+function filterStudents() {
+  const q = (document.getElementById('studentSearch')?.value || '').toLowerCase().trim();
+  if (!q) return renderStudentRows(_studentList);
+  renderStudentRows(_studentList.filter(s =>
+    `${s.name} ${s.email} ${s.grade||''}`.toLowerCase().includes(q)
+  ));
 }
 
 async function removeStudentFromClass(classId, studentId, name) {
