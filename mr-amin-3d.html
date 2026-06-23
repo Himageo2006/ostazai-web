@@ -51,6 +51,7 @@
     <input id="avatarUrl" type="text" placeholder="Paste a Ready Player Me .glb URL" style="display:none"/>
     <button class="btn-speak" onclick="loadAvatarFromInput()" id="loadBtn" style="display:none">Load</button>
     <label style="font-size:12px;color:#94A3B8;display:flex;align-items:center;gap:6px"><input type="checkbox" id="fullBody" onchange="reframe()"/> Full body</label>
+    <button class="btn-stop" onclick="reframe()" style="padding:8px 14px;font-size:13px">⟳ Reset view</button>
   </div>
   <div class="hint" style="margin-top:6px">Switch models to compare. Your existing teacher models are full-body & rigged. For accurate lip-sync we'll use a model with named mouth visemes (Ready Player Me).</div>
 </div>
@@ -150,7 +151,7 @@ function init(){
 
   controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
-  controls.enablePan = true;
+  controls.enablePan = false;
 
   const ktx2 = new KTX2Loader()
     .setTranscoderPath('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/basis/')
@@ -251,16 +252,21 @@ function frameModel(){
     dist = (modelSize/2) / Math.tan(fov/2) * 1.25;
     target = modelCenter.clone();
   } else {
-    const headY = box.max.y - size.y*0.12;            // approx eye line
-    const portrait = size.y*0.32;                      // vertical span to show
+    const headY = box.max.y - size.y*0.20;            // chin / mid-face
+    const portrait = size.y*0.42;                      // show head + shoulders
     modelSize = portrait || 1;
-    dist = (modelSize/2) / Math.tan(fov/2) * 1.6;
+    dist = (modelSize/2) / Math.tan(fov/2) * 1.5;
     target = new THREE.Vector3(modelCenter.x, headY, modelCenter.z);
   }
-  camera.near = dist/100; camera.far = dist*100; camera.updateProjectionMatrix();
+  camera.near = Math.max(dist/100,0.01); camera.far = dist*100; camera.updateProjectionMatrix();
   camera.position.set(target.x, target.y, box.max.z + dist);
   camera.lookAt(target);
-  if (controls){ controls.target.copy(target); controls.update(); }
+  if (controls){
+    controls.target.copy(target);
+    controls.minDistance = dist*0.5;
+    controls.maxDistance = dist*2.5;
+    controls.update();
+  }
 
   // Debug readout for diagnostics
   window.__dbg = {
