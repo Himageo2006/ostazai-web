@@ -111,6 +111,12 @@ tr:hover td{background:#1a2540}
   </div>
 </div>
 
+<!-- TRIAL BANNER -->
+<div id="trialBanner" style="display:none;background:#1c1a05;border-bottom:2px solid #F59E0B;padding:10px 24px;margin-left:220px;display:none;align-items:center;justify-content:space-between;gap:12px">
+  <div style="font-size:13px;color:#FCD34D"><span style="font-size:16px">⏳</span> <b>Free Trial</b> — <span id="trialDaysLeft"></span> days remaining. <a href="mailto:himageo1@gmail.com?subject=Activate School Account" style="color:#F59E0B;font-weight:700">Activate now →</a></div>
+  <div style="font-size:11px;color:#92400E">Your data is safe. Upgrade anytime before trial ends.</div>
+</div>
+
 <!-- MAIN CONTENT -->
 <div class="main" id="mainContent">
   <div id="loadingState" style="display:flex;align-items:center;justify-content:center;height:60vh">
@@ -153,10 +159,24 @@ window.onload = async () => {
 
   renderSidebar();
   renderPages();
-  navigate(USER.role === 'student' ? 'dashboard' : 'dashboard');
+  navigate('dashboard');
   document.getElementById('loadingState').style.display = 'none';
   document.getElementById('portalPages').style.display  = 'block';
+  showTrialBanner();
 };
+
+function showTrialBanner() {
+  if (!SCHOOL || SCHOOL.status !== 'trial' || !SCHOOL.expiresAt) return;
+  const msLeft  = new Date(SCHOOL.expiresAt) - new Date();
+  const daysLeft = Math.ceil(msLeft / 86400000);
+  if (daysLeft <= 0) return; // server will block on next request
+  const banner = document.getElementById('trialBanner');
+  document.getElementById('trialDaysLeft').textContent = daysLeft;
+  banner.style.display = 'flex';
+  // Push main content down on desktop
+  const marginTop = banner.offsetHeight;
+  document.getElementById('mainContent').style.marginTop = marginTop + 'px';
+}
 
 function logout() {
   localStorage.removeItem('school_token');
@@ -671,7 +691,20 @@ async function api(method, path, body) {
     body: body ? JSON.stringify(body) : undefined,
   });
   const d = await r.json();
-  if (!r.ok) throw new Error(d.error||'Request failed');
+  if (!r.ok) {
+    if (d.error === 'trial_expired') {
+      document.getElementById('portalPages').innerHTML = `
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:60vh;text-align:center;gap:16px">
+          <div style="font-size:56px">⏰</div>
+          <div style="font-size:22px;font-weight:900;color:#F1F5F9">Your 7-Day Trial Has Ended</div>
+          <div style="font-size:14px;color:#64748B;max-width:420px">To continue using OstazAI for your school, please activate your subscription. Your data and accounts are safely kept.</div>
+          <a href="mailto:himageo1@gmail.com?subject=Activate School Account — ${SCHOOL?.name}" style="background:#3B82F6;color:#fff;padding:14px 28px;border-radius:10px;font-weight:700;text-decoration:none;font-size:15px">📩 Contact Us to Activate</a>
+          <button onclick="logout()" style="background:none;border:none;color:#64748B;font-size:13px;cursor:pointer;margin-top:8px">Log Out</button>
+        </div>`;
+      return;
+    }
+    throw new Error(d.error||'Request failed');
+  }
   return d;
 }
 
