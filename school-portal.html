@@ -967,6 +967,35 @@ async function loadTeacherClasses() {
 }
 
 // ── Grade Book ─────────────────────────────────────────────────────────────────
+function renderClassAnalytics(a) {
+  const maxQ = Math.max(1, ...(a.topSubjects||[]).map(s => s.questions));
+  return `
+    <div class="stat-grid" style="margin-bottom:16px">
+      <div class="stat-card"><div class="val">${a.total}</div><div class="lbl">Students</div></div>
+      <div class="stat-card"><div class="val">${a.avgQuestions}</div><div class="lbl">Avg AI Questions</div></div>
+      <div class="stat-card green"><div class="val">${a.completionRate}%</div><div class="lbl">Topics Completed</div></div>
+      <div class="stat-card amber"><div class="val" style="color:#F59E0B">${a.activeToday}</div><div class="lbl">Active Today</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+      <div class="card">
+        <div class="card-title">📊 Top Subjects</div>
+        ${(a.topSubjects&&a.topSubjects.length) ? a.topSubjects.map(s=>`
+          <div style="margin-bottom:10px">
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px"><span>${s.subject}</span><span style="color:#64748B">${s.questions}</span></div>
+            <div style="background:#0F172A;border-radius:6px;height:8px;overflow:hidden"><div style="background:linear-gradient(90deg,#3B82F6,#8B5CF6);height:100%;width:${Math.round(s.questions/maxQ*100)}%;min-width:4px"></div></div>
+          </div>`).join('') : '<div style="color:#64748B;font-size:13px">No activity yet.</div>'}
+      </div>
+      <div class="card">
+        <div class="card-title">🏆 Most Active Students</div>
+        ${(a.leaderboard&&a.leaderboard.length) ? a.leaderboard.map((s,i)=>`
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:6px 0;border-bottom:1px solid #1a2540">
+            <span>${['🥇','🥈','🥉'][i]||'•'} ${s.name}</span>
+            <span style="color:#10B981;font-weight:700">${s.questions} Q</span>
+          </div>`).join('') : '<div style="color:#64748B;font-size:13px">No activity yet.</div>'}
+      </div>
+    </div>`;
+}
+
 async function loadGradebookClasses() {
   const sel = document.getElementById('gb_class');
   if (!sel) return;
@@ -988,9 +1017,13 @@ async function loadGradebook() {
   if (!classId) { wrap.innerHTML = '<div style="color:#64748B;font-size:13px">Select a class.</div>'; return; }
   wrap.innerHTML = '<div style="color:#64748B;font-size:13px">Loading grade book...</div>';
   try {
-    const d = await api('GET', `/teacher/gradebook/${classId}`);
+    const [d, a] = await Promise.all([
+      api('GET', `/teacher/gradebook/${classId}`),
+      api('GET', `/teacher/class-analytics/${classId}`).catch(() => null),
+    ]);
     if (!d.students.length) { wrap.innerHTML = '<div style="color:#64748B;font-size:13px">No students in this class yet.</div>'; return; }
     wrap.innerHTML = `
+      ${a ? renderClassAnalytics(a) : ''}
       <div class="card" style="padding:0;overflow-x:auto">
         <table>
           <thead><tr>
