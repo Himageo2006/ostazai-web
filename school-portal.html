@@ -620,6 +620,9 @@ function teacherPages() { return `
       <div class="form-group"><label>Chapter / Topic</label>
         <input type="text" id="assignChapter" placeholder="e.g. Chapter 3 — Quadratic Equations"/>
       </div>
+      <div class="form-group"><label>Due Date <span style="color:#64748B;font-weight:400">(optional)</span></label>
+        <input type="date" id="assignDueDate"/>
+      </div>
       <button class="btn btn-primary" onclick="doAssign()">Assign Lesson</button>
       <div id="assignMsg"></div>
     </div>
@@ -930,11 +933,13 @@ async function doAssign() {
   const msg     = document.getElementById('assignMsg');
   if (!targetId||!subject||!chapter) return showMsg(msg,'All fields required','err');
   try {
-    const body = type==='class' ? {classId:targetId,subject,chapter} : {studentId:targetId,subject,chapter};
+    const dueDate = document.getElementById('assignDueDate').value || undefined;
+    const body = type==='class' ? {classId:targetId,subject,chapter,dueDate} : {studentId:targetId,subject,chapter,dueDate};
     const r = await api('POST','/teacher/assign',body);
     showMsg(msg,`✅ Assigned to ${r.assigned} student(s)`,'ok');
     document.getElementById('assignSubject').value='';
     document.getElementById('assignChapter').value='';
+    document.getElementById('assignDueDate').value='';
   } catch(e) { showMsg(msg,e.message,'err'); }
 }
 
@@ -946,18 +951,33 @@ async function loadStudentAssigned() {
     el.innerHTML='<div style="color:#64748B;font-size:13px;padding:20px;text-align:center">No lessons assigned yet. Check back soon!</div>';
     return;
   }
-  el.innerHTML = d.assignedTopics.map(t => `
+  // Sort: overdue/pending first, completed last
+  const topics = d.assignedTopics.slice().sort((a,b) => (a.completed?1:0) - (b.completed?1:0));
+  el.innerHTML = topics.map(t => `
     <div class="topic-card ${t.completed?'done':''}">
       <div class="topic-info">
         <div class="subject">${t.subject}</div>
         <div class="chapter">${t.chapter}</div>
         <div class="date">Assigned ${new Date(t.assignedAt).toLocaleDateString()}${t.completed?' · ✅ Completed':''}</div>
+        ${dueDateBadge(t)}
       </div>
       <div class="actions">
         <button class="btn-study" onclick="openAITutorForTopic('${t.subject.replace(/'/g,"\\'")}','${t.chapter.replace(/'/g,"\\'")}')">Study with AI</button>
         ${!t.completed?`<button class="check-done" onclick="markDone('${t.subject}','${t.chapter}',this)">Done</button>`:''}
       </div>
     </div>`).join('');
+}
+
+function dueDateBadge(t) {
+  if (!t.dueDate) return '';
+  const due = new Date(t.dueDate);
+  const dueStr = due.toLocaleDateString();
+  if (t.completed) return `<div style="font-size:12px;color:#64748B;margin-top:4px">📅 Due ${dueStr}</div>`;
+  const daysLeft = Math.ceil((due - Date.now()) / 86400000);
+  if (daysLeft < 0)  return `<div style="font-size:12px;color:#EF4444;font-weight:700;margin-top:4px">⚠️ Overdue — was due ${dueStr}</div>`;
+  if (daysLeft === 0) return `<div style="font-size:12px;color:#F59E0B;font-weight:700;margin-top:4px">⏰ Due today!</div>`;
+  if (daysLeft <= 2)  return `<div style="font-size:12px;color:#F59E0B;font-weight:700;margin-top:4px">⏰ Due in ${daysLeft} day${daysLeft>1?'s':''} (${dueStr})</div>`;
+  return `<div style="font-size:12px;color:#94A3B8;margin-top:4px">📅 Due ${dueStr}</div>`;
 }
 
 async function markDone(subject,chapter,btn) {
