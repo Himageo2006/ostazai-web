@@ -282,6 +282,7 @@ const NAV_TEACHER = [
   { id:'materials',     icon:'📚', label:'Materials' },
   { id:'submissions',   icon:'📥', label:'Submissions' },
   { id:'assign',        icon:'📋', label:'Assign Lessons' },
+  { id:'notes',         icon:'📝', label:'Lesson Notes' },
   { id:'ai-tutor',      icon:'🤖', label:'AI Tutor' },
   { id:'notifications', icon:'🔔', label:'Notifications' },
   { id:'settings',      icon:'⚙️',  label:'Settings' },
@@ -697,6 +698,65 @@ function teacherPages() { return `
     </div>
   </div>
 
+  <div id="page-notes" class="page">
+    <div class="page-title">📝 Lesson Notes Generator</div>
+    <div class="page-sub">Generate full, professional, curriculum-aligned teaching notes for any topic in seconds.</div>
+    <div class="card">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="form-group">
+          <label class="form-label">Subject</label>
+          <input class="form-input" id="nt_subject" placeholder="e.g. Physics, Mathematics, Biology"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Grade / Year <span style="color:#64748B;font-weight:400">(optional)</span></label>
+          <input class="form-input" id="nt_grade" placeholder="e.g. Grade 10, Year 11"/>
+        </div>
+        <div class="form-group" style="grid-column:1/-1">
+          <label class="form-label">Topic / Chapter</label>
+          <input class="form-input" id="nt_topic" placeholder="e.g. Newton's Laws of Motion"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Curriculum</label>
+          <select class="form-input" id="nt_curriculum">
+            <option value="igcse">IGCSE (Cambridge)</option>
+            <option value="edexcel">Edexcel</option>
+            <option value="ib">IB</option>
+            <option value="american">American / Common Core</option>
+            <option value="cambridge_alevel">A-Level</option>
+            <option value="aqa">AQA</option>
+            <option value="ocr">OCR</option>
+            <option value="cbse">CBSE</option>
+            <option value="egypt">Egyptian</option>
+            <option value="saudi">Saudi</option>
+            <option value="kuwait">Kuwaiti</option>
+            <option value="uae">UAE</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Special Focus <span style="color:#64748B;font-weight:400">(optional)</span></label>
+          <input class="form-input" id="nt_focus" placeholder="e.g. emphasize exam technique"/>
+        </div>
+      </div>
+      <button class="btn btn-primary" id="nt_btn" onclick="generateNotes()">✨ Generate Notes</button>
+      <div id="nt_status" style="margin-top:10px;font-size:13px"></div>
+    </div>
+
+    <div id="nt_output_wrap" class="card" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:14px;border-bottom:1px solid #334155;padding-bottom:12px">
+        <div style="font-size:13px;font-weight:700;color:#94A3B8">GENERATED NOTES</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button class="btn btn-outline btn-sm" onclick="copyNotes(this)">📋 Copy</button>
+          <button class="btn btn-outline btn-sm" onclick="downloadNotes()">⬇️ Download</button>
+          <button class="btn btn-outline btn-sm" onclick="printNotes()">🖨️ Print</button>
+          <button class="btn btn-success btn-sm" onclick="shareNotesToStudents()">📚 Share to Students</button>
+        </div>
+      </div>
+      <div id="nt_output" style="font-size:14px;line-height:1.7;color:#E2E8F0"></div>
+      <div id="nt_share_msg" style="margin-top:10px;font-size:13px"></div>
+    </div>
+  </div>
+
   <div id="page-notifications" class="page">
     <div class="page-title">Notifications & Announcements</div>
     <div class="page-sub"></div>
@@ -869,6 +929,7 @@ async function loadPage(id) {
       if (id === 'submissions')   await loadTeacherSubmissions();
       if (id === 'assign')        await loadAssignPage();
       if (id === 'gradebook')     await loadGradebookClasses();
+      if (id === 'notes')         initNotesGenerator();
       if (id === 'notifications') { await loadNotifications(); await loadAnnounceClassOptions(); }
       if (id === 'ai-tutor')      initAITutor();
     }
@@ -1914,6 +1975,123 @@ function clearAITutorChat() {
   _aitHistory = [];
   const el = document.getElementById('ait-messages');
   if (el) el.innerHTML = `<div id="ait-welcome" style="text-align:center;color:#64748B;font-size:14px;padding:40px 0"><div style="font-size:40px;margin-bottom:8px">🤖</div><div>Chat cleared! Ask me anything.</div></div>`;
+}
+
+// ══════════════════════════ LESSON NOTES GENERATOR ════════════════════════════
+let _notesRaw = '', _notesMeta = {};
+
+function initNotesGenerator() {
+  const sel = document.getElementById('nt_curriculum');
+  if (sel && sel.value === 'igcse') {
+    const cur = SCHOOL?.curriculum || '';
+    if (CUR_MAP[cur]) sel.value = CUR_MAP[cur];
+  }
+}
+
+// Minimal, safe Markdown → HTML renderer (escapes first, then formats)
+function mdToHtml(md) {
+  let h = md.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const lines = h.split(/\r?\n/);
+  let out = '', inUl = false, inOl = false;
+  const closeLists = () => { if (inUl){out+='</ul>';inUl=false;} if (inOl){out+='</ol>';inOl=false;} };
+  const inline = s => s
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g,'<em>$1</em>')
+    .replace(/`([^`]+)`/g,'<code style="background:#0F172A;padding:2px 6px;border-radius:4px;font-family:monospace;font-size:13px">$1</code>');
+  for (let line of lines) {
+    const t = line.trim();
+    if (!t) { closeLists(); continue; }
+    let m;
+    if ((m = t.match(/^######\s+(.*)/))) { closeLists(); out += `<h6 style="margin:10px 0 4px;font-size:13px">${inline(m[1])}</h6>`; }
+    else if ((m = t.match(/^#####\s+(.*)/))) { closeLists(); out += `<h5 style="margin:10px 0 4px;font-size:14px">${inline(m[1])}</h5>`; }
+    else if ((m = t.match(/^####\s+(.*)/))) { closeLists(); out += `<h4 style="margin:12px 0 6px;font-size:15px;color:#F1F5F9">${inline(m[1])}</h4>`; }
+    else if ((m = t.match(/^###\s+(.*)/))) { closeLists(); out += `<h3 style="margin:14px 0 6px;font-size:16px;color:#F1F5F9">${inline(m[1])}</h3>`; }
+    else if ((m = t.match(/^##\s+(.*)/)))  { closeLists(); out += `<h2 style="margin:18px 0 8px;font-size:18px;color:#60A5FA;border-bottom:1px solid #334155;padding-bottom:4px">${inline(m[1])}</h2>`; }
+    else if ((m = t.match(/^#\s+(.*)/)))   { closeLists(); out += `<h1 style="margin:8px 0 12px;font-size:22px;color:#F1F5F9">${inline(m[1])}</h1>`; }
+    else if ((m = t.match(/^[-*]\s+(.*)/))) { if (!inUl){closeLists();out+='<ul style="margin:6px 0 6px 22px">';inUl=true;} out += `<li style="margin:3px 0">${inline(m[1])}</li>`; }
+    else if ((m = t.match(/^\d+\.\s+(.*)/))) { if (!inOl){closeLists();out+='<ol style="margin:6px 0 6px 22px">';inOl=true;} out += `<li style="margin:3px 0">${inline(m[1])}</li>`; }
+    else { closeLists(); out += `<p style="margin:6px 0">${inline(t)}</p>`; }
+  }
+  closeLists();
+  return out;
+}
+
+async function generateNotes() {
+  const subject    = document.getElementById('nt_subject').value.trim();
+  const topic      = document.getElementById('nt_topic').value.trim();
+  const grade      = document.getElementById('nt_grade').value.trim();
+  const curriculum = document.getElementById('nt_curriculum').value;
+  const focus      = document.getElementById('nt_focus').value.trim();
+  const status     = document.getElementById('nt_status');
+  const btn        = document.getElementById('nt_btn');
+  if (!subject || !topic) { status.style.color='#EF4444'; status.textContent='Subject and topic are required.'; return; }
+
+  btn.disabled = true;
+  status.style.color = '#94A3B8';
+  status.innerHTML = '⏳ Generating professional notes... this can take 10–30 seconds.';
+  try {
+    const d = await api('POST', '/teacher/generate-notes', { subject, topic, grade, curriculum, focus });
+    _notesRaw = d.content || '';
+    _notesMeta = { subject, topic, grade };
+    document.getElementById('nt_output').innerHTML = mdToHtml(_notesRaw);
+    document.getElementById('nt_output_wrap').style.display = 'block';
+    document.getElementById('nt_share_msg').textContent = '';
+    status.style.color = '#10B981';
+    status.textContent = '✅ Notes ready!';
+    document.getElementById('nt_output_wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch(e) {
+    status.style.color = '#EF4444';
+    status.textContent = e.message || 'Failed to generate notes.';
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+function copyNotes(btn) {
+  navigator.clipboard.writeText(_notesRaw).then(() => {
+    const orig = btn.textContent; btn.textContent = '✅ Copied!';
+    setTimeout(() => { btn.textContent = orig; }, 1500);
+  }).catch(() => alert('Copy failed'));
+}
+
+function downloadNotes() {
+  const fname = `${(_notesMeta.subject||'notes')}_${(_notesMeta.topic||'')}`.replace(/[^a-z0-9]+/gi,'_').replace(/^_|_$/g,'') + '.md';
+  const blob = new Blob([_notesRaw], { type: 'text/markdown;charset=utf-8;' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = fname; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 60000);
+}
+
+function printNotes() {
+  const w = window.open('', '_blank');
+  w.document.write(`<html><head><title>${_notesMeta.topic||'Lesson Notes'}</title>
+    <style>body{font-family:Georgia,serif;max-width:760px;margin:30px auto;padding:0 20px;line-height:1.6;color:#111}
+    h1{font-size:24px}h2{font-size:19px;border-bottom:1px solid #ccc;padding-bottom:4px;margin-top:24px}
+    h3,h4{margin-top:16px}code{background:#f4f4f4;padding:2px 5px;border-radius:3px}li{margin:4px 0}</style>
+    </head><body>${mdToHtml(_notesRaw)}</body></html>`);
+  w.document.close();
+  w.focus();
+  setTimeout(() => w.print(), 300);
+}
+
+async function shareNotesToStudents() {
+  const msgEl = document.getElementById('nt_share_msg');
+  if (!_notesRaw) return;
+  const title = `📝 Notes: ${_notesMeta.topic || _notesMeta.subject}`;
+  msgEl.style.color = '#94A3B8'; msgEl.textContent = 'Sharing to students...';
+  try {
+    // Posts as a text material visible to the teacher's students
+    await api('POST', '/api/school-materials/text', {
+      title,
+      content: _notesRaw,
+      subject: _notesMeta.subject || '',
+    });
+    msgEl.style.color = '#10B981';
+    msgEl.textContent = '✅ Shared! Students can now find these notes under Materials.';
+  } catch(e) {
+    msgEl.style.color = '#EF4444';
+    msgEl.textContent = e.message || 'Failed to share.';
+  }
 }
 
 // ══════════════════════════ MATERIALS ═════════════════════════════════════════
