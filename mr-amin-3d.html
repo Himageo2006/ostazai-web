@@ -87,6 +87,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { KTX2Loader } from 'three/addons/loaders/KTX2Loader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 const MORPH_QS = '?morphTargets=ARKit,Oculus%20Visemes&textureSizeLimit=1024';
 
@@ -123,7 +124,7 @@ const loaderEl = document.getElementById('loader');
 const loaderText = document.getElementById('loaderText');
 const statusEl = document.getElementById('status');
 
-let renderer, scene, camera, clock, head, morphMesh=null, morphDict={};
+let renderer, scene, camera, clock, head, morphMesh=null, morphDict={}, controls=null;
 let modelSize = 1, modelCenter = new THREE.Vector3();
 let talking=false, blinkTimer=0, nextBlink=2, visemeTimer=0, curViseme=null;
 
@@ -143,6 +144,10 @@ function init(){
   const fill = new THREE.DirectionalLight(0x88aaff, 0.7); fill.position.set(-2,1,1); scene.add(fill);
 
   clock = new THREE.Clock();
+
+  controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.enablePan = true;
 
   const ktx2 = new KTX2Loader()
     .setTranscoderPath('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/basis/')
@@ -193,23 +198,30 @@ function frameModel(){
   const fov = camera.fov * Math.PI/180;
   const fullBody = document.getElementById('fullBody').checked;
 
+  let target, dist;
   if (fullBody) {
-    // Frame the whole model
     modelSize = Math.max(size.x, size.y) || 1;
-    const dist = (modelSize/2) / Math.tan(fov/2) * 1.25;
-    const target = modelCenter.clone();
-    camera.position.set(target.x, target.y, box.max.z + dist);
-    camera.lookAt(target);
+    dist = (modelSize/2) / Math.tan(fov/2) * 1.25;
+    target = modelCenter.clone();
   } else {
-    // Frame head & shoulders: assume head is near the top of the bbox
     const headY = box.max.y - size.y*0.12;            // approx eye line
     const portrait = size.y*0.32;                      // vertical span to show
     modelSize = portrait || 1;
-    const dist = (modelSize/2) / Math.tan(fov/2) * 1.6;
-    const target = new THREE.Vector3(modelCenter.x, headY, modelCenter.z);
-    camera.position.set(target.x, target.y, box.max.z + dist);
-    camera.lookAt(target);
+    dist = (modelSize/2) / Math.tan(fov/2) * 1.6;
+    target = new THREE.Vector3(modelCenter.x, headY, modelCenter.z);
   }
+  camera.near = dist/100; camera.far = dist*100; camera.updateProjectionMatrix();
+  camera.position.set(target.x, target.y, box.max.z + dist);
+  camera.lookAt(target);
+  if (controls){ controls.target.copy(target); controls.update(); }
+
+  // Debug readout for diagnostics
+  window.__dbg = {
+    size:{x:+size.x.toFixed(3),y:+size.y.toFixed(3),z:+size.z.toFixed(3)},
+    center:{x:+modelCenter.x.toFixed(3),y:+modelCenter.y.toFixed(3),z:+modelCenter.z.toFixed(3)},
+    camPos:{x:+camera.position.x.toFixed(2),y:+camera.position.y.toFixed(2),z:+camera.position.z.toFixed(2)},
+    dist:+dist.toFixed(2), fullBody
+  };
 }
 
 function setMorph(name,v){ if(!morphMesh)return; const i=morphDict[name]; if(i===undefined)return; morphMesh.morphTargetInfluences[i]=v; }
@@ -219,6 +231,7 @@ const ARKIT_MOUTH=['mouthFunnel','mouthPucker','mouthLeft','mouthRight'];
 
 function animate(){
   requestAnimationFrame(animate);
+  if(controls) controls.update();
   if(!head){ if(renderer&&scene&&camera) renderer.render(scene,camera); return; }
   const dt=clock.getDelta(), t=clock.elapsedTime;
 
