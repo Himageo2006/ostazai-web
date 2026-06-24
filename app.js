@@ -571,6 +571,8 @@ function showTeacher(text, lines) {
     if (buf) sentences.push(buf);
   }
   _teacherState = { sentences, idx: 0, playing: false };
+  // Detect the lesson's language from its content (English lessons → English board UI + voice)
+  _teacherState.en = !/[؀-ۿ]/.test(sentences.join(' '));
 
   let ov = document.getElementById('teacher-overlay');
   if (!ov) {
@@ -584,7 +586,7 @@ function showTeacher(text, lines) {
       <div class="tch-classroom">
         <!-- Blackboard -->
         <div class="tch-board">
-          <div class="tch-board-title">📘 ${S.lang==='en'?"Today's Lesson":'درس اليوم'}</div>
+          <div class="tch-board-title">📘 ${_teacherState.en?"Today's Lesson":'درس اليوم'}</div>
           <div class="tch-board-lines" id="tch-board-lines"></div>
           <div class="tch-chalk-tray"></div>
         </div>
@@ -595,10 +597,10 @@ function showTeacher(text, lines) {
           <div class="tch-pointer"></div>
         </div>
       </div>
-      <div class="tch-name">🎓 ${S.lang==='en'?'Mr. Amin explains':'الأستاذ أمين يشرح'}</div>
+      <div class="tch-name">🎓 ${_teacherState.en?'Mr. Amin explains':'الأستاذ أمين يشرح'}</div>
       <div class="tch-controls">
         <button class="tch-btn" id="tch-prev" onclick="teacherJump(-1)">⏮</button>
-        <button class="tch-btn tch-play" id="tch-play" onclick="teacherToggle()">▶️ ${S.lang==='en'?'Start':'ابدأ الشرح'}</button>
+        <button class="tch-btn tch-play" id="tch-play" onclick="teacherToggle()">▶️ ${_teacherState.en?'Start':'ابدأ الشرح'}</button>
         <button class="tch-btn" id="tch-next" onclick="teacherJump(1)">⏭</button>
       </div>
       <div class="tch-progress" id="tch-progress"></div>
@@ -783,24 +785,45 @@ async function init3DTeacher() {
       const model = gltf.scene;
       model.scale.set(1, 1, 1);
       model.position.set(0, 0, 0);
-      model.rotation.y = 0.12;
+      model.rotation.y = 0.06;
       scene.add(model);
-      // find head + mouth morph for lip-sync / nodding (prefer an "open" mouth/jaw)
+      _t3d.model = model;
+
+      // find the face mesh (most morphs), head, and bones
+      let morphMesh = null, best = 0; const bones = {};
       model.traverse(o => {
-        if (o.isMesh && o.morphTargetDictionary) {
-          const dict = o.morphTargetDictionary;
-          const key = Object.keys(dict).find(k => /jawOpen|mouthOpen|viseme_aa|^aa$/i.test(k))
-            || Object.keys(dict).find(k => /mouth|jaw|open/i.test(k));
-          if (key != null) _t3d.talkMorph = { mesh: o, index: dict[key] };
-        }
+        if (o.isBone) bones[o.name] = o;
+        if (o.isMesh && o.morphTargetInfluences && o.morphTargetInfluences.length > best) { best = o.morphTargetInfluences.length; morphMesh = o; }
         if (/head/i.test(o.name)) _t3d.head = o;
       });
-      // animations: pick an idle + a talking gesture
+      _t3d.morphMesh = morphMesh;
+
+      // Lower the arms out of the default T-pose (Mixamo upper-arm +localX lowers them)
+      const bn = Object.keys(bones), findB = re => bones[bn.find(n => re.test(n))];
+      const LA = findB(/LeftArm$/), RA = findB(/RightArm$/), LF = findB(/LeftForeArm$/), RF = findB(/RightForeArm$/);
+      if (LA) LA.rotation.x += 1.2; if (RA) RA.rotation.x += 1.2;
+      if (LF) LF.rotation.x += 0.18; if (RF) RF.rotation.x += 0.18;
+      _t3d.armR = RA; _t3d.armRrest = RA ? RA.rotation.x : 0;
+      model.updateMatrixWorld(true);
+
+      // Detect mouth-open + blink morphs (VRoid numeric morphs are unnamed)
+      _t3d.mouthIdx = []; _t3d.blinkIdx = [];
+      const mg = morphMesh && morphMesh.geometry, mAttr = mg && mg.morphAttributes && mg.morphAttributes.position;
+      if (mAttr) {
+        const pos = mg.attributes.position, N = pos.count;
+        let minY = 1e9, maxY = -1e9; for (let i = 0; i < N; i++){ const y = pos.getY(i); if (y<minY) minY=y; if (y>maxY) maxY=y; }
+        const low = minY + (maxY - minY) * 0.35;
+        const st = mAttr.map((mp, t) => { let mv=0, sdy=0, lw=0; for (let i=0;i<N;i++){ const d=Math.abs(mp.getX(i))+Math.abs(mp.getY(i))+Math.abs(mp.getZ(i)); if(d>1e-5){ mv++; sdy+=mp.getY(i); if(pos.getY(i)<low) lw++; } } return {t,mv,ady:mv?sdy/mv:0,lw}; });
+        _t3d.mouthIdx = st.filter(s => s.lw>20 && s.ady<-0.002).sort((a,b)=>a.ady-b.ady).slice(0,4).map(s=>s.t);
+        _t3d.blinkIdx = st.filter(s => s.lw===0 && s.mv>300 && s.ady<0).sort((a,b)=>b.mv-a.mv).slice(0,1).map(s=>s.t);
+      }
+
       const mixer = new THREE.AnimationMixer(model);
       _t3d.mixer = mixer;
-      gltf.animations.forEach(clip => { _t3d.actions[clip.name] = mixer.clipAction(clip); });
+      (gltf.animations || []).forEach(clip => { _t3d.actions[clip.name] = mixer.clipAction(clip); });
       const idle = _t3d.actions['idle_eyes'] || _t3d.actions['idle_eyes_2'] || _t3d.actions['Idle'] || Object.values(_t3d.actions)[0];
       if (idle) { idle.play(); _t3d.current = idle; }
+      _t3d.blinkTimer = 0; _t3d.nextBlink = 2;
       _shown3D = true;
       clearTimeout(fallbackTimer);
       if (svg) svg.style.display = 'none';
@@ -818,19 +841,51 @@ function _animate3D() {
   if (!_t3d) return;
   const { renderer, scene, camera, mixer, clock } = _t3d;
   const dt = clock.getDelta();
+  const t = performance.now() / 1000;
   if (mixer) mixer.update(dt);
-  // lip-sync: oscillate mouth morph while speaking
+
+  // Is Mr. Amin speaking? (covers Edge audio OR device SpeechSynthesis)
+  const speaking = !!(_teacherState.playing && (
+    (window.speechSynthesis && speechSynthesis.speaking) ||
+    (_teacherState._audio && !_teacherState._audio.paused && !_teacherState._audio.ended)
+  ));
+
+  // Procedural idle (model has no idle clips): gentle sway + breathing
+  if (_t3d.model) {
+    _t3d.model.rotation.y = 0.06 + Math.sin(t * 0.6) * 0.06;
+    _t3d.model.position.y = Math.sin(t * 1.1) * 0.012;
+  }
+
+  // Blink
+  if (_t3d.morphMesh && _t3d.blinkIdx && _t3d.blinkIdx.length) {
+    _t3d.blinkTimer += dt; let blink = 0;
+    if (_t3d.blinkTimer > _t3d.nextBlink) {
+      const p = _t3d.blinkTimer - _t3d.nextBlink;
+      blink = p < 0.06 ? p / 0.06 : p < 0.12 ? 1 - (p - 0.06) / 0.06 : 0;
+      if (p >= 0.12) { _t3d.blinkTimer = 0; _t3d.nextBlink = 2 + Math.random() * 3; }
+    }
+    _t3d.blinkIdx.forEach(i => { _t3d.morphMesh.morphTargetInfluences[i] = blink; });
+  }
+
+  // Mouth: oscillate while speaking
+  if (_t3d.morphMesh && _t3d.mouthIdx && _t3d.mouthIdx.length) {
+    const open = speaking ? (0.15 + (0.5 + 0.5 * Math.sin(t * 13)) * 0.7) : 0;
+    const inf = _t3d.morphMesh.morphTargetInfluences;
+    _t3d.mouthIdx.forEach(i => { inf[i] += (open - inf[i]) * 0.5; });
+  }
   if (_t3d.talkMorph) {
-    const speaking = _teacherState.playing && (window.speechSynthesis ? speechSynthesis.speaking : false);
     const target = speaking ? (0.35 + 0.35 * Math.sin(performance.now() / 90)) : 0;
     const inf = _t3d.talkMorph.mesh.morphTargetInfluences;
     inf[_t3d.talkMorph.index] += (target - inf[_t3d.talkMorph.index]) * 0.4;
   }
-  // gentle head nod while speaking
-  if (_t3d.head) {
-    const sp = _teacherState.playing && speechSynthesis.speaking;
-    _t3d.head.rotation.x = sp ? Math.sin(performance.now() / 400) * 0.06 : 0;
+
+  // Head nod + subtle arm gesture while speaking
+  if (_t3d.head) _t3d.head.rotation.x = speaking ? Math.sin(t * 2.4) * 0.05 : 0;
+  if (_t3d.armR) {
+    const targetX = speaking ? (_t3d.armRrest - 0.18 + Math.sin(t * 3) * 0.14) : _t3d.armRrest;
+    _t3d.armR.rotation.x += (targetX - _t3d.armR.rotation.x) * 0.12;
   }
+
   renderer.render(scene, camera);
   _t3d.raf = requestAnimationFrame(_animate3D);
 }
@@ -946,10 +1001,10 @@ function teacherToggle() {
     clearTimeout(t._silentTimer);
     document.getElementById('tch-avatar')?.classList.remove('talking');
     _teacher3DGesture(false);
-    if (btn) btn.innerHTML = '▶️ ' + (S.lang==='en'?'Continue':'أكمل');
+    if (btn) btn.innerHTML = '▶️ ' + (_teacherState.en?'Continue':'أكمل');
   } else {
     t.playing = true;
-    if (btn) btn.innerHTML = '⏸️ ' + (S.lang==='en'?'Pause':'إيقاف مؤقت');
+    if (btn) btn.innerHTML = '⏸️ ' + (_teacherState.en?'Pause':'إيقاف مؤقت');
     teacherSpeakCurrent();
   }
 }
