@@ -1,6 +1,6 @@
 // OstazAI Service Worker v3.0
 // Version bump forces cache refresh on all clients
-const CACHE_VERSION = 'ostazai-v208';
+const CACHE_VERSION = 'ostazai-v209';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -81,6 +81,16 @@ self.addEventListener('fetch', e => {
   if (url.pathname.includes('/books/')) {
     return e.respondWith(
       caches.match(e.request).then(cached => cached || fetch(e.request))
+    );
+  }
+
+  // 3D models (.glb): cache-first (large ~3.5MB, rarely change) — instant after first load, saves mobile data
+  if (url.pathname.endsWith('.glb')) {
+    return e.respondWith(
+      caches.match(e.request).then(cached => cached || fetch(e.request).then(res => {
+        if (res && res.status === 200) { const clone = res.clone(); caches.open(CACHE_VERSION).then(c => c.put(e.request, clone)); }
+        return res;
+      }))
     );
   }
 

@@ -198,6 +198,24 @@ const SERVER = 'https://ostazai-server-production.up.railway.app';
 const API    = SERVER + '/api/school'; // kept for legacy fetch calls below
 let TOKEN, USER, SCHOOL;
 
+// Inside the iOS/Android app: hide all payment/subscription UI (Apple 3.1.1 / Play Billing).
+// Schools manage billing on the website; the app shows no purchase path.
+const IS_APP = (() => {
+  try {
+    return window.__OSTAZAI_APP === true
+      || typeof window.ReactNativeWebView !== 'undefined'
+      || new URLSearchParams(location.search).get('app') === '1'
+      || localStorage.getItem('_isapp') === '1';
+  } catch(_) { return false; }
+})();
+if (IS_APP) {
+  try {
+    const st = document.createElement('style');
+    st.textContent = '#activateBtn,#activateBtn2,.pkg-upgrade{display:none!important}';
+    (document.head || document.documentElement).appendChild(st);
+  } catch(_) {}
+}
+
 // ── Bootstrap ─────────────────────────────────────────────────────────────────
 window.onload = async () => {
   const params = new URLSearchParams(location.search);
@@ -516,7 +534,7 @@ function settingsPage() { return `
         <tr><td style="color:#64748B">Max Students</td><td>${SCHOOL?.maxStudents}</td></tr>
       </table>
       <div style="margin-top:16px">
-        <a href="mailto:himageo1@gmail.com?subject=Upgrade School Package — ${SCHOOL?.name}" class="btn btn-primary">📦 Upgrade Package</a>
+        <a href="mailto:himageo1@gmail.com?subject=Upgrade School Package — ${SCHOOL?.name}" class="btn btn-primary pkg-upgrade">📦 Upgrade Package</a>
       </div>
     </div>` : USER.role === 'student' ? `
     <div class="card">
@@ -1651,6 +1669,10 @@ function showTrialExpired() {
 }
 
 async function startCheckout() {
+  if (IS_APP) {                       // no in-app purchase path (Apple 3.1.1 / Play Billing)
+    alert('To activate or manage your school subscription, please visit ostazzai.com on a web browser.');
+    return;
+  }
   const btn = document.getElementById('activateBtn') || document.getElementById('activateBtn2');
   if (btn) { btn.disabled = true; btn.textContent = '⏳ Loading…'; }
   try {
