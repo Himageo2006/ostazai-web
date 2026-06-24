@@ -53,7 +53,13 @@
     <label style="font-size:12px;color:#94A3B8;display:flex;align-items:center;gap:6px"><input type="checkbox" id="fullBody" onchange="reframe()"/> Full body</label>
     <button class="btn-stop" onclick="reframe()" style="padding:8px 14px;font-size:13px">⟳ Reset view</button>
   </div>
-  <div class="hint" style="margin-top:6px">Switch models to compare. Your existing teacher models are full-body & rigged. For accurate lip-sync we'll use a model with named mouth visemes (Ready Player Me).</div>
+  <div class="row" style="align-items:center;margin-top:8px">
+    <input id="text" type="text" value="Hello! I'm Mr. Amin, your AI tutor." style="flex:1;min-width:180px"/>
+    <button class="btn-speak" id="speakBtn" onclick="speak()" style="padding:10px 18px;font-size:15px">🔊 Speak</button>
+    <button onclick="testMouth()" style="background:#10B981;color:#fff;padding:10px 16px">👄 Test Mouth</button>
+    <button class="btn-stop" id="stopBtn" onclick="stopSpeaking()" style="padding:10px 16px">⏹ Stop</button>
+    <select id="voice" title="Voice" style="max-width:200px"></select>
+  </div>
 </div>
 
 <div id="stage">
@@ -62,16 +68,6 @@
   <div id="loader">
     <div class="spinner"></div>
     <div id="loaderText">Loading Mr. Amin…</div>
-  </div>
-</div>
-
-<div class="controls">
-  <textarea id="text" rows="2" style="width:100%;margin-bottom:10px" placeholder="Type what Mr. Amin should say…">Hello! I'm Mr. Amin, your AI tutor. Ask me anything about your subjects and I'll help you learn, step by step.</textarea>
-  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-    <button class="btn-speak" id="speakBtn" onclick="speak()" style="flex:1;min-width:160px;font-size:17px;padding:14px">🔊 Speak</button>
-    <button class="btn-stop" id="stopBtn" onclick="stopSpeaking()" style="padding:14px 20px">⏹ Stop</button>
-    <button onclick="testMouth()" style="background:#10B981;color:#fff;padding:14px 18px">👄 Test Mouth</button>
-    <select id="voice" title="Voice" style="max-width:220px"></select>
   </div>
 </div>
 
