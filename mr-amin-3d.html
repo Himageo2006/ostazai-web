@@ -187,6 +187,8 @@ function onLoaded(gltf){
   scene.add(head);
   fixPose();
   detectMorphs();
+  window.__mesh=morphMesh; window.__mi=mouthIdx; window.__bi=blinkIdx;
+  window.__state=()=>({talking, _mouthTest, headSet:!!head, sameMesh: window.__mesh===morphMesh});
   frameModel();
   loaderEl.style.display='none';
   setStatus('Ready — type something and press Speak');
@@ -301,11 +303,10 @@ function animate(){
   // Talk — drive the detected mouth morphs
   if(_mouthTest){ /* held open by testMouth() */ }
   else if(talking){
-    visemeTimer+=dt;
-    if(visemeTimer>0.10){ visemeTimer=0; curMouth = mouthIdx[(Math.random()*mouthIdx.length)|0]; }
-    const open = 0.12 + Math.abs(Math.sin(t*14))*0.45;     // natural oscillating mouth
-    mouthIdx.forEach(i=>setMorphIdx(i, i===curMouth ? open : 0));
-    setMorph('jawOpen', 0.12+Math.abs(Math.sin(t*18))*0.25); // named-model fallback
+    // Drive the SAME morphs the Test button uses, oscillating for a talking motion
+    const open = 0.15 + (0.5 + 0.5*Math.sin(t*13))*0.70;   // 0.15 .. 0.85
+    mouthIdx.forEach(i=>setMorphIdx(i, open));
+    setMorph('jawOpen', open);                               // named-model fallback
   } else {
     mouthIdx.forEach(i=>setMorphIdx(i,0));
     setMorph('jawOpen',0);
@@ -330,20 +331,34 @@ speechSynthesis.onvoiceschanged = loadVoices;
 window.speak = function(){
   const text=document.getElementById('text').value.trim(); if(!text)return;
   stopSpeaking();
-  // Start the mouth immediately (don't wait for the browser's speech 'start' event)
-  talking=true;
   document.getElementById('speakBtn').disabled=true;
   setStatus('🗣️ Mr. Amin is speaking…');
-  const stop=()=>{ talking=false; document.getElementById('speakBtn').disabled=false; setStatus(''); clearTimeout(window._st); };
-  const u=new SpeechSynthesisUtterance(text);
-  const vi=document.getElementById('voice').value; if(voices[vi]) u.voice=voices[vi];
-  u.onend=stop; u.onerror=stop;
-  // Fallback timer in case speech is silent/blocked or never ends
-  const est = Math.max(2000, text.length*75);
-  clearTimeout(window._st); window._st=setTimeout(stop, est+800);
-  try{ speechSynthesis.speak(u); }catch(e){}
+  // Drive the mouth directly via its own timer (same write path as Test Mouth — proven to work).
+  _mouthTest=true;                       // tell the render loop to leave the mouth to us
+  const start=performance.now();
+  const est=Math.max(1800, text.length*70);
+  clearInterval(window._talkIv);
+  window._talkIv=setInterval(()=>{
+    const el=performance.now()-start;
+    if(el>=est){ window.stopSpeaking(); return; }
+    const open=0.12 + (0.5+0.5*Math.sin(el/70))*0.75;   // oscillate 0.12 .. 0.87
+    mouthIdx.forEach(i=>setMorphIdx(i,open));
+    setMorph('jawOpen',open);
+  },45);
+  try{
+    const u=new SpeechSynthesisUtterance(text);
+    const vi=document.getElementById('voice').value; if(voices[vi]) u.voice=voices[vi];
+    speechSynthesis.speak(u);
+  }catch(e){}
 };
-window.stopSpeaking=function(){ speechSynthesis.cancel(); talking=false; document.getElementById('speakBtn').disabled=false; setStatus(''); };
+window.stopSpeaking=function(){
+  clearInterval(window._talkIv);
+  _mouthTest=false; talking=false;
+  mouthIdx.forEach(i=>setMorphIdx(i,0)); setMorph('jawOpen',0);
+  try{ speechSynthesis.cancel(); }catch(e){}
+  const b=document.getElementById('speakBtn'); if(b) b.disabled=false;
+  setStatus('');
+};
 
 // Diagnostic: force the detected mouth morphs fully open for 2.5s
 window.testMouth=function(){
