@@ -345,6 +345,38 @@ if (IS_APP) {
   } catch(_) {}
 }
 
+// Lightweight error monitoring — report uncaught errors to the server logs (capped per session).
+(function(){
+  let sent = 0;
+  const report = (message, stack) => {
+    if (sent >= 5) return; sent++;
+    try {
+      fetch('https://ostazai-server-production.up.railway.app/api/clientlog', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ message:String(message||'').slice(0,300), stack:String(stack||'').slice(0,800), url:location.href, ua:navigator.userAgent }),
+      }).catch(()=>{});
+    } catch(_){}
+  };
+  window.addEventListener('error', e => report(e.message, e.error && e.error.stack));
+  window.addEventListener('unhandledrejection', e => report('unhandledrejection: ' + ((e.reason && e.reason.message) || e.reason), e.reason && e.reason.stack));
+})();
+
+// PWA install prompt (web only) — capture the event, reveal the "Install app" button when available.
+let _deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  _deferredPrompt = e;
+  const b = document.getElementById('lp-install');
+  if (b) b.style.display = 'inline-block';
+});
+window.installApp = async function(){
+  if (!_deferredPrompt) return;
+  _deferredPrompt.prompt();
+  try { await _deferredPrompt.userChoice; } catch(_) {}
+  _deferredPrompt = null;
+  const b = document.getElementById('lp-install'); if (b) b.style.display = 'none';
+};
+
 async function req(path, method='GET', body=null, retries=1) {
   if (!navigator.onLine) throw new Error('لا يوجد اتصال بالإنترنت \u{1F4F6}');
   const h = { 'Content-Type': 'application/json' };
@@ -3418,8 +3450,9 @@ function tplLogin() {
   </div>
 
   <!-- 0. ROLE CHOOSER (full split) -->
-  <section class="lp-choose" style="min-height:86vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:24px 16px;max-width:900px;margin:0 auto">
-    <h1 style="font-size:30px;font-weight:900;text-align:center;margin:0;background:linear-gradient(90deg,#60A5FA,#F59E0B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">${L('مرحباً بك في أستاذ AI','Welcome to OstazAI')}</h1>
+  <section class="lp-choose" style="min-height:86vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px 16px;max-width:900px;margin:0 auto">
+    <div style="font-size:34px;font-weight:900;letter-spacing:.5px">🎓 Ostazz<span style="color:#F59E0B">AI</span></div>
+    <h1 style="font-size:28px;font-weight:900;text-align:center;margin:0;background:linear-gradient(90deg,#60A5FA,#F59E0B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">${L('مرحباً بك في أستاذ AI','Welcome to OstazAI')}</h1>
     <p style="text-align:center;color:var(--text-muted);margin:0;font-size:16px">${L('كيف تريد الدخول؟','How would you like to enter?')}</p>
     <div class="lp-grid2" style="width:100%;max-width:740px">
       <div onclick="goRegister()" style="cursor:pointer;background:var(--surface);border:2px solid var(--border);border-radius:22px;padding:30px 22px;text-align:center;transition:.18s" onmouseenter="this.style.borderColor='#F59E0B';this.style.transform='translateY(-4px)'" onmouseleave="this.style.borderColor='var(--border)';this.style.transform='none'">
@@ -3437,7 +3470,10 @@ function tplLogin() {
         <div style="margin-top:16px;background:#2563EB;color:#fff;border-radius:12px;padding:12px;font-weight:900">${L('دخول لوحة المدرسة ←','Enter School Portal →')}</div>
       </div>
     </div>
-    <button class="lp-btn-ghost" onclick="goSignin()">${L('لديك حساب؟ تسجيل الدخول','Already have an account? Sign in')}</button>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;align-items:center">
+      <button class="lp-btn-ghost" onclick="goSignin()">${L('لديك حساب؟ تسجيل الدخول','Already have an account? Sign in')}</button>
+      <button id="lp-install" onclick="installApp()" class="lp-btn-ghost" style="display:${_deferredPrompt?'inline-block':'none'}">📲 ${L('تثبيت التطبيق','Install app')}</button>
+    </div>
     <div style="font-size:12px;color:var(--text-muted)">${L('مرّر للأسفل لمعرفة المزيد ↓','Scroll down to learn more ↓')}</div>
   </section>
 
