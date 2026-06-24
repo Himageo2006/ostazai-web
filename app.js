@@ -20470,14 +20470,15 @@ function teachTopicOnBoard(sk, ci, ti) {
 // Generate the lesson for the current chapter, then open Mr. Amin on the board
 async function teachChapterOnBoard() {
   if (!S.lessonSubject || !S.lessonChapter) return;
-  // Show a loading board immediately
-  showTeacher(S.lang==='en' ? 'Preparing the lesson, one moment please...' : 'جارٍ تحضير الدرس، لحظة من فضلك...');
+  // English curricula → English lesson (and English board UI from the very first frame)
+  const isEn = ['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian','south_africa'].includes(S.curriculum);
+  // Show a loading board immediately (in the lesson's language)
+  showTeacher(isEn ? 'Preparing the lesson, one moment please...' : 'جارٍ تحضير الدرس، لحظة من فضلك...');
   const playBtn = document.getElementById('tch-play');
-  if (playBtn) { playBtn.disabled = true; playBtn.innerHTML = '⏳ ' + (S.lang==='en'?'Preparing...':'يحضّر الدرس...'); }
+  if (playBtn) { playBtn.disabled = true; playBtn.innerHTML = '⏳ ' + (isEn?'Preparing...':'يحضّر الدرس...'); }
   try {
     const curData = CURRICULA[S.curriculum] || CURRICULA.egypt;
     const gradeData = (curData.grades && (curData.grades[S.grade] || Object.values(curData.grades)[0])) || { label:'' };
-    const isEn = ['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian','south_africa'].includes(S.curriculum);
     const prompt = isEn
       ? `You are Mr. Amin, an expert teacher explaining to a student. Explain the lesson "${S.lessonChapter}" in ${S.lessonSubject.name} for ${curData.label} ${gradeData.label} clearly and simply, as a teacher speaking aloud. Use short clear sentences. Cover the key concepts, give 2-3 worked examples, and end with a quick summary. No headings symbols, just clear spoken explanation. IMPORTANT: Respond ONLY in English. Do not use any Arabic words at all.`
       : `اشرح درس "${S.lessonChapter}" في مادة ${S.lessonSubject.name} — ${curData.label} ${gradeData.label} بأسلوب معلّم يتحدث للطلاب على السبورة. استخدم جملاً قصيرة وواضحة. اشرح المفاهيم الأساسية، أعطِ مثالين أو ثلاثة محلولة خطوة بخطوة، واختم بملخص سريع. ابدأ فوراً دون أسئلة. لا تستخدم رموز عناوين، فقط شرح واضح مسموع.`;
