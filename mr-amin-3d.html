@@ -320,49 +320,122 @@ function animate(){
 }
 let curMouth=null;
 
-// ── Voice ────────────────────────────────────────────────────────────────────
+// ── Voice: Microsoft Edge neural TTS (free, natural) + amplitude lip-sync ──────
 let voices=[];
 function loadVoices(){
   voices = speechSynthesis.getVoices();
-  if(!voices.length) return;
-  const sel=document.getElementById('voice');
+  const sel=document.getElementById('voice'); if(!sel||!voices.length) return;
   sel.innerHTML = voices.map((v,i)=>`<option value="${i}">${v.name} (${v.lang})</option>`).join('');
-  const pref = voices.findIndex(v=>/en(-|_)?(US|GB)/i.test(v.lang));
-  if(pref>=0) sel.value=pref;
+  const pref = voices.findIndex(v=>/en(-|_)?(US|GB)/i.test(v.lang)); if(pref>=0) sel.value=pref;
 }
 speechSynthesis.onvoiceschanged = loadVoices;
 
-window.speak = function(){
-  const text=document.getElementById('text').value.trim(); if(!text)return;
+// --- Edge neural TTS (returns an MP3 Blob); voices: ar-EG-ShakirNeural / en-US-GuyNeural ---
+let _edgeBlocked=false;
+async function _edgeSecMsGec(){
+  const WIN_EPOCH=11644473600n;
+  let ticks=(BigInt(Math.floor(Date.now()/1000))+WIN_EPOCH)*10000000n; ticks-=ticks%3000000000n;
+  const bytes=new TextEncoder().encode(ticks.toString()+'6A5AA1D4EAFF4E9FB37E23D68491D6F4');
+  const hash=await crypto.subtle.digest('SHA-256',bytes);
+  return [...new Uint8Array(hash)].map(b=>b.toString(16).padStart(2,'0')).join('').toUpperCase();
+}
+function _edgeTTS(text, voice='en-US-GuyNeural', rate='-2%'){
+  return new Promise((resolve,reject)=>{
+    if(_edgeBlocked||!window.WebSocket||!(crypto&&crypto.subtle)) return reject(new Error('edge unavailable'));
+    _edgeSecMsGec().then(gec=>{
+      const url=`wss://speech.platform.bing.com/consumer/speech/synthesize/readaloud/edge/v1?TrustedClientToken=6A5AA1D4EAFF4E9FB37E23D68491D6F4&Sec-MS-GEC=${gec}&Sec-MS-GEC-Version=1-130.0.2849.68`;
+      let ws; try{ ws=new WebSocket(url);}catch(e){return reject(e);} ws.binaryType='arraybuffer';
+      const chunks=[]; let settled=false;
+      const fail=e=>{ if(settled)return; settled=true; _edgeBlocked=true; try{ws.close();}catch(_){} reject(e); };
+      const to=setTimeout(()=>fail(new Error('edge timeout')),11000);
+      ws.onopen=()=>{
+        const ts=new Date().toISOString();
+        ws.send(`X-Timestamp:${ts}\r\nContent-Type:application/json; charset=utf-8\r\nPath:speech.config\r\n\r\n{"context":{"synthesis":{"audio":{"metadataoptions":{"sentenceBoundaryEnabled":"false","wordBoundaryEnabled":"false"},"outputFormat":"audio-24khz-48kbitrate-mono-mp3"}}}}`);
+        const id=(crypto.randomUUID?crypto.randomUUID():'x'+Date.now()+Math.random()).replace(/-/g,'');
+        const esc=String(text).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        const xmlLang=voice.split('-').slice(0,2).join('-')||'en-US';
+        const ssml=`<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='${xmlLang}'><voice name='${voice}'><prosody rate='${rate}'>${esc}</prosody></voice></speak>`;
+        ws.send(`X-RequestId:${id}\r\nContent-Type:application/ssml+xml\r\nX-Timestamp:${ts}Z\r\nPath:ssml\r\n\r\n${ssml}`);
+      };
+      ws.onmessage=ev=>{
+        if(typeof ev.data==='string'){ if(ev.data.includes('Path:turn.end')){ clearTimeout(to); settled=true; try{ws.close();}catch(_){}
+          chunks.length?resolve(new Blob(chunks,{type:'audio/mpeg'})):reject(new Error('edge empty')); } }
+        else{ const buf=new Uint8Array(ev.data); const h=(buf[0]<<8)|buf[1]; chunks.push(buf.slice(2+h)); }
+      };
+      ws.onerror=()=>fail(new Error('edge ws error'));
+      ws.onclose=()=>{ if(!settled) fail(new Error('edge closed')); };
+    }).catch(reject);
+  });
+}
+
+let _audioEl=null, _actx=null, _analyser=null, _lipData=null;
+function pickVoice(text){ return /[؀-ۿ]/.test(text) ? 'ar-EG-ShakirNeural' : 'en-US-GuyNeural'; }
+
+function playWithLipsync(blob){
+  return new Promise((resolve)=>{
+    _audioEl=new Audio(URL.createObjectURL(blob)); _audioEl.crossOrigin='anonymous';
+    try{
+      _actx=_actx||new (window.AudioContext||window.webkitAudioContext)();
+      const src=_actx.createMediaElementSource(_audioEl);
+      _analyser=_actx.createAnalyser(); _analyser.fftSize=256;
+      _lipData=new Uint8Array(_analyser.frequencyBinCount);
+      src.connect(_analyser); _analyser.connect(_actx.destination);
+      if(_actx.state==='suspended') _actx.resume();
+    }catch(e){ _analyser=null; }
+    _mouthTest=true; // own the mouth
+    clearInterval(window._talkIv);
+    window._talkIv=setInterval(()=>{
+      let open;
+      if(_analyser){ _analyser.getByteTimeDomainData(_lipData);
+        let sum=0; for(let i=0;i<_lipData.length;i++){const d=(_lipData[i]-128)/128; sum+=d*d;}
+        const rms=Math.sqrt(sum/_lipData.length);
+        open=Math.min(1, rms*4.5);                 // amplitude → mouth open (real lip-sync)
+      } else { open=0.12+(0.5+0.5*Math.sin(performance.now()/70))*0.7; }
+      mouthIdx.forEach(i=>setMorphIdx(i,open)); setMorph('jawOpen',open);
+    },40);
+    _audioEl.onended=()=>{ window.stopSpeaking(); resolve(); };
+    _audioEl.onerror=()=>{ window.stopSpeaking(); resolve(); };
+    _audioEl.play().catch(()=>{ window.stopSpeaking(); resolve(); });
+  });
+}
+
+window.speak = async function(text, lang){
+  text = (text!=null?String(text):document.getElementById('text').value).trim(); if(!text) return;
   stopSpeaking();
-  document.getElementById('speakBtn').disabled=true;
+  const b=document.getElementById('speakBtn'); if(b) b.disabled=true;
   setStatus('🗣️ Mr. Amin is speaking…');
-  // Drive the mouth directly via its own timer (same write path as Test Mouth — proven to work).
-  _mouthTest=true;                       // tell the render loop to leave the mouth to us
-  const start=performance.now();
-  const est=Math.max(1800, text.length*70);
-  clearInterval(window._talkIv);
-  window._talkIv=setInterval(()=>{
-    const el=performance.now()-start;
-    if(el>=est){ window.stopSpeaking(); return; }
-    const open=0.12 + (0.5+0.5*Math.sin(el/70))*0.75;   // oscillate 0.12 .. 0.87
-    mouthIdx.forEach(i=>setMorphIdx(i,open));
-    setMorph('jawOpen',open);
-  },45);
+  const voice = lang==='ar'?'ar-EG-ShakirNeural' : lang==='en'?'en-US-GuyNeural' : pickVoice(text);
   try{
-    const u=new SpeechSynthesisUtterance(text);
-    const vi=document.getElementById('voice').value; if(voices[vi]) u.voice=voices[vi];
-    speechSynthesis.speak(u);
-  }catch(e){}
+    const blob = await _edgeTTS(text, voice);   // natural neural voice
+    await playWithLipsync(blob);                 // amplitude-driven lip-sync
+    return;
+  }catch(e){ /* fall through to browser speech + oscillation */ }
+  // Fallback: browser SpeechSynthesis + oscillating mouth
+  _mouthTest=true; const start=performance.now(); const est=Math.max(1800,text.length*70);
+  clearInterval(window._talkIv);
+  window._talkIv=setInterval(()=>{ const el=performance.now()-start; if(el>=est){window.stopSpeaking();return;}
+    const open=0.12+(0.5+0.5*Math.sin(el/70))*0.75; mouthIdx.forEach(i=>setMorphIdx(i,open)); setMorph('jawOpen',open); },45);
+  try{ const u=new SpeechSynthesisUtterance(text); const vi=document.getElementById('voice')?.value; if(voices[vi]) u.voice=voices[vi]; speechSynthesis.speak(u);}catch(e){}
 };
+
 window.stopSpeaking=function(){
   clearInterval(window._talkIv);
   _mouthTest=false; talking=false;
-  mouthIdx.forEach(i=>setMorphIdx(i,0)); setMorph('jawOpen',0);
+  if(mouthIdx) mouthIdx.forEach(i=>setMorphIdx(i,0)); setMorph('jawOpen',0);
+  try{ if(_audioEl){ _audioEl.pause(); _audioEl=null; } }catch(e){}
   try{ speechSynthesis.cancel(); }catch(e){}
   const b=document.getElementById('speakBtn'); if(b) b.disabled=false;
   setStatus('');
 };
+
+// ── Embed mode (for the AI Tutor): hide controls, accept speak via postMessage ──
+const EMBED = new URLSearchParams(location.search).get('embed')==='1';
+if(EMBED){ const u=document.querySelector('.urlbar'); if(u) u.style.display='none'; }
+window.addEventListener('message', (e)=>{
+  const d=e.data||{};
+  if(d.type==='speak' && d.text) window.speak(d.text, d.lang);
+  else if(d.type==='stop') window.stopSpeaking();
+});
 
 // Diagnostic: force the detected mouth morphs fully open for 2.5s
 window.testMouth=function(){
