@@ -593,7 +593,8 @@ function showTeacher(text, lines) {
         <!-- 3D teacher beside the board — SVG shows by default, 3D replaces it only after it successfully renders -->
         <div class="tch-teacher-wrap" id="tch-teacher-wrap">
           <canvas id="tch-3d-canvas" style="display:none"></canvas>
-          <div class="tch-avatar" id="tch-avatar">${TEACHER_SVG}</div>
+          <div class="tch-avatar" id="tch-avatar" style="display:none">${TEACHER_SVG}</div>
+          <div id="tch-loading" style="position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:30px;color:#bfe3cf;font-size:13px">⏳ ${S.lang==='en'?'Loading…':'تحميل…'}</div>
           <div class="tch-pointer"></div>
         </div>
       </div>
@@ -744,10 +745,11 @@ async function init3DTeacher() {
   if (!canvas) return;
   // Safety: if the 3D model isn't rendering within 7s, keep the 2D SVG visible
   let _shown3D = false;
+  const hideLoading = () => { const ld = document.getElementById('tch-loading'); if (ld) ld.remove(); };
   const fallbackTimer = setTimeout(() => {
-    if (!_shown3D) { if (svg) svg.style.display = 'block'; canvas.style.display = 'none'; }
+    if (!_shown3D) { hideLoading(); if (svg) svg.style.display = 'block'; canvas.style.display = 'none'; }
   }, 7000);
-  const showSVG = () => { clearTimeout(fallbackTimer); if (svg) svg.style.display = 'block'; canvas.style.display = 'none'; };
+  const showSVG = () => { clearTimeout(fallbackTimer); hideLoading(); if (svg) svg.style.display = 'block'; canvas.style.display = 'none'; };
   // WebGL support check
   try {
     if (!window.WebGLRenderingContext || !canvas.getContext('webgl')) throw new Error('no webgl');
@@ -771,11 +773,12 @@ async function init3DTeacher() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(W, H, false);
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(28, W / H, 0.1, 100);
-    camera.position.set(0, 0.9, 3.8);   // framed on the teacher's FULL body (feet to head)
-    camera.lookAt(0, 0.9, 0);
-    scene.add(new THREE.HemisphereLight(0xffffff, 0x444466, 2.4));
+    const camera = new THREE.PerspectiveCamera(26, W / H, 0.1, 100);
+    camera.position.set(0, 1.02, 3.25);   // full body, but closer so the face reads clearly
+    camera.lookAt(0, 1.02, 0);
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x445, 2.8));
     const dir = new THREE.DirectionalLight(0xffffff, 2.2); dir.position.set(2, 4, 3); scene.add(dir);
+    const face = new THREE.DirectionalLight(0xffffff, 1.6); face.position.set(0, 1.7, 4); scene.add(face); // front light on the face
     _t3d = { THREE, renderer, scene, camera, canvas, mixer: null, actions: {}, current: null, head: null, talkMorph: null, raf: 0, clock: new THREE.Clock() };
     const loader = new THREE.GLTFLoader();
     const draco = new THREE.DRACOLoader();
@@ -826,6 +829,7 @@ async function init3DTeacher() {
       _t3d.blinkTimer = 0; _t3d.nextBlink = 2;
       _shown3D = true;
       clearTimeout(fallbackTimer);
+      hideLoading();
       if (svg) svg.style.display = 'none';
       canvas.style.display = 'block';
       _animate3D();
