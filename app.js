@@ -770,8 +770,8 @@ async function init3DTeacher() {
     renderer.setSize(W, H, false);
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(28, W / H, 0.1, 100);
-    camera.position.set(0, 1.48, 1.45);   // framed on the teacher's head & shoulders
-    camera.lookAt(0, 1.42, 0);
+    camera.position.set(0, 0.9, 3.8);   // framed on the teacher's FULL body (feet to head)
+    camera.lookAt(0, 0.9, 0);
     scene.add(new THREE.HemisphereLight(0xffffff, 0x444466, 2.4));
     const dir = new THREE.DirectionalLight(0xffffff, 2.2); dir.position.set(2, 4, 3); scene.add(dir);
     _t3d = { THREE, renderer, scene, camera, canvas, mixer: null, actions: {}, current: null, head: null, talkMorph: null, raf: 0, clock: new THREE.Clock() };
@@ -22209,22 +22209,22 @@ function bind() {
     .bm-btn,.copy-msg-btn,.speak-btn,.teach-btn{background:none;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:12px;opacity:.6;transition:.15s;padding:3px 7px}.bm-btn:hover,.copy-msg-btn:hover,.speak-btn:hover,.teach-btn:hover{opacity:1;border-color:var(--primary)}
     /* ── Teacher avatar overlay ── */
     #teacher-overlay{position:fixed;inset:0;background:rgba(8,12,24,.88);z-index:2000;display:none;align-items:center;justify-content:center;padding:18px}
-    .tch-card{background:var(--bg-card);border:1px solid var(--border);border-radius:22px;padding:22px;max-width:720px;width:100%;text-align:center;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+    .tch-card{background:var(--bg-card);border:1px solid var(--border);border-radius:22px;padding:22px;max-width:960px;width:100%;text-align:center;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.5)}
     .tch-close{position:absolute;top:12px;left:12px;background:var(--bg-card2);border:1px solid var(--border);border-radius:50%;width:32px;height:32px;cursor:pointer;color:var(--text);font-size:14px;z-index:5}
     /* ── Classroom ── */
     .tch-classroom{position:relative;margin-bottom:8px}
-    .tch-board{background:radial-gradient(120% 90% at 70% 25%,#27483680,transparent 60%),linear-gradient(160deg,#1f3d2f,#122a20);border:14px solid #7a4e29;border-image:linear-gradient(160deg,#8a5a30,#5a3a1e) 1;border-radius:14px;box-shadow:inset 0 0 70px rgba(0,0,0,.5),inset 0 0 0 2px rgba(0,0,0,.25),0 10px 30px rgba(0,0,0,.5);padding:20px 24px 34px;min-height:380px;text-align:right;position:relative;overflow:hidden}
+    .tch-board{background:radial-gradient(120% 90% at 70% 25%,#27483680,transparent 60%),linear-gradient(160deg,#1f3d2f,#122a20);border:14px solid #7a4e29;border-image:linear-gradient(160deg,#8a5a30,#5a3a1e) 1;border-radius:14px;box-shadow:inset 0 0 70px rgba(0,0,0,.5),inset 0 0 0 2px rgba(0,0,0,.25),0 10px 30px rgba(0,0,0,.5);padding:20px 24px 34px;min-height:500px;text-align:right;position:relative;overflow:hidden}
     .tch-board::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 80%,rgba(255,255,255,.05),transparent 45%);pointer-events:none}
     .tch-board-title{color:#fdf6b2;font-weight:900;font-size:19px;border-bottom:2px dashed #ffffff40;padding-bottom:9px;margin-bottom:14px;text-shadow:0 1px 2px rgba(0,0,0,.5);letter-spacing:.3px}
-    .tch-board-lines{max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:13px;padding-left:150px}
+    .tch-board-lines{max-height:420px;overflow-y:auto;display:flex;flex-direction:column;gap:13px;padding-left:270px}
     .tch-line{color:#eafff2;font-size:17px;line-height:1.85;font-family:'Cairo',cursive;text-shadow:0 1px 2px rgba(0,0,0,.4);opacity:.92;animation:tch-fadein .4s ease}
     .tch-line.writing{color:#fff39a;font-weight:700;border-right:3px solid #fff39a;padding-right:10px;animation:tch-fadein .4s ease, tch-blinkcursor 1s step-end infinite}
     @keyframes tch-fadein{from{opacity:0;transform:translateY(6px)}to{opacity:.92;transform:none}}
     @keyframes tch-blinkcursor{50%{border-color:transparent}}
     .tch-chalk-tray{position:absolute;bottom:0;left:0;right:0;height:13px;background:linear-gradient(#6b4423,#4a2f17)}
-    .tch-teacher-wrap{position:absolute;bottom:-14px;left:-6px;width:185px;height:300px}
+    .tch-teacher-wrap{position:absolute;bottom:0;left:0;width:250px;height:480px}
     .tch-teacher-wrap .tch-avatar svg{width:185px;height:300px}
-    #tch-3d-canvas{width:170px;height:250px;display:block}
+    #tch-3d-canvas{width:250px;height:480px;display:block}
     #tch-img{display:none;position:absolute;bottom:0;left:-6px;height:250px;width:auto;max-width:185px;object-fit:contain;transform-origin:bottom center;animation:tch-sway 3.2s ease-in-out infinite;filter:drop-shadow(0 6px 10px rgba(0,0,0,.4))}
     #teacher-overlay .tch-avatar.talking ~ #tch-img,#tch-img.talking{animation:tch-talkbob .5s ease-in-out infinite}
     @keyframes tch-sway{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-4px) rotate(1deg)}}
