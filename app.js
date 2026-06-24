@@ -774,8 +774,8 @@ async function init3DTeacher() {
     renderer.setSize(W, H, false);
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(26, W / H, 0.1, 100);
-    camera.position.set(0, 1.02, 3.25);   // full body, but closer so the face reads clearly
-    camera.lookAt(0, 1.02, 0);
+    camera.position.set(0, 1.30, 2.15);   // waist-up presenter framing → face reads clearly
+    camera.lookAt(0, 1.30, 0);
     scene.add(new THREE.HemisphereLight(0xffffff, 0x445, 2.8));
     const dir = new THREE.DirectionalLight(0xffffff, 2.2); dir.position.set(2, 4, 3); scene.add(dir);
     const face = new THREE.DirectionalLight(0xffffff, 1.6); face.position.set(0, 1.7, 4); scene.add(face); // front light on the face
@@ -20498,12 +20498,12 @@ async function teachChapterOnBoard() {
       setTimeout(() => { if (document.getElementById('tch-play')) teacherToggle(); }, 300); // auto-start speaking
     } else {
       const pb = document.getElementById('tch-play');
-      if (pb) { pb.disabled = false; pb.innerHTML = '🔁 ' + (S.lang==='en'?'Retry':'حاول مجدداً'); }
+      if (pb) { pb.disabled = false; pb.innerHTML = '🔁 ' + (isEn?'Retry':'حاول مجدداً'); pb.onclick = teachChapterOnBoard; }
     }
   } catch(e) {
     const pb = document.getElementById('tch-play');
-    if (pb) { pb.disabled = false; pb.innerHTML = '🔁 ' + (S.lang==='en'?'Retry':'حاول مجدداً'); }
-    showToast(e.message, 'error');
+    if (pb) { pb.disabled = false; pb.innerHTML = '🔁 ' + (isEn?'Retry':'حاول مجدداً'); pb.onclick = teachChapterOnBoard; }
+    showToast((isEn?'Could not prepare the lesson: ':'تعذّر تحضير الدرس: ') + (e.message||''), 'error');
   }
 }
 
