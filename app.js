@@ -3421,8 +3421,11 @@ function tplLogin() {
   <section class="lp-hero">
     <h1>${L('مدرّس ذكي واحد لكل الطلاب','One AI Tutor for All Students')}</h1>
     <p>${L('من الصف الأول حتى الثانوية — مساعدة في الواجبات، شرح مبسّط، مراجعة، ودعم للامتحانات في مكان واحد.','From Year 1 to High School — personalized homework help, explanations, revision, and exam support in one place.')}</p>
-    <button class="lp-btn" onclick="goRegister()">${L('ابدأ التعلّم مجاناً','Start Learning Free')}</button>
-    <div class="lp-note">${L('🔒 مجاني للبدء • بدون بطاقة ائتمان','🔒 Free to start • No credit card needed')}</div>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:6px 0 4px">
+      <button class="lp-btn" onclick="goRegister()">🎓 ${L('ادخل كطالب','I am a Student')}</button>
+      <button class="lp-btn" onclick="location.href='/school-join.html'" style="background:#2563EB;color:#fff;box-shadow:0 6px 20px rgba(37,99,235,.35)">🏫 ${L('مدرسة / معلّم','Teacher / School')}</button>
+    </div>
+    <div class="lp-note">${L('الطلاب: ابدأ مجاناً • المدارس والمعلمون: لوحة المدرسة','Students start free • Schools & teachers: school portal')}</div>
     <div class="lp-trustbar">
       <span><span class="stars">★★★★★</span> ${L('محبوب من الطلاب والأهل','Loved by students & parents')}</span>
       <span>🌍 ${L('في 19 دولة عربية وأكثر','19+ Arab countries')}</span>
