@@ -336,6 +336,15 @@ const IS_APP = (() => {
 const IS_IOS_APP = (IS_APP && /iPhone|iPad|iPod/i.test(navigator.userAgent))
   || (() => { try { return localStorage.getItem('_iosqa') === '1'; } catch(_) { return false; } })();
 
+// App stores (Apple 3.1.1 / Google Play Billing): hide all purchase/pricing surfaces in the apps.
+if (IS_APP) {
+  try {
+    const st = document.createElement('style');
+    st.textContent = '#lp-pricing,#lp-pricing *,.lp-price,[data-screen="upgrade"]{display:none!important}';
+    (document.head || document.documentElement).appendChild(st);
+  } catch(_) {}
+}
+
 async function req(path, method='GET', body=null, retries=1) {
   if (!navigator.onLine) throw new Error('لا يوجد اتصال بالإنترنت \u{1F4F6}');
   const h = { 'Content-Type': 'application/json' };
@@ -3787,7 +3796,7 @@ function tplShell(content) {
     { s:'profile',     icon:'👤', label: t('الملف','profile') },
     { s:'upgrade',     icon:'⭐',  label:'Pro' },
     { s:'admin',       icon:'🛡', label:'Admin' },
-  ]
+  ].filter(n => !(IS_APP && n.s === 'upgrade'))  // no purchase entry point inside the app stores
   const navItems = nav.map(n => `
     <button class="nav-item${S.screen===n.s?' active':''}" onclick="navTo('${n.s}')" style="width:100%;text-align:right;background:none;border:none;cursor:pointer;font-family:Cairo,sans-serif">
       <span class="nav-icon">${n.icon}</span>
@@ -4227,7 +4236,7 @@ function tplChat() {
   </div>
   <div class="chat-msgs" id="chat-msgs">
     ${msgs || `<div class="chat-empty">
-      ${S.user && S.user.plan !== 'pro' ? `
+      ${!IS_APP && S.user && S.user.plan !== 'pro' ? `
       <div style="background:#F59E0B22;border:1px solid #F59E0B44;border-radius:10px;padding:8px 16px;font-size:12px;color:#F59E0B;margin-bottom:16px;display:flex;align-items:center;gap:6px">
         ⭐ <b>5 أسئلة مجانية يومياً</b> — <span data-screen="upgrade" style="cursor:pointer;text-decoration:underline">ترقّى للـ Pro للاستخدام غير المحدود</span>
       </div>` : ''}
@@ -4248,7 +4257,7 @@ function tplChat() {
     ${S.thinking ? '<div class="msg msg-ai"><div class="msg-avatar">🎓</div><div class="msg-bubble thinking"><span></span><span></span><span></span></div></div>' : ''}
     ${S.imageThinking ? '<div class="msg msg-ai"><div class="msg-avatar">🎓</div><div class="msg-bubble thinking" style="background:#F59E0B11;border-color:#F59E0B44"><span style="background:#F59E0B"></span><span style="background:#F59E0B"></span><span style="background:#F59E0B"></span></div></div>' : ''}
   </div>
-  ${S.questionsRemaining !== null && S.questionsRemaining < 10 && !S.user?.plan?.includes('pro') ? `
+  ${!IS_APP && S.questionsRemaining !== null && S.questionsRemaining < 10 && !S.user?.plan?.includes('pro') ? `
   <div style="display:flex;align-items:center;gap:8px;padding:6px 14px;background:${S.questionsRemaining <= 1 ? '#EF444422' : '#F59E0B22'};border-top:1px solid ${S.questionsRemaining <= 1 ? '#EF444444' : '#F59E0B44'};font-size:12px">
     <span>${S.questionsRemaining <= 1 ? '⚠️' : '💬'}</span>
     <span style="color:${S.questionsRemaining <= 1 ? '#EF4444' : '#F59E0B'};font-weight:700">
@@ -19583,6 +19592,23 @@ ${viewer}`;
 function tplUpgrade() {
   const u = S.user || {};
   const isPro = u.plan === 'pro';
+  // App stores (Apple 3.1.1 / Google Play Billing): the mobile apps show NO purchase UI at all.
+  // App users already have full, unlimited access for free — so there's nothing to buy in-app.
+  if (IS_APP) {
+    return `
+<div class="screen-header"><div class="screen-title">⭐ ${L('كل المزايا مفعّلة','All Features Unlocked')}</div></div>
+<div class="screen-body">
+  <div class="info-card" style="max-width:440px;margin:0 auto;text-align:center;padding:32px">
+    <div style="font-size:52px;margin-bottom:10px">🎉</div>
+    <div style="font-size:20px;font-weight:900;margin-bottom:10px;color:var(--primary)">${L('استمتع بكل المزايا مجاناً','Enjoy every feature — free')}</div>
+    <div style="font-size:14px;color:var(--text-muted);line-height:2">
+      ${L('أسئلة غير محدودة · ملخصات ذكية · خرائط ذهنية · حل بالصورة · إدخال صوتي · تصدير PDF · الأستاذ أمين',
+          'Unlimited questions · Smart summaries · Mind maps · Photo solving · Voice input · PDF export · Mr. Amin')}
+    </div>
+    <div style="margin-top:22px;font-size:13px;color:var(--text-muted)">${L('كل شيء متاح لك الآن — لا حاجة لأي اشتراك.','Everything is available to you right now — no subscription needed.')}</div>
+  </div>
+</div>`;
+  }
   // App Store guideline 3.1.1: no external purchase options inside the iOS app
   if (IS_IOS_APP && !isPro) {
     return `
