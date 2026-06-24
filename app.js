@@ -544,7 +544,7 @@ let _teacherState = { sentences: [], idx: 0, playing: false };
 // showTeacher(text)            → splits free-text prose into board lines by sentence/length
 // showTeacher(null, lines)     → uses the given array as board lines verbatim (one slide per line),
 //                                so structured lessons (e.g. IGCSE topic points) match line-by-line.
-function showTeacher(text, lines) {
+function showTeacher(text, lines, forceEn) {
   if (!('speechSynthesis' in window)) { showToast(S.lang==='en'?'Voice not supported on this device':'القراءة الصوتية غير مدعومة على هذا الجهاز', 'error'); return; }
   // stop any previous playback/timers so a fresh open never inherits a stale counter
   try { speechSynthesis.cancel(); } catch(_) {}
@@ -572,7 +572,7 @@ function showTeacher(text, lines) {
   }
   _teacherState = { sentences, idx: 0, playing: false };
   // Detect the lesson's language from its content (English lessons → English board UI + voice)
-  _teacherState.en = !/[؀-ۿ]/.test(sentences.join(' '));
+  _teacherState.en = (typeof forceEn === 'boolean') ? forceEn : !/[؀-ۿ]/.test(sentences.join(' '));
 
   let ov = document.getElementById('teacher-overlay');
   if (!ov) {
@@ -873,7 +873,7 @@ function _animate3D() {
 
   // Mouth: oscillate while speaking
   if (_t3d.morphMesh && _t3d.mouthIdx && _t3d.mouthIdx.length) {
-    const open = speaking ? (0.15 + (0.5 + 0.5 * Math.sin(t * 13)) * 0.7) : 0;
+    const open = speaking ? (0.06 + (0.5 + 0.5 * Math.sin(t * 12)) * 0.34) : 0;  // subtle, natural
     const inf = _t3d.morphMesh.morphTargetInfluences;
     _t3d.mouthIdx.forEach(i => { inf[i] += (open - inf[i]) * 0.5; });
   }
@@ -20477,7 +20477,7 @@ async function teachChapterOnBoard() {
   // English curricula → English lesson (and English board UI from the very first frame)
   const isEn = ['igcse','cambridge_alevel','edexcel','aqa','ocr','american','ib','cbse','icse','french_bac','australian','canadian','south_africa'].includes(S.curriculum);
   // Show a loading board immediately (in the lesson's language)
-  showTeacher(isEn ? 'Preparing the lesson, one moment please...' : 'جارٍ تحضير الدرس، لحظة من فضلك...');
+  showTeacher(isEn ? 'Preparing the lesson, one moment please...' : 'جارٍ تحضير الدرس، لحظة من فضلك...', null, isEn);
   const playBtn = document.getElementById('tch-play');
   if (playBtn) { playBtn.disabled = true; playBtn.innerHTML = '⏳ ' + (isEn?'Preparing...':'يحضّر الدرس...'); }
   try {
@@ -20494,7 +20494,7 @@ async function teachChapterOnBoard() {
     const content = d.content || d.reply || d.message || '';
     if (content) {
       S.lessonContent = content;
-      showTeacher(content);            // reopen board with the real lesson
+      showTeacher(content, null, isEn);            // reopen board with the real lesson (UI language = curriculum)
       setTimeout(() => { if (document.getElementById('tch-play')) teacherToggle(); }, 300); // auto-start speaking
     } else {
       const pb = document.getElementById('tch-play');
