@@ -302,8 +302,8 @@ function animate(){
   if(_mouthTest){ /* held open by testMouth() */ }
   else if(talking){
     visemeTimer+=dt;
-    if(visemeTimer>0.085){ visemeTimer=0; curMouth = mouthIdx[(Math.random()*mouthIdx.length)|0]; }
-    const open = 0.25 + Math.abs(Math.sin(t*16))*0.65;     // oscillating jaw
+    if(visemeTimer>0.10){ visemeTimer=0; curMouth = mouthIdx[(Math.random()*mouthIdx.length)|0]; }
+    const open = 0.12 + Math.abs(Math.sin(t*14))*0.45;     // natural oscillating mouth
     mouthIdx.forEach(i=>setMorphIdx(i, i===curMouth ? open : 0));
     setMorph('jawOpen', 0.12+Math.abs(Math.sin(t*18))*0.25); // named-model fallback
   } else {
@@ -330,12 +330,18 @@ speechSynthesis.onvoiceschanged = loadVoices;
 window.speak = function(){
   const text=document.getElementById('text').value.trim(); if(!text)return;
   stopSpeaking();
+  // Start the mouth immediately (don't wait for the browser's speech 'start' event)
+  talking=true;
+  document.getElementById('speakBtn').disabled=true;
+  setStatus('🗣️ Mr. Amin is speaking…');
+  const stop=()=>{ talking=false; document.getElementById('speakBtn').disabled=false; setStatus(''); clearTimeout(window._st); };
   const u=new SpeechSynthesisUtterance(text);
   const vi=document.getElementById('voice').value; if(voices[vi]) u.voice=voices[vi];
-  u.onstart=()=>{ talking=true; document.getElementById('speakBtn').disabled=true; setStatus('🗣️ Mr. Amin is speaking…'); };
-  u.onend  =()=>{ talking=false; document.getElementById('speakBtn').disabled=false; setStatus(''); };
-  u.onerror=()=>{ talking=false; document.getElementById('speakBtn').disabled=false; setStatus(''); };
-  speechSynthesis.speak(u);
+  u.onend=stop; u.onerror=stop;
+  // Fallback timer in case speech is silent/blocked or never ends
+  const est = Math.max(2000, text.length*75);
+  clearTimeout(window._st); window._st=setTimeout(stop, est+800);
+  try{ speechSynthesis.speak(u); }catch(e){}
 };
 window.stopSpeaking=function(){ speechSynthesis.cancel(); talking=false; document.getElementById('speakBtn').disabled=false; setStatus(''); };
 
