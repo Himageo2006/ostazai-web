@@ -64,7 +64,6 @@
 
 <div id="stage">
   <canvas id="avatar"></canvas>
-  <div id="hud" style="position:fixed;bottom:8px;right:10px;z-index:50;font:12px monospace;color:#10B981;background:rgba(0,0,0,.5);padding:4px 8px;border-radius:6px">frames 0 · mouth -</div>
   <div id="status" style="display:none"></div>
   <div id="loader">
     <div class="spinner"></div>
@@ -318,11 +317,8 @@ function animate(){
     setMorph('mouthSmileLeft',0.10); setMorph('mouthSmileRight',0.10);
   }
   renderer.render(scene,camera);
-  // Live on-screen readout
-  if(_hud){ _hud.textContent = 'frames '+(window.__frames||0)+' · mouth '+(morphMesh?(+ (morphMesh.morphTargetInfluences[mouthIdx[0]]||0)).toFixed(2):'-'); }
 }
 let curMouth=null;
-const _hud = document.getElementById('hud');
 
 // ── Voice ────────────────────────────────────────────────────────────────────
 let voices=[];
