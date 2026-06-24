@@ -3417,21 +3417,36 @@ function tplLogin() {
     </div>
   </div>
 
+  <!-- 0. ROLE CHOOSER (full split) -->
+  <section class="lp-choose" style="min-height:86vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:24px 16px;max-width:900px;margin:0 auto">
+    <h1 style="font-size:30px;font-weight:900;text-align:center;margin:0;background:linear-gradient(90deg,#60A5FA,#F59E0B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">${L('مرحباً بك في أستاذ AI','Welcome to OstazAI')}</h1>
+    <p style="text-align:center;color:var(--text-muted);margin:0;font-size:16px">${L('كيف تريد الدخول؟','How would you like to enter?')}</p>
+    <div class="lp-grid2" style="width:100%;max-width:740px">
+      <div onclick="goRegister()" style="cursor:pointer;background:var(--surface);border:2px solid var(--border);border-radius:22px;padding:30px 22px;text-align:center;transition:.18s" onmouseenter="this.style.borderColor='#F59E0B';this.style.transform='translateY(-4px)'" onmouseleave="this.style.borderColor='var(--border)';this.style.transform='none'">
+        <div style="font-size:56px">🎓</div>
+        <div style="font-size:22px;font-weight:900;margin:8px 0 6px">${L('طالب','Student')}</div>
+        <div style="font-size:13.5px;color:var(--text-muted);line-height:1.8;min-height:64px">${L('مساعدة في الواجبات، شرح مبسّط، بطاقات واختبارات، والأستاذ أمين — لكل المواد.','Homework help, simple explanations, flashcards, quizzes & Mr. Amin — for every subject.')}</div>
+        ${!IS_APP ? `<div style="font-size:13px;color:#F59E0B;font-weight:800;margin-top:10px">${L('مجاني للبدء · Pro $6/شهر','Free to start · Pro $6/mo')}</div>` : ''}
+        <div style="margin-top:16px;background:#F59E0B;color:#0F172A;border-radius:12px;padding:12px;font-weight:900">${L('ابدأ كطالب ←','Start as Student →')}</div>
+      </div>
+      <div onclick="location.href='/school-join.html'" style="cursor:pointer;background:var(--surface);border:2px solid var(--border);border-radius:22px;padding:30px 22px;text-align:center;transition:.18s" onmouseenter="this.style.borderColor='#2563EB';this.style.transform='translateY(-4px)'" onmouseleave="this.style.borderColor='var(--border)';this.style.transform='none'">
+        <div style="font-size:56px">🏫</div>
+        <div style="font-size:22px;font-weight:900;margin:8px 0 6px">${L('مدرسة / معلّم','Teacher / School')}</div>
+        <div style="font-size:13.5px;color:var(--text-muted);line-height:1.8;min-height:64px">${L('أنشئ صفوفك، أضف الطلاب والمعلمين، وزّع الدروس والملاحظات، وتابع التقدّم.','Create classes, add students & teachers, assign lessons & notes, track progress.')}</div>
+        ${!IS_APP ? `<div style="font-size:13px;color:#60A5FA;font-weight:800;margin-top:10px">${L('باقات من $49/شهر · تجربة 7 أيام','Plans from $49/mo · 7-day free trial')}</div>` : ''}
+        <div style="margin-top:16px;background:#2563EB;color:#fff;border-radius:12px;padding:12px;font-weight:900">${L('دخول لوحة المدرسة ←','Enter School Portal →')}</div>
+      </div>
+    </div>
+    <button class="lp-btn-ghost" onclick="goSignin()">${L('لديك حساب؟ تسجيل الدخول','Already have an account? Sign in')}</button>
+    <div style="font-size:12px;color:var(--text-muted)">${L('مرّر للأسفل لمعرفة المزيد ↓','Scroll down to learn more ↓')}</div>
+  </section>
+
   <!-- 1. HERO -->
   <section class="lp-hero">
     <h1>${L('مدرّس ذكي واحد لكل الطلاب','One AI Tutor for All Students')}</h1>
     <p>${L('من الصف الأول حتى الثانوية — مساعدة في الواجبات، شرح مبسّط، مراجعة، ودعم للامتحانات في مكان واحد.','From Year 1 to High School — personalized homework help, explanations, revision, and exam support in one place.')}</p>
-    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:8px 0 4px;align-items:flex-start">
-      <div style="display:flex;flex-direction:column;align-items:center;gap:7px">
-        <button class="lp-btn" onclick="goRegister()">🎓 ${L('ادخل كطالب','I am a Student')}</button>
-        ${!IS_APP ? `<div style="font-size:12.5px;color:var(--text-muted);font-weight:700">${L('مجاني للبدء · Pro بـ $6/شهر','Free to start · Pro $6/mo')}</div>` : ''}
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:7px">
-        <button class="lp-btn" onclick="location.href='/school-join.html'" style="background:#2563EB;color:#fff;box-shadow:0 6px 20px rgba(37,99,235,.35)">🏫 ${L('مدرسة / معلّم','Teacher / School')}</button>
-        ${!IS_APP ? `<div style="font-size:12.5px;color:var(--text-muted);font-weight:700">${L('باقات من $49/شهر · تجربة 7 أيام مجاناً','Plans from $49/mo · 7-day free trial')}</div>` : ''}
-      </div>
-    </div>
-    <div class="lp-note">${L('الطلاب: ابدأ مجاناً • المدارس والمعلمون: لوحة المدرسة','Students start free • Schools & teachers: school portal')}</div>
+    <button class="lp-btn" onclick="goRegister()">${L('ابدأ التعلّم مجاناً','Start Learning Free')}</button>
+    <div class="lp-note">${L('🔒 مجاني للبدء • بدون بطاقة ائتمان','🔒 Free to start • No credit card needed')}</div>
     <div class="lp-trustbar">
       <span><span class="stars">★★★★★</span> ${L('محبوب من الطلاب والأهل','Loved by students & parents')}</span>
       <span>🌍 ${L('في 19 دولة عربية وأكثر','19+ Arab countries')}</span>
