@@ -336,8 +336,9 @@ const IS_APP = (() => {
 const IS_IOS_APP = (IS_APP && /iPhone|iPad|iPod/i.test(navigator.userAgent))
   || (() => { try { return localStorage.getItem('_iosqa') === '1'; } catch(_) { return false; } })();
 
-// App stores (Apple 3.1.1 / Google Play Billing): hide all purchase/pricing surfaces in the apps.
-if (IS_APP) {
+// App stores: Android/Play app hides all purchase surfaces (stays free). iOS uses Apple IAP, so the
+// upgrade screen MUST remain visible there — only hide purchase surfaces on non-iOS apps.
+if (IS_APP && !IS_IOS_APP) {
   try {
     const st = document.createElement('style');
     st.textContent = '#lp-pricing,#lp-pricing *,.lp-price,[data-screen="upgrade"]{display:none!important}';
@@ -3856,7 +3857,7 @@ function tplShell(content) {
     { s:'profile',     icon:'👤', label: t('الملف','profile') },
     { s:'upgrade',     icon:'⭐',  label:'Pro' },
     { s:'admin',       icon:'🛡', label:'Admin' },
-  ].filter(n => !(IS_APP && n.s === 'upgrade'))  // no purchase entry point inside the app stores
+  ].filter(n => !(IS_APP && !IS_IOS_APP && n.s === 'upgrade'))  // hide purchase entry only in non-iOS apps; iOS keeps it for Apple IAP
   const navItems = nav.map(n => `
     <button class="nav-item${S.screen===n.s?' active':''}" onclick="navTo('${n.s}')" style="width:100%;text-align:right;background:none;border:none;cursor:pointer;font-family:Cairo,sans-serif">
       <span class="nav-icon">${n.icon}</span>
@@ -19652,9 +19653,9 @@ ${viewer}`;
 function tplUpgrade() {
   const u = S.user || {};
   const isPro = u.plan === 'pro';
-  // App stores (Apple 3.1.1 / Google Play Billing): the mobile apps show NO purchase UI at all.
-  // App users already have full, unlimited access for free — so there's nothing to buy in-app.
-  if (IS_APP) {
+  // Non-iOS apps (Android/Play) show NO purchase UI — those users get full access free.
+  // iOS falls through to the Apple IAP screen below (guideline 3.1.1 requires in-app purchase).
+  if (IS_APP && !IS_IOS_APP) {
     return `
 <div class="screen-header"><div class="screen-title">⭐ ${L('كل المزايا مفعّلة','All Features Unlocked')}</div></div>
 <div class="screen-body">
