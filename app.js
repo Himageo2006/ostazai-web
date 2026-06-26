@@ -19710,6 +19710,11 @@ function tplUpgrade() {
         ? 'Payment charged to Apple ID. Auto-renews unless cancelled 24h before period end. Manage in App Settings → Subscriptions.'
         : 'يُخصم من Apple ID. يتجدد تلقائياً ما لم يُلغَ قبل 24 ساعة من نهاية الفترة. الإدارة من الإعدادات ← الاشتراكات.'}
     </div>
+    <div style="margin-top:10px;font-size:11px;text-align:center">
+      <a href="https://ostazzai.com/terms.html" target="_blank" rel="noopener" style="color:var(--primary);text-decoration:underline">${S.lang==='en'?'Terms of Use (EULA)':'شروط الاستخدام'}</a>
+      &nbsp;·&nbsp;
+      <a href="https://ostazzai.com/privacy.html" target="_blank" rel="noopener" style="color:var(--primary);text-decoration:underline">${S.lang==='en'?'Privacy Policy':'سياسة الخصوصية'}</a>
+    </div>
   </div>
 </div>`;
   }
