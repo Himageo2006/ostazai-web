@@ -285,6 +285,8 @@ const NAV_ADMIN   = [
   { id:'teachers',      icon:'👨‍🏫', label:'Teachers' },
   { id:'students',      icon:'🎓', label:'Students' },
   { id:'classes',       icon:'🏫', label:'Classes' },
+  { id:'attendance',    icon:'✅', label:'Attendance' },
+  { id:'assessments',   icon:'🧪', label:'Assessments' },
   { id:'requests',      icon:'📨', label:'Requests' },
   { id:'reports',       icon:'📑', label:'Reports' },
   { id:'timetable',     icon:'🗓️', label:'Timetable' },
@@ -479,7 +481,7 @@ function requestsPageHtml(pageId){ return `
 
 function mgmtPages(role){
   let html='';
-  if(role==='teacher'){ html += `
+  if(role==='teacher'||role==='admin'){ html += `
     <div id="page-attendance" class="page">
       <div class="page-title">Attendance</div><div class="page-sub">Mark daily attendance per class</div>
       <div class="card"><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:end">
@@ -1217,6 +1219,8 @@ async function loadPage(id) {
       if (id === 'notifications') await loadNotifications();
       if (id === 'requests')      await loadRequestsInbox();
       if (id === 'reports')       await loadReportsPicker();
+      if (id === 'attendance')    await loadAttendancePage();
+      if (id === 'assessments')   await loadAssessmentsPage();
     }
     if (USER.role === 'teacher') {
       if (id === 'dashboard')     await loadTeacherDashboard();
