@@ -285,6 +285,8 @@ const NAV_ADMIN   = [
   { id:'teachers',      icon:'👨‍🏫', label:'Teachers' },
   { id:'students',      icon:'🎓', label:'Students' },
   { id:'classes',       icon:'🏫', label:'Classes' },
+  { id:'requests',      icon:'📨', label:'Requests' },
+  { id:'reports',       icon:'📑', label:'Reports' },
   { id:'timetable',     icon:'🗓️', label:'Timetable' },
   { id:'materials',     icon:'📚', label:'Materials' },
   { id:'notifications', icon:'🔔', label:'Notifications' },
@@ -295,6 +297,10 @@ const NAV_TEACHER = [
   { id:'classes',       icon:'🏫', label:'My Classes' },
   { id:'students',      icon:'🎓', label:'My Students' },
   { id:'gradebook',     icon:'📒', label:'Grade Book' },
+  { id:'attendance',    icon:'✅', label:'Attendance' },
+  { id:'assessments',   icon:'🧪', label:'Assessments' },
+  { id:'requests',      icon:'📨', label:'Requests' },
+  { id:'reports',       icon:'📑', label:'Reports' },
   { id:'timetable',     icon:'🗓️', label:'Timetable' },
   { id:'live',          icon:'🔴', label:'Live Class' },
   { id:'materials',     icon:'📚', label:'Materials' },
@@ -313,7 +319,15 @@ const NAV_STUDENT = [
   { id:'materials',     icon:'📂', label:'Materials' },
   { id:'submit',        icon:'📤', label:'Submit Work' },
   { id:'progress',      icon:'📈', label:'My Progress' },
+  { id:'my-attendance', icon:'✅', label:'My Attendance' },
+  { id:'my-grades',     icon:'🧪', label:'My Grades' },
+  { id:'my-requests',   icon:'📨', label:'Requests' },
   { id:'notifications', icon:'🔔', label:'Notifications' },
+  { id:'settings',      icon:'⚙️',  label:'Settings' },
+];
+const NAV_PARENT = [
+  { id:'children',      icon:'👨‍👩‍👧', label:'My Children' },
+  { id:'p-requests',    icon:'📨', label:'Requests' },
   { id:'settings',      icon:'⚙️',  label:'Settings' },
 ];
 
@@ -321,7 +335,7 @@ function renderSidebar() {
   document.getElementById('sideSchoolName').textContent = SCHOOL?.name || '—';
   document.getElementById('sideUserName').textContent   = USER.name;
   document.getElementById('sideUserEmail').textContent  = USER.email;
-  const nav   = USER.role === 'admin' ? NAV_ADMIN : USER.role === 'teacher' ? NAV_TEACHER : NAV_STUDENT;
+  const nav   = USER.role === 'admin' ? NAV_ADMIN : USER.role === 'teacher' ? NAV_TEACHER : USER.role === 'parent' ? NAV_PARENT : NAV_STUDENT;
   const sideNav = document.getElementById('sideNav');
   sideNav.innerHTML = nav.map(n =>
     `<div class="nav-item" id="nav-${n.id}" onclick="navigate('${n.id}')"><span class="icon">${n.icon}</span>${n.label}${n.id==='notifications'?'<span id="notifBadge" class="notif-badge" style="display:none;margin-left:auto">0</span>':''}</div>`
@@ -423,9 +437,262 @@ function openAITutorForTopic(subject, chapter) {
 // ── Pages ─────────────────────────────────────────────────────────────────────
 function renderPages() {
   const pages = document.getElementById('portalPages');
-  if (USER.role === 'admin')   pages.innerHTML = adminPages();
-  if (USER.role === 'teacher') pages.innerHTML = teacherPages();
-  if (USER.role === 'student') pages.innerHTML = studentPages();
+  if (USER.role === 'admin')   pages.innerHTML = adminPages()   + mgmtPages('admin');
+  if (USER.role === 'teacher') pages.innerHTML = teacherPages() + mgmtPages('teacher');
+  if (USER.role === 'student') pages.innerHTML = studentPages() + mgmtPages('student');
+  if (USER.role === 'parent')  pages.innerHTML = parentPages();
+}
+
+// ══════════════════════════ SCHOOL MANAGEMENT (attendance/assessments/requests/reports/parent) ══
+const _today = () => new Date().toISOString().slice(0,10);
+const _sid = u => u.id || u._id;
+const REQ_TYPES = [['sick_leave','🤒 Sick Leave'],['early_leave','🏃 Early Leave'],['absence','📅 Absence'],['library_borrow','📚 Library Borrow'],['other','✏️ Other']];
+const reqTypeLabel = t => (REQ_TYPES.find(r=>r[0]===t)||[,t])[1];
+function statusPill(s){
+  const m={present:['#10B981','Present'],late:['#F59E0B','Late'],absent:['#EF4444','Absent'],excused:['#3B82F6','Excused'],
+           pending:['#F59E0B','Pending'],approved:['#10B981','Approved'],rejected:['#EF4444','Rejected'],returned:['#3B82F6','Returned']};
+  const [c,l]=m[s]||['#64748B',s||'—'];
+  return `<span style="background:${c}22;color:${c};padding:2px 10px;border-radius:20px;font-size:12px;font-weight:700">${l}</span>`;
+}
+
+function requestsPageHtml(pageId){ return `
+  <div id="page-${pageId}" class="page">
+    <div class="page-title">Requests & Permissions</div>
+    <div class="page-sub">Submit a request — sick leave, library borrow, early leave…</div>
+    <div class="card">
+      <div class="card-title">➕ New Request</div>
+      <div id="myReqChildWrap"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <select class="form-input" id="myReq_type">${REQ_TYPES.map(t=>`<option value="${t[0]}">${t[1]}</option>`).join('')}</select>
+        <input class="form-input" id="myReq_title" placeholder="Title / reason"/>
+        <input class="form-input" id="myReq_start" type="date" title="Start date"/>
+        <input class="form-input" id="myReq_end" type="date" title="End date"/>
+        <input class="form-input" id="myReq_item" placeholder="Item / book (library)"/>
+        <input class="form-input" id="myReq_due" type="date" title="Return by (library)"/>
+      </div>
+      <textarea class="form-input" id="myReq_details" placeholder="Details (optional)" style="margin-top:8px;min-height:60px"></textarea>
+      <button class="btn btn-primary" style="margin-top:10px" onclick="submitMyRequest()">Submit Request</button>
+      <div id="myReqMsg" style="display:none;margin-top:8px;font-size:13px"></div>
+    </div>
+    <div class="card" style="padding:0;overflow:auto"><table><thead><tr><th>${pageId==='p-requests'?'Child':'Date'}</th><th>Type</th><th>Title</th><th>Status</th></tr></thead><tbody id="myReqList"><tr><td colspan="4" style="color:#64748B">Loading…</td></tr></tbody></table></div>
+  </div>`; }
+
+function mgmtPages(role){
+  let html='';
+  if(role==='teacher'){ html += `
+    <div id="page-attendance" class="page">
+      <div class="page-title">Attendance</div><div class="page-sub">Mark daily attendance per class</div>
+      <div class="card"><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:end">
+        <div class="form-group" style="margin:0;flex:1;min-width:160px"><label class="form-label">Class</label><select class="form-input" id="att_class" onchange="attLoadRoster()"></select></div>
+        <div class="form-group" style="margin:0"><label class="form-label">Date</label><input type="date" class="form-input" id="att_date" onchange="attLoadRoster()"/></div>
+      </div></div>
+      <div id="att_roster"><div style="color:#64748B;font-size:13px">Pick a class to mark attendance.</div></div>
+    </div>
+    <div id="page-assessments" class="page">
+      <div class="page-title">Assessments</div><div class="page-sub">Create quizzes/exams and enter scores</div>
+      <div class="card"><div class="form-group" style="margin:0"><label class="form-label">Class</label><select class="form-input" id="asmt_class" onchange="asmtLoad()"></select></div></div>
+      <div class="card"><div class="card-title">➕ New Assessment</div>
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:8px">
+          <input class="form-input" id="asmt_title" placeholder="Title (e.g. Unit 1 Quiz)"/>
+          <select class="form-input" id="asmt_type"><option value="quiz">Quiz</option><option value="test">Test</option><option value="exam">Exam</option><option value="project">Project</option><option value="homework">Homework</option></select>
+          <input class="form-input" id="asmt_max" type="number" value="100" placeholder="Max"/>
+          <input class="form-input" id="asmt_date" type="date"/>
+        </div>
+        <button class="btn btn-primary" style="margin-top:10px" onclick="asmtCreate()">Create</button>
+      </div>
+      <div id="asmt_list"></div><div id="asmt_scores"></div>
+    </div>`; }
+  if(role==='teacher'||role==='admin'){ html += `
+    <div id="page-requests" class="page">
+      <div class="page-title">Requests & Permissions</div><div class="page-sub">Sick leave, library borrows, early leave & more</div>
+      <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+        ${['pending','approved','rejected',''].map(s=>`<button class="btn btn-outline" onclick="loadRequestsInbox('${s}')">${s? s[0].toUpperCase()+s.slice(1):'All'}</button>`).join('')}
+      </div>
+      <div class="card" style="padding:0;overflow:auto"><table><thead><tr><th>Student</th><th>Type</th><th>Details</th><th>Status</th><th></th></tr></thead><tbody id="req_body"><tr><td colspan="5" style="color:#64748B">Loading…</td></tr></tbody></table></div>
+    </div>
+    <div id="page-reports" class="page">
+      <div class="page-title">Student Reports</div><div class="page-sub">Full progress report per student</div>
+      <div class="card"><div style="display:flex;gap:10px;align-items:end;flex-wrap:wrap">
+        <div class="form-group" style="margin:0;flex:1;min-width:200px"><label class="form-label">Student</label><select class="form-input" id="rep_student"></select></div>
+        <button class="btn btn-primary" onclick="reportView(document.getElementById('rep_student').value)">View Report</button>
+      </div></div>
+      <div id="reportCard"></div>
+    </div>`; }
+  if(role==='student'){ html += `
+    <div id="page-my-attendance" class="page"><div class="page-title">My Attendance</div><div class="page-sub">Your attendance record</div><div id="myAtt"><div style="color:#64748B;font-size:13px">Loading…</div></div></div>
+    <div id="page-my-grades" class="page"><div class="page-title">My Grades</div><div class="page-sub">Your assessment results</div><div id="myGrades"><div style="color:#64748B;font-size:13px">Loading…</div></div></div>
+    ${requestsPageHtml('my-requests')}`; }
+  return html;
+}
+
+function parentPages(){ return `
+  <div id="page-children" class="page">
+    <div class="page-title">My Children</div><div class="page-sub">Follow your child's progress</div>
+    <div id="parentKids"><div style="color:#64748B;font-size:13px">Loading…</div></div>
+    <div id="reportCard"></div>
+  </div>
+  ${requestsPageHtml('p-requests')}
+  ${settingsPage()}`; }
+
+// ── Attendance (teacher) ──
+let _mgmtClasses = [];
+async function loadAttendancePage(){
+  _mgmtClasses = await api('GET','/teacher/classes');
+  const sel=document.getElementById('att_class');
+  sel.innerHTML = _mgmtClasses.length? _mgmtClasses.map(c=>`<option value="${c._id}">${c.name}</option>`).join('') : '<option value="">No classes yet</option>';
+  const d=document.getElementById('att_date'); if(!d.value) d.value=_today();
+  if(_mgmtClasses.length) attLoadRoster();
+}
+async function attLoadRoster(){
+  const cid=document.getElementById('att_class').value, date=document.getElementById('att_date').value||_today();
+  const wrap=document.getElementById('att_roster'); if(!cid){ wrap.innerHTML=''; return; }
+  const d=await api('GET',`/attendance/class/${cid}?date=${date}`);
+  if(!d.roster.length){ wrap.innerHTML='<div class="card" style="color:#64748B">No students in this class.</div>'; return; }
+  const opts=['present','late','absent','excused'];
+  wrap.innerHTML=`<div class="card" style="padding:0;overflow:auto"><table><thead><tr><th>Student</th><th>Status</th><th>Note</th></tr></thead><tbody>${
+    d.roster.map(r=>`<tr><td>${r.name}</td><td><select class="form-input" data-sid="${r.studentId}" style="padding:6px">${opts.map(o=>`<option value="${o}" ${(r.status||'present')===o?'selected':''}>${o[0].toUpperCase()+o.slice(1)}</option>`).join('')}</select></td><td><input class="form-input" data-note="${r.studentId}" value="${r.note||''}" placeholder="—" style="padding:6px"/></td></tr>`).join('')
+  }</tbody></table></div><button class="btn btn-primary" style="margin-top:10px" onclick="attSave('${cid}','${date}')">💾 Save Attendance</button><div id="attMsg" style="display:none;margin-top:8px;color:#10B981;font-size:13px"></div>`;
+}
+async function attSave(cid,date){
+  const recs=[...document.querySelectorAll('#att_roster select[data-sid]')].map(s=>({studentId:s.getAttribute('data-sid'),status:s.value,note:(document.querySelector(`#att_roster input[data-note="${s.getAttribute('data-sid')}"]`)||{}).value||''}));
+  await api('POST','/attendance/mark',{classId:cid,date,records:recs});
+  const m=document.getElementById('attMsg'); m.textContent='✅ Saved'; m.style.display='block';
+}
+
+// ── Assessments (teacher) ──
+async function loadAssessmentsPage(){
+  _mgmtClasses = await api('GET','/teacher/classes');
+  const sel=document.getElementById('asmt_class');
+  sel.innerHTML=_mgmtClasses.length? _mgmtClasses.map(c=>`<option value="${c._id}">${c.name}</option>`).join('') : '<option value="">No classes yet</option>';
+  document.getElementById('asmt_date').value=_today();
+  if(_mgmtClasses.length) asmtLoad();
+}
+async function asmtLoad(){
+  const cid=document.getElementById('asmt_class').value, list=document.getElementById('asmt_list');
+  document.getElementById('asmt_scores').innerHTML=''; if(!cid){ list.innerHTML=''; return; }
+  const d=await api('GET',`/assessments/class/${cid}`);
+  list.innerHTML=d.assessments.length? `<div class="card"><div class="card-title">Assessments</div>${d.assessments.map(a=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:10px;border-bottom:1px solid #1E293B"><div><b>${a.title}</b> <span style="color:#64748B">· ${a.type} · /${a.maxScore}${a.date?(' · '+a.date):''}</span></div><div><button class="btn btn-outline" onclick="asmtScores('${a._id}','${cid}')">Enter Scores</button> <button class="btn btn-outline" style="color:#EF4444" onclick="asmtDelete('${a._id}')">🗑</button></div></div>`).join('')}</div>` : '<div class="card" style="color:#64748B">No assessments yet.</div>';
+}
+async function asmtCreate(){
+  const cid=document.getElementById('asmt_class').value, title=document.getElementById('asmt_title').value.trim();
+  if(!cid||!title) return alert('Pick a class and enter a title');
+  await api('POST','/assessments',{classId:cid,title,type:document.getElementById('asmt_type').value,maxScore:document.getElementById('asmt_max').value,date:document.getElementById('asmt_date').value});
+  document.getElementById('asmt_title').value=''; asmtLoad();
+}
+async function asmtDelete(id){ if(!confirm('Delete this assessment?'))return; await api('DELETE',`/assessments/${id}`); asmtLoad(); }
+async function asmtScores(id,cid){
+  const rosterD=await api('GET',`/attendance/class/${cid}`);
+  const listD=await api('GET',`/assessments/class/${cid}`);
+  const a=(listD.assessments||[]).find(x=>x._id===id); if(!a) return;
+  const sm={}; (a.scores||[]).forEach(s=>sm[String(s.studentId)]=s);
+  const wrap=document.getElementById('asmt_scores');
+  wrap.innerHTML=`<div class="card"><div class="card-title">Scores — ${a.title} (out of ${a.maxScore})</div><div style="overflow:auto"><table><thead><tr><th>Student</th><th>Score</th><th>Feedback</th></tr></thead><tbody>${
+    rosterD.roster.map(r=>{const sc=sm[String(r.studentId)]||{};return `<tr><td>${r.name}</td><td><input class="form-input" data-asid="${r.studentId}" type="number" max="${a.maxScore}" value="${sc.score!=null?sc.score:''}" style="padding:6px;width:90px"/></td><td><input class="form-input" data-afb="${r.studentId}" value="${sc.feedback||''}" placeholder="—" style="padding:6px"/></td></tr>`;}).join('')
+  }</tbody></table></div><button class="btn btn-primary" style="margin-top:10px" onclick="asmtSaveScores('${id}')">💾 Save Scores</button><div id="asmtScoreMsg" style="display:none;color:#10B981;margin-top:8px;font-size:13px"></div></div>`;
+  wrap.scrollIntoView({behavior:'smooth'});
+}
+async function asmtSaveScores(id){
+  const scores=[...document.querySelectorAll('#asmt_scores input[data-asid]')].map(i=>({studentId:i.getAttribute('data-asid'),score:i.value,feedback:(document.querySelector(`#asmt_scores input[data-afb="${i.getAttribute('data-asid')}"]`)||{}).value||''}));
+  await api('POST',`/assessments/${id}/scores`,{scores});
+  const m=document.getElementById('asmtScoreMsg'); m.textContent='✅ Saved'; m.style.display='block';
+}
+
+// ── Requests inbox (teacher/admin) ──
+async function loadRequestsInbox(status){
+  status=(typeof status==='string')?status:'';
+  const d=await api('GET',`/requests${status?('?status='+status):''}`);
+  const body=document.getElementById('req_body');
+  if(!d.requests.length){ body.innerHTML='<tr><td colspan="5" style="color:#64748B">No requests.</td></tr>'; return; }
+  body.innerHTML=d.requests.map(r=>{
+    const stu=(r.studentId&&r.studentId.name)?r.studentId.name:'—';
+    const det=[r.title, r.item?('📚 '+r.item):'', r.startDate?(r.startDate+(r.endDate?(' → '+r.endDate):'')):'', r.dueDate?('return by '+r.dueDate):''].filter(Boolean).join('<br>');
+    const act=r.status==='pending'?`<button class="btn btn-outline" style="color:#10B981" onclick="reqReview('${r._id}','approved')">Approve</button> <button class="btn btn-outline" style="color:#EF4444" onclick="reqReview('${r._id}','rejected')">Reject</button>`:(r.decision||'');
+    return `<tr><td>${stu}</td><td>${reqTypeLabel(r.type)}</td><td style="font-size:13px">${det}${r.details?('<br><span style="color:#64748B">'+r.details+'</span>'):''}</td><td>${statusPill(r.status)}</td><td>${act}</td></tr>`;
+  }).join('');
+}
+async function reqReview(id,status){
+  let decision=''; if(status==='rejected') decision=prompt('Reason (optional):')||'';
+  await api('PATCH',`/requests/${id}/review`,{status,decision});
+  loadRequestsInbox();
+}
+
+// ── Reports (teacher/admin) ──
+async function loadReportsPicker(){
+  const list = USER.role==='admin'? await api('GET','/admin/students') : await api('GET','/teacher/students');
+  const arr = Array.isArray(list)?list:(list.students||[]);
+  const sel=document.getElementById('rep_student');
+  sel.innerHTML = arr.length? arr.map(s=>`<option value="${_sid(s)}">${s.name}${s.grade?(' · '+s.grade):''}</option>`).join('') : '<option value="">No students</option>';
+  document.getElementById('reportCard').innerHTML='';
+}
+async function reportView(id){
+  if(!id) return;
+  const wrap=document.getElementById('reportCard'); wrap.innerHTML='<div class="card" style="color:#64748B">Loading…</div>';
+  const r=await api('GET',`/report/${id}`); const att=r.attendance, as=r.assessments;
+  wrap.innerHTML=`
+   <div class="card">
+     <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><div class="card-title" style="margin:0">📋 ${r.student.name} — Report</div>${(USER.role==='teacher'||USER.role==='admin')?`<button class="btn btn-outline" onclick="linkParent('${r.student.id}','${String(r.student.name).replace(/'/g,'')}')">👪 Link Parent</button>`:''}</div>
+     <div style="color:#64748B;font-size:13px;margin:8px 0 14px">${[r.student.className,r.student.grade,r.student.curriculum].filter(Boolean).join(' · ')||'—'}</div>
+     <div class="stat-grid">
+       <div class="stat-card green"><div class="val">${att.rate!=null?att.rate+'%':'—'}</div><div class="lbl">Attendance</div></div>
+       <div class="stat-card"><div class="val">${as.average!=null?as.average+'%':'—'}</div><div class="lbl">Avg Score</div></div>
+       <div class="stat-card amber"><div class="val">${r.assignments.completed}/${r.assignments.total}</div><div class="lbl">Assignments</div></div>
+       <div class="stat-card"><div class="val">${r.activity.totalQuestions||0}</div><div class="lbl">AI Questions</div></div>
+     </div>
+   </div>
+   <div class="card"><div class="card-title">Attendance breakdown</div><div style="font-size:13px;color:#94A3B8">Present ${att.present} · Late ${att.late} · Absent ${att.absent} · Excused ${att.excused} (of ${att.total} days)</div></div>
+   <div class="card" style="padding:0;overflow:auto"><div class="card-title" style="padding:16px 16px 0">Assessments</div>${as.results.length?`<table><thead><tr><th>Title</th><th>Type</th><th>Score</th><th>%</th></tr></thead><tbody>${as.results.map(x=>`<tr><td>${x.title}</td><td>${x.type}</td><td>${x.score!=null?x.score+'/'+x.maxScore:'—'}</td><td>${x.pct!=null?x.pct+'%':'—'}</td></tr>`).join('')}</tbody></table>`:'<div style="padding:16px;color:#64748B;font-size:13px">No assessments.</div>'}</div>
+   <div class="card"><div class="card-title">Requests</div>${r.requests.length?r.requests.map(x=>`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #1E293B;font-size:13px"><span>${reqTypeLabel(x.type)} — ${x.title}</span>${statusPill(x.status)}</div>`).join(''):'<div style="color:#64748B;font-size:13px">None.</div>'}</div>`;
+  wrap.scrollIntoView({behavior:'smooth'});
+}
+
+// ── Student: my attendance / my grades ──
+async function loadMyAttendance(){
+  const d=await api('GET',`/attendance/student/${USER.id}`); const s=d.summary;
+  document.getElementById('myAtt').innerHTML=`<div class="stat-grid"><div class="stat-card green"><div class="val">${s.rate!=null?s.rate+'%':'—'}</div><div class="lbl">Rate</div></div><div class="stat-card"><div class="val">${s.present}</div><div class="lbl">Present</div></div><div class="stat-card amber"><div class="val">${s.late}</div><div class="lbl">Late</div></div><div class="stat-card"><div class="val">${s.absent}</div><div class="lbl">Absent</div></div></div><div class="card" style="padding:0;overflow:auto"><table><thead><tr><th>Date</th><th>Status</th><th>Note</th></tr></thead><tbody>${d.records.length?d.records.map(r=>`<tr><td>${r.date}</td><td>${statusPill(r.status)}</td><td style="color:#64748B">${r.note||''}</td></tr>`).join(''):'<tr><td colspan="3" style="color:#64748B">No records.</td></tr>'}</tbody></table></div>`;
+}
+async function loadMyGrades(){
+  const d=await api('GET',`/assessments/student/${USER.id}`);
+  document.getElementById('myGrades').innerHTML=`<div class="card" style="padding:0;overflow:auto"><table><thead><tr><th>Title</th><th>Type</th><th>Score</th><th>%</th><th>Feedback</th></tr></thead><tbody>${d.results.length?d.results.map(x=>`<tr><td>${x.title}</td><td>${x.type}</td><td>${x.score!=null?x.score+'/'+x.maxScore:'—'}</td><td>${x.pct!=null?x.pct+'%':'—'}</td><td style="color:#64748B">${x.feedback||''}</td></tr>`).join(''):'<tr><td colspan="5" style="color:#64748B">No results yet.</td></tr>'}</tbody></table></div>`;
+}
+
+// ── Requests submit + list (student & parent) ──
+let _parentKids=[];
+async function loadMyRequests(){
+  if(USER.role==='parent'){
+    const d=await api('GET','/parent/children'); _parentKids=d.children;
+    const w=document.getElementById('myReqChildWrap');
+    if(w) w.innerHTML=`<div class="form-group"><label class="form-label">Child</label><select class="form-input" id="myReq_child">${_parentKids.map(c=>`<option value="${c.id}">${c.name}</option>`).join('')}</select></div>`;
+  }
+  const d=await api('GET','/requests/mine');
+  document.getElementById('myReqList').innerHTML=d.requests.length?d.requests.map(r=>`<tr><td>${USER.role==='parent'?((r.studentId&&r.studentId.name)?r.studentId.name:'—'):new Date(r.createdAt).toLocaleDateString()}</td><td>${reqTypeLabel(r.type)}</td><td>${r.title}</td><td>${statusPill(r.status)}</td></tr>`).join(''):'<tr><td colspan="4" style="color:#64748B">No requests yet.</td></tr>';
+}
+async function submitMyRequest(){
+  const body={ type:document.getElementById('myReq_type').value, title:document.getElementById('myReq_title').value.trim(), details:document.getElementById('myReq_details').value.trim(), startDate:document.getElementById('myReq_start').value, endDate:document.getElementById('myReq_end').value, item:document.getElementById('myReq_item').value.trim(), dueDate:document.getElementById('myReq_due').value };
+  const msg=document.getElementById('myReqMsg');
+  if(USER.role==='parent'){ const cs=document.getElementById('myReq_child'); if(!cs||!cs.value){ msg.style.color='#EF4444'; msg.textContent='Select a child.'; msg.style.display='block'; return; } body.studentId=cs.value; }
+  if(!body.title){ msg.style.color='#EF4444'; msg.textContent='Please enter a title.'; msg.style.display='block'; return; }
+  await api('POST','/requests',body);
+  msg.style.color='#10B981'; msg.textContent='✅ Request submitted'; msg.style.display='block';
+  document.getElementById('myReq_title').value=''; document.getElementById('myReq_details').value='';
+  loadMyRequests();
+}
+
+// ── Link a parent to a student (teacher/admin) ──
+async function linkParent(studentId, name){
+  const pName=prompt('Parent full name for '+name+':'); if(!pName) return;
+  const pEmail=prompt('Parent email:'); if(!pEmail) return;
+  try{
+    const d=await api('POST','/admin/add-parent',{studentId,parentName:pName,parentEmail:pEmail});
+    if(d.tempPassword) alert('✅ Parent account created:\n\nEmail: '+d.email+'\nTemp password: '+d.tempPassword+'\nSchool code: '+d.schoolCode+'\n\nThey can log in at the school portal (credentials also emailed).');
+    else alert('✅ Linked '+name+' to existing parent account ('+d.email+').');
+  }catch(e){ alert('Error: '+e.message); }
+}
+
+// ── Parent dashboard ──
+async function loadParentChildren(){
+  const d=await api('GET','/parent/children'); const wrap=document.getElementById('parentKids');
+  if(!d.children.length){ wrap.innerHTML='<div class="card" style="color:#64748B">No children linked yet. Ask the school to link your account to your child.</div>'; return; }
+  wrap.innerHTML=d.children.map(c=>`<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px"><div><div style="font-weight:800;font-size:16px">${c.name}</div><div style="color:#64748B;font-size:13px">${[c.className,c.grade].filter(Boolean).join(' · ')||'—'}</div></div><div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap"><div style="text-align:center"><div style="font-weight:800;color:#10B981">${c.attendanceRate!=null?c.attendanceRate+'%':'—'}</div><div style="font-size:11px;color:#64748B">Attendance</div></div><div style="text-align:center"><div style="font-weight:800">${c.totalQuestions||0}</div><div style="font-size:11px;color:#64748B">AI Qs</div></div>${c.pendingRequests?`<div style="text-align:center"><div style="font-weight:800;color:#F59E0B">${c.pendingRequests}</div><div style="font-size:11px;color:#64748B">Pending</div></div>`:''}<button class="btn btn-primary" onclick="reportView('${c.id}')">View Report</button></div></div></div>`).join('');
 }
 
 // ══════════════════════════ ADMIN PAGES ═══════════════════════════════════════
@@ -948,6 +1215,8 @@ async function loadPage(id) {
       if (id === 'timetable')     await loadTimetable('adminTimetableWrap');
       if (id === 'materials')     await loadMaterials('adminMaterialsList', false);
       if (id === 'notifications') await loadNotifications();
+      if (id === 'requests')      await loadRequestsInbox();
+      if (id === 'reports')       await loadReportsPicker();
     }
     if (USER.role === 'teacher') {
       if (id === 'dashboard')     await loadTeacherDashboard();
@@ -962,6 +1231,10 @@ async function loadPage(id) {
       if (id === 'notes')         initNotesGenerator();
       if (id === 'notifications') { await loadNotifications(); await loadAnnounceClassOptions(); }
       if (id === 'ai-tutor')      initAITutor();
+      if (id === 'attendance')    await loadAttendancePage();
+      if (id === 'assessments')   await loadAssessmentsPage();
+      if (id === 'requests')      await loadRequestsInbox();
+      if (id === 'reports')       await loadReportsPicker();
     }
     if (USER.role === 'student') {
       if (id === 'dashboard')     await loadStudentAssigned();
@@ -972,6 +1245,13 @@ async function loadPage(id) {
       if (id === 'progress')      await loadStudentProgress();
       if (id === 'notifications') await loadNotifications();
       if (id === 'ai-tutor')      initAITutor();
+      if (id === 'my-attendance') await loadMyAttendance();
+      if (id === 'my-grades')     await loadMyGrades();
+      if (id === 'my-requests')   await loadMyRequests();
+    }
+    if (USER.role === 'parent') {
+      if (id === 'children')      await loadParentChildren();
+      if (id === 'p-requests')    await loadMyRequests();
     }
   } catch(e) { console.error(e); }
 }
