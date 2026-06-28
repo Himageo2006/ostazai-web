@@ -289,6 +289,7 @@ const NAV_ADMIN   = [
   { id:'assessments',   icon:'🧪', label:'Assessments' },
   { id:'requests',      icon:'📨', label:'Requests' },
   { id:'reports',       icon:'📑', label:'Reports' },
+  { id:'meetings',      icon:'🎥', label:'Online Classes' },
   { id:'timetable',     icon:'🗓️', label:'Timetable' },
   { id:'materials',     icon:'📚', label:'Materials' },
   { id:'notifications', icon:'🔔', label:'Notifications' },
@@ -303,6 +304,7 @@ const NAV_TEACHER = [
   { id:'assessments',   icon:'🧪', label:'Assessments' },
   { id:'requests',      icon:'📨', label:'Requests' },
   { id:'reports',       icon:'📑', label:'Reports' },
+  { id:'meetings',      icon:'🎥', label:'Online Classes' },
   { id:'timetable',     icon:'🗓️', label:'Timetable' },
   { id:'live',          icon:'🔴', label:'Live Class' },
   { id:'materials',     icon:'📚', label:'Materials' },
@@ -318,6 +320,7 @@ const NAV_STUDENT = [
   { id:'ai-tutor',      icon:'🤖', label:'AI Tutor' },
   { id:'timetable',     icon:'🗓️', label:'Timetable' },
   { id:'live',          icon:'🔴', label:'Live Class' },
+  { id:'meetings',      icon:'🎥', label:'Online Classes' },
   { id:'materials',     icon:'📂', label:'Materials' },
   { id:'submit',        icon:'📤', label:'Submit Work' },
   { id:'progress',      icon:'📈', label:'My Progress' },
@@ -329,6 +332,7 @@ const NAV_STUDENT = [
 ];
 const NAV_PARENT = [
   { id:'children',      icon:'👨‍👩‍👧', label:'My Children' },
+  { id:'meetings',      icon:'🎥', label:'Online Classes' },
   { id:'p-requests',    icon:'📨', label:'Requests' },
   { id:'settings',      icon:'⚙️',  label:'Settings' },
 ];
@@ -457,6 +461,83 @@ function statusPill(s){
   return `<span style="background:${c}22;color:${c};padding:2px 10px;border-radius:20px;font-size:12px;font-weight:700">${l}</span>`;
 }
 
+// ── Online meetings (Jitsi built-in / Zoom / Google Meet) ──
+let _meetings=[];
+function meetingProviderBadge(p){ const m={jitsi:['#3B82F6','Built-in'],zoom:['#2D8CFF','Zoom'],google_meet:['#00897B','Google Meet'],other:['#64748B','Link']}; const [c,l]=m[p]||['#64748B',p]; return `<span style="background:${c}22;color:${c};padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700">${l}</span>`; }
+function meetingsManageHtml(){ return `
+  <div id="page-meetings" class="page">
+    <div class="page-title">Online Classes</div><div class="page-sub">Schedule live video classes — built-in (free) or paste a Zoom / Google Meet link</div>
+    <div class="card"><div class="card-title">➕ Schedule a Meeting</div>
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:8px">
+        <input class="form-input" id="mt_title" placeholder="Title (e.g. Physics — Live Revision)"/>
+        <select class="form-input" id="mt_class"><option value="">Whole school</option></select>
+        <select class="form-input" id="mt_provider" onchange="mtToggleUrl()">
+          <option value="jitsi">Built-in video (free, no link)</option>
+          <option value="zoom">Zoom (paste link)</option>
+          <option value="google_meet">Google Meet (paste link)</option>
+          <option value="other">Other link</option>
+        </select>
+        <input class="form-input" id="mt_url" placeholder="Paste Zoom / Meet link" style="display:none"/>
+        <input class="form-input" id="mt_start" type="datetime-local"/>
+        <input class="form-input" id="mt_dur" type="number" value="60" placeholder="Minutes"/>
+      </div>
+      <button class="btn btn-primary" style="margin-top:10px" onclick="createMeeting()">Schedule</button>
+      <div id="mtMsg" style="display:none;margin-top:8px;font-size:13px"></div>
+    </div>
+    <div class="jitsi-wrap" id="meetingJitsiWrap" style="height:0"></div>
+    <div id="meetingMng"><div style="color:#64748B;font-size:13px">Loading…</div></div>
+  </div>`; }
+function meetingsUpcomingHtml(){ return `
+  <div id="page-meetings" class="page">
+    <div class="page-title">Online Classes</div><div class="page-sub">Join your live & upcoming online classes</div>
+    <div class="jitsi-wrap" id="meetingJitsiWrap" style="height:0"></div>
+    <div id="meetingUpcoming"><div style="color:#64748B;font-size:13px">Loading…</div></div>
+  </div>`; }
+function mtToggleUrl(){ const p=document.getElementById('mt_provider').value; document.getElementById('mt_url').style.display=(p==='jitsi')?'none':'block'; }
+function _mtEmbed(wrapId){ const w=document.getElementById(wrapId); if(w) w.style.height='520px'; }
+async function loadMeetingsManage(){
+  _mgmtClasses = await api('GET','/teacher/classes');
+  const cs=document.getElementById('mt_class'); cs.innerHTML='<option value="">Whole school</option>'+_mgmtClasses.map(c=>`<option value="${c._id}">${c.name}</option>`).join('');
+  const d=await api('GET','/meetings'); _meetings=d.meetings;
+  const wrap=document.getElementById('meetingMng');
+  wrap.innerHTML=d.meetings.length? d.meetings.map(m=>{
+    const when=m.startAt? new Date(m.startAt).toLocaleString():'Anytime'; const cls=(m.classId&&m.classId.name)?m.classId.name:'Whole school'; const live=m.status==='live';
+    return `<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px"><div><div style="font-weight:800">${m.title} ${statusPill(m.status)}</div><div style="color:#64748B;font-size:13px">${meetingProviderBadge(m.provider)} · ${cls} · ${when} · ${m.durationMin}min</div></div><div style="display:flex;gap:6px;flex-wrap:wrap">${m.status!=='ended'?`<button class="btn btn-primary" onclick="joinMeeting('${m._id}')">${live?'Join':'Start & Join'}</button>`:''}${m.status==='live'?`<button class="btn btn-outline" onclick="endMeeting('${m._id}')">End</button>`:''}<button class="btn btn-outline" style="color:#EF4444" onclick="deleteMeeting('${m._id}')">🗑</button></div></div></div>`;
+  }).join('') : '<div class="card" style="color:#64748B">No meetings yet. Schedule one above.</div>';
+}
+async function createMeeting(){
+  const provider=document.getElementById('mt_provider').value;
+  const body={ title:document.getElementById('mt_title').value.trim(), classId:document.getElementById('mt_class').value||undefined, provider, url:document.getElementById('mt_url').value.trim(), startAt:document.getElementById('mt_start').value||undefined, durationMin:document.getElementById('mt_dur').value };
+  const msg=document.getElementById('mtMsg');
+  if(!body.title){ msg.style.color='#EF4444'; msg.textContent='Enter a title.'; msg.style.display='block'; return; }
+  if(provider!=='jitsi'&&!body.url){ msg.style.color='#EF4444'; msg.textContent='Paste the meeting link.'; msg.style.display='block'; return; }
+  try{ await api('POST','/meetings',body); msg.style.color='#10B981'; msg.textContent='✅ Scheduled'; msg.style.display='block'; document.getElementById('mt_title').value=''; document.getElementById('mt_url').value=''; loadMeetingsManage(); }
+  catch(e){ msg.style.color='#EF4444'; msg.textContent=e.message; msg.style.display='block'; }
+}
+async function joinMeeting(id){
+  let m=_meetings.find(x=>x._id===id); if(!m) return;
+  if((USER.role==='teacher'||USER.role==='admin')&&m.status==='scheduled'){ try{ const r=await api('POST',`/meetings/${id}/start`); m=r.meeting; }catch(_){ } }
+  if(m.provider==='jitsi'&&m.roomId){ _mtEmbed('meetingJitsiWrap'); openJitsiRoom(m.roomId,m.title,'meetingJitsiWrap'); document.getElementById('meetingJitsiWrap').scrollIntoView({behavior:'smooth'}); }
+  else if(m.url){ window.open(m.url,'_blank'); }
+  if(USER.role==='teacher'||USER.role==='admin') loadMeetingsManage();
+}
+async function endMeeting(id){ await api('POST',`/meetings/${id}/end`); const w=document.getElementById('meetingJitsiWrap'); if(w){ w.innerHTML=''; w.style.height='0'; } loadMeetingsManage(); }
+async function deleteMeeting(id){ if(!confirm('Delete this meeting?'))return; await api('DELETE',`/meetings/${id}`); loadMeetingsManage(); }
+async function loadMeetingsUpcoming(){
+  const d=await api('GET','/meetings/upcoming'); _meetings=d.meetings;
+  const wrap=document.getElementById('meetingUpcoming');
+  if(!d.meetings.length){ wrap.innerHTML='<div class="card" style="color:#64748B">No upcoming online classes.</div>'; return; }
+  wrap.innerHTML=d.meetings.map(m=>{
+    const when=m.startAt? new Date(m.startAt).toLocaleString():'Anytime'; const cls=(m.classId&&m.classId.name)?m.classId.name:'Whole school'; const live=m.status==='live';
+    return `<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px"><div><div style="font-weight:800">${m.title} ${live?statusPill('live'):''}</div><div style="color:#64748B;font-size:13px">${meetingProviderBadge(m.provider)} · ${cls} · ${when}</div></div><button class="btn ${live?'btn-primary':'btn-outline'}" onclick="joinMeetingView('${m._id}')">${live?'🔴 Join Now':'Join'}</button></div></div>`;
+  }).join('');
+}
+function joinMeetingView(id){
+  const m=_meetings.find(x=>x._id===id); if(!m) return;
+  if(m.provider==='jitsi'&&m.roomId){ _mtEmbed('meetingJitsiWrap'); openJitsiRoom(m.roomId,m.title,'meetingJitsiWrap'); document.getElementById('meetingJitsiWrap').scrollIntoView({behavior:'smooth'}); }
+  else if(m.url){ window.open(m.url,'_blank'); }
+}
+
 function requestsPageHtml(pageId){ return `
   <div id="page-${pageId}" class="page">
     <div class="page-title">Requests & Permissions</div>
@@ -524,6 +605,8 @@ function mgmtPages(role){
     <div id="page-my-attendance" class="page"><div class="page-title">My Attendance</div><div class="page-sub">Your attendance record</div><div id="myAtt"><div style="color:#64748B;font-size:13px">Loading…</div></div></div>
     <div id="page-my-grades" class="page"><div class="page-title">My Grades</div><div class="page-sub">Your assessment results</div><div id="myGrades"><div style="color:#64748B;font-size:13px">Loading…</div></div></div>
     ${requestsPageHtml('my-requests')}`; }
+  if(role==='teacher'||role==='admin') html += meetingsManageHtml();
+  if(role==='student') html += meetingsUpcomingHtml();
   return html;
 }
 
@@ -533,6 +616,7 @@ function parentPages(){ return `
     <div id="parentKids"><div style="color:#64748B;font-size:13px">Loading…</div></div>
     <div id="reportCard"></div>
   </div>
+  ${meetingsUpcomingHtml()}
   ${requestsPageHtml('p-requests')}
   ${settingsPage()}`; }
 
@@ -1221,6 +1305,7 @@ async function loadPage(id) {
       if (id === 'reports')       await loadReportsPicker();
       if (id === 'attendance')    await loadAttendancePage();
       if (id === 'assessments')   await loadAssessmentsPage();
+      if (id === 'meetings')      await loadMeetingsManage();
     }
     if (USER.role === 'teacher') {
       if (id === 'dashboard')     await loadTeacherDashboard();
@@ -1239,6 +1324,7 @@ async function loadPage(id) {
       if (id === 'assessments')   await loadAssessmentsPage();
       if (id === 'requests')      await loadRequestsInbox();
       if (id === 'reports')       await loadReportsPicker();
+      if (id === 'meetings')      await loadMeetingsManage();
     }
     if (USER.role === 'student') {
       if (id === 'dashboard')     await loadStudentAssigned();
@@ -1252,10 +1338,12 @@ async function loadPage(id) {
       if (id === 'my-attendance') await loadMyAttendance();
       if (id === 'my-grades')     await loadMyGrades();
       if (id === 'my-requests')   await loadMyRequests();
+      if (id === 'meetings')      await loadMeetingsUpcoming();
     }
     if (USER.role === 'parent') {
       if (id === 'children')      await loadParentChildren();
       if (id === 'p-requests')    await loadMyRequests();
+      if (id === 'meetings')      await loadMeetingsUpcoming();
     }
   } catch(e) { console.error(e); }
 }
