@@ -193,6 +193,7 @@ function loadLocal() {
     S.grade      = localStorage.getItem('oa_grade')      || 'high';
     S.darkMode   = localStorage.getItem('oa_dark') === '1';
     S.lang       = localStorage.getItem('oa_lang') || 'ar';
+    S.igcseLang  = S.lang;  // keep global L() (which keys off igcseLang) in sync with the app language
     const st     = localStorage.getItem('oa_stats');
     S.stats      = st ? JSON.parse(st) : { xp:0, streak:1, totalChats:0, weeklyActivity:[0,0,0,0,0,0,0], quizzesDone:0, bestScore:0 };
     // IGCSE platform persistence
@@ -1553,6 +1554,7 @@ function T(key) {
 
 function toggleLang() {
   S.lang = S.lang === 'ar' ? 'en' : 'ar';
+  S.igcseLang = S.lang;  // keep global L() (which keys off igcseLang) in sync with the app language
   saveLocal();
   // Update document direction
   document.documentElement.lang = S.lang;
