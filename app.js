@@ -21066,12 +21066,20 @@ async function doGenMindMap() {
     });
     const text = d.content || d.message || '';
     const match = text.match(/\{[\s\S]*\}/);
+    let parsed = null;
     if (match) {
-      S.mindMapData = JSON.parse(match[0]);
-    } else {
-      S.mindMapData = { title: topic, branches: [{ title: text.substring(0,100), children:[] }] };
+      // AI JSON often has code fences / trailing commas / smart quotes — clean before parsing.
+      const cleaned = match[0]
+        .replace(/```[a-z]*\s*/gi, '')
+        .replace(/,\s*([}\]])/g, '$1')
+        .replace(/[""]/g, '"');
+      try { parsed = JSON.parse(cleaned); } catch(_) { parsed = null; }
     }
-    render(); showToast('تم! 🧠', 'success');
+    // Graceful fallback: never fail — build a simple one-level map from the text.
+    S.mindMapData = (parsed && (parsed.branches || parsed.title))
+      ? parsed
+      : { title: topic, branches: [{ title: (text || topic).substring(0,120), children:[] }] };
+    render(); showToast(S.lang==='en'?'Done! 🧠':'تم! 🧠', 'success');
   } catch(e) { showToast(e.message, 'error'); }
 }
 
