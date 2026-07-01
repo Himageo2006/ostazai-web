@@ -4000,6 +4000,13 @@ function tplHome() {
   const curData   = CURRICULA[S.curriculum] || CURRICULA.egypt;
   const gradeData = curData.grades[S.grade] || Object.values(curData.grades)[0];
   const userName  = (S.user && S.user.name) ? S.user.name.split(' ')[0] : '';
+  // Onboarding gate: show tools only after the user has picked their country + grade once.
+  // Returning users with any prior activity are treated as already onboarded (never hide their tools).
+  const ctxChosen = (() => {
+    try { if (localStorage.getItem('ctx_chosen') === '1') return true; } catch(_) {}
+    if ((S.history && S.history.length > 0) || ((S.stats||{}).totalChats > 0) || Object.keys(S.igcseDone||{}).length > 0) return true;
+    return false;
+  })();
 
   // Stats
   const streak    = (S.igcseStreak||{count:0}).count;
@@ -4095,22 +4102,6 @@ function tplHome() {
       <span style="font-size:20px;color:var(--primary)">✏️</span>
     </button>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
-      <div>
-        <label style="font-size:11px;font-weight:700;color:var(--text-muted);display:block;margin-bottom:5px">${L('Country / Curriculum','الدولة / المنهج')}</label>
-        <select id="home-country" onchange="homeUpdateCountry(this.value)"
-          style="width:100%;padding:7px 10px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:12px;font-family:Cairo,sans-serif;font-weight:700;cursor:pointer">
-          ${countryOpts}
-        </select>
-      </div>
-      <div>
-        <label style="font-size:10px;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px">${L('Grade / Stage','المرحلة الدراسية')}</label>
-        <select id="home-grade" onchange="homeUpdateGrade(this.value)"
-          style="width:100%;padding:7px 10px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:12px;font-family:Cairo,sans-serif;font-weight:700;cursor:pointer">
-          ${gradeOpts}
-        </select>
-      </div>
-    </div>
     <div style="display:grid;grid-template-columns:1fr auto;gap:10px">
       <button onclick="S.screen='lessons';S.lessonView='subjects';S.lessonSubject=null;render()"
         style="padding:10px;border-radius:12px;border:none;background:linear-gradient(135deg,#2563EB,#7C3AED);
@@ -4129,6 +4120,7 @@ function tplHome() {
     </div>
   </div>
 
+  ${ctxChosen ? `
   <!-- ═══ TOOLS GRID ═══ -->
   <div style="width:calc(100% - 32px);max-width:520px;margin:8px auto 0">
     <div style="font-size:11px;color:#3B82F6;font-weight:800;letter-spacing:1.5px;margin-bottom:8px;text-align:center">⚡ ${L('Main tools','الأدوات الرئيسية')}</div>
@@ -4293,6 +4285,14 @@ function tplHome() {
       </button>`).join('')}
     </div>
   </div>` : ''}
+  ` : `
+  <!-- ═══ ONBOARDING HINT (before country/syllabus chosen) ═══ -->
+  <div style="width:calc(100% - 32px);max-width:520px;margin:20px auto 0;text-align:center">
+    <div style="font-size:44px;margin-bottom:10px">👆</div>
+    <div style="font-size:16px;font-weight:900;color:var(--text);margin-bottom:6px">${L('Start here','ابدأ من هنا')}</div>
+    <div style="font-size:13px;color:var(--text-muted);line-height:1.9;max-width:340px;margin:0 auto">${L('Choose your country and syllabus above — then all your study tools (Chat, Books, Exams, AI Teacher and more) will appear.','اختر دولتك ومنهجك الدراسي بالأعلى — وبعدها ستظهر لك كل أدوات المذاكرة (المحادثة، الكتب، الامتحانات، المعلّم أمين والمزيد).')}</div>
+  </div>
+  `}
 
 </div>`;
 }
@@ -22168,6 +22168,7 @@ function bind() {
     const cur = CURRICULA[S.curriculum] || CURRICULA.egypt;
     const gr  = cur.grades[S.grade] || Object.values(cur.grades)[0];
     S.subject = gr.subjects[0]?.name || 'الرياضيات';
+    try { localStorage.setItem('ctx_chosen','1'); } catch(_) {}  // onboarding: user has chosen country + grade
     saveLocal(); render();
   }));
 
