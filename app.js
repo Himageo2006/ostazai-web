@@ -470,7 +470,8 @@ function ensureVoices(cb) {
    These are region/IP-blocked from our servers, but usually work from a real
    user's connection. We try client-side and gracefully fall back to the server
    voice if it's blocked. */
-let _edgeBlocked = false;        // set true after the first failure this session
+let _edgeBlocked = false;        // set true only after several consecutive failures (real block, e.g. firewall)
+let _edgeFailCount = 0;          // consecutive failures — a single transient hiccup must NOT disable the neural voice
 const _edgeAudioCache = {};      // sentence → object URL (avoid re-synthesizing)
 
 async function _edgeSecMsGec() {
@@ -493,8 +494,8 @@ function _edgeTTS(text, voice = 'ar-EG-ShakirNeural', rate = '-4%') {
       ws.binaryType = 'arraybuffer';
       const chunks = [];
       let settled = false;
-      const fail = (e) => { if (settled) return; settled = true; _edgeBlocked = true; try { ws.close(); } catch (_) {} reject(e); };
-      const to = setTimeout(() => fail(new Error('edge timeout')), 11000);
+      const fail = (e) => { if (settled) return; settled = true; if (++_edgeFailCount >= 3) _edgeBlocked = true; try { ws.close(); } catch (_) {} reject(e); };
+      const to = setTimeout(() => fail(new Error('edge timeout')), 8000);
       ws.onopen = () => {
         const ts = new Date().toISOString();
         ws.send(`X-Timestamp:${ts}\r\nContent-Type:application/json; charset=utf-8\r\nPath:speech.config\r\n\r\n`
@@ -510,7 +511,8 @@ function _edgeTTS(text, voice = 'ar-EG-ShakirNeural', rate = '-4%') {
         if (typeof ev.data === 'string') {
           if (ev.data.includes('Path:turn.end')) {
             clearTimeout(to); settled = true; try { ws.close(); } catch (_) {}
-            chunks.length ? resolve(new Blob(chunks, { type: 'audio/mpeg' })) : reject(new Error('edge empty'));
+            if (chunks.length) { _edgeFailCount = 0; resolve(new Blob(chunks, { type: 'audio/mpeg' })); }
+            else reject(new Error('edge empty'));
           }
         } else {
           const buf = new Uint8Array(ev.data);
