@@ -19505,7 +19505,13 @@ ${viewer}`;
     high1:'high1', high2:'high2' };
   const gradeKey = gradeMap[S.grade] || 'high';
   const dbEntry  = TEXTBOOK_DB[S.curriculum] || TEXTBOOK_DB.egypt || {};
-  const allGradeBooks = dbEntry[gradeKey] || dbEntry.high || [];
+  let allGradeBooks = dbEntry[gradeKey] || dbEntry.high || [];
+  // External (المعاصر / Archive.org) books — shown on website + Android, hidden inside the iOS app (Apple 3.1.1)
+  if (!IS_IOS_APP && S.curriculum === 'egypt') {
+    const extEntry = TEXTBOOK_DB.egypt_ext || {};
+    const extBooks = extEntry[gradeKey] || extEntry.high || [];
+    if (extBooks.length) allGradeBooks = allGradeBooks.concat(extBooks);
+  }
   const subjFilter = (S.textbookSubjFilter||'').toLowerCase().trim();
   const gradeBooks = subjFilter
     ? allGradeBooks.filter(s => s.subj.toLowerCase().includes(subjFilter) || subjFilter.includes(s.subj.toLowerCase()))
