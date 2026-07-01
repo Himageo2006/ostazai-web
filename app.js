@@ -20589,7 +20589,7 @@ async function genAILesson() {
     : `اكتب درساً كاملاً بعمق فصل من كتاب مدرسي عن "${chapter}" في ${subjName} — ${label}، بحيث لا يحتاج الطالب لأي مصدر آخر. حدّد ٥ إلى ٦ أجزاء فرعية رئيسية؛ ولكل جزء اكتب ٢٥٠ كلمة على الأقل (تعريف، تشبيه من الحياة، كيف ولماذا يعمل خطوة بخطوة من الأساس، مثالان محلولان [بسيط وأصعب]، الخطأ الشائع، استخدام واقعي). ثم الأخطاء الشائعة و٥ أسئلة بحلولها الكاملة وملخص. ٢٥٠٠ كلمة على الأقل — إلزامي. أنهِ الدرس كاملاً. اكتب بعربية فصحى مبسّطة وصحيحة تماماً إملائياً ونحوياً، بلا أخطاء أو كلمات مكسورة أو عامية، بأسلوب واضح ومترابط يناسب عمر الطالب.`;
   // Cache: a lesson for a given chapter/grade/curriculum/language is identical every time —
   // serve it from cache (zero AI calls) instead of regenerating and spending budget.
-  const lessonCacheKey = `oa_lesson_${S.curriculum}_${S.grade}_${subjName}_${chapter}_${isEn?'en':'ar'}`;
+  const lessonCacheKey = `oa_lesson_v2_${S.curriculum}_${S.grade}_${subjName}_${chapter}_${isEn?'en':'ar'}`;
   const cacheFields = { country:S.curriculum, curriculum, stage, grade, subject:subjName, chapter, lang:isEn?'en':'ar' };
   const forceRegen = !!S._lessonForceRegen; S._lessonForceRegen = false;
   // 1) Per-device cache (instant, zero network).
