@@ -4357,8 +4357,8 @@ function tplChat() {
           <div class="msg-actions">
             <button class="teach-btn" data-idx="${i}" title="${S.lang==='en'?'Teacher explains':'الأستاذ يشرح'}">🎬</button>
             <button class="speak-btn" data-idx="${i}" title="${S.lang==='en'?'Read aloud':'استمع للشرح'}">🔊</button>
-            <button class="bm-btn" data-idx="${i}" title="حفظ">🔖</button>
-            <button class="copy-msg-btn" data-idx="${i}" title="نسخ">📋</button>
+            <button class="bm-btn" data-idx="${i}" title="${S.lang==='en'?'Save':'حفظ'}">🔖</button>
+            <button class="copy-msg-btn" data-idx="${i}" title="${S.lang==='en'?'Copy':'نسخ'}">📋</button>
           </div>
         </div>
         ${showContinue ? `
