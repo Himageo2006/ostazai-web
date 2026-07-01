@@ -4012,6 +4012,8 @@ function tplHome() {
   // Onboarding gate: show tools only after the user has picked their country + grade once.
   // Returning users with any prior activity are treated as already onboarded (never hide their tools).
   const ctxChosen = (() => {
+    // Force the new-user picker-first landing for previewing: visit with ?pick=1
+    try { if (new URLSearchParams(location.search).get('pick') === '1') return false; } catch(_) {}
     try { if (localStorage.getItem('ctx_chosen') === '1') return true; } catch(_) {}
     if ((S.history && S.history.length > 0) || ((S.stats||{}).totalChats > 0) || Object.keys(S.igcseDone||{}).length > 0) return true;
     return false;
