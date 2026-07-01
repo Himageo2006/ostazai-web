@@ -20225,7 +20225,8 @@ function tplLessons() {
     </div>
   </div>
 
-  <!-- Subjects Grid -->
+  <!-- Subjects Grid (or Book-Library redirect for books-only curricula like كتب خارجية) -->
+  ${subjects.length ? `
   <div style="font-size:13px;font-weight:800;color:var(--text-muted);margin-bottom:10px">📚 ${L('Choose subject','اختر المادة الدراسية')}</div>
   <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px">
     ${subjects.map(s=>`
@@ -20237,7 +20238,13 @@ function tplLessons() {
       <div style="font-size:10px;color:var(--text-muted)">${s.topics.length} ${L('chapters','فصل')}</div>
       <div style="position:absolute;top:8px;left:8px;width:6px;height:6px;border-radius:50%;background:${s.color}"></div>
     </button>`).join('')}
-  </div>
+  </div>` : `
+  <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center;margin-top:8px">
+    <div style="font-size:40px;margin-bottom:10px">📚</div>
+    <div style="font-size:15px;font-weight:900;color:var(--text);margin-bottom:6px">${L('This is a book library','هذه مكتبة كتب')}</div>
+    <div style="font-size:13px;color:var(--text-muted);line-height:1.9;margin-bottom:16px;max-width:420px;margin-left:auto;margin-right:auto">${L('This selection contains downloadable books (El-Moasser, Archive.org…) rather than lessons. Open the Book Library to browse them.','هذا الاختيار يحتوي على كتب للتحميل (المعاصر، Archive.org…) وليس دروساً. افتح مكتبة الكتب لتصفح الكتب الخارجية.')}</div>
+    <button onclick="S.screen='textbook';render()" class="btn btn-primary" style="font-size:15px;font-weight:900;padding:14px 24px">📚 ${L('Open Book Library','افتح مكتبة الكتب')}</button>
+  </div>`}
 
 </div>`;
   return `
