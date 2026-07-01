@@ -4314,6 +4314,9 @@ function homeUpdateCountry(val) {
   const firstGrade = Object.keys(cur.grades)[0];
   S.grade = firstGrade;
   S.subject = cur.grades[firstGrade].subjects[0]?.name || S.subject;
+  // Books-only curricula (e.g. كتب خارجية / egypt_ext) have no lesson subjects → open the Book Library directly.
+  const booksOnly = Object.values(cur.grades).every(g => !(g.subjects && g.subjects.length));
+  if (booksOnly) S.screen = 'textbook';
   saveLocal(); render();
 }
 function homeUpdateGrade(val) {
