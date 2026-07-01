@@ -423,8 +423,15 @@ async function req(path, method='GET', body=null, retries=1) {
     S.screen = 'login'; render();
     throw new Error('انتهت جلستك — سجّل الدخول مجدداً');
   }
-  if (r.status === 429) throw new Error('وصلت الحد الأقصى من الطلبات \u{23F3} — انتظر قليلاً');
-  if (r.status >= 500) throw new Error('خطأ في الخادم \u{1F6A8} — حاول بعد قليل');
+  if (r.status === 429) throw new Error(S.lang==='en' ? 'Too many requests \u{23F3} — wait a moment.' : 'وصلت الحد الأقصى من الطلبات \u{23F3} — انتظر قليلاً');
+  if (r.status >= 500) {
+    // Transient backend error (often the free AI chain failing over) — retry once with backoff before giving up.
+    if (retries > 0) {
+      await new Promise(res => setTimeout(res, 1500));
+      return req(path, method, body, retries - 1);
+    }
+    throw new Error(S.lang==='en' ? 'Server error \u{1F6A8} — please try again in a moment.' : 'خطأ في الخادم \u{1F6A8} — حاول بعد قليل');
+  }
   if (!r.ok) throw new Error(d.error || d.message || `خطأ (${r.status})`);
   return d;
 }
