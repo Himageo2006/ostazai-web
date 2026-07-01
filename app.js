@@ -444,7 +444,9 @@ function cleanForSpeech(text) {
     .replace(/[#*_`>|]+/g, ' ')
     .replace(/\$\$?[^$]*\$\$?/g, ' ')
     .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu, ' ')
-    .replace(/[×÷=]/g, m => ({'×':' في ','÷':' على ','=':' يساوي '}[m]))
+    .replace(/[×÷=+]/g, m => ({'×':' في ','÷':' على ','=':' يساوي ','+':' زائد '}[m]))
+    .replace(/(\d)\s*[-−]\s*(\d)/g, '$1 ناقص $2')   // 5-3 → «5 ناقص 3» (only between numbers)
+    .replace(/%/g, ' بالمئة ')
     .replace(/\s+/g, ' ').trim();
 }
 
