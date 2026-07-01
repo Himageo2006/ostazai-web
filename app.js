@@ -21120,11 +21120,11 @@ async function doGenSummary() {
       userName: S.user?.name || '',
       longForm: true,
     });
-    // Strip stray LaTeX $ around numbers/words (e.g. "$152$" → "152", "$5" → "5") so they don't show literally.
+    // Strip LaTeX $ delimiters the model adds (summaries should be plain text): "$152$" → 152, "$x^2$" → x^2.
     S.summaryText = (d.content || d.message || '')
-      .replace(/\$([^\$\n]{1,40}?)\$/g, '$1')
-      .replace(/\$(?=[\d٠-٩])/g, '')
-      .replace(/(?<=[\d٠-٩])\$/g, '');
+      .replace(/\$\$([\s\S]*?)\$\$/g, '$1')       // $$ block $$ → block
+      .replace(/\$([^\$\n]{1,200}?)\$/g, '$1')     // $ inline $ → inline
+      .replace(/\$/g, '');                         // any stray $ left over
   } catch(e) { S.summaryText = `⚠️ ${e.message}`; }
   S.summaryLoading = false; render();
 }
