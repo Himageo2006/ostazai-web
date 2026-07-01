@@ -21114,12 +21114,16 @@ async function doGenSummary() {
   S.summaryLoading = true; S.summaryText = ''; render();
   try {
     const d = await req('/chat', 'POST', {
-      messages: [{ role: 'user', content: `اعمل ملخصاً شاملاً ومنظماً لموضوع "${topic}" في مادة ${S.subject}. استخدم عناوين ## وقوائم - وتنسيق واضح.` }],
+      messages: [{ role: 'user', content: `اعمل ملخصاً شاملاً ومنظماً لموضوع "${topic}" في مادة ${S.subject}. استخدم عناوين ## وقوائم - وتنسيق واضح. اكتب الأرقام والمعادلات كنص عادي فقط — بدون علامات $ أو رموز LaTeX إطلاقاً.` }],
       country: S.curriculum, curriculum,
       stage, grade, subject: S.subject,
       userName: S.user?.name || '',
     });
-    S.summaryText = d.content || d.message || '';
+    // Strip stray LaTeX $ around numbers/words (e.g. "$152$" → "152", "$5" → "5") so they don't show literally.
+    S.summaryText = (d.content || d.message || '')
+      .replace(/\$([^\$\n]{1,40}?)\$/g, '$1')
+      .replace(/\$(?=[\d٠-٩])/g, '')
+      .replace(/(?<=[\d٠-٩])\$/g, '');
   } catch(e) { S.summaryText = `⚠️ ${e.message}`; }
   S.summaryLoading = false; render();
 }
@@ -21321,13 +21325,21 @@ async function exportPDF() {
   const { stage, grade, curriculum } = gradeToAPI();
   const typeLabel = { summary: 'ملخص شامل', formulas: 'قوانين ومعادلات', questions: 'أسئلة تدريبية', mindmap: 'خريطة ذهنية' }[type] || type;
 
-  showToast('جارٍ توليد المحتوى للطباعة...', 'info');
+  showToast(S.lang==='en'?'Preparing the file…':'جارٍ تجهيز الملف...', 'info');
   try {
-    const d = await req('/pdf/summary', 'POST', {
-      subject: S.subject, topic, grade, stage, curriculum,
-      country: S.curriculum, type,
-    });
-    const html = d.html || d.content || d.text || '';
+    let html;
+    const onScreen = (S.summaryText || '').trim();
+    if (onScreen && !onScreen.startsWith('⚠️')) {
+      // Use the COMPLETE on-screen summary (flows to multiple pages) instead of regenerating a short one.
+      const t = onScreen.replace(/^```html?\s*/i, '').replace(/```\s*$/, '').trim();
+      html = /<(div|h[1-6]|p|ul|ol|table)[\s>]/i.test(t) ? t : md(onScreen);
+    } else {
+      const d = await req('/pdf/summary', 'POST', {
+        subject: S.subject, topic, grade, stage, curriculum,
+        country: S.curriculum, type,
+      });
+      html = d.html || d.content || d.text || '';
+    }
     const win = window.open('', '_blank', 'width=860,height=700');
     if (!win) { showToast('يرجى السماح بالنوافذ المنبثقة', 'error'); return; }
     const dateStr = new Date().toLocaleDateString('ar-EG', { year:'numeric', month:'long', day:'numeric' });
