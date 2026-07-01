@@ -4440,8 +4440,11 @@ function tplFlashcards() {
 <div class="screen-header"><div class="screen-title">🗂️ ${t('البطاقات التعليمية','flashcards')}</div></div>
 <div class="screen-body empty-state">
   <div style="font-size:48px">🗂️</div>
+  ${S.fcLoading ? `
+  <div class="spin" style="width:34px;height:34px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:sp .8s linear infinite;margin:8px auto"></div>
+  <div>${S.lang==='en'?'Generating flashcards…':'جارٍ توليد البطاقات...'}</div>` : `
   <div>${t('لا توجد بطاقات بعد','noNotes')}</div>
-  <button class="btn btn-primary" id="gen-fc">${t('توليد بطاقات لـ','generate')}  ${esc(S.subject)}</button>
+  <button class="btn btn-primary" id="gen-fc">${t('توليد بطاقات لـ','generate')}  ${esc(S.subject)}</button>`}
 </div>`;
   const fc = S.flashcards[S.fcIndex];
   const pct = Math.round(((S.fcIndex+1)/S.flashcards.length)*100);
@@ -4476,11 +4479,14 @@ function tplFlashcards() {
    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 function tplQuiz() {
   if (!S.quiz.length) return `
-<div class="screen-header"><div class="screen-title">📝 الاختبار</div></div>
+<div class="screen-header"><div class="screen-title">📝 ${S.lang==='en'?'Quiz':'الاختبار'}</div></div>
 <div class="screen-body empty-state">
   <div style="font-size:48px">📝</div>
-  <div>لا يوجد اختبار بعد</div>
-  <button class="btn btn-primary" id="gen-qz">${L('Generate quiz for','توليد اختبار لـ')} ${esc(S.subject)}</button>
+  ${S.quizLoading ? `
+  <div class="spin" style="width:34px;height:34px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:sp .8s linear infinite;margin:8px auto"></div>
+  <div>${S.lang==='en'?'Generating quiz…':'جارٍ توليد الاختبار...'}</div>` : `
+  <div>${S.lang==='en'?'No quiz yet':'لا يوجد اختبار بعد'}</div>
+  <button class="btn btn-primary" id="gen-qz">${L('Generate quiz for','توليد اختبار لـ')} ${esc(S.subject)}</button>`}
 </div>`;
   if (S.quizIndex >= S.quiz.length) {
     const pct = Math.round((S.quizScore/S.quiz.length)*100);
@@ -20988,8 +20994,8 @@ function scrollChat() {
 async function genFlashcards() {
   const en = S.lang === 'en';
   const { stage, grade, curriculum } = gradeToAPI();
+  S.fcLoading = true; render();
   try {
-    showToast(en ? 'Generating flashcards…' : 'جارٍ توليد البطاقات...', 'info');
     const d = await req('/study/flashcards', 'POST', {
       subject:    S.subject,
       topic:      S.subject,
@@ -21006,17 +21012,17 @@ async function genFlashcards() {
           .filter(c => c.front && c.back)
       : [];
     S.fcIndex = 0; S.fcFlipped = false;
-    render();
     if (S.flashcards.length) showToast(en ? `Generated ${S.flashcards.length} cards! 🗂️` : `تم توليد ${S.flashcards.length} بطاقة! 🗂️`, 'success');
     else showToast(en ? 'No cards generated — try again.' : 'لم يتم توليد بطاقات — حاول مرة أخرى.', 'error');
   } catch(e) { showToast(e.message, 'error'); }
+  finally { S.fcLoading = false; render(); }
 }
 
 async function genQuiz() {
   const en = S.lang === 'en';
   const { stage, grade, curriculum } = gradeToAPI();
+  S.quizLoading = true; render();
   try {
-    showToast(en ? 'Generating quiz…' : 'جارٍ توليد الاختبار...', 'info');
     const d = await req('/study/quiz', 'POST', {
       subject:    S.subject,
       topic:      S.subject,
@@ -21048,10 +21054,10 @@ async function genQuiz() {
         }).filter(q => q.question && q.options.length >= 2)
       : [];
     S.quizIndex = 0; S.quizAnswer = null; S.quizScore = 0;
-    render();
     if (S.quiz.length) showToast(en ? `Generated ${S.quiz.length} questions! 📝` : `تم توليد ${S.quiz.length} سؤال! 📝`, 'success');
     else showToast(en ? 'No questions generated — try again.' : 'لم يتم توليد أسئلة — حاول مرة أخرى.', 'error');
   } catch(e) { showToast(e.message, 'error'); }
+  finally { S.quizLoading = false; render(); }
 }
 
 async function doGenSummary() {
