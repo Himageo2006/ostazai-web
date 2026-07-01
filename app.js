@@ -4350,7 +4350,7 @@ function tplChat() {
     if (m.role === 'user') {
       return `<div class="msg msg-user">
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px">
-          <div class="msg-bubble">${esc(m.content)}</div>
+          <div class="msg-bubble">${esc(m.display || m.content)}</div>
           ${ts}
         </div>
       </div>`;
@@ -20870,7 +20870,9 @@ function explainTextbookChapter(subj, curricLabel, chapter, mode) {
       ? `You are an expert ${subj} teacher (${curricLabel} official textbook). Respond ONLY in English — do not use any Arabic words. Write a COMPLETE textbook-chapter lesson on "${chapter}" so the student needs NO other source. Start immediately, no questions.\n\nIdentify only the 5-6 MAIN sub-topics (do NOT over-fragment). For EACH main sub-topic you MUST write at least 250 words: (1) clear definition, (2) everyday analogy, (3) how & why it works step by step from first principles, (4) TWO worked examples (basic + harder), each step by step, (5) the common misconception, (6) a real-world use.\n\nThen add: Common Mistakes, 5 practice questions WITH full worked solutions, and a short summary.\n\nThe whole lesson MUST be at least 2500 words — mandatory. Clear flowing paragraphs. Do not stop until every sub-topic is fully covered; always finish.`
       : `أنت أستاذ متخصص في ${subj} (الكتاب الرسمي لمنهج ${curricLabel}). اكتب درساً كاملاً بعمق فصل من كتاب مدرسي عن "${chapter}" بحيث لا يحتاج الطالب لأي مصدر آخر. ابدأ فوراً دون أسئلة.\n\nحدّد الأجزاء الفرعية الرئيسية فقط (٥ إلى ٦ — لا تُفرّط في التقسيم). ولكل جزء فرعي رئيسي اكتب ٢٥٠ كلمة على الأقل: ١) تعريف واضح، ٢) تشبيه من الحياة، ٣) كيف ولماذا يعمل خطوة بخطوة من الأساس، ٤) مثالان محلولان (بسيط وأصعب) خطوة بخطوة، ٥) الخطأ الشائع، ٦) استخدام واقعي.\n\nثم أضف: الأخطاء الشائعة، و٥ أسئلة تدريبية مع حلولها الكاملة، وملخصاً قصيراً.\n\nيجب ألا يقل الدرس عن ٢٥٠٠ كلمة — إلزامي. فقرات واضحة متصلة. لا تتوقف حتى تغطي كل جزء فرعي بالكامل، وأنهِ الدرس كاملاً.`;
   }
-  chatWith(`${subj} — ${chapter}`, prompt, !isSummary);  // full lesson = long-form; summaries stay normal length
+  // Show a clean label in chat (not the long instruction prompt); the AI still receives `prompt`.
+  const cleanLabel = (isSummary ? (isEn ? '📋 Summarize: ' : '📋 لخّص لي: ') : (isEn ? '📖 Explain: ' : '📖 اشرح لي: ')) + chapter;
+  chatWith(`${subj} — ${chapter}`, prompt, !isSummary, cleanLabel);  // full lesson = long-form; summaries stay normal length
 }
 
 function gradeToAPI() {
@@ -20922,14 +20924,19 @@ function continueExplanation() {
   sendMsg();
 }
 
-async function sendMsg() {
+async function sendMsg(opts) {
+  // opts = { content, display } lets callers (e.g. chatWith) send a full instruction to the AI
+  // while showing a clean, human-friendly label in the chat. Normal typing passes no opts.
+  const hasOverride = opts && typeof opts === 'object' && typeof opts.content === 'string';
   const inp = ge('f-msg');
-  const txt = inp ? inp.value.trim() : '';
+  const typed = inp ? inp.value.trim() : '';
+  const txt   = hasOverride ? opts.content : typed;                       // sent to the AI
+  const shown = hasOverride ? (opts.display || opts.content) : typed;     // shown in the chat bubble
   if (!txt || S.thinking) return;
-  if (inp) inp.value = '';
+  if (inp && !hasOverride) inp.value = '';
 
   const nowTime = new Date().toLocaleTimeString('ar-EG', { hour:'2-digit', minute:'2-digit' });
-  S.messages.push({ role: 'user', content: txt, time: nowTime });
+  S.messages.push({ role: 'user', content: txt, display: shown, time: nowTime });
   S.thinking = true; render();
   scrollChat();
 
@@ -21846,9 +21853,10 @@ function doGenerateFlashcards(customTopic) {
 function doGenerateQuiz()       { genQuiz(); }
 function doSend()               { sendMsg(); }
 /* Helper: navigate to chat and immediately send a message (no empty-input issue) */
-function chatWith(subject, msg, longForm) {
+function chatWith(subject, msg, longForm, displayLabel) {
   S.screen = 'chat'; S.subject = subject; S.messages = []; S._longFormNext = !!longForm; render();
-  setTimeout(() => { const i = ge('f-msg'); if (i) { i.value = msg; sendMsg(); } }, 150);
+  // Send the full instruction to the AI, but show a clean label (falls back to the message).
+  setTimeout(() => sendMsg({ content: msg, display: displayLabel || msg }), 150);
 }
 
 function bind() {
