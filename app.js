@@ -21114,10 +21114,11 @@ async function doGenSummary() {
   S.summaryLoading = true; S.summaryText = ''; render();
   try {
     const d = await req('/chat', 'POST', {
-      messages: [{ role: 'user', content: `اعمل ملخصاً شاملاً ومنظماً لموضوع "${topic}" في مادة ${S.subject}. استخدم عناوين ## وقوائم - وتنسيق واضح. اكتب الأرقام والمعادلات كنص عادي فقط — بدون علامات $ أو رموز LaTeX إطلاقاً.` }],
+      messages: [{ role: 'user', content: `اكتب ملخصاً شاملاً وكاملاً ومنظماً لموضوع "${topic}" في مادة ${S.subject}. اجعله وافياً ومتعدد الأقسام: ## المقدمة، ## النقاط الأساسية (بالتفصيل)، ## التعريفات المهمة، ## القوانين والقواعد، ## أمثلة محلولة، ## الأخطاء الشائعة، ## أسئلة للمراجعة، ## خلاصة سريعة. استخدم عناوين ## وقوائم وتنسيق واضح. اكتب الأرقام والمعادلات كنص عادي فقط — بدون علامات $ أو رموز LaTeX إطلاقاً. اكتب ملخصاً مطوّلاً لا يقل عن ٨٠٠ كلمة.` }],
       country: S.curriculum, curriculum,
       stage, grade, subject: S.subject,
       userName: S.user?.name || '',
+      longForm: true,
     });
     // Strip stray LaTeX $ around numbers/words (e.g. "$152$" → "152", "$5" → "5") so they don't show literally.
     S.summaryText = (d.content || d.message || '')
