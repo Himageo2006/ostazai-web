@@ -20945,7 +20945,8 @@ async function sendMsg() {
     });
     S._longFormNext = false;   // one-shot: only the triggering message is long-form
 
-    const reply = d.content || d.message || d.reply || '';
+    const reply = (d.content || d.message || d.reply || '').trim()
+      || (S.lang === 'en' ? '⚠️ No response — please try again.' : '⚠️ لم يصل رد — حاول مرة أخرى من فضلك.');
     const replyTime = new Date().toLocaleTimeString('ar-EG', { hour:'2-digit', minute:'2-digit' });
     S.messages.push({ role: 'assistant', content: reply, time: replyTime, truncated: !!d.truncated });
 
