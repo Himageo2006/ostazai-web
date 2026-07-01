@@ -19595,7 +19595,7 @@ ${viewer}`;
     high_med:'high', high_eng:'high', high_biz:'high', high_arts:'high',
     high1:'high1', high2:'high2' };
   const gradeKey = gradeMap[S.grade] || 'high';
-  const dbEntry  = TEXTBOOK_DB[S.curriculum] || TEXTBOOK_DB.egypt || {};
+  const dbEntry  = TEXTBOOK_DB[S.curriculum] || {};  // no Egyptian fallback — other countries shouldn't show Egyptian books
   let allGradeBooks = dbEntry[gradeKey] || dbEntry.high || [];
   // External (المعاصر / Archive.org) books — shown on website + Android, hidden inside the iOS app (Apple 3.1.1)
   if (!IS_IOS_APP && S.curriculum === 'egypt') {
@@ -20761,7 +20761,7 @@ function openTextbookExplainByName(subjName, curricLabel, mode) {
     high_med:'high', high_eng:'high', high_biz:'high', high_arts:'high',
     high1:'high1', high2:'high2' };
   const gradeKey = gradeMap[S.grade] || 'high';
-  const dbEntry  = TEXTBOOK_DB[S.curriculum] || TEXTBOOK_DB.egypt || {};
+  const dbEntry  = TEXTBOOK_DB[S.curriculum] || {};  // no Egyptian fallback — other countries shouldn't show Egyptian books
   const books    = dbEntry[gradeKey] || dbEntry.high || [];
   const subj     = books.find(s => s.subj === subjName) || books.find(s => s.subj.toLowerCase() === subjName.toLowerCase());
   if (!subj) return;
