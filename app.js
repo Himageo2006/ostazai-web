@@ -20986,9 +20986,10 @@ function scrollChat() {
    GENERATION HELPERS
    ════════════════════════════════════════════════════════════ */
 async function genFlashcards() {
+  const en = S.lang === 'en';
   const { stage, grade, curriculum } = gradeToAPI();
   try {
-    showToast('جارٍ توليد البطاقات...', 'info');
+    showToast(en ? 'Generating flashcards…' : 'جارٍ توليد البطاقات...', 'info');
     const d = await req('/study/flashcards', 'POST', {
       subject:    S.subject,
       topic:      S.subject,
@@ -21002,16 +21003,20 @@ async function genFlashcards() {
     const raw = d.cards || d.flashcards || d;
     S.flashcards = Array.isArray(raw)
       ? raw.map(c => ({ front: c.q || c.front || c.question || '', back: c.a || c.back || c.answer || '' }))
+          .filter(c => c.front && c.back)
       : [];
     S.fcIndex = 0; S.fcFlipped = false;
-    render(); showToast(`تم توليد ${S.flashcards.length} بطاقة! 🗂️`, 'success');
+    render();
+    if (S.flashcards.length) showToast(en ? `Generated ${S.flashcards.length} cards! 🗂️` : `تم توليد ${S.flashcards.length} بطاقة! 🗂️`, 'success');
+    else showToast(en ? 'No cards generated — try again.' : 'لم يتم توليد بطاقات — حاول مرة أخرى.', 'error');
   } catch(e) { showToast(e.message, 'error'); }
 }
 
 async function genQuiz() {
+  const en = S.lang === 'en';
   const { stage, grade, curriculum } = gradeToAPI();
   try {
-    showToast('جارٍ توليد الاختبار...', 'info');
+    showToast(en ? 'Generating quiz…' : 'جارٍ توليد الاختبار...', 'info');
     const d = await req('/study/quiz', 'POST', {
       subject:    S.subject,
       topic:      S.subject,
@@ -21021,18 +21026,31 @@ async function genQuiz() {
       stage,
       grade,
     });
-    // Server returns { questions: [{q, options, correct, explain}] }
+    // Server returns { questions: [{q, options, correct, explain}] }.
+    // `correct` may be a numeric index, a letter (A–D), or the answer text — normalise all to an index.
     const raw = d.questions || d.quiz || d;
     S.quiz = Array.isArray(raw)
-      ? raw.map(q => ({
-          question:    q.q      || q.question || '',
-          options:     q.options || [],
-          correct:     typeof q.correct === 'number' ? q.correct : 0,
-          explanation: q.explain || q.explanation || '',
-        }))
+      ? raw.map(q => {
+          const options = q.options || q.choices || [];
+          let correct = q.correct;
+          if (typeof correct === 'string') {
+            const s = correct.trim();
+            if (/^[A-Da-d]$/.test(s)) correct = s.toUpperCase().charCodeAt(0) - 65;      // "A" → 0
+            else { const i = options.findIndex(o => String(o).trim() === s); correct = i >= 0 ? i : 0; }
+          }
+          if (typeof correct !== 'number' || correct < 0 || correct >= options.length) correct = 0;
+          return {
+            question:    q.q || q.question || '',
+            options,
+            correct,
+            explanation: q.explain || q.explanation || '',
+          };
+        }).filter(q => q.question && q.options.length >= 2)
       : [];
     S.quizIndex = 0; S.quizAnswer = null; S.quizScore = 0;
-    render(); showToast(`تم توليد ${S.quiz.length} سؤال! 📝`, 'success');
+    render();
+    if (S.quiz.length) showToast(en ? `Generated ${S.quiz.length} questions! 📝` : `تم توليد ${S.quiz.length} سؤال! 📝`, 'success');
+    else showToast(en ? 'No questions generated — try again.' : 'لم يتم توليد أسئلة — حاول مرة أخرى.', 'error');
   } catch(e) { showToast(e.message, 'error'); }
 }
 
@@ -21057,7 +21075,7 @@ async function doGenMindMap() {
   S.mindMapTopic = topic;
   const { stage, grade, curriculum } = gradeToAPI();
   try {
-    showToast('جارٍ توليد الخريطة...', 'info');
+    showToast(S.lang==='en'?'Generating mind map…':'جارٍ توليد الخريطة...', 'info');
     const d = await req('/chat', 'POST', {
       messages: [{ role: 'user', content: `اعمل خريطة ذهنية لموضوع "${topic}". أرجع JSON فقط بالشكل: {"title":"${topic}","branches":[{"title":"فرع 1","children":[{"title":"تفصيل"}]}]}` }],
       country: S.curriculum, curriculum,
