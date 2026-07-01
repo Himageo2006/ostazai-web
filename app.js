@@ -443,11 +443,17 @@ function cleanForSpeech(text) {
 // Robustly pick the best voice for a language; returns null if none exists for Arabic
 function pickVoice(isArabic) {
   const voices = speechSynthesis.getVoices() || [];
+  const isNatural = v => /natural|neural|online|premium|enhanced/i.test(v.name);
   if (isArabic) {
-    return voices.find(v => /^ar/i.test(v.lang)) ||
-           voices.find(v => /arabic|عرب/i.test(v.name)) || null;
+    const ar = voices.filter(v => /^ar/i.test(v.lang) || /arabic|عرب/i.test(v.name));
+    // Prefer high-quality neural voices, and Egyptian Arabic, so Mr. Amin doesn't sound robotic.
+    return ar.find(v => isNatural(v) && /eg|egypt/i.test(v.lang + v.name)) ||
+           ar.find(v => isNatural(v)) ||
+           ar.find(v => /eg|egypt/i.test(v.lang)) ||
+           ar[0] || null;
   }
-  return voices.find(v => /^en/i.test(v.lang)) || voices[0] || null;
+  const en = voices.filter(v => /^en/i.test(v.lang));
+  return en.find(v => isNatural(v)) || en[0] || voices[0] || null;
 }
 let _voicesReady = false;
 function ensureVoices(cb) {
