@@ -20207,23 +20207,21 @@ function tplLessons() {
     <span style="color:var(--text-muted);line-height:1.7">${L('Content is based on the latest available official curriculum.','المحتوى مبني على أحدث إصدار متاح من المنهج الرسمي.')} <b style="color:var(--primary)">${L('Subject & topic codes verified ✅','أكواد المواد والموضوعات مُدققة ✅')}</b></span>
   </div>` : ''}
 
-  <!-- Country & Grade Selector -->
-  <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:12px">
-    <div style="font-size:12px;font-weight:800;color:var(--text-muted);margin-bottom:8px">🌍 ${L('Choose country / curriculum','اختر الدولة / المنهج')}</div>
-    <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px">
-      ${Object.entries(CURRICULA).map(([k,v])=>`
-      <button class="curriculum-btn" data-curriculum="${k}"
-        style="padding:5px 10px;border-radius:16px;border:1.5px solid ${S.curriculum===k?'var(--primary)':'var(--border)'};background:${S.curriculum===k?'var(--primary)':'transparent'};color:${S.curriculum===k?'#fff':'var(--text)'};font-family:Cairo,sans-serif;font-size:11px;font-weight:700;cursor:pointer;transition:.2s">
-        ${curLabel(k)}
-      </button>`).join('')}
+  <!-- Country & Grade Selector (big dropdowns) -->
+  <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:12px;display:grid;gap:12px">
+    <div>
+      <div style="font-size:12px;font-weight:800;color:var(--text-muted);margin-bottom:6px">🌍 ${L('Choose country / curriculum','اختر الدولة / المنهج')}</div>
+      <select onchange="homeUpdateCountry(this.value)"
+        style="width:100%;padding:14px 16px;border-radius:12px;border:1.5px solid var(--primary);background:var(--bg);color:var(--text);font-size:15px;font-weight:800;font-family:Cairo,sans-serif;cursor:pointer">
+        ${Object.entries(CURRICULA).map(([k,v])=>`<option value="${k}" ${S.curriculum===k?'selected':''}>${curLabel(k)}</option>`).join('')}
+      </select>
     </div>
-    <div style="font-size:12px;font-weight:800;color:var(--text-muted);margin-bottom:8px">🎓 ${L('Choose grade / stage','اختر المرحلة الدراسية')}</div>
-    <div style="display:flex;flex-wrap:wrap;gap:6px">
-      ${Object.entries(curData.grades).map(([k,v])=>`
-      <button class="grade-btn" data-grade="${k}"
-        style="padding:7px 14px;border-radius:10px;border:1.5px solid ${S.grade===k?'var(--primary)':'var(--border)'};background:${S.grade===k?'var(--primary)':'transparent'};color:${S.grade===k?'#fff':'var(--text)'};font-family:Cairo,sans-serif;font-size:12px;font-weight:800;cursor:pointer;transition:.2s">
-        ${v.label}
-      </button>`).join('')}
+    <div>
+      <div style="font-size:12px;font-weight:800;color:var(--text-muted);margin-bottom:6px">🎓 ${L('Choose grade / stage','اختر المرحلة الدراسية')}</div>
+      <select onchange="try{localStorage.setItem('ctx_chosen','1')}catch(e){}; homeUpdateGrade(this.value)"
+        style="width:100%;padding:14px 16px;border-radius:12px;border:1.5px solid var(--primary);background:var(--bg);color:var(--text);font-size:15px;font-weight:800;font-family:Cairo,sans-serif;cursor:pointer">
+        ${Object.entries(curData.grades).map(([k,v])=>`<option value="${k}" ${S.grade===k?'selected':''}>${v.label}</option>`).join('')}
+      </select>
     </div>
   </div>
 
