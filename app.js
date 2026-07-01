@@ -3665,6 +3665,32 @@ function tplLogin() {
         </ul>
       </div>
     </div>
+
+    <!-- School / Teacher packages -->
+    <div style="margin-top:40px">
+      <h3 style="text-align:center;font-size:23px;font-weight:900;margin:0 0 4px">${L('🏫 باقات المدارس والمعلّمين','🏫 School & Teacher Plans')}</h3>
+      <div class="lp-sub2">${L('لوحة تحكم كاملة (حضور، درجات، تقارير، أولياء أمور) · تجربة 7 أيام مجاناً','Full admin dashboard (attendance, grades, reports, parents) · 7-day free trial')}</div>
+      <div class="lp-price" style="flex-wrap:wrap;gap:12px;justify-content:center">
+        ${[
+          { n:L('المبتدئة','Starter'),  p:49,  t:1,  s:10 },
+          { n:L('النمو','Growth'),      p:69,  t:2,  s:20 },
+          { n:L('القياسية','Standard'), p:99,  t:3,  s:30, pop:true },
+          { n:L('المتقدمة','Pro'),      p:139, t:5,  s:50 },
+          { n:L('المؤسسات','Enterprise'),p:249, t:10, s:100 },
+        ].map(pk => `
+        <div class="lp-pcard${pk.pop ? ' pro' : ''}" style="min-width:150px">
+          ${pk.pop ? `<div style="font-size:11px;font-weight:900;color:#F59E0B;margin-bottom:2px">★ ${L('الأكثر شيوعاً','Most popular')}</div>` : ''}
+          <h3>${pk.n}</h3>
+          <div class="price">$${pk.p}<span style="font-size:13px;font-weight:400">/${L('شهر','mo')}</span></div>
+          <ul>
+            <li>👩‍🏫 ${pk.t} ${pk.t === 1 ? L('معلّم','teacher') : L('معلّمين','teachers')}</li>
+            <li>👨‍🎓 ${L('حتى','up to')} ${pk.s} ${L('طالب','students')}</li>
+            <li>✅ ${L('لوحة إدارة وتقارير','Admin panel & reports')}</li>
+          </ul>
+        </div>`).join('')}
+      </div>
+      <div style="text-align:center;margin-top:12px;font-size:13px;color:var(--text-muted)">${L('تحتاج أكثر؟ باقة مخصّصة حتى 999 طالب — تواصل معنا','Need more? Custom plan up to 999 students — contact us')}</div>
+    </div>
   </section>
 
   <!-- 8. FAQ -->
