@@ -4178,6 +4178,68 @@ function tplHome() {
     </div>
   </div>
 
+  <!-- ═══ DISCOVER / EXPLORE THE PLATFORM ═══ -->
+  <div style="width:calc(100% - 32px);max-width:520px;margin:16px auto 0">
+    <div style="font-size:11px;color:#8B5CF6;font-weight:800;letter-spacing:1.5px;margin-bottom:8px;text-align:center">✨ ${L('Explore the platform','اكتشف المنصة')}</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+
+      <button onclick="S.screen='textbook';render()"
+        style="display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 6px;border-radius:14px;border:none;
+               background:linear-gradient(135deg,#1D4ED8,#3B82F6);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #1D4ED830"
+        onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+        <div style="font-size:22px">📚</div>
+        <div style="font-size:11px;font-weight:900;color:#fff">${L('Book Library','مكتبة الكتب')}</div>
+        <div style="font-size:9px;color:#bfdbfe">${L('Ministry books','كتب الوزارة')}</div>
+      </button>
+
+      <button onclick="S.curriculum='egypt';S.screen='textbook';saveLocal();render()"
+        style="display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 6px;border-radius:14px;border:none;
+               background:linear-gradient(135deg,#047857,#10B981);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #04785730"
+        onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+        <div style="font-size:22px">📗</div>
+        <div style="font-size:11px;font-weight:900;color:#fff">${L('Extra Books','كتب خارجية')}</div>
+        <div style="font-size:9px;color:#a7f3d0">${L('El-Moasser +','المعاصر ومراجع')}</div>
+      </button>
+
+      <button onclick="S.screen='teacher';render()"
+        style="display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 6px;border-radius:14px;border:none;
+               background:linear-gradient(135deg,#BE185D,#EC4899);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #BE185D30"
+        onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+        <div style="font-size:22px">👩‍🏫</div>
+        <div style="font-size:11px;font-weight:900;color:#fff">${L('AI Teacher','المعلّم أمين')}</div>
+        <div style="font-size:9px;color:#fbcfe8">${L('Explains aloud','يشرح بالصوت')}</div>
+      </button>
+
+      <button onclick="S.screen='summary';render()"
+        style="display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 6px;border-radius:14px;border:none;
+               background:linear-gradient(135deg,#B45309,#F59E0B);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #B4530930"
+        onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+        <div style="font-size:22px">📋</div>
+        <div style="font-size:11px;font-weight:900;color:#fff">${L('Smart Summary','ملخص ذكي')}</div>
+        <div style="font-size:9px;color:#fde68a">${L('Any topic','لأي موضوع')}</div>
+      </button>
+
+      <button onclick="S.screen='mindmap';render()"
+        style="display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 6px;border-radius:14px;border:none;
+               background:linear-gradient(135deg,#6D28D9,#A855F7);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #6D28D930"
+        onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+        <div style="font-size:22px">🧠</div>
+        <div style="font-size:11px;font-weight:900;color:#fff">${L('Mind Map','خريطة ذهنية')}</div>
+        <div style="font-size:9px;color:#e9d5ff">${L('Visualize it','تصور المفهوم')}</div>
+      </button>
+
+      <button onclick="S.screen='leaderboard';render()"
+        style="display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 6px;border-radius:14px;border:none;
+               background:linear-gradient(135deg,#0F766E,#14B8A6);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #0F766E30"
+        onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+        <div style="font-size:22px">🏆</div>
+        <div style="font-size:11px;font-weight:900;color:#fff">${L('Leaderboard','المتصدرون')}</div>
+        <div style="font-size:9px;color:#99f6e4">${L('Compete & win','نافس واربح')}</div>
+      </button>
+
+    </div>
+  </div>
+
   <!-- extra tools moved to المزيد tab -->
 
   <!-- ═══ TODAY'S PROGRESS ═══ -->
