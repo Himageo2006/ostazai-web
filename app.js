@@ -3997,6 +3997,9 @@ const MOTIVATIONAL_QUOTES = [
 ];
 
 function tplHome() {
+  // Local bilingual helper that follows the APP language (S.lang), not the IGCSE hub language.
+  // (The global L() keys off S.igcseLang, which left the home screen stuck in English.)
+  const L = (en, ar) => S.lang === 'ar' ? ar : en;
   const curData   = CURRICULA[S.curriculum] || CURRICULA.egypt;
   const gradeData = curData.grades[S.grade] || Object.values(curData.grades)[0];
   const userName  = (S.user && S.user.name) ? S.user.name.split(' ')[0] : '';
