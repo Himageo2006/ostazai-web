@@ -4080,6 +4080,21 @@ function tplHome() {
   <!-- ═══ CURRICULUM SELECTOR ═══ -->
   <div style="width:calc(100% - 24px);max-width:520px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:10px 12px 8px;margin:6px auto 0;box-shadow:0 4px 24px #0003">
     <div style="font-size:10px;color:var(--text-muted);font-weight:800;letter-spacing:1px;margin-bottom:8px">🌍 ${L('Your country & grade','بلدك ومرحلتك الدراسية')}</div>
+
+    <!-- BIG country & syllabus picker button -->
+    <button onclick="S.screen='lessons';S.lessonView='subjects';S.lessonSubject=null;render()"
+      style="width:100%;display:flex;align-items:center;gap:12px;padding:14px 16px;margin-bottom:10px;border-radius:14px;border:1.5px solid var(--primary);
+             background:linear-gradient(135deg,#2563EB26,#7C3AED26);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 16px #2563EB22"
+      onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 22px #2563EB44'"
+      onmouseout="this.style.transform='';this.style.boxShadow='0 4px 16px #2563EB22'">
+      <span style="font-size:28px">🌍</span>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:14px;font-weight:900;color:var(--text)">${L('Choose country & syllabus','اختر دولتك ومنهجك الدراسي')}</div>
+        <div style="font-size:11px;color:var(--primary);font-weight:800;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${curLabel(S.curriculum)}${(CURRICULA[S.curriculum]&&CURRICULA[S.curriculum].grades[S.grade]&&CURRICULA[S.curriculum].grades[S.grade].label)?' · '+CURRICULA[S.curriculum].grades[S.grade].label:''}</div>
+      </div>
+      <span style="font-size:20px;color:var(--primary)">✏️</span>
+    </button>
+
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
       <div>
         <label style="font-size:11px;font-weight:700;color:var(--text-muted);display:block;margin-bottom:5px">${L('Country / Curriculum','الدولة / المنهج')}</label>
