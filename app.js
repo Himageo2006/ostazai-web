@@ -3857,7 +3857,7 @@ function tplShell(content) {
     { s:'profile',     icon:'👤', label: t('الملف','profile') },
     { s:'upgrade',     icon:'⭐',  label:'Pro' },
     { s:'admin',       icon:'🛡', label:'Admin' },
-  ].filter(n => !(IS_APP && !IS_IOS_APP && n.s === 'upgrade'))  // hide purchase entry only in non-iOS apps; iOS keeps it for Apple IAP
+  ].filter(n => !(IS_APP && n.s === 'upgrade'))  // hide purchase entry in ALL app builds (iOS + Android are free in-app; no IAP)
   const navItems = nav.map(n => `
     <button class="nav-item${S.screen===n.s?' active':''}" onclick="navTo('${n.s}')" style="width:100%;text-align:right;background:none;border:none;cursor:pointer;font-family:Cairo,sans-serif">
       <span class="nav-icon">${n.icon}</span>
@@ -19653,9 +19653,9 @@ ${viewer}`;
 function tplUpgrade() {
   const u = S.user || {};
   const isPro = u.plan === 'pro';
-  // Non-iOS apps (Android/Play) show NO purchase UI — those users get full access free.
-  // iOS falls through to the Apple IAP screen below (guideline 3.1.1 requires in-app purchase).
-  if (IS_APP && !IS_IOS_APP) {
+  // ALL app builds (iOS + Android) show NO purchase UI — those users get full access free.
+  // iOS is a completely free app (no in-app purchases / subscriptions) per our App Store submission.
+  if (IS_APP) {
     return `
 <div class="screen-header"><div class="screen-title">⭐ ${L('كل المزايا مفعّلة','All Features Unlocked')}</div></div>
 <div class="screen-body">
