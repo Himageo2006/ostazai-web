@@ -19701,14 +19701,19 @@ ${viewer}`;
               <div style="display:inline-block;margin-top:4px;background:${subj.color}22;color:${subj.color};font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">${book.badge||(S.lang==='en'?'📚 Ministry of Education':'📚 وزارة التعليم')}</div>
             </div>
             <div style="display:flex;flex-direction:column;gap:5px;flex-shrink:0">
+              ${book.external ? `
+              <a href="${book.url}" target="_blank" rel="noopener"
+                style="background:${subj.color};color:#fff;font-size:11px;font-weight:700;padding:6px 12px;border-radius:8px;border:none;cursor:pointer;font-family:Cairo,sans-serif;display:block;text-decoration:none;text-align:center;white-space:nowrap">
+                📖 ${S.lang==='en'?'Read':'اقرأ الكتاب'}
+              </a>` : `
               <button onclick="downloadBook('${book.url}','${esc(book.title)}')"
                 style="background:${subj.color};color:#fff;font-size:11px;font-weight:700;padding:6px 12px;border-radius:8px;border:none;cursor:pointer;font-family:Cairo,sans-serif;display:block;text-align:center;white-space:nowrap">
                 ⬇️ ${S.lang==='en'?'Download':'تحميل'}
               </button>
               <a href="${book.viewUrl || book.url}" target="_blank" rel="noopener"
                 style="background:transparent;color:${subj.color};font-size:11px;font-weight:700;padding:5px 12px;border-radius:8px;border:1px solid ${subj.color};cursor:pointer;font-family:Cairo,sans-serif;display:block;text-decoration:none;text-align:center;white-space:nowrap">
-                📖 ${book.external?(S.lang==='en'?'Open':'افتح'):(S.lang==='en'?'Open':'فتح')}
-              </a>
+                📖 ${S.lang==='en'?'Open':'فتح'}
+              </a>`}
             </div>
           </div>`).join('')}
         </div>
