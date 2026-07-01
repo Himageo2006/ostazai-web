@@ -19978,6 +19978,8 @@ function curLabel(key) {
 }
 
 function tplLessons() {
+  // Local bilingual helper that follows the APP language (S.lang), not the IGCSE hub language.
+  const L = (en, ar) => S.lang === 'ar' ? ar : en;
   const curData   = CURRICULA[S.curriculum] || CURRICULA.egypt;
   const gradeData = (curData.grades && (curData.grades[S.grade] || curData.grades.high || Object.values(curData.grades)[0])) || { label:'', subjects:[] };
   const subjects  = gradeData.subjects || [];
@@ -20014,22 +20016,6 @@ function tplLessons() {
 </div>
 <div class="screen-body" style="padding-top:12px">
 
-  <!-- ═══ STUDY TOOLS GRID ═══ -->
-  <div style="font-size:11px;color:var(--text-muted);font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px">⚡ ${L('Study tools','أدوات المذاكرة')}</div>
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px">
-    ${studyTools.map(tool => `
-    <button id="${tool.id}" onclick="${tool.action}"
-      style="display:flex;flex-direction:column;align-items:center;gap:7px;padding:16px 8px 14px;
-             background:${tool.color}14;border:1.5px solid ${tool.color}40;border-radius:16px;
-             cursor:pointer;font-family:Cairo,sans-serif;transition:.18s;position:relative;overflow:hidden"
-      onmouseover="this.style.background='${tool.color}25';this.style.borderColor='${tool.color}88';this.style.transform='translateY(-2px)'"
-      onmouseout="this.style.background='${tool.color}14';this.style.borderColor='${tool.color}40';this.style.transform=''">
-      <div style="font-size:28px;line-height:1">${tool.icon}</div>
-      <div style="font-size:13px;font-weight:900;color:${tool.color}">${tool.label}</div>
-      <div style="font-size:10px;color:var(--text-muted);text-align:center;line-height:1.4">${tool.desc}</div>
-    </button>`).join('')}
-  </div>
-
   <!-- ═══ CHAPTER INFO ═══ -->
   <div style="background:linear-gradient(135deg,${subj.color}18,${subj.color}08);border:1px solid ${subj.color}33;border-radius:16px;padding:16px;margin-bottom:16px">
     <div style="display:flex;align-items:center;gap:12px">
@@ -20042,27 +20028,42 @@ function tplLessons() {
     </div>
   </div>
 
-  <!-- ═══ AI QUICK LESSON ═══ -->
-  <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:16px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-      <div style="font-size:13px;font-weight:900;color:var(--text)">🤖 ${L('AI explanation','الشرح بالذكاء الاصطناعي')}</div>
-      <button class="btn btn-primary btn-sm" id="b-gen-lesson" style="font-size:12px">
-        ${S.lessonLoading ? (S.lessonProgress || (S.lang==='en'?'⏳ Loading...':'⏳ جارٍ...')) : S.lessonContent ? (S.lang==='en'?'🔄 Regenerate':'🔄 تجديد') : (S.lang==='en'?'✨ Explain this chapter':'✨ اشرح لي هذا الفصل')}
-      </button>
+  <!-- ═══ AI EXPLANATION (primary, prominent) ═══ -->
+  <div style="background:var(--bg-card);border:1.5px solid var(--primary);border-radius:16px;padding:18px;margin-bottom:18px;box-shadow:0 6px 24px #7C3AED22">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <div style="font-size:16px;font-weight:900;color:var(--text)">🤖 ${L('AI explanation','شرح الدرس بالذكاء الاصطناعي')}</div>
+      ${S.lessonContent ? `<button class="btn btn-primary btn-sm" id="b-gen-lesson" style="font-size:12px">${S.lessonLoading ? (S.lessonProgress || L('⏳ Loading...','⏳ جارٍ...')) : L('🔄 Regenerate','🔄 تجديد')}</button>` : ''}
     </div>
     ${S.lessonContent ? `
-    <div style="line-height:2;font-size:14px;max-height:320px;overflow-y:auto;padding-left:4px">${md(S.lessonContent)}</div>
-    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
-      <button class="btn btn-primary btn-sm" id="b-lesson-teacher" style="background:#8B5CF6;border-color:#8B5CF6">🎬 ${S.lang==='en'?'Mr. Amin on the board':'الأستاذ أمين على السبورة'}</button>
+    <div style="line-height:2.1;font-size:16px;max-height:65vh;overflow-y:auto;padding-left:4px">${md(S.lessonContent)}</div>
+    <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+      <button class="btn btn-primary btn-sm" id="b-lesson-teacher" style="background:#8B5CF6;border-color:#8B5CF6">🎬 ${L('Mr. Amin on the board','الأستاذ أمين على السبورة')}</button>
       <button class="btn btn-secondary btn-sm" id="b-lesson-chat">💬 ${L('Discuss in chat','ناقش في المحادثة')}</button>
       <button class="btn btn-secondary btn-sm" id="b-lesson-fc">🗂️ ${L('Cards','بطاقات')}</button>
       <button class="btn btn-secondary btn-sm" id="b-lesson-quiz">📝 ${L('Quiz','اختبار')}</button>
     </div>` : `
-    <div style="text-align:center;padding:20px 0;color:var(--text-muted)">
-      <div style="font-size:32px;margin-bottom:6px">🤖</div>
-      <div style="font-size:13px;font-weight:700">${L('Tap "Explain this chapter" for a full explanation','اضغط "اشرح لي هذا الفصل" للحصول على شرح كامل')}</div>
-      <div style="font-size:11px;margin-top:4px">${L('With examples and practice questions','مع أمثلة وأسئلة تطبيقية')}</div>
+    <div style="text-align:center;padding:14px 0">
+      <div style="font-size:46px;margin-bottom:10px">🤖</div>
+      <div style="font-size:14px;color:var(--text-muted);margin-bottom:18px;line-height:1.8">${L('Get a full, simple explanation of this chapter — with examples and practice questions.','احصل على شرح كامل ومبسّط لهذا الفصل — مع أمثلة وأسئلة تطبيقية.')}</div>
+      <button class="btn btn-primary" id="b-gen-lesson" style="width:100%;max-width:440px;font-size:17px;font-weight:900;padding:16px 12px">
+        ${S.lessonLoading ? (S.lessonProgress || L('⏳ Loading...','⏳ جارٍ...')) : L('✨ Explain this chapter','✨ اشرح لي هذا الفصل')}
+      </button>
     </div>`}
+  </div>
+
+  <!-- ═══ STUDY TOOLS (compact, below the explanation) ═══ -->
+  <div style="font-size:11px;color:var(--text-muted);font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">⚡ ${L('Study tools','أدوات المذاكرة')}</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px">
+    ${studyTools.map(tool => `
+    <button id="${tool.id}" onclick="${tool.action}"
+      style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 6px;
+             background:${tool.color}14;border:1px solid ${tool.color}33;border-radius:12px;
+             cursor:pointer;font-family:Cairo,sans-serif;transition:.18s"
+      onmouseover="this.style.background='${tool.color}25';this.style.transform='translateY(-2px)'"
+      onmouseout="this.style.background='${tool.color}14';this.style.transform=''">
+      <div style="font-size:20px;line-height:1">${tool.icon}</div>
+      <div style="font-size:11px;font-weight:800;color:${tool.color}">${tool.label}</div>
+    </button>`).join('')}
   </div>
 
   <!-- ═══ EXTERNAL RESOURCES ═══ -->
@@ -20547,7 +20548,7 @@ async function genAILesson() {
   // Single-call full lesson (used for guests, to protect the free daily quota, and as a fallback).
   const singlePrompt = isEn
     ? `Write a COMPLETE textbook-chapter lesson on "${chapter}" in ${subjName} for ${label}, so the student needs NO other source. Identify the 5-6 MAIN sub-topics; for EACH write at least 250 words (definition, everyday analogy, how & why step by step from first principles, two worked examples [basic + harder], common misconception, real-world use). Then Common Mistakes, 5 practice questions with full solutions, and a summary. At least 2500 words — mandatory. Always finish.`
-    : `اكتب درساً كاملاً بعمق فصل من كتاب مدرسي عن "${chapter}" في ${subjName} — ${label}، بحيث لا يحتاج الطالب لأي مصدر آخر. حدّد ٥ إلى ٦ أجزاء فرعية رئيسية؛ ولكل جزء اكتب ٢٥٠ كلمة على الأقل (تعريف، تشبيه من الحياة، كيف ولماذا يعمل خطوة بخطوة من الأساس، مثالان محلولان [بسيط وأصعب]، الخطأ الشائع، استخدام واقعي). ثم الأخطاء الشائعة و٥ أسئلة بحلولها الكاملة وملخص. ٢٥٠٠ كلمة على الأقل — إلزامي. أنهِ الدرس كاملاً.`;
+    : `اكتب درساً كاملاً بعمق فصل من كتاب مدرسي عن "${chapter}" في ${subjName} — ${label}، بحيث لا يحتاج الطالب لأي مصدر آخر. حدّد ٥ إلى ٦ أجزاء فرعية رئيسية؛ ولكل جزء اكتب ٢٥٠ كلمة على الأقل (تعريف، تشبيه من الحياة، كيف ولماذا يعمل خطوة بخطوة من الأساس، مثالان محلولان [بسيط وأصعب]، الخطأ الشائع، استخدام واقعي). ثم الأخطاء الشائعة و٥ أسئلة بحلولها الكاملة وملخص. ٢٥٠٠ كلمة على الأقل — إلزامي. أنهِ الدرس كاملاً. اكتب بعربية فصحى مبسّطة وصحيحة تماماً إملائياً ونحوياً، بلا أخطاء أو كلمات مكسورة أو عامية، بأسلوب واضح ومترابط يناسب عمر الطالب.`;
   // Cache: a lesson for a given chapter/grade/curriculum/language is identical every time —
   // serve it from cache (zero AI calls) instead of regenerating and spending budget.
   const lessonCacheKey = `oa_lesson_${S.curriculum}_${S.grade}_${subjName}_${chapter}_${isEn?'en':'ar'}`;
@@ -20594,7 +20595,7 @@ async function genAILesson() {
       render();
       const secPrompt = isEn
         ? `Explain ONLY the sub-topic "${subs[i]}" of the lesson "${chapter}" (${subjName}, ${label}) in depth (about 300-400 words): a precise definition, an everyday analogy, how & why it works step by step from first principles, TWO worked examples (one basic, one harder) solved step by step, the common misconception, and a real-world use. Go straight in — no general intro.`
-        : `اشرح فقط الجزء "${subs[i]}" من درس "${chapter}" (${subjName}، ${label}) بعمق (حوالي ٣٠٠-٤٠٠ كلمة): تعريف دقيق، تشبيه من الحياة، كيف ولماذا يعمل خطوة بخطوة من الأساس، مثالان محلولان (بسيط وأصعب) خطوة بخطوة، الخطأ الشائع، واستخدام واقعي. ادخل مباشرة دون مقدمة عامة.`;
+        : `اشرح فقط الجزء "${subs[i]}" من درس "${chapter}" (${subjName}، ${label}) بعمق (حوالي ٣٠٠-٤٠٠ كلمة): تعريف دقيق، تشبيه من الحياة، كيف ولماذا يعمل خطوة بخطوة من الأساس، مثالان محلولان (بسيط وأصعب) خطوة بخطوة، الخطأ الشائع، واستخدام واقعي. ادخل مباشرة دون مقدمة عامة. اكتب بعربية فصحى مبسّطة وصحيحة تماماً إملائياً ونحوياً، بلا أخطاء أو كلمات مكسورة أو عامية، بأسلوب واضح ومترابط يناسب عمر الطالب.`;
       let sec = ''; try { sec = await ask(secPrompt); } catch(_) {}
       if (sec) { S.lessonContent += `\n\n## ${subs[i]}\n\n${sec}`; render(); }
     }
@@ -20603,7 +20604,7 @@ async function genAILesson() {
     S.lessonProgress = isEn ? '✍️ Practice & summary…' : '✍️ التمارين والملخص…'; render();
     const endPrompt = isEn
       ? `For the lesson "${chapter}" (${subjName}, ${label}) write three sections: ## Common Mistakes (each with how to avoid it), ## Practice Questions (5 questions, each with a full step-by-step solution), ## Quick Summary (key points).`
-      : `لدرس "${chapter}" (${subjName}، ${label}) اكتب ثلاثة أقسام: ## الأخطاء الشائعة (مع كيفية تجنّب كل منها)، ## أسئلة تدريبية (٥ أسئلة، كل منها بحل كامل خطوة بخطوة)، ## ملخص سريع (أهم النقاط).`;
+      : `لدرس "${chapter}" (${subjName}، ${label}) اكتب ثلاثة أقسام: ## الأخطاء الشائعة (مع كيفية تجنّب كل منها)، ## أسئلة تدريبية (٥ أسئلة، كل منها بحل كامل خطوة بخطوة)، ## ملخص سريع (أهم النقاط). اكتب بعربية فصحى مبسّطة وصحيحة تماماً إملائياً ونحوياً، بلا أخطاء أو كلمات مكسورة أو عامية.`;
     let endSec = ''; try { endSec = await ask(endPrompt, true); } catch(_) {}
     if (endSec) S.lessonContent += `\n\n${endSec}`;
     if (S.lessonContent.replace(/^#.*$/m,'').trim().length < 20) S.lessonContent = isEn?'❌ Could not generate — try again':'❌ تعذّر التوليد — حاول مجدداً';
