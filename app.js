@@ -20634,7 +20634,7 @@ async function genAILesson() {
       const secPrompt = isEn
         ? `Explain ONLY the sub-topic "${subs[i]}" of the lesson "${chapter}" (${subjName}, ${label}) in depth (about 300-400 words): a precise definition, an everyday analogy, how & why it works step by step from first principles, TWO worked examples (one basic, one harder) solved step by step, the common misconception, and a real-world use. Go straight in — no general intro.`
         : `اشرح فقط الجزء "${subs[i]}" من درس "${chapter}" (${subjName}، ${label}) بعمق (حوالي ٣٠٠-٤٠٠ كلمة): تعريف دقيق، تشبيه من الحياة، كيف ولماذا يعمل خطوة بخطوة من الأساس، مثالان محلولان (بسيط وأصعب) خطوة بخطوة، الخطأ الشائع، واستخدام واقعي. ادخل مباشرة دون مقدمة عامة. اكتب بعربية فصحى مبسّطة وصحيحة تماماً إملائياً ونحوياً، بلا أخطاء أو كلمات مكسورة أو عامية، بأسلوب واضح ومترابط يناسب عمر الطالب.`;
-      let sec = ''; try { sec = await ask(secPrompt); } catch(_) {}
+      let sec = ''; try { sec = await ask(secPrompt, true); } catch(_) {}   // longForm → backend forces clean formal Arabic
       if (sec) { S.lessonContent += `\n\n## ${subs[i]}\n\n${sec}`; render(); }
     }
     // 3) Closing: common mistakes + practice + summary.
