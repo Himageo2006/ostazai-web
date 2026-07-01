@@ -3479,14 +3479,20 @@ function tplLogin() {
         <div style="font-size:56px">🎓</div>
         <div style="font-size:22px;font-weight:900;margin:8px 0 6px">${L('طالب','Student')}</div>
         <div style="font-size:13.5px;color:var(--text-muted);line-height:1.8;min-height:64px">${L('مساعدة في الواجبات، شرح مبسّط، بطاقات واختبارات، والأستاذ أمين — لكل المواد.','Homework help, simple explanations, flashcards, quizzes & Mr. Amin — for every subject.')}</div>
-        ${!IS_APP ? `<div style="font-size:13px;color:#F59E0B;font-weight:800;margin-top:10px">${L('مجاني للبدء · Pro $6/شهر','Free to start · Pro $6/mo')}</div>` : ''}
+        ${!IS_APP ? `<div style="margin-top:12px;padding:10px 12px;background:#F59E0B14;border:1px solid #F59E0B55;border-radius:12px">
+          <div style="font-size:11px;color:var(--text-muted);font-weight:700;letter-spacing:.5px">${L('الاشتراك','SUBSCRIPTION')}</div>
+          <div style="font-size:17px;color:#F59E0B;font-weight:900;margin-top:3px">${L('مجاني للبدء · Pro $6/شهر','Free to start · Pro $6/mo')}</div>
+        </div>` : ''}
         <div style="margin-top:16px;background:#F59E0B;color:#0F172A;border-radius:12px;padding:12px;font-weight:900">${L('ابدأ كطالب ←','Start as Student →')}</div>
       </div>
       <div onclick="location.href='/school-join.html'" style="cursor:pointer;background:var(--surface);border:2px solid var(--border);border-radius:22px;padding:30px 22px;text-align:center;transition:.18s" onmouseenter="this.style.borderColor='#2563EB';this.style.transform='translateY(-4px)'" onmouseleave="this.style.borderColor='var(--border)';this.style.transform='none'">
         <div style="font-size:56px">🏫</div>
         <div style="font-size:22px;font-weight:900;margin:8px 0 6px">${L('مدرسة / معلّم','Teacher / School')}</div>
         <div style="font-size:13.5px;color:var(--text-muted);line-height:1.8;min-height:64px">${L('أنشئ صفوفك، أضف الطلاب والمعلمين، وزّع الدروس والملاحظات، وتابع التقدّم.','Create classes, add students & teachers, assign lessons & notes, track progress.')}</div>
-        ${!IS_APP ? `<div style="font-size:13px;color:#60A5FA;font-weight:800;margin-top:10px">${L('باقات من $49/شهر · تجربة 7 أيام','Plans from $49/mo · 7-day free trial')}</div>` : ''}
+        ${!IS_APP ? `<div style="margin-top:12px;padding:10px 12px;background:#2563EB14;border:1px solid #2563EB55;border-radius:12px">
+          <div style="font-size:11px;color:var(--text-muted);font-weight:700;letter-spacing:.5px">${L('الاشتراك','SUBSCRIPTION')}</div>
+          <div style="font-size:17px;color:#60A5FA;font-weight:900;margin-top:3px">${L('باقات من $49/شهر · تجربة 7 أيام','Plans from $49/mo · 7-day trial')}</div>
+        </div>` : ''}
         <div style="margin-top:16px;background:#2563EB;color:#fff;border-radius:12px;padding:12px;font-weight:900">${L('دخول لوحة المدرسة ←','Enter School Portal →')}</div>
       </div>
     </div>
