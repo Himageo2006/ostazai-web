@@ -24226,3 +24226,5 @@ document.addEventListener('click', function(e) {
     explainTextbookChapter(S.textbookExplainSubj.subj, S.textbookExplainCurric || '', chBtn.dataset.ch || '', S.textbookExplainMode || 'explain');
   }
 }, true);
+
+/* build marker v286-redeploy */
