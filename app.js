@@ -337,9 +337,9 @@ const IS_APP = (() => {
 const IS_IOS_APP = (IS_APP && /iPhone|iPad|iPod/i.test(navigator.userAgent))
   || (() => { try { return localStorage.getItem('_iosqa') === '1'; } catch(_) { return false; } })();
 
-// App stores: Android/Play app hides all purchase surfaces (stays free). iOS uses Apple IAP, so the
-// upgrade screen MUST remain visible there — only hide purchase surfaces on non-iOS apps.
-if (IS_APP && !IS_IOS_APP) {
+// App stores (App Store 3.1.1 + Play): BOTH iOS and Android apps are free — hide ALL purchase/pricing
+// surfaces (pricing section, plan cards, "upgrade to Pro" links) so no subscription content is shown in-app.
+if (IS_APP) {
   try {
     const st = document.createElement('style');
     st.textContent = '#lp-pricing,#lp-pricing *,.lp-price,[data-screen="upgrade"]{display:none!important}';
