@@ -337,12 +337,12 @@ const IS_APP = (() => {
 const IS_IOS_APP = (IS_APP && /iPhone|iPad|iPod/i.test(navigator.userAgent))
   || (() => { try { return localStorage.getItem('_iosqa') === '1'; } catch(_) { return false; } })();
 
-// App stores (App Store 3.1.1 + Play): BOTH iOS and Android apps are free — hide ALL purchase/pricing
-// surfaces (pricing section, plan cards, "upgrade to Pro" links) so no subscription content is shown in-app.
+// Web/Gumroad pricing must never appear inside either app (external pricing). iOS sells Pro via Apple IAP,
+// so the upgrade entry points stay active on iOS; Android is fully free (also hide the upgrade links).
 if (IS_APP) {
   try {
     const st = document.createElement('style');
-    st.textContent = '#lp-pricing,#lp-pricing *,.lp-price,[data-screen="upgrade"]{display:none!important}';
+    st.textContent = '#lp-pricing,#lp-pricing *,.lp-price' + (IS_IOS_APP ? '' : ',[data-screen="upgrade"]') + '{display:none!important}';
     (document.head || document.documentElement).appendChild(st);
   } catch(_) {}
 }
@@ -1138,9 +1138,6 @@ if ('speechSynthesis' in window) speechSynthesis.getVoices();
 
 /* ── render ── */
 function render() {
-  // iOS (App Store 3.1.1): never surface Pro/purchased status — the iOS app is free for everyone,
-  // so it must not "access" content purchased outside the app. Treat every account as free.
-  if (IS_IOS_APP && S.user && S.user.plan === 'pro') { S.user.plan = 'free'; S.user.planExpiry = null; }
   // Stop any ongoing speech when the screen re-renders away
   try { if (window.speechSynthesis && speechSynthesis.speaking && !document.querySelector('.speak-btn')) speechSynthesis.cancel(); } catch(_) {}
   const el = ge('app');
@@ -3911,7 +3908,7 @@ function tplShell(content) {
     { s:'profile',     icon:'👤', label: t('الملف','profile') },
     { s:'upgrade',     icon:'⭐',  label:'Pro' },
     { s:'admin',       icon:'🛡', label:'Admin' },
-  ].filter(n => !(IS_APP && n.s === 'upgrade'))  // hide purchase entry in ALL app builds (iOS + Android are free in-app; no IAP)
+  ].filter(n => !(IS_APP && !IS_IOS_APP && n.s === 'upgrade'))  // hide purchase entry on Android (free); iOS keeps it for Apple IAP
   const navItems = nav.map(n => `
     <button class="nav-item${S.screen===n.s?' active':''}" onclick="navTo('${n.s}')" style="width:100%;text-align:right;background:none;border:none;cursor:pointer;font-family:Cairo,sans-serif">
       <span class="nav-icon">${n.icon}</span>
@@ -19809,9 +19806,8 @@ ${viewer}`;
 function tplUpgrade() {
   const u = S.user || {};
   const isPro = u.plan === 'pro';
-  // ALL app builds (iOS + Android) show NO purchase UI — those users get full access free.
-  // iOS is a completely free app (no in-app purchases / subscriptions) per our App Store submission.
-  if (IS_APP) {
+  // Android/Play app shows NO purchase UI (stays free). iOS falls through to the Apple IAP screen below.
+  if (IS_APP && !IS_IOS_APP) {
     return `
 <div class="screen-header"><div class="screen-title">⭐ ${L('كل المزايا مفعّلة','All Features Unlocked')}</div></div>
 <div class="screen-body">
