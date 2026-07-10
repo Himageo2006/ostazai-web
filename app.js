@@ -4737,7 +4737,7 @@ function tplProfile() {
   const curData = CURRICULA[S.curriculum] || CURRICULA.egypt;
   const gradeData = (curData.grades && (curData.grades[S.grade] || curData.grades.high || Object.values(curData.grades)[0])) || { label: S.grade || 'ثانوي', subjects: [] };
   const planExpiry = u.planExpiry ? new Date(u.planExpiry).toLocaleDateString('ar-EG') : null;
-  const isPro = u.plan === 'pro';
+  const isPro = u.plan === 'pro' && (!u.planExpiry || new Date(u.planExpiry) > new Date());
   return `
 <div class="screen-header">
   <div class="screen-title">👤 ${t('ملفي الشخصي','myProfile').replace('👤 ','')}</div>
@@ -19805,7 +19805,7 @@ ${viewer}`;
    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 function tplUpgrade() {
   const u = S.user || {};
-  const isPro = u.plan === 'pro';
+  const isPro = u.plan === 'pro' && (!u.planExpiry || new Date(u.planExpiry) > new Date());
   // Android/Play app shows NO purchase UI (stays free). iOS falls through to the Apple IAP screen below.
   if (IS_APP && !IS_IOS_APP) {
     return `
