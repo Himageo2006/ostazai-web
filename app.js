@@ -4151,6 +4151,9 @@ function tplHome() {
     </div>
   </div>
 
+  <!-- ═══ Download App Banner ═══ -->
+  <div style="width:calc(100% - 32px);max-width:520px;margin:16px auto 0">${appDownloadCard(true)}</div>
+
   <!-- ═══ PWA Install Banner (shown only when browser prompts available) ═══ -->
   <div id="pwa-banner" style="display:none;width:calc(100% - 32px);max-width:520px;margin:16px auto 0;background:linear-gradient(135deg,#3B82F622,#3B82F610);border:1px solid #3B82F640;border-radius:16px;padding:12px 16px">
     <div style="display:flex;align-items:center;gap:10px">
@@ -4764,6 +4767,52 @@ function tplStats() {
 
 </div>`;
 }
+// Reusable "Download the app" component — website only (hidden inside the native app).
+// compact=true → slim dismissible Home banner; compact=false → full Profile card.
+function appDownloadCard(compact) {
+  if (typeof IS_APP !== 'undefined' && IS_APP) return '';        // already inside the app
+  try { if (compact && localStorage.getItem('dl_banner_dismissed') === '1') return ''; } catch(_) {}
+  const ar = S.lang === 'ar';
+  const L = (en, a) => ar ? a : en;
+  const APPURL = 'https://apps.apple.com/app/id6779545840';
+  const badge = `<a href="${APPURL}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;background:#000;border:1px solid rgba(255,255,255,.22);border-radius:13px;padding:9px 16px;text-decoration:none">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M17.05 12.9c-.03-2.7 2.2-4 2.3-4.06-1.25-1.84-3.2-2.09-3.9-2.12-1.66-.17-3.24.98-4.08.98-.84 0-2.14-.96-3.52-.93-1.81.03-3.48 1.05-4.41 2.67-1.88 3.27-.48 8.11 1.35 10.76.9 1.3 1.97 2.76 3.38 2.71 1.36-.05 1.87-.88 3.51-.88 1.64 0 2.1.88 3.53.85 1.46-.03 2.38-1.33 3.27-2.63 1.03-1.51 1.46-2.97 1.48-3.05-.03-.01-2.84-1.09-2.87-4.32zM14.4 4.98c.75-.91 1.25-2.16 1.11-3.41-1.07.04-2.38.72-3.15 1.62-.68.8-1.29 2.08-1.13 3.31 1.2.09 2.42-.61 3.17-1.52z"/></svg>
+      <span style="text-align:start;line-height:1.15"><span style="display:block;color:#CBD5E1;font-size:9px;font-weight:600">${L('Download on the','حمّله على')}</span><span style="display:block;color:#fff;font-size:15px;font-weight:800;font-family:Cairo,sans-serif">App Store</span></span>
+    </a>`;
+  if (compact) {
+    return `<div id="dl-banner" style="position:relative;background:linear-gradient(135deg,#0B1533,#1E293B);border-radius:18px;padding:14px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;box-shadow:0 8px 24px rgba(2,8,23,.3);overflow:hidden">
+      <div style="background:#fff;border-radius:12px;padding:7px;flex:0 0 auto"><img src="app-qr.svg" alt="QR" width="60" height="60" style="display:block"></div>
+      <div style="flex:1 1 160px;min-width:150px">
+        <div style="color:#fff;font-size:14px;font-weight:900;margin-bottom:2px">${L('Get the OstazzAI app','حمّل تطبيق OstazzAI')}</div>
+        <div style="color:#94A3B8;font-size:11.5px;margin-bottom:9px">${L('Scan the code or tap to download','امسح الرمز أو اضغط للتحميل')}</div>
+        ${badge}
+      </div>
+      <button onclick="dismissDlBanner()" aria-label="close" style="position:absolute;top:8px;inset-inline-end:10px;background:none;border:none;color:#64748B;font-size:15px;cursor:pointer;line-height:1">✕</button>
+    </div>`;
+  }
+  return `<div style="background:linear-gradient(135deg,#0B1533,#1E293B);border-radius:22px;padding:24px;margin-bottom:16px;position:relative;overflow:hidden;box-shadow:0 14px 40px rgba(2,8,23,.35)">
+    <div style="position:absolute;top:-50px;inset-inline-start:-50px;width:180px;height:180px;background:radial-gradient(circle,rgba(59,130,246,.32),transparent 70%);pointer-events:none"></div>
+    <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center;position:relative;z-index:1">
+      <div style="background:#fff;border-radius:16px;padding:11px;flex:0 0 auto;position:relative">
+        <img src="app-qr.svg" alt="${L('Download QR','رمز التحميل')}" width="120" height="120" style="display:block">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:30px;height:30px;background:#0B1533;border-radius:9px;display:flex;align-items:center;justify-content:center;border:2px solid #fff"><span style="font-size:15px;line-height:1">🎓</span></div>
+      </div>
+      <div style="flex:1 1 200px;min-width:190px;text-align:start">
+        <div style="display:inline-block;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#93C5FD;font-size:11px;font-weight:800;padding:4px 11px;border-radius:100px;margin-bottom:9px">✨ ${L('Now on the App Store','متاح الآن على App Store')}</div>
+        <div style="color:#fff;font-size:19px;font-weight:900;margin-bottom:6px">${L('Get the OstazzAI app','حمّل تطبيق OstazzAI')}</div>
+        <div style="color:#CBD5E1;font-size:13px;line-height:1.7;margin-bottom:14px">${L('Your AI tutor on iPhone & iPad — scan to download.','مدرّسك الذكي على الآيفون والآيباد — امسح الرمز للتحميل.')}</div>
+        ${badge}
+      </div>
+    </div>
+  </div>`;
+}
+
+function dismissDlBanner() {
+  try { localStorage.setItem('dl_banner_dismissed', '1'); } catch(_) {}
+  const el = document.getElementById('dl-banner');
+  if (el && el.parentElement) el.parentElement.style.display = 'none';
+}
+
 function tplProfile() {
   const u = S.user || {};
   const curData = CURRICULA[S.curriculum] || CURRICULA.egypt;
@@ -4793,6 +4842,8 @@ function tplProfile() {
     </div>
     ${planExpiry ? `<div style="font-size:11px;color:var(--text-muted);margin-top:6px">${S.lang==='en'?'Pro valid until:':'صلاحية Pro حتى:'} ${planExpiry}</div>` : ''}
   </div>
+
+  ${appDownloadCard(false)}
 
   <!-- Referral (hidden on iOS per App Store guideline 3.1.1) -->
   ${u.referralCode && !IS_IOS_APP ? `
