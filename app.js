@@ -3713,6 +3713,38 @@ function tplLogin() {
       <p style="color:#CBD5E1;max-width:560px;margin:8px auto 20px">${L('انضم إلى طلاب من الصف الأول حتى الثانوية وابدأ التعلّم مع مدرّسك الذكي الخاص اليوم.','Join students from Year 1 to High School and start learning with your personal AI tutor today.')}</p>
       <button class="lp-btn" onclick="goRegister()">${L('ابدأ التعلّم مجاناً','Start Learning Free')}</button>
     </div>
+
+    <!-- DOWNLOAD THE APP -->
+    <div style="padding:6px 12px 10px">
+      <div style="max-width:920px;margin:0 auto;background:linear-gradient(135deg,#0B1533,#1E293B);border-radius:28px;padding:34px;display:flex;flex-wrap:wrap;align-items:center;gap:30px;justify-content:center;box-shadow:0 20px 60px rgba(2,8,23,.45);position:relative;overflow:hidden">
+        <div style="position:absolute;top:-70px;left:-70px;width:240px;height:240px;background:radial-gradient(circle,rgba(59,130,246,.35),transparent 70%);pointer-events:none"></div>
+        <div style="position:absolute;bottom:-80px;right:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(37,99,235,.28),transparent 70%);pointer-events:none"></div>
+
+        <div style="flex:1 1 300px;min-width:270px;text-align:start;position:relative;z-index:1">
+          <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#93C5FD;font-size:12px;font-weight:800;padding:6px 13px;border-radius:100px;margin-bottom:14px">✨ ${L('متاح الآن على App Store','Now on the App Store')}</div>
+          <h2 style="color:#fff;font-size:26px;font-weight:900;margin:0 0 10px;line-height:1.3">${L('حمّل تطبيق OstazzAI','Get the OstazzAI app')}</h2>
+          <p style="color:#CBD5E1;font-size:14.5px;line-height:1.9;margin:0 0 22px;max-width:430px">${L('مدرّسك الذكي في جيبك — تعلّم في أي وقت وأي مكان على الآيفون والآيباد.','Your AI tutor in your pocket — learn anytime, anywhere on iPhone & iPad.')}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+            <a href="https://apps.apple.com/app/id6779545840" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:11px;background:#000;border:1px solid rgba(255,255,255,.22);border-radius:14px;padding:11px 20px;text-decoration:none;transition:transform .15s,box-shadow .15s" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 10px 24px rgba(0,0,0,.4)'" onmouseout="this.style.transform='none';this.style.boxShadow='none'">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M17.05 12.9c-.03-2.7 2.2-4 2.3-4.06-1.25-1.84-3.2-2.09-3.9-2.12-1.66-.17-3.24.98-4.08.98-.84 0-2.14-.96-3.52-.93-1.81.03-3.48 1.05-4.41 2.67-1.88 3.27-.48 8.11 1.35 10.76.9 1.3 1.97 2.76 3.38 2.71 1.36-.05 1.87-.88 3.51-.88 1.64 0 2.1.88 3.53.85 1.46-.03 2.38-1.33 3.27-2.63 1.03-1.51 1.46-2.97 1.48-3.05-.03-.01-2.84-1.09-2.87-4.32zM14.4 4.98c.75-.91 1.25-2.16 1.11-3.41-1.07.04-2.38.72-3.15 1.62-.68.8-1.29 2.08-1.13 3.31 1.2.09 2.42-.61 3.17-1.52z"/></svg>
+              <span style="text-align:start;line-height:1.15"><span style="display:block;color:#CBD5E1;font-size:10px;font-weight:600;letter-spacing:.3px">${L('حمّله على','Download on the')}</span><span style="display:block;color:#fff;font-size:18px;font-weight:800;font-family:Cairo,sans-serif">App Store</span></span>
+            </a>
+            <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border:1px dashed rgba(255,255,255,.28);border-radius:14px;padding:12px 16px;color:#94A3B8;font-size:12px;font-weight:700">🤖 ${L('أندرويد قريباً','Android soon')}</span>
+          </div>
+        </div>
+
+        <div style="flex:0 0 auto;position:relative;z-index:1;text-align:center">
+          <div style="background:#fff;border-radius:22px;padding:15px;box-shadow:0 14px 34px rgba(2,8,23,.5);position:relative;display:inline-block">
+            <img src="app-qr.svg" alt="${L('رمز تحميل تطبيق OstazzAI','OstazzAI app download QR code')}" width="170" height="170" style="display:block;border-radius:8px">
+            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:42px;height:42px;background:#0B1533;border-radius:12px;display:flex;align-items:center;justify-content:center;border:3px solid #fff;box-shadow:0 3px 10px rgba(0,0,0,.25)">
+              <span style="font-size:21px;line-height:1">🎓</span>
+            </div>
+          </div>
+          <div style="color:#93C5FD;font-size:12.5px;font-weight:800;margin-top:11px">${L('امسح الرمز للتحميل','Scan to download')}</div>
+        </div>
+      </div>
+    </div>
+
     <div class="lp-footlinks" style="border-top:1px solid var(--border);padding-top:18px">
       <a href="ai-math-tutor.html">AI Math Tutor</a>
       <a href="ai-science-tutor.html">AI Science Tutor</a>
