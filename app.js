@@ -150,7 +150,10 @@ let _pomTimer = null;
 function saveLocal() {
   try {
     localStorage.setItem('oa_token',      S.token || '');
-    localStorage.setItem('oa_user',       JSON.stringify(S.user || {}));
+    // Persist null, not {} -- an empty object is truthy, and it was being read back
+    // on boot as "this visitor has an account", sending every returning guest
+    // straight past the landing page.
+    localStorage.setItem('oa_user',       JSON.stringify(S.user || null));
     localStorage.setItem('oa_notes',      JSON.stringify(S.notes));
     localStorage.setItem('oa_bookmarks',  JSON.stringify(S.bookmarks));
     localStorage.setItem('oa_wrong',      JSON.stringify(S.wrongAnswers));
@@ -23707,9 +23710,19 @@ async function init() {
         S.token = null; S.user = null;
         S.screen = 'login';
       }
-    } else if (S.user) {
+    } else if (S.user && (S.user.id || S.user._id || S.user.email)) {
+      // A real account with an expired/absent token still goes to the app.
       S.screen = 'home';
     } else {
+      // Guests land on the landing page every visit, not just their first.
+      // Older builds persisted oa_user as {} for guests. An empty object is
+      // truthy, so this branch used to send every returning visitor straight
+      // past the landing -- meaning it was seen once per browser, ever, taking
+      // the pricing, SEO copy and Mr. Kareem's introduction with it.
+      if (S.user) {
+        S.user = null;
+        try { localStorage.removeItem('oa_user'); } catch (_) {}
+      }
       S.screen = 'login';
     }
 
