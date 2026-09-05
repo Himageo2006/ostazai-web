@@ -1291,6 +1291,19 @@ function render() {
   else if (S.screen === 'forgot')        { el.innerHTML = tplForgotPassword(); }
   else if (S.screen === 'reset-password'){ el.innerHTML = tplResetPassword(S.resetToken || ''); }
   else                                   { el.innerHTML = tplShell(screenContent()); }
+
+  // Kareem says hello once per session, when a signed-in student first lands inside
+  // the app. sessionStorage (not localStorage) so it greets on each new visit but
+  // never twice in the same one, and never on the public/auth screens.
+  if (S.token && ['loading','login','signin','register','forgot','reset-password'].indexOf(S.screen) === -1) {
+    try {
+      if (!sessionStorage.getItem('kareemGreeted')) {
+        sessionStorage.setItem('kareemGreeted', '1');
+        setTimeout(() => kareemSay('greet'), 900);   // let the screen settle first
+      }
+    } catch (_) {}   // private mode can throw on sessionStorage
+  }
+
   // Update study streak when on IGCSE screen
   if (S.screen === 'igcse') {
     const today = new Date().toISOString().slice(0,10);
@@ -21270,6 +21283,9 @@ async function sendMsg(opts) {
     if (S.stats.lastChatDate !== todayDate) {
       S.stats.streak = S.stats.lastChatDate === yesterdayDate ? (S.stats.streak||1)+1 : 1;
       S.stats.lastChatDate = todayDate;
+      // Milestones only. Celebrating every single day would make it meaningless,
+      // and these are the streak lengths worth actually marking.
+      if ([3, 7, 14, 30, 50, 100].indexOf(S.stats.streak) !== -1) kareemSay('celebrate');
     }
 
     S.history.unshift({ date: new Date().toLocaleDateString('ar'), subject: S.subject, preview: txt.slice(0,60) });
