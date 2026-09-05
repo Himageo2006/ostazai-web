@@ -3586,6 +3586,10 @@ function tplLogin() {
   .lp-subjcol{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px}
   .lp-subjcol h3{margin:0 0 10px;font-size:17px}
   .lp-chip{display:inline-block;background:rgba(96,165,250,.12);color:#93C5FD;border-radius:999px;padding:5px 12px;margin:3px;font-size:13px;font-weight:700}
+  .lp-lesson{max-width:720px;margin:0 auto 26px}
+  .lp-lesson-v{width:100%;aspect-ratio:16/9;display:block;border-radius:16px;background:#0F172A;
+               box-shadow:0 18px 46px rgba(0,0,0,.45),0 0 0 1px rgba(245,158,11,.35)}
+  .lp-lesson-cap{margin-top:10px;font-size:13px;color:var(--text-muted);text-align:center}
   .lp-demos{display:flex;gap:14px;overflow-x:auto;padding:6px 2px;scroll-snap-type:x mandatory}
   .lp-demo{min-width:240px;max-width:240px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px;scroll-snap-align:start}
   .lp-demo-head{font-size:12px;font-weight:900;color:#F59E0B;margin-bottom:10px}
@@ -3779,7 +3783,17 @@ function tplLogin() {
   <!-- 5. SEE IT IN ACTION -->
   <section id="lp-action">
     <h2>${L('شاهد OstazzAI أثناء العمل','See OstazzAI in Action')}</h2>
-    <div class="lp-sub2">${L('محادثات حقيقية من داخل المنصة عبر كل المراحل.','Real conversations from inside the app, across every level.')}</div>
+    <div class="lp-sub2">${L('درس حقيقي كامل، ثم أمثلة من المحادثات عبر كل المراحل.','A real full lesson, then conversation examples across every level.')}</div>
+    <!-- A real recorded lesson, not a mockup. preload="none" so it costs no mobile
+         data until a visitor actually presses play; native controls because a
+         60-second video needs a scrub bar, unlike the 12s hero clip. -->
+    <div class="lp-lesson">
+      <video class="lp-lesson-v" controls playsinline preload="none"
+             poster="assets/kareem/lesson-demo.jpg" src="assets/kareem/lesson-demo.mp4"></video>
+      <div class="lp-lesson-cap">
+        ${L('درس كامل: المعادلة من الدرجة الأولى — يشرحه أستاذ كريم على السبورة','A full lesson: first-degree equations — taught by Mr. Kareem on the board')}
+      </div>
+    </div>
     <div class="lp-demos">
       ${demo(L('الصف 2','Year 2'), L('رياضيات','Math'), L('كم يساوي 35 + 27؟','What is 35 + 27?'), L('نجمع خطوة بخطوة: العشرات 30+20=50، والآحاد 5+7=12، إذن 50+12 = 62 ✅','Add step by step: tens 30+20=50, ones 5+7=12, so 50+12 = 62 ✅'))}
       ${demo(L('الصف 5','Year 5'), L('علوم','Science'), L('لماذا تحتاج النباتات إلى ضوء الشمس؟','Why do plants need sunlight?'), L('لتصنع غذاءها بعملية البناء الضوئي: تحوّل ضوء الشمس والماء وثاني أكسيد الكربون إلى سكر وأكسجين. 🌱','To make their food by photosynthesis — they turn sunlight, water, and CO₂ into sugar and oxygen. 🌱'))}
