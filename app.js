@@ -954,6 +954,44 @@ function _animate3D() {
   renderer.render(scene, camera);
   _t3d.raf = requestAnimationFrame(_animate3D);
 }
+/* ── Kareem reactions, anywhere in the app ───────────────────────────────────
+   A small floating bubble, used where there is no teacher board (quiz, streaks).
+   These clips play WITH their own audio on purpose: each was rendered from a
+   fixed Arabic phrase, so mouth and voice match exactly — unlike the talking
+   loops, which lip-sync whatever driver sentence they were generated from.
+   Deliberately non-modal: it plays in the corner while the student reads the
+   explanation, and never blocks the next question. */
+function kareemSay(name) {
+  const CLIPS = { praise:'praise', encourage:'encourage', celebrate:'celebrate',
+                  clap:'clap', wow:'surprised', greet:'greet', bye:'farewell', nod:'nod' };
+  const id = CLIPS[name];
+  if (!id) return;
+  if (typeof S !== 'undefined' && S.kareemReactionsOff) return;   // user preference wins
+
+  let box = document.getElementById('kareem-react');
+  if (!box) {
+    box = document.createElement('div');
+    box.id = 'kareem-react';
+    box.innerHTML = '<video id="kareem-react-v" playsinline preload="auto"></video>';
+    document.body.appendChild(box);
+  }
+  const v = document.getElementById('kareem-react-v');
+  const hide = () => { box.classList.remove('on'); try { v.pause(); } catch (_) {} };
+
+  clearTimeout(window._krT);
+  v.onended = hide;
+  v.onerror  = hide;                 // clip missing → just don't show anything
+  v.muted = false;
+  v.src = 'assets/kareem/' + id + '.mp4';
+  box.classList.add('on');
+  v.play().catch(() => {             // sound blocked without a gesture → play silent
+    v.muted = true;
+    v.play().catch(hide);
+  });
+  window._krT = setTimeout(hide, 12000);   // safety net if 'ended' never fires
+}
+window.kareemSay = kareemSay;
+
 /* ── Landing hero: Kareem's spoken introduction ──────────────────────────────
    The idle loop autoplays muted (allowed everywhere). The button swaps in the
    spoken intro WITH sound -- browsers only permit that on a real user gesture,
@@ -22551,7 +22589,9 @@ function bind() {
       S.quizScore++;
       S.stats = S.stats || { xp:0, streak:1, totalChats:0, weeklyActivity:[0,0,0,0,0,0,0] };
       S.stats.xp += 20;
+      kareemSay('praise');
     } else {
+      kareemSay('encourage');
       S.wrongAnswers.unshift({
         question: q.question, yourAnswer: q.options[oi],
         correctAnswer: q.options[q.correct], explanation: q.explanation || '',
@@ -22572,6 +22612,9 @@ function bind() {
       S.stats.bestScore   = Math.max(S.stats.bestScore || 0, pct);
       S.stats.xp          = (S.stats.xp || 0) + Math.round(pct / 5); // bonus XP for quiz
       saveLocal();
+      // celebrate a strong result, clap a decent one, encourage a weak one —
+      // ending on "well done anyway" matters more than ending on a low score
+      kareemSay(pct >= 80 ? 'celebrate' : pct >= 50 ? 'clap' : 'encourage');
     }
     render();
   });
@@ -22802,6 +22845,14 @@ function bind() {
     .tch-teacher-wrap{position:absolute;bottom:0;left:0;width:250px;height:480px}
     .tch-teacher-wrap .tch-avatar svg{width:185px;height:300px}
     #tch-3d-canvas{width:250px;height:480px;display:block}
+    #kareem-react{position:fixed;bottom:16px;inset-inline-start:16px;z-index:9000;width:132px;
+                  border-radius:16px;overflow:hidden;opacity:0;transform:translateY(12px) scale(.96);
+                  transition:opacity .25s ease,transform .25s ease;pointer-events:none;
+                  box-shadow:0 14px 34px rgba(0,0,0,.5),0 0 0 2px rgba(245,158,11,.55)}
+    #kareem-react.on{opacity:1;transform:none}
+    #kareem-react video{width:100%;aspect-ratio:480/624;object-fit:cover;display:block;background:#0F172A}
+    @media (max-width:520px){ #kareem-react{width:104px;bottom:76px} }
+    @media (prefers-reduced-motion:reduce){ #kareem-react{transition:none} }
     .kv{position:absolute;bottom:0;left:0;width:100%;height:100%;object-fit:contain;object-position:bottom center;opacity:0;transition:opacity .22s ease;pointer-events:none}
     .kv.kv-on{opacity:1}
     @media (prefers-reduced-motion:reduce){ .kv{transition:none} }
