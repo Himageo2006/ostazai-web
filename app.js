@@ -3543,9 +3543,7 @@ function tplLogin() {
   .lp-btn:hover{filter:brightness(1.05)}
   .lp-btn-ghost{background:none;border:1.5px solid var(--border);color:var(--text);border-radius:12px;padding:8px 16px;font-weight:700;cursor:pointer;font-family:inherit;font-size:14px}
   .lp-hero{text-align:center;padding-top:30px}
-  .lp-hero-grid{display:flex;align-items:center;justify-content:center;gap:38px;flex-wrap:wrap;text-align:inherit}
-  .lp-hero-copy{flex:1 1 380px;max-width:560px}
-  .lp-hero-kareem{position:relative;flex:0 0 auto;width:260px;max-width:70vw}
+  .lp-hero-kareem{position:relative;flex:0 0 auto;width:190px;max-width:60vw;margin:2px auto 0}
   .lp-kv{width:100%;aspect-ratio:560/728;object-fit:cover;border-radius:20px;display:block;
          background:#0F172A;box-shadow:0 18px 46px rgba(0,0,0,.45),0 0 0 1px rgba(245,158,11,.35)}
   .lp-kv-play{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:inline-flex;
@@ -3554,10 +3552,7 @@ function tplLogin() {
               font-family:inherit;box-shadow:0 6px 18px rgba(0,0,0,.4)}
   .lp-kv-play:hover{filter:brightness(1.06)}
   .lp-kv-ico{font-size:11px}
-  @media (max-width:760px){
-    .lp-hero-grid{gap:22px}
-    .lp-hero-kareem{width:200px;order:-1}
-  }
+  @media (max-width:760px){ .lp-hero-kareem{width:158px} }
   .lp-hero h1{font-size:38px;line-height:1.25;font-weight:900;margin:0 0 14px;background:linear-gradient(90deg,#60A5FA,#F59E0B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
   .lp-hero p{font-size:17px;color:var(--text-muted);max-width:640px;margin:0 auto 22px}
   .lp-note{font-size:13px;color:var(--text-muted);margin-top:12px}
@@ -3645,6 +3640,19 @@ function tplLogin() {
   <!-- 0. ROLE CHOOSER (full split) -->
   <section class="lp-choose" style="min-height:86vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px 16px;max-width:900px;margin:0 auto">
     <div style="font-size:34px;font-weight:900;letter-spacing:.5px">🎓 Ostazz<span style="color:#F59E0B">AI</span></div>
+    <!-- Kareem belongs on the FIRST screen a visitor sees. This role chooser is
+         min-height:86vh, so anything below it (including the hero) is off-screen
+         on arrival -- that is why he was invisible when placed in the hero. -->
+    <div class="lp-hero-kareem">
+      <video id="lp-kv" class="lp-kv" playsinline muted loop autoplay preload="metadata"
+             poster="assets/kareem/hero/poster-${S.lang==='en'?'en':'ar'}.jpg"
+             src="assets/kareem/idle-a.mp4"></video>
+      <button class="lp-kv-play" id="lp-kv-btn" onclick="lpKareemIntro()"
+              aria-label="${L('استمع لأستاذ كريم','Hear Mr. Kareem')}">
+        <span class="lp-kv-ico">▶</span>
+        <span>${L('تعرّف على أستاذ كريم','Meet Mr. Kareem')}</span>
+      </button>
+    </div>
     <h1 style="font-size:28px;font-weight:900;text-align:center;margin:0;background:linear-gradient(90deg,#60A5FA,#F59E0B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">${L('مرحباً بك في أستاذ AI','Welcome to OstazAI')}</h1>
     <p style="text-align:center;color:var(--text-muted);margin:0;font-size:16px">${L('كيف تريد الدخول؟','How would you like to enter?')}</p>
     <div class="lp-grid2" style="width:100%;max-width:740px">
@@ -3678,27 +3686,10 @@ function tplLogin() {
 
   <!-- 1. HERO -->
   <section class="lp-hero">
-    <div class="lp-hero-grid">
-      <div class="lp-hero-copy">
-        <h1>${L('مدرّس ذكي واحد لكل الطلاب','One AI Tutor for All Students')}</h1>
-        <p>${L('من الصف الأول حتى الثانوية — مساعدة في الواجبات، شرح مبسّط، مراجعة، ودعم للامتحانات في مكان واحد.','From Year 1 to High School — personalized homework help, explanations, revision, and exam support in one place.')}</p>
-        <button class="lp-btn" onclick="goRegister()">${L('ابدأ التعلّم مجاناً','Start Learning Free')}</button>
-        <div class="lp-note">${L('🔒 مجاني للبدء • بدون بطاقة ائتمان','🔒 Free to start • No credit card needed')}</div>
-      </div>
-      <!-- Kareem introduces the app. Muted autoplay keeps him alive without hijacking
-           the page; the button starts the spoken intro on a real user gesture, which is
-           also the only way browsers allow sound. -->
-      <div class="lp-hero-kareem">
-        <video id="lp-kv" class="lp-kv" playsinline muted loop autoplay preload="metadata"
-               poster="assets/kareem/hero/poster-${S.lang==='en'?'en':'ar'}.jpg"
-               src="assets/kareem/idle-a.mp4"></video>
-        <button class="lp-kv-play" id="lp-kv-btn" onclick="lpKareemIntro()"
-                aria-label="${L('استمع لأستاذ كريم','Hear Mr. Kareem')}">
-          <span class="lp-kv-ico">▶</span>
-          <span>${L('تعرّف على أستاذ كريم','Meet Mr. Kareem')}</span>
-        </button>
-      </div>
-    </div>
+    <h1>${L('مدرّس ذكي واحد لكل الطلاب','One AI Tutor for All Students')}</h1>
+    <p>${L('من الصف الأول حتى الثانوية — مساعدة في الواجبات، شرح مبسّط، مراجعة، ودعم للامتحانات في مكان واحد.','From Year 1 to High School — personalized homework help, explanations, revision, and exam support in one place.')}</p>
+    <button class="lp-btn" onclick="goRegister()">${L('ابدأ التعلّم مجاناً','Start Learning Free')}</button>
+    <div class="lp-note">${L('🔒 مجاني للبدء • بدون بطاقة ائتمان','🔒 Free to start • No credit card needed')}</div>
     <div class="lp-trustbar">
       <span><span class="stars">★★★★★</span> ${L('محبوب من الطلاب والأهل','Loved by students & parents')}</span>
       <span>🌍 ${L('في 19 دولة عربية وأكثر','19+ Arab countries')}</span>
