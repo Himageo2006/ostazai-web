@@ -436,7 +436,7 @@ async function req(path, method='GET', body=null, retries=1) {
   return d;
 }
 
-/* ── Animated Teacher Avatar: "أستاذ أمين" explains lessons with voice ── */
+/* ── Animated Teacher Avatar: "أستاذ كريم" explains lessons with voice ── */
 function cleanForSpeech(text) {
   return String(text)
     .replace(/```[\s\S]*?```/g, ' ')
@@ -456,7 +456,7 @@ function pickVoice(isArabic) {
   const isNatural = v => /natural|neural|online|premium|enhanced/i.test(v.name);
   if (isArabic) {
     const ar = voices.filter(v => /^ar/i.test(v.lang) || /arabic|عرب/i.test(v.name));
-    // Prefer high-quality neural voices, and Egyptian Arabic, so Mr. Amin doesn't sound robotic.
+    // Prefer high-quality neural voices, and Egyptian Arabic, so Mr. Kareem doesn't sound robotic.
     return ar.find(v => isNatural(v) && /eg|egypt/i.test(v.lang + v.name)) ||
            ar.find(v => isNatural(v)) ||
            ar.find(v => /eg|egypt/i.test(v.lang)) ||
@@ -475,7 +475,7 @@ function ensureVoices(cb) {
 }
 
 /* ── Microsoft Edge neural TTS, run from the BROWSER (user's residential IP) ──
-   Natural MALE voices matching Mr. Amin: ar-EG-ShakirNeural / en-US-GuyNeural.
+   Natural MALE voices matching Mr. Kareem: ar-EG-ShakirNeural / en-US-GuyNeural.
    These are region/IP-blocked from our servers, but usually work from a real
    user's connection. We try client-side and gracefully fall back to the server
    voice if it's blocked. */
@@ -497,7 +497,7 @@ function _edgeTTS(text, voice = 'ar-EG-ShakirNeural', rate = '-4%') {
     if (_edgeBlocked || !window.WebSocket || !(crypto && crypto.subtle)) return reject(new Error('edge unavailable'));
     _edgeSecMsGec().then(gec => {
       const url = `wss://speech.platform.bing.com/consumer/speech/synthesize/readaloud/edge/v1`
-        + `?TrustedClientToken=6A5AA1D4EAFF4E9FB37E23D68491D6F4&Sec-MS-GEC=${gec}&Sec-MS-GEC-Version=1-130.0.2849.68`;
+        + `?TrustedClientToken=6A5AA1D4EAFF4E9FB37E23D68491D6F4&Sec-MS-GEC=${gec}&Sec-MS-GEC-Version=1-140.0.3485.14`;
       let ws;
       try { ws = new WebSocket(url); } catch (e) { return reject(e); }
       ws.binaryType = 'arraybuffer';
@@ -658,7 +658,7 @@ function showTeacher(text, lines, forceEn) {
           <div class="tch-pointer"></div>
         </div>
       </div>
-      <div class="tch-name">🎓 ${_teacherState.en?'Mr. Amin explains':'الأستاذ أمين يشرح'}</div>
+      <div class="tch-name">🎓 ${_teacherState.en?'Mr. Kareem explains':'الأستاذ كريم يشرح'}</div>
       <div class="tch-controls">
         <button class="tch-btn" id="tch-prev" onclick="teacherJump(-1)">⏮</button>
         <button class="tch-btn tch-play" id="tch-play" onclick="teacherToggle()">▶️ ${_teacherState.en?'Start':'ابدأ الشرح'}</button>
@@ -668,10 +668,11 @@ function showTeacher(text, lines, forceEn) {
     </div>`;
   ov.style.display = 'flex';
   renderTeacherText();
-  init3DTeacher();   // load the rigged 3D human avatar (falls back to SVG if it fails)
+  // Kareem first; init3DTeacher() is called from its onerror if the clips are missing
+  if (!initVideoTeacher()) init3DTeacher();
 }
 
-/* ── Image-based teacher: uses a real PNG of Mr. Amin, animated (sway + talk bob) ── */
+/* ── Image-based teacher: uses a real PNG of Mr. Kareem, animated (sway + talk bob) ── */
 function initTeacherImage() {
   const wrap = document.getElementById('tch-teacher-wrap');
   const svg = document.getElementById('tch-avatar');
@@ -682,7 +683,7 @@ function initTeacherImage() {
   if (!img) {
     img = document.createElement('img');
     img.id = 'tch-img';
-    img.alt = 'الأستاذ أمين';
+    img.alt = 'الأستاذ كريم';
     img.onload = () => { if (svg) svg.style.display = 'none'; img.style.display = 'block'; };
     img.onerror = () => { img.style.display = 'none'; if (svg) svg.style.display = 'block'; }; // fall back to cartoon
     wrap.insertBefore(img, wrap.firstChild);
@@ -908,7 +909,7 @@ function _animate3D() {
   const t = performance.now() / 1000;
   if (mixer) mixer.update(dt);
 
-  // Is Mr. Amin speaking? (covers Edge audio OR device SpeechSynthesis)
+  // Is Mr. Kareem speaking? (covers Edge audio OR device SpeechSynthesis)
   const speaking = !!(_teacherState.playing && (
     (window.speechSynthesis && speechSynthesis.speaking) ||
     (_teacherState._audio && !_teacherState._audio.paused && !_teacherState._audio.ended)
@@ -953,7 +954,106 @@ function _animate3D() {
   renderer.render(scene, camera);
   _t3d.raf = requestAnimationFrame(_animate3D);
 }
+/* ── Landing hero: Kareem's spoken introduction ──────────────────────────────
+   The idle loop autoplays muted (allowed everywhere). The button swaps in the
+   spoken intro WITH sound -- browsers only permit that on a real user gesture,
+   which is exactly what the click provides. When it ends he returns to idle. */
+function lpKareemIntro(){
+  const v = document.getElementById('lp-kv');
+  const b = document.getElementById('lp-kv-btn');
+  if (!v) return;
+  const lang = (typeof S !== 'undefined' && S.lang === 'en') ? 'en' : 'ar';
+  const back = () => {
+    v.onended = null; v.loop = true; v.muted = true;
+    v.src = 'assets/kareem/idle-a.mp4'; v.play().catch(()=>{});
+    if (b) b.style.display = '';
+  };
+  v.loop = false; v.muted = false;
+  v.src = 'assets/kareem/hero/intro-' + lang + '.mp4';
+  v.onended = back;
+  v.onerror = back;                       // clip missing → keep the idle loop, never a dead frame
+  v.play().then(() => { if (b) b.style.display = 'none'; })
+          .catch(() => { v.muted = true; v.play().catch(back); });   // sound blocked → play silent
+}
+
+/* ── Photoreal Kareem on the board ──────────────────────────────────────────
+   20 pre-rendered clips (~5 MB) in assets/kareem/. Two stacked <video> elements
+   crossfade so a pose change never cuts hard. This is the PRIMARY teacher; the
+   existing 3D model and the SVG cartoon remain as fallbacks, in that order, and
+   are only used if the clips fail to load. */
+const KV = {
+  dir:  'assets/kareem/',
+  idle: ['idle-a','idle-b','idle-c'],
+  // A talk loop lip-syncs the driver sentence it was rendered from, so it can never
+  // match arbitrary lesson text. 'loops' keeps him animated; 'idle' keeps him still
+  // but honest. One word to switch.
+  talk: ['talk-a','talk-b','talk-c','talk-count','talk-lean'],
+  mode: 'loops',
+  react:{ praise:'praise', encourage:'encourage', celebrate:'celebrate',
+          clap:'clap', wow:'surprised', greet:'greet', bye:'farewell', nod:'nod' },
+};
+let _kvOn = false, _kvA = null, _kvB = null, _kvLast = {}, _kvBusy = false;
+
+function _kvPick(list, key){
+  if (list.length === 1) return list[0];
+  const opts = list.filter(x => x !== _kvLast[key]);
+  const id = opts[Math.floor(Math.random() * opts.length)];
+  _kvLast[key] = id; return id;
+}
+
+// Never gate the crossfade on play(): assigning .src resets the element, so play()
+// can reject with AbortError on a perfectly good clip and strand the avatar.
+function _kvShow(id, once, voiced){
+  if (!_kvOn || !_kvA || !_kvB) return;
+  const front = _kvA.classList.contains('kv-on') ? _kvA : _kvB;
+  const v = front === _kvA ? _kvB : _kvA;
+  v.loop = !once; v.muted = !voiced; v.onended = null;
+  v.src = KV.dir + id + '.mp4';
+  v.play().catch(() => { if (voiced) { v.muted = true; v.play().catch(()=>{}); } });
+  v.classList.add('kv-on'); front.classList.remove('kv-on');
+  if (once) {
+    _kvBusy = true;
+    const back = () => { _kvBusy = false; _kvShow(_kvPick(KV.idle,'i'), false, false); };
+    v.onended = back;
+    clearTimeout(window._kvT);
+    window._kvT = setTimeout(() => { if (_kvBusy) back(); }, 12000);   // if 'ended' never fires
+  }
+}
+window.kvTalk  = () => { if (!_kvBusy) _kvShow(KV.mode === 'idle' ? _kvPick(KV.idle,'i') : _kvPick(KV.talk,'t'), false, false); };
+window.kvRest  = () => { if (!_kvBusy) _kvShow(_kvPick(KV.idle,'i'), false, false); };
+window.kvReact = (n) => { const id = KV.react[n]; if (id) _kvShow(id, true, true); };   // reactions carry their own synced voice
+
+// Returns true if the video teacher took over, false to let 3D/SVG handle it.
+function initVideoTeacher(){
+  const wrap = document.getElementById('tch-teacher-wrap');
+  if (!wrap) return false;
+  const probe = document.createElement('video');
+  if (!probe.canPlayType || !probe.canPlayType('video/mp4')) return false;
+  if (!document.getElementById('kv-a')) {
+    ['kv-a','kv-b'].forEach(id => {
+      const v = document.createElement('video');
+      v.id = id; v.className = 'kv'; v.muted = true; v.playsInline = true;
+      v.setAttribute('playsinline',''); v.preload = 'auto';
+      wrap.insertBefore(v, wrap.firstChild);
+    });
+  }
+  _kvA = document.getElementById('kv-a'); _kvB = document.getElementById('kv-b');
+  probe.muted = true; probe.src = KV.dir + KV.idle[0] + '.mp4';
+  probe.onloadeddata = () => {
+    _kvOn = true;
+    _kvA.loop = true; _kvA.src = KV.dir + KV.idle[0] + '.mp4';
+    _kvA.classList.add('kv-on'); _kvA.play().catch(()=>{});
+    document.getElementById('tch-3d-canvas')?.style.setProperty('display','none');
+    const svg = document.getElementById('tch-avatar'); if (svg) svg.style.display = 'none';
+    const ld  = document.getElementById('tch-loading'); if (ld) ld.style.display = 'none';
+    _dispose3D && _dispose3D();          // stop paying for a WebGL context we no longer show
+  };
+  probe.onerror = () => { _kvOn = false; init3DTeacher(); };   // clips missing → old avatar
+  return true;
+}
+
 function _teacher3DGesture(on) {
+  if (_kvOn) { on ? window.kvTalk() : window.kvRest(); }
   if (!_t3d || !_t3d.mixer) return;
   const A = _t3d.actions;
   const talk = A['Yes'] || A['Wave'] || A['ThumbsUp'] || null;
@@ -1008,10 +1108,13 @@ function _teacherSpeakNow() {
     if (_teacherState.idx < _teacherState.sentences.length) teacherSpeakCurrent();
     else teacherStop(true);
   };
-  // Mr. Amin is a male teacher — use natural MALE neural voices for BOTH languages.
+  // Kareem's voice is Edge ar-EG-ShakirNeural — free, unlimited, and natural. It is
+  // requested from the USER'S browser, which matters: Edge returns 403 to our Railway
+  // servers and to the KOC network, but works fine for students on home internet, who
+  // are the majority. Paid TTS is deliberately not used.
   // Priority for each sentence:
-  //   1) Edge neural from the user's browser (ar-EG-ShakirNeural / en-US-GuyNeural) — natural, free
-  //   2) Server /api/tts (Google) — consistent fallback
+  //   1) Edge neural in the browser (ar-EG-ShakirNeural / en-US-GuyNeural) — free, natural
+  //   2) Server /api/tts — for users where Edge is blocked
   //   3) Device SpeechSynthesis voice — last resort (good for English)
   //   4) Silent timed board-advance — only if nothing can speak
   if (av) av.classList.add('talking');
@@ -3389,6 +3492,21 @@ function tplLogin() {
   .lp-btn:hover{filter:brightness(1.05)}
   .lp-btn-ghost{background:none;border:1.5px solid var(--border);color:var(--text);border-radius:12px;padding:8px 16px;font-weight:700;cursor:pointer;font-family:inherit;font-size:14px}
   .lp-hero{text-align:center;padding-top:30px}
+  .lp-hero-grid{display:flex;align-items:center;justify-content:center;gap:38px;flex-wrap:wrap;text-align:inherit}
+  .lp-hero-copy{flex:1 1 380px;max-width:560px}
+  .lp-hero-kareem{position:relative;flex:0 0 auto;width:260px;max-width:70vw}
+  .lp-kv{width:100%;aspect-ratio:560/728;object-fit:cover;border-radius:20px;display:block;
+         background:#0F172A;box-shadow:0 18px 46px rgba(0,0,0,.45),0 0 0 1px rgba(245,158,11,.35)}
+  .lp-kv-play{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:inline-flex;
+              align-items:center;gap:8px;white-space:nowrap;background:#F59E0B;color:#0F172A;border:none;
+              border-radius:999px;padding:9px 16px;font-size:13.5px;font-weight:900;cursor:pointer;
+              font-family:inherit;box-shadow:0 6px 18px rgba(0,0,0,.4)}
+  .lp-kv-play:hover{filter:brightness(1.06)}
+  .lp-kv-ico{font-size:11px}
+  @media (max-width:760px){
+    .lp-hero-grid{gap:22px}
+    .lp-hero-kareem{width:200px;order:-1}
+  }
   .lp-hero h1{font-size:38px;line-height:1.25;font-weight:900;margin:0 0 14px;background:linear-gradient(90deg,#60A5FA,#F59E0B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
   .lp-hero p{font-size:17px;color:var(--text-muted);max-width:640px;margin:0 auto 22px}
   .lp-note{font-size:13px;color:var(--text-muted);margin-top:12px}
@@ -3478,7 +3596,7 @@ function tplLogin() {
       <div onclick="goRegister()" style="cursor:pointer;background:var(--surface);border:2px solid var(--border);border-radius:22px;padding:30px 22px;text-align:center;transition:.18s" onmouseenter="this.style.borderColor='#F59E0B';this.style.transform='translateY(-4px)'" onmouseleave="this.style.borderColor='var(--border)';this.style.transform='none'">
         <div style="font-size:56px">🎓</div>
         <div style="font-size:22px;font-weight:900;margin:8px 0 6px">${L('طالب','Student')}</div>
-        <div style="font-size:13.5px;color:var(--text-muted);line-height:1.8;min-height:64px">${L('مساعدة في الواجبات، شرح مبسّط، بطاقات واختبارات، والأستاذ أمين — لكل المواد.','Homework help, simple explanations, flashcards, quizzes & Mr. Amin — for every subject.')}</div>
+        <div style="font-size:13.5px;color:var(--text-muted);line-height:1.8;min-height:64px">${L('مساعدة في الواجبات، شرح مبسّط، بطاقات واختبارات، والأستاذ كريم — لكل المواد.','Homework help, simple explanations, flashcards, quizzes & Mr. Kareem — for every subject.')}</div>
         ${!IS_APP ? `<div style="margin-top:12px;padding:10px 12px;background:#F59E0B14;border:1px solid #F59E0B55;border-radius:12px">
           <div style="font-size:11px;color:var(--text-muted);font-weight:700;letter-spacing:.5px">${L('الاشتراك','SUBSCRIPTION')}</div>
           <div style="font-size:17px;color:#F59E0B;font-weight:900;margin-top:3px">${L('مجاني للبدء · Pro $6/شهر','Free to start · Pro $6/mo')}</div>
@@ -3505,10 +3623,27 @@ function tplLogin() {
 
   <!-- 1. HERO -->
   <section class="lp-hero">
-    <h1>${L('مدرّس ذكي واحد لكل الطلاب','One AI Tutor for All Students')}</h1>
-    <p>${L('من الصف الأول حتى الثانوية — مساعدة في الواجبات، شرح مبسّط، مراجعة، ودعم للامتحانات في مكان واحد.','From Year 1 to High School — personalized homework help, explanations, revision, and exam support in one place.')}</p>
-    <button class="lp-btn" onclick="goRegister()">${L('ابدأ التعلّم مجاناً','Start Learning Free')}</button>
-    <div class="lp-note">${L('🔒 مجاني للبدء • بدون بطاقة ائتمان','🔒 Free to start • No credit card needed')}</div>
+    <div class="lp-hero-grid">
+      <div class="lp-hero-copy">
+        <h1>${L('مدرّس ذكي واحد لكل الطلاب','One AI Tutor for All Students')}</h1>
+        <p>${L('من الصف الأول حتى الثانوية — مساعدة في الواجبات، شرح مبسّط، مراجعة، ودعم للامتحانات في مكان واحد.','From Year 1 to High School — personalized homework help, explanations, revision, and exam support in one place.')}</p>
+        <button class="lp-btn" onclick="goRegister()">${L('ابدأ التعلّم مجاناً','Start Learning Free')}</button>
+        <div class="lp-note">${L('🔒 مجاني للبدء • بدون بطاقة ائتمان','🔒 Free to start • No credit card needed')}</div>
+      </div>
+      <!-- Kareem introduces the app. Muted autoplay keeps him alive without hijacking
+           the page; the button starts the spoken intro on a real user gesture, which is
+           also the only way browsers allow sound. -->
+      <div class="lp-hero-kareem">
+        <video id="lp-kv" class="lp-kv" playsinline muted loop autoplay preload="metadata"
+               poster="assets/kareem/hero/poster-${S.lang==='en'?'en':'ar'}.jpg"
+               src="assets/kareem/idle-a.mp4"></video>
+        <button class="lp-kv-play" id="lp-kv-btn" onclick="lpKareemIntro()"
+                aria-label="${L('استمع لأستاذ كريم','Hear Mr. Kareem')}">
+          <span class="lp-kv-ico">▶</span>
+          <span>${L('تعرّف على أستاذ كريم','Meet Mr. Kareem')}</span>
+        </button>
+      </div>
+    </div>
     <div class="lp-trustbar">
       <span><span class="stars">★★★★★</span> ${L('محبوب من الطلاب والأهل','Loved by students & parents')}</span>
       <span>🌍 ${L('في 19 دولة عربية وأكثر','19+ Arab countries')}</span>
@@ -4304,7 +4439,7 @@ function tplHome() {
                background:linear-gradient(135deg,#BE185D,#EC4899);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #BE185D30"
         onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
         <div style="font-size:22px">👩‍🏫</div>
-        <div style="font-size:11px;font-weight:900;color:#fff">${L('AI Teacher','المعلّم أمين')}</div>
+        <div style="font-size:11px;font-weight:900;color:#fff">${L('AI Teacher','المعلّم كريم')}</div>
         <div style="font-size:9px;color:#fbcfe8">${L('Explains aloud','يشرح بالصوت')}</div>
       </button>
 
@@ -4381,7 +4516,7 @@ function tplHome() {
   <div style="width:calc(100% - 32px);max-width:520px;margin:20px auto 0;text-align:center">
     <div style="font-size:44px;margin-bottom:10px">👆</div>
     <div style="font-size:16px;font-weight:900;color:var(--text);margin-bottom:6px">${L('Start here','ابدأ من هنا')}</div>
-    <div style="font-size:13px;color:var(--text-muted);line-height:1.9;max-width:340px;margin:0 auto">${L('Choose your country and syllabus above — then all your study tools (Chat, Books, Exams, AI Teacher and more) will appear.','اختر دولتك ومنهجك الدراسي بالأعلى — وبعدها ستظهر لك كل أدوات المذاكرة (المحادثة، الكتب، الامتحانات، المعلّم أمين والمزيد).')}</div>
+    <div style="font-size:13px;color:var(--text-muted);line-height:1.9;max-width:340px;margin:0 auto">${L('Choose your country and syllabus above — then all your study tools (Chat, Books, Exams, AI Teacher and more) will appear.','اختر دولتك ومنهجك الدراسي بالأعلى — وبعدها ستظهر لك كل أدوات المذاكرة (المحادثة، الكتب، الامتحانات، المعلّم كريم والمزيد).')}</div>
   </div>
   `}
 
@@ -19898,8 +20033,8 @@ function tplUpgrade() {
     <div style="font-size:52px;margin-bottom:10px">🎉</div>
     <div style="font-size:20px;font-weight:900;margin-bottom:10px;color:var(--primary)">${L('استمتع بكل المزايا مجاناً','Enjoy every feature — free')}</div>
     <div style="font-size:14px;color:var(--text-muted);line-height:2">
-      ${L('أسئلة غير محدودة · ملخصات ذكية · خرائط ذهنية · حل بالصورة · إدخال صوتي · تصدير PDF · الأستاذ أمين',
-          'Unlimited questions · Smart summaries · Mind maps · Photo solving · Voice input · PDF export · Mr. Amin')}
+      ${L('أسئلة غير محدودة · ملخصات ذكية · خرائط ذهنية · حل بالصورة · إدخال صوتي · تصدير PDF · الأستاذ كريم',
+          'Unlimited questions · Smart summaries · Mind maps · Photo solving · Voice input · PDF export · Mr. Kareem')}
     </div>
     <div style="margin-top:22px;font-size:13px;color:var(--text-muted)">${L('كل شيء متاح لك الآن — لا حاجة لأي اشتراك.','Everything is available to you right now — no subscription needed.')}</div>
   </div>
@@ -20186,7 +20321,7 @@ function tplLessons() {
     ${S.lessonContent ? `
     <div style="line-height:2.1;font-size:16px;max-height:65vh;overflow-y:auto;padding-left:4px">${md(S.lessonContent)}</div>
     <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
-      <button class="btn btn-primary btn-sm" id="b-lesson-teacher" style="background:#8B5CF6;border-color:#8B5CF6">🎬 ${L('Mr. Amin on the board','الأستاذ أمين على السبورة')}</button>
+      <button class="btn btn-primary btn-sm" id="b-lesson-teacher" style="background:#8B5CF6;border-color:#8B5CF6">🎬 ${L('Mr. Kareem on the board','الأستاذ كريم على السبورة')}</button>
       <button class="btn btn-secondary btn-sm" id="b-lesson-chat">💬 ${L('Discuss in chat','ناقش في المحادثة')}</button>
       <button class="btn btn-secondary btn-sm" id="b-lesson-fc">🗂️ ${L('Cards','بطاقات')}</button>
       <button class="btn btn-secondary btn-sm" id="b-lesson-quiz">📝 ${L('Quiz','اختبار')}</button>
@@ -20321,7 +20456,7 @@ function tplLessons() {
         <div style="font-size:14px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(topic)}</div>
         <div style="font-size:10px;color:var(--text-muted);margin-top:2px">${L('Chapter','الفصل')} ${idx+1}${done?(S.lang==='en'?' · ✅ Reviewed':' · ✅ تمت المراجعة'):''}</div>
       </div>
-      <span class="lesson-board-btn" data-topic-idx="${idx}" title="${S.lang==='en'?'Mr. Amin on the board':'الأستاذ أمين على السبورة'}"
+      <span class="lesson-board-btn" data-topic-idx="${idx}" title="${S.lang==='en'?'Mr. Kareem on the board':'الأستاذ كريم على السبورة'}"
         style="flex-shrink:0;background:#8B5CF6;color:#fff;font-size:12px;font-weight:800;border-radius:10px;padding:7px 11px;font-family:Cairo,sans-serif;white-space:nowrap;cursor:pointer">
         🎬 ${S.lang==='en'?'Explain':'اشرح'}
       </span>
@@ -20804,7 +20939,7 @@ function teachTopicOnBoard(sk, ci, ti) {
   setTimeout(() => { if (document.getElementById('tch-play')) teacherToggle(); }, 300); // auto-start
 }
 
-// Generate the lesson for the current chapter, then open Mr. Amin on the board
+// Generate the lesson for the current chapter, then open Mr. Kareem on the board
 async function teachChapterOnBoard() {
   if (!S.lessonSubject || !S.lessonChapter) return;
   // English curricula → English lesson (and English board UI from the very first frame)
@@ -20817,7 +20952,7 @@ async function teachChapterOnBoard() {
     const curData = CURRICULA[S.curriculum] || CURRICULA.egypt;
     const gradeData = (curData.grades && (curData.grades[S.grade] || Object.values(curData.grades)[0])) || { label:'' };
     const prompt = isEn
-      ? `You are Mr. Amin, an expert teacher explaining to a student. Explain the lesson "${S.lessonChapter}" in ${S.lessonSubject.name} for ${curData.label} ${gradeData.label} clearly and simply, as a teacher speaking aloud. Use short clear sentences. Cover the key concepts, give 2-3 worked examples, and end with a quick summary. No headings symbols, just clear spoken explanation. IMPORTANT: Respond ONLY in English. Do not use any Arabic words at all.`
+      ? `You are Mr. Kareem, an expert teacher explaining to a student. Explain the lesson "${S.lessonChapter}" in ${S.lessonSubject.name} for ${curData.label} ${gradeData.label} clearly and simply, as a teacher speaking aloud. Use short clear sentences. Cover the key concepts, give 2-3 worked examples, and end with a quick summary. No headings symbols, just clear spoken explanation. IMPORTANT: Respond ONLY in English. Do not use any Arabic words at all.`
       : `اشرح درس "${S.lessonChapter}" في مادة ${S.lessonSubject.name} — ${curData.label} ${gradeData.label} بأسلوب معلّم يتحدث للطلاب على السبورة. استخدم جملاً قصيرة وواضحة. اشرح المفاهيم الأساسية، أعطِ مثالين أو ثلاثة محلولة خطوة بخطوة، واختم بملخص سريع. ابدأ فوراً دون أسئلة. لا تستخدم رموز عناوين، فقط شرح واضح مسموع.`;
     const { stage, grade, curriculum } = gradeToAPI();
     const d = await req('/chat', 'POST', {
@@ -22038,7 +22173,7 @@ function bind() {
       }
     });
   });
-  // 🎬 Mr. Amin board button on each chapter card — generate lesson then teach on board
+  // 🎬 Mr. Kareem board button on each chapter card — generate lesson then teach on board
   document.querySelectorAll('.lesson-board-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -22667,6 +22802,9 @@ function bind() {
     .tch-teacher-wrap{position:absolute;bottom:0;left:0;width:250px;height:480px}
     .tch-teacher-wrap .tch-avatar svg{width:185px;height:300px}
     #tch-3d-canvas{width:250px;height:480px;display:block}
+    .kv{position:absolute;bottom:0;left:0;width:100%;height:100%;object-fit:contain;object-position:bottom center;opacity:0;transition:opacity .22s ease;pointer-events:none}
+    .kv.kv-on{opacity:1}
+    @media (prefers-reduced-motion:reduce){ .kv{transition:none} }
     #tch-img{display:none;position:absolute;bottom:0;left:-6px;height:250px;width:auto;max-width:185px;object-fit:contain;transform-origin:bottom center;animation:tch-sway 3.2s ease-in-out infinite;filter:drop-shadow(0 6px 10px rgba(0,0,0,.4))}
     #teacher-overlay .tch-avatar.talking ~ #tch-img,#tch-img.talking{animation:tch-talkbob .5s ease-in-out infinite}
     @keyframes tch-sway{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-4px) rotate(1deg)}}

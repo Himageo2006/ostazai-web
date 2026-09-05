@@ -31,6 +31,12 @@
   .btn-stop{background:#1a0a0a;color:#EF4444;border:1px solid #EF4444}
   .hint{max-width:860px;margin:8px auto 0;font-size:11px;color:#475569;text-align:center}
   .err{color:#EF4444;font-size:13px}
+  /* photoreal Kareem layer — above the 3D canvas, below the controls */
+  #kareem{position:fixed;inset:0;z-index:5;display:none;background:#0F172A}
+  #kareem.on{display:block}
+  .kv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .22s ease}
+  .kv.on{opacity:1}
+  @media (prefers-reduced-motion:reduce){ .kv{transition:none} }
 </style>
 </head>
 <body>
@@ -60,6 +66,14 @@
     <button class="btn-stop" id="stopBtn" onclick="stopSpeaking()" style="padding:10px 16px">⏹ Stop</button>
     <select id="voice" title="Voice" style="max-width:200px"></select>
   </div>
+</div>
+
+<!-- Photoreal Kareem: two stacked videos crossfaded so a pose change never cuts hard.
+     Sits above the 3D canvas; if the clips fail to load it hides itself and the
+     existing Three.js avatar shows through untouched. -->
+<div id="kareem">
+  <video id="kvA" class="kv on" muted playsinline preload="auto"></video>
+  <video id="kvB" class="kv"    muted playsinline preload="auto"></video>
 </div>
 
 <div id="stage">
@@ -447,6 +461,108 @@ window.testMouth=function(){
   clearTimeout(window._mt);
   window._mt=setTimeout(()=>{ _mouthTest=false; mouthIdx.forEach(i=>setMorphIdx(i,0)); setMorph('jawOpen',0); setStatus(''); }, 2500);
 };
+
+// ── Photoreal Kareem video avatar ─────────────────────────────────────────────
+// 20 pre-rendered clips (~5 MB) replace the 3D model when they load. The Three.js
+// avatar stays in place as the fallback: if a clip 404s or video is unsupported,
+// #kareem hides itself and nothing else changes.
+const KAREEM = {
+  dir:   'assets/kareem/',
+  idle:  ['idle-a','idle-b','idle-c'],
+  talk:  ['talk-a','talk-b','talk-c','talk-count','talk-lean'],
+  think: 'thinking',
+  // Reaction clips keep their OWN audio: each was generated from a fixed Arabic phrase,
+  // so mouth and voice match exactly. They are the one pre-rendered clip that is truly synced.
+  react: { nod:'nod', greet:'greet', bye:'farewell', praise:'praise',
+           clap:'clap', celebrate:'celebrate', wow:'surprised', encourage:'encourage' },
+  // A talk loop lip-syncs the driver sentence it was generated from, so it can never
+  // match arbitrary chat text. 'loops' keeps him animated but the lips will be wrong;
+  // 'idle' keeps him honest and still while the voice plays. Change this one word to switch.
+  talkMode: 'loops',
+};
+
+let _kOn = false, _kFront = null, _kBack = null, _kLast = {}, _kBusy = false;
+
+function _kPick(list, key){
+  if(list.length === 1) return list[0];
+  const opts = list.filter(x => x !== _kLast[key]);
+  const id = opts[Math.floor(Math.random()*opts.length)];
+  _kLast[key] = id; return id;
+}
+
+// Crossfade to a clip. `once` = play through and hand back to idle (reactions).
+// The swap must NOT wait on play(): assigning .src resets the element, so play() can
+// reject with AbortError even though the clip is fine. Gating the crossfade on it left
+// the avatar stuck on the previous clip. Switch first, let playback catch up.
+function _kShow(id, once, voiced){
+  if(!_kOn) return;
+  const v = _kBack;
+  v.loop  = !once;
+  v.muted = !voiced;
+  v.onended = null;
+  v.src = KAREEM.dir + id + '.mp4';
+
+  v.play().catch(() => {
+    // unmuted autoplay is blocked without a user gesture -- fall back to silent
+    if(voiced){ v.muted = true; v.play().catch(()=>{}); }
+  });
+
+  v.classList.add('on'); _kFront.classList.remove('on');
+  const t = _kFront; _kFront = v; _kBack = t;
+
+  if(once){
+    _kBusy = true;
+    const back = () => { _kBusy = false; _kShow(_kPick(KAREEM.idle,'i'), false, false); };
+    v.onended = back;
+    // safety net: if 'ended' never fires (tab backgrounded, decode stall) don't strand
+    // the avatar on a one-shot clip forever
+    clearTimeout(window._kT);
+    window._kT = setTimeout(() => { if(_kBusy) back(); }, 12000);
+  }
+}
+
+window.kareemRest  = () => { if(!_kBusy) _kShow(_kPick(KAREEM.idle,'i'), false, false); };
+window.kareemTalk  = () => { if(_kBusy) return;
+  _kShow(KAREEM.talkMode === 'idle' ? _kPick(KAREEM.idle,'i') : _kPick(KAREEM.talk,'t'), false, false); };
+window.kareemThink = () => { if(!_kBusy) _kShow(KAREEM.think, false, false); };
+window.kareemReact = (name) => { const id = KAREEM.react[name]; if(id) _kShow(id, true, true); };
+
+(function initKareem(){
+  const wrap = document.getElementById('kareem');
+  _kFront = document.getElementById('kvA'); _kBack = document.getElementById('kvB');
+  if(!wrap || !_kFront || !_kBack) return;
+  const probe = document.createElement('video');
+  if(!probe.canPlayType || !probe.canPlayType('video/mp4')) return;   // no mp4 → keep 3D
+  probe.muted = true; probe.src = KAREEM.dir + KAREEM.idle[0] + '.mp4';
+  probe.onloadeddata = () => {                                        // clips reachable
+    _kOn = true; wrap.classList.add('on');
+    _kFront.loop = true; _kFront.src = KAREEM.dir + KAREEM.idle[0] + '.mp4';
+    _kFront.play().catch(()=>{});
+    const ld = document.getElementById('loader'); if(ld) ld.style.display = 'none';
+  };
+  probe.onerror = () => { /* clips missing → 3D avatar stays, nothing to do */ };
+})();
+
+// drive the video off the existing speak/stop contract, leaving both intact
+const _origSpeak = window.speak, _origStop = window.stopSpeaking;
+// ORDER MATTERS: the original speak() calls stopSpeaking() internally at its start, and
+// that resolves to the wrapper below -- so switching to a talk clip *before* it would be
+// undone by the wrapper's kareemRest() a moment later. An async body runs synchronously
+// up to its first await, so by the time apply() returns, that internal stop has happened.
+window.speak = function(text, lang){
+  const r = _origSpeak.apply(this, arguments);
+  window.kareemTalk();
+  return r;
+};
+window.stopSpeaking = function(){ const r = _origStop.apply(this, arguments); window.kareemRest(); return r; };
+
+// extra message types for the portal; 'speak'/'stop' keep working exactly as before
+window.addEventListener('message', (e)=>{
+  const d = e.data || {};
+  if(d.type === 'think')  window.kareemThink();
+  else if(d.type === 'react') window.kareemReact(d.name);
+  else if(d.type === 'rest')  window.kareemRest();
+});
 
 init();
 </script>
