@@ -1304,7 +1304,13 @@ function render() {
     try {
       if (!sessionStorage.getItem('kareemGreeted')) {
         sessionStorage.setItem('kareemGreeted', '1');
-        setTimeout(() => kareemSay('greet'), 900);   // let the screen settle first
+        setTimeout(() => {
+          // Yield to anything already playing. Landing on a streak milestone fires
+          // celebrate at 700ms; a plain hello must not talk over "you hit 7 days".
+          const b = document.getElementById('kareem-react');
+          if (b && b.classList.contains('on')) return;
+          kareemSay('greet');
+        }, 900);
       }
     } catch (_) {}   // private mode can throw on sessionStorage
   }
@@ -1318,6 +1324,11 @@ function render() {
       streak.count = streak.lastDate === yesterday ? streak.count + 1 : 1;
       streak.lastDate = today;
       S.igcseStreak = streak;
+      // Same milestones as the chat streak. This one fires during render(), so the
+      // reaction is delayed until the screen has painted.
+      if ([3, 7, 14, 30, 50, 100].indexOf(streak.count) !== -1) {
+        setTimeout(() => kareemSay('celebrate'), 700);
+      }
     }
   }
   saveLocal();
