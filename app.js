@@ -1298,7 +1298,9 @@ function render() {
   // Kareem says hello once per session, when a signed-in student first lands inside
   // the app. sessionStorage (not localStorage) so it greets on each new visit but
   // never twice in the same one, and never on the public/auth screens.
-  if (S.token && ['loading','login','signin','register','forgot','reset-password'].indexOf(S.screen) === -1) {
+  // 'onboarding' is excluded: Kareem already introduces himself in person on its
+  // first step, and firing the greet bubble there would give two of him at once.
+  if (S.token && ['loading','login','signin','register','forgot','reset-password','onboarding'].indexOf(S.screen) === -1) {
     try {
       if (!sessionStorage.getItem('kareemGreeted')) {
         sessionStorage.setItem('kareemGreeted', '1');
@@ -3546,16 +3548,6 @@ function tplLogin() {
   .lp-btn:hover{filter:brightness(1.05)}
   .lp-btn-ghost{background:none;border:1.5px solid var(--border);color:var(--text);border-radius:12px;padding:8px 16px;font-weight:700;cursor:pointer;font-family:inherit;font-size:14px}
   .lp-hero{text-align:center;padding-top:30px}
-  .lp-hero-kareem{position:relative;flex:0 0 auto;width:190px;max-width:60vw;margin:2px auto 0}
-  .lp-kv{width:100%;aspect-ratio:560/728;object-fit:cover;border-radius:20px;display:block;
-         background:#0F172A;box-shadow:0 18px 46px rgba(0,0,0,.45),0 0 0 1px rgba(245,158,11,.35)}
-  .lp-kv-play{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:inline-flex;
-              align-items:center;gap:8px;white-space:nowrap;background:#F59E0B;color:#0F172A;border:none;
-              border-radius:999px;padding:9px 16px;font-size:13.5px;font-weight:900;cursor:pointer;
-              font-family:inherit;box-shadow:0 6px 18px rgba(0,0,0,.4)}
-  .lp-kv-play:hover{filter:brightness(1.06)}
-  .lp-kv-ico{font-size:11px}
-  @media (max-width:760px){ .lp-hero-kareem{width:158px} }
   .lp-hero h1{font-size:38px;line-height:1.25;font-weight:900;margin:0 0 14px;background:linear-gradient(90deg,#60A5FA,#F59E0B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
   .lp-hero p{font-size:17px;color:var(--text-muted);max-width:640px;margin:0 auto 22px}
   .lp-note{font-size:13px;color:var(--text-muted);margin-top:12px}
@@ -22869,6 +22861,19 @@ function bind() {
     .tch-teacher-wrap{position:absolute;bottom:0;left:0;width:250px;height:480px}
     .tch-teacher-wrap .tch-avatar svg{width:185px;height:300px}
     #tch-3d-canvas{width:250px;height:480px;display:block}
+    /* Kareem video card. Kept GLOBAL rather than inside tplLogin() <style>:
+       the onboarding screen reuses these classes and would otherwise render
+       him unstyled at full container width (599px instead of 190px). */
+  .lp-hero-kareem{position:relative;flex:0 0 auto;width:190px;max-width:60vw;margin:2px auto 0}
+  .lp-kv{width:100%;aspect-ratio:560/728;object-fit:cover;border-radius:20px;display:block;
+         background:#0F172A;box-shadow:0 18px 46px rgba(0,0,0,.45),0 0 0 1px rgba(245,158,11,.35)}
+  .lp-kv-play{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:inline-flex;
+              align-items:center;gap:8px;white-space:nowrap;background:#F59E0B;color:#0F172A;border:none;
+              border-radius:999px;padding:9px 16px;font-size:13.5px;font-weight:900;cursor:pointer;
+              font-family:inherit;box-shadow:0 6px 18px rgba(0,0,0,.4)}
+  .lp-kv-play:hover{filter:brightness(1.06)}
+  .lp-kv-ico{font-size:11px}
+  @media (max-width:760px){ .lp-hero-kareem{width:158px} }
     #kareem-react{position:fixed;bottom:16px;inset-inline-start:16px;z-index:9000;width:132px;
                   border-radius:16px;overflow:hidden;opacity:0;transform:translateY(12px) scale(.96);
                   transition:opacity .25s ease,transform .25s ease;pointer-events:none;
@@ -23537,7 +23542,7 @@ function tplOnboarding() {
   const u = S.user || {};
   const steps = [
     {
-      icon:'🎓', bg:'#3B82F622',
+      icon:'🎓', bg:'#3B82F622', kareem: true,
       title: `أهلاً ${u.name ? u.name.split(' ')[0] : 'بك'} في أستاذ AI!`,
       desc: 'مساعدك الذكي للتعليم — اسأل في أي مادة واحصل على إجابة فورية ✨',
       extra: `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:320px;margin:0 auto 32px">
@@ -23612,8 +23617,21 @@ function tplOnboarding() {
       <div style="width:${pct}%;height:100%;background:var(--primary);border-radius:999px;transition:.4s"></div>
     </div>
   </div>
-  <!-- Icon -->
-  <div style="font-size:72px;margin-bottom:20px;animation:float 3s ease-in-out infinite">${cur.icon}</div>
+  <!-- Icon — step 1 introduces Mr. Kareem in person instead of an emoji. Reuses the
+       landing page's ids so lpKareemIntro() drives it unchanged; the two screens are
+       never rendered at the same time, so the ids cannot collide. -->
+  ${cur.kareem ? `
+  <div class="lp-hero-kareem" style="margin-bottom:20px">
+    <video id="lp-kv" class="lp-kv" playsinline muted loop autoplay preload="metadata"
+           poster="assets/kareem/hero/poster-${S.lang==='en'?'en':'ar'}.jpg"
+           src="assets/kareem/idle-a.mp4"></video>
+    <button class="lp-kv-play" id="lp-kv-btn" onclick="lpKareemIntro()"
+            aria-label="${S.lang==='en'?'Hear Mr. Kareem':'استمع لأستاذ كريم'}">
+      <span class="lp-kv-ico">▶</span>
+      <span>${S.lang==='en'?'Meet Mr. Kareem':'تعرّف على أستاذ كريم'}</span>
+    </button>
+  </div>` : `
+  <div style="font-size:72px;margin-bottom:20px;animation:float 3s ease-in-out infinite">${cur.icon}</div>`}
   <!-- Title -->
   <div style="font-size:22px;font-weight:900;margin-bottom:10px;color:var(--text);max-width:360px">${cur.title}</div>
   <div style="font-size:14px;color:var(--text-muted);max-width:320px;line-height:1.8;margin-bottom:24px">${cur.desc}</div>
