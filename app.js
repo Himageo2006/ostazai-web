@@ -990,6 +990,30 @@ const KAREEM_TALK_LOOPS = false;
 const KAREEM_TALKS = ['talk-a', 'talk-b', 'talk-c', 'talk-count', 'talk-lean'];
 let _kTalkLast = '';
 
+/* ── Kareem while a lesson is generating ─────────────────────────────────────
+   Safe to show, unlike the talk loops: the thinking clip was rendered against
+   room tone, so his mouth stays closed and there is nothing to mismatch. A deep
+   lesson is ~7 chained API calls, which is a long blank wait to fill. */
+function kareemThinking(on) {
+  const box = document.getElementById('kareem-react');
+  if (!on) {
+    if (box) box.classList.remove('on');
+    try { const el = document.getElementById('kareem-react-v'); if (el) el.pause(); } catch (_) {}
+    return;
+  }
+  if (typeof S !== 'undefined' && S.kareemReactionsOff) return;
+  const v = _kareemBox();
+  clearTimeout(window._krT);
+  v.onended = null;
+  v.onerror = () => kareemThinking(false);
+  v.loop  = true;
+  v.muted = true;                     // mouth closed anyway; never talk over the app
+  v.src = 'assets/kareem/thinking.mp4';
+  document.getElementById('kareem-react').classList.add('on');
+  v.play().catch(() => {});           // a rejected play() is not a reason to hide him
+}
+window.kareemThinking = kareemThinking;
+
 function kareemSpeaking(on) {
   const box = document.getElementById('kareem-react');
   if (!on) {
@@ -1077,6 +1101,7 @@ const KV = {
   // 'idle' makes him stand still instead; a frozen face under a voice reads worse.
   talk: ['board-write','board-beside'],
   mode: 'loops',
+  think: 'thinking',          // shown while a lesson is being generated
   react:{ praise:'praise', encourage:'encourage', celebrate:'celebrate',
           clap:'clap', wow:'surprised', greet:'greet', bye:'farewell', nod:'nod' },
 };
@@ -1110,6 +1135,9 @@ function _kvShow(id, once, voiced){
 window.kvTalk  = () => { if (!_kvBusy) _kvShow(KV.mode === 'idle' ? _kvPick(KV.idle,'i') : _kvPick(KV.talk,'t'), false, false); };
 window.kvRest  = () => { if (!_kvBusy) _kvShow(_kvPick(KV.idle,'i'), false, false); };
 window.kvReact = (n) => { const id = KV.react[n]; if (id) _kvShow(id, true, true); };   // reactions carry their own synced voice
+// Thinking at the board while a lesson is written. Safe to show while nothing is
+// spoken: the clip was rendered against room tone, so his mouth stays closed.
+window.kvThink = () => { if (!_kvBusy) _kvShow(KV.think, false, false); };
 
 // Returns true if the video teacher took over, false to let 3D/SVG handle it.
 function initVideoTeacher(){
@@ -20964,6 +20992,7 @@ async function genAILesson() {
     try { const cached = localStorage.getItem(lessonCacheKey); if (cached && cached.length > 200) { S.lessonContent = cached; render(); return; } } catch(_) {}
   }
   S.lessonLoading = true; S.lessonContent = ''; S.lessonProgress = isEn?'⏳ Loading…':'⏳ جارٍ التحميل…'; render();
+  kareemThinking(true);   // ~7 chained calls -- fill the wait
   let generated = false;
   try {
     // 2) Global cache — another student may have already generated this exact lesson (zero AI calls).
@@ -21016,7 +21045,7 @@ async function genAILesson() {
   } catch(e) {
     if (!S.lessonContent) S.lessonContent = `❌ ${e.message}`;
   } finally {
-    S.lessonLoading = false; S.lessonProgress = ''; render();
+    S.lessonLoading = false; S.lessonProgress = ''; kareemThinking(false); render();
     // Cache the finished lesson: locally (this device) + globally (all users) so it's never regenerated.
     try {
       if (S.lessonContent && !S.lessonContent.startsWith('❌')) {
@@ -21064,6 +21093,10 @@ async function teachChapterOnBoard() {
   showTeacher(isEn ? 'Preparing the lesson, one moment please...' : 'جارٍ تحضير الدرس، لحظة من فضلك...', null, isEn);
   const playBtn = document.getElementById('tch-play');
   if (playBtn) { playBtn.disabled = true; playBtn.innerHTML = '⏳ ' + (isEn?'Preparing...':'يحضّر الدرس...'); }
+  // He thinks at the board while the lesson is written. Delayed because
+  // initVideoTeacher() probes the first clip asynchronously and kvThink() is a
+  // no-op until that resolves.
+  setTimeout(() => { try { window.kvThink && window.kvThink(); } catch (_) {} }, 700);
   try {
     const curData = CURRICULA[S.curriculum] || CURRICULA.egypt;
     const gradeData = (curData.grades && (curData.grades[S.grade] || Object.values(curData.grades)[0])) || { label:'' };
