@@ -964,13 +964,8 @@ function _animate3D() {
    loops, which lip-sync whatever driver sentence they were generated from.
    Deliberately non-modal: it plays in the corner while the student reads the
    explanation, and never blocks the next question. */
-function kareemSay(name) {
-  const CLIPS = { praise:'praise', encourage:'encourage', celebrate:'celebrate',
-                  clap:'clap', wow:'surprised', greet:'greet', bye:'farewell', nod:'nod' };
-  const id = CLIPS[name];
-  if (!id) return;
-  if (typeof S !== 'undefined' && S.kareemReactionsOff) return;   // user preference wins
-
+// Shared bubble element for every Kareem reaction and the chat talking loop.
+function _kareemBox() {
   let box = document.getElementById('kareem-react');
   if (!box) {
     box = document.createElement('div');
@@ -978,12 +973,56 @@ function kareemSay(name) {
     box.innerHTML = '<video id="kareem-react-v" playsinline preload="auto"></video>';
     document.body.appendChild(box);
   }
-  const v = document.getElementById('kareem-react-v');
+  return document.getElementById('kareem-react-v');
+}
+
+/* ── Kareem while a chat reply is read aloud ─────────────────────────────────
+   ⚠️ HONEST LIMITATION: a talk loop lip-syncs the driver sentence it was
+   rendered from, so his mouth does NOT match the words being spoken. Only the
+   reaction clips (fixed phrases) and the per-line lesson renders are truly in
+   sync. Set KAREEM_TALK_LOOPS to false and he simply rests while the reply is
+   read -- honest, but static. */
+const KAREEM_TALK_LOOPS = true;
+const KAREEM_TALKS = ['talk-a', 'talk-b', 'talk-c', 'talk-count', 'talk-lean'];
+let _kTalkLast = '';
+
+function kareemSpeaking(on) {
+  const box = document.getElementById('kareem-react');
+  if (!on) {
+    if (box) box.classList.remove('on');
+    try { const el = document.getElementById('kareem-react-v'); if (el) el.pause(); } catch (_) {}
+    return;
+  }
+  if (!KAREEM_TALK_LOOPS) return;
+  if (typeof S !== 'undefined' && S.kareemReactionsOff) return;
+  const v = _kareemBox();
+  const opts = KAREEM_TALKS.filter(x => x !== _kTalkLast);
+  _kTalkLast = opts[Math.floor(Math.random() * opts.length)];
+  clearTimeout(window._krT);
+  v.onended = null; v.onerror = () => kareemSpeaking(false);
+  v.loop = true;
+  v.muted = true;                    // the voice comes from SpeechSynthesis, not the clip
+  v.src = 'assets/kareem/' + _kTalkLast + '.mp4';
+  document.getElementById('kareem-react').classList.add('on');
+  v.play().catch(() => {});   // a rejected play() is not a reason to hide him
+}
+window.kareemSpeaking = kareemSpeaking;
+
+function kareemSay(name) {
+  const CLIPS = { praise:'praise', encourage:'encourage', celebrate:'celebrate',
+                  clap:'clap', wow:'surprised', greet:'greet', bye:'farewell', nod:'nod' };
+  const id = CLIPS[name];
+  if (!id) return;
+  if (typeof S !== 'undefined' && S.kareemReactionsOff) return;   // user preference wins
+
+  const v = _kareemBox();
+  const box = document.getElementById('kareem-react');
   const hide = () => { box.classList.remove('on'); try { v.pause(); } catch (_) {} };
 
   clearTimeout(window._krT);
   v.onended = hide;
   v.onerror  = hide;                 // clip missing → just don't show anything
+  v.loop  = false;                   // MUST reset: kareemSpeaking() shares this element and sets loop=true
   v.muted = false;
   v.src = 'assets/kareem/' + id + '.mp4';
   box.classList.add('on');
@@ -1249,6 +1288,7 @@ function speakText(text, btn) {
   // Toggle: if already speaking, stop
   if (speechSynthesis.speaking) {
     speechSynthesis.cancel();
+    kareemSpeaking(false);
     if (_speakingBtn) _speakingBtn.textContent = '🔊';
     if (_speakingBtn === btn) { _speakingBtn = null; return; }
   }
@@ -1272,9 +1312,10 @@ function speakText(text, btn) {
     if (v) u.voice = v;
     u.lang = v ? v.lang : (isArabic ? 'ar-SA' : 'en-US');
     u.rate = 0.92;
-    u.onend = u.onerror = () => { if (btn) btn.textContent = '🔊'; _speakingBtn = null; };
+    u.onend = u.onerror = () => { if (btn) btn.textContent = '🔊'; _speakingBtn = null; kareemSpeaking(false); };
     if (btn) { btn.textContent = '⏸️'; _speakingBtn = btn; }
     speechSynthesis.speak(u);
+    kareemSpeaking(true);   // he appears for as long as the reply is being read
   });
 }
 // Some browsers load voices asynchronously
@@ -1283,7 +1324,12 @@ if ('speechSynthesis' in window) speechSynthesis.getVoices();
 /* ── render ── */
 function render() {
   // Stop any ongoing speech when the screen re-renders away
-  try { if (window.speechSynthesis && speechSynthesis.speaking && !document.querySelector('.speak-btn')) speechSynthesis.cancel(); } catch(_) {}
+  try {
+    if (window.speechSynthesis && speechSynthesis.speaking && !document.querySelector('.speak-btn')) {
+      speechSynthesis.cancel();
+      if (typeof kareemSpeaking === 'function') kareemSpeaking(false);   // don't leave him talking to an empty screen
+    }
+  } catch(_) {}
   const el = ge('app');
   if      (S.screen === 'loading')       { el.innerHTML = tplLoading(); }
   else if (S.screen === 'login')         { el.innerHTML = tplLogin(); }
