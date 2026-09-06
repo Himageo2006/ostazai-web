@@ -977,12 +977,16 @@ function _kareemBox() {
 }
 
 /* ── Kareem while a chat reply is read aloud ─────────────────────────────────
-   ⚠️ HONEST LIMITATION: a talk loop lip-syncs the driver sentence it was
-   rendered from, so his mouth does NOT match the words being spoken. Only the
-   reaction clips (fixed phrases) and the per-line lesson renders are truly in
-   sync. Set KAREEM_TALK_LOOPS to false and he simply rests while the reply is
-   read -- honest, but static. */
-const KAREEM_TALK_LOOPS = true;
+   OFF by design. A talk loop lip-syncs the driver sentence it was rendered
+   from, so his mouth never matches arbitrary chat text -- confirmed on the live
+   site and rejected. Showing him with a frozen mouth while a voice plays reads
+   worse still, so he simply does not appear during chat speech.
+
+   Only two things are genuinely in sync and both stay enabled: the reaction
+   clips (fixed phrases, rendered from the exact audio they play) and the board
+   lessons (one clip rendered per line). Set this back to true only if the
+   talking clips are ever re-rendered per-utterance. */
+const KAREEM_TALK_LOOPS = false;
 const KAREEM_TALKS = ['talk-a', 'talk-b', 'talk-c', 'talk-count', 'talk-lean'];
 let _kTalkLast = '';
 
@@ -1064,10 +1068,14 @@ function lpKareemIntro(){
 const KV = {
   dir:  'assets/kareem/',
   idle: ['idle-a','idle-b','idle-c'],
-  // A talk loop lip-syncs the driver sentence it was rendered from, so it can never
-  // match arbitrary lesson text. 'loops' keeps him animated; 'idle' keeps him still
-  // but honest. One word to switch.
-  talk: ['talk-a','talk-b','talk-c','talk-count','talk-lean'],
+  // While the board narrates he uses the BOARD clips, not the talk-* ones.
+  // Every pre-rendered clip lip-syncs the driver sentence it was rendered from, so
+  // none of them match arbitrary lesson text -- the front-facing talk-* clips made
+  // that obvious. board-write is a profile shot (he faces the board) and
+  // board-beside is wide, so in both the mouth is turned away or too small to read:
+  // he stays visibly teaching without appearing to mouth the wrong words.
+  // 'idle' makes him stand still instead; a frozen face under a voice reads worse.
+  talk: ['board-write','board-beside'],
   mode: 'loops',
   react:{ praise:'praise', encourage:'encourage', celebrate:'celebrate',
           clap:'clap', wow:'surprised', greet:'greet', bye:'farewell', nod:'nod' },
