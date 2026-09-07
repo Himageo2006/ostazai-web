@@ -1036,11 +1036,15 @@ function kareemSpeaking(on) {
 }
 window.kareemSpeaking = kareemSpeaking;
 
-function kareemSay(name) {
+// opts.silent plays the clip muted. Used for the nod on every chat reply: the clip
+// carries a spoken "تمام، ممتاز" which is right for a one-off reaction but would
+// talk over the student on every single message.
+function kareemSay(name, opts) {
   const CLIPS = { praise:'praise', encourage:'encourage', celebrate:'celebrate',
                   clap:'clap', wow:'surprised', greet:'greet', bye:'farewell', nod:'nod' };
   const id = CLIPS[name];
   if (!id) return;
+  const silent = !!(opts && opts.silent);
   if (typeof S !== 'undefined' && S.kareemReactionsOff) return;   // user preference wins
 
   const v = _kareemBox();
@@ -1051,7 +1055,7 @@ function kareemSay(name) {
   v.onended = hide;
   v.onerror  = hide;                 // clip missing → just don't show anything
   v.loop  = false;                   // MUST reset: kareemSpeaking() shares this element and sets loop=true
-  v.muted = false;
+  v.muted = silent;
   v.src = 'assets/kareem/' + id + '.mp4';
   box.classList.add('on');
   v.play().catch(() => {             // sound blocked without a gesture → play silent
@@ -21375,6 +21379,10 @@ async function sendMsg(opts) {
       || (S.lang === 'en' ? '⚠️ No response — please try again.' : '⚠️ لم يصل رد — حاول مرة أخرى من فضلك.');
     const replyTime = new Date().toLocaleTimeString('ar-EG', { hour:'2-digit', minute:'2-digit' });
     S.messages.push({ role: 'assistant', content: reply, time: replyTime, truncated: !!d.truncated });
+    // A short silent nod acknowledges the answer. Silent on purpose -- this fires on
+    // every message, and the clip's spoken "تمام، ممتاز" would talk over the student
+    // as they start reading. Skipped for error replies, which are not something to nod at.
+    if (!reply.startsWith('⚠️')) kareemSay('nod', { silent: true });
 
     // XP + history + streak
     S.stats = S.stats || { xp:0, streak:1, totalChats:0, weeklyActivity:[0,0,0,0,0,0,0] };
