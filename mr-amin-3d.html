@@ -469,16 +469,18 @@ window.testMouth=function(){
 const KAREEM = {
   dir:   'assets/kareem/',
   idle:  ['idle-a','idle-b','idle-c'],
-  talk:  ['talk-a','talk-b','talk-c','talk-count','talk-lean'],
+  // The generic talk-* clips are gone: they lip-synced their own driver sentence
+  // and never matched the reply being spoken. He rests while speaking instead.
+  talk:  ['idle-a','idle-b','idle-c'],
   think: 'thinking',
   // Reaction clips keep their OWN audio: each was generated from a fixed Arabic phrase,
   // so mouth and voice match exactly. They are the one pre-rendered clip that is truly synced.
   react: { nod:'nod', greet:'greet', bye:'farewell', praise:'praise',
            clap:'clap', celebrate:'celebrate', wow:'surprised', encourage:'encourage' },
-  // A talk loop lip-syncs the driver sentence it was generated from, so it can never
-  // match arbitrary chat text. 'loops' keeps him animated but the lips will be wrong;
-  // 'idle' keeps him honest and still while the voice plays. Change this one word to switch.
-  talkMode: 'loops',
+  // 'idle' -- no pre-rendered clip can lip-sync arbitrary chat text, so he rests
+  // rather than mouthing the wrong words. This page fills the frame, so unlike the
+  // main app he cannot simply be hidden while the reply is read.
+  talkMode: 'idle',
 };
 
 let _kOn = false, _kFront = null, _kBack = null, _kLast = {}, _kBusy = false;

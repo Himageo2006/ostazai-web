@@ -995,9 +995,6 @@ function _kareemBox() {
    clips (fixed phrases, rendered from the exact audio they play) and the board
    lessons (one clip rendered per line). Set this back to true only if the
    talking clips are ever re-rendered per-utterance. */
-const KAREEM_TALK_LOOPS = false;
-const KAREEM_TALKS = ['talk-a', 'talk-b', 'talk-c', 'talk-count', 'talk-lean'];
-let _kTalkLast = '';
 
 /* ── Kareem while a lesson is generating ─────────────────────────────────────
    Safe to show, unlike the talk loops: the thinking clip was rendered against
@@ -1023,25 +1020,15 @@ function kareemThinking(on) {
 }
 window.kareemThinking = kareemThinking;
 
+// Called on both edges of speakText(). The "on" edge is intentionally a no-op:
+// he does not appear while a chat reply is read aloud, because no pre-rendered
+// clip can lip-sync arbitrary text. Kept as a function so speakText() still has
+// something to call, and so the "off" edge reliably clears the bubble.
 function kareemSpeaking(on) {
+  if (on) return;
   const box = document.getElementById('kareem-react');
-  if (!on) {
-    if (box) box.classList.remove('on');
-    try { const el = document.getElementById('kareem-react-v'); if (el) el.pause(); } catch (_) {}
-    return;
-  }
-  if (!KAREEM_TALK_LOOPS) return;
-  if (typeof S !== 'undefined' && S.kareemReactionsOff) return;
-  const v = _kareemBox();
-  const opts = KAREEM_TALKS.filter(x => x !== _kTalkLast);
-  _kTalkLast = opts[Math.floor(Math.random() * opts.length)];
-  clearTimeout(window._krT);
-  v.onended = null; v.onerror = () => kareemSpeaking(false);
-  v.loop = true;
-  v.muted = true;                    // the voice comes from SpeechSynthesis, not the clip
-  v.src = 'assets/kareem/' + _kTalkLast + '.mp4';
-  document.getElementById('kareem-react').classList.add('on');
-  v.play().catch(() => {});   // a rejected play() is not a reason to hide him
+  if (box) box.classList.remove('on');
+  try { const el = document.getElementById('kareem-react-v'); if (el) el.pause(); } catch (_) {}
 }
 window.kareemSpeaking = kareemSpeaking;
 
