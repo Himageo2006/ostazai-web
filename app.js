@@ -19312,6 +19312,28 @@ function tplIGCSEHub() {
 </div>`;
 }
 
+/* Toggle a topic done, and clap when that completes the whole chapter.
+   Replaces the inline onclick that used to do this, so the completion check has
+   somewhere to live. Only claps on the transition into complete -- not when a
+   finished chapter is re-rendered, and never when un-ticking a topic. */
+function igcseToggleTopic(ci, ti) {
+  S.igcseDone = S.igcseDone || {};
+  const key    = `${S.igcseSubject}-${ci}-${ti}`;
+  const wasDone = !!S.igcseDone[key];
+  if (wasDone) delete S.igcseDone[key]; else S.igcseDone[key] = true;
+
+  if (!wasDone) {
+    const subj = IGCSE_SUBJECTS[S.igcseSubject];
+    const ch   = ((subj && subj.chapters[S.igcseBoard]) || [])[ci];
+    if (ch && ch.topics.every((_, i) => S.igcseDone[`${S.igcseSubject}-${ci}-${i}`])) {
+      kareemSay('clap');
+    }
+  }
+  saveLocal();
+  try { checkIGCSEAchievements(); } catch (_) {}
+  render();
+}
+
 function tplIGCSESubject() {
   const subj = IGCSE_SUBJECTS[S.igcseSubject];
   if (!subj) return tplIGCSEHub();
@@ -19345,7 +19367,7 @@ function tplIGCSESubject() {
           <span style="margin-right:auto;font-size:10px;color:var(--text-muted)">${tp.points.length} pts</span>
           <span style="font-size:11px;color:${subj.color}">›</span>
         </div>
-        <button onclick="S.igcseDone=S.igcseDone||{};S.igcseDone['${S.igcseSubject}-${ci}-${ti}']=!S.igcseDone['${S.igcseSubject}-${ci}-${ti}'];if(!S.igcseDone['${S.igcseSubject}-${ci}-${ti}'])delete S.igcseDone['${S.igcseSubject}-${ci}-${ti}'];render()"
+        <button onclick="igcseToggleTopic(${ci},${ti})"
           title="${done?'Mark as not done':'Mark as done'}"
           style="padding:10px 10px;border-radius:0 10px 10px 0;border:1px solid ${done?'#10B98130':'var(--border)'};border-left:none;
                  background:${done?'#10B98115':'var(--bg-card)'};cursor:pointer;font-size:14px;transition:.15s">
