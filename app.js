@@ -1152,6 +1152,12 @@ window.kvTalk = () => {
     else if (/^[٠-٩0-9]+\s*[—–\-.)،]/.test(line) ||
              /^(أولًا|أولاً|ثانيًا|ثانياً|ثالثًا|ثالثاً|رابعًا|رابعاً|خامسًا|خامساً)/.test(line) ||
              /^(First|Second|Third|Fourth|Fifth|Step\s*\d)/i.test(line)) clip = 'talk-count';
+    // Wide shot for the opening line and for section headings -- the same grammar as
+    // the rendered lesson video, where board-beside carries the establishing shot.
+    // A heading is short and does NOT end in sentence punctuation; a real sentence does.
+    else if (_teacherState.idx === 0 || (line.length <= 34 && !/[.،؛!؟]$/.test(line))) clip = 'board-beside';
+    // Everything else is prose: he writes, face to the board.
+    else clip = 'board-write';
   } catch (_) {}
   _kvShow(clip || _kvPick(KV.talk, 't'), false, false);
 };
