@@ -1154,12 +1154,19 @@ function _kvShow(id, once, voiced){
 window.kvTalk = () => {
   if (_kvBusy) return;
   if (KV.mode === 'idle') return _kvShow(_kvPick(KV.idle, 'i'), false, false);
-  let isEquation = false;
+  let clip = null;
   try {
-    const line = (_teacherState.sentences || [])[_teacherState.idx] || '';
-    isEquation = /[=≠]/.test(line);
+    const line = ((_teacherState.sentences || [])[_teacherState.idx] || '').trim();
+    // Equations first: "٣ س = ٩" is an equation, not a step, even though it opens with a digit.
+    if (/[=≠]/.test(line)) clip = 'board-point';
+    // Numbered steps -- "١ — نجمع الحدود" or "أولًا، نجمع" -- get the counting shot,
+    // where he holds up a finger. Same mouth-visible trade-off as board-point,
+    // accepted for the same reason: the gesture matches what is being said.
+    else if (/^[٠-٩0-9]+\s*[—–\-.)،]/.test(line) ||
+             /^(أولًا|أولاً|ثانيًا|ثانياً|ثالثًا|ثالثاً|رابعًا|رابعاً|خامسًا|خامساً)/.test(line) ||
+             /^(First|Second|Third|Fourth|Fifth|Step\s*\d)/i.test(line)) clip = 'talk-count';
   } catch (_) {}
-  _kvShow(isEquation ? 'board-point' : _kvPick(KV.talk, 't'), false, false);
+  _kvShow(clip || _kvPick(KV.talk, 't'), false, false);
 };
 window.kvRest  = () => { if (!_kvBusy) _kvShow(_kvPick(KV.idle,'i'), false, false); };
 window.kvReact = (n) => { const id = KV.react[n]; if (id) _kvShow(id, true, true); };   // reactions carry their own synced voice
