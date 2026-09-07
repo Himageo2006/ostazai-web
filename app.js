@@ -24370,6 +24370,10 @@ function checkIGCSEAchievements() {
     S.igcseAchievements = earned;
     saveLocal();
     newOnes.forEach((a,i) => setTimeout(() => showToast(a.icon + ' Achievement unlocked: ' + a.title + '!', 'success'), 300 + i*600));
+    // Kareem reacts once, not once per badge -- unlocking three at a time would
+    // otherwise restart the clip twice and look broken. Fires just before the
+    // first toast so his reaction reads as the cause, not an afterthought.
+    setTimeout(() => { try { kareemSay('wow'); } catch (_) {} }, 250);
   }
 }
 
