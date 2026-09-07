@@ -1145,7 +1145,22 @@ function _kvShow(id, once, voiced){
     window._kvT = setTimeout(() => { if (_kvBusy) back(); }, 12000);   // if 'ended' never fires
   }
 }
-window.kvTalk  = () => { if (!_kvBusy) _kvShow(KV.mode === 'idle' ? _kvPick(KV.idle,'i') : _kvPick(KV.talk,'t'), false, false); };
+// Equation lines get board-point (he turns and points at the equation); prose keeps
+// the mouth-hidden shots. board-point faces the camera, so his lips ARE visible and
+// will not match the narration -- accepted only here, because pointing at the
+// equation being read is worth more than a hidden mouth on a 3-second line.
+// Detected by "=" alone: real equations have one, numbered steps like "١ — نجمع" do not.
+// To revert, delete this function's body back to the _kvPick(KV.talk) line.
+window.kvTalk = () => {
+  if (_kvBusy) return;
+  if (KV.mode === 'idle') return _kvShow(_kvPick(KV.idle, 'i'), false, false);
+  let isEquation = false;
+  try {
+    const line = (_teacherState.sentences || [])[_teacherState.idx] || '';
+    isEquation = /[=≠]/.test(line);
+  } catch (_) {}
+  _kvShow(isEquation ? 'board-point' : _kvPick(KV.talk, 't'), false, false);
+};
 window.kvRest  = () => { if (!_kvBusy) _kvShow(_kvPick(KV.idle,'i'), false, false); };
 window.kvReact = (n) => { const id = KV.react[n]; if (id) _kvShow(id, true, true); };   // reactions carry their own synced voice
 // Thinking at the board while a lesson is written. Safe to show while nothing is
