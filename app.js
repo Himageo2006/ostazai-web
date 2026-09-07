@@ -21127,6 +21127,12 @@ async function teachChapterOnBoard() {
 function doLogout() {
   S.token = null; S.user = null; S.messages = [];
   saveLocal(); S.screen = 'login'; render();
+  // Kareem waves goodbye. Fires AFTER render() -- the bubble lives on <body>, not
+  // inside #app, so it survives the re-render and plays over the landing page.
+  // Logout is the only reliable "session end": beforeunload leaves no time to
+  // play anything, and clearing the greet flag means he says hello again next visit.
+  try { sessionStorage.removeItem('kareemGreeted'); } catch (_) {}
+  setTimeout(() => { try { kareemSay('bye'); } catch (_) {} }, 300);
 }
 
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
