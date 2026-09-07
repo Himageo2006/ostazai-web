@@ -964,6 +964,15 @@ function _animate3D() {
    loops, which lip-sync whatever driver sentence they were generated from.
    Deliberately non-modal: it plays in the corner while the student reads the
    explanation, and never blocks the next question. */
+// Three idle clips exist; without this every screen outside the board would always
+// show idle-a, and a returning student would see the exact same loop every visit.
+// Picked per render rather than cycled, so the variety is not tied to any state.
+const KAREEM_IDLES = ['idle-a', 'idle-b', 'idle-c'];
+function kareemIdleSrc() {
+  return 'assets/kareem/' + KAREEM_IDLES[Math.floor(Math.random() * KAREEM_IDLES.length)] + '.mp4';
+}
+window.kareemIdleSrc = kareemIdleSrc;
+
 // Shared bubble element for every Kareem reaction and the chat talking loop.
 function _kareemBox() {
   let box = document.getElementById('kareem-react');
@@ -1077,7 +1086,7 @@ function lpKareemIntro(){
   const lang = (typeof S !== 'undefined' && S.lang === 'en') ? 'en' : 'ar';
   const back = () => {
     v.onended = null; v.loop = true; v.muted = true;
-    v.src = 'assets/kareem/idle-a.mp4'; v.play().catch(()=>{});
+    v.src = kareemIdleSrc(); v.play().catch(()=>{});
     if (b) b.style.display = '';
   };
   v.loop = false; v.muted = false;
@@ -3462,7 +3471,7 @@ function tplParent() {
     <div class="lp-hero-kareem" style="width:132px;margin:0 auto 14px">
       <video class="lp-kv kv-on" playsinline muted autoplay preload="auto"
              src="assets/kareem/greet.mp4"
-             onended="this.src='assets/kareem/idle-a.mp4';this.loop=true;this.play().catch(function(){})"
+             onended="this.src=kareemIdleSrc();this.loop=true;this.play().catch(function(){})"
              onerror="this.style.display='none'"></video>
     </div>
     <div class="auth-title">${L('لوحة متابعة ولي الأمر','Parent Dashboard')}</div>
@@ -3747,7 +3756,7 @@ function tplLogin() {
     <div class="lp-hero-kareem">
       <video id="lp-kv" class="lp-kv" playsinline muted loop autoplay preload="metadata"
              poster="assets/kareem/hero/poster-${S.lang==='en'?'en':'ar'}.jpg"
-             src="assets/kareem/idle-a.mp4"></video>
+             src="${kareemIdleSrc()}"></video>
       <button class="lp-kv-play" id="lp-kv-btn" onclick="lpKareemIntro()"
               aria-label="${L('استمع لأستاذ كريم','Hear Mr. Kareem')}">
         <span class="lp-kv-ico">▶</span>
@@ -23767,7 +23776,7 @@ function tplOnboarding() {
   <div class="lp-hero-kareem" style="margin-bottom:20px">
     <video id="lp-kv" class="lp-kv" playsinline muted loop autoplay preload="metadata"
            poster="assets/kareem/hero/poster-${S.lang==='en'?'en':'ar'}.jpg"
-           src="assets/kareem/idle-a.mp4"></video>
+           src="${kareemIdleSrc()}"></video>
     <button class="lp-kv-play" id="lp-kv-btn" onclick="lpKareemIntro()"
             aria-label="${S.lang==='en'?'Hear Mr. Kareem':'استمع لأستاذ كريم'}">
       <span class="lp-kv-ico">▶</span>
