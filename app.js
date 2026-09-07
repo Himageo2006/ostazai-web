@@ -3455,7 +3455,16 @@ function tplParent() {
     <div style="position:absolute;top:16px;left:16px">
       <button onclick="S.screen='${S.token?'chat':'login'}';render()" style="background:none;border:1px solid var(--border);border-radius:12px;padding:4px 10px;font-size:12px;cursor:pointer;color:var(--text-muted);font-family:Cairo,sans-serif">${L('← الرئيسية','← Home')}</button>
     </div>
-    <div class="auth-logo">👨‍👩‍👧</div>
+    <!-- Kareem greets the parent: a wave, then he settles into idle.
+         MUTED deliberately -- greet.mp4's audio is "تمام، ممتاز، هيا بنا", which is
+         addressed to a student starting a lesson and reads oddly to a parent. The
+         gesture is what carries here, not the words. -->
+    <div class="lp-hero-kareem" style="width:132px;margin:0 auto 14px">
+      <video class="lp-kv kv-on" playsinline muted autoplay preload="auto"
+             src="assets/kareem/greet.mp4"
+             onended="this.src='assets/kareem/idle-a.mp4';this.loop=true;this.play().catch(function(){})"
+             onerror="this.style.display='none'"></video>
+    </div>
     <div class="auth-title">${L('لوحة متابعة ولي الأمر','Parent Dashboard')}</div>
     <div class="auth-subtitle">${L('تابع تقدّم طفلك. اطلب منه «كود ولي الأمر» من شاشة حسابه.','Track your child\'s progress. Ask them for their "Parent code" from their account screen.')}</div>
     <div id="parent-msg" class="error-msg" style="display:none"></div>
