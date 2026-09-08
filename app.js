@@ -5664,240 +5664,364 @@ function renderMindMap(d) {
    TEXTBOOK
    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 /* ══════════════════════════════════════════════════════════════
-   TEXTBOOK DATABASE — روابط PDF مُحقَّقة (آخر تدقيق 2026-09-09)
-   المصادر: خادم وزارة التعليم (blob) + Google Drive (للكتب غير المتوفرة)
+   TEXTBOOK DATABASE — روابط PDF مُحقَّقة (مصر: 2026-2027، تدقيق 2026-09-09)
+   المصادر: المكتبة الإلكترونية studentbooks.moe.gov.eg (books.json لكل مرحلة) + البكالوريا المصرية
    ══════════════════════════════════════════════════════════════ */
 const BOOKS  = './books'; // self-hosted PDFs on GitHub Pages (same-origin, no iframe restrictions)
-const BLOB26 = 'https://elearnningcontent.blob.core.windows.net/elearnningcontent/2026';
+const MOE27 = 'https://elearnningcontent.blob.core.windows.net/elearnningcontent/2026_2027/';
+const EB = 'https://egyptianbaccalaureate.blob.core.windows.net/egyptianbaccalaureate/'; // البكالوريا المصرية — separate storage account
 const gdrive = id => `https://drive.google.com/file/d/${id}/preview`;
 const gdown  = id => `https://drive.google.com/uc?id=${id}&export=download`;
 
 const TEXTBOOK_DB = {
   egypt: {
-    // ── الصف الأول الثانوي ─────────────────────────────────────────
-    high1: [
-      { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
-        { title:'الرياضيات (عربي) ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/sec/semester1/Grade1/pdf/math_1sec_t1.pdf` },
-        { title:'الرياضيات (إنجليزي) ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/sec/semester1/Grade1/pdf/math_1sec_t1_sb_E.pdf` },
-      ]},
-      { subj:'العلوم المتكاملة', icon:'🔬', color:'#10B981', books:[
-        { title:'العلوم المتكاملة (عربي) ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/integratedscience_ARABIC_1_Secondary_TR1.pdf` },
-        { title:'Integrated Science (English) T1 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/integratedscience_EN_1_Secondary_TR1.pdf` },
-      ]},
-      { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
-        { title:'اللغة العربية ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/sec/semester1/Grade1/pdf/arabic_1sec_t1.pdf` },
-      ]},
-      { subj:'اللغة الإنجليزية', icon:'🗣️', color:'#F97316', books:[
-        { title:'New Hello — Student Book ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/English_1sec_t1.pdf` },
-      ]},
-      { subj:'الفلسفة والمنطق', icon:'🧠', color:'#6366F1', books:[
-        { title:'الفلسفة والمنطق ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/Philosophy_and_Logic_Tr1_1sec.pdf` },
-      ]},
-      { subj:'التاريخ', icon:'🏛️', color:'#D97706', books:[
-        { title:'التاريخ ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/sec/semester1/Grade1/pdf/history_1sec_sb_wb.pdf` },
-      ]},
-      { subj:'التربية الإسلامية', icon:'☪️', color:'#059669', books:[
-        { title:'التربية الإسلامية 2025-2026', term:'أول ثانوي', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/sec/semester1/Grade1/pdf/deen_islamy_1sec_t1_t2.pdf` },
-      ]},
-      { subj:'تكنولوجيا المعلومات', icon:'💻', color:'#0EA5E9', books:[
-        { title:'تكنولوجيا المعلومات والاتصالات ت١ 2025-2026', term:'أول ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/ICT_Ar_Sec1_T1.pdf` },
-      ]},
-      { subj:'العلوم المتكاملة ت٢', icon:'🔬', color:'#10B981', books:[
-        { title:'العلوم المتكاملة ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BLOB26}/Secondry/Secondry1/Term2/StudentBook/integratedscience_ARABIC_1_Secondary_TR2.pdf` },
-      ]},
-      { subj:'اللغة العربية ت٢', icon:'📜', color:'#7C3AED', books:[
-        { title:'اللغة العربية ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BLOB26}/Secondry/Secondry1/Term2/StudentBook/Arabic_sec1_TR2.pdf` },
-        { title:'أبو الفوارث — قراءات أدبية ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BLOB26}/Secondry/Secondry1/Term2/StudentBook/Abo_Elfwarth_sec1_TR2.pdf` },
-      ]},
-      { subj:'الرياضيات ت٢', icon:'🔢', color:'#1D4ED8', books:[
-        { title:'الرياضيات (عربي) ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BLOB26}/Secondry/Secondry1/Term2/StudentBook/Math_AR_Sec1_Tr2.pdf` },
-        { title:'الرياضيات (فرنساوي) ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BLOB26}/Secondry/Secondry1/Term2/StudentBook/Math_FR_Sec1_Tr2.pdf` },
-      ]},
-      { subj:'اللغة الإنجليزية ت٢', icon:'🗣️', color:'#EA580C', books:[
-        { title:'New Hello — Student Book ت٢ 2025-2026', term:'أول ثانوي — ترم ثاني', url:`${BLOB26}/Secondry/Secondry1/Term2/StudentBook/English_Sec1_Tr2.pdf` },
-      ]},
-    ],
-    // ── الصف الثاني الثانوي ────────────────────────────────────────
-    high2: [
-      { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
-        { title:'اللغة العربية ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Arabic_language_Sec2_Tr1.pdf` /* 130MB – served from Azure */ },
-        { title:'قراءات أدبية ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Arabic_language_Story_Sec2_Tr1.pdf` },
-      ]},
-      { subj:'اللغة الإنجليزية', icon:'🗣️', color:'#F97316', books:[
-        { title:'English Language ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/English_language_2sec_t1.pdf` },
-      ]},
-      { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
-        { title:'الرياضيات التطبيقية (عربي) ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Application_Mathematics_AR_Sec2_Tr1.pdf` },
-        { title:'الرياضيات التطبيقية (إنجليزي) ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Application_Mathematics_EN_Sec2_Tr1.pdf` },
-        { title:'تطبيقات الرياضيات (إنجليزي) ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Application_Mathematics_EN_Sec2_Tr1.pdf` },
-      ]},
-      { subj:'الفيزياء', icon:'⚡', color:'#F59E0B', books:[
-        { title:'الفيزياء 2025-2026', term:'ثاني ثانوي', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Physics_Arabic_2_Secondary_TR1.pdf` },
-      ]},
-      { subj:'التاريخ', icon:'🏛️', color:'#D97706', books:[
-        { title:'التاريخ ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/sec/semester1/Grade2/pdf/history_2sec_sb_wb.pdf` },
-      ]},
-      { subj:'الجغرافيا', icon:'🗺️', color:'#0EA5E9', books:[
-        { title:'الجغرافيا ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Geography_Sec2_Tr1.pdf` },
-      ]},
-      { subj:'علم النفس والاجتماع', icon:'🧠', color:'#6366F1', books:[
-        { title:'علم النفس والاجتماع ت١ 2025-2026', term:'ثاني ثانوي — ترم أول', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Psychologyand%20_sociology_Sec2_Tr1.pdf` },
-      ]},
-      { subj:'التربية الإسلامية', icon:'☪️', color:'#059669', books:[
-        { title:'التربية الإسلامية ت١ 2025-2026', term:'ثاني ثانوي', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/sec/semester1/Grade2/pdf/deen_islamy_2sec_t1_t2.pdf` },
-        { title:'التربية الإسلامية ت٢ 2025-2026', term:'ثاني ثانوي — ترم ثاني', url:`${BLOB26}/Secondry/Secondry2/Term2/StudentBook/w_islama_2sec.pdf` },
-      ]},
-    ],
-    // ── الصف الثالث الثانوي ────────────────────────────────────────
-    high: [
-      { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
-        { title:'الرياضيات البحتة (إنجليزي) 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/pure_Mathematics_ENGLISH_Sec3.pdf` },
-        { title:'الرياضيات التطبيقية 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/applied_Mathematics_ARABIC_Sec3.pdf` },
-        { title:'الجبر والهندسة الفراغية 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/pure_Mathematics_ARABIC_Sec3.pdf` },
-        { title:'التفاضل والتكامل 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/pure_Mathematics_ARABIC_Sec3.pdf` },
-        { title:'الميكانيكا 2025-2026', term:'ثالث ثانوي', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/sec/semester1/Grade3/pdf/mechanics_3sec.pdf` },
-        { title:'الإحصاء والاحتمالات 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Statistics_Arabic_Sec3.pdf` },
-      ]},
-      { subj:'الفيزياء', icon:'⚡', color:'#F59E0B', books:[
-        { title:'الفيزياء 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Physics_Arabic_Sec3.pdf` },
-      ]},
-      { subj:'الكيمياء', icon:'🧪', color:'#10B981', books:[
-        { title:'الكيمياء 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Chemistry_Arabic_Sec3.pdf` },
-      ]},
-      { subj:'الأحياء', icon:'🦠', color:'#EC4899', books:[
-        { title:'علم الأحياء 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Biology_ARABIC_Sec3.pdf` },
-      ]},
-      { subj:'الجيولوجيا', icon:'🪨', color:'#84CC16', books:[
-        { title:'الجيولوجيا وعلم البيئة 2025-2026', term:'ثالث ثانوي', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/sec/semester1/Grade3/pdf/Geology_environment_3sec.pdf` },
-      ]},
-      { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
-        { title:'اللغة العربية 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Arabic_language_Sec3.pdf` },
-      ]},
-      { subj:'الفلسفة والمنطق', icon:'🧠', color:'#6366F1', books:[
-        { title:'الفلسفة والمنطق 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry1/Term1/StudentBook/Philosophy_and_Logic_Tr1_1sec.pdf` },
-        { title:'علم النفس والاجتماع 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry2/Term1/StudentBook/Psychologyand%20_sociology_Sec2_Tr1.pdf` },
-      ]},
-      { subj:'التاريخ', icon:'🏛️', color:'#D97706', books:[
-        { title:'التاريخ 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/History_Sec3.pdf` },
-      ]},
-      { subj:'الجغرافيا', icon:'🗺️', color:'#0EA5E9', books:[
-        { title:'الجغرافيا 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Geography_Sec3.pdf` },
-      ]},
-      { subj:'اللغة الإنجليزية', icon:'🗣️', color:'#F97316', books:[
-        { title:'English Language 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/English_language_Sec3.pdf` },
-      ]},
-      { subj:'التربية الإسلامية', icon:'☪️', color:'#059669', books:[
-        { title:'التربية الإسلامية 2025-2026', term:'ثالث ثانوي', url:`${BLOB26}/Secondry/Secondry3/Term1/StudentBook/Islamic_religion_Sec3.pdf` },
-      ]},
-    ],
-    // ── الصف الابتدائي ────────────────────────────────────────────
     primary: [
+      { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
+        { title:'اللغة العربية 2026-2027', term:'رياض الأطفال — ترم أول', url:`${MOE27}KG/KG1/Term1/StudentBook/Arabic_langugae_kg1_t1.pdf` },
+        { title:'اللغة العربية 2026-2027', term:'رياض الأطفال — ترم أول', url:`${MOE27}KG/KG2/Term1/StudentBook/Arabic_langugae_kg2_t1.pdf` },
+        { title:'اللغة العربية 2026-2027', term:'الأول الابتدائي — ترم أول', url:`${MOE27}Primary/Primary1/Term1/StudentBook/Arabic_language_prim1_t1.pdf` },
+        { title:'اللغة العربية 2026-2027', term:'الثاني الابتدائي — ترم أول', url:`${MOE27}Primary/Primary2/Term1/StudentBook/Arabic_language_prim2_t1.pdf` },
+        { title:'اللغة العربية 2026-2027', term:'الثالث الابتدائي — ترم أول', url:`${MOE27}Primary/Primary3/Term1/StudentBook/Arabic_language_prim3_t1.pdf` },
+        { title:'اللغة العربية 2026-2027', term:'الرابع الابتدائي — ترم أول', url:`${MOE27}Primary/Primary4/Term1/StudentBook/Arabic_language_prim4_t1.pdf` },
+        { title:'اللغة العربية 2026-2027', term:'الخامس الابتدائي — ترم أول', url:`${MOE27}Primary/Primary5/Term1/StudentBook/Arabic_langugae_prim5_t1.pdf` },
+        { title:'اللغة العربية 2026-2027', term:'السادس الابتدائي — ترم أول', url:`${MOE27}Primary/Primary6/Term1/StudentBook/Arabic_Primary6_T1.pdf` },
+      ]},
       { subj:'اللغة الإنجليزية', icon:'🗣️', color:'#F97316', books:[
-        { title:'English — Primary 1 Term 1 2025-2026', term:'ابتدائي أول — ترم أول', url:`${BLOB26}/Primary/Primary1/Term1/StudentBook/English_Prim1_Tr1.pdf` },
-        { title:'English — Primary 2 Term 1 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BLOB26}/Primary/Primary2/Term1/StudentBook/English_Prim2_Tr1.pdf` },
-        { title:'English — Primary 3 Term 1 2025-2026', term:'ابتدائي ثالث — ترم أول', url:`${BLOB26}/Primary/Primary3/Term1/StudentBook/English_Prim3_Tr1.pdf` },
-        { title:'English — Primary 4 Term 1 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BLOB26}/Primary/Primary4/Term1/StudentBook/English_Prim4_Tr1.pdf` },
-        { title:'English — Primary 5 Term 1 2025-2026', term:'ابتدائي خامس — ترم أول', url:`${BLOB26}/Primary/Primary5/Term1/StudentBook/English_Prim5_Tr1.pdf` },
-        { title:'English — Primary 6 Term 1 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BLOB26}/Primary/Primary6/Term1/StudentBook/English_Prim6_Tr1.pdf` },
+        { title:'اللغة الإنجليزية 2026-2027', term:'رياض الأطفال — ترم أول', url:`${MOE27}KG/KG1/Term1/StudentBook/English_language_kg1_t1.pdf` },
+        { title:'اللغة الإنجليزية 2026-2027', term:'رياض الأطفال — ترم أول', url:`${MOE27}KG/KG2/Term1/StudentBook/English_language_kg2_t1.pdf` },
+        { title:'اللغة الإنجليزية-لغة أجنبية أولى 2026-2027', term:'الأول الابتدائي — ترم أول', url:`${MOE27}Primary/Primary1/Term1/StudentBook/English_language_prim1_t1.pdf` },
+        { title:'اللغة الإنجليزية-لغة أجنبية أولى 2026-2027', term:'الثاني الابتدائي — ترم أول', url:`${MOE27}Primary/Primary2/Term1/StudentBook/English_language_prim2_t1.pdf` },
+        { title:'اللغة الإنجليزية-لغة أجنبية أولى 2026-2027', term:'الثالث الابتدائي — ترم أول', url:`${MOE27}Primary/Primary3/Term1/StudentBook/English_language_prim3_t1.pdf` },
+        { title:'اللغة الإنجليزية-لغة أجنبية أولى 2026-2027', term:'الرابع الابتدائي — ترم أول', url:`${MOE27}Primary/Primary4/Term1/StudentBook/English_language_prim4_t1.pdf` },
+        { title:'اللغة الإنجليزية-لغة أجنبية أولى 2026-2027', term:'الخامس الابتدائي — ترم أول', url:`${MOE27}Primary/Primary5/Term1/StudentBook/English_language_prim5_t1.pdf` },
+        { title:'اللغة الإنجليزية-لغة أجنبية أولى 2026-2027', term:'السادس الابتدائي — ترم أول', url:`${MOE27}Primary/Primary6/Term1/StudentBook/English_Primary6_T1.pdf` },
       ]},
       { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
-        { title:'الرياضيات (عربي) — ابتدائي أول ت١ 2025-2026', term:'ابتدائي أول — ترم أول', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/prim/semester1/Grade1/pdf/math_1prim_t1.pdf` },
-        { title:'الرياضيات (عربي) — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BLOB26}/Primary/Primary2/Term1/StudentBook/Math_AR_Prim2_TR1.pdf` },
-        { title:'الرياضيات (إنجليزي) — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BLOB26}/Primary/Primary2/Term1/StudentBook/Math_E_Prim2_TR1_2.pdf` },
-        { title:'الرياضيات (عربي) — ابتدائي ثالث ت١ 2025-2026', term:'ابتدائي ثالث — ترم أول', url:`${BLOB26}/Primary/Primary3/Term1/StudentBook/Math_AR_prim3_TR1.pdf` },
-        { title:'الرياضيات (إنجليزي) — ابتدائي ثالث ت١ 2025-2026', term:'ابتدائي ثالث — ترم أول', url:`${BLOB26}/Primary/Primary3/Term1/StudentBook/Math_EN_prim3_TR1.pdf` },
-        { title:'الرياضيات (فرنساوي) — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BLOB26}/Primary/Primary2/Term1/StudentBook/Math_F_Prim2_TR1_2.pdf` },
-        { title:'الرياضيات (عربي) — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/prim/semester1/Grade4/pdf/math_4prim_t1.pdf` },
-        { title:'الرياضيات (إنجليزي) — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BLOB26}/Primary/Primary4/Term1/StudentBook/Math_EN_prim4_TR1.pdf` },
-        { title:'الرياضيات (فرنساوي) — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BLOB26}/Primary/Primary4/Term1/StudentBook/Math_FR_prim4_TR1.pdf` },
-        { title:'الرياضيات (عربي) — ابتدائي خامس ت١ 2025-2026', term:'ابتدائي خامس — ترم أول', url:`${BLOB26}/Primary/Primary5/Term1/StudentBook/Math_AR_prim5_TR1.pdf` },
-        { title:'الرياضيات (إنجليزي) — ابتدائي خامس ت١ 2025-2026', term:'ابتدائي خامس — ترم أول', url:`${BLOB26}/Primary/Primary5/Term1/StudentBook/Math_E_5prim_TR1.pdf` },
-        { title:'الرياضيات (عربي) — ابتدائي سادس ت١ 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BLOB26}/Primary/Primary6/Term1/StudentBook/Math_AR_Prim6_TR1.pdf` },
-        { title:'الرياضيات (إنجليزي) — ابتدائي سادس ت١ 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BLOB26}/Primary/Primary6/Term1/StudentBook/Math_EN_Prim6_TR1.pdf` },
+        { title:'الرياضيات باللغة العربية 2026-2027', term:'الأول الابتدائي — ترم أول', url:`${MOE27}Primary/Primary1/Term1/StudentBook/Math_Ar_prim1_t1.pdf` },
+        { title:'الرياضيات باللغة الإنجليزية 2026-2027', term:'الأول الابتدائي — ترم أول', url:`${MOE27}Primary/Primary1/Term1/StudentBook/Math_EN_P1_T1.pdf` },
+        { title:'الرياضيات باللغة الفرنسية 2026-2027', term:'الأول الابتدائي — ترم أول', url:`${MOE27}Primary/Primary1/Term1/StudentBook/Math_FR_P1_T1.pdf` },
+        { title:'الرياضيات باللغة العربية 2026-2027', term:'الثاني الابتدائي — ترم أول', url:`${MOE27}Primary/Primary2/Term1/StudentBook/Math_Ar_prim2_t1.pdf` },
+        { title:'الرياضيات باللغة الإنجليزية 2026-2027', term:'الثاني الابتدائي — ترم أول', url:`${MOE27}Primary/Primary2/Term1/StudentBook/Math_EN_P2_T1.pdf` },
+        { title:'الرياضيات باللغة العربية 2026-2027', term:'الثالث الابتدائي — ترم أول', url:`${MOE27}Primary/Primary3/Term1/StudentBook/Math_Ar_prim3_t1.pdf` },
+        { title:'الرياضيات باللغة الإنجليزية 2026-2027', term:'الثالث الابتدائي — ترم أول', url:`${MOE27}Primary/Primary3/Term1/StudentBook/Math_EN_P3_T1.pdf` },
+        { title:'الرياضيات باللغة العربية 2026-2027', term:'الرابع الابتدائي — ترم أول', url:`${MOE27}Primary/Primary4/Term1/StudentBook/Math_Ar_prim4_t1.pdf` },
+        { title:'الرياضيات باللغة الإنجليزية 2026-2027', term:'الرابع الابتدائي — ترم أول', url:`${MOE27}Primary/Primary4/Term1/StudentBook/Math_EN_P4_T1.pdf` },
+        { title:'الرياضيات باللغة الفرنسية 2026-2027', term:'الرابع الابتدائي — ترم أول', url:`${MOE27}Primary/Primary4/Term1/StudentBook/Math_FR_P4_T1.pdf` },
+        { title:'الرياضيات باللغة العربية 2026-2027', term:'الخامس الابتدائي — ترم أول', url:`${MOE27}Primary/Primary5/Term1/StudentBook/Math_Ar_prim5_t1.pdf` },
+        { title:'الرياضيات باللغة الفرنسية 2026-2027', term:'الخامس الابتدائي — ترم أول', url:`${MOE27}Primary/Primary5/Term1/StudentBook/Math_FR_prim5_TR1.pdf` },
+        { title:'الرياضيات باللغة العربية 2026-2027', term:'السادس الابتدائي — ترم أول', url:`${MOE27}Primary/Primary6/Term1/StudentBook/Math_Primary6_T1.pdf` },
+        { title:'الرياضيات باللغة الإنجليزية 2026-2027', term:'السادس الابتدائي — ترم أول', url:`${MOE27}Primary/Primary6/Term1/StudentBook/Math_EN_P6_T1.pdf` },
+        { title:'الرياضيات باللغة الفرنسية 2026-2027', term:'السادس الابتدائي — ترم أول', url:`${MOE27}Primary/Primary6/Term1/StudentBook/Math_FR_P6_T1.pdf` },
+      ]},
+      { subj:'التربية الدينية', icon:'☪️', color:'#059669', books:[
+        { title:'التربية الدينية الإسلامية 2026-2027', term:'الأول الابتدائي — ترم أول', url:`${MOE27}Primary/Primary1/Term1/StudentBook/Islamic_religion_prim1_t1.pdf` },
+        { title:'التربية الدينية المسيحية 2026-2027', term:'الأول الابتدائي — ترم أول', url:`${MOE27}Primary/Primary1/Term1/StudentBook/Cristian_religion_prim1_t1.pdf` },
+        { title:'التربية الدينية الإسلامية 2026-2027', term:'الثاني الابتدائي — ترم أول', url:`${MOE27}Primary/Primary2/Term1/StudentBook/Islamic_religion_prim2_t1.pdf` },
+        { title:'التربية الدينية المسيحية 2026-2027', term:'الثاني الابتدائي — ترم أول', url:`${MOE27}Primary/Primary2/Term1/StudentBook/Cristian_religion_prim2_t1.pdf` },
+        { title:'التربية الدينية الإسلامية 2026-2027', term:'الثالث الابتدائي — ترم أول', url:`${MOE27}Primary/Primary3/Term1/StudentBook/Islamic_religion_prim3_t1.pdf` },
+        { title:'التربية الدينية المسيحية 2026-2027', term:'الثالث الابتدائي — ترم أول', url:`${MOE27}Primary/Primary3/Term1/StudentBook/Cristian_religion_prim3_t1.pdf` },
+        { title:'التربية الدينية الإسلامية 2026-2027', term:'الرابع الابتدائي — ترم أول', url:`${MOE27}Primary/Primary4/Term1/StudentBook/Islamic_religion_prim4_t1.pdf` },
+        { title:'التربية الدينية المسيحية 2026-2027', term:'الرابع الابتدائي — ترم أول', url:`${MOE27}Primary/Primary4/Term1/StudentBook/Cristian_religion_prim4_t1.pdf` },
+        { title:'التربية الدينية الإسلامية 2026-2027', term:'الخامس الابتدائي — ترم أول', url:`${MOE27}Primary/Primary5/Term1/StudentBook/Islamic_prim5_tr1.pdf` },
+        { title:'التربية الدينية المسيحية 2026-2027', term:'الخامس الابتدائي — ترم أول', url:`${MOE27}Primary/Primary5/Term1/StudentBook/Cristian_reliogion_prim5_t1.pdf` },
+        { title:'التربية الدينية الإسلامية 2026-2027', term:'السادس الابتدائي — ترم أول', url:`${MOE27}Primary/Primary6/Term1/StudentBook/Islamic_Education_Primary6_T1.pdf` },
+        { title:'التربية الدينية المسيحية 2026-2027', term:'السادس الابتدائي — ترم أول', url:`${MOE27}Primary/Primary6/Term1/StudentBook/Christian_Education_Primary6_T1.pdf` },
       ]},
       { subj:'العلوم', icon:'🔬', color:'#10B981', books:[
-        { title:'العلوم — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BLOB26}/Primary/Primary2/Term1/StudentBook/Discovery_AR_prim2_TR1_2.pdf` },
-        { title:'العلوم — ابتدائي ثالث ت١ 2025-2026', term:'ابتدائي ثالث — ترم أول', url:`${BLOB26}/Primary/Primary3/Term1/StudentBook/Discovery_AR_prim3_TR1_2.pdf` },
-        { title:'العلوم — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BLOB26}/Primary/Primary4/Term1/StudentBook/Science_prim4_TR1.pdf` },
-        { title:'العلوم — ابتدائي خامس ت١ 2025-2026', term:'ابتدائي خامس — ترم أول', url:`${BLOB26}/Primary/Primary5/Term1/StudentBook/Science_AR_prim5_TR1.pdf` },
-        { title:'العلوم — ابتدائي سادس ت١ 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BLOB26}/Primary/Primary6/Term1/StudentBook/Science_AR_prim6_TR1.pdf` },
+        { title:'العلوم باللغة العربية 2026-2027', term:'الرابع الابتدائي — ترم أول', url:`${MOE27}Primary/Primary4/Term1/StudentBook/Science_Ar_prim4_t1.pdf` },
+        { title:'العلوم باللغة الإنجليزية 2026-2027', term:'الرابع الابتدائي — ترم أول', url:`${MOE27}Primary/Primary4/Term1/StudentBook/Science_EN_PRIM4_Tr1.pdf` },
+        { title:'العلوم باللغة الفرنسية 2026-2027', term:'الرابع الابتدائي — ترم أول', url:`${MOE27}Primary/Primary4/Term1/StudentBook/Science_FR_prim4_TR1.pdf` },
+        { title:'تكنولوجيا المعلومات والاتصالات باللغة العربية 2026-2027', term:'الرابع الابتدائي — ترم أول', url:`${MOE27}Primary/Primary4/Term1/StudentBook/ICT_ARABIC_Prim4_TR1.pdf` },
+        { title:'العلوم باللغة العربية 2026-2027', term:'الخامس الابتدائي — ترم أول', url:`${MOE27}Primary/Primary5/Term1/StudentBook/Science_Ar_prim5_t1.pdf` },
+        { title:'العلوم باللغة الفرنسية 2026-2027', term:'الخامس الابتدائي — ترم أول', url:`${MOE27}Primary/Primary5/Term1/StudentBook/Science_FR_prim5_TR1.pdf` },
+        { title:'تكنولوجيا المعلومات والاتصالات باللغة العربية 2026-2027', term:'الخامس الابتدائي — ترم أول', url:`${MOE27}Primary/Primary5/Term1/StudentBook/ICT_ARABIC_Prim5_TR1.pdf` },
+        { title:'العلوم باللغة العربية 2026-2027', term:'السادس الابتدائي — ترم أول', url:`${MOE27}Primary/Primary6/Term1/StudentBook/Science_Primary6_T1.pdf` },
+        { title:'تكنولوجيا المعلومات والاتصالات باللغة العربية 2026-2027', term:'السادس الابتدائي — ترم أول', url:`${MOE27}Primary/Primary6/Term1/StudentBook/ICT_ARABIC_Prim6_TR1.pdf` },
       ]},
-      { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
-        { title:'اللغة العربية — ابتدائي أول ت١ 2025-2026', term:'ابتدائي أول — ترم أول', url:`${BLOB26}/Primary/Primary1/Term1/StudentBook/Arabic_prim1_T1.pdf` },
-        { title:'اللغة العربية — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BLOB26}/Primary/Primary2/Term1/StudentBook/Arabic_Prim2_T1.pdf` },
-        { title:'اللغة العربية — ابتدائي ثالث ت١ 2025-2026', term:'ابتدائي ثالث — ترم أول', url:`${BLOB26}/Primary/Primary3/Term1/StudentBook/Arabic_Prim3_TR1.pdf` },
-        { title:'اللغة العربية — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BLOB26}/Primary/Primary4/Term1/StudentBook/Arabic_prim4_T1.pdf` },
-        { title:'اللغة العربية — ابتدائي خامس ت١ 2025-2026', term:'ابتدائي خامس — ترم أول', url:`${BLOB26}/Primary/Primary5/Term1/StudentBook/Arabic_prim5_T1.pdf` },
-        { title:'اللغة العربية — ابتدائي سادس ت١ 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BLOB26}/Primary/Primary6/Term1/StudentBook/Arabic_prim6_T1.pdf` },
-      ]},
-      { subj:'التربية الإسلامية', icon:'☪️', color:'#059669', books:[
-        { title:'التربية الإسلامية — ابتدائي ثاني ت١ 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BLOB26}/Primary/Primary2/Term1/StudentBook/islamic_prim2_tr1.pdf` },
-        { title:'التربية الإسلامية — ابتدائي رابع ت١ 2025-2026', term:'ابتدائي رابع — ترم أول', url:`${BLOB26}/Primary/Primary4/Term1/StudentBook/islamic_prim4_tr1.pdf` },
-        { title:'التربية الإسلامية — ابتدائي خامس ت١ 2025-2026', term:'ابتدائي خامس — ترم أول', url:`${BLOB26}/Primary/Primary5/Term1/StudentBook/islamic_prim5_tr1.pdf` },
-        { title:'التربية الإسلامية — ابتدائي سادس ت١ 2025-2026', term:'ابتدائي سادس — ترم أول', url:`${BLOB26}/Primary/Primary6/Term1/StudentBook/islamic_prim6_tr1.pdf` },
-      ]},
-      { subj:'Discover / اكتشف', icon:'🌍', color:'#EC4899', books:[
-        { title:'Discover — Primary 1 Term 1 2025-2026', term:'ابتدائي أول — ترم أول', url:`${BLOB26}/Primary/Primary1/Term1/StudentBook/Discovery_E_prim1_TR1.pdf` },
-        { title:'Discover — Primary 2 Term 1 2025-2026', term:'ابتدائي ثاني — ترم أول', url:`${BLOB26}/Primary/Primary2/Term1/StudentBook/Discovery_E_prim2_TR1_2.pdf` },
-      ]},
-      { subj:'تكنولوجيا المعلومات', icon:'💻', color:'#0EA5E9', books:[
-        { title:'تكنولوجيا المعلومات — ابتدائي خامس ت٢ 2025-2026', term:'ابتدائي خامس — ترم ثاني', url:`${BLOB26}/Primary/Primary5/Term2/StudentBook/ICT_Ar_5prim_T2.pdf` },
+      { subj:'الفلسفة وعلم النفس', icon:'🧠', color:'#6366F1', books:[
+        { title:'الدراسات الاجتماعية 2026-2027', term:'الرابع الابتدائي — ترم أول', url:`${MOE27}Primary/Primary4/Term1/StudentBook/Social_studies_prim4_t1.pdf` },
+        { title:'الدراسات الاجتماعية 2026-2027', term:'الخامس الابتدائي — ترم أول', url:`${MOE27}Primary/Primary5/Term1/StudentBook/Social_studies_prim5_t1.pdf` },
+        { title:'الدراسات الاجتماعية 2026-2027', term:'السادس الابتدائي — ترم أول', url:`${MOE27}Primary/Primary6/Term1/StudentBook/Social_Studies_Primary6_T1.pdf` },
       ]},
     ],
-    // ── الصف الإعدادي ─────────────────────────────────────────────
     middle: [
       { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
-        { title:'اللغة العربية — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BLOB26}/Prepratory/Prepratory1/Term1/StudentBook/Arabic_Prp1_Tr1.pdf` },
-        { title:'اللغة العربية — إعدادي أول ت٢ 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BLOB26}/Prepratory/Prepratory1/Term2/StudentBook/Arabic_Prep1_SB_T2.pdf` },
-        { title:'اللغة العربية — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BLOB26}/Prepratory/Prepratory2/Term1/StudentBook/Arabic_Prep2_SB_T1.pdf` },
-        { title:'اللغة العربية — إعدادي ثالث ت١ 2025-2026', term:'إعدادي ثالث — ترم أول', url:`${BLOB26}/Prepratory/Prepratory3/Term1/StudentBook/ArabicNotebook_Prp3_Tr1.pdf` },
+        { title:'اللغة العربية 2026-2027', term:'الأول الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory1/Term1/StudentBook/Arabic_Prep1_T1.pdf` },
+        { title:'اللغة العربية 2026-2027', term:'الثاني الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory2/Term1/StudentBook/Arabic_language_prep2_t1.pdf` },
+        { title:'اللغة العربية 2026-2027', term:'الثالث الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory3/Term1/StudentBook/Arabic_language_prep3_t1.pdf` },
       ]},
       { subj:'اللغة الإنجليزية', icon:'🗣️', color:'#F97316', books:[
-        { title:'English — Prep 1 Term 1 2025-2026', term:'إعدادي أول — ترم أول', url:`${BLOB26}/Prepratory/Prepratory1/Term1/StudentBook/English_Prp1_Tr1.pdf` },
-        { title:'English — Prep 1 Term 2 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BLOB26}/Prepratory/Prepratory1/Term2/StudentBook/English_Prep1_Tr2.pdf` },
-        { title:'English — Prep 2 Term 1 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BLOB26}/Prepratory/Prepratory2/Term1/StudentBook/English_Prp2_Tr1.pdf` },
-        { title:'English — Prep 3 Term 1 2025-2026', term:'إعدادي ثالث — ترم أول', url:`${BLOB26}/Prepratory/Prepratory3/Term1/StudentBook/English_Prp3_Tr1.pdf` },
-      ]},
-      { subj:'اللغة الفرنسية', icon:'🇫🇷', color:'#6366F1', books:[
-        { title:'الفرنسية — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BLOB26}/Prepratory/Prepratory1/Term1/StudentBook/French_Prp1_TR1.pdf` },
-        { title:'الفرنسية — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BLOB26}/Prepratory/Prepratory2/Term1/StudentBook/French_Prp2_TR1.pdf` },
-        { title:'الفرنسية — إعدادي ثالث ت١ 2025-2026', term:'إعدادي ثالث — ترم أول', url:`${BLOB26}/Prepratory/Prepratory3/Term1/StudentBook/French_Prp3_TR1.pdf` },
+        { title:'اللغة الإنجليزية-لغة أجنبية أولى 2026-2027', term:'الأول الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory1/Term1/StudentBook/English_Prep1_T1.pdf` },
+        { title:'اللغة الإنجليزية-لغة أجنبية أولى 2026-2027', term:'الثاني الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory2/Term1/StudentBook/English_language_prep2_t1.pdf` },
+        { title:'اللغة الإنجليزية-لغة أجنبية أولى 2026-2027', term:'الثالث الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory3/Term1/StudentBook/English_language_prep3_t1.pdf` },
       ]},
       { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
-        { title:'الرياضيات (عربي) — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BLOB26}/Prepratory/Prepratory1/Term1/StudentBook/Math_AR_prp1_TR1.pdf` },
-        { title:'الرياضيات (عربي) — إعدادي أول ت٢ 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BLOB26}/Prepratory/Prepratory1/Term2/StudentBook/Math_AR_prp1_TR2.pdf` },
-        { title:'الرياضيات (عربي) — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BLOB26}/Prepratory/Prepratory2/Term1/StudentBook/Math_AR_Prp2_Tr1.pdf` },
-        { title:'الرياضيات (إنجليزي) — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BLOB26}/Prepratory/Prepratory2/Term1/StudentBook/Math_En_PE2_SB_T1.pdf` },
-        { title:'الرياضيات (عربي) — إعدادي ثالث ت١ 2025-2026', term:'إعدادي ثالث — ترم أول', url:`https://elearnningcontent.blob.core.windows.net/elearnningcontent/content/prep/semester1/Grade3/pdf/math_3prep_t1.pdf` },
+        { title:'الرياضيات باللغة العربية 2026-2027', term:'الأول الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory1/Term1/StudentBook/Math_Prep1_T1.pdf` },
+        { title:'الرياضيات باللغة الإنجليزية 2026-2027', term:'الأول الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory1/Term1/StudentBook/Math_EN_Prp1_T1.pdf` },
+        { title:'الرياضيات باللغة العربية 2026-2027', term:'الثاني الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory2/Term1/StudentBook/Math_Ar_prep2_t1.pdf` },
+        { title:'الرياضيات باللغة الإنجليزية 2026-2027', term:'الثاني الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory2/Term1/StudentBook/Math_EN_Prp2_T1.pdf` },
+        { title:'الرياضيات باللغة الفرنسية 2026-2027', term:'الثاني الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory2/Term1/StudentBook/Math_FR_Prp2_T1.pdf` },
+        { title:'الرياضيات باللغة العربية 2026-2027', term:'الثالث الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory3/Term1/StudentBook/Math_Ar_prep3_t1.pdf` },
+      ]},
+      { subj:'التربية الدينية', icon:'☪️', color:'#059669', books:[
+        { title:'التربية الدينية الإسلامية 2026-2027', term:'الأول الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory1/Term1/StudentBook/Islamic_Education_Prep1_T1.pdf` },
+        { title:'التربية الدينية المسيحية 2026-2027', term:'الأول الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory1/Term1/StudentBook/Christian_Education_Prep1_T1.pdf` },
+        { title:'التربية الدينية الإسلامية 2026-2027', term:'الثاني الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory2/Term1/StudentBook/Islamic_religion_prep2_t1.pdf` },
+        { title:'التربية الدينية المسيحية 2026-2027', term:'الثاني الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory2/Term1/StudentBook/Cristian_religion_prep2_t1.pdf` },
+        { title:'التربية الدينية الإسلامية 2026-2027', term:'الثالث الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory3/Term1/StudentBook/Islamic_religion_prep3_t1.pdf` },
+        { title:'التربية الدينية المسيحية 2026-2027', term:'الثالث الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory3/Term1/StudentBook/Cristian_Prp3_Tr1.pdf` },
       ]},
       { subj:'العلوم', icon:'🔬', color:'#10B981', books:[
-        { title:'العلوم (عربي) — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BLOB26}/Prepratory/Prepratory1/Term1/StudentBook/Science_AR_Prp1_Tr1.pdf` },
-        { title:'العلوم (عربي) — إعدادي أول ت٢ 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BLOB26}/Prepratory/Prepratory1/Term2/StudentBook/Science_AR_Prp1_TR2.pdf` },
-        { title:'العلوم (عربي) — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BLOB26}/Prepratory/Prepratory2/Term1/StudentBook/Science_AR)Prp2_Tr1.pdf` },
-        { title:'العلوم (عربي) — إعدادي ثاني ت٢ 2025-2026', term:'إعدادي ثاني — ترم ثاني', url:`${BLOB26}/Prepratory/Prepratory2/Term2/StudentBook/Science_AR_Prp2_Tr2.pdf` },
-        { title:'العلوم — إعدادي ثالث ت١ 2025-2026', term:'إعدادي ثالث — ترم أول', url:`${BLOB26}/Prepratory/Prepratory3/Term1/StudentBook/Science_AR_Prp3_Tr1_2.pdf` },
+        { title:'العلوم باللغة العربية 2026-2027', term:'الأول الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory1/Term1/StudentBook/Science_Prep1_T1.pdf` },
+        { title:'العلوم باللغة الإنجليزية 2026-2027', term:'الأول الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory1/Term1/StudentBook/Science_EN_Prp1_TR1..pdf` },
+        { title:'العلوم باللغة الفرنسية 2026-2027', term:'الأول الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory1/Term1/StudentBook/Science_FR_Prp1_TR1.pdf` },
+        { title:'الكمبيوتر وتكنولوجيا المعلومات والاتصالات باللغة العربية 2026-2027', term:'الأول الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory1/Term1/StudentBook/ICT_ARABIC_Prp1_TR1.pdf` },
+        { title:'العلوم باللغة العربية 2026-2027', term:'الثاني الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory2/Term1/StudentBook/Science_Ar_prep2_t1.pdf` },
+        { title:'العلوم باللغة الإنجليزية 2026-2027', term:'الثاني الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory2/Term1/StudentBook/Science_EN_Pep2_T1.pdf` },
+        { title:'العلوم باللغة الفرنسية 2026-2027', term:'الثاني الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory2/Term1/StudentBook/Science_FR_Pep2_T1.pdf` },
+        { title:'الكمبيوتر وتكنولوجيا المعلومات والاتصالات باللغة العربية 2026-2027', term:'الثاني الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory2/Term1/StudentBook/ICT_ARABIC_Prp2_TR1.pdf` },
+        { title:'الكمبيوتر وتكنولوجيا المعلومات والاتصالات باللغة الإنجليزية 2026-2027', term:'الثاني الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory2/Term1/StudentBook/ICT_EN_Prp2_Tr1.pdf` },
+        { title:'الكمبيوتر وتكنولوجيا المعلومات والاتصالات باللغة العربية 2026-2027', term:'الثالث الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory3/Term1/StudentBook/ICT_ARABIC_Prp3_TR1.pdf` },
+        { title:'العلوم باللغة العربية 2026-2027', term:'الثالث الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory3/Term1/StudentBook/Science_AR_Prp3_Tr1.pdf` },
+      ]},
+      { subj:'الفلسفة وعلم النفس', icon:'🧠', color:'#6366F1', books:[
+        { title:'الدراسات الاجتماعية 2026-2027', term:'الأول الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory1/Term1/StudentBook/Social_Studies_Prep1_T1.pdf` },
+        { title:'الدراسات الاجتماعية 2026-2027', term:'الثاني الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory2/Term1/StudentBook/Social_studies_prep2_t1.pdf` },
+        { title:'الدراسات الاجتماعية 2026-2027', term:'الثالث الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory3/Term1/StudentBook/Social_studies_prep3_t1.pdf` },
+      ]},
+      { subj:'أنشطة ومهارات', icon:'🎨', color:'#EC4899', books:[
+        { title:'التربية المسرحية 2026-2027', term:'الأول الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory1/Term1/StudentBook/Thetar_prep1_Tr1.pdf` },
+        { title:'المكتبات ومهارات البحث 2026-2027', term:'الأول الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory1/Term1/StudentBook/Librarie_research_skills_prep1_Tr1.pdf` },
+        { title:'الإعلام التربوي 2026-2027', term:'الأول الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory1/Term1/StudentBook/Educational_media_Pep1_Tr1.pdf` },
+        { title:'مهارات الصناعة وريادة الأعمال 2026-2027', term:'الثاني الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory2/Term1/StudentBook/Industry_Prep2_T1.pdf` },
+        { title:'مهارات الزراعة وريادة الأعمال 2026-2027', term:'الثاني الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory2/Term1/StudentBook/Agriculture_2_Preparatory_TR1.pdf` },
+        { title:'المكتبات ومهارات البحث 2026-2027', term:'الثاني الإعدادي — ترم أول', url:`${MOE27}Prepratory/Prepratory2/Term1/StudentBook/Libraries_2prep_tr1.pdf` },
+      ]},
+    ],
+    high1: [
+      { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
+        { title:'اللغة العربية 2026-2027', term:'الأول الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry1/Term1/StudentBook/arabic_1sec_t1.pdf` },
+        { title:'اللغة العربية-القصة 2026-2027', term:'الأول الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry1/Term1/StudentBook/Arabic_language_STORY_Sec1_Tr1.pdf` },
+        { title:'اللغة العربية-القواعد الأساسية للنحو والصرف 2026-2027', term:'الأول الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry1/Term1/StudentBook/naho_general_TR1_1sec.pdf` },
+      ]},
+      { subj:'اللغة الإنجليزية', icon:'🗣️', color:'#F97316', books:[
+        { title:'اللغة الإنجليزية-لغة أجنبية أولى 2026-2027', term:'الأول الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry1/Term1/StudentBook/English_1sec_t1.pdf` },
+        { title:'اللغة الإنجليزية-لغة أجنبية ثانية 2026-2027', term:'الأول الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry1/Term1/StudentBook/English_second_language_secondary1.pdf` },
+      ]},
+      { subj:'العلوم', icon:'🔬', color:'#10B981', books:[
+        { title:'العلوم المتكاملة باللغة العربية 2026-2027', term:'الأول الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry1/Term1/StudentBook/integratedscience_ARABIC_1_Secondary_TR1.pdf` },
+        { title:'العلوم المتكاملة باللغة الإنجليزية 2026-2027', term:'الأول الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry1/Term1/StudentBook/integratedscience_EN_1_Secondary_TR1.pdf` },
+        { title:'العلوم المتكاملة باللغة الفرنسية 2026-2027', term:'الأول الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry1/Term1/StudentBook/integratedscience_FR_1_Secondary_TR1.pdf` },
+      ]},
+      { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
+        { title:'الرياضيات باللغة العربية 2026-2027', term:'الأول الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry1/Term1/StudentBook/Mathematics_AR_Tr1_Secondary.pdf` },
+        { title:'الرياضيات باللغة الإنجليزية 2026-2027', term:'الأول الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry1/Term1/StudentBook/Mathematics_EN_Tr1_Secondary.pdf` },
+        { title:'الرياضيات باللغة الفرنسية 2026-2027', term:'الأول الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry1/Term1/StudentBook/Mathematics_FR_Tr1_Secondary.pdf` },
       ]},
       { subj:'الدراسات الاجتماعية', icon:'🏛️', color:'#D97706', books:[
-        { title:'الدراسات الاجتماعية — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BLOB26}/Prepratory/Prepratory1/Term1/StudentBook/Social_prp1_Tr1.pdf` },
-        { title:'الدراسات الاجتماعية — إعدادي أول ت٢ 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BLOB26}/Prepratory/Prepratory1/Term2/StudentBook/Social_prp1_Tr2.pdf` },
-        { title:'الدراسات الاجتماعية — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BLOB26}/Prepratory/Prepratory2/Term1/StudentBook/Social_prp2_T1.pdf` },
-        { title:'الدراسات الاجتماعية — إعدادي ثالث ت١ 2025-2026', term:'إعدادي ثالث — ترم أول', url:`${BLOB26}/Prepratory/Prepratory3/Term1/StudentBook/Social_prp3_T1_2.pdf` },
+        { title:'التاريخ 2026-2027', term:'الأول الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry1/Term1/StudentBook/History_Sec1_Tr1.pdf` },
       ]},
-      { subj:'التربية الإسلامية', icon:'☪️', color:'#059669', books:[
-        { title:'التربية الإسلامية — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BLOB26}/Prepratory/Prepratory1/Term1/StudentBook/Islamic_Tr1_Pr1.pdf` },
-        { title:'التربية الإسلامية — إعدادي أول ت٢ 2025-2026', term:'إعدادي أول — ترم ثاني', url:`${BLOB26}/Prepratory/Prepratory1/Term2/StudentBook/Islamic_prp1_Tr2.pdf` },
-        { title:'التربية الإسلامية — إعدادي ثاني ت١ 2025-2026', term:'إعدادي ثاني — ترم أول', url:`${BLOB26}/Prepratory/Prepratory2/Term1/StudentBook/Islamic_Tr1_Pr2.pdf` },
-        { title:'التربية الإسلامية — إعدادي ثاني ت٢ 2025-2026', term:'إعدادي ثاني — ترم ثاني', url:`${BLOB26}/Prepratory/Prepratory2/Term2/StudentBook/Islamic_prp2_Tr2.pdf` },
+      { subj:'الفلسفة وعلم النفس', icon:'🧠', color:'#6366F1', books:[
+        { title:'الفلسفة والمنطق 2026-2027', term:'الأول الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry1/Term1/StudentBook/Philosophy_and_Logic_Tr1_1sec.pdf` },
       ]},
-      { subj:'تكنولوجيا المعلومات', icon:'💻', color:'#0EA5E9', books:[
-        { title:'تكنولوجيا المعلومات — إعدادي أول ت١ 2025-2026', term:'إعدادي أول — ترم أول', url:`${BLOB26}/Prepratory/Prepratory1/Term1/StudentBook/ICT_AR_1_Preparatory_Tr1.pdf` },
+      { subj:'اللغات الأجنبية الأخرى', icon:'🌍', color:'#14B8A6', books:[
+        { title:'اللغة الفرنسية-لغة أجنبية أولى-كراسة التدريبات 2026-2027', term:'الأول الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry1/Term1/StudentBook/Premiere_langue_francaise_WB_Sec1_Tr1.pdf` },
+        { title:'اللغة الفرنسية-لغة أجنبية أولى-القصة 2026-2027', term:'الأول الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry1/Term1/StudentBook/Premiere_langue_francaise_STORY_Sec1_Tr1.pdf` },
+        { title:'اللغة الفرنسية-لغة أجنبية ثانية 2026-2027', term:'الأول الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry1/Term1/StudentBook/Une_deuxieme_langue_francaise_Sec1_Tr1.pdf` },
+        { title:'اللغة الألمانية-لغة أجنبية ثانية 2026-2027', term:'الأول الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry1/Term1/StudentBook/Deutschl_anguage_Sec1_Tr1.pdf` },
+        { title:'اللغة الإيطالية-لغة أجنبية ثانية 2026-2027', term:'الأول الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry1/Term1/StudentBook/Italiano_language_Sec1_Tr1.pdf` },
+        { title:'اللغة الإسبانية-لغة أجنبية ثانية 2026-2027', term:'الأول الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry1/Term1/StudentBook/Espanol_language_Sec1_Tr1.pdf` },
+      ]},
+      { subj:'التربية الدينية', icon:'☪️', color:'#059669', books:[
+        { title:'التربية الدينية الإسلامية 2026-2027', term:'الأول الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry1/Term1/StudentBook/deen_islamy_1sec_t1_t2.pdf` },
+        { title:'التربية الدينية المسيحية 2026-2027', term:'الأول الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry1/Term1/StudentBook/Christian_1sec_t1.pdf` },
+      ]},
+      { subj:'الحاسب وتكنولوجيا المعلومات', icon:'💻', color:'#0891B2', books:[
+        { title:'البرمجة والذكاء الاصطناعي باللغة العربية 2026-2027', term:'الأول الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry1/Term1/StudentBook/ICT_AR__Sec1_Tr1.pdf` },
+        { title:'البرمجة والذكاء الاصطناعي باللغة الانجليزية 2026-2027', term:'الأول الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry1/Term1/StudentBook/ICT_EN__Sec1_Tr1.pdf` },
+      ]},
+    ],
+    high2: [
+      { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
+        { title:'اللغة العربية 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/Arabic_language_Sec2_Tr1.pdf` },
+        { title:'اللغة العربية-القصة 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/Arabic_language_Story_Sec2_Tr1.pdf` },
+        { title:'اللغة العربية-القواعد الأساسية للنحو والصرف 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry1/Term1/StudentBook/naho_general_TR1_1sec.pdf` },
+      ]},
+      { subj:'اللغة الإنجليزية', icon:'🗣️', color:'#F97316', books:[
+        { title:'اللغة الإنجليزية-لغة أجنبية أولى 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/English_language_2sec_t1.pdf` },
+        { title:'اللغة الإنجليزية-لغة أجنبية ثانية 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/English_second_language_secondary2.pdf` },
+      ]},
+      { subj:'اللغات الأجنبية الأخرى', icon:'🌍', color:'#14B8A6', books:[
+        { title:'اللغة الفرنسية-لغة أجنبية أولى 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/Premiere_langue_francaise_SB_Sec2_Tr1-125.pdf` },
+        { title:'اللغة الفرنسية-لغة أجنبية أولى-كراسة التدريبات 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/Premiere_langue_francaise_WB_Sec2_Tr1.pdf` },
+        { title:'اللغة الفرنسية-لغة أجنبية أولى-القصة 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/Premiere_langue_francaise_STORY_Sec2_Tr1.pdf` },
+        { title:'اللغة الفرنسية-لغة أجنبية ثانية 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/Une_deuxieme_langue_francaise_Sec2_Tr1.pdf` },
+        { title:'اللغة الألمانية-لغة أجنبية ثانية 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/Deutsch_language_Sec2_Tr1.pdf` },
+        { title:'اللغة الإيطالية-لغة أجنبية ثانية 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/Italiano_language_Sec2_Tr1.pdf` },
+        { title:'اللغة الإسبانية-لغة أجنبية ثانية 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/Espanol_language_Sec2_Tr1.pdf` },
+      ]},
+      { subj:'التربية الدينية', icon:'☪️', color:'#059669', books:[
+        { title:'التربية الدينية الإسلامية 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/Islamic_religion_Sec2_Tr1.pdf` },
+        { title:'التربية الدينية المسيحية 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/Christian_religion_Sec2_Tr1.pdf` },
+      ]},
+      { subj:'الكيمياء', icon:'⚗️', color:'#A855F7', books:[
+        { title:'الكيمياء باللغة العربية 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/Chemistry_Arabic_2_Secondary_TR1.pdf` },
+        { title:'الكيمياء باللغة الإنجليزية 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/chemistry_English_Sec2_TR1.pdf` },
+        { title:'الكيمياء باللغة الفرنسية 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/chemistry_FR_Sec2_TR1.pdf` },
+      ]},
+      { subj:'الفيزياء', icon:'⚛️', color:'#0EA5E9', books:[
+        { title:'الفيزياء باللغة العربية 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/Physics_Arabic_2_Secondary_TR1.pdf` },
+        { title:'الفيزياء باللغة الإنجليزية 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/Physics_EN_Secondary2_TR1.pdf` },
+        { title:'الفيزياء باللغة الفرنسية 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/Physics_F_Secondary2_TR1.pdf` },
+      ]},
+      { subj:'الدراسات الاجتماعية', icon:'🏛️', color:'#D97706', books:[
+        { title:'التاريخ 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/History_Sec2_Tr1.pdf` },
+        { title:'جغرافيا التنمية  2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/Geography_Sec2_Tr1.pdf` },
+        { title:'المواطنة وحقوق الإنسان 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/Citizenship_and_Human_Rights_Sec2_Tr1.pdf` },
+      ]},
+      { subj:'الفلسفة وعلم النفس', icon:'🧠', color:'#6366F1', books:[
+        { title:'علم النفس والاجتماع 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/Psychologyand_sociology_Sec2_Tr1.pdf` },
+      ]},
+      { subj:'العلوم', icon:'🔬', color:'#10B981', books:[
+        { title:'تكنولوجيا المعلومات والاتصالات باللغة العربية 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/ICT_AR_SEC2_Tr1.pdf` },
+        { title:'تكنولوجيا المعلومات والاتصالات باللغة الإنجليزية 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/ICT_En_SEC2_Tr1.pdf` },
+      ]},
+      { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
+        { title:'الرياضيات البحتة باللغة العربية 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/pure_Mathematics_ARABIC_Sec2_Tr1.pdf` },
+        { title:'الرياضيات البحتة باللغة الإنجليزية 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/pure_Mathematics_ENGLISH_Sec2_Tr1.pdf` },
+        { title:'الرياضيات البحتة باللغة الفرنسية 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/pure_Mathematics_FR_Sec2_Tr1.pdf` },
+        { title:'الرياضيات العامة باللغة العربية 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/General_Mathematics_ARABIC_Sec2_Tr1.pdf` },
+        { title:'الرياضيات العامة باللغة الإنجليزية 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/General_Mathematics_ENGLISH_Sec2_Tr1.pdf` },
+        { title:'تطبيقات الرياضيات باللغة العربية 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/Application_Mathematics_AR_Sec2_Tr1.pdf` },
+        { title:'تطبيقات الرياضيات باللغة الإنجليزية 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/Application_Mathematics_EN_Sec2_Tr1.pdf` },
+        { title:'تطبيقات الرياضيات باللغة الفرنسية 2026-2027', term:'الثاني الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry2/Term1/StudentBook/Application_des_Mathematiques_FR_Sec2_Tr1.pdf` },
+      ]},
+      { subj:'بكالوريا — اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
+        { title:'اللغة العربية — ج١ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Arabic-EB-part1.pdf` },
+        { title:'اللغة العربية — ج٢ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Arabic-EB-part2.pdf` },
+        { title:'اللغة العربية — القصة 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Story-Ar-EB.pdf` },
+      ]},
+      { subj:'بكالوريا — الدراسات الاجتماعية', icon:'🏛️', color:'#D97706', books:[
+        { title:'االتاريخ المصري — ج١ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}EgyptianHistory-Ar-EB-part1.pdf` },
+        { title:'االتاريخ المصري — ج٢ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}EgyptianHistory-Ar-EB-part2.pdf` },
+      ]},
+      { subj:'بكالوريا — اللغة الإنجليزية', icon:'🗣️', color:'#F97316', books:[
+        { title:'اللغة الإنجليزية — ج١ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Eng-L1-EB-Part1.pdf` },
+        { title:'اللغة الإنجليزية — ج٢ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Eng-L1-EB-Part2.pdf` },
+        { title:'اللغة الإنجليزية — القصة 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Story-En-EB-L1.pdf` },
+      ]},
+      { subj:'بكالوريا — اللغات الأجنبية الأخرى', icon:'🌍', color:'#14B8A6', books:[
+        { title:'اللغة الفرنسية — ج١ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}French-L1-EB-part1.pdf` },
+        { title:'اللغة الفرنسية — ج٢ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}French-L1-EB-part2.pdf` },
+        { title:'اللغة الفرنسية — القصة 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Story-Fr-EB-L1.pdf` },
+        { title:'اللغة الفرنسية — ج١ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Frensh-L2-EB-part1.pdf` },
+        { title:'اللغة الفرنسية — ج٢ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Frensh-L2-EB-part2.pdf` },
+        { title:'اللغة الالمانية — ج١ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}german-L2-EB-Part1.pdf` },
+        { title:'اللغة الالمانية — ج٢ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}german-L2-EB-Part2.pdf` },
+        { title:'اللغة الأسبانية — ج١ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Spanish-L2-EB-part1.pdf` },
+        { title:'اللغة الإيطالية — ج١ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Italy-L2-EB-part1.pdf` },
+        { title:'اللغة الصينية — ج١ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Chinese-L2-EB-part1.pdf` },
+        { title:'اللغة الصينية — ج٢ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Chinese-L2-EB-part2.pdf` },
+      ]},
+      { subj:'بكالوريا — الرياضيات', icon:'🔢', color:'#3B82F6', books:[
+        { title:'الرياضيات باللغة العربية — ج١ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Mathematics-Ar-EB-Part1.pdf` },
+        { title:'الرياضيات باللغة الإنجليزية — ج١ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Mathematics-En-EB-Part1.pdf` },
+        { title:'الرياضيات باللغة الإنجليزية — ج٢ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Mathematics-En-EB-Part2.pdf` },
+      ]},
+      { subj:'بكالوريا — الفيزياء', icon:'⚛️', color:'#0EA5E9', books:[
+        { title:'الفيزياء باللغة العربية — ج١ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Physics-Ar-EB-part1.pdf` },
+        { title:'الفيزياء باللغة الإنجليزية — ج١ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Physics-En-EB-Part1.pdf` },
+        { title:'الفيزياء باللغة العربية — ج٢ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Physics-Ar-EB-part2.pdf` },
+        { title:'الفيزياء باللغة الإنجليزية — ج٢ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Physics-En-EB-Part2.pdf` },
+      ]},
+      { subj:'بكالوريا — الكيمياء', icon:'⚗️', color:'#A855F7', books:[
+        { title:'الكيمياء باللغة العربية — ج١ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Chemistry-Ar-EB-part1.pdf` },
+        { title:'الكيمياء باللغة الإنجليزية — ج١ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Chemistry-En-EB-part1.pdf` },
+        { title:'الكيمياء باللغة العربية — ج٢ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Chemistry-Ar-EB-part2.pdf` },
+        { title:'الكيمياء باللغة الإنجليزية — ج٢ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Chemistry-En-EB-part2.pdf` },
+      ]},
+      { subj:'بكالوريا — الحاسب وتكنولوجيا المعلومات', icon:'💻', color:'#0891B2', books:[
+        { title:'البرمجة والذكاء الاصطناعي باللغة العربية — ج١ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Programming-ArtificialIntelligence-Ar-EB-part1.pdf` },
+        { title:'البرمجة والذكاء الاصطناعي باللغة الإنجليزية — ج١ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Programming-ArtificialIntelligence-En-EB-part1.pdf` },
+        { title:'البرمجة والذكاء الاصطناعي باللغة العربية — ج٢ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Programming-ArtificialIntelligence-Ar-EB-part2.pdf` },
+        { title:'البرمجة والذكاء الاصطناعي باللغة الإنجليزية — ج٢ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Programming-ArtificialIntelligence-En-EB-part2.pdf` },
+      ]},
+      { subj:'بكالوريا — الأعمال والمحاسبة', icon:'💼', color:'#16A34A', books:[
+        { title:'المحاسبة باللغة العربية — ج١ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Accuonting-Ar-EB-Part1.pdf` },
+        { title:'المحاسبة باللغة الإنجليزية — ج١ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Accounting-En-EB-part1.pdf` },
+        { title:'المحاسبة باللغة العربية — ج٢ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Accuonting-Ar-EB-Part2.pdf` },
+        { title:'المحاسبة باللغة الإنجليزية — ج٢ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Accounting-En-EB-Part2.pdf` },
+        { title:'إدارة العمال باللغة العربية — ج١ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Business-AR-EB-Part1.pdf` },
+        { title:'إدارة الأعمال بالغة الإنجليزية — ج١ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Business-En-EB-Part1.pdf` },
+        { title:'إدارة العمال باللغة العربية — ج٢ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Business-AR-EB-Part2.pdf` },
+        { title:'إدارة الأعمال بالغة الإنجليزية — ج٢ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Business-En-EB-part2.pdf` },
+      ]},
+      { subj:'بكالوريا — الفلسفة وعلم النفس', icon:'🧠', color:'#6366F1', books:[
+        { title:'علم النفس — ج١ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Psychology-EB-part1.pdf` },
+        { title:'علم النفس — ج٢ 2026-2027', term:'الثاني الثانوي — البكالوريا', url:`${EB}Psychology-EB-part2.pdf` },
+      ]},
+    ],
+    high: [
+      { subj:'اللغة العربية', icon:'📜', color:'#8B5CF6', books:[
+        { title:'اللغة العربية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Arabic_language_Sec3.pdf` },
+        { title:'اللغة العربية-القصة 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Arabic_language_Story_Sec3.pdf` },
+        { title:'اللغة العربية-القواعد الأساسية للنحو والصرف 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Arabic_language_NAHO_Sec3.pdf` },
+      ]},
+      { subj:'اللغة الإنجليزية', icon:'🗣️', color:'#F97316', books:[
+        { title:'اللغة الإنجليزية-لغة أجنبية أولى 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/English_language_Sec3_tr1.pdf` },
+        { title:'اللغة الإنجليزية-لغة أجنبية ثانية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/English_Second_Language_SEC3_Tr1.pdf` },
+      ]},
+      { subj:'اللغات الأجنبية الأخرى', icon:'🌍', color:'#14B8A6', books:[
+        { title:'اللغة الفرنسية-لغة أجنبية أولى 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Premiere_langue_francaise_SB_Sec3.pdf` },
+        { title:'اللغة الفرنسية-لغة أجنبية أولى-كراسة التدريبات 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Premiere_langue_francaise_WB_Sec3.pdf` },
+        { title:'اللغة الفرنسية-لغة أجنبية أولى-القصة 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Premiere_langue_francaise_Story_Sec3.pdf` },
+        { title:'اللغة الفرنسية-لغة أجنبية ثانية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Une_deuxieme_langue_francaise_Sec3.pdf` },
+        { title:'اللغة الألمانية-لغة أجنبية ثانية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Deutsch_language_Sec3.pdf` },
+        { title:'اللغة الإيطالية-لغة أجنبية ثانية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Italiano_language_Sec3.pdf` },
+        { title:'اللغة الإسبانية-لغة أجنبية ثانية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Espanol_language_Sec3.pdf` },
+      ]},
+      { subj:'التربية الدينية', icon:'☪️', color:'#059669', books:[
+        { title:'التربية الدينية الإسلامية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Islamic_religion_Sec3.pdf` },
+        { title:'التربية الدينية المسيحية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Christian_religion_Sec3.pdf` },
+      ]},
+      { subj:'الكيمياء', icon:'⚗️', color:'#A855F7', books:[
+        { title:'الكيمياء باللغة العربية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Chemistry_Arabic_Sec3.pdf` },
+        { title:'الكيمياء باللغة الإنجليزية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Chemistry_English_Sec3.pdf` },
+        { title:'الكيمياء باللغة الفرنسية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Chemistry_FR_Sec3.pdf` },
+      ]},
+      { subj:'الفيزياء', icon:'⚛️', color:'#0EA5E9', books:[
+        { title:'الفيزياء باللغة العربية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Physics_Arabic_Sec3.pdf` },
+        { title:'الفيزياء باللغة الإنجليزية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Physics_English_Sec3.pdf` },
+        { title:'الفيزياء باللغة الفرنسية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Physics_French_Sec3.pdf` },
+      ]},
+      { subj:'العلوم', icon:'🔬', color:'#10B981', books:[
+        { title:'الأحياء باللغة العربية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Biology_ARABIC_Sec3.pdf` },
+        { title:'الأحياء باللغة الإنجليزية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Biology_English_Sec3.pdf` },
+        { title:'الأحياء باللغة الفرنسية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Biology_FR_Sec3.pdf` },
+        { title:'تكنولوجيا المعلومات والاتصالات باللغة العربية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/ICT_AR_Sec3.pdf` },
+        { title:'تكنولوجيا المعلومات والاتصالات باللغة الإنجليزية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/ICT_EN_Sec3.pdf` },
+      ]},
+      { subj:'الدراسات الاجتماعية', icon:'🏛️', color:'#D97706', books:[
+        { title:'التاريخ 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/History_Sec3.pdf` },
+        { title:'الجغرافيا السياسية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Geography_Sec3.pdf` },
+        { title:'التربية الوطنية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/National_Education_Sec3_tr1.pdf` },
+      ]},
+      { subj:'الفلسفة وعلم النفس', icon:'🧠', color:'#6366F1', books:[
+        { title:'علم النفس والاجتماع 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Psychology_Sociology_Sec3.pdf` },
+      ]},
+      { subj:'الرياضيات', icon:'🔢', color:'#3B82F6', books:[
+        { title:'الرياضيات البحتة باللغة العربية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/pure_Mathematics_ARABIC_Sec3.pdf` },
+        { title:'الرياضيات البحتة باللغة الإنجليزية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/pure_Mathematics_ENGLISH_Sec3.pdf` },
+        { title:'الرياضيات البحتة باللغة الفرنسية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/pure_Mathematics_FRENCH_Sec3.pdf` },
+        { title:'الرياضيات التطبيقية باللغة العربية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/applied_Mathematics_ARABIC_Sec3.pdf` },
+        { title:'الرياضيات التطبيقية باللغة الإنجليزية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/applied_Mathematics_ENGLISH_Sec3.pdf` },
+        { title:'الرياضيات التطبيقية باللغة الفرنسية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/applied_Mathematics_FRENCH_Sec3.pdf` },
+        { title:'الإحصاء باللغة العربية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Statistics_Arabic_Sec3.pdf` },
+        { title:'الإحصاء باللغة الإنجليزية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Statistics_English_Sec3.pdf` },
+        { title:'الإحصاء باللغة الفرنسية 2026-2027', term:'الثالث الثانوي — ترم أول', url:`${MOE27}Secondry/Secondry3/Term1/StudentBook/Statistics_Fr_Sec3.pdf` },
       ]},
     ],
   },
-
-  // ══════════════════════════════════════════════════════════════
-  //  كتب خارجية مصرية — روابط Archive.org
-  // ══════════════════════════════════════════════════════════════
   egypt_ext: {
     // ثالث ثانوي — المعاصر
     high: [
