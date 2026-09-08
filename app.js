@@ -6227,6 +6227,12 @@ const TEXTBOOK_DB = {
   //  IB Diploma Programme — Official Subject Briefs (Free)
   // ══════════════════════════════════════════════════════════════
   ib: {
+    // IB offers exactly two levels here: middle = "MYP (Ages 11-16)" and high = "DP
+    // (Ages 16-19)". Every book in `high` is a Diploma Programme brief, titled "IB DP ...",
+    // so the `high` fallback showed an 11-year-old MYP student the briefs for a programme
+    // years away. Declared empty until real MYP material is added -- ibo.org blocks both
+    // this network and Railway (403), so no MYP link can be verified before publishing it.
+    middle: [],
     high: [
       { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
         { title:'IB DP Mathematics: Analysis & Approaches (AA) SL/HL', term:'IB Diploma Programme', url:`https://ibo.org/contentassets/5895a05412144fe890312bad52b17044/subject-brief-dp-math-analysis-and-approaches-en.pdf` },
@@ -21186,7 +21192,7 @@ async function downloadBook(url, title) {
   // shows a clear success/fail toast. Falls back to opening the proxy/source if blob fetch is blocked.
   try {
     const r = await fetch(proxied);
-    if (!r.ok) throw new Error('http ' + r.status);
+    if (!r.ok) { const err = new Error('http ' + r.status); err.proxyFailed = true; throw err; }
     const blob = await r.blob();
     const objUrl = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -21197,6 +21203,17 @@ async function downloadBook(url, title) {
     setTimeout(() => { try { document.body.removeChild(a); } catch(_) {} URL.revokeObjectURL(objUrl); }, 1500);
     showToast(S.lang==='en'?'✅ Book downloaded':'✅ تم تحميل الكتاب', 'success');
   } catch(e) {
+    // If the PROXY itself answered an error, retrying the same URL as a plain link just
+    // saves the error JSON as a .pdf and then reports success -- the visitor gets a
+    // 23-byte file called "IB DP Physics.pdf" and a green tick. Some publishers block
+    // datacenter IPs outright (ibo.org 403s Railway, ncert.nic.in refuses it), so the
+    // proxy can never fetch those; open the source instead, which does work in the
+    // visitor's own browser.
+    if (e && e.proxyFailed) {
+      showToast(S.lang==='en'?'Opening in a new tab instead':'جارٍ الفتح في تبويب جديد', 'info');
+      setTimeout(() => window.open(url, '_blank'), 400);
+      return;
+    }
     // Fallback 1: let the browser handle the proxy URL directly (attachment header still forces a save).
     try {
       const a = document.createElement('a');
