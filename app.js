@@ -21124,6 +21124,31 @@ async function downloadBook(url, title) {
   showToast(S.lang==='en'?'⏳ Downloading the book...':'⏳ جارٍ تحميل الكتاب...', 'info');
   // Server proxy streams the PDF (Content-Disposition: attachment, CORS-enabled).
   const proxied = `${API}/books/download?url=${encodeURIComponent(url)}&name=${encodeURIComponent(title || 'كتاب')}`;
+  // Big books must not take the blob path below: .blob() buffers the whole file in
+  // memory before it can be saved, and ministry books now reach 163MB -- a low-end
+  // phone cannot hold that. Ask the proxy's own ?check=1 for the size, and hand
+  // anything large straight to the browser's downloader, which streams to disk and
+  // (now that the proxy forwards Range) can resume a dropped connection.
+  const BLOB_MAX = 40 * 1024 * 1024;
+  const saveViaBrowser = () => {
+    const a = document.createElement('a');
+    a.href = proxied; a.download = (title || 'book').replace(/[\/\\:*?"<>|]+/g, ' ').trim() + '.pdf'; a.rel = 'noopener';
+    document.body.appendChild(a); a.click();
+    setTimeout(() => { try { document.body.removeChild(a); } catch(_) {} }, 1000);
+    showToast(S.lang==='en'?'✅ Download started':'✅ بدأ تنزيل الكتاب', 'success');
+  };
+  try {
+    const c = await fetch(`${API}/books/download?check=1&url=${encodeURIComponent(url)}`);
+    if (c.ok) {
+      const size = Number((await c.json()).size || 0);
+      if (size > BLOB_MAX) {
+        showToast(S.lang==='en'
+          ? `⬇️ Large book (${Math.round(size/1048576)} MB) — saving directly`
+          : `⬇️ كتاب كبير (${Math.round(size/1048576)} ميجا) — يتم الحفظ مباشرة`, 'info');
+        return saveViaBrowser();
+      }
+    }
+  } catch(_) { /* size unknown — fall through to the normal path */ }
   // Preferred path: fetch as a blob and save client-side — no tab navigation, works inside iframes,
   // shows a clear success/fail toast. Falls back to opening the proxy/source if blob fetch is blocked.
   try {
