@@ -3902,10 +3902,13 @@ function tplLogin() {
     <div class="lp-sub2">${L('درس حقيقي كامل، ثم أمثلة من المحادثات عبر كل المراحل.','A real full lesson, then conversation examples across every level.')}</div>
     <!-- A real recorded lesson, not a mockup. preload="none" so it costs no mobile
          data until a visitor actually presses play; native controls because a
-         60-second video needs a scrub bar, unlike the 12s hero clip. -->
+         60-second video needs a scrub bar, unlike the 12s hero clip. The lesson is
+         spoken aloud, so the source follows S.lang -- an English visitor would
+         otherwise hear Arabic narration under an English caption. -->
     <div class="lp-lesson">
       <video class="lp-lesson-v" controls playsinline preload="none"
-             poster="assets/kareem/lesson-demo.jpg" src="assets/kareem/lesson-demo.mp4"></video>
+             poster="${L('assets/kareem/lesson-demo.jpg','assets/kareem/lesson-demo-en.jpg')}"
+             src="${L('assets/kareem/lesson-demo.mp4','assets/kareem/lesson-demo-en.mp4')}"></video>
       <div class="lp-lesson-cap">
         ${L('درس كامل: المعادلة من الدرجة الأولى — يشرحه أستاذ كريم على السبورة','A full lesson: first-degree equations — taught by Mr. Kareem on the board')}
       </div>
