@@ -6303,6 +6303,29 @@ const TEXTBOOK_DB = {
       { subj:'Biology', icon:'🦠', color:'#EC4899', books:[
         { title:'Edexcel A level Biology A (Salters-Nuffield) Specification', term:'Edexcel A level', url:`https://qualifications.pearson.com/content/dam/pdf/A%20Level/biology-a/2015/specification-and-sample-assessment-materials/9781446930885-gce2015-a-bioa-spec.pdf` },
       ]},
+      { subj:'Chemistry', icon:'🧪', color:'#10B981', books:[
+        { title:'Edexcel A level Chemistry (9CH0) Specification', term:'Edexcel A level', url:`https://qualifications.pearson.com/content/dam/pdf/A%20Level/Chemistry/2015/Specification%20and%20sample%20assessments/a-level-chemistry-2015-specification.pdf` },
+        { title:'Edexcel International A Level Chemistry Specification', term:'Edexcel International A Level', url:`https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Chemistry/2018/Specification-and-Sample-Assessment/International-A-Level-Chemistry-Spec.pdf` },
+      ]},
+      { subj:'Economics', icon:'📊', color:'#D97706', books:[
+        { title:'Edexcel A level Economics A (9EC0) Specification', term:'Edexcel A level', url:`https://qualifications.pearson.com/content/dam/pdf/A%20Level/Economics/2015/specification-and-sample-assessment-materials/A_Level_Econ_A_Spec.pdf` },
+        { title:'Edexcel International A Level Economics Specification', term:'Edexcel International A Level', url:`https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Economics/2018/Specification-and-Sample-Assessment/International-A-Level-Economics-spec.pdf` },
+      ]},
+      { subj:'Business Studies', icon:'💼', color:'#059669', books:[
+        { title:'Edexcel A level Business (9BS0) Specification', term:'Edexcel A level', url:`https://qualifications.pearson.com/content/dam/pdf/A%20Level/Business%20Studies/2015/specification-and-sample-assessment-materials/9781446914694-gce2015-a-bus-web.pdf` },
+      ]},
+      { subj:'English Language', icon:'🗣️', color:'#F97316', books:[
+        { title:'Edexcel A level English Language (9EN0) Specification', term:'Edexcel A level', url:`https://qualifications.pearson.com/content/dam/pdf/A%20Level/English%20Language/2015/Specification%20and%20sample%20assessment/AS-EnglishLanguage-Spec.pdf` },
+      ]},
+      { subj:'Geography', icon:'🌍', color:'#065F46', books:[
+        { title:'Edexcel A level Geography (9GE0) Specification', term:'Edexcel A level', url:`https://qualifications.pearson.com/content/dam/pdf/A%20Level/Geography/2016/specification-and-sample-assessments/pearson-edexcel-a-level-geography-issue-6.pdf` },
+      ]},
+      { subj:'Computer Science', icon:'💻', color:'#0EA5E9', books:[
+        { title:'Edexcel International A Level Computer Science Specification', term:'Edexcel International A Level', url:`https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/computer-science/2026/specification-and-sample-assessments/ial-computer-science-specification.pdf` },
+      ]},
+      { subj:'Accounting', icon:'🧾', color:'#7C3AED', books:[
+        { title:'Edexcel International A Level Accounting Specification', term:'Edexcel International A Level', url:`https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/International_Advanced_Levels_Accounting_Specification.pdf` },
+      ]},
     ],
     middle: [
       { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
@@ -6454,6 +6477,19 @@ const TEXTBOOK_DB = {
       ]},
       { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
         { title:'OCR A Level Mathematics A (H240) Specification', term:'OCR A Level', url:`https://www.ocr.org.uk/Images/308723-specification-accredited-a-level-gce-mathematics-a-h240.pdf` },
+      ]},
+      { subj:'English Language', icon:'🗣️', color:'#F97316', books:[
+        { title:'OCR A Level English Language (H470) Specification', term:'OCR A Level', url:`https://www.ocr.org.uk/Images/171195-specification-accredited-a-level-gce-english-language-h470.pdf` },
+        { title:'OCR A Level English Literature (H472) Specification', term:'OCR A Level', url:`https://www.ocr.org.uk/Images/171200-specification-accredited-a-level-gce-english-literature-h472.pdf` },
+      ]},
+      { subj:'Economics', icon:'📊', color:'#D97706', books:[
+        { title:'OCR A Level Economics (H460) Specification', term:'OCR A Level', url:`https://www.ocr.org.uk/Images/536455-specification-accredited-a-level-gce-economics-h460.pdf` },
+      ]},
+      { subj:'History', icon:'🏛️', color:'#D97706', books:[
+        { title:'OCR A Level History A (H505) Specification', term:'OCR A Level', url:`https://www.ocr.org.uk/Images/170128-specification-accredited-a-level-gce-history-a-h505.pdf` },
+      ]},
+      { subj:'Geography', icon:'🌍', color:'#065F46', books:[
+        { title:'OCR A Level Geography (H481) Specification', term:'OCR A Level', url:`https://www.ocr.org.uk/images/223012-specification-accredited-a-level-gce-geography-h481.pdf` },
       ]},
     ],
     middle: [
