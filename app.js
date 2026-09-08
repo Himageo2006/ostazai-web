@@ -6124,6 +6124,21 @@ const TEXTBOOK_DB = {
   //  IGCSE — Cambridge Official Syllabuses (Free)
   // ══════════════════════════════════════════════════════════════
   igcse: {
+    // `middle` here is "Year 7-9 (Lower Secondary)" -- a separate Cambridge programme,
+    // not early IGCSE. With no bucket these students fell through to the Year 10-11
+    // IGCSE syllabuses.
+    middle: [
+      { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
+        { title:'Cambridge Lower Secondary Mathematics (0862) — Curriculum Outline', term:'Cambridge Lower Secondary', url:`https://www.cambridgeinternational.org/Images/80607-cambridge-lower-secondary-maths-curriculum-outline.pdf` },
+        { title:'Cambridge Lower Secondary Programme Brochure', term:'Cambridge Lower Secondary', url:`https://www.cambridgeinternational.org/Images/607719-cambridge-lower-secondary-brochure.pdf` },
+      ]},
+      { subj:'Combined Science', icon:'🔬', color:'#8B5CF6', books:[
+        { title:'Cambridge Lower Secondary Science (0893) — Curriculum Outline', term:'Cambridge Lower Secondary', url:`https://www.cambridgeinternational.org/Images/80617-cambridge-lower-secondary-science-curriculum-outline.pdf` },
+      ]},
+      { subj:'English Language', icon:'🗣️', color:'#F97316', books:[
+        { title:'Cambridge Lower Secondary English (0861) — Curriculum Outline', term:'Cambridge Lower Secondary', url:`https://www.cambridgeinternational.org/Images/80589-cambridge-lower-secondary-english-curriculum-outline.pdf` },
+      ]},
+    ],
     high: [
       { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
         { title:'IGCSE Mathematics 0580 Syllabus 2025–2027', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/662466-2025-2027-syllabus.pdf` },
@@ -6274,7 +6289,22 @@ const TEXTBOOK_DB = {
   //  Edexcel (Pearson) International GCSE — Free Specifications
   // ══════════════════════════════════════════════════════════════
   edexcel: {
+    // The books below are International GCSE specifications, so they sit in `middle`,
+    // which this curriculum labels "GCSE (Ages 14-16)". `high` is labelled A-Level and
+    // now actually holds A-level specs -- it used to serve the International GCSE ones to
+    // A-level students, i.e. material two years below them.
     high: [
+      { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
+        { title:'Edexcel A level Mathematics (9MA0) Specification', term:'Edexcel A level', url:`https://qualifications.pearson.com/content/dam/pdf/A%20Level/Mathematics/2017/specification-and-sample-assesment/a-level-l3-mathematics-specification-issue4.pdf` },
+      ]},
+      { subj:'Physics', icon:'⚡', color:'#F59E0B', books:[
+        { title:'Edexcel A level Physics (9PH0) Specification', term:'Edexcel A level', url:`https://qualifications.pearson.com/content/dam/pdf/A%20Level/Physics/2015/Specification%20and%20sample%20assessments/pearsonedexcel-alevel-physics-spec.pdf` },
+      ]},
+      { subj:'Biology', icon:'🦠', color:'#EC4899', books:[
+        { title:'Edexcel A level Biology A (Salters-Nuffield) Specification', term:'Edexcel A level', url:`https://qualifications.pearson.com/content/dam/pdf/A%20Level/biology-a/2015/specification-and-sample-assessment-materials/9781446930885-gce2015-a-bioa-spec.pdf` },
+      ]},
+    ],
+    middle: [
       { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
         { title:'Edexcel IGCSE Mathematics A (4MA1) Specification', term:'Edexcel International GCSE', url:`https://qualifications.pearson.com/content/dam/pdf/International%20GCSE/Mathematics%20A/2016/Specification%20and%20sample%20assessments/international-gcse-in-mathematics-spec-a.pdf` },
         { title:'Edexcel IGCSE Mathematics B (4MB1) Specification', term:'Edexcel International GCSE', url:`https://qualifications.pearson.com/content/dam/pdf/International%20GCSE/Mathematics%20B/2016/Specification%20and%20sample%20assessments/international-gcse-in-mathematics-spec-b.pdf` },
@@ -6315,7 +6345,51 @@ const TEXTBOOK_DB = {
   //  AQA GCSE — Free Official Specifications
   // ══════════════════════════════════════════════════════════════
   aqa: {
+    // The books below are GCSE specifications, so they sit in `middle`,
+    // which this curriculum labels "GCSE (Ages 14-16)". `high` is labelled A-Level and
+    // now actually holds A-level specs -- it used to serve the GCSE ones to
+    // A-level students, i.e. material two years below them.
     high: [
+      { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
+        { title:'AQA A-level Mathematics (7357) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/mathematics/specifications/AQA-7357-SP-2017.PDF` },
+        { title:'AQA A-level Further Mathematics (7367) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/mathematics/specifications/AQA-7367-SP-2017.PDF` },
+      ]},
+      { subj:'Physics', icon:'⚡', color:'#F59E0B', books:[
+        { title:'AQA AS/A-level Physics (7407/7408) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/physics/specifications/AQA-7407-7408-SP-2015.PDF` },
+      ]},
+      { subj:'Chemistry', icon:'🧪', color:'#10B981', books:[
+        { title:'AQA AS/A-level Chemistry (7404/7405) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/chemistry/specifications/AQA-7404-7405-SP-2015.PDF` },
+      ]},
+      { subj:'Biology', icon:'🦠', color:'#EC4899', books:[
+        { title:'AQA AS/A-level Biology (7401/7402) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/biology/specifications/AQA-7401-7402-SP-2015.PDF` },
+      ]},
+      { subj:'English Language', icon:'🗣️', color:'#F97316', books:[
+        { title:'AQA AS/A-level English Language (7701/7702) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/english/specifications/AQA-7701-7702-SP-2015.PDF` },
+        { title:'AQA AS/A-level English Literature A (7711/7712) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/english/specifications/AQA-7711-7712-SP-2015.PDF` },
+      ]},
+      { subj:'Computer Science', icon:'💻', color:'#0EA5E9', books:[
+        { title:'AQA AS/A-level Computer Science (7516/7517) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/computing/specifications/AQA-7516-7517-SP-2015.PDF` },
+      ]},
+      { subj:'Geography', icon:'🌍', color:'#065F46', books:[
+        { title:'AQA A-level Geography (7037) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/geography/specifications/AQA-7037-SP-2016.PDF` },
+      ]},
+      { subj:'History', icon:'📜', color:'#92400E', books:[
+        { title:'AQA AS/A-level History (7041/7042) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/history/specifications/AQA-7041-7042-SP-2015.PDF` },
+      ]},
+      { subj:'Business', icon:'💼', color:'#6366F1', books:[
+        { title:'AQA AS/A-level Business (7131/7132) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/business/specifications/AQA-7131-7132-SP-2023.PDF` },
+      ]},
+      { subj:'Economics', icon:'📊', color:'#14B8A6', books:[
+        { title:'AQA AS/A-level Economics (7135/7136) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/economics/specifications/AQA-7135-7136-SP-2015.PDF` },
+      ]},
+      { subj:'Sociology', icon:'👥', color:'#A855F7', books:[
+        { title:'AQA AS/A-level Sociology (7191/7192) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/sociology/specifications/AQA-7191-7192-SP-2015.PDF` },
+      ]},
+      { subj:'Psychology', icon:'🧠', color:'#EC4899', books:[
+        { title:'AQA AS/A-level Psychology (7181/7182) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/psychology/specifications/AQA-7181-7182-SP-2015.PDF` },
+      ]},
+    ],
+    middle: [
       { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
         { title:'AQA GCSE Mathematics (8300) Specification', term:'AQA GCSE', url:`https://filestore.aqa.org.uk/resources/mathematics/specifications/AQA-8300-SP-2015.PDF` },
       ]},
@@ -6361,7 +6435,28 @@ const TEXTBOOK_DB = {
   //  OCR GCSE — Free Official Specifications
   // ══════════════════════════════════════════════════════════════
   ocr: {
+    // The books below are GCSE specifications, so they sit in `middle`,
+    // which this curriculum labels "GCSE (Ages 14-16)". `high` is labelled A-Level and
+    // now actually holds A-level specs -- it used to serve the GCSE ones to
+    // A-level students, i.e. material two years below them.
     high: [
+      { subj:'Chemistry', icon:'🧪', color:'#10B981', books:[
+        { title:'OCR A Level Chemistry A (H432) Specification', term:'OCR A Level', url:`https://www.ocr.org.uk/Images/171720-specification-accredited-a-level-gce-chemistry-a-h432.pdf` },
+      ]},
+      { subj:'Biology', icon:'🦠', color:'#EC4899', books:[
+        { title:'OCR A Level Biology A (H420) Specification', term:'OCR A Level', url:`https://www.ocr.org.uk/Images/171736-download-a-level-specification-final-assessment-2024.pdf` },
+      ]},
+      { subj:'Computer Science', icon:'💻', color:'#0EA5E9', books:[
+        { title:'OCR A Level Computer Science (H446) Specification', term:'OCR A Level', url:`https://www.ocr.org.uk/images/170844-specification-accredited-a-level-gce-computer-science-h446.pdf` },
+      ]},
+      { subj:'Physics', icon:'⚡', color:'#F59E0B', books:[
+        { title:'OCR A Level Physics A (H556) Specification', term:'OCR A Level', url:`https://www.ocr.org.uk/Images/171726-specification-accredited-a-level-gce-physics-a-h556.pdf` },
+      ]},
+      { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
+        { title:'OCR A Level Mathematics A (H240) Specification', term:'OCR A Level', url:`https://www.ocr.org.uk/Images/308723-specification-accredited-a-level-gce-mathematics-a-h240.pdf` },
+      ]},
+    ],
+    middle: [
       { subj:'Physics', icon:'⚡', color:'#F59E0B', books:[
         { title:'OCR GCSE Physics A — Gateway Science (J249) Specification', term:'OCR GCSE', url:`https://www.ocr.org.uk/Images/234600-specification-accredited-gcse-gateway-science-suite-physics-a-j249.pdf` },
         { title:'OCR GCSE Physics B — 21st Century Science (J259) Specification', term:'OCR GCSE', url:`https://www.ocr.org.uk/Images/234601-specification-accredited-gcse-twenty-first-century-science-suite-physics-b-j259.pdf` },
