@@ -6198,6 +6198,11 @@ const TEXTBOOK_DB = {
   //  American Curriculum — OpenStax Free Textbooks (CC Licensed)
   // ══════════════════════════════════════════════════════════════
   american: {
+    // OpenStax publishes college and high-school texts only, nothing for primary or
+    // middle school. Declared empty so those grades get the "Books coming soon" panel;
+    // without them the `high` fallback showed Calculus Volume 1 to a 2nd-grader.
+    primary: [],
+    middle: [],
     high: [
       { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
         { title:'Elementary Algebra 2e — OpenStax', term:'American Curriculum', url:`https://assets.openstax.org/oscms-prodcms/media/documents/ElementaryAlgebra2e-WEB.pdf` },
@@ -20218,7 +20223,11 @@ ${viewer}`;
     high1:'high1', high2:'high2' };
   const gradeKey = gradeMap[S.grade] || 'high';
   const dbEntry  = TEXTBOOK_DB[S.curriculum] || {};  // no Egyptian fallback — other countries shouldn't show Egyptian books
-  let allGradeBooks = dbEntry[gradeKey] || dbEntry.high || [];
+  // A curriculum that declares a bucket means it, even an empty one: that shows the
+  // "Books coming soon" panel instead of falling through to `high`. `american` declares
+  // primary and middle empty on purpose -- OpenStax is college/high-school only, and this
+  // fallback was offering College Algebra, Calculus and University Physics to 7-year-olds.
+  let allGradeBooks = (gradeKey in dbEntry) ? dbEntry[gradeKey] : (dbEntry.high || []);
   // External (المعاصر / Archive.org) books — shown on website + Android, hidden inside the iOS app (Apple 3.1.1)
   if (!IS_IOS_APP && S.curriculum === 'egypt') {
     const extEntry = TEXTBOOK_DB.egypt_ext || {};
@@ -21422,7 +21431,7 @@ function openTextbookExplainByName(subjName, curricLabel, mode) {
     high1:'high1', high2:'high2' };
   const gradeKey = gradeMap[S.grade] || 'high';
   const dbEntry  = TEXTBOOK_DB[S.curriculum] || {};  // no Egyptian fallback — other countries shouldn't show Egyptian books
-  const books    = dbEntry[gradeKey] || dbEntry.high || [];
+  const books    = (gradeKey in dbEntry) ? dbEntry[gradeKey] : (dbEntry.high || []);  // declared bucket wins, even if empty
   const subj     = books.find(s => s.subj === subjName) || books.find(s => s.subj.toLowerCase() === subjName.toLowerCase());
   if (!subj) return;
   openTextbookExplain(subj, curricLabel, mode);
