@@ -5664,7 +5664,7 @@ function renderMindMap(d) {
    TEXTBOOK
    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 /* ══════════════════════════════════════════════════════════════
-   TEXTBOOK DATABASE — روابط PDF مُحقَّقة 2025-2026
+   TEXTBOOK DATABASE — روابط PDF مُحقَّقة (آخر تدقيق 2026-09-09)
    المصادر: خادم وزارة التعليم (blob) + Google Drive (للكتب غير المتوفرة)
    ══════════════════════════════════════════════════════════════ */
 const BOOKS  = './books'; // self-hosted PDFs on GitHub Pages (same-origin, no iframe restrictions)
@@ -5986,45 +5986,45 @@ const TEXTBOOK_DB = {
         { title:'IGCSE Additional Mathematics 0606 Syllabus 2025–2027', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/662470-2025-2027-syllabus.pdf` },
       ]},
       { subj:'Physics', icon:'⚡', color:'#F59E0B', books:[
-        { title:'IGCSE Physics 0625 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/images/595430-2023-2025-syllabus.pdf` },
-        { title:'IGCSE Physics (9–1) 0972 Syllabus 2023–2025', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/595436-2023-2025-syllabus.pdf` },
+        { title:'IGCSE Physics 0625 Syllabus 2026–2028', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/697209-2026-2028-syllabus.pdf` },
+        { title:'IGCSE Physics (9–1) 0972 Syllabus 2026–2028', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/697240-2026-2028-syllabus.pdf` },
       ]},
       { subj:'Chemistry', icon:'🧪', color:'#10B981', books:[
-        { title:'IGCSE Chemistry 0620 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/595428-2023-2025-syllabus.pdf` },
+        { title:'IGCSE Chemistry 0620 Syllabus 2026–2028', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/697205-2026-2028-syllabus.pdf` },
         { title:'IGCSE Chemistry (9–1) 0971 Syllabus 2026–2028', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/697236-2026-2028-syllabus.pdf` },
       ]},
       { subj:'Biology', icon:'🦠', color:'#EC4899', books:[
-        { title:'IGCSE Biology 0610 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/595426-2023-2025-syllabus.pdf` },
-        { title:'IGCSE Biology (9–1) 0970 Syllabus 2023–2025', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/595432-2023-2025-syllabus-.pdf` },
+        { title:'IGCSE Biology 0610 Syllabus 2026–2028', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf` },
+        { title:'IGCSE Biology (9–1) 0970 Syllabus 2026–2028', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/697234-2026-2028-syllabus.pdf` },
       ]},
       { subj:'Combined Science', icon:'🔬', color:'#8B5CF6', books:[
         { title:'IGCSE Combined Science 0653 Syllabus 2025–2027', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/662474-2025-2027-syllabus.pdf` },
       ]},
       { subj:'English Language', icon:'🗣️', color:'#F97316', books:[
         { title:'IGCSE English First Language 0500 Syllabus 2024–2026', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/635230-2024-2026-syllabus.pdf` },
-        { title:'IGCSE English First Language (9–1) 0990 Syllabus 2023', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/597137-2023-syllabus.pdf` },
+        { title:'IGCSE English First Language (9–1) 0990 Syllabus 2024–2026', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/635234-2024-2026-syllabus.pdf` },
         { title:'IGCSE English Second Language 0510 Syllabus 2024–2026', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/637160-2024-2026-syllabus.pdf` },
         { title:'IGCSE English Second Language (Count-in) 0511 Syllabus 2024–2026', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/637163-2024-2026-syllabus.pdf` },
-        { title:'IGCSE Literature in English 0475 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/596436-2023-2025-syllabus.pdf` },
-        { title:'IGCSE Literature in English (9–1) 0992 Syllabus 2023–2025', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/596445-2023-2025-syllabus.pdf` },
+        { title:'IGCSE Literature in English 0475 Syllabus 2027', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/721333-2027-syllabus.pdf` },
+        { title:'IGCSE Literature in English (9–1) 0992 Syllabus 2027', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/721390-2027-syllabus.pdf` },
       ]},
       { subj:'Computer Science', icon:'💻', color:'#0EA5E9', books:[
-        { title:'IGCSE Computer Science 0478 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/595424-2023-2025-syllabus.pdf` },
-        { title:'IGCSE Computer Science (9–1) 0984 Syllabus 2023–2025', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/595440-2023-2025-syllabus.pdf` },
-        { title:'IGCSE ICT 0417 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/images/595352-2023-2025-syllabus.pdf` },
-        { title:'IGCSE ICT (9–1) 0983 Syllabus 2023–2025', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/595438-2023-2025-syllabus.pdf` },
+        { title:'IGCSE Computer Science 0478 Syllabus 2026–2028', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/697167-2026-2028-syllabus.pdf` },
+        { title:'IGCSE Computer Science (9–1) 0984 Syllabus 2026–2028', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/697248-2026-2028-syllabus.pdf` },
+        { title:'IGCSE ICT 0417 Syllabus 2026–2028', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/697139-2026-2028-syllabus.pdf` },
+        { title:'IGCSE ICT (9–1) 0983 Syllabus 2026–2028', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/697246-2026-2028-syllabus.pdf` },
       ]},
       { subj:'Economics', icon:'📊', color:'#D97706', books:[
-        { title:'IGCSE Economics 0455 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/596945-2023-2025-syllabus.pdf` },
-        { title:'IGCSE Economics (9–1) 0987 Syllabus 2023–2025', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/597118-2023-2025-syllabus.pdf` },
+        { title:'IGCSE Economics 0455 Syllabus 2027–2029', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/718148-2027-2029-syllabus.pdf` },
+        { title:'IGCSE Economics (9–1) 0987 Syllabus 2027–2029', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/718202-2027-2029-syllabus.pdf` },
       ]},
       { subj:'Business Studies', icon:'💼', color:'#059669', books:[
-        { title:'IGCSE Business Studies 0450 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/596930-2023-2025-syllabus.pdf` },
-        { title:'IGCSE Business Studies (9–1) 0986 Syllabus 2023–2025', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/597113-2023-2025-syllabus.pdf` },
+        { title:'IGCSE Business Studies 0450 Syllabus 2026', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/697146-2026-syllabus.pdf` },
+        { title:'IGCSE Business Studies (9–1) 0986 Syllabus 2026', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/697256-2026-syllabus.pdf` },
       ]},
       { subj:'Accounting', icon:'🧾', color:'#7C3AED', books:[
-        { title:'IGCSE Accounting 0452 Syllabus 2023–2025', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/596935-2023-2025-syllabus.pdf` },
-        { title:'IGCSE Accounting (9–1) 0985 Syllabus 2023–2025', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/597108-2023-2025-syllabus.pdf` },
+        { title:'IGCSE Accounting 0452 Syllabus 2027–2029', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/718141-2027-2029-syllabus.pdf` },
+        { title:'IGCSE Accounting (9–1) 0985 Syllabus 2027–2029', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/718200-2027-2029-syllabus.pdf` },
       ]},
       { subj:'History', icon:'📜', color:'#92400E', books:[
         { title:'IGCSE History 0470 Syllabus 2024–2026', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/649636-2024-2026-syllabus.pdf` },
