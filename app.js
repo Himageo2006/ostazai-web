@@ -6019,8 +6019,10 @@ const TEXTBOOK_DB = {
         { title:'IGCSE Economics (9–1) 0987 Syllabus 2027–2029', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/718202-2027-2029-syllabus.pdf` },
       ]},
       { subj:'Business Studies', icon:'💼', color:'#059669', books:[
-        { title:'IGCSE Business Studies 0450 Syllabus 2026', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/697146-2026-syllabus.pdf` },
-        { title:'IGCSE Business Studies (9–1) 0986 Syllabus 2026', term:'Cambridge IGCSE (9–1)', url:`https://www.cambridgeinternational.org/Images/697256-2026-syllabus.pdf` },
+        { title:'IGCSE Business Studies 0450 Syllabus 2026 (آخر دورة)', term:'Cambridge IGCSE — exams to 2026', url:`https://www.cambridgeinternational.org/Images/697146-2026-syllabus.pdf` },
+        { title:'IGCSE Business Studies (9–1) 0986 Syllabus 2026 (آخر دورة)', term:'Cambridge IGCSE (9–1) — exams to 2026', url:`https://www.cambridgeinternational.org/Images/697256-2026-syllabus.pdf` },
+        { title:'IGCSE Business 0264 Syllabus 2027–2029 (بديل 0450)', term:'Cambridge IGCSE — from 2027', url:`https://www.cambridgeinternational.org/Images/718123-2027-2029-syllabus.pdf` },
+        { title:'IGCSE Business (9–1) 0774 Syllabus 2027–2029 (بديل 0986)', term:'Cambridge IGCSE (9–1) — from 2027', url:`https://www.cambridgeinternational.org/Images/718158-2027-2029-syllabus.pdf` },
       ]},
       { subj:'Accounting', icon:'🧾', color:'#7C3AED', books:[
         { title:'IGCSE Accounting 0452 Syllabus 2027–2029', term:'Cambridge IGCSE', url:`https://www.cambridgeinternational.org/Images/718141-2027-2029-syllabus.pdf` },
