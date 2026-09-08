@@ -6024,17 +6024,35 @@ const TEXTBOOK_DB = {
   },
   egypt_ext: {
     // ثالث ثانوي — المعاصر
-    high: [
+    high1: [
       { subj:'الرياضيات — المعاصر', icon:'🔢', color:'#3B82F6', books:[
-        { title:'المعاصر رياضيات بحتة — ثاني ثانوي ترم أول', term:'ثاني ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2-1_20250901' },
-        { title:'المعاصر رياضيات تطبيقية — ثاني ثانوي ترم أول', term:'ثاني ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2023-2-1_202209' },
         { title:'المعاصر ماث — أولى ثانوي ترم أول', term:'أول ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/1-1_20240907' },
         { title:'المعاصر رياضيات — أولى ثانوي ترم ثاني', term:'أول ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2025_20250406' },
-        { title:'المعاصر رياضيات بحتة — ثاني ثانوي علمي ترم أول', term:'ثاني ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2-1_20230810' },
       ]},
       { subj:'الفيزياء — المعاصر', icon:'⚡', color:'#F59E0B', books:[
         { title:'المعاصر فيزياء — أولى ثانوي ترم أول', term:'أول ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/1-1_20230830' },
         { title:'المعاصر فيزياء — أولى ثانوي ترم ثاني', term:'أول ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/1-2_20220215_20220215_0123' },
+      ]},
+      { subj:'الأحياء — المعاصر', icon:'🧬', color:'#10B981', books:[
+        { title:'المعاصر أحياء — أولى ثانوي ترم أول', term:'أول ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/1-1_20210816_20210816' },
+        { title:'المعاصر أحياء — أولى ثانوي ترم ثاني', term:'أول ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/1-2_20220221' },
+      ]},
+      { subj:'اللغة الإنجليزية — المعاصر', icon:'🗣️', color:'#F97316', books:[
+        { title:'المعاصر انجليزي — أولى ثانوي ترم أول', term:'أول ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2023-1-1_20221004_0037' },
+      ]},
+      { subj:'البحث عن المزيد', icon:'🔍', color:'#6B7280', books:[
+        { title:'بحث في Archive.org — كتب ثانوي', term:'جميع المواد والسنوات', badge:'🌐 أرشيف', external:true, url:'https://archive.org/search?query=%D8%A7%D9%84%D9%85%D8%B9%D8%A7%D8%B5%D8%B1+%D8%AB%D8%A7%D9%86%D9%88%D9%8A' },
+        { title:'موقع المعاصر الرسمي', term:'كتب ومراجع المعاصر', badge:'🌐 موقع', external:true, url:'https://www.eltapalomesr.com/' },
+        { title:'ذاكرولي — كتب وملازم', term:'جميع المراحل', badge:'🌐 موقع', external:true, url:'https://zakrolyup.com/' },
+      ]},
+    ],
+    high2: [
+      { subj:'الرياضيات — المعاصر', icon:'🔢', color:'#3B82F6', books:[
+        { title:'المعاصر رياضيات بحتة — ثاني ثانوي ترم أول', term:'ثاني ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2-1_20250901' },
+        { title:'المعاصر رياضيات تطبيقية — ثاني ثانوي ترم أول', term:'ثاني ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2023-2-1_202209' },
+        { title:'المعاصر رياضيات بحتة — ثاني ثانوي علمي ترم أول', term:'ثاني ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2-1_20230810' },
+      ]},
+      { subj:'الفيزياء — المعاصر', icon:'⚡', color:'#F59E0B', books:[
         { title:'المعاصر فيزياء — ثاني ثانوي ترم أول', term:'ثاني ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2-1_20220823' },
       ]},
       { subj:'الكيمياء — المعاصر', icon:'🧪', color:'#8B5CF6', books:[
@@ -6042,17 +6060,20 @@ const TEXTBOOK_DB = {
         { title:'المعاصر كيمياء — ثاني ثانوي 2023', term:'ثاني ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2023-2-1_20221011' },
       ]},
       { subj:'الأحياء — المعاصر', icon:'🧬', color:'#10B981', books:[
-        { title:'المعاصر أحياء — أولى ثانوي ترم أول', term:'أول ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/1-1_20210816_20210816' },
-        { title:'المعاصر أحياء — أولى ثانوي ترم ثاني', term:'أول ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/1-2_20220221' },
         { title:'المعاصر أحياء — ثاني ثانوي ترم أول', term:'ثاني ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2-1_20220821_20220821' },
       ]},
       { subj:'اللغة الإنجليزية — المعاصر', icon:'🗣️', color:'#F97316', books:[
-        { title:'المعاصر انجليزي — أولى ثانوي ترم أول', term:'أول ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2023-1-1_20221004_0037' },
         { title:'المعاصر انجليزي — ثاني ثانوي ترم أول', term:'ثاني ثانوي', badge:'📗 المعاصر', external:true, url:'https://archive.org/details/2023-2-1_20221005' },
       ]},
       { subj:'البحث عن المزيد', icon:'🔍', color:'#6B7280', books:[
         { title:'بحث في Archive.org — كتب ثانوي', term:'جميع المواد والسنوات', badge:'🌐 أرشيف', external:true, url:'https://archive.org/search?query=%D8%A7%D9%84%D9%85%D8%B9%D8%A7%D8%B5%D8%B1+%D8%AB%D8%A7%D9%86%D9%88%D9%8A' },
-        { title:'بحث في Archive.org — كتب إعدادي', term:'جميع المواد والسنوات', badge:'🌐 أرشيف', external:true, url:'https://archive.org/search?query=%D8%A7%D9%84%D9%85%D8%B9%D8%A7%D8%B5%D8%B1+%D8%A7%D8%B9%D8%AF%D8%A7%D8%AF%D9%8A' },
+        { title:'موقع المعاصر الرسمي', term:'كتب ومراجع المعاصر', badge:'🌐 موقع', external:true, url:'https://www.eltapalomesr.com/' },
+        { title:'ذاكرولي — كتب وملازم', term:'جميع المراحل', badge:'🌐 موقع', external:true, url:'https://zakrolyup.com/' },
+      ]},
+    ],
+    high: [
+      { subj:'البحث عن المزيد', icon:'🔍', color:'#6B7280', books:[
+        { title:'بحث في Archive.org — كتب ثانوي', term:'جميع المواد والسنوات', badge:'🌐 أرشيف', external:true, url:'https://archive.org/search?query=%D8%A7%D9%84%D9%85%D8%B9%D8%A7%D8%B5%D8%B1+%D8%AB%D8%A7%D9%86%D9%88%D9%8A' },
         { title:'موقع المعاصر الرسمي', term:'كتب ومراجع المعاصر', badge:'🌐 موقع', external:true, url:'https://www.eltapalomesr.com/' },
         { title:'ذاكرولي — كتب وملازم', term:'جميع المراحل', badge:'🌐 موقع', external:true, url:'https://zakrolyup.com/' },
       ]},
@@ -20201,7 +20222,10 @@ ${viewer}`;
   // External (المعاصر / Archive.org) books — shown on website + Android, hidden inside the iOS app (Apple 3.1.1)
   if (!IS_IOS_APP && S.curriculum === 'egypt') {
     const extEntry = TEXTBOOK_DB.egypt_ext || {};
-    const extBooks = extEntry[gradeKey] || extEntry.high || [];
+    // No fallback to .high here: egypt_ext is split per secondary year, and falling
+    // back showed a third-secondary student 15 books from years 1 and 2 (and showed
+    // each of high1/high2 the other year's). A missing bucket should show nothing.
+    const extBooks = extEntry[gradeKey] || [];
     if (extBooks.length) allGradeBooks = allGradeBooks.concat(extBooks);
   }
   const subjFilter = (S.textbookSubjFilter||'').toLowerCase().trim();
