@@ -6477,6 +6477,7 @@ const TEXTBOOK_DB = {
       ]},
       { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
         { title:'OCR A Level Mathematics A (H240) Specification', term:'OCR A Level', url:`https://www.ocr.org.uk/Images/308723-specification-accredited-a-level-gce-mathematics-a-h240.pdf` },
+        { title:'OCR A Level Further Mathematics A (H245) Specification', term:'OCR A Level', url:`https://www.ocr.org.uk/Images/308752-specification-accredited-a-level-gce-further-mathematics-a-h245.pdf` },
       ]},
       { subj:'English Language', icon:'🗣️', color:'#F97316', books:[
         { title:'OCR A Level English Language (H470) Specification', term:'OCR A Level', url:`https://www.ocr.org.uk/Images/171195-specification-accredited-a-level-gce-english-language-h470.pdf` },
@@ -6490,6 +6491,18 @@ const TEXTBOOK_DB = {
       ]},
       { subj:'Geography', icon:'🌍', color:'#065F46', books:[
         { title:'OCR A Level Geography (H481) Specification', term:'OCR A Level', url:`https://www.ocr.org.uk/images/223012-specification-accredited-a-level-gce-geography-h481.pdf` },
+      ]},
+      { subj:'Psychology', icon:'🧠', color:'#6366F1', books:[
+        { title:'OCR A Level Psychology (H567) Specification', term:'OCR A Level', url:`https://www.ocr.org.uk/Images/171732-specification-accredited-a-level-gce-psychology-h567.pdf` },
+      ]},
+      { subj:'Business', icon:'💼', color:'#059669', books:[
+        { title:'OCR A Level Business (H431) Specification', term:'OCR A Level', url:`https://www.ocr.org.uk/Images/170837-specification-accredited-a-level-gce-business-h431.pdf` },
+      ]},
+      { subj:'Religious Studies', icon:'☪️', color:'#0D9488', books:[
+        { title:'OCR A Level Religious Studies (H573) Specification', term:'OCR A Level', url:`https://www.ocr.org.uk/images/242913-specification-accredited-a-level-gce-religious-studies-h573.pdf` },
+      ]},
+      { subj:'Sociology', icon:'👥', color:'#DB2777', books:[
+        { title:'OCR A Level Sociology (H580) Specification', term:'OCR A Level', url:`https://www.ocr.org.uk/Images/170212-specification-accredited-a-level-gce-sociology.pdf` },
       ]},
     ],
     middle: [
