@@ -6411,6 +6411,48 @@ const TEXTBOOK_DB = {
       { subj:'Psychology', icon:'🧠', color:'#EC4899', books:[
         { title:'AQA AS/A-level Psychology (7181/7182) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/psychology/specifications/AQA-7181-7182-SP-2015.PDF` },
       ]},
+      { subj:'Law', icon:'⚖️', color:'#7C3AED', books:[
+        { title:'AQA AS/A-level Law (7162) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/law/specifications/AQA-7162-SP-2017.PDF` },
+      ]},
+      { subj:'Politics', icon:'🏛️', color:'#DC2626', books:[
+        { title:'AQA AS/A-level Politics (7152) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/politics/specifications/AQA-7152-SP-2017.PDF` },
+      ]},
+      { subj:'Philosophy', icon:'🧠', color:'#6366F1', books:[
+        { title:'AQA AS/A-level Philosophy (7172) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/philosophy/specifications/AQA-7172-SP-2017.PDF` },
+      ]},
+      { subj:'Religious Studies', icon:'☪️', color:'#0D9488', books:[
+        { title:'AQA AS/A-level Religious Studies (7062) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/rs/specifications/AQA-7062-SP-2016.PDF` },
+      ]},
+      { subj:'Environmental Science', icon:'🌍', color:'#16A34A', books:[
+        { title:'AQA A-level Environmental Science (7447) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/science/specifications/AQA-7447-SP-2017.PDF` },
+      ]},
+      { subj:'Media Studies', icon:'🎬', color:'#DB2777', books:[
+        { title:'AQA AS/A-level Media Studies (7572) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/media-studies/specifications/AQA-7572-SP-2017.PDF` },
+      ]},
+      { subj:'Physical Education', icon:'⚽', color:'#EA580C', books:[
+        { title:'AQA AS/A-level Physical Education (7582) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/pe/specifications/AQA-7582-SP-2016.PDF` },
+      ]},
+      { subj:'French', icon:'🇫🇷', color:'#2563EB', books:[
+        { title:'AQA AS/A-level French (7652) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/french/specifications/AQA-7652-SP-2016.PDF` },
+      ]},
+      { subj:'German', icon:'🇩🇪', color:'#CA8A04', books:[
+        { title:'AQA AS/A-level German (7662) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/german/specifications/AQA-7662-SP-2016.PDF` },
+      ]},
+      { subj:'Spanish', icon:'🇪🇸', color:'#E11D48', books:[
+        { title:'AQA AS/A-level Spanish (7692) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/spanish/specifications/AQA-7692-SP-2016.PDF` },
+      ]},
+      { subj:'Music', icon:'🎵', color:'#9333EA', books:[
+        { title:'AQA AS/A-level Music (7272) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/music/specifications/AQA-7272-SP-2016.PDF` },
+      ]},
+      { subj:'Drama & Theatre', icon:'🎭', color:'#BE185D', books:[
+        { title:'AQA AS/A-level Drama and Theatre (7262) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/drama/specifications/AQA-7262-SP-2016.PDF` },
+      ]},
+      { subj:'Design & Technology', icon:'🛠️', color:'#0F766E', books:[
+        { title:'AQA A-level Design and Technology (7552) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/design-and-technology/specifications/AQA-7552-SP-2017.PDF` },
+      ]},
+      { subj:'Dance', icon:'💃', color:'#C026D3', books:[
+        { title:'AQA AS/A-level Dance (7237) Specification', term:'AQA A-level', url:`https://filestore.aqa.org.uk/resources/dance/specifications/AQA-7237-SP-2016.PDF` },
+      ]},
     ],
     middle: [
       { subj:'Mathematics', icon:'🔢', color:'#3B82F6', books:[
