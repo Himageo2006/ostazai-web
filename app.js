@@ -4097,7 +4097,9 @@ function tplLogin() {
       <a onclick="document.getElementById('lp-pricing').scrollIntoView({behavior:'smooth'})">${L('الأسعار','Pricing')}</a>
       <a onclick="goParent()">${L('لوحة ولي الأمر','For Parents')}</a>
       <a onclick="goTeacher()">${L('لوحة المعلّم','For Teachers')}</a>
-      <a href="mailto:support@ostazzai.com">${L('تواصل معنا','Contact')}</a>
+      <!-- support@ostazzai.com has no MX records on the domain, so mail to it bounces.
+           Revert to it once forwarding is live at the registrar. -->
+      <a href="mailto:himageo2@gmail.com">${L('تواصل معنا','Contact')}</a>
       <a href="privacy.html">${L('سياسة الخصوصية','Privacy Policy')}</a>
       <a href="terms.html">${L('شروط الاستخدام','Terms of Service')}</a>
       <a onclick="goSignin()">${L('تسجيل الدخول','Sign in')}</a>

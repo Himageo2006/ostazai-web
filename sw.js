@@ -1,6 +1,6 @@
 // OstazAI Service Worker v3.0
 // Version bump forces cache refresh on all clients
-const CACHE_VERSION = 'ostazai-v253';
+const CACHE_VERSION = 'ostazai-v254';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
