@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>School Portal — OstazAI</title>
+<title>School Portal — Ostazzi</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,sans-serif;background:#0F172A;color:#F1F5F9;min-height:100vh}
@@ -2187,7 +2187,7 @@ async function populateLiveClassSelect() {
 async function startLiveSession() {
   const title   = document.getElementById('liveTitle').value.trim() || 'Live Class';
   const classId = document.getElementById('liveClassSelect').value;
-  const roomId  = `OstazAI-${SCHOOL.schoolCode}-${Date.now().toString(36)}`;
+  const roomId  = `Ostazzi-${SCHOOL.schoolCode}-${Date.now().toString(36)}`;
   _liveRoomId = roomId;
 
   // Notify students
