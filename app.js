@@ -3820,7 +3820,7 @@ function tplLogin() {
       <span>🌍 ${L('في 19 دولة عربية وأكثر','19+ Arab countries')}</span>
       <span>🎓 ${L('كل المراحل — حتى IGCSE و A-Level','Every level — to IGCSE & A-Level')}</span>
     </div>
-    <div class="lp-pos" style="margin-top:26px">${L('يساعد OstazzAI الطلاب من سنوات الدراسة الأولى حتى امتحاناتهم النهائية على التعلّم بمستواهم الخاص.','OstazzAI helps students from early school years to final exams learn at their own level.')}</div>
+    <div class="lp-pos" style="margin-top:26px">${L('يساعد Ostazzi الطلاب من سنوات الدراسة الأولى حتى امتحاناتهم النهائية على التعلّم بمستواهم الخاص.','Ostazzi helps students from early school years to final exams learn at their own level.')}</div>
   </section>
 
   <!-- 2. CHOOSE LEVEL -->
@@ -3847,7 +3847,7 @@ function tplLogin() {
 
   <!-- 3. HOW IT HELPS -->
   <section id="lp-how">
-    <h2>${L('كيف يساعدك OstazzAI على التعلّم','How OstazzAI Helps You Learn')}</h2>
+    <h2>${L('كيف يساعدك Ostazzi على التعلّم','How Ostazzi Helps You Learn')}</h2>
     <div class="lp-grid2" style="margin-top:18px">
       ${useCase('📖', L('تعلّم أي موضوع بشرح مبسّط','Learn any topic with simple explanations'))}
       ${useCase('📝', L('حل الواجبات خطوة بخطوة','Solve homework step by step'))}
@@ -3887,7 +3887,7 @@ function tplLogin() {
     </div>
     <!-- 8. CURRICULA -->
     <h2 style="margin-top:40px">${L('يدعم مناهج متعددة','Supports multiple curricula')}</h2>
-    <div class="lp-sub2">${L('مهما كان نظام مدرستك، OstazzAI يواكبك.','Whatever school system you follow, OstazzAI keeps up.')}</div>
+    <div class="lp-sub2">${L('مهما كان نظام مدرستك، Ostazzi يواكبك.','Whatever school system you follow, Ostazzi keeps up.')}</div>
     <div class="lp-grid2" style="max-width:760px;margin:0 auto">
       ${useCase('🇬🇧', L('المنهج البريطاني (IGCSE / A-Level)','British (IGCSE / A-Level)'))}
       ${useCase('🇺🇸', L('المنهج الأمريكي (Common Core / AP)','American (Common Core / AP)'))}
@@ -3898,7 +3898,7 @@ function tplLogin() {
 
   <!-- 5. SEE IT IN ACTION -->
   <section id="lp-action">
-    <h2>${L('شاهد OstazzAI أثناء العمل','See OstazzAI in Action')}</h2>
+    <h2>${L('شاهد Ostazzi أثناء العمل','See Ostazzi in Action')}</h2>
     <div class="lp-sub2">${L('درس حقيقي كامل، ثم أمثلة من المحادثات عبر كل المراحل.','A real full lesson, then conversation examples across every level.')}</div>
     <!-- A real recorded lesson, not a mockup. preload="none" so it costs no mobile
          data until a visitor actually presses play; native controls because a
@@ -3938,7 +3938,7 @@ function tplLogin() {
 
   <!-- 6b. WHY CHOOSE -->
   <section>
-    <h2>${L('لماذا يختار الطلاب والأهل OstazzAI','Why Students and Parents Choose OstazzAI')}</h2>
+    <h2>${L('لماذا يختار الطلاب والأهل Ostazzi','Why Students and Parents Choose Ostazzi')}</h2>
     <div class="lp-grid3" style="margin-top:18px">
       ${useCase('🎯', L('تعلّم مخصّص لكل طالب','Personalized learning'))}
       ${useCase('🕒', L('متاح 24/7','Available 24/7'))}
@@ -3951,7 +3951,7 @@ function tplLogin() {
 
   <!-- 6c. TESTIMONIALS -->
   <section>
-    <h2>${L('لماذا يختار الطلاب والأهل OstazzAI','Why students & parents choose OstazzAI')}</h2>
+    <h2>${L('لماذا يختار الطلاب والأهل Ostazzi','Why students & parents choose Ostazzi')}</h2>
     <div class="lp-testis">
       ${trust('📚', L('مبني على المناهج الرسمية','Built on official curricula'), L('مصر والخليج و IGCSE والمنهج الأمريكي و IB وأكثر — لكل المراحل.','Egypt, the Gulf, IGCSE, American, IB and more — for every grade.'))}
       ${trust('🧠', L('شرح خطوة بخطوة','Step-by-step explanations'), L('ليس مجرد إجابة — بل شرح يجعل الطالب يفهم فعلاً.','Not just an answer — explanations so students truly understand.'))}
@@ -4016,7 +4016,7 @@ function tplLogin() {
   <section>
     <h2>${L('أسئلة شائعة','Frequently asked questions')}</h2>
     <div style="max-width:720px;margin:20px auto 0">
-      ${faq(L('ما الفئة العمرية لـ OstazzAI؟','What age is OstazzAI for?'), L('من الصف الأول الابتدائي حتى نهاية الثانوية (تقريباً 6–18 سنة)، مع شرح يناسب كل مستوى.','From Year 1 through the end of High School (roughly ages 6–18), with explanations matched to each level.'))}
+      ${faq(L('ما الفئة العمرية لـ Ostazzi؟','What age is Ostazzi for?'), L('من الصف الأول الابتدائي حتى نهاية الثانوية (تقريباً 6–18 سنة)، مع شرح يناسب كل مستوى.','From Year 1 through the end of High School (roughly ages 6–18), with explanations matched to each level.'))}
       ${faq(L('هل يناسب المرحلة الابتدائية؟','Is it suitable for primary school?'), L('نعم، يقدّم شرحاً مبسّطاً ومناسباً لعمر طلاب الابتدائي في الرياضيات والإنجليزي والعلوم.','Yes — it gives simple, age-appropriate explanations for primary students in Math, English, and Science.'))}
       ${faq(L('هل يساعد في الواجبات؟','Can it help with homework?'), L('نعم، يحل المسائل خطوة بخطوة ويشرح الفكرة حتى يفهمها الطالب بنفسه.','Yes — it solves problems step by step and explains the idea so the student truly understands.'))}
       ${faq(L('هل يدعم الاستعداد للامتحانات؟','Does it support exam preparation?'), L('نعم، اختبارات تدريبية، مراجعة، ودعم لمناهج مثل IGCSE و A-Level في الثانوية.','Yes — practice quizzes, revision, and support for curricula like IGCSE and A-Level in High School.'))}
@@ -4041,7 +4041,7 @@ function tplLogin() {
 
         <div style="flex:1 1 300px;min-width:270px;text-align:start;position:relative;z-index:1">
           <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#93C5FD;font-size:12px;font-weight:800;padding:6px 13px;border-radius:100px;margin-bottom:14px">✨ ${L('متاح الآن على App Store','Now on the App Store')}</div>
-          <h2 style="color:#fff;font-size:26px;font-weight:900;margin:0 0 10px;line-height:1.3">${L('حمّل تطبيق OstazzAI','Get the OstazzAI app')}</h2>
+          <h2 style="color:#fff;font-size:26px;font-weight:900;margin:0 0 10px;line-height:1.3">${L('حمّل تطبيق Ostazzi','Get the Ostazzi app')}</h2>
           <p style="color:#CBD5E1;font-size:14.5px;line-height:1.9;margin:0 0 22px;max-width:430px">${L('مدرّسك الذكي في جيبك — تعلّم في أي وقت وأي مكان على الآيفون والآيباد.','Your AI tutor in your pocket — learn anytime, anywhere on iPhone & iPad.')}</p>
           <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
             <a href="https://apps.apple.com/app/id6779545840" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:11px;background:#000;border:1px solid rgba(255,255,255,.22);border-radius:14px;padding:11px 20px;text-decoration:none;transition:transform .15s,box-shadow .15s" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 10px 24px rgba(0,0,0,.4)'" onmouseout="this.style.transform='none';this.style.boxShadow='none'">
@@ -4054,7 +4054,7 @@ function tplLogin() {
 
         <div style="flex:0 0 auto;position:relative;z-index:1;text-align:center">
           <div style="background:#fff;border-radius:22px;padding:15px;box-shadow:0 14px 34px rgba(2,8,23,.5);position:relative;display:inline-block">
-            <img src="app-qr.svg" alt="${L('رمز تحميل تطبيق OstazzAI','OstazzAI app download QR code')}" width="170" height="170" style="display:block;border-radius:8px">
+            <img src="app-qr.svg" alt="${L('رمز تحميل تطبيق Ostazzi','Ostazzi app download QR code')}" width="170" height="170" style="display:block;border-radius:8px">
             <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:42px;height:42px;background:#0B1533;border-radius:12px;display:flex;align-items:center;justify-content:center;border:3px solid #fff;box-shadow:0 3px 10px rgba(0,0,0,.25)">
               <span style="font-size:21px;line-height:1">🎓</span>
             </div>
@@ -4104,7 +4104,7 @@ function tplLogin() {
       <a href="terms.html">${L('شروط الاستخدام','Terms of Service')}</a>
       <a onclick="goSignin()">${L('تسجيل الدخول','Sign in')}</a>
     </div>
-    <div class="lp-foot">© 2026 OstazzAI — ${L('منصة التعلّم الذكي','Smart learning platform')}</div>
+    <div class="lp-foot">© 2026 Ostazzi — ${L('منصة التعلّم الذكي','Smart learning platform')}</div>
   </section>
 </div>`;
 }
@@ -5104,7 +5104,7 @@ function appDownloadCard(compact) {
     return `<div id="dl-banner" style="position:relative;background:linear-gradient(135deg,#0B1533,#1E293B);border-radius:18px;padding:14px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;box-shadow:0 8px 24px rgba(2,8,23,.3);overflow:hidden">
       <div style="background:#fff;border-radius:12px;padding:7px;flex:0 0 auto"><img src="app-qr.svg" alt="QR" width="60" height="60" style="display:block"></div>
       <div style="flex:1 1 160px;min-width:150px">
-        <div style="color:#fff;font-size:14px;font-weight:900;margin-bottom:2px">${L('Get the OstazzAI app','حمّل تطبيق OstazzAI')}</div>
+        <div style="color:#fff;font-size:14px;font-weight:900;margin-bottom:2px">${L('Get the Ostazzi app','حمّل تطبيق Ostazzi')}</div>
         <div style="color:#94A3B8;font-size:11.5px;margin-bottom:9px">${L('Scan the code or tap to download','امسح الرمز أو اضغط للتحميل')}</div>
         ${badge}
       </div>
@@ -5120,7 +5120,7 @@ function appDownloadCard(compact) {
       </div>
       <div style="flex:1 1 200px;min-width:190px;text-align:start">
         <div style="display:inline-block;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#93C5FD;font-size:11px;font-weight:800;padding:4px 11px;border-radius:100px;margin-bottom:9px">✨ ${L('Now on the App Store','متاح الآن على App Store')}</div>
-        <div style="color:#fff;font-size:19px;font-weight:900;margin-bottom:6px">${L('Get the OstazzAI app','حمّل تطبيق OstazzAI')}</div>
+        <div style="color:#fff;font-size:19px;font-weight:900;margin-bottom:6px">${L('Get the Ostazzi app','حمّل تطبيق Ostazzi')}</div>
         <div style="color:#CBD5E1;font-size:13px;line-height:1.7;margin-bottom:14px">${L('Your AI tutor on iPhone & iPad — scan to download.','مدرّسك الذكي على الآيفون والآيباد — امسح الرمز للتحميل.')}</div>
         ${badge}
       </div>
