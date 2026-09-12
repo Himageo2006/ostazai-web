@@ -3442,8 +3442,8 @@ const tplLoading = () => `
     <div style="font-size:72px;animation:pulse-logo 2s ease-in-out infinite">🎓</div>
     <div style="position:absolute;inset:-8px;border-radius:50%;border:2px solid #3B82F644;animation:spin-ring 2s linear infinite"></div>
   </div>
-  <div style="font-size:26px;font-weight:900;color:var(--primary);letter-spacing:-0.5px">أستاذ AI</div>
-  <div style="font-size:13px;color:var(--text-muted)" id="loading-msg">جارٍ التحميل...</div>
+  <div style="font-size:26px;font-weight:900;color:var(--primary);letter-spacing:-0.5px">${S.lang==='en'?'Ostazzi':'أستاذ AI'}</div>
+  <div style="font-size:13px;color:var(--text-muted)" id="loading-msg">${S.lang==='en'?'Loading…':'جارٍ التحميل...'}</div>
   <div style="width:200px;height:3px;background:var(--border);border-radius:999px;overflow:hidden">
     <div style="height:100%;background:linear-gradient(90deg,var(--primary),#8B5CF6);border-radius:999px;animation:loading-bar 1.8s ease-in-out infinite"></div>
   </div>
@@ -4281,7 +4281,7 @@ function tplShell(content) {
 <div class="shell">
   <aside class="sidebar">
     <div style="display:flex;align-items:center;justify-content:space-between;padding:0 8px;margin-bottom:2px">
-      <div class="sidebar-logo" style="margin-bottom:0">🎓 أستاذ AI</div>
+      <div class="sidebar-logo" style="margin-bottom:0">🎓 ${S.lang==='en'?'Ostazzi':'أستاذ AI'}</div>
       <button onclick="doLogout()" style="background:#EF444420;border:1px solid #EF444440;color:#EF4444;padding:5px 10px;border-radius:10px;font-family:Cairo,sans-serif;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap">🚪 ${S.lang==='en'?'Logout':'خروج'}</button>
     </div>
     <div class="sidebar-cur">${curLabel(S.curriculum)} · ${gradeData.label}</div>
