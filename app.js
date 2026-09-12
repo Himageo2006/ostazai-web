@@ -456,6 +456,11 @@ function cleanForSpeech(text) {
 }
 
 
+/* How long the teacher waits between board lines. The voice itself cannot be made to
+   pause — the free read-aloud endpoint returns zero bytes for any SSML containing a
+   <break> — so the gap lives here instead. Raise it to slow the lesson down. */
+const TEACHER_LINE_GAP_MS = 650;
+
 /* Second pass, audio only. cleanForSpeech() strips markup for the board; this makes the
    result sound like a person reading rather than a parser:
      - a beat after clause punctuation, a longer one at the end of the sentence
@@ -1337,7 +1342,7 @@ function _teacherSpeakNow() {
       if (revoke) URL.revokeObjectURL(url);
       // A beat between lines. Without it the next sentence starts on the heels of the
       // last and the lesson sounds rushed, which is what <break> was meant to fix.
-      setTimeout(advance, 380);
+      setTimeout(advance, TEACHER_LINE_GAP_MS);
     };
     audio.onerror = onErr;
     audio.play().catch(onErr);
