@@ -4451,7 +4451,7 @@ function tplHome() {
       <div style="display:flex;gap:8px;justify-content:center">
         <div style="background:#ffffff15;border:1px solid #ffffff20;border-radius:12px;padding:6px 12px;text-align:center">
           <div style="font-size:14px;font-weight:900;color:#FCD34D">${streak>0?'🔥':'💤'} ${streak}</div>
-          <div style="font-size:9px;color:#c4b5fd">streak</div>
+          <div style="font-size:9px;color:#c4b5fd">${L('streak','يوم متتابع')}</div>
         </div>
         <div style="background:#ffffff15;border:1px solid #ffffff20;border-radius:12px;padding:6px 12px;text-align:center">
           <div style="font-size:14px;font-weight:900;color:#6EE7B7">✅ ${doneCnt}</div>
