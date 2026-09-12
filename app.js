@@ -1674,7 +1674,7 @@ function _arabGrades(countryHistory, extraIslam) {
 const TRANSLATIONS = {
   en: {
     // App
-    appName: 'OstazAI',
+    appName: 'Ostazzi',
     appSlogan: 'Your AI Study Assistant',
     // Nav
     chat: 'Chat', lessons: 'Lessons', flashcards: 'Flashcards',
@@ -1847,10 +1847,7 @@ function toggleLang() {
   S.lang = S.lang === 'ar' ? 'en' : 'ar';
   S.igcseLang = S.lang;  // keep global L() (which keys off igcseLang) in sync with the app language
   saveLocal();
-  // Update document direction
-  document.documentElement.lang = S.lang;
-  document.documentElement.dir  = S.lang === 'en' ? 'ltr' : 'rtl';
-  document.body.dir = S.lang === 'en' ? 'ltr' : 'rtl';
+  applyLangDir();
   render();
 }
 
@@ -4348,7 +4345,7 @@ function tplShell(content) {
 </div>
 <!-- Floating Logout Button (mobile only) -->
 <button onclick="doLogout()" id="float-logout"
-  style="position:fixed;top:calc(10px + env(safe-area-inset-top,0px));left:12px;z-index:999;background:#EF444420;border:1px solid #EF444450;
+  style="position:fixed;top:calc(10px + env(safe-area-inset-top,0px));inset-inline-end:12px;z-index:999;background:#EF444420;border:1px solid #EF444450;
          color:#EF4444;border-radius:12px;padding:6px 11px;font-family:Cairo,sans-serif;font-size:11px;
          font-weight:800;cursor:pointer;display:none;align-items:center;gap:4px">
   🚪 ${S.lang==='en'?'Logout':'خروج'}
@@ -4775,7 +4772,7 @@ function tplChat() {
     <span>${(CURRICULA[S.curriculum]?.grades[S.grade]||Object.values(CURRICULA[S.curriculum]?.grades||{})[0])?.label||S.grade}</span>
     <span style="opacity:.4">›</span>
     <span style="font-weight:700;color:var(--text)">${esc(S.subject)}</span>
-    <button onclick="S.screen='lessons';render()" style="margin-right:auto;background:none;border:1px solid var(--border);border-radius:8px;padding:2px 8px;font-size:10px;cursor:pointer;color:var(--text-muted);font-family:Cairo,sans-serif">${L('Change ›','تغيير ›')}</button>
+    <button onclick="S.screen='lessons';render()" style="margin-inline-start:auto;background:none;border:1px solid var(--border);border-radius:8px;padding:2px 8px;font-size:10px;cursor:pointer;color:var(--text-muted);font-family:Cairo,sans-serif">${L('Change ›','تغيير ›')}</button>
   </div>
   <div class="chat-toolbar">
     <select id="subj-sel" class="subj-sel">${subjOpts}</select>
@@ -4856,7 +4853,7 @@ function tplFlashcards() {
     <div class="fc-front">${esc(fc.front || fc.question || '')}</div>
     <div class="fc-back">${md(fc.back || fc.answer || '')}</div>
   </div>
-  <div style="text-align:center;font-size:12px;color:var(--text-muted);margin:12px 0">${t('انقر على البطاقة لقلبها',S.lang==='en'?'Tap the card to flip it':'انقر على البطاقة لقلبها')}</div>
+  <div style="text-align:center;font-size:12px;color:var(--text-muted);margin:12px 0">${S.lang==='en'?'Tap the card to flip it':'انقر على البطاقة لقلبها'}</div>
   <div style="display:flex;gap:12px;justify-content:center;margin-top:8px;flex-wrap:wrap">
     <button class="btn btn-secondary" id="fc-prev" ${S.fcIndex===0?'disabled':''}>&#x2190; ${S.lang==='en'?'Prev':'السابق'}</button>
     <button class="btn btn-primary"   id="fc-next" ${S.fcIndex===S.flashcards.length-1?'disabled':''}>
@@ -22465,14 +22462,22 @@ async function doRedeemPromo() {
 /* ════════════════════════════════════════════════════════════
    DARK MODE + PROFILE ACTIONS
    ════════════════════════════════════════════════════════════ */
+/** Apply the current language to the document (lang + direction).
+ *  Boot used to skip this, so a returning English user got an RTL document until they
+ *  toggled the language again. Called from boot, toggleLang() and toggleDark(). */
+function applyLangDir() {
+  const en = S.lang === 'en';
+  document.documentElement.lang = S.lang || 'ar';
+  document.documentElement.dir  = en ? 'ltr' : 'rtl';
+  document.body.dir             = en ? 'ltr' : 'rtl';
+}
+
 function toggleDark() {
   S.darkMode = !S.darkMode;
   saveLocal();
   // Default theme is dark; 'light' class activates light mode
   document.body.classList.toggle('light', S.darkMode);
-  document.documentElement.lang = S.lang || 'ar';
-  document.documentElement.dir  = (S.lang === 'en') ? 'ltr' : 'rtl';
-  document.body.dir = (S.lang === 'en') ? 'ltr' : 'rtl';
+  applyLangDir();
   render();
 }
 
@@ -23339,7 +23344,7 @@ function bind() {
       --border:#CBD5E1; --radius:12px;
     }
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:Cairo,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;direction:rtl}
+    body{font-family:Cairo,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;direction:inherit}
     .shell{display:flex;min-height:100vh}
     .sidebar{width:240px;background:var(--bg-card);border-left:1px solid var(--border);display:flex;flex-direction:column;padding:20px 0;position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0}
     .sidebar-logo{font-size:18px;font-weight:900;color:var(--primary);padding:0 20px 8px}
@@ -23359,8 +23364,9 @@ function bind() {
     @media(max-width:768px){.sidebar{display:none}.bottom-nav{display:flex}.content{padding-bottom:75px}
       #float-logout{display:flex!important}
       #float-home{display:flex!important}
-      .screen-header{padding-top:calc(14px + env(safe-area-inset-top,0px))!important;padding-left:96px!important}
-      .chat-header{padding-top:calc(10px + env(safe-area-inset-top,0px))!important}
+      .screen-header{padding-top:calc(14px + env(safe-area-inset-top,0px))!important;padding-inline-end:96px!important}
+      .chat-header{padding-top:calc(10px + env(safe-area-inset-top,0px))!important;padding-inline-end:96px!important}
+      .chat-context-bar{padding-inline-end:96px!important}
       }
     .auth-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
     .auth-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;width:100%;max-width:420px;display:flex;flex-direction:column;gap:16px}
@@ -24267,6 +24273,7 @@ async function init() {
   try {
     loadLocal();
     document.body.classList.toggle('light', S.darkMode);
+    applyLangDir();
     S.screen = 'loading'; render();
 
     setLoadingMsg('جارٍ التحقق من حسابك...');
