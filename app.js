@@ -5333,7 +5333,7 @@ function tplProfile() {
     <div style="font-size:13px;color:var(--text-muted);margin-bottom:12px">
       ${S.lang==='en'?'Get a daily reminder even when the app is closed':'احصل على تذكير يومي حتى لو أغلقت التطبيق'}
     </div>
-    ${('Notification' in window && Notification.permission === 'granted') ? `
+    ${(window.Notification && Notification.permission === 'granted') ? `
     <div style="background:#22C55E18;border:1px solid #22C55E44;border-radius:12px;padding:12px;margin-bottom:12px;display:flex;align-items:center;gap:10px">
       <div style="font-size:22px">✅</div>
       <div>
@@ -24033,7 +24033,7 @@ function urlBase64ToUint8Array(base64String) {
 }
 
 async function requestPushPermission() {
-  if (!('Notification' in window) || !('serviceWorker' in navigator)) {
+  if (!window.Notification || !('serviceWorker' in navigator)) {
     showToast(S.lang==='en'?'Your browser does not support notifications':'متصفحك لا يدعم الإشعارات', 'error');
     return;
   }
@@ -24129,8 +24129,10 @@ async function disablePushNotifications() {
 }
 
 function sendPushNotification(title, body) {
-  // Fallback: local notification (when app is open)
-  if (Notification.permission !== 'granted') return;
+  // Fallback: local notification (when app is open).
+  // Android WebView has no Notification API at all, so existence is checked before
+  // permission — reading .permission on undefined is a ReferenceError, not a false.
+  if (!window.Notification || Notification.permission !== 'granted') return;
   try {
     const n = new Notification(title, {
       body, icon: '/icon-192.png', badge: '/icon-192.png',
@@ -24141,10 +24143,12 @@ function sendPushNotification(title, body) {
 }
 
 function initPushNotifications() {
-  // Re-register service worker on load to ensure push stays active
-  if ('serviceWorker' in navigator && Notification.permission === 'granted') {
-    navigator.serviceWorker.register('/sw.js').catch(()=>{});
-  }
+  // Re-register the service worker on load so push stays active.
+  // This runs inside init(); it used to throw on Android WebView, which has no
+  // Notification API, and took initStudyTimer() and the offline banner down with it.
+  if (!('serviceWorker' in navigator)) return;
+  if (!window.Notification || Notification.permission !== 'granted') return;
+  navigator.serviceWorker.register('/sw.js').catch(()=>{});
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -24512,8 +24516,11 @@ async function init() {
   setInterval(syncXP, 5 * 60 * 1000);
   // Auto-refresh leaderboard every 2 minutes (only if on that screen)
   setInterval(() => { if (S.screen === 'leaderboard') loadLeaderboard(); }, 2 * 60 * 1000);
-  initPushNotifications();
-  initStudyTimer();
+  // Each of these is independent, and a throw in one used to abort the rest of init().
+  // That is exactly how Android lost its study timer for months, so they are isolated.
+  [initPushNotifications, initStudyTimer].forEach(fn => {
+    try { fn(); } catch (e) { console.warn('[init]', fn.name, 'failed:', e && e.message); }
+  });
 
   // Network status monitoring
   function updateNetworkBanner() {
