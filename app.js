@@ -164,6 +164,7 @@ function saveLocal() {
     if (S.stats) localStorage.setItem('oa_stats', JSON.stringify(S.stats));
     localStorage.setItem('oa_dark', S.darkMode ? '1' : '');
     localStorage.setItem('oa_lang', S.lang || 'ar');
+    localStorage.setItem('oa_teacher', S.teacher || 'kareem');
     // IGCSE platform persistence
     localStorage.setItem('oa_igcse_done',     JSON.stringify(S.igcseDone || {}));
     localStorage.setItem('oa_igcse_board',    S.igcseBoard || 'cie');
@@ -196,6 +197,7 @@ function loadLocal() {
     S.grade      = localStorage.getItem('oa_grade')      || 'high';
     S.darkMode   = localStorage.getItem('oa_dark') === '1';
     S.lang       = localStorage.getItem('oa_lang') || 'ar';
+    S.teacher    = TEACHERS[localStorage.getItem('oa_teacher')] ? localStorage.getItem('oa_teacher') : 'kareem';
     S.igcseLang  = S.lang;  // keep global L() (which keys off igcseLang) in sync with the app language
     const st     = localStorage.getItem('oa_stats');
     S.stats      = st ? JSON.parse(st) : { xp:0, streak:1, totalChats:0, weeklyActivity:[0,0,0,0,0,0,0], quizzesDone:0, bestScore:0 };
@@ -453,6 +455,35 @@ function cleanForSpeech(text) {
     .replace(/\s+/g, ' ').trim();
 }
 
+
+/* Second pass, audio only. cleanForSpeech() strips markup for the board; this makes the
+   result sound like a person reading rather than a parser:
+     - a beat after clause punctuation, a longer one at the end of the sentence
+     - symbols the first pass left behind (minus, fractions, powers)
+     - Latin variable letters given Arabic names, so «2x» is not read as an English letter
+   The letter renaming is gated on Arabic: in English «x» is already correct. */
+function speakify(text, isArabic) {
+  let t = String(text);
+  if (isArabic) {
+    t = t.replace(/(^|[^A-Za-z])([xyzXYZ])(?![A-Za-z])/g,
+                  (m, pre, ch) => pre + ({ x: 'إكس', y: 'واي', z: 'زد' }[ch.toLowerCase()]));
+  }
+  t = t
+    .replace(/\^\s*2/g, isArabic ? ' تربيع ' : ' squared ')
+    .replace(/\^\s*3/g, isArabic ? ' تكعيب ' : ' cubed ')
+    .replace(/([0-9])\s*\/\s*([0-9])/g, isArabic ? '$1 على $2' : '$1 over $2')
+    .replace(/[-−]\s*(?=[0-9(])/g, isArabic ? ' ناقص ' : ' minus ')
+    .replace(/[•▪◦]/g, ' ')
+    // Edge's free endpoint drops the whole request if it sees a <break>, so rhythm
+    // has to come from punctuation, which it does honour. A dash reads as a run-on;
+    // a comma makes it breathe. The gap BETWEEN sentences is added by the player.
+    .replace(/ [—–-] /g, isArabic ? '، ' : ', ')
+    .replace(/[ ]+/g, ' ')
+    .trim();
+  // end every line on a full stop so the voice falls rather than trailing upward
+  return t && !/[.!?؟…،]$/.test(t) ? t + '.' : t;
+}
+
 // Robustly pick the best voice for a language; returns null if none exists for Arabic
 function pickVoice(isArabic) {
   const voices = speechSynthesis.getVoices() || [];
@@ -495,7 +526,7 @@ async function _edgeSecMsGec() {
   return [...new Uint8Array(hash)].map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
 }
 
-function _edgeTTS(text, voice = 'ar-EG-ShakirNeural', rate = '-4%') {
+function _edgeTTS(text, voice = 'ar-EG-ShakirNeural', rate = '-4%', pitch = '+0Hz', volume = 'default') {
   return new Promise((resolve, reject) => {
     if (_edgeBlocked || !window.WebSocket || !(crypto && crypto.subtle)) return reject(new Error('edge unavailable'));
     _edgeSecMsGec().then(gec => {
@@ -516,7 +547,7 @@ function _edgeTTS(text, voice = 'ar-EG-ShakirNeural', rate = '-4%') {
         const esc = String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         const xmlLang = voice.split('-').slice(0, 2).join('-') || 'ar-EG';  // e.g. ar-EG-ShakirNeural → ar-EG, en-US-GuyNeural → en-US
         const ssml = `<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='${xmlLang}'>`
-          + `<voice name='${voice}'><prosody rate='${rate}'>${esc}</prosody></voice></speak>`;
+          + `<voice name='${voice}'><prosody rate='${rate}' pitch='${pitch}' volume='${volume}'>${esc}</prosody></voice></speak>`;
         ws.send(`X-RequestId:${id}\r\nContent-Type:application/ssml+xml\r\nX-Timestamp:${ts}Z\r\nPath:ssml\r\n\r\n${ssml}`);
       };
       ws.onmessage = (ev) => {
@@ -661,7 +692,7 @@ function showTeacher(text, lines, forceEn) {
           <div class="tch-pointer"></div>
         </div>
       </div>
-      <div class="tch-name">🎓 ${_teacherState.en?'Mr. Kareem explains':'الأستاذ كريم يشرح'}</div>
+      <div class="tch-name">🎓 ${_teacherState.en ? teacher().name.en + ' explains' : teacher().name.ar + ' يشرح'}</div>
       <div class="tch-controls">
         <button class="tch-btn" id="tch-prev" onclick="teacherJump(-1)">⏮</button>
         <button class="tch-btn tch-play" id="tch-play" onclick="teacherToggle()">▶️ ${_teacherState.en?'Start':'ابدأ الشرح'}</button>
@@ -686,7 +717,7 @@ function initTeacherImage() {
   if (!img) {
     img = document.createElement('img');
     img.id = 'tch-img';
-    img.alt = 'الأستاذ كريم';
+    img.alt = teacherName();
     img.onload = () => { if (svg) svg.style.display = 'none'; img.style.display = 'block'; };
     img.onerror = () => { img.style.display = 'none'; if (svg) svg.style.display = 'block'; }; // fall back to cartoon
     wrap.insertBefore(img, wrap.firstChild);
@@ -957,6 +988,39 @@ function _animate3D() {
   renderer.render(scene, camera);
   _t3d.raf = requestAnimationFrame(_animate3D);
 }
+/* ── Who is teaching ─────────────────────────────────────────────────────────
+   Two teachers, same clip vocabulary, chosen by the student. Everything that
+   differs between them lives here: where the clips are, what they are called,
+   and which voice reads the lesson. Add a third by adding an entry.
+
+   Mariam's preferred voice is a paid one, so it is requested from the server by
+   name, and her plain voice entry stays as the free Edge fallback used until
+   that key is configured. */
+const TEACHERS = {
+  kareem: {
+    dir:   'assets/kareem/',
+    name:  { ar: 'الأستاذ كريم', en: 'Mr. Kareem' },
+    short: { ar: 'كريم', en: 'Kareem' },
+    voice: { ar: 'ar-EG-ShakirNeural', en: 'en-US-GuyNeural' },
+    prosody: { rate: '-4%', pitch: '+0Hz', volume: 'default' },
+  },
+  mariam: {
+    dir:   'assets/mariam/',
+    name:  { ar: 'أ. مريم', en: 'Ms. Mariam' },
+    short: { ar: 'مريم', en: 'Mariam' },
+    voice: { ar: 'ar-EG-SalmaNeural', en: 'en-US-AriaNeural' },
+    // Edge has exactly one Egyptian female voice, so a younger, softer reading has to
+    // come from prosody. Younger reads HIGHER — lowering the pitch only ages her.
+    // Past about +25Hz Salma starts to strain.
+    prosody: { rate: '-10%', pitch: '+25Hz', volume: '-20%' },
+  },
+};
+function teacher()     { return TEACHERS[(typeof S !== 'undefined' && S.teacher) || 'kareem'] || TEACHERS.kareem; }
+function teacherDir()  { return teacher().dir; }
+function teacherName() { return teacher().name[(typeof S !== 'undefined' && S.lang === 'en') ? 'en' : 'ar']; }
+window.teacherDir = teacherDir;
+window.teacherName = teacherName;
+
 /* ── Kareem reactions, anywhere in the app ───────────────────────────────────
    A small floating bubble, used where there is no teacher board (quiz, streaks).
    These clips play WITH their own audio on purpose: each was rendered from a
@@ -969,7 +1033,7 @@ function _animate3D() {
 // Picked per render rather than cycled, so the variety is not tied to any state.
 const KAREEM_IDLES = ['idle-a', 'idle-b', 'idle-c'];
 function kareemIdleSrc() {
-  return 'assets/kareem/' + KAREEM_IDLES[Math.floor(Math.random() * KAREEM_IDLES.length)] + '.mp4';
+  return teacherDir() + KAREEM_IDLES[Math.floor(Math.random() * KAREEM_IDLES.length)] + '.mp4';
 }
 window.kareemIdleSrc = kareemIdleSrc;
 
@@ -1014,7 +1078,7 @@ function kareemThinking(on) {
   v.onerror = () => kareemThinking(false);
   v.loop  = true;
   v.muted = true;                     // mouth closed anyway; never talk over the app
-  v.src = 'assets/kareem/thinking.mp4';
+  v.src = teacherDir() + 'thinking.mp4';
   document.getElementById('kareem-react').classList.add('on');
   v.play().catch(() => {});           // a rejected play() is not a reason to hide him
 }
@@ -1052,7 +1116,7 @@ function kareemSay(name, opts) {
   v.onerror  = hide;                 // clip missing → just don't show anything
   v.loop  = false;                   // MUST reset: kareemSpeaking() shares this element and sets loop=true
   v.muted = silent;
-  v.src = 'assets/kareem/' + id + '.mp4';
+  v.src = teacherDir() + id + '.mp4';
   box.classList.add('on');
   v.play().catch(() => {             // sound blocked without a gesture → play silent
     v.muted = true;
@@ -1090,7 +1154,7 @@ function lpKareemIntro(){
    existing 3D model and the SVG cartoon remain as fallbacks, in that order, and
    are only used if the clips fail to load. */
 const KV = {
-  dir:  'assets/kareem/',
+  get dir() { return teacherDir(); },
   idle: ['idle-a','idle-b','idle-c'],
   // While the board narrates he uses the BOARD clips, not the talk-* ones.
   // Every pre-rendered clip lip-syncs the driver sentence it was rendered from, so
@@ -1241,9 +1305,12 @@ function _teacherSpeakNow() {
   if (!t.playing || t.idx >= t.sentences.length) return;
   speechSynthesis.cancel();
   // Board shows the raw line (keeps "x = y", emoji); narration speaks a speech-cleaned version.
-  const sentence = cleanForSpeech(t.sentences[t.idx]) || t.sentences[t.idx];
-  const u = new SpeechSynthesisUtterance(sentence);
-  const isArabic = /[؀-ۿ]/.test(sentence);
+  const _raw = cleanForSpeech(t.sentences[t.idx]) || t.sentences[t.idx];
+  const isArabic = /[؀-ۿ]/.test(_raw);
+  // `sentence` carries the pause markers and goes to the neural voices; the device
+  // fallback below cannot read SSML, so it is given the plain line instead.
+  const sentence = speakify(_raw, isArabic);
+  const u = new SpeechSynthesisUtterance(_raw);
   const v = pickVoice(isArabic);
   const av = document.getElementById('tch-avatar');
   const advance = () => {
@@ -1266,7 +1333,12 @@ function _teacherSpeakNow() {
   const playUrl = (url, onErr, revoke) => {
     const audio = new Audio(url);
     _teacherState._audio = audio;
-    audio.onended = () => { if (revoke) URL.revokeObjectURL(url); advance(); };
+    audio.onended = () => {
+      if (revoke) URL.revokeObjectURL(url);
+      // A beat between lines. Without it the next sentence starts on the heels of the
+      // last and the lesson sounds rushed, which is what <break> was meant to fix.
+      setTimeout(advance, 380);
+    };
     audio.onerror = onErr;
     audio.play().catch(onErr);
   };
@@ -1275,7 +1347,7 @@ function _teacherSpeakNow() {
       _teacherState._warnedNoVoice = true;
       showToast(S.lang==='en'?'Showing the lesson on the board (audio unavailable).':'يُعرض الدرس على السبورة (الصوت غير متاح حالياً).', 'info');
     }
-    const ms = Math.max(2200, sentence.length * 75);
+    const ms = Math.max(2200, _raw.length * 75);
     _teacherState._silentTimer = setTimeout(advance, ms);
   };
   // Device SpeechSynthesis as last resort — only useful if a matching voice exists.
@@ -1289,10 +1361,17 @@ function _teacherSpeakNow() {
     try { speechSynthesis.speak(u); } catch (_) { silentFallback(); }
   };
   const lang = isArabic ? 'ar' : 'en';
-  const edgeVoice = isArabic ? 'ar-EG-ShakirNeural' : 'en-US-GuyNeural';
-  const serverFallback = () => playUrl(`${API}/tts?lang=${lang}&text=${encodeURIComponent(sentence)}`, deviceFallback, false);
+  const edgeVoice = teacher().voice[isArabic ? 'ar' : 'en'];
+  // A teacher with a paid voice asks the server for it by name. The server falls
+  // back to Edge on its own, so this stays correct before the key is configured.
+  const _pr = teacher().prosody || { rate: '-4%', pitch: '+0Hz', volume: 'default' };
+  // The server fallback speaks in whatever voice it is told; without this it would
+  // answer in Kareem's male voice while Mariam is the one on screen.
+  const voiceQS = '&voice=' + encodeURIComponent(edgeVoice)
+    + '&rate=' + encodeURIComponent(_pr.rate) + '&pitch=' + encodeURIComponent(_pr.pitch) + '&volume=' + encodeURIComponent(_pr.volume);
+  const serverFallback = () => playUrl(`${API}/tts?lang=${lang}&text=${encodeURIComponent(sentence)}${voiceQS}`, deviceFallback, false);
   // Try the natural Edge neural voice first (skips instantly if already known blocked).
-  _edgeTTS(sentence, edgeVoice)
+  _edgeTTS(sentence, edgeVoice, _pr.rate, _pr.pitch, _pr.volume)
     .then(blob => { if (_teacherState.playing) playUrl(URL.createObjectURL(blob), serverFallback, true); })
     .catch(serverFallback);
 }
@@ -4622,7 +4701,7 @@ function tplHome() {
                background:linear-gradient(135deg,#BE185D,#EC4899);cursor:pointer;font-family:Cairo,sans-serif;transition:.2s;box-shadow:0 4px 14px #BE185D30"
         onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
         <div style="font-size:22px">👩‍🏫</div>
-        <div style="font-size:11px;font-weight:900;color:#fff">${L('AI Teacher','المعلّم كريم')}</div>
+        <div style="font-size:11px;font-weight:900;color:#fff">${L('AI Teacher', 'المعلّم ' + teacher().short.ar)}</div>
         <div style="font-size:9px;color:#fbcfe8">${L('Explains aloud','يشرح بالصوت')}</div>
       </button>
 
@@ -5131,6 +5210,18 @@ function dismissDlBanner() {
   if (el && el.parentElement) el.parentElement.style.display = 'none';
 }
 
+/* Switching teacher swaps the clip folder, the displayed name and the voice. The
+   board may be open with the other teacher on screen, so stop any audio first. */
+function setTeacher(id) {
+  if (!TEACHERS[id] || S.teacher === id) return;
+  S.teacher = id;
+  try { _stopTeacherAudio(); } catch (_) {}
+  saveLocal();
+  render();
+  showToast(L('Teacher changed to ', 'تم اختيار ') + teacherName(), 'success');
+}
+window.setTeacher = setTeacher;
+
 function tplProfile() {
   const u = S.user || {};
   const curData = CURRICULA[S.curriculum] || CURRICULA.egypt;
@@ -5145,6 +5236,27 @@ function tplProfile() {
   </button>
 </div>
 <div class="screen-body">
+
+  <!-- Which teacher -->
+  <div class="info-card" style="margin-bottom:16px">
+    <div style="font-size:13px;font-weight:900;margin-bottom:10px">🎓 ${L('Your teacher','مدرّسك')}</div>
+    <div style="display:flex;gap:10px">
+      ${Object.keys(TEACHERS).map(id => {
+        const t = TEACHERS[id], on = (S.teacher || 'kareem') === id;
+        return `<button onclick="setTeacher('${id}')" style="
+            flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;
+            padding:12px 8px;border-radius:14px;font-family:Cairo,sans-serif;
+            background:${on ? 'var(--primary)18' : 'var(--bg-card2)'};
+            border:2px solid ${on ? 'var(--primary)' : 'var(--border)'}">
+          <img src="${t.dir}face.jpg" alt="" onerror="this.style.display='none'"
+               style="width:56px;height:56px;border-radius:50%;object-fit:cover;object-position:top">
+          <div style="font-size:13px;font-weight:800;color:${on ? 'var(--primary)' : 'var(--text)'}">${t.name[S.lang==='en'?'en':'ar']}</div>
+          ${on ? `<div style="font-size:10px;color:var(--primary)">✓ ${L('Selected','مختار')}</div>` : ''}
+        </button>`;
+      }).join('')}
+    </div>
+    <div style="font-size:11px;color:var(--text-muted);margin-top:10px;line-height:1.7">${L('They teach the same lessons. Only the voice and the face change.','كلاهما يشرح نفس الدروس — يختلف الصوت والوجه فقط.')}</div>
+  </div>
 
   <!-- Avatar + Plan -->
   <div class="info-card" style="text-align:center;margin-bottom:16px">
@@ -20877,7 +20989,7 @@ function tplLessons() {
     ${S.lessonContent ? `
     <div style="line-height:2.1;font-size:16px;max-height:65vh;overflow-y:auto;padding-left:4px">${md(S.lessonContent)}</div>
     <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
-      <button class="btn btn-primary btn-sm" id="b-lesson-teacher" style="background:#8B5CF6;border-color:#8B5CF6">🎬 ${L('Mr. Kareem on the board','الأستاذ كريم على السبورة')}</button>
+      <button class="btn btn-primary btn-sm" id="b-lesson-teacher" style="background:#8B5CF6;border-color:#8B5CF6">🎬 ${L(teacher().name.en + ' on the board', teacher().name.ar + ' على السبورة')}</button>
       <button class="btn btn-secondary btn-sm" id="b-lesson-chat">💬 ${L('Discuss in chat','ناقش في المحادثة')}</button>
       <button class="btn btn-secondary btn-sm" id="b-lesson-fc">🗂️ ${L('Cards','بطاقات')}</button>
       <button class="btn btn-secondary btn-sm" id="b-lesson-quiz">📝 ${L('Quiz','اختبار')}</button>
@@ -21012,7 +21124,7 @@ function tplLessons() {
         <div style="font-size:14px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(topic)}</div>
         <div style="font-size:10px;color:var(--text-muted);margin-top:2px">${L('Chapter','الفصل')} ${idx+1}${done?(S.lang==='en'?' · ✅ Reviewed':' · ✅ تمت المراجعة'):''}</div>
       </div>
-      <span class="lesson-board-btn" data-topic-idx="${idx}" title="${S.lang==='en'?'Mr. Kareem on the board':'الأستاذ كريم على السبورة'}"
+      <span class="lesson-board-btn" data-topic-idx="${idx}" title="${S.lang==='en' ? teacher().name.en + ' on the board' : teacher().name.ar + ' على السبورة'}"
         style="flex-shrink:0;background:#8B5CF6;color:#fff;font-size:12px;font-weight:800;border-radius:10px;padding:7px 11px;font-family:Cairo,sans-serif;white-space:nowrap;cursor:pointer">
         🎬 ${S.lang==='en'?'Explain':'اشرح'}
       </span>
@@ -21580,7 +21692,7 @@ function doLogout() {
   // Logout is the only reliable "session end": beforeunload leaves no time to
   // play anything, and clearing the greet flag means he says hello again next visit.
   try { sessionStorage.removeItem('kareemGreeted'); } catch (_) {}
-  setTimeout(() => { try { kareemSay('bye'); } catch (_) {} }, 300);
+  setTimeout(() => { try { kareemSay('farewell'); } catch (_) {} }, 300);
 }
 
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -24841,7 +24953,7 @@ function checkIGCSEAchievements() {
     // Kareem reacts once, not once per badge -- unlocking three at a time would
     // otherwise restart the clip twice and look broken. Fires just before the
     // first toast so his reaction reads as the cause, not an afterthought.
-    setTimeout(() => { try { kareemSay('wow'); } catch (_) {} }, 250);
+    setTimeout(() => { try { kareemSay('surprised'); } catch (_) {} }, 250);
   }
 }
 
