@@ -1492,14 +1492,31 @@ function closeTeacher() {
 
 /* ── Text-to-Speech: read AI explanations aloud ── */
 let _speakingBtn = null;
+let _chatRead = null;   // the reply currently being read: { stopped, audio }
+
+function _chatReadStop() {
+  if (_chatRead) {
+    _chatRead.stopped = true;
+    const a = _chatRead.audio;
+    if (a) { try { a.onended = a.onerror = null; a.pause(); a.src = ''; } catch (_) {} }
+    _chatRead = null;
+  }
+  try { if (window.speechSynthesis) speechSynthesis.cancel(); } catch (_) {}
+  kareemSpeaking(false);
+  if (_speakingBtn) _speakingBtn.textContent = '🔊';
+  _speakingBtn = null;
+}
+
+/* Chat replies used to be read by the DEVICE voice: robotic, and on many computers absent
+   for Arabic altogether. They now go through the same path as lessons — the chosen
+   teacher's neural voice, one sentence at a time, with full تشكيل — falling back to the
+   server voice and only then to the device. */
 function speakText(text, btn) {
-  if (!('speechSynthesis' in window)) { showToast(S.lang==='en'?'Voice not supported on this device':'القراءة الصوتية غير مدعومة على هذا الجهاز', 'error'); return; }
-  // Toggle: if already speaking, stop
-  if (speechSynthesis.speaking) {
-    speechSynthesis.cancel();
-    kareemSpeaking(false);
-    if (_speakingBtn) _speakingBtn.textContent = '🔊';
-    if (_speakingBtn === btn) { _speakingBtn = null; return; }
+  // Toggle: this reply's button stops it; another reply's button switches to that one.
+  if (_chatRead || (window.speechSynthesis && speechSynthesis.speaking)) {
+    const same = _speakingBtn === btn;
+    _chatReadStop();
+    if (same) return;
   }
   // Strip markdown/HTML/emojis so it reads clean text
   const clean = String(text)
@@ -1510,22 +1527,73 @@ function speakText(text, btn) {
     .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu, ' ')
     .replace(/\s+/g, ' ').trim();
   if (!clean) return;
-  const isArabic = /[؀-ۿ]/.test(clean);
-  ensureVoices(() => {
-    const v = pickVoice(isArabic);
-    if (isArabic && !v) {
-      showToast(S.lang==='en'?'No Arabic voice installed on this device.':'لا يوجد صوت عربي مثبّت على الجهاز. أضِفه من إعدادات الجهاز.', 'error');
-      if (btn) btn.textContent = '🔊'; _speakingBtn = null; return;
-    }
-    const u = new SpeechSynthesisUtterance(clean);
-    if (v) u.voice = v;
-    u.lang = v ? v.lang : (isArabic ? 'ar-SA' : 'en-US');
-    u.rate = 0.92;
-    u.onend = u.onerror = () => { if (btn) btn.textContent = '🔊'; _speakingBtn = null; kareemSpeaking(false); };
-    if (btn) { btn.textContent = '⏸️'; _speakingBtn = btn; }
-    speechSynthesis.speak(u);
-    kareemSpeaking(true);   // he appears for as long as the reply is being read
-  });
+
+  // One sentence per request: the voice sounds better per sentence, vowelling is cached
+  // per line, and the gap between lines matches the lessons.
+  const lines = clean.split(/(?<=[.!?؟…:])\s+/).map(s => s.trim()).filter(Boolean);
+  const plain  = [];
+  let buf = '';
+  for (const p of lines) {
+    const joined = buf ? buf + ' ' + p : p;
+    if (buf && joined.length > 160) { plain.push(buf); buf = p; }
+    else if (joined.length >= 35) { plain.push(joined); buf = ''; }
+    else buf = joined;
+  }
+  if (buf) plain.push(buf);
+  const spoken = plain.map(l => speakify(l, _hasArabic(l)));
+  _tashkeelFetch(spoken.slice(0, TASHKEEL_BATCH));
+
+  const run = { stopped: false, audio: null };
+  _chatRead = run;
+  if (btn) { btn.textContent = '⏸️'; _speakingBtn = btn; }
+  kareemSpeaking(true);   // he appears for as long as the reply is being read
+
+  const finish = () => { if (_chatRead === run) _chatReadStop(); };
+  let i = 0;
+  const next = async () => {
+    if (run.stopped) return;
+    if (i >= spoken.length) return finish();
+    const line = spoken[i], isArabic = _hasArabic(line);
+    _tashkeelFetch(spoken.slice(i + 1, i + 1 + TASHKEEL_BATCH));
+    const say = await _tashkeelFor(line);
+    if (run.stopped) return;
+
+    const advance = () => { if (run.stopped) return; i++; setTimeout(next, TEACHER_LINE_GAP_MS); };
+    // audio.onerror and play().catch can both fire for one failure; act on it once, and
+    // never after the reader was stopped.
+    const play = (url, onErr, revoke) => {
+      let failed = false;
+      const fail = () => { if (failed || run.stopped) return; failed = true; onErr(); };
+      const a = new Audio(url);
+      run.audio = a;
+      a.onended = () => { if (revoke) URL.revokeObjectURL(url); advance(); };
+      a.onerror = fail;
+      a.play().catch(fail);
+    };
+    const device = () => {
+      const v = window.speechSynthesis ? pickVoice(isArabic) : null;
+      if (!v) {
+        if (!run.toldNoVoice) {
+          run.toldNoVoice = true;
+          showToast(S.lang==='en'?'Voice is unavailable right now.':'الصوت غير متاح حالياً.', 'error');
+        }
+        return finish();
+      }
+      const u = new SpeechSynthesisUtterance(plain[i]);   // device voices get the plain line
+      u.voice = v; u.lang = v.lang; u.rate = 0.92;
+      u.onend = u.onerror = advance;
+      speechSynthesis.speak(u);
+    };
+    const pr = teacher().prosody || { rate: '-4%', pitch: '+0Hz', volume: 'default' };
+    const voice = teacher().voice[isArabic ? 'ar' : 'en'];
+    const server = () => play(`${API}/tts?lang=${isArabic ? 'ar' : 'en'}&text=${encodeURIComponent(say)}`
+      + `&voice=${encodeURIComponent(voice)}&rate=${encodeURIComponent(pr.rate)}`
+      + `&pitch=${encodeURIComponent(pr.pitch)}&volume=${encodeURIComponent(pr.volume)}`, device, false);
+    _edgeTTS(say, voice, pr.rate, pr.pitch, pr.volume)
+      .then(blob => { if (!run.stopped) play(URL.createObjectURL(blob), server, true); })
+      .catch(() => { if (!run.stopped) server(); });
+  };
+  next();
 }
 // Some browsers load voices asynchronously
 if ('speechSynthesis' in window) speechSynthesis.getVoices();
@@ -1534,9 +1602,9 @@ if ('speechSynthesis' in window) speechSynthesis.getVoices();
 function render() {
   // Stop any ongoing speech when the screen re-renders away
   try {
-    if (window.speechSynthesis && speechSynthesis.speaking && !document.querySelector('.speak-btn')) {
-      speechSynthesis.cancel();
-      if (typeof kareemSpeaking === 'function') kareemSpeaking(false);   // don't leave him talking to an empty screen
+    // A reply being read is audio now, not speechSynthesis, so check the reader too.
+    if ((_chatRead || (window.speechSynthesis && speechSynthesis.speaking)) && !document.querySelector('.speak-btn')) {
+      _chatReadStop();   // also cancels speechSynthesis and hides the talking Kareem
     }
   } catch(_) {}
   const el = ge('app');
