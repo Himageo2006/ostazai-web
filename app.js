@@ -1078,7 +1078,9 @@ const TEACHERS = {
     // Edge has exactly one Egyptian female voice, so a younger, softer reading has to
     // come from prosody. Younger reads HIGHER — lowering the pitch only ages her.
     // Past about +25Hz Salma starts to strain.
-    prosody: { rate: '-10%', pitch: '+25Hz', volume: '-20%' },
+    // Sample "B" of the slower/softer round (2026-09-16), chosen for her greeting video AND
+    // her app voice so she sounds the same everywhere. Was -10% / +25Hz / -20%.
+    prosody: { rate: '-20%', pitch: '+22Hz', volume: '-30%' },
   },
 };
 function teacher()     { return TEACHERS[(typeof S !== 'undefined' && S.teacher) || 'kareem'] || TEACHERS.kareem; }
