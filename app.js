@@ -1196,6 +1196,10 @@ window.kareemSay = kareemSay;
    The idle loop autoplays muted (allowed everywhere). The button swaps in the
    spoken intro WITH sound -- browsers only permit that on a real user gesture,
    which is exactly what the click provides. When it ends he returns to idle. */
+// Bump when the intro clips are re-rendered. The file names never change, so without this
+// returning visitors keep the cached old clip — v2 (2026-09-16) says «أستاذي» / "Ostazzi"
+// instead of the old name «أستاذ AI» / "OstazAI".
+const KAREEM_HERO_V = '2';
 function lpKareemIntro(){
   const v = document.getElementById('lp-kv');
   const b = document.getElementById('lp-kv-btn');
@@ -1207,7 +1211,7 @@ function lpKareemIntro(){
     if (b) b.style.display = '';
   };
   v.loop = false; v.muted = false;
-  v.src = 'assets/kareem/hero/intro-' + lang + '.mp4';
+  v.src = 'assets/kareem/hero/intro-' + lang + '.mp4?v=' + KAREEM_HERO_V;
   v.onended = back;
   v.onerror = back;                       // clip missing → keep the idle loop, never a dead frame
   v.play().then(() => { if (b) b.style.display = 'none'; })
@@ -3990,7 +3994,7 @@ function tplLogin() {
          on arrival -- that is why he was invisible when placed in the hero. -->
     <div class="lp-hero-kareem">
       <video id="lp-kv" class="lp-kv" playsinline muted loop autoplay preload="metadata"
-             poster="assets/kareem/hero/poster-${S.lang==='en'?'en':'ar'}.jpg"
+             poster="assets/kareem/hero/poster-${S.lang==='en'?'en':'ar'}.jpg?v=${KAREEM_HERO_V}"
              src="${kareemIdleSrc()}"></video>
       <button class="lp-kv-play" id="lp-kv-btn" onclick="lpKareemIntro()"
               aria-label="${L('استمع لأستاذ كريم','Hear Mr. Kareem')}">
@@ -24448,7 +24452,7 @@ function tplOnboarding() {
   ${cur.kareem ? `
   <div class="lp-hero-kareem" style="margin-bottom:20px">
     <video id="lp-kv" class="lp-kv" playsinline muted loop autoplay preload="metadata"
-           poster="assets/kareem/hero/poster-${S.lang==='en'?'en':'ar'}.jpg"
+           poster="assets/kareem/hero/poster-${S.lang==='en'?'en':'ar'}.jpg?v=${KAREEM_HERO_V}"
            src="${kareemIdleSrc()}"></video>
     <button class="lp-kv-play" id="lp-kv-btn" onclick="lpKareemIntro()"
             aria-label="${S.lang==='en'?'Hear Mr. Kareem':'استمع لأستاذ كريم'}">
