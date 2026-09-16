@@ -489,6 +489,56 @@ function speakify(text, isArabic) {
   return t && !/[.!?؟…،]$/.test(t) ? t + '.' : t;
 }
 
+/* Full تشكيل for the SPOKEN line. The neural voice guesses unvowelled Arabic by rule and
+   guesses wrong often enough to sound unnatural (a fatha where a kasra belongs, a vowel on
+   a letter that must be sakin); vowelled text removes the guess. The server only returns
+   a vowelled line whose letters match the original exactly, and anything that fails or is
+   slow falls back to the plain line — the old reading, never a different sentence.
+   Lines are fetched ahead of the voice, so normally nothing waits. */
+const TASHKEEL_WAIT_MS = 7000;   // the most a line will wait for its vowels before speaking plain
+const TASHKEEL_BATCH = 8;        // matches the server's per-request cap
+const _tsh = new Map();          // spoken line → vowelled string, or a Promise while in flight
+const _hasArabic = (x) => /[؀-ۿ]/.test(x);
+
+// The exact string _teacherSpeakNow() hands to the voice, so cache keys line up.
+function _spokenLine(line) {
+  const raw = cleanForSpeech(line) || line;
+  return speakify(raw, _hasArabic(raw));
+}
+
+function _tashkeelFetch(lines) {
+  const need = [...new Set(lines)].filter(l => l && _hasArabic(l) && !_tsh.has(l));
+  for (let k = 0; k < need.length; k += TASHKEEL_BATCH) {
+    const batch = need.slice(k, k + TASHKEEL_BATCH);
+    const p = fetch(`${API}/tashkeel`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ texts: batch }),
+    })
+      .then(r => r.ok ? r.json() : null)
+      .then(j => batch.forEach((l, i) => _tsh.set(l, (j && j.texts && j.texts[i]) || l)))
+      // Settle to the plain line rather than retrying: a down server must not make every
+      // later sentence wait out the full timeout.
+      .catch(() => batch.forEach(l => _tsh.set(l, l)));
+    batch.forEach(l => _tsh.set(l, p));
+  }
+}
+
+function _tashkeelPrefetch(fromIdx) {
+  const t = _teacherState;
+  if (!t || !Array.isArray(t.sentences)) return;
+  _tashkeelFetch(t.sentences.slice(fromIdx, fromIdx + TASHKEEL_BATCH).map(_spokenLine));
+}
+
+async function _tashkeelFor(line) {
+  if (!_hasArabic(line)) return line;
+  if (!_tsh.has(line)) _tashkeelFetch([line]);
+  const v = _tsh.get(line);
+  if (typeof v === 'string') return v;
+  await Promise.race([v, new Promise(r => setTimeout(r, TASHKEEL_WAIT_MS))]);
+  const done = _tsh.get(line);
+  return typeof done === 'string' ? done : line;
+}
+
 // Robustly pick the best voice for a language; returns null if none exists for Arabic
 function pickVoice(isArabic) {
   const voices = speechSynthesis.getVoices() || [];
@@ -670,6 +720,7 @@ function showTeacher(text, lines, forceEn) {
     if (buf) sentences.push(buf);
   }
   _teacherState = { sentences, idx: 0, playing: false };
+  _tashkeelPrefetch(0);
   // Detect the lesson's language from its content (English lessons → English board UI + voice)
   _teacherState.en = (typeof forceEn === 'boolean') ? forceEn : !/[؀-ۿ]/.test(sentences.join(' '));
 
@@ -1374,11 +1425,21 @@ function _teacherSpeakNow() {
   // answer in Kareem's male voice while Mariam is the one on screen.
   const voiceQS = '&voice=' + encodeURIComponent(edgeVoice)
     + '&rate=' + encodeURIComponent(_pr.rate) + '&pitch=' + encodeURIComponent(_pr.pitch) + '&volume=' + encodeURIComponent(_pr.volume);
-  const serverFallback = () => playUrl(`${API}/tts?lang=${lang}&text=${encodeURIComponent(sentence)}${voiceQS}`, deviceFallback, false);
-  // Try the natural Edge neural voice first (skips instantly if already known blocked).
-  _edgeTTS(sentence, edgeVoice, _pr.rate, _pr.pitch, _pr.volume)
-    .then(blob => { if (_teacherState.playing) playUrl(URL.createObjectURL(blob), serverFallback, true); })
-    .catch(serverFallback);
+  // Keep the vowels coming ahead of the voice.
+  const state = _teacherState, idxAtStart = state.idx;
+  const token = state._speakToken = (state._speakToken || 0) + 1;
+  _tashkeelPrefetch(idxAtStart + 1);
+  _tashkeelFor(sentence).then(spoken => {
+    // A pause, skip or new lesson while the vowels were loading makes this call stale.
+    // The token matters for pause-then-resume, which keeps the same state and index and
+    // would otherwise play the line twice.
+    if (_teacherState !== state || state.idx !== idxAtStart || !state.playing || state._speakToken !== token) return;
+    const serverFallback = () => playUrl(`${API}/tts?lang=${lang}&text=${encodeURIComponent(spoken)}${voiceQS}`, deviceFallback, false);
+    // Try the natural Edge neural voice first (skips instantly if already known blocked).
+    _edgeTTS(spoken, edgeVoice, _pr.rate, _pr.pitch, _pr.volume)
+      .then(blob => { if (_teacherState.playing) playUrl(URL.createObjectURL(blob), serverFallback, true); })
+      .catch(serverFallback);
+  });
 }
 
 function _stopTeacherAudio() {
