@@ -1,6 +1,6 @@
 {
-  "name": "أستاذ AI — منصة التعليم الذكي",
-  "short_name": "أستاذ AI",
+  "name": "أستاذي — منصة التعليم الذكي",
+  "short_name": "أستاذي",
   "description": "مساعدك الذكي للتعليم — اسأل في أي مادة واحصل على إجابة فورية بالذكاء الاصطناعي",
   "start_url": "/",
   "scope": "/",
@@ -33,7 +33,7 @@
       "name": "💬 المحادثة",
       "short_name": "محادثة",
       "url": "/?screen=chat",
-      "description": "اسأل أستاذ AI مباشرة"
+      "description": "اسأل أستاذي مباشرة"
     },
     {
       "name": "📖 الدروس",
@@ -59,7 +59,7 @@
       "src": "/og-image.svg",
       "sizes": "1200x630",
       "type": "image/svg+xml",
-      "label": "أستاذ AI — الشاشة الرئيسية"
+      "label": "أستاذي — الشاشة الرئيسية"
     }
   ],
   "related_applications": [],

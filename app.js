@@ -1,5 +1,5 @@
 ﻿﻿/* ============================================================
-   أستاذ AI — app.js  PART 1 / 3
+   أستاذي — app.js  PART 1 / 3
    State · Helpers · CURRICULA · Auth templates
    ============================================================ */
 
@@ -1083,7 +1083,8 @@ const TEACHERS = {
     prosody: { rate: '-20%', pitch: '+22Hz', volume: '-30%' },
   },
 };
-function teacher()     { return TEACHERS[(typeof S !== 'undefined' && S.teacher) || 'kareem'] || TEACHERS.kareem; }
+function teacherKey()  { const k = typeof S !== 'undefined' && S.teacher; return TEACHERS[k] ? k : 'kareem'; }
+function teacher()     { return TEACHERS[teacherKey()]; }
 function teacherDir()  { return teacher().dir; }
 function teacherName() { return teacher().name[(typeof S !== 'undefined' && S.lang === 'en') ? 'en' : 'ar']; }
 window.teacherDir = teacherDir;
@@ -1184,14 +1185,29 @@ function kareemSay(name, opts) {
   v.onerror  = hide;                 // clip missing → just don't show anything
   v.loop  = false;                   // MUST reset: kareemSpeaking() shares this element and sets loop=true
   v.muted = silent;
-  v.src = teacherDir() + id + '.mp4';
+  v.src = teacherDir() + id + '.mp4?v=' + (TEACHER_REACT_V[teacherKey()] || '1');
   box.classList.add('on');
   v.play().catch(() => {             // sound blocked without a gesture → play silent
     v.muted = true;
     v.play().catch(hide);
   });
-  window._krT = setTimeout(hide, 12000);   // safety net if 'ended' never fires
+  // Safety net if 'ended' never fires. A fixed 12s cut off clips longer than that, and
+  // Mariam's re-voiced (slower) reactions run close to it, so once the real length is
+  // known the net moves to just past the end of the clip.
+  window._krT = setTimeout(hide, 12000);
+  // kareemSpeaking() reuses this <video> for the chat talking loop; the src check stops
+  // this handler from scheduling a hide over a loop that replaced the reaction.
+  const reactionSrc = v.src;
+  v.onloadedmetadata = () => {
+    if (v.src !== reactionSrc || !isFinite(v.duration)) return;
+    clearTimeout(window._krT);
+    window._krT = setTimeout(hide, v.duration * 1000 + 3000);
+  };
 }
+// Bump a teacher's number when their reaction clips are re-rendered: the file names never
+// change, so returning visitors would otherwise keep the cached old clip. Mariam v2
+// (2026-09-16) = her speaking reactions re-voiced from ElevenLabs "Rachel" to her free app voice.
+const TEACHER_REACT_V = { kareem: '1', mariam: '2' };
 window.kareemSay = kareemSay;
 
 /* ── Landing hero: Kareem's spoken introduction ──────────────────────────────
@@ -1202,23 +1218,45 @@ window.kareemSay = kareemSay;
 // returning visitors keep the cached old clip — v2 (2026-09-16) says «أستاذي» / "Ostazzi"
 // instead of the old name «أستاذ AI» / "OstazAI".
 const KAREEM_HERO_V = '2';
-function lpKareemIntro(){
-  const v = document.getElementById('lp-kv');
-  const b = document.getElementById('lp-kv-btn');
+// Per teacher, for the same reason. Mariam's first greeting is v1 (2026-09-16).
+const TEACHER_HERO_V = { kareem: KAREEM_HERO_V, mariam: '1' };
+
+// Element ids: Kareem keeps the original lp-kv / lp-kv-btn, because the onboarding screen
+// reuses them and calls lpKareemIntro() unchanged. Other teachers get a suffix.
+const _lpIds = (id) => id === 'kareem'
+  ? { v: 'lp-kv', b: 'lp-kv-btn' }
+  : { v: 'lp-kv-' + id, b: 'lp-kv-btn-' + id };
+
+// A teacher's OWN idle loop. kareemIdleSrc() follows the student's chosen teacher, which
+// is wrong on the home page: each card must always show the teacher it names.
+function teacherIdleSrc(id) {
+  return TEACHERS[id].dir + KAREEM_IDLES[Math.floor(Math.random() * KAREEM_IDLES.length)] + '.mp4';
+}
+
+const _lpBack = {};   // teacher id → returns that card to its silent idle loop
+function lpTeacherIntro(id) {
+  id = TEACHERS[id] ? id : 'kareem';
+  const ids = _lpIds(id);
+  const v = document.getElementById(ids.v);
+  const b = document.getElementById(ids.b);
   if (!v) return;
+  // Only one teacher talks at a time: starting one silences the other.
+  Object.keys(_lpBack).forEach(other => { if (other !== id) _lpBack[other](); });
   const lang = (typeof S !== 'undefined' && S.lang === 'en') ? 'en' : 'ar';
-  const back = () => {
-    v.onended = null; v.loop = true; v.muted = true;
-    v.src = kareemIdleSrc(); v.play().catch(()=>{});
+  const back = _lpBack[id] = () => {
+    delete _lpBack[id];
+    v.onended = v.onerror = null; v.loop = true; v.muted = true;
+    v.src = teacherIdleSrc(id); v.play().catch(()=>{});
     if (b) b.style.display = '';
   };
   v.loop = false; v.muted = false;
-  v.src = 'assets/kareem/hero/intro-' + lang + '.mp4?v=' + KAREEM_HERO_V;
+  v.src = TEACHERS[id].dir + 'hero/intro-' + lang + '.mp4?v=' + TEACHER_HERO_V[id];
   v.onended = back;
   v.onerror = back;                       // clip missing → keep the idle loop, never a dead frame
   v.play().then(() => { if (b) b.style.display = 'none'; })
           .catch(() => { v.muted = true; v.play().catch(back); });   // sound blocked → play silent
 }
+function lpKareemIntro(){ lpTeacherIntro('kareem'); }
 
 /* ── Photoreal Kareem on the board ──────────────────────────────────────────
    20 pre-rendered clips (~5 MB) in assets/kareem/. Two stacked <video> elements
@@ -1943,7 +1981,7 @@ const TRANSLATIONS = {
     shareWhatsapp: '💬 Share on WhatsApp',
     // Chat
     chatPlaceholder: 'Ask your question here...',
-    chatEmpty: "Hi! I'm OstazAI",
+    chatEmpty: "Hi! I'm Ostazzi",
     chatEmptySub: 'Ask me anything about',
     orTakePhoto: 'or take a photo of a problem 📸',
     thinking: 'Thinking...',
@@ -2045,7 +2083,7 @@ const TRANSLATIONS = {
     feedbackSent: 'Thanks for your feedback! 🙏',
     notifActivated: '✅ Notifications enabled!',
     // Onboarding
-    ob1Title: 'Welcome to OstazAI!',
+    ob1Title: 'Welcome to Ostazzi!',
     ob1Desc: 'Your AI study assistant — ask any question in any subject and get instant answers ✨',
     ob2Title: 'Choose Your Curriculum',
     ob2Desc: 'We customize content to match your exact syllabus',
@@ -3671,7 +3709,7 @@ const tplLoading = () => `
     <div style="font-size:72px;animation:pulse-logo 2s ease-in-out infinite">🎓</div>
     <div style="position:absolute;inset:-8px;border-radius:50%;border:2px solid #3B82F644;animation:spin-ring 2s linear infinite"></div>
   </div>
-  <div style="font-size:26px;font-weight:900;color:var(--primary);letter-spacing:-0.5px">${S.lang==='en'?'Ostazzi':'أستاذ AI'}</div>
+  <div style="font-size:26px;font-weight:900;color:var(--primary);letter-spacing:-0.5px">${S.lang==='en'?'Ostazzi':'أستاذي'}</div>
   <div style="font-size:13px;color:var(--text-muted)" id="loading-msg">${S.lang==='en'?'Loading…':'جارٍ التحميل...'}</div>
   <div style="width:200px;height:3px;background:var(--border);border-radius:999px;overflow:hidden">
     <div style="height:100%;background:linear-gradient(90deg,var(--primary),#8B5CF6);border-radius:999px;animation:loading-bar 1.8s ease-in-out infinite"></div>
@@ -3981,7 +4019,7 @@ function tplLogin() {
 
   <!-- Top bar -->
   <div class="lp-top">
-    <div class="lp-logo">🎓 Ostazz<b>AI</b></div>
+    <div class="lp-logo">🎓 ${S.lang==='en' ? 'Ostazz<b>i</b>' : 'أستاذ<b>ي</b>'}</div>
     <div style="display:flex;gap:8px;align-items:center">
       <button class="lp-btn-ghost" onclick="toggleLang()">${S.lang === 'ar' ? '🇬🇧 EN' : '🇸🇦 عر'}</button>
       <button class="lp-btn-ghost" onclick="goSignin()">${L('تسجيل الدخول','Sign in')}</button>
@@ -3990,21 +4028,29 @@ function tplLogin() {
 
   <!-- 0. ROLE CHOOSER (full split) -->
   <section class="lp-choose" style="min-height:86vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px 16px;max-width:900px;margin:0 auto">
-    <div style="font-size:34px;font-weight:900;letter-spacing:.5px">🎓 Ostazz<span style="color:#F59E0B">AI</span></div>
+    <div style="font-size:34px;font-weight:900;letter-spacing:.5px">🎓 ${S.lang==='en' ? 'Ostazz<span style="color:#F59E0B">i</span>' : 'أستاذ<span style="color:#F59E0B">ي</span>'}</div>
     <!-- Kareem belongs on the FIRST screen a visitor sees. This role chooser is
          min-height:86vh, so anything below it (including the hero) is off-screen
          on arrival -- that is why he was invisible when placed in the hero. -->
-    <div class="lp-hero-kareem">
-      <video id="lp-kv" class="lp-kv" playsinline muted loop autoplay preload="metadata"
-             poster="assets/kareem/hero/poster-${S.lang==='en'?'en':'ar'}.jpg?v=${KAREEM_HERO_V}"
-             src="${kareemIdleSrc()}"></video>
-      <button class="lp-kv-play" id="lp-kv-btn" onclick="lpKareemIntro()"
-              aria-label="${L('استمع لأستاذ كريم','Hear Mr. Kareem')}">
-        <span class="lp-kv-ico">▶</span>
-        <span>${L('تعرّف على أستاذ كريم','Meet Mr. Kareem')}</span>
-      </button>
+    <!-- Both teachers, side by side, so a visitor meets them before choosing. Each card
+         always shows its own teacher (teacherIdleSrc), whoever the student picked. -->
+    <div class="lp-teachers">
+      ${['kareem', 'mariam'].map(id => {
+        const ids = _lpIds(id), tc = TEACHERS[id];
+        return `<div class="lp-hero-kareem">
+        <video id="${ids.v}" class="lp-kv" playsinline muted loop autoplay preload="metadata"
+               poster="${tc.dir}hero/poster-${S.lang==='en'?'en':'ar'}.jpg?v=${TEACHER_HERO_V[id]}"
+               src="${teacherIdleSrc(id)}"></video>
+        <button class="lp-kv-play" id="${ids.b}" onclick="lpTeacherIntro('${id}')"
+                aria-label="${L('تعرّف على ' + tc.name.ar, 'Meet ' + tc.name.en)}">
+          <span class="lp-kv-ico">▶</span>
+          <!-- name only: "تعرّف على الأستاذ كريم" overflowed a 190px card, worse on phones -->
+          <span>${L(tc.name.ar, tc.name.en)}</span>
+        </button>
+      </div>`;
+      }).join('')}
     </div>
-    <h1 style="font-size:28px;font-weight:900;text-align:center;margin:0;background:linear-gradient(90deg,#60A5FA,#F59E0B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">${L('مرحباً بك في أستاذ AI','Welcome to OstazAI')}</h1>
+    <h1 style="font-size:28px;font-weight:900;text-align:center;margin:0;background:linear-gradient(90deg,#60A5FA,#F59E0B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">${L('مرحباً بك في أستاذي','Welcome to Ostazzi')}</h1>
     <p style="text-align:center;color:var(--text-muted);margin:0;font-size:16px">${L('كيف تريد الدخول؟','How would you like to enter?')}</p>
     <div class="lp-grid2" style="width:100%;max-width:740px">
       <div onclick="goRegister()" style="cursor:pointer;background:var(--surface);border:2px solid var(--border);border-radius:22px;padding:30px 22px;text-align:center;transition:.18s" onmouseenter="this.style.borderColor='#F59E0B';this.style.transform='translateY(-4px)'" onmouseleave="this.style.borderColor='var(--border)';this.style.transform='none'">
@@ -4046,7 +4092,7 @@ function tplLogin() {
       <span>🌍 ${L('في 19 دولة عربية وأكثر','19+ Arab countries')}</span>
       <span>🎓 ${L('كل المراحل — حتى IGCSE و A-Level','Every level — to IGCSE & A-Level')}</span>
     </div>
-    <div class="lp-pos" style="margin-top:26px">${L('يساعد Ostazzi الطلاب من سنوات الدراسة الأولى حتى امتحاناتهم النهائية على التعلّم بمستواهم الخاص.','Ostazzi helps students from early school years to final exams learn at their own level.')}</div>
+    <div class="lp-pos" style="margin-top:26px">${L('يساعد أستاذي الطلاب من سنوات الدراسة الأولى حتى امتحاناتهم النهائية على التعلّم بمستواهم الخاص.','Ostazzi helps students from early school years to final exams learn at their own level.')}</div>
   </section>
 
   <!-- 2. CHOOSE LEVEL -->
@@ -4073,7 +4119,7 @@ function tplLogin() {
 
   <!-- 3. HOW IT HELPS -->
   <section id="lp-how">
-    <h2>${L('كيف يساعدك Ostazzi على التعلّم','How Ostazzi Helps You Learn')}</h2>
+    <h2>${L('كيف يساعدك أستاذي على التعلّم','How Ostazzi Helps You Learn')}</h2>
     <div class="lp-grid2" style="margin-top:18px">
       ${useCase('📖', L('تعلّم أي موضوع بشرح مبسّط','Learn any topic with simple explanations'))}
       ${useCase('📝', L('حل الواجبات خطوة بخطوة','Solve homework step by step'))}
@@ -4113,7 +4159,7 @@ function tplLogin() {
     </div>
     <!-- 8. CURRICULA -->
     <h2 style="margin-top:40px">${L('يدعم مناهج متعددة','Supports multiple curricula')}</h2>
-    <div class="lp-sub2">${L('مهما كان نظام مدرستك، Ostazzi يواكبك.','Whatever school system you follow, Ostazzi keeps up.')}</div>
+    <div class="lp-sub2">${L('مهما كان نظام مدرستك، أستاذي يواكبك.','Whatever school system you follow, Ostazzi keeps up.')}</div>
     <div class="lp-grid2" style="max-width:760px;margin:0 auto">
       ${useCase('🇬🇧', L('المنهج البريطاني (IGCSE / A-Level)','British (IGCSE / A-Level)'))}
       ${useCase('🇺🇸', L('المنهج الأمريكي (Common Core / AP)','American (Common Core / AP)'))}
@@ -4124,7 +4170,7 @@ function tplLogin() {
 
   <!-- 5. SEE IT IN ACTION -->
   <section id="lp-action">
-    <h2>${L('شاهد Ostazzi أثناء العمل','See Ostazzi in Action')}</h2>
+    <h2>${L('شاهد أستاذي أثناء العمل','See Ostazzi in Action')}</h2>
     <div class="lp-sub2">${L('درس حقيقي كامل، ثم أمثلة من المحادثات عبر كل المراحل.','A real full lesson, then conversation examples across every level.')}</div>
     <!-- A real recorded lesson, not a mockup. preload="none" so it costs no mobile
          data until a visitor actually presses play; native controls because a
@@ -4164,7 +4210,7 @@ function tplLogin() {
 
   <!-- 6b. WHY CHOOSE -->
   <section>
-    <h2>${L('لماذا يختار الطلاب والأهل Ostazzi','Why Students and Parents Choose Ostazzi')}</h2>
+    <h2>${L('لماذا يختار الطلاب والأهل أستاذي','Why Students and Parents Choose Ostazzi')}</h2>
     <div class="lp-grid3" style="margin-top:18px">
       ${useCase('🎯', L('تعلّم مخصّص لكل طالب','Personalized learning'))}
       ${useCase('🕒', L('متاح 24/7','Available 24/7'))}
@@ -4177,7 +4223,7 @@ function tplLogin() {
 
   <!-- 6c. TESTIMONIALS -->
   <section>
-    <h2>${L('لماذا يختار الطلاب والأهل Ostazzi','Why students & parents choose Ostazzi')}</h2>
+    <h2>${L('لماذا يختار الطلاب والأهل أستاذي','Why students & parents choose Ostazzi')}</h2>
     <div class="lp-testis">
       ${trust('📚', L('مبني على المناهج الرسمية','Built on official curricula'), L('مصر والخليج و IGCSE والمنهج الأمريكي و IB وأكثر — لكل المراحل.','Egypt, the Gulf, IGCSE, American, IB and more — for every grade.'))}
       ${trust('🧠', L('شرح خطوة بخطوة','Step-by-step explanations'), L('ليس مجرد إجابة — بل شرح يجعل الطالب يفهم فعلاً.','Not just an answer — explanations so students truly understand.'))}
@@ -4242,7 +4288,7 @@ function tplLogin() {
   <section>
     <h2>${L('أسئلة شائعة','Frequently asked questions')}</h2>
     <div style="max-width:720px;margin:20px auto 0">
-      ${faq(L('ما الفئة العمرية لـ Ostazzi؟','What age is Ostazzi for?'), L('من الصف الأول الابتدائي حتى نهاية الثانوية (تقريباً 6–18 سنة)، مع شرح يناسب كل مستوى.','From Year 1 through the end of High School (roughly ages 6–18), with explanations matched to each level.'))}
+      ${faq(L('ما الفئة العمرية لـ أستاذي؟','What age is Ostazzi for?'), L('من الصف الأول الابتدائي حتى نهاية الثانوية (تقريباً 6–18 سنة)، مع شرح يناسب كل مستوى.','From Year 1 through the end of High School (roughly ages 6–18), with explanations matched to each level.'))}
       ${faq(L('هل يناسب المرحلة الابتدائية؟','Is it suitable for primary school?'), L('نعم، يقدّم شرحاً مبسّطاً ومناسباً لعمر طلاب الابتدائي في الرياضيات والإنجليزي والعلوم.','Yes — it gives simple, age-appropriate explanations for primary students in Math, English, and Science.'))}
       ${faq(L('هل يساعد في الواجبات؟','Can it help with homework?'), L('نعم، يحل المسائل خطوة بخطوة ويشرح الفكرة حتى يفهمها الطالب بنفسه.','Yes — it solves problems step by step and explains the idea so the student truly understands.'))}
       ${faq(L('هل يدعم الاستعداد للامتحانات؟','Does it support exam preparation?'), L('نعم، اختبارات تدريبية، مراجعة، ودعم لمناهج مثل IGCSE و A-Level في الثانوية.','Yes — practice quizzes, revision, and support for curricula like IGCSE and A-Level in High School.'))}
@@ -4267,7 +4313,7 @@ function tplLogin() {
 
         <div style="flex:1 1 300px;min-width:270px;text-align:start;position:relative;z-index:1">
           <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#93C5FD;font-size:12px;font-weight:800;padding:6px 13px;border-radius:100px;margin-bottom:14px">✨ ${L('متاح الآن على App Store','Now on the App Store')}</div>
-          <h2 style="color:#fff;font-size:26px;font-weight:900;margin:0 0 10px;line-height:1.3">${L('حمّل تطبيق Ostazzi','Get the Ostazzi app')}</h2>
+          <h2 style="color:#fff;font-size:26px;font-weight:900;margin:0 0 10px;line-height:1.3">${L('حمّل تطبيق أستاذي','Get the Ostazzi app')}</h2>
           <p style="color:#CBD5E1;font-size:14.5px;line-height:1.9;margin:0 0 22px;max-width:430px">${L('مدرّسك الذكي في جيبك — تعلّم في أي وقت وأي مكان على الآيفون والآيباد.','Your AI tutor in your pocket — learn anytime, anywhere on iPhone & iPad.')}</p>
           <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
             <a href="https://apps.apple.com/app/id6779545840" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:11px;background:#000;border:1px solid rgba(255,255,255,.22);border-radius:14px;padding:11px 20px;text-decoration:none;transition:transform .15s,box-shadow .15s" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 10px 24px rgba(0,0,0,.4)'" onmouseout="this.style.transform='none';this.style.boxShadow='none'">
@@ -4280,7 +4326,7 @@ function tplLogin() {
 
         <div style="flex:0 0 auto;position:relative;z-index:1;text-align:center">
           <div style="background:#fff;border-radius:22px;padding:15px;box-shadow:0 14px 34px rgba(2,8,23,.5);position:relative;display:inline-block">
-            <img src="app-qr.svg" alt="${L('رمز تحميل تطبيق Ostazzi','Ostazzi app download QR code')}" width="170" height="170" style="display:block;border-radius:8px">
+            <img src="app-qr.svg" alt="${L('رمز تحميل تطبيق أستاذي','Ostazzi app download QR code')}" width="170" height="170" style="display:block;border-radius:8px">
             <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:42px;height:42px;background:#0B1533;border-radius:12px;display:flex;align-items:center;justify-content:center;border:3px solid #fff;box-shadow:0 3px 10px rgba(0,0,0,.25)">
               <span style="font-size:21px;line-height:1">🎓</span>
             </div>
@@ -4330,7 +4376,7 @@ function tplLogin() {
       <a href="terms.html">${L('شروط الاستخدام','Terms of Service')}</a>
       <a onclick="goSignin()">${L('تسجيل الدخول','Sign in')}</a>
     </div>
-    <div class="lp-foot">© 2026 Ostazzi — ${L('منصة التعلّم الذكي','Smart learning platform')}</div>
+    <div class="lp-foot">© 2026 ${L('أستاذي','Ostazzi')} — ${L('منصة التعلّم الذكي','Smart learning platform')}</div>
   </section>
 </div>`;
 }
@@ -4349,7 +4395,7 @@ const tplSignin = () => `
       </button>
     </div>
     <div class="auth-logo">🎓</div>
-    <div class="auth-title">${t('أستاذ AI','appName')}</div>
+    <div class="auth-title">${t('أستاذي','appName')}</div>
     <div class="auth-subtitle">${t('مساعدك الذكي للتعليم','appSlogan')}</div>
     <div id="auth-error" class="error-msg" style="display:none"></div>
     <div class="form-group"><label class="form-label">${t('البريد الإلكتروني','email')}</label>
@@ -4510,7 +4556,7 @@ function tplShell(content) {
 <div class="shell">
   <aside class="sidebar">
     <div style="display:flex;align-items:center;justify-content:space-between;padding:0 8px;margin-bottom:2px">
-      <div class="sidebar-logo" style="margin-bottom:0">🎓 ${S.lang==='en'?'Ostazzi':'أستاذ AI'}</div>
+      <div class="sidebar-logo" style="margin-bottom:0">🎓 ${S.lang==='en'?'Ostazzi':'أستاذي'}</div>
       <button onclick="doLogout()" style="background:#EF444420;border:1px solid #EF444440;color:#EF4444;padding:5px 10px;border-radius:10px;font-family:Cairo,sans-serif;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap">🚪 ${S.lang==='en'?'Logout':'خروج'}</button>
     </div>
     <div class="sidebar-cur">${curLabel(S.curriculum)} · ${gradeData.label}</div>
@@ -4673,7 +4719,7 @@ function tplHome() {
     <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center">
       <div style="font-size:11px;color:#93c5fd;font-weight:700;margin-bottom:2px;letter-spacing:1px">${greeting} ☀️</div>
       <div style="font-size:20px;font-weight:900;color:#fff;margin-bottom:2px">
-        ${userName ? userName + ' 👋' : 'أستاذ AI 🎓'}
+        ${userName ? userName + ' 👋' : 'أستاذي 🎓'}
       </div>
       <div style="font-size:10px;color:#c4b5fd;margin-bottom:10px">${curLabel(S.curriculum)} · ${gradeData.label}</div>
       <!-- Stats Strip -->
@@ -5020,7 +5066,7 @@ function tplChat() {
         ⭐ <b>5 أسئلة مجانية يومياً</b> — <span data-screen="upgrade" style="cursor:pointer;text-decoration:underline">ترقّى للـ Pro للاستخدام غير المحدود</span>
       </div>` : ''}
       <div style="font-size:40px;margin-bottom:8px">💬</div>
-      <div style="font-size:16px;font-weight:800;margin-bottom:4px">${S.lang==='en'?'AI Chat':'محادثة مع أستاذ AI'}</div>
+      <div style="font-size:16px;font-weight:800;margin-bottom:4px">${S.lang==='en'?'AI Chat':'محادثة مع أستاذي'}</div>
       <div style="font-size:13px;color:var(--text-muted);margin-bottom:20px">${S.lang==='en'?'Ask me anything about':'اسألني أي شيء عن'} <b>${esc(S.subject)}</b></div>
 
       <!-- Quick AI suggestions -->
@@ -5330,7 +5376,7 @@ function appDownloadCard(compact) {
     return `<div id="dl-banner" style="position:relative;background:linear-gradient(135deg,#0B1533,#1E293B);border-radius:18px;padding:14px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;box-shadow:0 8px 24px rgba(2,8,23,.3);overflow:hidden">
       <div style="background:#fff;border-radius:12px;padding:7px;flex:0 0 auto"><img src="app-qr.svg" alt="QR" width="60" height="60" style="display:block"></div>
       <div style="flex:1 1 160px;min-width:150px">
-        <div style="color:#fff;font-size:14px;font-weight:900;margin-bottom:2px">${L('Get the Ostazzi app','حمّل تطبيق Ostazzi')}</div>
+        <div style="color:#fff;font-size:14px;font-weight:900;margin-bottom:2px">${L('Get the Ostazzi app','حمّل تطبيق أستاذي')}</div>
         <div style="color:#94A3B8;font-size:11.5px;margin-bottom:9px">${L('Scan the code or tap to download','امسح الرمز أو اضغط للتحميل')}</div>
         ${badge}
       </div>
@@ -5346,7 +5392,7 @@ function appDownloadCard(compact) {
       </div>
       <div style="flex:1 1 200px;min-width:190px;text-align:start">
         <div style="display:inline-block;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#93C5FD;font-size:11px;font-weight:800;padding:4px 11px;border-radius:100px;margin-bottom:9px">✨ ${L('Now on the App Store','متاح الآن على App Store')}</div>
-        <div style="color:#fff;font-size:19px;font-weight:900;margin-bottom:6px">${L('Get the Ostazzi app','حمّل تطبيق Ostazzi')}</div>
+        <div style="color:#fff;font-size:19px;font-weight:900;margin-bottom:6px">${L('Get the Ostazzi app','حمّل تطبيق أستاذي')}</div>
         <div style="color:#CBD5E1;font-size:13px;line-height:1.7;margin-bottom:14px">${L('Your AI tutor on iPhone & iPad — scan to download.','مدرّسك الذكي على الآيفون والآيباد — امسح الرمز للتحميل.')}</div>
         ${badge}
       </div>
@@ -5850,7 +5896,7 @@ function switchLbTab(tab) {
 }
 
 function shareMyRank(rank, xp) {
-  const text = `🏆 أنا في المرتبة #${rank} على أستاذ AI بـ ${xp} XP!\n🎓 تعلّم معي على ostazzai.com`;
+  const text = `🏆 أنا في المرتبة #${rank} على أستاذي بـ ${xp} XP!\n🎓 تعلّم معي على ostazzai.com`;
   const waUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
   window.open(waUrl, '_blank');
 }
@@ -19238,7 +19284,7 @@ function printTopicNotes(sk, ci, ti) {
     <div class="subject">${subj.icon} ${subj.label}</div>
     <div class="chapter">Chapter: ${ch.title}</div>
     <h1>${tp.title}</h1>
-    <div class="meta">Generated by OstazAI · ${new Date().toLocaleDateString('en-GB', {day:'numeric',month:'long',year:'numeric'})}</div>
+    <div class="meta">Generated by Ostazzi · ${new Date().toLocaleDateString('en-GB', {day:'numeric',month:'long',year:'numeric'})}</div>
   </div>
   <div class="section">
     <div class="section-title" style="color:${subj.color};background:${subj.color}18">📖 Key Notes (${tp.points.length} points)</div>
@@ -19248,7 +19294,7 @@ function printTopicNotes(sk, ci, ti) {
   ${tipsHtml}
   ${mistakesHtml}
   <div class="footer">
-    <span>OstazAI — IGCSE Revision Platform</span>
+    <span>Ostazzi — IGCSE Revision Platform</span>
     <span>${subj.label} · ${board.short} · ${tp.title}</span>
   </div>
   <button class="print-btn no-print" onclick="window.print();this.style.display='none'">🖨️ Print / Save PDF</button>
@@ -20865,7 +20911,7 @@ function tplUpgrade() {
 <div class="screen-body">
   <div class="info-card" style="max-width:420px;margin:0 auto;text-align:center;padding:28px">
     <div style="font-size:48px;margin-bottom:8px">⭐</div>
-    <div style="font-size:20px;font-weight:900;margin-bottom:8px;color:var(--primary)">${S.lang==='en'?'OstazAI Pro':'أستاذ AI Pro'}</div>
+    <div style="font-size:20px;font-weight:900;margin-bottom:8px;color:var(--primary)">${S.lang==='en'?'Ostazzi Pro':'أستاذي Pro'}</div>
     <div style="font-size:13px;color:var(--text-muted);margin-bottom:20px;line-height:1.8">
       ${S.lang==='en'
         ? 'Unlimited questions · Smart summaries · Mind maps · Photo solving · Voice input · PDF export'
@@ -22945,11 +22991,11 @@ function pomStart() {
           S.pomodoroMode = 'break'; S.pomodoroLeft = 5*60;
           showToast('☕ جلسة مكتملة! استرح 5 دقائق', 'success');
         }
-        sendPushNotification('أستاذ AI ⏱️', 'جلسة بومودورو انتهت! حان وقت الاستراحة ☕');
+        sendPushNotification('أستاذي ⏱️', 'جلسة بومودورو انتهت! حان وقت الاستراحة ☕');
       } else {
         S.pomodoroMode = 'work'; S.pomodoroLeft = 25*60;
         showToast('⚡ انتهت الاستراحة — ابدأ جلسة جديدة!', 'info');
-        sendPushNotification('أستاذ AI ⚡', 'انتهت الاستراحة — ابدأ جلسة تركيز جديدة!');
+        sendPushNotification('أستاذي ⚡', 'انتهت الاستراحة — ابدأ جلسة تركيز جديدة!');
       }
     }
     if (S.screen === 'pomodoro') render();
@@ -23277,7 +23323,7 @@ function bind() {
   ge('b-share-stats') && ge('b-share-stats').addEventListener('click', () => {
     const st = S.stats || {};
     const lvl = Math.floor((st.xp||0)/500)+1;
-    const txt = `📊 إحصائياتي على أستاذ AI:\n🏆 المستوى ${lvl}\n⭐ ${st.xp||0} نقطة XP\n🔥 ${st.streak||0} يوم متواصل\n💬 ${st.totalChats||0} محادثة\n\nانضم معي: https://ostazzai.com`;
+    const txt = `📊 إحصائياتي على أستاذي:\n🏆 المستوى ${lvl}\n⭐ ${st.xp||0} نقطة XP\n🔥 ${st.streak||0} يوم متواصل\n💬 ${st.totalChats||0} محادثة\n\nانضم معي: https://ostazzai.com`;
     if (navigator.share) { navigator.share({ text: txt }).catch(()=>{}); }
     else { navigator.clipboard?.writeText(txt).catch(()=>{}); showToast('✅ تم نسخ الإحصائيات!', 'success'); }
   });
@@ -23559,14 +23605,14 @@ function bind() {
     const code = S.user?.referralCode;
     if (!code) return;
     const link = `https://ostazzai.com?ref=${code}`;
-    const msg = `🎓 جرّب أستاذ AI — المساعد الذكي للطلاب!\n\n✨ سجّل عبر رابطي وتحصل على 7 أيام Pro مجاناً!\n\n👇 ${link}`;
+    const msg = `🎓 جرّب أستاذي — المساعد الذكي للطلاب!\n\n✨ سجّل عبر رابطي وتحصل على 7 أيام Pro مجاناً!\n\n👇 ${link}`;
     window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
   });
   ge('b-whatsapp-ref-up') && ge('b-whatsapp-ref-up').addEventListener('click', () => {
     const code = S.user?.referralCode;
     if (!code) return;
     const link = `https://ostazzai.com?ref=${code}`;
-    const msg = `🎓 جرّب أستاذ AI — المساعد الذكي للطلاب!\n\n✨ سجّل عبر رابطي وتحصل على 7 أيام Pro مجاناً!\n\n👇 ${link}`;
+    const msg = `🎓 جرّب أستاذي — المساعد الذكي للطلاب!\n\n✨ سجّل عبر رابطي وتحصل على 7 أيام Pro مجاناً!\n\n👇 ${link}`;
     window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
   });
 
@@ -23701,6 +23747,14 @@ function bind() {
   .lp-kv-play:hover{filter:brightness(1.06)}
   .lp-kv-ico{font-size:11px}
   @media (max-width:760px){ .lp-hero-kareem{width:158px} }
+  /* Two teachers on the home page. Two 158px cards + gap fit a 360px phone; below that
+     they shrink together rather than wrapping, so neither teacher drops out of view. */
+  .lp-teachers{display:flex;justify-content:center;gap:18px;width:100%}
+  .lp-teachers .lp-hero-kareem{margin:2px 0 0;max-width:calc(50% - 9px)}
+  @media (max-width:760px){
+    .lp-teachers{gap:12px}
+    .lp-teachers .lp-kv-play{padding:8px 11px;font-size:12px;gap:6px;bottom:10px}
+  }
     #kareem-react{position:fixed;bottom:16px;inset-inline-start:16px;z-index:9000;width:132px;
                   border-radius:16px;overflow:hidden;opacity:0;transform:translateY(12px) scale(.96);
                   transition:opacity .25s ease,transform .25s ease;pointer-events:none;
@@ -24335,7 +24389,7 @@ function scheduleStudyReminders() {
     const delay = target.getTime() - now.getTime();
     if (delay > 0 && delay < 24*60*60*1000) {
       setTimeout(() => sendPushNotification(
-        'أستاذ AI 📅 — تذكير الجدول',
+        'أستاذي 📅 — تذكير الجدول',
         'حان وقت مذاكرة ' + (item.subject || '') + '! 📚 ابدأ الآن'
       ), delay);
     }
@@ -24374,7 +24428,7 @@ function tplOnboarding() {
   const steps = [
     {
       icon:'🎓', bg:'#3B82F622', kareem: true,
-      title: `أهلاً ${u.name ? u.name.split(' ')[0] : 'بك'} في أستاذ AI!`,
+      title: `أهلاً ${u.name ? u.name.split(' ')[0] : 'بك'} في أستاذي!`,
       desc: 'مساعدك الذكي للتعليم — اسأل في أي مادة واحصل على إجابة فورية ✨',
       extra: `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:320px;margin:0 auto 32px">
         ${[['📚','دروس تفاعلية'],['📸','حل بالصورة'],['🧠','خرائط ذهنية'],['⭐','7 أيام Pro مجاناً']].map(([i,l])=>`
@@ -24501,7 +24555,7 @@ function showLocalPayment(method) {
     info = '<div style="font-weight:900;color:var(--primary);font-size:15px;margin-bottom:10px">&#x1F9FE; الدفع عبر فوري</div>'
       + '<div>1. اذهب لأقرب محل فوري أو تطبيق MyFawry</div>'
       + '<div>2. اختر <b>دفع فواتير</b> ← <b>تطبيقات إلكترونية</b></div>'
-      + '<div>3. ابحث عن: <b style="color:var(--primary)">أستاذ AI</b></div>'
+      + '<div>3. ابحث عن: <b style="color:var(--primary)">أستاذي</b></div>'
       + '<div>4. أدخل الكود المرجعي: <b style="color:var(--primary);font-size:16px;letter-spacing:2px">' + ref + '</b></div>'
       + '<div>5. المبلغ: <b>49 ج.م</b> (شهري) أو <b>399 ج.م</b> (سنوي)</div>'
       + '<div style="margin-top:10px;color:var(--text-muted);font-size:12px">بعد الدفع سيتم تفعيل حسابك تلقائياً خلال دقائق</div>';
@@ -24705,14 +24759,14 @@ init();
 function shareStats() {
   const st = S.stats || {};
   const name = S.user?.name?.split(' ')[0] || 'طالب';
-  const text = `📊 تقدّمي على أستاذ AI\n` +
+  const text = `📊 تقدّمي على أستاذي\n` +
     `👤 ${name}\n` +
     `⭐ ${st.xp||0} XP · المستوى ${Math.floor((st.xp||0)/500)+1}\n` +
     `🔥 ${st.streak||0} يوم streak\n` +
     `💬 ${st.totalChats||0} محادثة · 📝 ${st.quizzesDone||0} اختبار\n\n` +
     `🎓 تعلّم معي مجاناً → ostazzai.com`;
   if (navigator.share) {
-    navigator.share({ title: 'تقدّمي على أستاذ AI', text });
+    navigator.share({ title: 'تقدّمي على أستاذي', text });
   } else {
     const waUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
     window.open(waUrl, '_blank');
@@ -24722,13 +24776,13 @@ function shareStats() {
 function shareQuizResult(score, total, subject) {
   const pct = Math.round((score/total)*100);
   const emoji = pct>=90?'🏆':pct>=70?'🎯':pct>=50?'👍':'💪';
-  const text = `${emoji} نتيجتي في اختبار ${subject||'أستاذ AI'}: ${score}/${total} (${pct}%)\n🎓 حلّ الاختبارات مجاناً → ostazzai.com`;
+  const text = `${emoji} نتيجتي في اختبار ${subject||'أستاذي'}: ${score}/${total} (${pct}%)\n🎓 حلّ الاختبارات مجاناً → ostazzai.com`;
   const waUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
   window.open(waUrl, '_blank');
 }
 
 function shareFlashcardSession(subject, count) {
-  const text = `🗂️ راجعت ${count} بطاقة في ${subject||'أستاذ AI'} اليوم!\n🎓 ابدأ المذاكرة مجاناً → ostazzai.com`;
+  const text = `🗂️ راجعت ${count} بطاقة في ${subject||'أستاذي'} اليوم!\n🎓 ابدأ المذاكرة مجاناً → ostazzai.com`;
   const waUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
   window.open(waUrl, '_blank');
 }
@@ -24741,7 +24795,7 @@ function shareIGCSETopic(sk, board, ci, ti) {
   const ch   = (subj && subj.chapters[board]||[])[ci];
   const tp   = ch && ch.topics[ti];
   if (!tp) return;
-  const text = `📚 IGCSE ${subj.label} — ${tp.title}\n\n${tp.points.slice(0,3).join('\n')}\n\n✏️ ${tp.workedExample ? tp.workedExample.split('\n')[0] : ''}\n\nStudy with أستاذ AI → ostazzai.com`;
+  const text = `📚 IGCSE ${subj.label} — ${tp.title}\n\n${tp.points.slice(0,3).join('\n')}\n\n✏️ ${tp.workedExample ? tp.workedExample.split('\n')[0] : ''}\n\nStudy with أستاذي → ostazzai.com`;
   if (navigator.share) {
     navigator.share({ title: `IGCSE ${subj.label} — ${tp.title}`, text });
   } else {
@@ -24793,7 +24847,7 @@ function exportIGCSEProgress() {
     @media print{.no-print{display:none}}
   </style></head><body>
   <h1>📊 IGCSE Progress Report</h1>
-  <div class="sub">${board.label} · Generated ${today} · أستاذ AI</div>
+  <div class="sub">${board.label} · Generated ${today} · أستاذي</div>
   <div class="summary">
     <div class="stat"><div class="stat-n">${overallPct}%</div><div class="stat-l">Overall Progress</div></div>
     <div class="stat"><div class="stat-n">${totalDone}</div><div class="stat-l">Topics Done</div></div>
@@ -24815,7 +24869,7 @@ function exportIGCSEProgress() {
     }).join('')}
   </table>
   <div style="margin-top:24px;font-size:11px;color:#94a3b8">
-    Generated by أستاذ AI IGCSE Platform · ostazzai.com
+    Generated by أستاذي IGCSE Platform · ostazzai.com
   </div>
   <div class="no-print" style="margin-top:20px">
     <button onclick="window.print()" style="padding:10px 24px;background:#2563eb;color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;font-family:Arial,sans-serif">🖨️ Print / Save PDF</button>

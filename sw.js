@@ -1,6 +1,6 @@
 // OstazAI Service Worker v3.0
 // Version bump forces cache refresh on all clients
-const CACHE_VERSION = 'ostazai-v268';
+const CACHE_VERSION = 'ostazai-v273';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -113,7 +113,7 @@ self.addEventListener('fetch', e => {
 // ── Push notifications ─────────────────────────────────────────────────────────
 self.addEventListener('push', e => {
   const data = e.data ? e.data.json() : {};
-  const title = data.title || 'أستاذ AI 🎓';
+  const title = data.title || 'أستاذي 🎓';
   const body  = data.body  || 'حان وقت المذاكرة! 📚';
 
   e.waitUntil(
