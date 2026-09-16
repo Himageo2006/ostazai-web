@@ -539,8 +539,17 @@ async function _tashkeelFor(line) {
   return typeof done === 'string' ? done : line;
 }
 
+/* The DEVICE speech engine is only the last-resort fallback: the teachers speak through
+   the neural voice, which needs none of it. Android's in-app WebView often has no
+   speechSynthesis at all, and every bare reference to it used to throw or refuse — the
+   mobile app would not even open a lesson. Everything device-speech goes through these. */
+function _cancelDeviceSpeech() {
+  try { if (window.speechSynthesis) speechSynthesis.cancel(); } catch (_) {}
+}
+
 // Robustly pick the best voice for a language; returns null if none exists for Arabic
 function pickVoice(isArabic) {
+  if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) return null;
   const voices = speechSynthesis.getVoices() || [];
   const isNatural = v => /natural|neural|online|premium|enhanced/i.test(v.name);
   if (isArabic) {
@@ -556,6 +565,7 @@ function pickVoice(isArabic) {
 }
 let _voicesReady = false;
 function ensureVoices(cb) {
+  if (!window.speechSynthesis) { _voicesReady = true; return cb(); }   // nothing to wait for
   if (_voicesReady || (speechSynthesis.getVoices() || []).length) { _voicesReady = true; return cb(); }
   const handler = () => { _voicesReady = true; speechSynthesis.onvoiceschanged = null; cb(); };
   speechSynthesis.onvoiceschanged = handler;
@@ -694,9 +704,9 @@ let _teacherState = { sentences: [], idx: 0, playing: false };
 // showTeacher(null, lines)     → uses the given array as board lines verbatim (one slide per line),
 //                                so structured lessons (e.g. IGCSE topic points) match line-by-line.
 function showTeacher(text, lines, forceEn) {
-  if (!('speechSynthesis' in window)) { showToast(S.lang==='en'?'Voice not supported on this device':'القراءة الصوتية غير مدعومة على هذا الجهاز', 'error'); return; }
+  // No device-speech check here: the lesson voice does not need it (see _cancelDeviceSpeech).
   // stop any previous playback/timers so a fresh open never inherits a stale counter
-  try { speechSynthesis.cancel(); } catch(_) {}
+  _cancelDeviceSpeech();
   if (_teacherState && _teacherState._silentTimer) clearTimeout(_teacherState._silentTimer);
   let sentences;
   if (Array.isArray(lines) && lines.length) {
@@ -1359,15 +1369,15 @@ function teacherSpeakCurrent() {
 function _teacherSpeakNow() {
   const t = _teacherState;
   if (!t.playing || t.idx >= t.sentences.length) return;
-  speechSynthesis.cancel();
+  _cancelDeviceSpeech();
   // Board shows the raw line (keeps "x = y", emoji); narration speaks a speech-cleaned version.
   const _raw = cleanForSpeech(t.sentences[t.idx]) || t.sentences[t.idx];
   const isArabic = /[؀-ۿ]/.test(_raw);
   // `sentence` carries the pause markers and goes to the neural voices; the device
   // fallback below cannot read SSML, so it is given the plain line instead.
   const sentence = speakify(_raw, isArabic);
-  const u = new SpeechSynthesisUtterance(_raw);
-  const v = pickVoice(isArabic);
+  const v = pickVoice(isArabic);                               // null when there is no device engine
+  const u = v ? new SpeechSynthesisUtterance(_raw) : null;
   const av = document.getElementById('tch-avatar');
   const advance = () => {
     if (!_teacherState.playing) return;
@@ -1452,7 +1462,7 @@ function teacherToggle() {
   const btn = document.getElementById('tch-play');
   if (t.playing) {
     t.playing = false;
-    speechSynthesis.cancel();
+    _cancelDeviceSpeech();
     _stopTeacherAudio();
     clearTimeout(t._silentTimer);
     document.getElementById('tch-avatar')?.classList.remove('talking');
@@ -1473,7 +1483,7 @@ function teacherJump(dir) {
 
 function teacherStop(finished) {
   _teacherState.playing = false;
-  speechSynthesis.cancel();
+  _cancelDeviceSpeech();
   _stopTeacherAudio();
   clearTimeout(_teacherState._silentTimer);
   document.getElementById('tch-avatar')?.classList.remove('talking');
