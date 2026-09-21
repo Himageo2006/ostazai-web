@@ -1094,14 +1094,11 @@ function teacherPages() { return `
             <option value="edexcel">Edexcel</option>
             <option value="ib">IB</option>
             <option value="american">American / Common Core</option>
-            <option value="cambridge_alevel">A-Level</option>
+            <option value="cambridge_olevel">O Level</option><option value="cambridge_alevel">A-Level</option><option value="oxford_aqa">OxfordAQA</option>
             <option value="aqa">AQA</option>
             <option value="ocr">OCR</option>
             <option value="cbse">CBSE</option>
-            <option value="egypt">Egyptian</option>
-            <option value="saudi">Saudi</option>
-            <option value="kuwait">Kuwaiti</option>
-            <option value="uae">UAE</option>
+            <option value="egypt">Egyptian</option><option value="french_bac">French Bac</option><option value="canadian">Canadian</option>
             <option value="other">Other</option>
           </select>
         </div>
@@ -1263,14 +1260,11 @@ function studentPages() { return `
         <option value="edexcel">Edexcel</option>
         <option value="ib">IB</option>
         <option value="american">American</option>
-        <option value="cambridge_alevel">A-Level</option>
+        <option value="cambridge_olevel">O Level</option><option value="cambridge_alevel">A-Level</option><option value="oxford_aqa">OxfordAQA</option>
         <option value="aqa">AQA</option>
         <option value="ocr">OCR</option>
         <option value="cbse">CBSE</option>
-        <option value="egypt">Egyptian</option>
-        <option value="saudi">Saudi</option>
-        <option value="kuwait">Kuwaiti</option>
-        <option value="uae">UAE</option>
+        <option value="egypt">Egyptian</option><option value="french_bac">French Bac</option><option value="canadian">Canadian</option>
         <option value="other">Other</option>
       </select>
     </div>
@@ -2281,7 +2275,7 @@ let _aitHistory = [];
 
 const CUR_MAP = {
   'IGCSE (Cambridge)':'igcse','IGCSE (Edexcel)':'edexcel','IB (MYP / DP)':'ib',
-  'American / Common Core':'american','A-Level':'cambridge_alevel','AQA / OCR':'aqa',
+  'American / Common Core':'american','A-Level':'cambridge_alevel','O Level':'cambridge_olevel','OxfordAQA':'oxford_aqa','AQA / OCR':'aqa',
   'CBSE / ICSE':'cbse','Egyptian National Curriculum':'egypt','Saudi National Curriculum':'saudi',
   'Kuwaiti Curriculum':'kuwait','UAE Curriculum (ADEC/KHDA)':'uae',
 };
