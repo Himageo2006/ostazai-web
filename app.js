@@ -19909,7 +19909,7 @@ function tplLogin() {
         <h3>${L('مجاني','Free')}</h3>
         <div class="price">$0</div>
         <ul>
-          <li>✅ ${L('5 أسئلة يومياً','5 questions/day')}</li>
+          <li>✅ ${L('10 أسئلة يومياً','10 questions/day')}</li>
           <li>✅ ${L('كل المراحل والمواد','All levels & subjects')}</li>
           <li>✅ ${L('بطاقات واختبارات','Flashcards & quizzes')}</li>
         </ul>
@@ -20715,7 +20715,7 @@ function tplChat() {
     ${msgs || `<div class="chat-empty">
       ${!IS_APP && S.user && S.user.plan !== 'pro' ? `
       <div style="background:#F59E0B22;border:1px solid #F59E0B44;border-radius:10px;padding:8px 16px;font-size:12px;color:#F59E0B;margin-bottom:16px;display:flex;align-items:center;gap:6px">
-        ⭐ <b>5 أسئلة مجانية يومياً</b> — <span data-screen="upgrade" style="cursor:pointer;text-decoration:underline">ترقّى للـ Pro للاستخدام غير المحدود</span>
+        ⭐ <b>10 أسئلة مجانية يومياً</b> — <span data-screen="upgrade" style="cursor:pointer;text-decoration:underline">ترقّى للـ Pro للاستخدام غير المحدود</span>
       </div>` : ''}
       <div style="font-size:40px;margin-bottom:8px">💬</div>
       <div style="font-size:16px;font-weight:800;margin-bottom:4px">${S.lang==='en'?'AI Chat':'محادثة مع أستاذي'}</div>
@@ -26008,7 +26008,7 @@ function tplUpgrade() {
       <div style="font-size:28px;margin-bottom:8px">🔓</div>
       <div style="font-size:17px;font-weight:900;margin-bottom:12px">${L('Free','مجاني')}</div>
       <ul style="list-style:none;padding:0;margin:0 0 16px;font-size:13px;color:var(--text-muted);line-height:2.2;text-align:${S.lang==='en'?'left':'right'}">
-        <li>✅ &#xA0;${S.lang==='en'?'5 questions/day':'5 أسئلة يومياً'}</li>
+        <li>✅ &#xA0;${S.lang==='en'?'10 questions/day':'10 أسئلة يومياً'}</li>
         <li>✅ &#xA0;${S.lang==='en'?'Flashcards':'بطاقات تعليمية'}</li>
         <li>✅ &#xA0;${S.lang==='en'?'Basic quizzes':'اختبارات أساسية'}</li>
         <li>❌ &#xA0;${L('Smart summaries','ملخصات ذكية')}</li>
@@ -27183,7 +27183,7 @@ async function sendMsg(opts) {
   } catch(e) {
     const msg = e.message;
     if (msg.includes('daily_limit')) {
-      S.messages.push({ role: 'assistant', content: '⚠️ وصلت للحد اليومي المجاني (5 أسئلة). سجّل الدخول أو اشترك في Pro للاستمرار.' });
+      S.messages.push({ role: 'assistant', content: '⚠️ وصلت للحد اليومي المجاني (10 أسئلة). سجّل الدخول أو اشترك في Pro للاستمرار.' });
     } else {
       S.messages.push({ role: 'assistant', content: `⚠️ ${msg}` });
     }
