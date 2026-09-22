@@ -1723,7 +1723,7 @@ function screenContent() {
     schedule: tplSchedule, history: tplHistory, leaderboard: tplLeaderboard,
     summary: tplSummary, mindmap: tplMindMap, textbook: tplTextbook,
     upgrade: tplUpgrade, lessons: tplLessons, admin: tplAdmin, onboarding: tplOnboarding,
-    igcse: tplIGCSE, papers: tplPapers,
+    igcse: tplIGCSE, papers: tplPapers, equivalency: tplEquivalency,
   };
   return (map[S.screen] || tplChat)();
 }
@@ -20140,6 +20140,7 @@ function tplShell(content) {
     { s:'summary',     icon:'📋', label: t('الملخص','summary') },
     { s:'mindmap',     icon:'🧠', label: t('خريطة ذهنية','mindmap') },
     { s:'textbook',    icon:'📚', label: t('الكتب','textbook') },
+    { s:'equivalency', icon:'🎯', label: S.lang==='en'?'Equivalency':'المعادلة' },
     { s:'igcse',       icon:'🎓', label:'IGCSE' },
     { s:'stats',       icon:'📊', label: t('الإحصائيات','stats') },
     { s:'notes',       icon:'🗒', label: t('الملاحظات','notes') },
@@ -83810,5 +83811,243 @@ document.addEventListener('click', function(e) {
     explainTextbookChapter(S.textbookExplainSubj.subj, S.textbookExplainCurric || '', chBtn.dataset.ch || '', S.textbookExplainMode || 'explain');
   }
 }, true);
+
+/* ════════════════════════════════════════════════════════════════
+   حاسبة المعادلة — Egyptian university equivalency for foreign certificates
+   ════════════════════════════════════════════════════════════════
+   Rules: the official Tansik guide for الشهادات المعادلة (2020/21 edition, archived
+   21 Jan 2021), plus the 2025/26 and 2026 announcements (faculty minimums, residency).
+   Reported by Dostor 2 Jul 2025, Youm7 23 Aug 2025 and 22 Aug 2026, Cairo24 and
+   Elwatan 19 Jul 2026. The coordination office (مكتب التنسيق) has the final word —
+   the page says so. Re-check these numbers every July when the new guide is published. */
+const EQ_RULES_CHECKED = '2026-09-22';
+const EQ_SOURCES = [
+  { t:'مكتب التنسيق — قواعد قبول الشهادات المعادلة (الدليل الرسمي 2020/2021)', u:'http://web.archive.org/web/20210121105446/https://tansik.egypt.gov.eg/application/certificates/mo3adla/Dalel/5.htm' },
+  { t:'الدستور — قواعد قبول الثانوية البريطانية 2025/2026', u:'https://www.dostor.org/5127444' },
+  { t:'بوابة التنسيق الإلكتروني', u:'https://tansik.digital.gov.eg/' },
+];
+// Grade → percentage (SCU decision 23/6/2018). null = not counted.
+const EQ_BRIT = {
+  O:  { 'A*':100, A:95, B:85, C:70, '9':100, '8':100, '7':95, '6':88, '5':82, '4':70 },
+  AS: { A:95, B:85, C:70, D:60 },
+  A:  { 'A*':100, A:95, B:85, C:70, D:60 },
+};
+// IB diploma points (incl. bonus) → percentage, official table.
+const EQ_IB = { 45:99.95, 44:99.90, 43:99.80, 42:99.70, 41:99.45, 40:99.15, 39:98.70, 38:98.15, 37:97.40, 36:96.55,
+  35:95.55, 34:94.45, 33:93.15, 32:91.80, 31:90.25, 30:88.55, 29:86.65, 28:84.70, 27:82.55, 26:80.40, 25:78.10, 24:75.70 };
+// Faculty minimums announced for 2025/26 (percent).
+const EQ_FACULTIES = [
+  { k:'medicine',    ar:'الطب البشري',                   en:'Medicine',                  min:95, sector:'medical' },
+  { k:'dentistry',   ar:'طب الأسنان / الصيدلة / العلاج الطبيعي', en:'Dentistry / Pharmacy / Physiotherapy', min:90, sector:'medical' },
+  { k:'vet',         ar:'الطب البيطري / التمريض',          en:'Veterinary / Nursing',      min:null, sector:'medical' },
+  { k:'engineering', ar:'الهندسة / الحاسبات والمعلومات',    en:'Engineering / Computer science', min:85, sector:'engineering' },
+  { k:'econ',        ar:'الاقتصاد والعلوم السياسية / الإعلام', en:'Economics & Political Science / Mass Media', min:90, sector:'theoretical' },
+  { k:'theoretical', ar:'الكليات النظرية الأخرى',          en:'Other theoretical faculties', min:null, sector:'theoretical' },
+];
+
+function eqState() {
+  if (!S.eq) {
+    let saved = null;
+    try { saved = JSON.parse(localStorage.getItem('oa_eq') || 'null'); } catch (_) {}
+    S.eq = saved || {
+      tab: S.curriculum === 'american' ? 'american' : S.curriculum === 'ib' ? 'ib' : 'british',
+      faculty: 'engineering',
+      rows: [
+        { name:'English', level:'O', grade:'A*' }, { name:'Mathematics', level:'O', grade:'A*' },
+        { name:'Physics', level:'O', grade:'A' },  { name:'Chemistry', level:'O', grade:'A' },
+        { name:'Biology', level:'O', grade:'B' },  { name:'Arabic (First Language)', level:'O', grade:'A' },
+        { name:'Mathematics', level:'AS', grade:'A' }, { name:'Physics', level:'AS', grade:'B' },
+      ],
+      am: { avg: '', sat: '', sat2: '', uni: 'public' },
+      ib: { points: '', hl: true, core: true, sixSubjects: true },
+    };
+  }
+  return S.eq;
+}
+function eqSave() { try { localStorage.setItem('oa_eq', JSON.stringify(S.eq)); } catch (_) {} }
+function eqSet(path, val) {
+  const st = eqState(); const keys = path.split('.'); let o = st;
+  for (let i = 0; i < keys.length - 1; i++) o = o[keys[i]];
+  o[keys[keys.length - 1]] = val;
+  eqSave(); render();
+}
+function eqRow(i, field, val) { eqState().rows[i][field] = val; eqSave(); render(); }
+function eqAddRow() { eqState().rows.push({ name:'', level:'O', grade:'A' }); eqSave(); render(); }
+function eqDelRow(i) { eqState().rows.splice(i, 1); eqSave(); render(); }
+
+// British: choose the best 8 counted subjects under the official rules.
+function eqBritish(rows, sector) {
+  const norm = n => String(n || '').trim().toLowerCase().replace(/\s+/g, ' ');
+  const isSubj = (r, re) => re.test(norm(r.name));
+  // AS and A Level of one subject count once; IGCSE/O Level of the same subject is a separate subject
+  const entries = rows.map((r, i) => ({ ...r, i, key: (r.level === 'O' ? 'o:' : 'adv:') + norm(r.name), val: (EQ_BRIT[r.level] || {})[r.grade] ?? null }))
+    .filter(r => norm(r.name) && r.val != null);
+  // advanced (AS/A) subjects: grade D is allowed only as the faculty's required subject
+  const adv = entries.filter(r => r.level !== 'O');
+  const oLevel = entries.filter(r => r.level === 'O');
+  const need = sector === 'medical' ? { main: /^biology/, pair: /^(physics|chemistry|math)/ }
+             : sector === 'engineering' ? { main: /^(math|further math|additional math|pure math)/, pair: /^(physics|chemistry|accounting)/ } : null;
+  const reqOK = set => {
+    if (!need) return true;
+    if (set.some(r => r.level === 'A' && isSubj(r, need.main))) return true;
+    return set.some(r => r.level === 'AS' && isSubj(r, need.main)) && set.some(r => r.level === 'AS' && isSubj(r, need.pair) && !isSubj(r, need.main));
+  };
+  const isReqSubject = r => need && (isSubj(r, need.main) || isSubj(r, need.pair));
+  let best = null;
+  const n = Math.min(adv.length, 12);
+  for (let mask = 0; mask < (1 << n); mask++) {
+    const set = adv.filter((_, j) => mask & (1 << j));
+    const units = set.reduce((a, r) => a + (r.level === 'A' ? 2 : 1), 0);
+    if (units > 4) continue;                                      // ≤2 A, or 1 A + 2 AS, or 4 AS
+    if (new Set(set.map(r => r.key)).size !== set.length) continue; // one result per subject
+    if (set.some(r => r.grade === 'D' && !isReqSubject(r))) continue;
+    if (!reqOK(set)) continue;
+    const used = new Set(set.map(r => r.key));
+    const fill = oLevel.filter(r => !used.has(r.key)).sort((a, b) => b.val - a.val);
+    const picked = [];
+    for (const r of fill) { if (picked.length + set.length >= 8) break; if (!picked.some(p => p.key === r.key)) picked.push(r); }
+    const all = set.concat(picked);
+    if (all.length < 8) { if (!best || (!best.complete && all.length > best.list.length)) best = { list: all, complete: false }; continue; }
+    const sum = all.reduce((a, r) => a + r.val, 0);
+    if (!best || !best.complete || sum > best.sum) best = { list: all, sum, complete: true };
+  }
+  if (!best) return { ok: false, reason: need ? 'req' : 'count', list: [] };
+  if (!best.complete) return { ok: false, reason: 'count', list: best.list };
+  const pct = best.sum / 8;
+  return { ok: true, list: best.list, pct, score: pct * 4.1 };
+}
+
+function eqAmerican(am) {
+  const avg = parseFloat(am.avg), sat = parseFloat(am.sat), sat2 = parseFloat(am.sat2);
+  if (!(avg >= 0 && avg <= 100) || !(sat >= 400 && sat <= 1600)) return null;
+  const bonusFactor = am.uni === 'private' ? 75 : 69;
+  const school = 0.4 * avg;
+  const satPart = sat >= 1090 ? sat / 1600 * bonusFactor : sat / 1600 * 60;
+  const sat2Part = sat2 >= 1100 && sat2 <= 1600 ? sat2 / 1600 * 15 : 0;
+  const pct = school + satPart + sat2Part;
+  return { school, satPart, sat2Part, pct, score: pct * 4.1, belowMin: sat < 1050, bonus: sat >= 1090 };
+}
+
+function tplEquivalency() {
+  const T = (en, ar) => S.lang === 'en' ? en : ar;
+  const st = eqState();
+  const fac = EQ_FACULTIES.find(f => f.k === st.faculty) || EQ_FACULTIES[0];
+  const card = 'background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px';
+  const pill = on => `padding:8px 14px;border-radius:12px;border:1.5px solid ${on?'var(--primary)':'var(--border)'};background:${on?'var(--primary)':'transparent'};color:${on?'#fff':'var(--text)'};font-family:Cairo,sans-serif;font-weight:800;font-size:13px;cursor:pointer`;
+  const sel = (val, opts, on) => `<select dir="ltr" class="form-input" style="width:auto;flex:0 0 auto;padding:6px 8px;font-size:13px" onchange="${on}">${opts.map(o => `<option value="${esc(o[0])}" ${String(o[0])===String(val)?'selected':''}>${esc(o[1])}</option>`).join('')}</select>`;
+  const big = (label, pct, score, extra = '') => `
+    <div style="${card};text-align:center;border-color:var(--primary)">
+      <div style="font-size:12px;color:var(--text-muted);font-weight:800">${label}</div>
+      <div style="font-size:36px;font-weight:900;color:var(--primary);margin:6px 0">${pct.toFixed(2)}%</div>
+      <div style="font-size:14px;font-weight:800">${T('Score','المجموع الاعتباري')}: ${score.toFixed(2)} / 410</div>
+      ${extra}
+    </div>`;
+  const minLine = pct => fac.min == null ? '' : `<div style="margin-top:8px;font-size:13px;font-weight:800;color:${pct >= fac.min ? '#22C55E' : '#EF4444'}">
+      ${pct >= fac.min ? '✅' : '⚠️'} ${T(`${fac.en}: minimum ${fac.min}%`, `${fac.ar}: الحد الأدنى ${fac.min}%`)}</div>`;
+
+  const tabs = [['british', T('British (IGCSE / O / AS / A)', 'الدبلومة البريطانية (IGCSE / O / AS / A)')],
+                ['american', T('American Diploma', 'الدبلومة الأمريكية')], ['ib', 'IB']];
+  const facultyPicker = `<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">${EQ_FACULTIES.map(f =>
+    `<button style="${pill(st.faculty===f.k)};font-size:12px;padding:6px 10px" onclick="eqSet('faculty','${f.k}')">${T(f.en, f.ar)}</button>`).join('')}</div>`;
+
+  let body = '';
+  if (st.tab === 'british') {
+    const r = eqBritish(st.rows, fac.sector);
+    const counted = new Set(r.list.map(x => x.i));
+    const gradeOpts = lv => Object.keys(EQ_BRIT[lv]).map(g => [g, g]).concat(lv === 'O' ? [['D','D'],['E','E'],['3','3']] : [['E','E']]);
+    body = `
+      <div style="${card}">
+        <div style="font-weight:900;margin-bottom:8px">${T('Your subjects','موادك')}</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px">${T('Enter every subject you passed (Extended tier). The calculator picks the best 8 allowed by the rules.','اكتب كل المواد التي نجحت فيها (Extended). الحاسبة تختار أفضل 8 مواد تسمح بها القواعد.')}</div>
+        ${st.rows.map((row, i) => `
+          <div style="display:flex;gap:6px;align-items:center;margin-bottom:6px;${counted.has(i)?'':'opacity:.55'}">
+            <input class="form-input" style="flex:1 1 auto;width:auto;min-width:90px;padding:6px 8px;font-size:13px" value="${esc(row.name)}" placeholder="${T('Subject','المادة')}" list="eq-subjects" onchange="eqRow(${i},'name',this.value)"/>
+            ${sel(row.level, [['O','IGCSE / O'],['AS','AS'],['A','A Level']], `eqRow(${i},'level',this.value)`)}
+            ${sel(row.grade, gradeOpts(row.level), `eqRow(${i},'grade',this.value)`)}
+            <span title="${T('counted','محسوبة')}" style="width:18px;text-align:center">${counted.has(i)?'✔️':''}</span>
+            <button onclick="eqDelRow(${i})" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:16px">✕</button>
+          </div>`).join('')}
+        <datalist id="eq-subjects">${['English','Mathematics','Additional Mathematics','Physics','Chemistry','Biology','Arabic (First Language)','Accounting','Business Studies','Economics','Computer Science','ICT','French','German','Geography','History','Sociology'].map(x=>`<option value="${x}">`).join('')}</datalist>
+        <button class="btn" style="margin-top:6px;font-size:13px" onclick="eqAddRow()">＋ ${T('Add subject','إضافة مادة')}</button>
+      </div>
+      ${r.ok ? big(T('Equivalent percentage (best 8 subjects)','النسبة المعادلة (أفضل 8 مواد)'), r.pct, r.score, minLine(r.pct))
+             : `<div style="${card};border-color:#EF4444;color:#EF4444;font-weight:800">⚠️ ${r.reason === 'req'
+                 ? T(`${fac.en} needs Biology at A Level (D+), or AS Biology + AS Physics/Chemistry/Maths.`.replace('Biology', fac.sector === 'engineering' ? 'Maths' : 'Biology').replace('Physics/Chemistry/Maths', fac.sector === 'engineering' ? 'Physics/Chemistry/Accounting' : 'Physics/Chemistry/Maths'),
+                     fac.sector === 'engineering' ? 'قطاع الهندسة يشترط الرياضيات A Level بتقدير D فأعلى، أو AS رياضيات + AS فيزياء/كيمياء/محاسبة.' : 'القطاع الطبي يشترط الأحياء A Level بتقدير D فأعلى، أو AS أحياء + AS فيزياء/كيمياء/رياضيات.')
+                 : T(`You need 8 different subjects at grade C (or 4) or better — you have ${r.list.length} that count.`, `تحتاج 8 مواد مختلفة بتقدير C (أو 4) فأعلى — لديك ${r.list.length} مواد محسوبة.`)}</div>`}
+      <div style="${card};font-size:12.5px;line-height:1.9;color:var(--text-muted)">
+        <b style="color:var(--text)">${T('Rules applied','القواعد المطبقة')}</b><br>
+        • ${T('Grade values: A* = 100, A = 95, B = 85, C = 70; D = 60 only at AS/A Level for the required subject; 9–1: 9–8 = 100, 7 = 95, 6 = 88, 5 = 82, 4 = 70.','قيم التقديرات: A* = 100، A = 95، B = 85، C = 70؛ D = 60 في AS/A Level للمادة المشترطة فقط؛ نظام 9–1: 9 و8 = 100، 7 = 95، 6 = 88، 5 = 82، 4 = 70.')}<br>
+        • ${T('Advanced subjects: at most 2 A Level, or 1 A Level + 2 AS, or 4 AS. AS/A Level get no extra weight.','المواد المتقدمة: بحد أقصى 2 A Level، أو 1 A Level + 2 AS، أو 4 AS، ولا يوجد وزن إضافي لها.')}<br>
+        • ${T('Percentage = sum of the 8 grade values ÷ 8; score = percentage × 4.1.','النسبة = مجموع قيم الـ 8 مواد ÷ 8؛ المجموع الاعتباري = النسبة × 4.1.')}<br>
+        • ${T('At most 5 sittings within the last 3 school years; Extended tier only.','بحد أقصى 5 دورات امتحانية خلال آخر 3 سنوات دراسية؛ المستوى Extended فقط.')}
+      </div>`;
+  } else if (st.tab === 'american') {
+    const a = eqAmerican(st.am);
+    const inp = (k, ph, max) => `<input class="form-input" type="number" min="0" max="${max}" value="${esc(st.am[k])}" placeholder="${ph}" onchange="eqSet('am.${k}',this.value)" style="padding:8px"/>`;
+    body = `
+      <div style="${card}">
+        <label class="form-label">${T('School average of the 8 subjects (%)','متوسط درجات المواد الثماني (%)')}</label>${inp('avg','95',100)}
+        <label class="form-label" style="margin-top:10px">${T('SAT I / EST I total (out of 1600)','مجموع SAT I / EST I (من 1600)')}</label>${inp('sat','1400',1600)}
+        <label class="form-label" style="margin-top:10px">${T('SAT II / EST II — total of 2 subjects (out of 1600, optional)','SAT II / EST II — مجموع مادتين (من 1600، اختياري)')}</label>${inp('sat2','1300',1600)}
+        <div style="display:flex;gap:6px;margin-top:10px">
+          <button style="${pill(st.am.uni==='public')}" onclick="eqSet('am.uni','public')">${T('Public university','جامعة حكومية')}</button>
+          <button style="${pill(st.am.uni==='private')}" onclick="eqSet('am.uni','private')">${T('Private / national university','جامعة خاصة / أهلية')}</button>
+        </div>
+      </div>
+      ${a ? big(T('Equivalent percentage','النسبة المعادلة'), a.pct, a.score, `
+          <div style="font-size:12.5px;color:var(--text-muted);margin-top:8px;line-height:1.8">
+            ${T('School 40%','المدرسة 40%')}: ${a.school.toFixed(2)} · SAT I: ${a.satPart.toFixed(2)}${a.bonus ? T(' (incl. 15% bonus)',' (شامل حافز 15%)') : ''} · SAT II: ${a.sat2Part.toFixed(2)}
+          </div>${minLine(a.pct)}
+          ${a.belowMin ? `<div style="color:#EF4444;font-weight:800;margin-top:6px">⚠️ ${T('SAT I below 1050 — the minimum for public universities.','SAT I أقل من 1050 — الحد الأدنى للجامعات الحكومية.')}</div>` : ''}
+          <div style="font-size:11.5px;color:var(--text-muted);margin-top:6px">${T('The percentage can exceed 100%. Whether the ×4.1 score applies to American-diploma students is not confirmed.','قد تتجاوز النسبة 100%. تطبيق المجموع الاعتباري (×4.1) على الدبلومة الأمريكية غير مؤكد رسمياً.')}</div>`)
+          : `<div style="${card};color:var(--text-muted)">${T('Enter the school average and your SAT I / EST I score.','أدخل متوسط المدرسة ودرجة SAT I / EST I.')}</div>`}
+      <div style="${card};font-size:12.5px;line-height:1.9;color:var(--text-muted)">
+        <b style="color:var(--text)">${T('Rules applied','القواعد المطبقة')}</b><br>
+        • ${T('40% school average (8 subjects) + 60% SAT I (or EST I / ACT equivalent).','40% متوسط المدرسة (8 مواد) + 60% SAT I (أو EST I / ما يعادله من ACT).')}<br>
+        • ${T('SAT I ≥ 1090 gets a 15% bonus (public: ×69/1600; private/national: ×75/1600).','SAT I من 1090 فأعلى يحصل على حافز 15% (الحكومية: ×69/1600، الخاصة والأهلية: ×75/1600).')}<br>
+        • ${T('SAT II / EST II adds up to 15% when the two subjects total ≥ 1100.','SAT II / EST II يضيف حتى 15% إذا كان مجموع المادتين 1100 فأكثر.')}<br>
+        • ${T('Medical sector: Biology among the 8; Engineering: Maths among the 8 (plus SAT II requirements).','القطاع الطبي: الأحياء ضمن المواد الثماني؛ الهندسة: الرياضيات ضمن الثماني (مع شروط SAT II).')}<br>
+        • ${T('SAT I must be within 2 years of the diploma; scores sent from College Board to code 7437.','يجب أن يكون SAT I خلال عامين من الحصول على الدبلومة، وترسل الدرجات من College Board على الكود 7437.')}
+      </div>`;
+  } else {
+    const p = parseInt(st.ib.points, 10);
+    const pct = EQ_IB[p];
+    body = `
+      <div style="${card}">
+        <label class="form-label">${T('IB Diploma points (24–45, incl. bonus)','نقاط دبلومة IB (24–45 شاملة النقاط الإضافية)')}</label>
+        <input class="form-input" type="number" min="24" max="45" value="${esc(st.ib.points)}" placeholder="38" onchange="eqSet('ib.points',this.value)" style="padding:8px"/>
+      </div>
+      ${pct ? big(T('Equivalent percentage','النسبة المعادلة'), pct, pct * 4.1, minLine(pct))
+            : `<div style="${card};color:var(--text-muted)">${p ? T('Below 24 points is not accepted.','أقل من 24 نقطة غير مقبول.') : T('Enter your IB points.','أدخل نقاط IB.')}</div>`}
+      <div style="${card};font-size:12.5px;line-height:1.9;color:var(--text-muted)">
+        <b style="color:var(--text)">${T('Conditions','الشروط')}</b><br>
+        • ${T('All 6 subjects passed, including English; at least 3 at Higher Level; Extended Essay and TOK completed.','النجاح في المواد الست بما فيها الإنجليزية؛ 3 مواد على الأقل Higher Level؛ إتمام البحث الموسع وTOK.')}<br>
+        • ${T('Medical sector: Biology and Chemistry at HL. Engineering: Maths and Physics at HL.','القطاع الطبي: الأحياء والكيمياء HL. الهندسة: الرياضيات والفيزياء HL.')}<br>
+        • ${T('Converted with the official points table (45 = 99.95%, 24 = 75.70%).','التحويل بجدول النقاط الرسمي (45 = 99.95%، 24 = 75.70%).')}
+      </div>`;
+  }
+
+  return `
+<div class="screen-header"><div class="screen-title">🎯 ${T('Equivalency calculator','حاسبة المعادلة')}</div></div>
+<div class="screen-body">
+  <div style="${card}">
+    <div style="font-size:13px;line-height:1.8;color:var(--text-muted)">${T('Estimate your equivalent percentage for Egyptian university admission (المعادلة) from a foreign certificate.','احسب نسبتك المعادلة للقبول بالجامعات المصرية من شهادتك الأجنبية.')}</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px">${tabs.map(([k, l]) => `<button style="${pill(st.tab===k)}" onclick="eqSet('tab','${k}')">${l}</button>`).join('')}</div>
+    <div style="font-size:12px;font-weight:800;color:var(--text-muted);margin-top:12px">${T('Target faculty','الكلية المستهدفة')}</div>
+    ${facultyPicker}
+  </div>
+  ${body}
+  <div style="${card};font-size:12.5px;line-height:1.9;color:var(--text-muted)">
+    <b style="color:var(--text)">🇪🇬 ${T('National subjects','المواد القومية')}</b><br>
+    ${T('Egyptian students must also pass Arabic, Religion and National Education before the Egyptian exam committees. They are pass/fail and not added to the total.','يجب على الطلاب المصريين أيضاً النجاح في اللغة العربية والتربية الدينية والتربية الوطنية أمام اللجان المصرية، وهي مواد نجاح ورسوب لا تضاف للمجموع.')}<br>
+    ${T('Foreign certificates share 5% of each faculty\'s seats; students who studied abroad must prove legal residence and at least 75% attendance.','الشهادات المعادلة تتنافس على 5% من مقاعد كل كلية؛ ويشترط لمن درس بالخارج إثبات الإقامة الشرعية والتواجد الفعلي 75% على الأقل.')}
+  </div>
+  <div style="font-size:11.5px;line-height:1.8;color:var(--text-muted);padding:0 4px 16px">
+    ⚠️ ${T(`An estimate based on the official rules as checked on ${EQ_RULES_CHECKED}. The coordination office (مكتب التنسيق) has the final say — check the new guide each July.`, `تقدير مبني على القواعد الرسمية كما رُوجعت في ${EQ_RULES_CHECKED}. القرار النهائي لمكتب التنسيق — راجع الدليل الجديد كل يوليو.`)}<br>
+    ${T('Sources','المصادر')}: ${EQ_SOURCES.map(x => `<a href="${x.u}" target="_blank" rel="noopener" style="color:var(--primary)">${esc(x.t)}</a>`).join(' · ')}
+  </div>
+</div>`;
+}
 
 /* build marker v286-redeploy */
