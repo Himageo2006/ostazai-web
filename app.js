@@ -384,11 +384,25 @@ window.installApp = async function(){
   const b = document.getElementById('lp-install'); if (b) b.style.display = 'none';
 };
 
+function _guestId() {
+  try {
+    let id = localStorage.getItem('oa_gid');
+    if (!/^g_[a-f0-9]{16,40}$/.test(id || '')) {
+      const b = new Uint8Array(12); crypto.getRandomValues(b);
+      id = 'g_' + Array.from(b, x => x.toString(16).padStart(2, '0')).join('');
+      localStorage.setItem('oa_gid', id);
+    }
+    return id;
+  } catch (_) { return undefined; }
+}
+
 async function req(path, method='GET', body=null, retries=1) {
   if (!navigator.onLine) throw new Error('لا يوجد اتصال بالإنترنت \u{1F4F6}');
   const h = { 'Content-Type': 'application/json' };
   if (S.token) h['Authorization'] = `Bearer ${S.token}`;
   if (body && typeof body === 'object' && IS_APP) body.client = 'app';
+  // Logged-out users are counted per device, not per IP (many phones share one mobile IP).
+  if (body && typeof body === 'object' && !S.token) body.guestId = _guestId();
   let r;
   try {
     const ctrl = new AbortController();
@@ -20713,7 +20727,7 @@ function tplChat() {
   </div>
   <div class="chat-msgs" id="chat-msgs">
     ${msgs || `<div class="chat-empty">
-      ${!IS_APP && S.user && S.user.plan !== 'pro' ? `
+      ${(!IS_APP || IS_IOS_APP) && S.user && S.user.plan !== 'pro' ? `
       <div style="background:#F59E0B22;border:1px solid #F59E0B44;border-radius:10px;padding:8px 16px;font-size:12px;color:#F59E0B;margin-bottom:16px;display:flex;align-items:center;gap:6px">
         ⭐ <b>10 أسئلة مجانية يومياً</b> — <span data-screen="upgrade" style="cursor:pointer;text-decoration:underline">ترقّى للـ Pro للاستخدام غير المحدود</span>
       </div>` : ''}
@@ -27183,7 +27197,10 @@ async function sendMsg(opts) {
   } catch(e) {
     const msg = e.message;
     if (msg.includes('daily_limit')) {
-      S.messages.push({ role: 'assistant', content: '⚠️ وصلت للحد اليومي المجاني (10 أسئلة). سجّل الدخول أو اشترك في Pro للاستمرار.' });
+      // Android has no Play billing, so it must not point to a purchase; iOS upgrades via Apple IAP.
+      S.messages.push({ role: 'assistant', content: (IS_APP && !IS_IOS_APP)
+        ? '⚠️ وصلت للحد اليومي (10 أسئلة). يتجدد رصيدك غداً — نراك بكرة! 🌙'
+        : '⚠️ وصلت للحد اليومي المجاني (10 أسئلة). ' + (S.token ? 'اشترك في Pro للاستخدام غير المحدود، أو عُد غداً.' : 'سجّل الدخول أو اشترك في Pro للاستمرار.') });
     } else {
       S.messages.push({ role: 'assistant', content: `⚠️ ${msg}` });
     }
