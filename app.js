@@ -30488,6 +30488,32 @@ const EQ_BRIT = {
 // IB diploma points (incl. bonus) → percentage, official table.
 const EQ_IB = { 45:99.95, 44:99.90, 43:99.80, 42:99.70, 41:99.45, 40:99.15, 39:98.70, 38:98.15, 37:97.40, 36:96.55,
   35:95.55, 34:94.45, 33:93.15, 32:91.80, 31:90.25, 30:88.55, 29:86.65, 28:84.70, 27:82.55, 26:80.40, 25:78.10, 24:75.70 };
+// German Abitur: points per subject → percent (official guide, German section).
+const EQ_DE = { 15:100, 14:98, 13:97, 12:96, 11:92, 10:89, 9:86, 8:83, 7:80, 6:76, 5:72, 4:68, 3:62, 2:56, 1:50 };
+// 7 subjects. The 3 Leistungskurse are advanced, and so is any other subject at 85%+ (German 75%+).
+// Each advanced subject adds 15 marks. Percentage = (sum + bonuses) / 7.
+function eqGerman(rows) {
+  const list = rows.map(r => ({ ...r, val: EQ_DE[parseInt(r.points, 10)] })).filter(r => r.val != null);
+  if (list.length < 7) return { ok: false, n: list.length };
+  const seven = list.slice(0, 7);
+  const lk = seven.filter(r => r.lk).length;
+  const adv = seven.map(r => r.lk || r.val >= 85 || (/^(deutsch|german|الألمان)/i.test(String(r.name).trim()) && r.val >= 75));
+  const sum = seven.reduce((a, r) => a + r.val, 0);
+  const bonus = adv.filter(Boolean).length * 15;
+  const pct = (sum + bonus) / 7;
+  return { ok: true, pct, score: pct * 4.1, sum, bonus, advCount: adv.filter(Boolean).length, lk, adv };
+}
+// French Bac (pre-2021 method): per subject numerator (mark + 5) × coefficient, denominator 20 × coefficient.
+function eqFrench(rows) {
+  const list = rows.map(r => ({ ...r, m: parseFloat(r.mark), c: parseFloat(r.coef) })).filter(r => r.m >= 0 && r.m <= 20 && r.c > 0);
+  if (list.length < 7) return { ok: false, n: list.length };
+  const num = list.reduce((a, r) => a + (r.m + 5) * r.c, 0);
+  const den = list.reduce((a, r) => a + 20 * r.c, 0);
+  const avg = list.reduce((a, r) => a + r.m * r.c, 0) / list.reduce((a, r) => a + r.c, 0);
+  const pct = num / den * 100;
+  return { ok: true, pct, score: pct * 4.1, avg, passed: avg >= 10 };
+}
+
 // Faculty minimums announced for 2025/26 (percent).
 const EQ_FACULTIES = [
   { k:'medicine',    ar:'الطب البشري',                   en:'Medicine',                  min:95, sector:'medical' },
@@ -30503,7 +30529,7 @@ function eqState() {
     let saved = null;
     try { saved = JSON.parse(localStorage.getItem('oa_eq') || 'null'); } catch (_) {}
     S.eq = saved || {
-      tab: S.curriculum === 'american' ? 'american' : S.curriculum === 'ib' ? 'ib' : 'british',
+      tab: ({ american:'american', ib:'ib', german_abitur:'german', french_bac:'french' })[S.curriculum] || 'british',
       faculty: 'engineering',
       rows: [
         { name:'English', level:'O', grade:'A*' }, { name:'Mathematics', level:'O', grade:'A*' },
@@ -30515,8 +30541,17 @@ function eqState() {
       ib: { points: '', hl: true, core: true, sixSubjects: true },
     };
   }
-  return S.eq;
+  const st = S.eq;
+  if (!st.de) st.de = ['Deutsch','Mathematik','Englisch','Physik','Chemie','Biologie','Geschichte']
+    .map((name, i) => ({ name, points: ['12','13','11','10','11','12','9'][i], lk: i < 3 }));
+  if (!st.fr) st.fr = [['Français (écrit + oral)',14,5],['Mathématiques',15,16],['Physique-Chimie',14,16],['Philosophie',12,8],['Histoire-Géographie',13,6],['Anglais (LVA)',16,6],['Espagnol (LVB)',15,6]]
+    .map(([name, mark, coef]) => ({ name, mark: String(mark), coef: String(coef) }));
+  return st;
 }
+function eqDe(i, field, val) { eqState().de[i][field] = val; eqSave(); render(); }
+function eqFr(i, field, val) { eqState().fr[i][field] = val; eqSave(); render(); }
+function eqAdd(list, row) { eqState()[list].push(row); eqSave(); render(); }
+function eqDel(list, i) { eqState()[list].splice(i, 1); eqSave(); render(); }
 function eqSave() { try { localStorage.setItem('oa_eq', JSON.stringify(S.eq)); } catch (_) {} }
 function eqSet(path, val) {
   const st = eqState(); const keys = path.split('.'); let o = st;
@@ -30599,7 +30634,8 @@ function tplEquivalency() {
       ${pct >= fac.min ? '✅' : '⚠️'} ${T(`${fac.en}: minimum ${fac.min}%`, `${fac.ar}: الحد الأدنى ${fac.min}%`)}</div>`;
 
   const tabs = [['british', T('British (IGCSE / O / AS / A)', 'الدبلومة البريطانية (IGCSE / O / AS / A)')],
-                ['american', T('American Diploma', 'الدبلومة الأمريكية')], ['ib', 'IB']];
+                ['american', T('American Diploma', 'الدبلومة الأمريكية')], ['ib', 'IB'],
+                ['german', T('German Abitur', 'الأبيتور الألماني')], ['french', T('French Bac', 'البكالوريا الفرنسية')]];
   const facultyPicker = `<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">${EQ_FACULTIES.map(f =>
     `<button style="${pill(st.faculty===f.k)};font-size:12px;padding:6px 10px" onclick="eqSet('faculty','${f.k}')">${T(f.en, f.ar)}</button>`).join('')}</div>`;
 
@@ -30662,6 +30698,60 @@ function tplEquivalency() {
         • ${T('SAT II / EST II adds up to 15% when the two subjects total ≥ 1100.','SAT II / EST II يضيف حتى 15% إذا كان مجموع المادتين 1100 فأكثر.')}<br>
         • ${T('Medical sector: Biology among the 8; Engineering: Maths among the 8 (plus SAT II requirements).','القطاع الطبي: الأحياء ضمن المواد الثماني؛ الهندسة: الرياضيات ضمن الثماني (مع شروط SAT II).')}<br>
         • ${T('SAT I must be within 2 years of the diploma; scores sent from College Board to code 7437.','يجب أن يكون SAT I خلال عامين من الحصول على الدبلومة، وترسل الدرجات من College Board على الكود 7437.')}
+      </div>`;
+  } else if (st.tab === 'german') {
+    const g = eqGerman(st.de);
+    const ptsOpts = Array.from({ length: 15 }, (_, k) => [String(15 - k), `${15 - k} → ${EQ_DE[15 - k]}%`]);
+    body = `
+      <div style="${card}">
+        <div style="font-weight:900;margin-bottom:6px">${T('Your 7 Abitur subjects','مواد الأبيتور السبع')}</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px">${T('Points 1–15 per subject. Tick the 3 Leistungskurse (advanced courses).','النقاط من 1 إلى 15 لكل مادة. علّم مواد المستوى المتقدم الثلاث (Leistungskurse).')}</div>
+        ${st.de.map((row, i) => `
+          <div style="display:flex;gap:6px;align-items:center;margin-bottom:6px">
+            <input class="form-input" dir="ltr" style="flex:1 1 auto;width:auto;min-width:90px;padding:6px 8px;font-size:13px" value="${esc(row.name)}" onchange="eqDe(${i},'name',this.value)"/>
+            ${sel(row.points, ptsOpts, `eqDe(${i},'points',this.value)`)}
+            <label style="display:flex;align-items:center;gap:3px;font-size:12px;white-space:nowrap"><input type="checkbox" ${row.lk ? 'checked' : ''} onchange="eqDe(${i},'lk',this.checked)"/>LK</label>
+            <span style="width:26px;text-align:center;font-size:11px;color:#22C55E;font-weight:800">${g.ok && g.adv[i] ? '+15' : ''}</span>
+            <button onclick="eqDel('de',${i})" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:16px">✕</button>
+          </div>`).join('')}
+        ${st.de.length < 7 ? `<button class="btn" style="margin-top:6px;font-size:13px" onclick="eqAdd('de',{name:'',points:'10',lk:false})">＋ ${T('Add subject','إضافة مادة')}</button>` : ''}
+      </div>
+      ${g.ok ? big(T('Equivalent percentage','النسبة المعادلة'), g.pct, g.score, `
+          <div style="font-size:12.5px;color:var(--text-muted);margin-top:8px">${T('Subjects','المواد')}: ${g.sum} · ${T('Advanced bonus','حافز المستوى المتقدم')}: +${g.bonus} (${g.advCount} × 15)</div>
+          ${g.lk !== 3 ? `<div style="color:#F59E0B;font-weight:800;margin-top:6px">⚠️ ${T('Tick exactly 3 Leistungskurse.','حدد 3 مواد مستوى متقدم (Leistungskurse) بالضبط.')}</div>` : ''}${minLine(g.pct)}`)
+        : `<div style="${card};color:var(--text-muted)">${T(`Enter 7 subjects (you have ${g.n}).`, `أدخل 7 مواد (لديك ${g.n}).`)}</div>`}
+      <div style="${card};font-size:12.5px;line-height:1.9;color:var(--text-muted)">
+        <b style="color:var(--text)">${T('Rules applied','القواعد المطبقة')}</b><br>
+        • ${T('Only the Zeugnis der Allgemeinen Hochschulreife is accepted (Fachhochschulreife counts as a technical certificate).','تُقبل شهادة Allgemeine Hochschulreife فقط (Fachhochschulreife تُعامل كشهادة فنية).')}<br>
+        • ${T('Points → %: 15 = 100, 14 = 98, 13 = 97, 12 = 96, 11 = 92, 10 = 89, 9 = 86, 8 = 83, 7 = 80, 6 = 76, 5 = 72, 4 = 68, 3 = 62, 2 = 56, 1 = 50.','تحويل النقاط: 15 = 100، 14 = 98، 13 = 97، 12 = 96، 11 = 92، 10 = 89، 9 = 86، 8 = 83، 7 = 80، 6 = 76، 5 = 72، 4 = 68، 3 = 62، 2 = 56، 1 = 50.')}<br>
+        • ${T('The 3 Leistungskurse are advanced; any other subject at 85%+ (German 75%+) is too. Each advanced subject adds 15 marks.','مواد المستوى المتقدم الثلاث تُحتسب متقدمة، وكذلك أي مادة أخرى 85% فأكثر (الألماني 75% فأكثر). كل مادة متقدمة تضيف 15 درجة.')}<br>
+        • ${T('Percentage = (sum of the 7 subjects + bonuses) ÷ 7. One Grade 10 subject may fill a missing subject (no bonus).','النسبة = (مجموع المواد السبع + الحوافز) ÷ 7. يجوز استكمال مادة ناقصة بمادة من الصف العاشر (بدون حافز).')}
+      </div>`;
+  } else if (st.tab === 'french') {
+    const fr = eqFrench(st.fr);
+    const inpF = (i, k, v, w, max) => `<input class="form-input" type="number" min="0" max="${max}" step="0.1" value="${esc(v)}" onchange="eqFr(${i},'${k}',this.value)" style="width:${w}px;flex:0 0 auto;padding:6px;font-size:13px"/>`;
+    body = `
+      <div style="${card}">
+        <div style="font-weight:900;margin-bottom:6px">${T('Your bac subjects','مواد البكالوريا')}</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px">${T('Mark out of 20 and coefficient for each subject (at least 7). French written + oral count as one subject.','الدرجة من 20 والمعامل لكل مادة (7 مواد على الأقل). الفرنسية التحريري والشفهي مادة واحدة.')}</div>
+        <div style="display:flex;gap:6px;font-size:11px;color:var(--text-muted);margin-bottom:4px"><span style="flex:1">${T('Subject','المادة')}</span><span style="width:64px">/20</span><span style="width:56px">${T('Coef.','المعامل')}</span><span style="width:20px"></span></div>
+        ${st.fr.map((row, i) => `
+          <div style="display:flex;gap:6px;align-items:center;margin-bottom:6px">
+            <input class="form-input" dir="ltr" style="flex:1 1 auto;width:auto;min-width:90px;padding:6px 8px;font-size:13px" value="${esc(row.name)}" onchange="eqFr(${i},'name',this.value)"/>
+            ${inpF(i, 'mark', row.mark, 64, 20)}${inpF(i, 'coef', row.coef, 56, 99)}
+            <button onclick="eqDel('fr',${i})" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:16px;width:20px">✕</button>
+          </div>`).join('')}
+        <button class="btn" style="margin-top:6px;font-size:13px" onclick="eqAdd('fr',{name:'',mark:'',coef:'1'})">＋ ${T('Add subject','إضافة مادة')}</button>
+      </div>
+      ${fr.ok ? big(T('Equivalent percentage','النسبة المعادلة'), fr.pct, fr.score, `
+          <div style="font-size:12.5px;color:var(--text-muted);margin-top:8px">${T('Weighted bac average','المعدل العام')}: ${fr.avg.toFixed(2)} / 20</div>
+          ${fr.passed ? '' : `<div style="color:#EF4444;font-weight:800;margin-top:6px">⚠️ ${T('The overall mark must be at least 10/20.','يجب ألا يقل المعدل العام عن 10 من 20.')}</div>`}${minLine(fr.pct)}`)
+        : `<div style="${card};color:var(--text-muted)">${T(`Enter at least 7 subjects (you have ${fr.n}).`, `أدخل 7 مواد على الأقل (لديك ${fr.n}).`)}</div>`}
+      <div style="${card};font-size:12.5px;line-height:1.9;color:var(--text-muted)">
+        <b style="color:var(--text)">${T('Rules applied','القواعد المطبقة')}</b><br>
+        • ${T('For each subject: (mark + 5) × coefficient, out of 20 × coefficient. Percentage = total ÷ maximum.','لكل مادة: (الدرجة + 5) × المعامل، من 20 × المعامل. النسبة = المجموع ÷ النهاية العظمى.')}<br>
+        • ${T('Overall bac mark at least 10/20; at least 7 subjects including the faculty’s required ones.','المعدل العام 10 من 20 على الأقل؛ 7 مواد على الأقل منها المواد المؤهلة للكلية.')}<br>
+        <span style="color:#F59E0B;font-weight:800">⚠️ ${T('This is the official method from before the 2021 reform of the French bac (spécialités). How the reformed bac is converted was not published in the sources we found — confirm with the coordination office.','هذه هي الطريقة الرسمية المعمول بها قبل إصلاح البكالوريا الفرنسية عام 2021 (نظام التخصصات). لم نجد ما يوضح طريقة معادلة البكالوريا بعد الإصلاح — تأكد من مكتب التنسيق.')}</span>
       </div>`;
   } else {
     const p = parseInt(st.ib.points, 10);
